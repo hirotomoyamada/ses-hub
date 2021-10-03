@@ -12,12 +12,16 @@
 
 ```
 ses_hub
+│
 ├── build [ses-hub]
 ├── functions
+│
 ├── admin
 │   └─ build [ses-hub-admin-2e26u5]
+│
 ├── freelance_direct
 │   └─ build [freelance-direct]
+│
 ├── public
 └── src
 ```
