@@ -1,0 +1,133 @@
+// サイト共有の初期設定
+@import "../../../../../../styles/config";
+@import "../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  @media (max-width: responsive-width(sp)) {
+    gap: 8px;
+  }
+
+  &_container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-size: 14px;
+    margin-bottom: auto-clamp(16px, 24px);
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+      gap: 8px;
+      margin-bottom: 0;
+    }
+  }
+
+  &_wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: centZer;
+    gap: 8px;
+  }
+
+  &_field {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &_icon {
+    font-size: 14px;
+    color: $sub_clr;
+    margin-top: 1px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+      margin-top: 0;
+    }
+  }
+
+  &_person {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 16px;
+    }
+  }
+
+  &_name {
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+    }
+  }
+
+  &_body {
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+    }
+  }
+
+  &_address {
+    color: $sub_clr;
+  }
+
+  &_postal {
+    margin-right: 8px;
+  }
+
+  &_link {
+    color: $link_clr;
+  }
+
+  &_createAt {
+    display: flex;
+    gap: 8px;
+    color: $sub_clr;
+  }
+
+  &_sns {
+    display: flex;
+    gap: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 8px;
+    }
+
+    &_icon {
+      color: $sub_clr;
+      font-size: 40px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 32px;
+      }
+
+      &_line {
+        color: $acnt_clr;
+      }
+
+      &_twitter {
+        color: $twitter_clr;
+      }
+
+      &_instagram {
+        color: $instagram_clr;
+      }
+
+      &_linkedIn {
+        color: $linkedIn_clr;
+      }
+    }
+
+    &_disabled {
+      pointer-events: none;
+    }
+  }
+}

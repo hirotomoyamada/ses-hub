@@ -1,0 +1,94 @@
+// サイト共有の初期設定
+@import "../../../../../../../styles/config";
+@import "../../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.main {
+  display: grid;
+  grid-template-columns: 136px auto;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  @media (max-width: responsive-width(sp)) {
+    grid-template-columns: 112px auto;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  &_resources {
+    grid-template-columns: 200px auto;
+
+    @media (max-width: responsive-width(sp)) {
+      grid-template-columns: 112px auto;
+    }
+  }
+
+  &_side {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 4px;
+    }
+  }
+
+  &_wrap {
+    display: flex;
+    gap: 8px;
+  }
+
+  &_field {
+    display: flex;
+    align-items: center;
+  }
+
+  &_body {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    border: 1px solid $bdr_clr;
+    padding: 16px;
+    border-radius: 8px;
+    position: relative;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 12px 12px;
+    }
+
+    &_txt {
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+
+      @media (max-width: responsive-width(sp)) {
+        -webkit-line-clamp: 5;
+      }
+    }
+
+    &:after {
+      content: "概要";
+      display: block;
+      position: absolute;
+      top: -8px;
+      padding: 0 16px;
+      color: $icn_clr;
+      left: 16px;
+      background: $base_clr;
+
+      @media (max-width: responsive-width(sp)) {
+        top: -7px;
+        left: 12px;
+        padding: 0 12px;
+      }
+    }
+  }
+
+  &_icon {
+    color: $sub_clr;
+    font-size: 16px !important;
+  }
+}

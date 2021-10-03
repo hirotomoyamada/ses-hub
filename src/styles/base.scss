@@ -1,0 +1,23 @@
+// サイト共有の初期設定
+@import "./config";
+@import "./function";
+
+body {
+  font-family: sans-serif;
+  background: $bg_clr;
+  overflow-x: hidden;
+}
+
+.lock {
+  overflow-y: hidden;
+}
+
+.disable {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: $sub_clr;
+}

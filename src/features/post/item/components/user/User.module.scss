@@ -1,0 +1,94 @@
+// サイト共有の初期設定
+@import "../../../../../styles/config";
+@import "../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.user {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (max-width: responsive-width(sp)) {
+    font-size: 11px;
+    gap: 12px;
+  }
+
+  &_head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 12px;
+    }
+
+    &_icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+
+      @media (max-width: responsive-width(sp)) {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    &_wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+
+  &_person {
+    font-size: auto-clamp(20px, 24px);
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 14px;
+      width: auto-max(180px);
+    }
+  }
+
+  &_name {
+    color: $sub_clr;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @media (max-width: responsive-width(sp)) {
+      width: auto-max(180px);
+    }
+  }
+
+  &_body {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &_more {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: $sub_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 10px;
+    }
+
+    &_icon {
+      font-size: 12px;
+    }
+
+    &_txt {
+      margin-right: 8px;
+    }
+  }
+}

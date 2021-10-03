@@ -1,0 +1,22 @@
+// サイト共有の初期設定
+@import "../../styles/config";
+@import "../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.user {
+  color: $main_clr;
+
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
+  @media (max-width: responsive-width(miniPc)) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: responsive-width(tb)) {
+    height: auto;
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,77 @@
+// サイト共有の初期設定
+@import "../../../../../styles/config";
+@import "../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.icon {
+  padding: 0 56px;
+  height: 71vh;
+  overflow-y: scroll;
+
+  @media (max-width: responsive-width(tb)) {
+    height: 100vh;
+    padding: 0 32px;
+  }
+
+  @media (max-width: responsive-width(sp)) {
+    padding: 12px;
+  }
+
+  &_inner {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 56px;
+
+    @media (max-width: responsive-width(miniPc)) {
+      gap: 32px;
+    }
+
+    @media (max-width: responsive-width(miniPc)) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+  }
+
+  &_item {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  &_input {
+    display: none;
+
+    &_label {
+      display: block;
+      position: relative;
+    }
+
+    &:checked + &_label:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 6px solid $acnt_clr;
+      border-radius: 16px;
+
+      @media (max-width: responsive-width(sp)) {
+        border: 3px solid $acnt_clr;
+      }
+    }
+  }
+
+  &_img {
+    width: 100%;
+    border-radius: 16px;
+  }
+}

@@ -1,0 +1,147 @@
+// サイト共有の初期設定
+@import "../../../../../../../styles/config";
+@import "../../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.header {
+  display: flex;
+  flex-direction: column;
+
+  &_container {
+    display: flex;
+    gap: 8px;
+
+    @media (max-width: responsive-width(miniPc)) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &_wrap {
+    display: flex;
+    gap: 8px;
+  }
+
+  &_display {
+    display: inline-block;
+    background: $acnt_clr;
+    color: $base_clr;
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    &_private {
+      background: $sub_clr;
+    }
+
+    &_txt {
+      font-size: 14px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 10px;
+      }
+    }
+  }
+
+  &_status {
+    display: inline-block;
+    background: $add_clr;
+    color: $base_clr;
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    &_reserve {
+      background: $acnt_clr;
+    }
+
+    &_propo {
+      background: $acnt_ext_clr;
+    }
+
+    &_interview {
+      background: $acnt_sub_clr;
+    }
+
+    &_follow {
+      background: $sub_clr;
+    }
+
+    &_end {
+      background: $sub_clr;
+    }
+
+    &_txt {
+      font-size: 14px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 10px;
+      }
+    }
+  }
+
+  &_position {
+    display: inline-block;
+    background: $icn_clr;
+    color: $base_clr;
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    &_txt {
+      font-size: 14px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 10px;
+      }
+    }
+  }
+
+  &_tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 12px 0;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 6px 0 12px;
+    }
+
+    &_tag {
+      background: $acnt_clr;
+      color: $base_clr;
+      padding: 6px 12px;
+      border-radius: 12px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @media (max-width: responsive-width(sp)) {
+        padding: 4px 8px;
+      }
+
+      &_txt {
+        font-size: 12px;
+
+        @media (max-width: responsive-width(sp)) {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}

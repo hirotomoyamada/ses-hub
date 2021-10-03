@@ -1,0 +1,111 @@
+// サイト共有の初期設定
+@import "../../styles/config";
+@import "../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.open {
+  display: block;
+}
+
+.close {
+  display: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  width: 100vw;
+  height: 100vh;
+  background: $main_clr;
+  opacity: 0.8;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  
+  &_sp {
+    @media (max-width: responsive-width(sp)) {
+      top: 0;
+      left: 0;
+      transform: none;
+    }
+  }
+
+  &_verification {
+    background: $base_clr;
+    padding: 32px;
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    color: $sub_clr;
+    white-space: nowrap;
+
+    @media (max-width: responsive-width(sp)) {
+      width: calc(100vw - 24px);
+      padding: 24px;
+      gap: 24px;
+    }
+  }
+
+  &_ttl {
+    color: $sub_clr;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 16px;
+    }
+  }
+
+  &_desc {
+    text-align: center;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+    }
+  }
+
+  &_menu {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+      justify-content: space-between;
+    }
+
+    &_submit {
+      background: $remove_clr;
+      color: $base_clr;
+      padding: 12px 16px;
+      border-radius: 12px;
+    }
+
+    &_cancel {
+      padding: 12px 16px;
+      transition: all 0.4s;
+
+      @media (max-width: responsive-width(sp)) {
+        padding: 12px 16px 12px 0;
+      }
+
+      &:hover {
+        background: $bg_clr;
+        border-radius: 12px;
+      }
+    }
+  }
+}

@@ -1,0 +1,154 @@
+// サイト共有の初期設定
+@import "../../../../../../styles/config";
+@import "../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  margin-bottom: 48px;
+
+  @media (max-width: responsive-width(sp)) {
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+
+  &_container {
+    display: flex;
+    gap: 8px;
+  }
+
+  &_wrap {
+    display: flex;
+    gap: 8px;
+  }
+
+  &_at {
+    color: $icn_clr;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 10px;
+      gap: 4px;
+      margin-bottom: 16px;
+    }
+
+    &_row {
+      display: flex;
+      gap: 8px;
+
+      @media (max-width: responsive-width(sp)) {
+        gap: 4px;
+      }
+    }
+  }
+
+  &_display {
+    display: inline-block;
+    background: $acnt_clr;
+    color: $base_clr;
+    padding: 0 12px;
+    border-radius: 8px;
+    line-height: 32px;
+    font-size: 14px;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 0 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      line-height: 20px;
+    }
+
+    &_private {
+      background: $sub_clr;
+    }
+  }
+
+  &_status {
+    display: inline-block;
+    background: $add_clr;
+    color: $base_clr;
+    padding: 0 12px;
+    border-radius: 8px;
+    line-height: 32px;
+    font-size: 14px;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 0 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      line-height: 20px;
+    }
+
+    &_reserve {
+      background: $sub_clr;
+    }
+
+    &_propo {
+      background: $acnt_ext_clr;
+    }
+
+    &_interview {
+      background: $acnt_sub_clr;
+    }
+
+    &_follow {
+      background: $add_clr;
+    }
+
+    &_end {
+      background: $sub_clr;
+    }
+  }
+
+  &_position {
+    display: inline-block;
+    background: $icn_clr;
+    color: $base_clr;
+    padding: 0 12px;
+    border-radius: 8px;
+    line-height: 32px;
+    font-size: 14px;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 0 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      line-height: 20px;
+    }
+  }
+
+  &_ttl {
+    font-size: 24px;
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+
+    @media (max-width: responsive-width(sp)) {
+      margin-top: 12px;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 16px;
+    }
+
+    &_new {
+      color: $base_clr;
+      background: $add_clr;
+      height: 20px;
+      line-height: 20px;
+      padding: 0 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: normal;
+    }
+  }
+}
