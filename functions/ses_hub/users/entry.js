@@ -39,7 +39,7 @@ exports.addEntry = functions
         if (doc.data().payment.status === "canceled") {
           throw new functions.https.HttpsError(
             "cancelled",
-            "無料会員のユーザーのため、処理中止",
+            "リミテッドユーザーのため、処理中止",
             "firebase"
           );
         }
