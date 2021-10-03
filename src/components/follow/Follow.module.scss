@@ -1,0 +1,45 @@
+// サイト共有の初期設定
+@import "../../styles/config";
+@import "../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.follow {
+  position: absolute;
+  top: 28px;
+  right: 32px;
+  z-index: 9;
+
+  width: 120px;
+  height: 40px;
+  text-align: center;
+  background: $acnt_clr;
+  color: $base_clr;
+  border-radius: 20px;
+  font-size: 14px;
+
+  @media (max-width: responsive-width(sp)) {
+    width: 96px;
+    font-size: 10px;
+    height: 32px;
+
+    top: 20px;
+    right: 12px;
+  }
+
+  &_profile {
+    top: auto-clamp(16px, 24px);
+
+    @media (max-width: responsive-width(sp)) {
+      top: 12px;
+      right: 12px;
+    }
+  }
+
+  &_followed {
+    background: $base_clr;
+    color: $acnt_clr;
+    border: 1px solid $acnt_clr;
+  }
+}

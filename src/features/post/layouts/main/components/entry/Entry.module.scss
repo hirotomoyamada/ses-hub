@@ -1,0 +1,27 @@
+// サイト共有の初期設定
+@import "../../../../../../styles/config";
+@import "../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.entry {
+  display: block;
+  background: $acnt_clr;
+  width: 100%;
+  border-radius: 8px;
+
+  color: $base_clr;
+  line-height: 64px;
+  text-align: center;
+
+  @media (max-width: responsive-width(sp)) {
+    line-height: 48px;
+    font-size: 12px;
+  }
+
+  &_disabled {
+    background: $sub_clr;
+    pointer-events: none;
+  }
+}

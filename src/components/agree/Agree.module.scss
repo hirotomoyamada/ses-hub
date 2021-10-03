@@ -1,0 +1,110 @@
+// サイト共有の初期設定
+@import "../../styles/config";
+@import "../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.open {
+  display: block;
+}
+
+.close {
+  display: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  width: 100vw;
+  height: 100vh;
+  background: $main_clr;
+  opacity: 0.8;
+}
+
+.agree {
+  width: 640px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+
+  background: $base_clr;
+  padding: 32px;
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  color: $main_clr;
+
+  @media (max-width: responsive-width(sp)) {
+    width: calc(100vw - 24px);
+    font-size: 10px;
+    gap: 16px;
+    padding: 24px;
+  }
+
+  &_time {
+    font-size: 14px;
+    color: $sub_clr;
+    text-align: right;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 10px;
+    }
+  }
+
+  &_title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+  }
+
+  &_body {
+    max-height: 240px;
+    overflow-y: scroll;
+    white-space: pre-line;
+  }
+
+  &_link {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    color: $link_clr;
+  }
+
+  &_btn {
+    margin: 0 auto;
+    width: 33%;
+
+    border: 1px solid $bdr_clr;
+    padding: 16px 32px;
+    background: $acnt_clr;
+    border-radius: 26px;
+
+    color: $base_clr;
+    text-align: center;
+
+    transition: all 0.4s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      width: 66%;
+      padding: 12px;
+      font-size: 12px;
+    }
+  }
+}

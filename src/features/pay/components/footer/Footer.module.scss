@@ -1,0 +1,27 @@
+// サイト共有の初期設定
+@import "../../../../styles/config";
+@import "../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: $sub_clr;
+  padding-left: 12px;
+
+  li {
+    padding-left: 4px;
+
+    &::marker {
+      content: "※";
+    }
+  }
+
+  @media (max-width: responsive-width(sp)) {
+    font-size: 10px;
+  }
+}

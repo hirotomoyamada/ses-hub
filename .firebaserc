@@ -1,0 +1,20 @@
+{
+  "projects": {
+    "default": "ses-hub"
+  },
+  "targets": {
+    "ses-hub": {
+      "hosting": {
+        "sh": [
+          "ses-hub"
+        ],
+        "admin": [
+          "ses-hub-admin-2e26u5"
+        ],
+        "fd": [
+          "freelance-direct"
+        ]
+      }
+    }
+  }
+}

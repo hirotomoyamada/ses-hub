@@ -1,0 +1,168 @@
+// サイト共有の初期設定
+@import "../../../../../styles/config";
+@import "../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.create {
+  &_tag {
+    font-size: 16px;
+    color: $icn_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 14px;
+    }
+
+    &_desc {
+      white-space: pre;
+      color: $sub_clr;
+      font-size: 12px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 10px;
+      }
+    }
+  }
+}
+
+.agree {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+
+  background: $base_clr;
+  width: auto-clamp(560px, 720px);
+  height: 62.5vh;
+  border: 1px solid $bdr_clr;
+  border-radius: 8px;
+  padding: 32px;
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (max-width: responsive-width(sp)) {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+    padding: 24px;
+  }
+
+  &_head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &_icon {
+    color: $icn_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 18px !important;
+    }
+  }
+
+  &_checkbox {
+    margin: 0 auto;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 14px;
+    }
+
+    input[type="checkbox"] {
+      display: none;
+
+      & + label {
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding-left: 28px;
+        margin-bottom: 8px;
+        cursor: pointer;
+
+        @media (max-width: responsive-width(sp)) {
+          padding-left: 24px;
+          margin-bottom: 8px;
+        }
+
+        &:before {
+          content: "";
+          display: block;
+          width: 17px;
+          height: 17px;
+          border: 1px solid $sign_clr;
+          border-radius: 4px;
+          position: absolute;
+          left: 0;
+          top: 1.4px;
+          opacity: 0.6;
+          transition: all 0.12s, border-color 0.08s;
+
+          @media (max-width: responsive-width(sp)) {
+            top: 1.6px;
+            width: 14px;
+            height: 14px;
+          }
+        }
+      }
+
+      &:checked + label:before {
+        width: 9px;
+        top: -3px;
+        left: 5px;
+        border: 3px solid $sign_clr;
+        border-radius: 0;
+        opacity: 1;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        transform: rotate(45deg);
+
+        @media (max-width: responsive-width(sp)) {
+          width: 8px;
+          top: -1px;
+          left: 2px;
+          border: 2px solid $sign_clr;
+          border-radius: 0;
+          opacity: 1;
+          border-top-color: transparent;
+          border-left-color: transparent;
+          transform: rotate(40deg);
+        }
+      }
+    }
+
+    &_error {
+      display: block;
+      white-space: pre;
+      color: $remove_clr;
+      font-size: 12px;
+      text-align: center;
+    }
+  }
+
+  &_link {
+    color: $link_clr;
+    margin-right: 8px;
+  }
+
+  &_overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    width: 100vw;
+    height: 100vh;
+    background: $main_clr;
+    opacity: 0.8;
+    cursor: pointer;
+
+    @media (max-width: responsive-width(sp)) {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+// サイト共有の初期設定
+@import "../../../../../styles/config";
+@import "../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.header {
+  width: 720px;
+  margin: 0 auto;
+  height: 72px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  @media (max-width: responsive-width(tb)) {
+    width: 100vw;
+    margin: 0;
+    padding: 0 12px;
+  }
+
+  @media (max-width: responsive-width(sp)) {
+    height: 48px;
+    font-size: 14px;
+  }
+
+  &_cancel {
+    color: $acnt_clr;
+    line-height: 72px;
+
+    @media (max-width: responsive-width(sp)) {
+      line-height: 48px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &_ttl {
+    line-height: 72px;
+    text-align: center;
+
+    @media (max-width: responsive-width(sp)) {
+      line-height: 48px;
+    }
+  }
+}

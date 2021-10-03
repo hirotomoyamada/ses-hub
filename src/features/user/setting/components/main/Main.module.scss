@@ -1,0 +1,98 @@
+// サイト共有の初期設定
+@import "../../../../../styles/config";
+@import "../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.main {
+  &_col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &_center {
+      align-items: center;
+    }
+  }
+
+  &_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &_tag {
+    color: $icn_clr;
+  }
+
+  &_value {
+    @media (max-width: responsive-width(sp)) {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    &_id {
+      color: $sub_clr;
+    }
+
+    &_time {
+      color: $sub_clr;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 12px;
+      }
+    }
+  }
+
+  &_desc {
+    font-size: 12px;
+    color: $sub_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+    }
+  }
+
+  &_btn {
+    border: 1px solid $acnt_clr;
+    border-radius: 16px;
+    padding: 0px 16px;
+    height: 32px;
+
+    font-size: 14px;
+    color: $acnt_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 0px 12px;
+      height: 24px;
+
+      font-size: 10px;
+    }
+
+    &_delete {
+      color: $remove_clr;
+      font-size: 14px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 12px;
+      }
+    }
+
+    &_disabled {
+      color: $sub_clr;
+      border-color: $sub_clr;
+      pointer-events: none;
+    }
+  }
+
+  &_link {
+    color: $sub_clr;
+    font-size: 14px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+    }
+  }
+}

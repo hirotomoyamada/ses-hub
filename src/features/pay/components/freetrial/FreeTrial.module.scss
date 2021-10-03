@@ -1,0 +1,53 @@
+// サイト共有の初期設定
+@import "../../../../styles/config";
+@import "../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.free {
+  position: relative;
+  overflow: hidden;
+  background: $promo_clr;
+  color: $base_clr;
+  height: 240px;
+  padding: 0 32px;
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  @media (max-width: responsive-width(sp)) {
+    height: 144px;
+    font-size: 12px;
+  }
+
+  &_desc {
+    position: relative;
+    z-index: 1;
+  }
+
+  &_ttl {
+    position: relative;
+    z-index: 1;
+    font-size: 32px;
+    font-weight: bold;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 24px;
+    }
+  }
+
+  &_bg {
+    position: absolute;
+    top: -56px;
+    opacity: 0.8;
+
+    @media (max-width: responsive-width(sp)) {
+      top: -16px;
+    }
+  }
+}

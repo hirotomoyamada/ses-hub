@@ -1,0 +1,83 @@
+// サイト共有の初期設定
+@import "../../../styles/config";
+@import "../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.success {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.4s;
+
+  &_inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &_header {
+    letter-spacing: 2.4px;
+    font-size: 32px;
+    color: $acnt_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 24px;
+    }
+  }
+
+  &_main {
+    &_img {
+      width: 480px;
+
+      @media (max-width: responsive-width(sp)) {
+        width: calc(100vw - 24px);
+      }
+    }
+
+    &_wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+
+      color: $sub_clr;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 12px;
+      }
+    }
+  }
+
+  &_footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 12px;
+    }
+
+    &_btn {
+      padding: 16px 32px;
+      background: $acnt_clr;
+      color: $base_clr;
+      border-radius: 26px;
+
+      transition: all 0.4s;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      @media (max-width: responsive-width(sp)) {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+// サイト共有の初期設定
+@import "../../../styles/config";
+@import "../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 9;
+
+  display: flex;
+  gap: 16px;
+
+  @media (max-width: responsive-width(sp)) {
+    gap: 8px;
+  }
+
+  &_postItem {
+    top: 26px;
+    right: 32px;
+
+    @media (max-width: responsive-width(sp)) {
+      top: 16px;
+      right: 12px;
+    }
+  }
+
+  &_cmd {
+    position: relative;
+  }
+
+  &_icon {
+    color: $icn_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 20px !important;
+    }
+
+    &_like {
+      color: $like_clr;
+    }
+
+    &_output {
+      color: $add_clr;
+    }
+
+    &_entry {
+      color: $acnt_clr;
+    }
+  }
+}

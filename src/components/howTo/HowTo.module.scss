@@ -1,0 +1,94 @@
+// サイト共有の初期設定
+@import "../../styles/config";
+@import "../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.howto {
+  width: 100vw;
+  background: $base_clr;
+
+  color: $main_clr;
+  font-size: 16px;
+  letter-spacing: 1.4px;
+  line-height: 1.4;
+
+  @media (max-width: responsive-width(sp)) {
+    font-size: 12px;
+  }
+
+  &_inner {
+    margin: 0 auto;
+    width: 720px;
+    min-height: 100vh;
+    background: $base_clr;
+
+    @media (max-width: responsive-width(tb)) {
+      width: 100vw;
+      margin: 0;
+      padding: 0 12px;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 0 12px;
+    }
+  }
+
+  &_btn {
+    padding-top: 25px;
+    color: $acnt_clr;
+
+    @media (max-width: responsive-width(tb)) {
+      padding-top: 15px;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 14px;
+    }
+  }
+
+  &_main {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 16px 0 32px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 24px;
+      padding: 8px 0 24px;
+    }
+  }
+
+  &_ttl {
+    font-size: 32px;
+    color: $acnt_clr;
+    text-align: center;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 24px;
+    }
+  }
+
+  &_desc {
+    text-align: center;
+  }
+
+  &_container {
+    background: $bg_clr;
+    padding: 32px;
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &_acnt {
+      color: $remove_clr;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 24px;
+    }
+  }
+}

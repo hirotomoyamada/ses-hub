@@ -1,0 +1,52 @@
+// サイト共有の初期設定
+@import "../../styles/config";
+@import "../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.header {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  background: $base_clr;
+
+  width: 100vw;
+  border-bottom: 1px solid $bdr_clr;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+
+  @media (max-width: responsive-width(sp)) {
+    gap: 8px;
+  }
+
+  &_container {
+    padding: 16px 32px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 16px 12px 0;
+      gap: 12px;
+    }
+  }
+
+  &_icon {
+    width: 48px;
+    height: 48px;
+
+    @media (max-width: responsive-width(sp)) {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &_wrap {
+    width: 100%;
+  }
+}

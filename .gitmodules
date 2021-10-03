@@ -1,0 +1,6 @@
+[submodule "admin"]
+	path = admin
+	url = https://github.com/hitmeup2020/ses-hub-admin.git
+[submodule "freelance_direct"]
+	path = freelance_direct
+	url = https://github.com/hitmeup2020/freelance-direct.git
