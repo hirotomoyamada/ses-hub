@@ -11,13 +11,13 @@
 ### ディレクトリ
 
 ```
-SES_HUB
-├── build `hosting: ses-hub`
+ses_hub
+├── build [ses-hub]
 ├── functions
 ├── admin
-│      └── build `hosting: ses-hub-admin-2e26u5`
+│   └─ build [ses-hub-admin-2e26u5]
 ├── freelance_direct
-│      └── build `hosting: freelance`
+│   └─ build [freelance-direct]
 ├── public
 └── src
 ```
