@@ -52,9 +52,9 @@ firebase deploy --only hosting:sh
 
 ### デモ
 
-|      domain      |           email           | password | access                               |
-| :--------------: | :-----------------------: | :------: | ------------------------------------ |
-|     SES_HUB      |     demo@ses-hub.app      | qwer1234 | [URL](https://ses-hub.app/)          |
+|      domain      |           email           | password |                access                |
+| :--------------: | :-----------------------: | :------: | :----------------------------------: |
+|     SES_HUB      |     demo@ses-hub.app      | qwer1234 |     [URL](https://ses-hub.app/)      |
 | Freelance Direct | demo@freelance-direct.app | qwer1234 | [URL](https://freelance-direct.app/) |
 
 ## 技術
