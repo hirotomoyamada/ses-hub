@@ -2,7 +2,7 @@
 
 ## 構築
 
-|      domain      | Firebase | Algolia | Hosting |                    access                    |
+|     Project      | Firebase | Algolia | Hosting |                    access                    |
 | :--------------: | :------: | :-----: | :-----: | :------------------------------------------: |
 |      admin       |   prod   |  prod   | enable  | [URL](https://ses-hub-admin-2e26u5.web.app/) |
 |     SES_HUB      |   prod   |  prod   | enable  |         [URL](https://ses-hub.app/)          |
@@ -10,15 +10,17 @@
 
 ### ディレクトリ
 
+```
 SES_HUB
-├ build `hosting: ses-hub`
-├ functions
-├ [admin](https://github.com/hitmeup2020/ses-hub-admin.git)
-│ └ build `hosting: ses-hub-admin-2e26u5`
-├ [freelance_direct](https://github.com/hitmeup2020/freelance-direct.git)
-│ └ build `hosting: freelance-direct`
-├ public
-└ src
+├── build `hosting: ses-hub`
+├── functions
+├── admin
+│      └── build `hosting: ses-hub-admin-2e26u5`
+├── freelance_direct
+│      └── build `hosting: freelance`
+├── public
+└── src
+```
 
 ### 認証
 
@@ -32,7 +34,8 @@ SES_HUB
 
 ### コマンド
 
-```yarn start
+```
+yarn start
 yarn build
 firebase functions:config:get
 firebase functions:config:set
@@ -49,8 +52,6 @@ firebase deploy --only hosting:sh
 | :--------------: | :-----------------------: | :------: |
 |     SES_HUB      |     demo@ses-hub.app      | qwer1234 |
 | Freelance Direct | demo@freelance-direct.app | qwer1234 |
-
-※SES_HUB のみ
 
 ## 技術
 
