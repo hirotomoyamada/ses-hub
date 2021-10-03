@@ -10,7 +10,7 @@
 
 ### ディレクトリ
 
-SES_HUB
+```SES_HUB
 ├ build `hosting: ses-hub`
 ├ functions
 ├ [admin](https://github.com/hitmeup2020/ses-hub-admin.git)
@@ -19,6 +19,7 @@ SES_HUB
 │ └ build `hosting: freelance-direct`
 ├ public
 └ src
+```
 
 ### 認証
 
