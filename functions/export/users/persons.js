@@ -11,7 +11,7 @@ const bucket = "gs://ses-hub-persons";
 exports.persons = functions
   .region(location)
   .runWith(runtime)
-  .pubsub.schedule("*/5 * * * *")
+  .pubsub.schedule("0 0 * * *")
   .timeZone(timeZone)
   .onRun((context) => {
     const projectId = process.env.GCP_PROJECT || process.env.GCLOUD_PROJECT;
