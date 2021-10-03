@@ -1,6 +1,7 @@
 /build
 /node_modules
 
+.firebase
 .env
 .DS_Store
 
