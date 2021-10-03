@@ -18,6 +18,20 @@ exports.login = functions
       );
     }
 
+    await db
+      .collection("persons")
+      .doc(context.auth.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          throw new functions.https.HttpsError(
+            "unavailable",
+            "このアカウントでは利用できません",
+            "disable"
+          );
+        }
+      });
+
     if (!data.emailVerified) {
       throw new functions.https.HttpsError(
         "unauthenticated",

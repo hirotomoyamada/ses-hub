@@ -18,6 +18,20 @@ exports.login = functions
       );
     }
 
+    await db
+      .collection("companys")
+      .doc(context.auth.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          throw new functions.https.HttpsError(
+            "unavailable",
+            "このアカウントでは利用できません",
+            "disable"
+          );
+        }
+      });
+
     if (!data.emailVerified) {
       throw new functions.https.HttpsError(
         "unauthenticated",
@@ -170,5 +184,5 @@ exports.login = functions
     const demo =
       context.auth.uid === functions.config().demo.uid ? true : false;
 
-    return { user: user, data: collection, demo: demo };
+    return { user: user, data: collection, demo: demo, auth: context.auth };
   });
