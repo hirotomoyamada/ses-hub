@@ -33,7 +33,7 @@ exports.showUser = functions
           if (data.uid !== context.auth.uid) {
             throw new functions.https.HttpsError(
               "cancelled",
-              "無料会員のユーザーのため、処理中止",
+              "リミテッドユーザーのため、処理中止",
               "firebase"
             );
           }
