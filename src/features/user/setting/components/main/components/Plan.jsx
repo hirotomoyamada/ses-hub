@@ -8,10 +8,10 @@ export const Plan = ({ user, history }) => {
         <span className={styles.main_tag}>プラン</span>
         <span className={styles.main_value}>
           {user?.payment?.status === "active"
-            ? "有料会員"
+            ? "レギュラー"
             : user?.payment?.status === "trialing"
-            ? "フリートライアル"
-            : "無料会員"}
+            ? "レギュラー(フリートライアル)"
+            : "リミテッド"}
           &nbsp;&nbsp;
           {user?.payment?.end && (
             <span className={styles.main_value_time}>
