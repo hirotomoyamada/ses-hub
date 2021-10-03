@@ -6,13 +6,12 @@ export const getRedirect = ({ dispatch, email, verified }) => {
     .getRedirectResult()
     .then((result) => {
       if (result.credential) {
-        (email || verified.status === "") &&
-          dispatch(
-            userSlice.handleAnnounce({
-              type: "success",
-              text: "認証されました",
-            })
-          );
+        dispatch(
+          userSlice.handleAnnounce({
+            type: "success",
+            text: "認証されました",
+          })
+        );
       }
     })
     .catch((e) => {
