@@ -1,3 +1,5 @@
+const functions = require("firebase-functions");
+
 exports.user = (user, url) => {
   return `
 ${user.name} ${user.person} 様

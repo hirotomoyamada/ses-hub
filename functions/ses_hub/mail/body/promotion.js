@@ -1,3 +1,5 @@
+const functions = require("firebase-functions");
+
 exports.admin = (data) => {
   return `
 以下の内容でお問い合わせをいただきました。

@@ -1,3 +1,5 @@
+const functions = require("firebase-functions");
+
 exports.admin = (user, url) => {
   return `
 以下のユーザーが承認を待っています。
