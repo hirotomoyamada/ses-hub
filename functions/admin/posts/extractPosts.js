@@ -106,6 +106,8 @@ exports.extractPosts = functions
             : hit &&
               data.index === "persons" && {
                 uid: hit.objectID,
+                name: hit.name,
+                email: hit.email,
               }
         );
         return res.filter((res) => res);
@@ -117,7 +119,10 @@ exports.extractPosts = functions
           "algolia"
         );
       });
-    if (data.index === "companys" || data.index === "persons") {
+    if (
+      (data.index === "companys" || data.index === "persons") &&
+      posts.length
+    ) {
       for (let i = 0; i < posts.length; i++) {
         await db
           .collection(data.index)
@@ -134,6 +139,19 @@ exports.extractPosts = functions
                 posts[i].posts = doc.data().posts;
                 posts[i].likes = doc.data().likes;
                 posts[i].outputs = doc.data().outputs;
+                posts[i].entries = doc.data().entries;
+                posts[i].follows = doc.data().follows;
+                posts[i].createAt = doc.data().createAt;
+                posts[i].updateAt = doc.data().updateAt;
+                posts[i].lastLogin = doc.data().lastLogin;
+              }
+              if (data.index === "persons") {
+                posts[i].icon = doc.data().icon;
+                posts[i].cover = doc.data().cover;
+                posts[i].status = doc.data().status;
+                posts[i].provider = doc.data().provider;
+                posts[i].agree = doc.data().agree;
+                posts[i].likes = doc.data().likes;
                 posts[i].entries = doc.data().entries;
                 posts[i].follows = doc.data().follows;
                 posts[i].createAt = doc.data().createAt;

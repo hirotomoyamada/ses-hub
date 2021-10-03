@@ -16,26 +16,28 @@ exports.editData = functions
     }
 
     Object.keys(data).forEach(async (type) => {
-      await db
-        .collection("seshub")
-        .doc(type)
-        .get()
-        .then(async (doc) => {
-          doc.exists &&
-            (await doc.ref.set(data[type], { merge: true })).catch((e) => {
-              throw new functions.https.HttpsError(
-                "data-loss",
-                "データの更新に失敗しました",
-                "firebase"
-              );
-            });
-        })
-        .catch((e) => {
-          throw new functions.https.HttpsError(
-            "not-found",
-            "データの取得に失敗しました",
-            "firebase"
-          );
-        });
+      if (type !== "index") {
+        await db
+          .collection(data.index)
+          .doc(type)
+          .get()
+          .then(async (doc) => {
+            doc.exists &&
+              (await doc.ref.set(data[type], { merge: true })).catch((e) => {
+                throw new functions.https.HttpsError(
+                  "data-loss",
+                  "データの更新に失敗しました",
+                  "firebase"
+                );
+              });
+          })
+          .catch((e) => {
+            throw new functions.https.HttpsError(
+              "not-found",
+              "データの取得に失敗しました",
+              "firebase"
+            );
+          });
+      }
     });
   });

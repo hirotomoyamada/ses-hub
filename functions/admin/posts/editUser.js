@@ -41,6 +41,13 @@ exports.editUser = functions
           }
         : data.index === "persons" && {
             uid: data.user.uid,
+            icon: data.user.icon,
+            cover: data.user.cover,
+            status: data.user.status,
+            profile: {
+              name: data.user.name,
+            },
+            updateAt: dataTime,
           };
 
     await db
@@ -94,7 +101,12 @@ exports.editUser = functions
               social: user.profile.social,
               updateAt: user.updateAt,
             }
-          : index === "persons" && {},
+          : data.index === "persons" && {
+              objectID: user.uid,
+              status: user.status,
+              name: user.profile.name,
+              updateAt: user.updateAt,
+            },
         {
           createIfNotExists: true,
         }
