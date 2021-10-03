@@ -6,12 +6,12 @@ export const Tag = ({ tag, free, paid }) => {
       <span className={styles.tag_name}>{tag}</span>
       {free && (
         <span className={`${styles.tag_type} ${styles.tag_type_free}`}>
-          無料
+          リミテッド
         </span>
       )}
       {paid && (
         <span className={`${styles.tag_type} ${styles.tag_type_paid}`}>
-          有料
+          レギュラー
         </span>
       )}
     </div>

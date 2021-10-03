@@ -6,7 +6,7 @@ export const Search = () => {
     <div className={styles.howto_main}>
       <h1 className={styles.howto_ttl}>検索</h1>
       <p className={styles.howto_desc}>
-        有料会員であれば、他のメンバーの投稿を検索することができます
+        レギュラー会員であれば、他のメンバーの投稿を検索することができます
       </p>
       <div className={styles.howto_container}>
         <Tag tag="検索する" paid />
