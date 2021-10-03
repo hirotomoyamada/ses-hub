@@ -15,6 +15,10 @@ ses_hub
 │
 ├── build [ses-hub]
 ├── functions
+│   ├─ ses_hub
+│   ├─ admin
+│   ├─ freelance_direct
+│   └─ export
 │
 ├── admin
 │   └─ build [ses-hub-admin-2e26u5]
