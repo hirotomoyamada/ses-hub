@@ -57,6 +57,21 @@ exports.fetchUser = functions
               data.index === "persons" && {
                 index: data.index,
                 uid: data.uid,
+                icon: doc.data().icon,
+                cover: doc.data().cover,
+                status: doc.data().status,
+                agree: doc.data().agree,
+                provider: doc.data().provider,
+                createAt: doc.data().createAt,
+                updateAt: doc.data().updateAt,
+                lastLogin: doc.data().lastLogin,
+
+                follows: doc.data().follows,
+                likes: doc.data().likes,
+                entries: doc.data().entries,
+
+                name: doc.data().profile.name,
+                email: doc.data().profile.email,
               };
       })
       .catch((e) => {
@@ -67,7 +82,10 @@ exports.fetchUser = functions
         );
       });
 
-    const lists = ["posts", "follows", "likes", "outputs", "entries"];
+    const lists =
+      data.index === "companys"
+        ? ["posts", "follows", "likes", "outputs", "entries"]
+        : data.index === "persons" && ["follows", "likes", "entries"];
 
     lists.forEach(async (list) => {
       if (list === "follows") {

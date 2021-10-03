@@ -106,6 +106,8 @@ exports.fetchPosts = functions
               }
             : data.index === "persons" && {
                 uid: hit.objectID,
+                name: hit.name,
+                email: hit.email,
               }
         );
         return res.filter((res) => res);
@@ -117,14 +119,17 @@ exports.fetchPosts = functions
           "algolia"
         );
       });
-    if (
-      data.index === "matters" ||
-      data.index === "resources" ||
-      data.index === "companys"
-    ) {
+
+    if (posts.length) {
       for (let i = 0; i < posts.length; i++) {
         await db
-          .collection("companys")
+          .collection(
+            data.index === "matters" ||
+              data.index === "resources" ||
+              data.index === "companys"
+              ? "companys"
+              : data.index === "persons" && "persons"
+          )
           .doc(posts[i].uid)
           .get()
           .then((doc) => {
@@ -150,6 +155,19 @@ exports.fetchPosts = functions
                 posts[i].updateAt = doc.data().updateAt;
                 posts[i].lastLogin = doc.data().lastLogin;
               }
+              if (data.index === "persons") {
+                posts[i].icon = doc.data().icon;
+                posts[i].cover = doc.data().cover;
+                posts[i].status = doc.data().status;
+                posts[i].provider = doc.data().provider;
+                posts[i].agree = doc.data().agree;
+                posts[i].likes = doc.data().likes;
+                posts[i].entries = doc.data().entries;
+                posts[i].follows = doc.data().follows;
+                posts[i].createAt = doc.data().createAt;
+                posts[i].updateAt = doc.data().updateAt;
+                posts[i].lastLogin = doc.data().lastLogin;
+              }
             }
           })
           .catch((e) => {
@@ -161,26 +179,6 @@ exports.fetchPosts = functions
           });
       }
     }
-    if (data.index === "persons") {
-      for (let i = 0; i < posts.length; i++) {
-        await db
-          .collection("companys")
-          .doc(posts[i].uid)
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              posts[i].icon = doc.data().icon;
-              posts[i].cover = doc.data().cover;
-            }
-          })
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "not-found",
-              "ユーザーの取得に失敗しました",
-              "firebase"
-            );
-          });
-      }
-    }
+
     return { index: data.index, posts: posts, hit: hit };
   });
