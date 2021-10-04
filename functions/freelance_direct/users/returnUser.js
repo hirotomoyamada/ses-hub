@@ -1,9 +1,9 @@
 const functions = require("firebase-functions");
-const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
+const send = require("../../send-grid");
 
-const user = require("../mail/body/return").user;
+const body = require("../mail/body/return");
 
 exports.returnUser = functions
   .region(location)
@@ -17,13 +17,12 @@ exports.returnUser = functions
 
     const userMail = {
       to: change.after.data().profile.email,
-      message: {
-        subject: "Freelance Direct 利用再開のお知らせ",
-        text: user(profile, url),
-      },
+      from: `Freelance Direct <${functions.config().admin.freelance_direct}>`,
+      subject: "Freelance Direct 利用再開のお知らせ",
+      text: body.user(profile, url),
     };
 
     if (beforeStatus === "disable" && afterStatus === "enable") {
-      await db.collection("mail").add(userMail);
+      await send.freelanceDirect(userMail);
     }
   });

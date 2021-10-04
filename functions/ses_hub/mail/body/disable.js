@@ -12,7 +12,7 @@ ${user.name} ${user.person} 様
 
 また、利用制限・禁止行為にお心当たりの無い場合は、恐れ入りますが下記のサポートメールまでお問い合わせください。
 
-サポートメール： ${functions.config().admin.ses_hub_email}
+サポートメール： ${functions.config().admin.ses_hub}
 
 ----------------------------------
 
