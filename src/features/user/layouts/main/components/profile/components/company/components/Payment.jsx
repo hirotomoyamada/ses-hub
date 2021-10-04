@@ -10,13 +10,11 @@ export const Payment = ({ user }) => {
             styles.profile_payment_trialing
       }`}
     >
-      <span className={styles.profile_payment_txt}>
-        {user?.payment?.status === "active"
-          ? "レギュラー"
-          : user?.payment?.status === "trialing"
-          ? "レギュラー(フリートライアル)"
-          : "リミテッド"}
-      </span>
+      {user?.payment?.status === "active"
+        ? "レギュラー"
+        : user?.payment?.status === "trialing"
+        ? "レギュラー(フリートライアル)"
+        : "リミテッド"}
     </div>
   );
 };
