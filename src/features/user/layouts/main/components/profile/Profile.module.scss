@@ -53,6 +53,35 @@ $width: responsive-width(pc);
     }
   }
 
+  &_payment {
+    align-self: flex-start;
+    background: $acnt_clr;
+    color: $base_clr;
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    &_txt {
+      font-size: 14px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 10px;
+      }
+    }
+
+    &_active {
+      background: $promo_clr;
+    }
+
+    &_trialing {
+      background: $add_clr;
+    }
+  }
+
   &_person {
     font-size: 24px;
     font-weight: bold;

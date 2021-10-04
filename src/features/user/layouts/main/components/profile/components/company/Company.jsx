@@ -9,11 +9,14 @@ import { Email } from "./components/Email";
 import { Url } from "./components/Url";
 import { CreateAt } from "./components/CreateAt";
 import { Social } from "./components/Social";
+import { Payment } from "./components/Payment";
 
 export const Company = ({ user, demo }) => {
   return (
     <div className={styles.profile}>
       <Head user={user} />
+
+      {user?.payment && <Payment user={user} />}
 
       <Body user={user} />
 
