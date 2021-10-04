@@ -47,8 +47,6 @@ export const Home = () => {
       dispatch(postSlice.selectIndex("matters"));
   }, [dispatch, index]);
 
-  console.log([user.uid, ...user.home]);
-
   useEffect(() => {
     (index === "matters" || index === "resources") &&
       (!posts.length || control) &&
