@@ -53,15 +53,28 @@ exports.addFollow = functions
       .then((doc) => {
         if (doc.exists) {
           const follows = doc.data().follows;
+          const home = doc.data().home;
 
           doc.ref
             .set(
               follows
-                ? follows.indexOf(data.uid) < 0 && {
-                    follows: [data.uid, ...follows],
+                ? follows.indexOf(data.uid) < 0 &&
+                  home.indexOf(data.uid) < 0 &&
+                  home.length < 15
+                  ? {
+                      follows: [data.uid, ...follows],
+                      home: [data.uid, ...home],
+                      updateAt: dataTime,
+                    }
+                  : follows.indexOf(data.uid) < 0 && {
+                      follows: [data.uid, ...follows],
+                      updateAt: dataTime,
+                    }
+                : {
+                    follows: [data.uid],
+                    home: [data.home],
                     updateAt: dataTime,
-                  }
-                : { follows: [data.uid], updateAt: dataTime },
+                  },
               { merge: true }
             )
             .catch((e) => {
@@ -134,11 +147,13 @@ exports.removeFollow = functions
       .then((doc) => {
         if (doc.exists) {
           const follows = doc.data().follows.filter((uid) => uid !== data.uid);
+          const home = doc.data().home.filter((uid) => uid !== data.uid);
 
           doc.ref
             .set(
               {
                 follows: [...follows],
+                home: [...home],
                 updateAt: dataTime,
               },
               { merge: true }

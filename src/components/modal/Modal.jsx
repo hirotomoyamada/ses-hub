@@ -7,6 +7,7 @@ import * as userSlice from "../../features/user/userSlice";
 import { Form } from "../../features/post/form/Form";
 import { Profile } from "../../features/user/profile/Profile";
 import { Entry } from "../../features/user/entry/Entry";
+import { Home } from "../home/Home";
 
 export const Modal = ({ index, user, post, selectUser }) => {
   const postModal = useSelector(postSlice.modal);
@@ -20,6 +21,8 @@ export const Modal = ({ index, user, post, selectUser }) => {
 
   const Inner = () => {
     switch (type) {
+      case "home":
+        return <Home user={user} />;
       case "profile":
         return <Profile user={user} />;
       case "matters":
@@ -40,7 +43,7 @@ export const Modal = ({ index, user, post, selectUser }) => {
   return (
     <div className={open ? styles.open : styles.close}>
       <div className={styles.overlay}></div>
-      <div className={`${styles.modal} ${styles.modal_sp}`}>
+      <div className={`${styles.modal} ${type !== "home" && styles.modal_sp}`}>
         <Inner />
       </div>
     </div>

@@ -79,3 +79,8 @@ export const handleNotFound = (state, action) => {
   state.notFound = action.payload;
   state.load = false;
 };
+
+export const handleControl = (state) => {
+  state.posts.home.matters.control = true;
+  state.posts.home.resources.control = true;
+};

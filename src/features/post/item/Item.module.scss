@@ -25,6 +25,10 @@ $width: responsive-width(pc);
     position: relative;
     width: 100%;
     height: 100%;
+
+    &_disable {
+      pointer-events: none;
+    }
   }
 
   &_outputs {

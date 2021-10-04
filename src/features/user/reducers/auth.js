@@ -12,6 +12,7 @@ export const login = (state, action) => {
     state.user.createAt = action.payload.user.createAt;
     state.user.updateAt = action.payload.user.updateAt;
     state.user.follows = action.payload.user.follows;
+    state.user.home = action.payload.user.home;
 
     if (action.payload.user.posts) {
       state.user.posts = {
