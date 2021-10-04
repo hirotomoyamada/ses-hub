@@ -43,13 +43,11 @@ export const Home = () => {
   );
 
   useEffect(() => {
-    dispatch(postSlice.handlePage("home"));
-  }, [dispatch]);
-
-  useEffect(() => {
     (index === "companys" || index === "persons") &&
       dispatch(postSlice.selectIndex("matters"));
   }, [dispatch, index]);
+
+  console.log([user.uid, ...user.home]);
 
   useEffect(() => {
     (index === "matters" || index === "resources") &&
@@ -57,7 +55,7 @@ export const Home = () => {
       dispatch(
         followsPosts({
           index: index,
-          follows: user.home,
+          follows: [user.uid, ...user.home],
           fetch: posts.length && true,
         })
       );
