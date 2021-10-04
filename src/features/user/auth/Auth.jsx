@@ -33,8 +33,8 @@ export const Auth = () => {
   const [create, setCreate] = useState(false);
 
   useEffect(() => {
-    functions.getRedirect({ dispatch, email, verified });
-  }, [dispatch, email, verified]);
+    functions.getRedirect({ dispatch });
+  }, [dispatch]);
 
   useEffect(() => {
     setSign(location.pathname === "/signup" ? true : false);
