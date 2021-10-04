@@ -18,6 +18,16 @@ export const Home = () => {
         <Tag tag="フォローしているメンバーの投稿" paid />
         <p>
           レギュラー会員では、自分の投稿とフォローしているメンバーの投稿もタイムライン上に表示されます。
+          <br />
+          <br />
+          <span className={styles.howto_container_acnt}>
+            ※ フォローしているメンバーは、最大15名まで反映されます。
+          </span>
+          <br />
+          <span className={styles.howto_container_acnt}>
+            ※
+            フォローしているメンバーが15名以上の場合、ホームの設定から表示したいメンバーをいつでも設定・変更できます。
+          </span>
         </p>
       </div>
     </div>
