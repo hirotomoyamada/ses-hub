@@ -36,6 +36,7 @@ exports.createProfile = functions
       likes: { matters: [], resources: [], persons: [] },
       outputs: { matters: [], resources: [] },
       follows: [],
+      home: [],
       agree: data.agree,
       status: "hold",
       payment: {
@@ -63,6 +64,7 @@ exports.createProfile = functions
               likes: user.likes,
               outputs: user.outputs,
               follows: user.follows,
+              home: user.home,
               agree: user.agree,
               payment: user.payment,
               status: user.status,
