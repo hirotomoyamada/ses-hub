@@ -78,7 +78,7 @@ export const Item = ({
           onClick={handleUser}
           className={`${styles.item_btn} ${home && styles.item_btn_disable}`}
         >
-          <article className={styles.item}>
+          <article className={`${styles.item} ${home && styles.item_home}`}>
             <User post={post} user={user} />
           </article>
         </button>

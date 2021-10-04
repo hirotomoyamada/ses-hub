@@ -48,6 +48,10 @@ export const Home = () => {
   }, [dispatch, index]);
 
   useEffect(() => {
+    dispatch(postSlice.handlePage("home"));
+  }, [dispatch]);
+
+  useEffect(() => {
     (index === "matters" || index === "resources") &&
       (!posts.length || control) &&
       dispatch(

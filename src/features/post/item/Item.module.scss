@@ -20,6 +20,11 @@ $width: responsive-width(pc);
     font-size: 11px;
   }
 
+  &_home {
+    background: none;
+    border-radius: 0;
+  }
+
   &_btn {
     display: block;
     position: relative;
