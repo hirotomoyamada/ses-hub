@@ -33,7 +33,7 @@ export const Matters = ({ post }) => {
             <BusinessIcon className={styles.item_icon} />
             <span>
               {post?.remote === "あり"
-                ? "フルリモート"
+                ? "リモート"
                 : post?.remote === "なし"
                 ? "常駐"
                 : post?.remote}
