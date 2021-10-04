@@ -16,6 +16,8 @@ $width: responsive-width(pc);
   display: grid;
   grid-template-rows: 72px 1fr;
 
+  overflow: hidden;
+
   @media (max-width: responsive-width(sp)) {
     width: calc(100vw - 24px);
     grid-template-rows: 48px 1fr;
