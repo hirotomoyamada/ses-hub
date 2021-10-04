@@ -1,10 +1,9 @@
 const functions = require("firebase-functions");
-const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
+const send = require("../../send-grid");
 
-const admin = require("../mail/body/create").admin;
-const user = require("../mail/body/create").user;
+const body = require("../mail/body/create");
 
 exports.createUser = functions
   .region(location)
@@ -16,21 +15,19 @@ exports.createUser = functions
     const adminUrl = functions.config().admin.url;
 
     const adminMail = {
-      to: functions.config().admin.ses_hub_email,
-      message: {
-        subject: "【承認】承認待ちメンバー",
-        text: admin(profile, adminUrl),
-      },
+      to: functions.config().admin.ses_hub,
+      from: `SES_HUB <${functions.config().admin.ses_hub}>`,
+      subject: "【承認】承認待ちメンバー",
+      text: body.admin(profile, adminUrl),
     };
 
     const userMail = {
       to: snapshot.data().profile.email,
-      message: {
-        subject: "SES_HUB 登録確認のお知らせ",
-        text: user(profile, url),
-      },
+      from: `SES_HUB <${functions.config().admin.ses_hub}>`,
+      subject: "SES_HUB 登録確認のお知らせ",
+      text: body.user(profile, url),
     };
 
-    await db.collection("mail").add(adminMail);
-    await db.collection("mail").add(userMail);
+    await send.seshub(adminMail);
+    await send.seshub(userMail);
   });

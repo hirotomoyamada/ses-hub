@@ -48,6 +48,6 @@ ${data.body}
 
 Freelance Direct ${url}
 
-${functions.config().admin.freelance_direct_email}
+${functions.config().admin.freelance_direct}
 `;
 };

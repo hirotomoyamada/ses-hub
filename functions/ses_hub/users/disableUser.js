@@ -1,10 +1,10 @@
 const functions = require("firebase-functions");
 const algolia = require("../../algolia").algolia;
-const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
+const send = require("../../send-grid");
 
-const user = require("../mail/body/disable").user;
+const body = require("../mail/body/disable");
 
 exports.disableUser = functions
   .region(location)
@@ -18,14 +18,13 @@ exports.disableUser = functions
 
     const userMail = {
       to: change.after.data().profile.email,
-      message: {
-        subject: "SES_HUB 利用停止のお知らせ",
-        text: user(profile, url),
-      },
+      from: `SES_HUB <${functions.config().admin.ses_hub}>`,
+      subject: "SES_HUB 利用停止のお知らせ",
+      text: body.user(profile, url),
     };
 
     if (beforeStatus === "enable" && afterStatus === "disable") {
-      await db.collection("mail").add(userMail);
+      await send.seshub(userMail);
 
       if (change.before.data().posts.matters.length) {
         const index = algolia.initIndex("matters");

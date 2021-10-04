@@ -1,9 +1,9 @@
 const functions = require("firebase-functions");
-const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
+const send = require("../../send-grid");
 
-const user = require("../mail/body/enable").user;
+const body = require("../mail/body/enable");
 
 exports.enableUser = functions
   .region(location)
@@ -17,13 +17,12 @@ exports.enableUser = functions
 
     const userMail = {
       to: change.after.data().profile.email,
-      message: {
-        subject: "SES_HUB 承認完了のお知らせ",
-        text: user(profile, url),
-      },
+      from: `SES_HUB <${functions.config().admin.ses_hub}>`,
+      subject: "SES_HUB 承認完了のお知らせ",
+      text: body.user(profile, url),
     };
 
     if (beforeStatus === "hold" && afterStatus === "enable") {
-      await db.collection("mail").add(userMail);
+      await send.seshub(userMail);
     }
   });

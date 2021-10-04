@@ -12,7 +12,7 @@ ${user.name} 様
 
 また、利用制限・禁止行為にお心当たりの無い場合は、恐れ入りますが下記のサポートメールまでお問い合わせください。
 
-サポートメール： ${functions.config().admin.freelance_direct_email}
+サポートメール： ${functions.config().admin.freelance_direct}
 
 ※ このメ－ルアドレスは送信専用です。返信をいただいてもご回答できませんのでご了承ください。
 ※ ご利用にお心当たりの無い場合は、このメールを破棄してください。

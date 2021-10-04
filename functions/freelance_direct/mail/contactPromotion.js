@@ -1,10 +1,9 @@
 const functions = require("firebase-functions");
-const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
+const send = require("../../send-grid");
 
-const admin = require("./body/promotion").admin;
-const user = require("./body/promotion").user;
+const body = require("./body/promotion");
 
 exports.contactPromotion = functions
   .region(location)
@@ -13,10 +12,10 @@ exports.contactPromotion = functions
     const url = "https://freelance-direct.app/";
 
     const adminMail = {
-      to: functions.config().admin.freelance_direct_email,
+      to: functions.config().admin.freelance_direct,
       message: {
-        subject: `【お問い合わせ - Freelance Direct】${data.company} ${data.person}様より`,
-        text: admin(data),
+        subject: `【お問い合わせ】${data.company} ${data.person}様より`,
+        text: body.admin(data),
       },
     };
 
@@ -24,10 +23,10 @@ exports.contactPromotion = functions
       to: data.email,
       message: {
         subject: "Freelance Direct お問い合わせありがとうございます",
-        text: user(data, url),
+        text: body.user(data, url),
       },
     };
 
-    await db.collection("mail").add(adminMail);
-    await db.collection("mail").add(userMail);
+    await send.freelanceDirect(adminMail);
+    await send.freelanceDirect(userMail);
   });

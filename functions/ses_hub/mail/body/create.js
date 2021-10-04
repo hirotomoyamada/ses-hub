@@ -61,6 +61,6 @@ ${user.email}
 
 SES_HUB ${url}
 
-${functions.config().admin.ses_hub_email}
+${functions.config().admin.ses_hub}
 `;
 };

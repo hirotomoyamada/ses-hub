@@ -1,10 +1,9 @@
 const functions = require("firebase-functions");
-const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
+const send = require("../../send-grid");
 
-const admin = require("../mail/body/create").admin;
-const user = require("../mail/body/create").user;
+const body = require("../mail/body/create");
 
 exports.createUser = functions
   .region(location)
@@ -16,21 +15,19 @@ exports.createUser = functions
     const adminUrl = functions.config().admin.url;
 
     const adminMail = {
-      to: functions.config().admin.freelance_direct_email,
-      message: {
-        subject: "【承認 - freelance Direct】承認待ちメンバー",
-        text: admin(profile, adminUrl),
-      },
+      to: functions.config().admin.freelance_direct,
+      from: `Freelance Direct <${functions.config().admin.freelance_direct}>`,
+      subject: "【承認】承認待ちメンバー",
+      text: body.admin(profile, adminUrl),
     };
 
     const userMail = {
       to: snapshot.data().profile.email,
-      message: {
-        subject: "Freelance Direct 登録確認のお知らせ",
-        text: user(profile, url),
-      },
+      from: `Freelance Direct <${functions.config().admin.freelance_direct}>`,
+      subject: "Freelance Direct 登録確認のお知らせ",
+      text: body.user(profile, url),
     };
 
-    await db.collection("mail").add(adminMail);
-    await db.collection("mail").add(userMail);
+    await send.freelanceDirect(adminMail);
+    await send.freelanceDirect(userMail);
   });
