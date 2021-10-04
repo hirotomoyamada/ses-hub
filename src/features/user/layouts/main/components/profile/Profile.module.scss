@@ -60,17 +60,15 @@ $width: responsive-width(pc);
     padding: 6px 12px;
     border-radius: 8px;
 
+    font-size: 14px;
+
     @media (max-width: responsive-width(sp)) {
-      padding: 4px 8px;
+      padding: 5px 8px 4px;
       border-radius: 6px;
+      font-size: 10px;
     }
 
     &_txt {
-      font-size: 14px;
-
-      @media (max-width: responsive-width(sp)) {
-        font-size: 10px;
-      }
     }
 
     &_active {
