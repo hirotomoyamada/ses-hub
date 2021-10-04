@@ -20,7 +20,7 @@ $width: responsive-width(pc);
 
   @media (max-width: responsive-width(sp)) {
     width: calc(100vw - 24px);
-    grid-template-rows: 48px 1fr;
+    grid-template-rows: 48px 30px 1fr;
     font-size: 12px;
   }
 }
