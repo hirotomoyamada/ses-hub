@@ -151,6 +151,7 @@ exports.fetchPosts = functions
                 posts[i].outputs = doc.data().outputs;
                 posts[i].entries = doc.data().entries;
                 posts[i].follows = doc.data().follows;
+                posts[i].payment = doc.data().payment;
                 posts[i].createAt = doc.data().createAt;
                 posts[i].updateAt = doc.data().updateAt;
                 posts[i].lastLogin = doc.data().lastLogin;
