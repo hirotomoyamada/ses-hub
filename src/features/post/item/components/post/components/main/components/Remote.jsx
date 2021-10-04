@@ -8,7 +8,7 @@ export const Remote = ({ post }) => {
       <BusinessIcon className={styles.main_icon} />
       <span>
         {post?.remote === "あり"
-          ? "フルリモート"
+          ? "リモート"
           : post?.remote === "なし"
           ? "常駐"
           : post?.remote}
