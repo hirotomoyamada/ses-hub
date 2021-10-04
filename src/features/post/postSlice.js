@@ -37,6 +37,7 @@ export const postSlice = createSlice({
     handlePage: (state, action) => reducers.handlePage(state, action),
     handleModal: (state, action) => reducers.handleModal(state, action),
     handleNotFound: (state, action) => reducers.handleNotFound(state, action),
+    handleControl: (state) => reducers.handleControl(state),
   },
 
   extraReducers: (builder) => {
@@ -104,6 +105,7 @@ export const {
   handlePage,
   handleModal,
   handleNotFound,
+  handleControl,
 } = postSlice.actions;
 
 export const index = (state) => state.post.index;

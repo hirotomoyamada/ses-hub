@@ -13,6 +13,7 @@ import { addLike, removeLike } from "./like";
 import { addOutput, removeOutput } from "./output";
 import { addEntry } from "./entry";
 import { addFollow, removeFollow } from "./follow";
+import { updateHome } from "./home";
 import { createPost, deletePost } from "./post";
 
 import { handleAnnounce, handleModal, handleNotFound } from "./handle";
@@ -37,6 +38,7 @@ export {
   addEntry,
   addFollow,
   removeFollow,
+  updateHome,
   createPost,
   deletePost,
   handleModal,

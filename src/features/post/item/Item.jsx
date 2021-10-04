@@ -24,8 +24,11 @@ export const Item = ({
   handleSelect,
   handleCancel,
   search,
+  select,
+  selectUser,
   companys,
   persons,
+  home,
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -48,7 +51,14 @@ export const Item = ({
       {!companys ? (
         <Menu index={index} post={post} user={user} postItem />
       ) : (
-        post.uid !== user.uid && <Follow user={user} post={post} />
+        post.uid !== user.uid && (
+          <Follow
+            user={user}
+            post={post}
+            select={select}
+            selectUser={selectUser}
+          />
+        )
       )}
       {!companys ? (
         <button type="button" onClick={handlePost} className={styles.item_btn}>
@@ -63,7 +73,11 @@ export const Item = ({
           </article>
         </button>
       ) : (
-        <button type="button" onClick={handleUser} className={styles.item_btn}>
+        <button
+          type="button"
+          onClick={handleUser}
+          className={`${styles.item_btn} ${home && styles.item_btn_disable}`}
+        >
           <article className={styles.item}>
             <User post={post} user={user} />
           </article>

@@ -42,4 +42,13 @@ $width: responsive-width(pc);
     color: $acnt_clr;
     border: 1px solid $acnt_clr;
   }
+
+  &_remove {
+    background: $remove_clr;
+  }
+
+  &_disable {
+    background: $sub_clr;
+    pointer-events: none;
+  }
 }

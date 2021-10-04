@@ -23,6 +23,7 @@ export const initialState = {
     likes: { matters: [], resources: [], persons: [] },
     outputs: { matters: [], resources: [] },
     follows: [],
+    home: [],
     payment: "",
     createAt: "",
     updateAt: "",

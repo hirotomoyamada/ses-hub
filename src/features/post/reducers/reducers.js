@@ -16,6 +16,7 @@ import {
   handleSearch,
   handleSort,
   handleNotFound,
+  handleControl,
 } from "./handle";
 
 import { promotionPosts } from "./promotionPosts";
@@ -46,6 +47,7 @@ export {
   handlePage,
   handleSort,
   handleNotFound,
+  handleControl,
   promotionPosts,
   fetchPosts,
   followsPosts,

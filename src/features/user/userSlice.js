@@ -33,6 +33,7 @@ export const userSlice = createSlice({
     addEntry: (state, action) => reducers.addEntry(state, action),
     addFollow: (state, action) => reducers.addFollow(state, action),
     removeFollow: (state, action) => reducers.removeFollow(state, action),
+    updateHome: (state, action) => reducers.updateHome(state, action),
 
     handleModal: (state, action) => reducers.handleModal(state, action),
     handleAnnounce: (state, action) => reducers.handleAnnounce(state, action),
@@ -72,6 +73,7 @@ export const {
   addEntry,
   addFollow,
   removeFollow,
+  updateHome,
 
   createPost,
   deletePost,

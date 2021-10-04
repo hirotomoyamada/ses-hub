@@ -41,6 +41,7 @@ exports.addOutput = require("./users/output").addOutput;
 exports.removeOutput = require("./users/output").removeOutput;
 exports.addFollow = require("./users/follow").addFollow;
 exports.removeFollow = require("./users/follow").removeFollow;
+exports.updateHome = require("./users/home").updateHome;
 exports.addEntry = require("./users/entry").addEntry;
 
 // 投稿

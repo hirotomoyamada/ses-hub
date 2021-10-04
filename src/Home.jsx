@@ -57,19 +57,19 @@ export const Home = () => {
       dispatch(
         followsPosts({
           index: index,
-          follows: user.follows,
+          follows: user.home,
           fetch: posts.length && true,
         })
       );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, index, user.follows]);
+  }, [dispatch, index, user.home]);
 
   return (
     <>
       <Fetch />
       <Header index={index} user={user} info={info} />
       <List index={index} posts={posts} user={user} hit={hit} home />
-      <Modal />
+      <Modal user={user} />
       <Menu create user={user} />
     </>
   );

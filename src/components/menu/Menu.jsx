@@ -8,10 +8,12 @@ import HomeIcon from "@material-ui/icons/Home";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import LaunchIcon from "@material-ui/icons/Launch";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as postSlice from "../../features/post/postSlice";
+import * as userSlice from "../../features/user/userSlice";
 
 export const Menu = ({ create, user }) => {
   const history = useHistory();
@@ -28,6 +30,10 @@ export const Menu = ({ create, user }) => {
       dispatch(postSlice.selectIndex("matters"));
     }
     dispatch(postSlice.handleModal({ type: "new", open: !open }));
+  };
+
+  const handleSetting = () => {
+    dispatch(userSlice.handleModal({ type: "home", open: !open }));
   };
 
   const handleBack = () => {
@@ -140,6 +146,17 @@ export const Menu = ({ create, user }) => {
             </button>
           )}
         </div>
+
+        {page === "home" && (
+          <button
+            onClick={handleSetting}
+            type="button"
+            className={styles.menu_setting}
+          >
+            <SettingsIcon className={styles.menu_setting_icon} />
+          </button>
+        )}
+
         <Btn />
       </div>
     )
