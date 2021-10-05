@@ -1,5 +1,5 @@
-exports.companys = ({ post, doc, index, hit }) => {
-  if (!post) {
+exports.companys = ({ posts, doc, index, i, hit }) => {
+  if (!posts) {
     return {
       uid: hit.objectID,
       name: hit.name,
@@ -15,7 +15,7 @@ exports.companys = ({ post, doc, index, hit }) => {
       more: hit.more,
       region: hit.region,
     };
-  } else if (doc) {
+  } else if (doc && index) {
     return {
       index: index,
       uid: doc.id,
@@ -48,20 +48,20 @@ exports.companys = ({ post, doc, index, hit }) => {
       social: doc.data().profile.social,
     };
   } else {
-    post.icon = doc.data().icon;
-    post.cover = doc.data().cover;
-    post.status = doc.data().status;
-    post.provider = doc.data().provider;
-    post.agree = doc.data().agree;
-    post.posts = doc.data().posts;
-    post.likes = doc.data().likes;
-    post.outputs = doc.data().outputs;
-    post.entries = doc.data().entries;
-    post.follows = doc.data().follows;
-    post.payment = doc.data().payment;
-    post.createAt = doc.data().createAt;
-    post.updateAt = doc.data().updateAt;
-    post.lastLogin = doc.data().lastLogin;
+    posts[i].icon = doc.data().icon;
+    posts[i].cover = doc.data().cover;
+    posts[i].status = doc.data().status;
+    posts[i].provider = doc.data().provider;
+    posts[i].agree = doc.data().agree;
+    posts[i].posts = doc.data().posts;
+    posts[i].likes = doc.data().likes;
+    posts[i].outputs = doc.data().outputs;
+    posts[i].entries = doc.data().entries;
+    posts[i].follows = doc.data().follows;
+    posts[i].payment = doc.data().payment;
+    posts[i].createAt = doc.data().createAt;
+    posts[i].updateAt = doc.data().updateAt;
+    posts[i].lastLogin = doc.data().lastLogin;
 
     return;
   }

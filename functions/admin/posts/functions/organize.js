@@ -2,11 +2,11 @@ const functions = require("firebase-functions");
 const db = require("../../../firebase").db;
 const algolia = require("../../../algolia").algolia;
 
-exports.organize = ({ index, uid, user }) => {
+exports.organize = ({ data, user }) => {
   const lists =
-    index === "companys"
+    data.index === "companys"
       ? ["posts", "follows", "likes", "outputs", "entries"]
-      : index === "persons" && ["follows", "likes", "entries"];
+      : data.index === "persons" && ["follows", "likes", "entries"];
 
   lists.forEach(async (list) => {
     if (list === "follows") {
@@ -17,8 +17,8 @@ exports.organize = ({ index, uid, user }) => {
           .then(({ results }) => {
             return results.map((hit) => hit && hit.objectID);
           });
-        db.collection(index)
-          .doc(uid)
+        db.collection(data.index)
+          .doc(data.uid)
           .get()
           .then((doc) => {
             if (doc.exists) {
@@ -53,8 +53,8 @@ exports.organize = ({ index, uid, user }) => {
               return results.map((hit) => hit && hit.objectID);
             });
 
-          db.collection(index)
-            .doc(uid)
+          db.collection(data.index)
+            .doc(data.uid)
             .get()
             .then((doc) => {
               if (doc.exists) {

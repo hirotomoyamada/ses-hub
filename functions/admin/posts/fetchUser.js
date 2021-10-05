@@ -33,12 +33,12 @@ exports.fetchUser = functions
       .catch((e) => {
         throw new functions.https.HttpsError(
           "not-found",
-          "ユーザーの取得に失敗しました",
+          e.message,
           "firebase"
         );
       });
 
-    organize({ index: data.index, uid: data.uid, user: user });
+    organize({ data: data, user: user });
 
     return user;
   });

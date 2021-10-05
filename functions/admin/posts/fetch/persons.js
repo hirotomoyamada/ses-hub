@@ -1,5 +1,5 @@
-exports.persons = ({ post, doc, index, hit }) => {
-  if (!post) {
+exports.persons = ({ posts, doc, index, i, hit }) => {
+  if (!posts) {
     return {
       uid: hit.objectID,
       name: hit.name,
@@ -14,7 +14,7 @@ exports.persons = ({ post, doc, index, hit }) => {
       skills: hit.skills,
       urls: hit.urls,
     };
-  } else if (doc) {
+  } else if (doc && index) {
     return {
       index: index,
       uid: doc.id,
@@ -45,18 +45,18 @@ exports.persons = ({ post, doc, index, hit }) => {
       urls: doc.data().profile.urls,
     };
   } else {
-    post.icon = doc.data().icon;
-    post.cover = doc.data().cover;
-    post.status = doc.data().status;
-    post.provider = doc.data().provider;
-    post.agree = doc.data().agree;
-    post.likes = doc.data().likes;
-    post.entries = doc.data().entries;
-    post.follows = doc.data().follows;
-    post.data = doc.data().data;
-    post.createAt = doc.data().createAt;
-    post.updateAt = doc.data().updateAt;
-    post.lastLogin = doc.data().lastLogin;
+    posts[i].icon = doc.data().icon;
+    posts[i].cover = doc.data().cover;
+    posts[i].status = doc.data().status;
+    posts[i].provider = doc.data().provider;
+    posts[i].agree = doc.data().agree;
+    posts[i].likes = doc.data().likes;
+    posts[i].entries = doc.data().entries;
+    posts[i].follows = doc.data().follows;
+    posts[i].data = doc.data().data;
+    posts[i].createAt = doc.data().createAt;
+    posts[i].updateAt = doc.data().updateAt;
+    posts[i].lastLogin = doc.data().lastLogin;
 
     return;
   }
