@@ -1,0 +1,28 @@
+exports.matters = ({ hit }) => {
+  return {
+    display: hit.display,
+    objectID: hit.objectID,
+    title: hit.title,
+    position: hit.position,
+    body: hit.body,
+    location: hit.location,
+    period: hit.period,
+    costs: hit.costs,
+    adjustment: hit.adjustment,
+    times: hit.times,
+    handles: hit.handles,
+    tools: hit.tools,
+    requires: hit.requires,
+    prefers: hit.prefers,
+    interviews: hit.interviews,
+    remote: hit.remote,
+    distribution: hit.distribution,
+    span: hit.span,
+    note: hit.note,
+    status: hit.status,
+    memo: hit.memo,
+    uid: hit.uid,
+    createAt: hit.createAt,
+    updateAt: hit.updateAt,
+  };
+};

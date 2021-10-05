@@ -4,6 +4,8 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
+const edit = require("./edit/edit");
+
 exports.editUser = functions
   .region(location)
   .runWith(runtime)
@@ -16,39 +18,11 @@ exports.editUser = functions
       );
     }
 
-    const dataTime = Date.now();
     const index = algolia.initIndex(data.index);
     const user =
       data.index === "companys"
-        ? {
-            uid: data.user.uid,
-            icon: data.user.icon,
-            cover: data.user.cover,
-            status: data.user.status,
-            profile: {
-              name: data.user.name,
-              person: data.user.person,
-              body: data.user.body,
-              more: data.user.more ? data.user.more : [],
-              region: data.user.region ? data.user.region : [],
-              postal: data.user.postal,
-              address: data.user.address,
-              tel: data.user.tel,
-              url: data.user.url,
-              social: data.user.social,
-            },
-            updateAt: dataTime,
-          }
-        : data.index === "persons" && {
-            uid: data.user.uid,
-            icon: data.user.icon,
-            cover: data.user.cover,
-            status: data.user.status,
-            profile: {
-              name: data.user.name,
-            },
-            updateAt: dataTime,
-          };
+        ? edit.companys({ data: data })
+        : data.index === "persons" && edit.persons({ data: data });
 
     await db
       .collection(data.index)
@@ -86,27 +60,8 @@ exports.editUser = functions
     await index
       .partialUpdateObject(
         data.index === "companys"
-          ? {
-              objectID: user.uid,
-              status: user.status,
-              name: user.profile.name,
-              person: user.profile.person,
-              body: user.profile.body,
-              more: user.profile.more,
-              region: user.profile.region,
-              postal: user.profile.postal,
-              address: user.profile.address,
-              tel: user.profile.tel,
-              url: user.profile.url,
-              social: user.profile.social,
-              updateAt: user.updateAt,
-            }
-          : data.index === "persons" && {
-              objectID: user.uid,
-              status: user.status,
-              name: user.profile.name,
-              updateAt: user.updateAt,
-            },
+          ? edit.companys({ user: user })
+          : data.index === "persons" && edit.persons({ user: user }),
         {
           createIfNotExists: true,
         }
