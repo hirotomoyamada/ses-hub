@@ -20,10 +20,16 @@ exports.createProfile = functions
       profile: {
         name: data.name,
         email: context.auth.token.email,
+        age: data.age,
+        sex: data.sex,
+        position: data.position,
+        location: data.location,
+        handles: data.handles,
       },
       entries: { matters: [], resources: [] },
       likes: { matters: [], resources: [] },
       follows: [],
+      home: [],
       agree: data.agree,
       status: "hold",
       createAt: context.auth.token.auth_time * 1000,
@@ -72,12 +78,13 @@ exports.createProfile = functions
           uid: user.uid,
           status: user.status,
           name: user.profile.name,
-
-          // ここに入る
-
           email: user.profile.email,
 
-          // ここに入る
+          age: user.profile.age,
+          sex: user.profile.sex,
+          position: user.profile.position,
+          location: user.profile.location,
+          handles: user.profile.handles,
 
           createAt: user.createAt,
           lastLogin: user.createAt,
