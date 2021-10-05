@@ -1,5 +1,5 @@
-exports.companys = ({ posts, doc, index, i, hit }) => {
-  if (!posts) {
+exports.companys = ({ posts, doc, index, i, hit, lists }) => {
+  if (hit) {
     return {
       uid: hit.objectID,
       name: hit.name,
@@ -29,11 +29,11 @@ exports.companys = ({ posts, doc, index, i, hit }) => {
       updateAt: doc.data().updateAt,
       lastLogin: doc.data().lastLogin,
 
-      follows: doc.data().follows,
-      posts: doc.data().posts,
-      outputs: doc.data().outputs,
-      likes: doc.data().likes,
-      entries: doc.data().entries,
+      follows: lists.follows,
+      posts: lists.posts,
+      outputs: lists.outputs,
+      likes: lists.likes,
+      entries: lists.entries,
 
       name: doc.data().profile.name,
       person: doc.data().profile.person,
