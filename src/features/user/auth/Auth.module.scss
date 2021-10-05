@@ -41,7 +41,7 @@ $width: responsive-width(pc);
     width: auto-clamp(560px, 720px);
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
 
     @media (max-width: responsive-width(tb)) {
       margin: 0 auto;
@@ -51,7 +51,7 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(sp)) {
       width: 100vw;
       padding: 16px 12px;
-      gap: 8px;
+      gap: 16px;
     }
   }
 

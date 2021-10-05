@@ -26,6 +26,29 @@ $width: responsive-width(pc);
   }
 }
 
+.select {
+  position: relative;
+  width: 164px;
+
+  &:after {
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid $acnt_clr;
+    content: "";
+    position: absolute;
+    right: 12px;
+    top: 20px;
+    width: 0;
+
+    @media (max-width: responsive-width(sp)) {
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid $acnt_clr;
+      top: 17px;
+    }
+  }
+}
+
 .agree {
   position: absolute;
   top: 50%;
