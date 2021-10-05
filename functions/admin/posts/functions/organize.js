@@ -1,14 +1,10 @@
-const functions = require("firebase-functions");
 const db = require("../../../firebase").db;
 const algolia = require("../../../algolia").algolia;
 
-exports.organize = ({ data, user }) => {
-  const lists =
-    data.index === "companys"
-      ? ["posts", "follows", "likes", "outputs", "entries"]
-      : data.index === "persons" && ["follows", "likes", "entries"];
+exports.organize = async ({ data, user }) => {
+  const lists = { posts: {}, follows: [], likes: {}, outputs: {}, entries: {} };
 
-  lists.forEach(async (list) => {
+  for await (const list of Object.keys(lists)) {
     if (list === "follows") {
       if (user[list][0]) {
         const index = algolia.initIndex("companys");
@@ -17,7 +13,9 @@ exports.organize = ({ data, user }) => {
           .then(({ results }) => {
             return results.map((hit) => hit && hit.objectID);
           });
-        db.collection(data.index)
+
+        await db
+          .collection(data.index)
           .doc(data.uid)
           .get()
           .then((doc) => {
@@ -26,6 +24,8 @@ exports.organize = ({ data, user }) => {
                 .data()
                 [list].filter((objectID) => objectIDs.indexOf(objectID) > -1);
 
+              lists[list] = objects;
+
               doc.ref
                 .set(
                   {
@@ -33,18 +33,14 @@ exports.organize = ({ data, user }) => {
                   },
                   { merge: true }
                 )
-                .catch((e) => {
-                  throw new functions.https.HttpsError(
-                    "data-loss",
-                    "出力の削除に失敗しました",
-                    "firebase"
-                  );
-                });
+                .catch((e) => {});
             }
           });
+      } else {
+        lists[list] = [];
       }
     } else {
-      Object.keys(user[list]).forEach(async (i) => {
+      for await (const i of Object.keys(user[list])) {
         if (user[list][i][0]) {
           const index = algolia.initIndex(i);
           const objectIDs = await index
@@ -53,7 +49,8 @@ exports.organize = ({ data, user }) => {
               return results.map((hit) => hit && hit.objectID);
             });
 
-          db.collection(data.index)
+          await db
+            .collection(data.index)
             .doc(data.uid)
             .get()
             .then((doc) => {
@@ -64,6 +61,8 @@ exports.organize = ({ data, user }) => {
                     (objectID) => objectIDs.indexOf(objectID) > -1
                   );
 
+                lists[list][i] = objects;
+
                 doc.ref
                   .set(
                     {
@@ -71,17 +70,15 @@ exports.organize = ({ data, user }) => {
                     },
                     { merge: true }
                   )
-                  .catch((e) => {
-                    throw new functions.https.HttpsError(
-                      "data-loss",
-                      "出力の削除に失敗しました",
-                      "firebase"
-                    );
-                  });
+                  .catch((e) => {});
               }
             });
+        } else {
+          lists[list][i] = [];
         }
-      });
+      }
     }
-  });
+  }
+
+  return lists;
 };

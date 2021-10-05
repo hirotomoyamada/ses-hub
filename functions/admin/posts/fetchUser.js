@@ -23,22 +23,32 @@ exports.fetchUser = functions
       .collection(data.index)
       .doc(data.uid)
       .get()
-      .then((doc) => {
-        return doc.exists && data.index === "companys"
-          ? fetch.companys({ index: data.index, doc: doc })
-          : doc.exists &&
-              data.index === "persons" &&
-              fetch.persons({ index: data.index, doc: doc });
+      .then(async (doc) => {
+        if (doc.exists) {
+          return await organize({ data: data, user: doc.data() }).then(
+            (lists) => {
+              return data.index === "companys"
+                ? fetch.companys({
+                    index: data.index,
+                    doc: doc,
+                    lists: lists,
+                  })
+                : fetch.persons({
+                    index: data.index,
+                    doc: doc,
+                    lists: lists,
+                  });
+            }
+          );
+        }
       })
       .catch((e) => {
         throw new functions.https.HttpsError(
           "not-found",
-          e.message,
+          "ユーザーの取得に失敗しました",
           "firebase"
         );
       });
-
-    organize({ data: data, user: user });
 
     return user;
   });
