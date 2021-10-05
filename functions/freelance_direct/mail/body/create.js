@@ -10,6 +10,18 @@ ${user.name}
 メールアドレス：
 ${user.email}
 
+年齢：
+${user.age}
+
+性別：
+${user.sex}
+
+ポジション：
+${user.position}
+
+エリア：
+${user.location}
+
 Freelance Direct 管理画面
 URL : ${url}
 `;
@@ -31,6 +43,18 @@ ${user.name}
 
 メールアドレス：
 ${user.email}
+
+年齢：
+${user.age}
+
+性別：
+${user.sex}
+
+ポジション：
+${user.position}
+
+エリア：
+${user.location}
 
 ※ ユーザー登録にお心当たりの無い場合は、このメールを破棄してください。
 ※ 翌３営業日以上、承認が無い場合はお手数ですが下記のメールアドレスへお問い合わせください。
