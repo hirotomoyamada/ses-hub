@@ -78,10 +78,10 @@ exports.fetchPosts = functions
                 };
               }
               if (data.index === "companys") {
-                fetch.companys({ post: posts[i], doc: doc });
+                fetch.companys({ posts: posts, i: i, doc: doc });
               }
               if (data.index === "persons") {
-                fetch.persons({ post: posts[i], doc: doc });
+                fetch.persons({ posts: posts, i: i, doc: doc });
               }
             }
           })
