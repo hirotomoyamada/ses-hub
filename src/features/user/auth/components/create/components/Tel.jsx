@@ -10,8 +10,9 @@ export const Tel = () => {
   } = useFormContext();
 
   return (
-    <>
+    <div className={root.auth_col}>
       <span className={styles.create_tag}>電話番号</span>
+
       <div>
         <input
           className={`${root.auth_input} ${root.auth_input_min} ${
@@ -29,8 +30,11 @@ export const Tel = () => {
             },
           })}
         />
-        <span className={root.auth_error}>{errors.tel?.message}</span>
+
+        {errors.tel?.message && (
+          <span className={root.auth_error}>{errors.tel?.message}</span>
+        )}
       </div>
-    </>
+    </div>
   );
 };

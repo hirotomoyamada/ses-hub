@@ -79,6 +79,7 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(miniPc)) {
       grid-template-columns: repeat(4, 1fr);
     }
+    
     @media (max-width: responsive-width(tb)) {
       grid-template-columns: repeat(3, 1fr);
     }

@@ -10,9 +10,10 @@ export const Position = () => {
   } = useFormContext();
 
   return (
-    <>
+    <div className={root.auth_col}>
       <span className={styles.create_tag}>役職</span>
-      <div>
+
+      <div className={styles.select}>
         <select
           className={`${root.auth_input} ${root.auth_input_min} ${
             errors.position && root.auth_input_error
@@ -20,7 +21,7 @@ export const Position = () => {
           {...register("position", {
             required: {
               value: true,
-              message: "場所を選択してください",
+              message: "役職を選択してください",
             },
           })}
         >
@@ -32,8 +33,11 @@ export const Position = () => {
           <option value="メンバー">メンバー</option>
           <option value="その他">その他</option>
         </select>
-        <span className={root.auth_error}>{errors.position?.message}</span>
+
+        {errors.position?.message && (
+          <span className={root.auth_error}>{errors.position?.message}</span>
+        )}
       </div>
-    </>
+    </div>
   );
 };

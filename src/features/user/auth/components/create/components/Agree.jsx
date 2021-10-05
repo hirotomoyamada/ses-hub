@@ -31,9 +31,11 @@ export const Agree = ({ setTerms }) => {
         </button>
         に同意する
       </label>
-      <span className={styles.agree_checkbox_error}>
-        {errors.agree?.message}
-      </span>
+      {errors.agree?.message && (
+        <span className={styles.agree_checkbox_error}>
+          {errors.agree?.message}
+        </span>
+      )}
     </div>
   );
 };
