@@ -48,7 +48,7 @@ export const Fetch = ({ user }) => {
 
   return (
     <div
-      className={`${styles.load} ${styles.load_create} ${
+      className={`${styles.load} ${styles.load_fetch} ${
         user && styles.load_user
       }
       ${!load && styles.load_opacity} 
