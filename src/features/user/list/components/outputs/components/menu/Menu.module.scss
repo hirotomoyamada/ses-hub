@@ -35,8 +35,8 @@ $width: responsive-width(pc);
 
     @media (max-width: responsive-width(sp)) {
       padding: 0 12px;
+      height: 40px;
       font-size: 12px;
-      height: 32px;
     }
 
     &_icon {
