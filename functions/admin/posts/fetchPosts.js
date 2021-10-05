@@ -4,6 +4,8 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
+const fetch = require("./fetch/fetch");
+
 exports.fetchPosts = functions
   .region(location)
   .runWith(runtime)
@@ -38,77 +40,12 @@ exports.fetchPosts = functions
         hit.pages = result.nbPages;
         const res = result.hits.map((hit) =>
           data.index === "matters"
-            ? {
-                display: hit.display,
-                objectID: hit.objectID,
-                title: hit.title,
-                position: hit.position,
-                body: hit.body,
-                location: hit.location,
-                period: hit.period,
-                costs: hit.costs,
-                adjustment: hit.adjustment,
-                times: hit.times,
-                handles: hit.handles,
-                tools: hit.tools,
-                requires: hit.requires,
-                prefers: hit.prefers,
-                interviews: hit.interviews,
-                remote: hit.remote,
-                distribution: hit.distribution,
-                span: hit.span,
-                note: hit.note,
-                status: hit.status,
-                memo: hit.memo,
-                uid: hit.uid,
-                createAt: hit.createAt,
-                updateAt: hit.updateAt,
-              }
+            ? fetch.matters({ hit: hit })
             : data.index === "resources"
-            ? {
-                display: hit.display,
-                objectID: hit.objectID,
-                roman: hit.roman,
-                position: hit.position,
-                sex: hit.sex,
-                age: hit.age,
-                body: hit.body,
-                belong: hit.belong,
-                station: hit.station,
-                period: hit.period,
-                costs: hit.costs,
-                handles: hit.handles,
-                tools: hit.tools,
-                skills: hit.skills,
-                parallel: hit.parallel,
-                note: hit.note,
-                status: hit.status,
-                memo: hit.memo,
-                uid: hit.uid,
-                createAt: hit.createAt,
-                updateAt: hit.updateAt,
-              }
+            ? fetch.resources({ hit: hit })
             : data.index === "companys"
-            ? {
-                uid: hit.objectID,
-                name: hit.name,
-                person: hit.person,
-                position: hit.position,
-                body: hit.body,
-                email: hit.email,
-                tel: hit.tel,
-                postal: hit.postal,
-                address: hit.address,
-                url: hit.url,
-                social: hit.social,
-                more: hit.more,
-                region: hit.region,
-              }
-            : data.index === "persons" && {
-                uid: hit.objectID,
-                name: hit.name,
-                email: hit.email,
-              }
+            ? fetch.companys({ hit: hit })
+            : data.index === "persons" && fetch.persons({ hit: hit })
         );
         return res.filter((res) => res);
       })
@@ -141,33 +78,10 @@ exports.fetchPosts = functions
                 };
               }
               if (data.index === "companys") {
-                posts[i].icon = doc.data().icon;
-                posts[i].cover = doc.data().cover;
-                posts[i].status = doc.data().status;
-                posts[i].provider = doc.data().provider;
-                posts[i].agree = doc.data().agree;
-                posts[i].posts = doc.data().posts;
-                posts[i].likes = doc.data().likes;
-                posts[i].outputs = doc.data().outputs;
-                posts[i].entries = doc.data().entries;
-                posts[i].follows = doc.data().follows;
-                posts[i].payment = doc.data().payment;
-                posts[i].createAt = doc.data().createAt;
-                posts[i].updateAt = doc.data().updateAt;
-                posts[i].lastLogin = doc.data().lastLogin;
+                fetch.companys({ post: posts[i], doc: doc });
               }
               if (data.index === "persons") {
-                posts[i].icon = doc.data().icon;
-                posts[i].cover = doc.data().cover;
-                posts[i].status = doc.data().status;
-                posts[i].provider = doc.data().provider;
-                posts[i].agree = doc.data().agree;
-                posts[i].likes = doc.data().likes;
-                posts[i].entries = doc.data().entries;
-                posts[i].follows = doc.data().follows;
-                posts[i].createAt = doc.data().createAt;
-                posts[i].updateAt = doc.data().updateAt;
-                posts[i].lastLogin = doc.data().lastLogin;
+                fetch.persons({ post: posts[i], doc: doc });
               }
             }
           })
