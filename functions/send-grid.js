@@ -6,7 +6,7 @@ const sgMail = require("@sendgrid/mail").setApiKey(
 
 exports.freelanceDirect = async (data) => {
   if (typeof data.to === "string") {
-    await sgMail.send(data);
+    await sgMail.send(data).catch((e) => {});
   } else {
     const num = 1000;
     const page = Math.ceil(data.to.length / num);
@@ -15,7 +15,7 @@ exports.freelanceDirect = async (data) => {
       const multiData = { ...data };
       multiData.to = data.to.slice(i * num, num * (i + 1));
 
-      await sgMail.sendMultiple(multiData);
+      await sgMail.sendMultiple(multiData).catch((e) => {});
     }
   }
 };
@@ -31,7 +31,7 @@ exports.seshub = async (data) => {
       const multiData = { ...data };
       multiData.to = data.to.slice(i * num, num * (i + 1));
 
-      await sgMail.sendMultiple(multiData);
+      await sgMail.sendMultiple(multiData).catch((e) => {});
     }
   }
 };
