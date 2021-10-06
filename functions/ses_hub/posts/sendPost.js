@@ -32,7 +32,6 @@ exports.sendPost = functions
     const to = await db
       .collection("companys")
       .where("status", "==", "enable")
-      .where("payment.status", "==", "active")
       .get()
       .then((querySnapshot) => {
         // 本番コード
@@ -51,7 +50,11 @@ exports.sendPost = functions
         return emails.filter((email) => email);
       })
       .catch((e) => {
-        throw new functions.https.HttpsError("not-found", e.message);
+        throw new functions.https.HttpsError(
+          "not-found",
+          "ユーザーの取得に失敗しました",
+          "firebase"
+        );
       });
 
     // テストコード
@@ -90,7 +93,11 @@ exports.sendPost = functions
     };
 
     await send.seshub(mail).catch((e) => {
-      throw new functions.https.HttpsError("not-found", e.message);
+      throw new functions.https.HttpsError(
+        "unavailable",
+        "非公開の投稿のため、処理中止",
+        "sendGrid"
+      );
     });
 
     return;
