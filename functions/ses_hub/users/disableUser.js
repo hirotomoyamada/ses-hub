@@ -4,7 +4,7 @@ const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 const send = require("../../send-grid");
 
-const body = require("../mail/body/disable");
+const body = require("../mail/body/users/disable");
 
 exports.disableUser = functions
   .region(location)

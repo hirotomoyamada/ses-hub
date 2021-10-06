@@ -3,7 +3,7 @@ const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 const send = require("../../send-grid");
 
-const body = require("./body/promotion");
+const body = require("./body/promotion/promotion");
 
 exports.contactPromotion = functions
   .region(location)
