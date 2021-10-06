@@ -11,7 +11,7 @@ ${user.name}
 ${user.email}
 
 年齢：
-${user.age}
+${user.age}歳
 
 性別：
 ${user.sex}
@@ -45,7 +45,7 @@ ${user.name}
 ${user.email}
 
 年齢：
-${user.age}
+${user.age}歳
 
 性別：
 ${user.sex}
