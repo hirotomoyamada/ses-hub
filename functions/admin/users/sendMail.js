@@ -49,7 +49,15 @@ exports.sendMail = functions
       )
       .get()
       .then((querySnapshot) => {
-        return querySnapshot.docs.map((doc) => doc.data().profile.email);
+        // return querySnapshot.docs.map((doc) => doc.data().profile.email);
+
+        return querySnapshot.docs.map((doc) => {
+          const email = doc.data().profile.email;
+          const name = email.substring(0, email.indexOf("@"));
+          const dummy = name.concat("@sink.sendgrid.net");
+
+          return dummy;
+        });
       });
 
     const mail = {
