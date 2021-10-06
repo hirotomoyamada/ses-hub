@@ -15,6 +15,7 @@ export const fetchPosts = (state, action) => {
       currentPage: action.payload.hit.currentPage,
     };
   }
-  state.fetch = false;
+
   state.load = false;
+  state.fetch = false;
 };
