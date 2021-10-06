@@ -10,7 +10,13 @@ export const createPost = createAsyncThunk("post/createPost", async (data) => {
     post: data.post,
   })
     .then(({ data }) => {
-      sendPost({ index: data.index, post: data.post }).catch((e) => {});
+      sendPost({ index: data.index, post: data.post })
+        .then(() => {
+          console.log("完了");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
 
       return {
         index: data.index,

@@ -36,7 +36,6 @@ exports.matters = (post, url) => {
     : ``;
 
   return `
-
 ${title}
 
 ${position}
@@ -53,9 +52,7 @@ ${costs}
 ${distribution}
 ${interviews}
 
-URL：${url}
-
-`;
+URL：${url}`;
 };
 
 exports.resources = (post, url) => {
@@ -97,7 +94,6 @@ exports.resources = (post, url) => {
     : ``;
 
   return `
-
 ${title}
 ${position}
 
@@ -112,6 +108,5 @@ ${costs}
 
 ${skills}
 
-URL：${url}
-`;
+URL：${url}`;
 };

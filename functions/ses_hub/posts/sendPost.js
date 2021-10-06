@@ -17,6 +17,14 @@ exports.sendPost = functions
     const index = data.index;
     const post = data.post;
 
+    if (post.display === "private") {
+      throw new functions.https.HttpsError(
+        "cancelled",
+        "非公開の投稿のため、処理中止",
+        "sendGrid"
+      );
+    }
+
     const to = await db
       .collection("companys")
       .where("status", "==", "enable")
@@ -24,26 +32,28 @@ exports.sendPost = functions
       .get()
       .then((querySnapshot) => {
         // 本番コード
-        // const emails = querySnapshot.docs.map(
-        //   (doc) => post.uid !== doc.id && doc.data().profile.email
-        // );
+        const emails = querySnapshot.docs.map(
+          (doc) => post.uid !== doc.id && doc.data().profile.email
+        );
 
         // テストコード
-        const emails = querySnapshot.docs.map((doc) => {
-          const email = doc.data().profile.email;
-          const name = email.substring(0, email.indexOf("@"));
-          const dummy = name.concat("@sink.sendgrid.net");
-
-          return post.uid !== doc.id && dummy;
-        });
+        //   const emails = querySnapshot.docs.map((doc) => {
+        //     const email = doc.data().profile.email;
+        //     const name = email.substring(0, email.indexOf("@"));
+        //     const dummy = name.concat("@sink.sendgrid.net");
+        //     return post.uid !== doc.id && dummy;
+        //   });
 
         return emails.filter((email) => email);
+      })
+      .catch((e) => {
+        throw new functions.https.HttpsError("not-found", e.message);
       });
 
     // テストコード
     // let to = [];
 
-    // for (let i = 0; i < 100; i++) {
+    // for (let i = 0; i <　1111; i++) {
     //   const name = ["yamada", "ito", "sato", "kato", "suzuki"][
     //     Math.floor(Math.random() * 5)
     //   ];
@@ -57,7 +67,7 @@ exports.sendPost = functions
     const subject =
       index === "matters"
         ? `【新着案件】 ${post.title}`
-        : index === "reources" &&
+        : index === "resources" &&
           `【新着人材】 ${post.roman.firstName.substring(
             0,
             1
@@ -75,7 +85,9 @@ exports.sendPost = functions
           : index === "resources" && body.resources(post, url),
     };
 
-    await send.seshub(mail);
+    await send.seshub(mail).catch((e) => {
+      throw new functions.https.HttpsError("not-found", e.message);
+    });
 
     return;
   });
