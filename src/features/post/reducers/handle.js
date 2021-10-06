@@ -5,18 +5,18 @@ export const handleSearch = (state, action) => {
   }
 
   if (action?.payload?.target) {
-    state.search.control = false;
     state.search.target = action.payload.target;
+    state.search.control = false;
   }
 
   if (action?.payload?.type) {
-    state.search.control = false;
     state.search.type = action.payload.type;
+    state.search.control = false;
   }
 
   if (action?.payload?.value) {
-    state.search.control = false;
     state.search.value = action.payload.value;
+    state.search.control = false;
   }
 
   if (action?.payload?.control) {
