@@ -53,5 +53,6 @@ exports.followsPosts = require("./posts/followsPosts").followsPosts;
 exports.showPost = require("./posts/showPost").showPost;
 
 exports.createPost = require("./posts/createPost").createPost;
+exports.sendPost = require("./posts/sendPost").sendPost;
 exports.editPost = require("./posts/editPost").editPost;
 exports.deletePost = require("./posts/deletePost").deletePost;
