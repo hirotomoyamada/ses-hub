@@ -95,7 +95,7 @@ exports.sendPost = functions
     await send.seshub(mail).catch((e) => {
       throw new functions.https.HttpsError(
         "unavailable",
-        "非公開の投稿のため、処理中止",
+        "メールの送信に失敗しました",
         "sendGrid"
       );
     });
