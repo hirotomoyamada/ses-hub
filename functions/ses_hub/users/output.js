@@ -3,17 +3,14 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
+const userAuthenticated =
+  require("./functions/userAuthenticated").userAuthenticated;
+
 exports.addOutput = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    if (context.auth.uid === functions.config().demo.uid) {
-      throw new functions.https.HttpsError(
-        "cancelled",
-        "デモユーザーのため、処理中止",
-        "firebase"
-      );
-    }
+    await userAuthenticated({ data: data, context: context, demo: true });
 
     const dataTime = Date.now();
 
@@ -61,13 +58,7 @@ exports.removeOutput = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    if (context.auth.uid === functions.config().demo.uid) {
-      throw new functions.https.HttpsError(
-        "cancelled",
-        "デモユーザーのため、処理中止",
-        "firebase"
-      );
-    }
+    await userAuthenticated({ data: data, context: context, demo: true });
 
     const dataTime = Date.now();
 
