@@ -49,8 +49,10 @@ exports.sendMail = functions
       )
       .get()
       .then((querySnapshot) => {
+        // 本番コード
         // return querySnapshot.docs.map((doc) => doc.data().profile.email);
 
+        // テストコード
         return querySnapshot.docs.map((doc) => {
           const email = doc.data().profile.email;
           const name = email.substring(0, email.indexOf("@"));
@@ -59,6 +61,20 @@ exports.sendMail = functions
           return dummy;
         });
       });
+
+    // テストコード
+    // let to = [];
+
+    // for (let i = 0; i < 100; i++) {
+    //   const name = ["yamada", "ito", "sato", "kato", "suzuki"][
+    //     Math.floor(Math.random() * 5)
+    //   ];
+    //   const sub = Math.random().toString(32).substring(2);
+    //   const domain = "@sink.sendgrid.net";
+    //   const email = name.concat(sub, domain);
+
+    //   to = [email, ...to];
+    // }
 
     const mail = {
       to: to,
