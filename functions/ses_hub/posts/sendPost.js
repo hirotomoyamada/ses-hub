@@ -12,7 +12,11 @@ exports.sendPost = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    await postAuthenticated(context);
+    await postAuthenticated({
+      context: context,
+      uid: data.post.uid,
+      canceled: true,
+    });
 
     const index = data.index;
     const post = data.post;

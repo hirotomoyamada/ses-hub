@@ -38,13 +38,11 @@ exports.userAuthenticated = async ({
       }
 
       if (doc.data().payment.status === "canceled" && canceled) {
-        if (data.uid !== context.auth.uid) {
-          throw new functions.https.HttpsError(
-            "cancelled",
-            "リミテッドユーザーのため、処理中止",
-            "firebase"
-          );
-        }
+        throw new functions.https.HttpsError(
+          "cancelled",
+          "リミテッドユーザーのため、処理中止",
+          "firebase"
+        );
       }
     });
 };

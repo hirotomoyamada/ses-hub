@@ -12,7 +12,7 @@ exports.createPost = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    await postAuthenticated(context);
+    await postAuthenticated({ context: context });
 
     const index = algolia.initIndex(data.index);
     const object =
