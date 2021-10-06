@@ -11,7 +11,7 @@ exports.deletePost = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    await postAuthenticated(context);
+    await postAuthenticated({ context: context });
 
     if (context.auth.uid === data.post.uid) {
       const index = algolia.initIndex(data.index);

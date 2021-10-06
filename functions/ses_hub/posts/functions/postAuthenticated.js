@@ -1,7 +1,7 @@
 const functions = require("firebase-functions");
 const db = require("../../../firebase").db;
 
-exports.postAuthenticated = async (context) => {
+exports.postAuthenticated = async ({ context, uid, canceled }) => {
   if (context.auth.uid === functions.config().demo.uid) {
     throw new functions.https.HttpsError(
       "cancelled",
@@ -27,6 +27,14 @@ exports.postAuthenticated = async (context) => {
         throw new functions.https.HttpsError(
           "cancelled",
           "利用規約に同意が無いユーザーのため、処理中止",
+          "firebase"
+        );
+      }
+
+      if (doc.data().payment.status === "canceled" && canceled) {
+        throw new functions.https.HttpsError(
+          "cancelled",
+          "リミテッドユーザーのため、処理中止",
           "firebase"
         );
       }
