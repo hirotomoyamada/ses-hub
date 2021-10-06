@@ -41,6 +41,7 @@ exports.sendMail = functions
 
     const to = await db
       .collection("companys")
+      .where("status", "==", "enable")
       .where(
         "payment.status",
         data.target !== "all" ? "==" : "in",
