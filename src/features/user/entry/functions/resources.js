@@ -1,9 +1,6 @@
 import { timestamp } from "../../../../functions/timestamp";
 
 export const resources = ({ post }) => {
-  const skills = post?.skills?.map((skill) => skill && `・${skill}`);
-  const skillsValue = skills && skills.join("\n");
-
   const value = {
     createAt: `作成：${timestamp(post?.createAt)}\n`,
     roman: `■ ${
@@ -29,7 +26,9 @@ export const resources = ({ post }) => {
         ? `${post?.costs?.min}万 〜 ${post?.costs?.max}万`
         : `〜 ${post?.costs?.max}万`
     }\n`,
-    skills: `スキル：\n${skillsValue}\n`,
+    skills: `スキル：\n${post?.skills
+      ?.map((skill) => skill && `・${skill}`)
+      .skills.join("\n")}\n`,
   };
 
   return `${value.createAt}\n${value.roman}\n${value.positon}\n${value.belong}\n${value.sex}\n${value.age}\n${value.period}\n${value.station}\n${value.costs}\n${value.skills}\n`;
