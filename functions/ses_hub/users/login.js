@@ -183,7 +183,7 @@ exports.login = functions
           } else {
             throw new functions.https.HttpsError(
               "not-found",
-              "ユーザーのプロフィールが存在しません",
+              "プロフィールが存在しません",
               "profile"
             );
           }
