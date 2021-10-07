@@ -2,21 +2,39 @@ const db = require("../../../firebase").db;
 const algolia = require("../../../algolia").algolia;
 
 exports.organize = async ({ data, user }) => {
-  const lists = { posts: {}, follows: [], likes: {}, outputs: {}, entries: {} };
+  const index = data.index;
+  const uid = data.uid;
+  const lists =
+    index === "companys"
+      ? {
+          posts: {},
+          follows: [],
+          home: [],
+          likes: {},
+          outputs: {},
+          entries: {},
+        }
+      : index === "persons" && {
+          follows: [],
+          home: [],
+          likes: {},
+          entries: {},
+        };
 
   for await (const list of Object.keys(lists)) {
-    if (list === "follows") {
+    if (list === "follows" || list === "home") {
       if (user[list][0]) {
         const index = algolia.initIndex("companys");
         const objectIDs = await index
           .getObjects(user[list])
           .then(({ results }) => {
             return results.map((hit) => hit && hit.objectID);
-          });
+          })
+          .catch((e) => {});
 
         await db
-          .collection(data.index)
-          .doc(data.uid)
+          .collection(index)
+          .doc(uid)
           .get()
           .then((doc) => {
             if (doc.exists) {
@@ -35,7 +53,8 @@ exports.organize = async ({ data, user }) => {
                 )
                 .catch((e) => {});
             }
-          });
+          })
+          .catch((e) => {});
       } else {
         lists[list] = [];
       }
@@ -47,11 +66,12 @@ exports.organize = async ({ data, user }) => {
             .getObjects(user[list][i])
             .then(({ results }) => {
               return results.map((hit) => hit && hit.objectID);
-            });
+            })
+            .catch((e) => {});
 
           await db
-            .collection(data.index)
-            .doc(data.uid)
+            .collection(index)
+            .doc(uid)
             .get()
             .then((doc) => {
               if (doc.exists) {
@@ -72,7 +92,8 @@ exports.organize = async ({ data, user }) => {
                   )
                   .catch((e) => {});
               }
-            });
+            })
+            .catch((e) => {});
         } else {
           lists[list][i] = [];
         }
