@@ -1,7 +1,7 @@
 const functions = require("firebase-functions");
 const db = require("../../../firebase").db;
 
-exports.postAuthenticated = async ({ context, uid, canceled }) => {
+exports.postAuthenticated = async ({ context, canceled }) => {
   if (context.auth.uid === functions.config().demo.uid) {
     throw new functions.https.HttpsError(
       "cancelled",
