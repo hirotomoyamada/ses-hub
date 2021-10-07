@@ -42,19 +42,11 @@ exports.editUser = functions
               { merge: true }
             )
             .catch((e) => {
-              throw new functions.https.HttpsError(
-                "data-loss",
-                "プロフィールの更新に失敗しました",
-                "firebase"
-              );
+              throw new functions.https.HttpsError("not-found", e.message);
             }));
       })
       .catch((e) => {
-        throw new functions.https.HttpsError(
-          "not-found",
-          "ユーザー全体の取得に失敗しました",
-          "firebase"
-        );
+        throw new functions.https.HttpsError("not-found", e.message);
       });
 
     await index
@@ -67,10 +59,6 @@ exports.editUser = functions
         }
       )
       .catch((e) => {
-        throw new functions.https.HttpsError(
-          "data-loss",
-          "プロフィールの更新に失敗しました",
-          "algolia"
-        );
+        throw new functions.https.HttpsError("not-found", e.message);
       });
   });
