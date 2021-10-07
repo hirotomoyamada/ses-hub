@@ -2,11 +2,12 @@ const functions = require("firebase-functions");
 const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
+const send = require("../../send-grid");
+// const twitter = require("../../twitter");
 
 const postAuthenticated =
   require("./functions/postAuthenticated").postAuthenticated;
 const body = require("../mail/body/posts/create");
-const send = require("../../send-grid");
 
 exports.sendPost = functions
   .region(location)
@@ -29,7 +30,7 @@ exports.sendPost = functions
       return (
         post.uid !== id &&
         config.admin.ses_hub !== email &&
-        config.demo.ses_hub.email !== email &&
+        // config.demo.ses_hub.email !== email &&
         true
       );
     };
@@ -106,16 +107,22 @@ exports.sendPost = functions
 
     const url = `https://ses-hub.app/${index}/${post.objectID}`;
 
+    const text =
+      index === "matters"
+        ? body.matters(post, user, url)
+        : index === "resources" && body.resources(post, user, url);
+
     const mail = {
       to: to,
       from: `SES_HUB <${functions.config().admin.ses_hub}>`,
       subject: subject,
-      text:
-        index === "matters"
-          ? body.matters(post, user, url)
-          : index === "resources" && body.resources(post, user, url),
+      text: text,
     };
 
+    // Twitter 投稿
+    // twitter.tweet(text);
+
+    // sendGrid メール
     await send.seshub(mail).catch((e) => {
       throw new functions.https.HttpsError(
         "unavailable",
