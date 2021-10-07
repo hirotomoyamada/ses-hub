@@ -39,6 +39,16 @@ exports.sendMail = functions
         }
       });
 
+    const verified = (email) => {
+      const config = functions.config();
+
+      return (
+        config.admin.ses_hub !== email &&
+        config.demo.ses_hub.email !== email &&
+        true
+      );
+    };
+
     const to = await db
       .collection("companys")
       .where("status", "==", "enable")
@@ -53,13 +63,15 @@ exports.sendMail = functions
         // return querySnapshot.docs.map((doc) => doc.data().profile.email);
 
         // テストコード
-        return querySnapshot.docs.map((doc) => {
+        const emails = querySnapshot.docs.map((doc) => {
           const email = doc.data().profile.email;
           const name = email.substring(0, email.indexOf("@"));
           const dummy = name.concat("@sink.sendgrid.net");
 
-          return dummy;
+          return verified(email) && dummy;
         });
+
+        return emails.filter((email) => email);
       });
 
     // テストコード
