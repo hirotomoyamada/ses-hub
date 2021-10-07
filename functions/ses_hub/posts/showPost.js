@@ -13,7 +13,7 @@ exports.showPost = functions
   .runWith(runtime)
   .https.onCall(async (data, context) => {
     const status = await userAuthenticated(context);
-    const demo = context.auth.uid === functions.config().demo.uid;
+    const demo = context.auth.uid === functions.config().demo.ses_hub.uid;
 
     const index = algolia.initIndex(data.index);
     const post = await index

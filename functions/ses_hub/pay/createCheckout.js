@@ -7,7 +7,7 @@ exports.createCheckout = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    if (context.auth.uid === functions.config().demo.uid) {
+    if (context.auth.uid === functions.config().demo.ses_hub.uid) {
       throw new functions.https.HttpsError(
         "cancelled",
         "デモユーザーのため、処理中止",

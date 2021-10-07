@@ -45,7 +45,7 @@ exports.login = functions
     await loginAuthenticated({ context: context, data: data });
 
     const dataTime = Date.now();
-    
+
     const user =
       context.auth &&
       data.emailVerified &&
@@ -134,7 +134,7 @@ exports.login = functions
       });
 
     const demo =
-      context.auth.uid === functions.config().demo.uid ? true : false;
+      context.auth.uid === functions.config().demo.ses_hub.uid ? true : false;
 
     return { user: user, data: collection, demo: demo };
   });

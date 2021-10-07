@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const db = require("../../../firebase").db;
 
 exports.postAuthenticated = async ({ context, canceled }) => {
-  if (context.auth.uid === functions.config().demo.uid) {
+  if (context.auth.uid === functions.config().demo.ses_hub.uid) {
     throw new functions.https.HttpsError(
       "cancelled",
       "デモユーザーのため、処理中止",
