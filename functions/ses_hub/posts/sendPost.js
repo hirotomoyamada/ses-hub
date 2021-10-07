@@ -21,6 +21,19 @@ exports.sendPost = functions
     const index = data.index;
     const post = data.post;
 
+    const verified = (doc) => {
+      const id = doc.id;
+      const email = doc.data().profile.email;
+      const config = functions.config();
+
+      return (
+        post.uid !== id &&
+        config.admin.ses_hub !== email &&
+        config.demo.ses_hub.email !== email &&
+        true
+      );
+    };
+
     if (post.display === "private") {
       throw new functions.https.HttpsError(
         "cancelled",
@@ -36,7 +49,7 @@ exports.sendPost = functions
       .then((querySnapshot) => {
         // 本番コード
         const emails = querySnapshot.docs.map(
-          (doc) => post.uid !== doc.id && doc.data().profile.email
+          (doc) => verified(doc) && doc.data().profile.email
         );
 
         // テストコード

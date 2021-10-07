@@ -8,7 +8,7 @@ exports.userAuthenticated = async ({
   agree,
   canceled,
 }) => {
-  if (context.auth.uid === functions.config().demo.uid && demo) {
+  if (context.auth.uid === functions.config().demo.ses_hub.uid && demo) {
     throw new functions.https.HttpsError(
       "cancelled",
       "デモユーザーのため、処理中止",

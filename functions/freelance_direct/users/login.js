@@ -182,7 +182,7 @@ exports.login = functions
       });
 
     const demo =
-      context.auth.uid === functions.config().demo.uid ? true : false;
+      context.auth.uid === functions.config().demo.ses_hub.uid ? true : false;
 
     return { user: user, data: collection, demo: demo, auth: context.auth };
   });
