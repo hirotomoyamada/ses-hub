@@ -13,6 +13,7 @@ exports.persons = ({ posts, doc, index, i, hit, lists }) => {
       tools: hit.tools,
       skills: hit.skills,
       urls: hit.urls,
+      data: hit.data,
     };
   } else if (doc && index) {
     return {
@@ -28,9 +29,9 @@ exports.persons = ({ posts, doc, index, i, hit, lists }) => {
       lastLogin: doc.data().lastLogin,
 
       follows: lists.follows,
+      home: lists.home,
       likes: lists.likes,
       entries: lists.entries,
-      data: lists.data,
 
       name: doc.data().profile.name,
       email: doc.data().profile.email,
@@ -43,6 +44,7 @@ exports.persons = ({ posts, doc, index, i, hit, lists }) => {
       tools: doc.data().profile.tools,
       skills: doc.data().profile.skills,
       urls: doc.data().profile.urls,
+      data: doc.data().profile.data,
     };
   } else {
     posts[i].icon = doc.data().icon;
@@ -53,7 +55,7 @@ exports.persons = ({ posts, doc, index, i, hit, lists }) => {
     posts[i].likes = doc.data().likes;
     posts[i].entries = doc.data().entries;
     posts[i].follows = doc.data().follows;
-    posts[i].data = doc.data().data;
+    posts[i].home = doc.data().home;
     posts[i].createAt = doc.data().createAt;
     posts[i].updateAt = doc.data().updateAt;
     posts[i].lastLogin = doc.data().lastLogin;
