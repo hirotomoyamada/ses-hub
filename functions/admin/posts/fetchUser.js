@@ -25,8 +25,8 @@ exports.fetchUser = functions
       .get()
       .then(async (doc) => {
         if (doc.exists) {
-          return await organize({ data: data, user: doc.data() }).then(
-            (lists) => {
+          return await organize({ data: data, user: doc.data() })
+            .then((lists) => {
               return data.index === "companys"
                 ? fetch.companys({
                     index: data.index,
@@ -38,17 +38,11 @@ exports.fetchUser = functions
                     doc: doc,
                     lists: lists,
                   });
-            }
-          );
+            })
+            .catch((e) => {});
         }
       })
-      .catch((e) => {
-        throw new functions.https.HttpsError(
-          "not-found",
-          "ユーザーの取得に失敗しました",
-          "firebase"
-        );
-      });
+      .catch((e) => {});
 
     return user;
   });
