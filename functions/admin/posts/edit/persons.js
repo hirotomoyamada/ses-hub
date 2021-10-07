@@ -18,8 +18,8 @@ exports.persons = ({ data, user }) => {
         tools: data.user.tools,
         skills: data.user.skills,
         urls: data.user.urls,
+        data: data.user.data,
       },
-      data: data.user.data,
       updateAt: dataTime,
     };
   } else {
@@ -36,6 +36,7 @@ exports.persons = ({ data, user }) => {
       tools: user.profile.tools,
       skills: user.profile.skills,
       urls: user.profile.urls,
+      data: user.profile.data,
       updateAt: user.updateAt,
     };
   }

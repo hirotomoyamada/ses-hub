@@ -34,6 +34,7 @@ exports.companys = ({ posts, doc, index, i, hit, lists }) => {
       outputs: lists.outputs,
       likes: lists.likes,
       entries: lists.entries,
+      home: lists.home,
 
       name: doc.data().profile.name,
       person: doc.data().profile.person,
@@ -58,6 +59,7 @@ exports.companys = ({ posts, doc, index, i, hit, lists }) => {
     posts[i].outputs = doc.data().outputs;
     posts[i].entries = doc.data().entries;
     posts[i].follows = doc.data().follows;
+    posts[i].home = doc.data().home;
     posts[i].payment = doc.data().payment;
     posts[i].createAt = doc.data().createAt;
     posts[i].updateAt = doc.data().updateAt;
