@@ -12,6 +12,7 @@ exports.showUser = functions
   .runWith(runtime)
   .https.onCall(async (data, context) => {
     await userAuthenticated({ data: data, context: context, canceled: true });
+    const demo = context.auth.uid === functions.config().demo.uid;
 
     const index = algolia.initIndex(data.type);
     const user = await index
@@ -26,12 +27,12 @@ exports.showUser = functions
                 body: hit.body,
                 postal: hit.postal,
                 address: hit.address,
-                tel: hit.tel,
-                email: hit.email,
+                tel: !demo ? hit.tel : null,
+                email: !demo ? hit.email : null,
                 more: hit.more,
                 region: hit.region,
-                url: hit.url,
-                social: hit.social,
+                url: !demo ? hit.url : null,
+                social: !demo ? hit.social : {},
               },
               createAt: hit.createAt,
               updateAt: hit.updateAt,
