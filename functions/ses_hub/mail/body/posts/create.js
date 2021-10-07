@@ -1,4 +1,4 @@
-exports.matters = (post, url) => {
+exports.matters = (post, user, url) => {
   const title = post?.title ? `■ ${post.title}` : ``;
 
   const position = post?.position ? post.position : ``;
@@ -52,10 +52,11 @@ ${costs}
 ${distribution}
 ${interviews}
 
-URL：${url}`;
+URL：${url}
+担当：${user.name} ${user.person}`;
 };
 
-exports.resources = (post, url) => {
+exports.resources = (post, user, url) => {
   const title = post?.roman
     ? `■ ${post.roman.firstName.substring(
         0,
@@ -108,5 +109,6 @@ ${costs}
 
 ${skills}
 
-URL：${url}`;
+URL：${url}
+担当：${user.name} ${user.person}`;
 };

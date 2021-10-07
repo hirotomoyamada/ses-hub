@@ -42,6 +42,17 @@ exports.sendPost = functions
       );
     }
 
+    const user = await db
+      .collection("companys")
+      .doc(post.uid)
+      .get()
+      .then((doc) => {
+        return {
+          name: doc.data().profile.name,
+          person: doc.data().profile.person,
+        };
+      });
+
     const to = await db
       .collection("companys")
       .where("status", "==", "enable")
@@ -101,8 +112,8 @@ exports.sendPost = functions
       subject: subject,
       text:
         index === "matters"
-          ? body.matters(post, url)
-          : index === "resources" && body.resources(post, url),
+          ? body.matters(post, user, url)
+          : index === "resources" && body.resources(post, user, url),
     };
 
     await send.seshub(mail).catch((e) => {
