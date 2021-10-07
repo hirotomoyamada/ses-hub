@@ -39,10 +39,22 @@ exports.fetchUser = functions
                     lists: lists,
                   });
             })
-            .catch((e) => {});
+            .catch((e) => {
+              throw new functions.https.HttpsError(
+                "data-loss",
+                "ユーザーの編集に失敗しました",
+                "firebase"
+              );
+            });
         }
       })
-      .catch((e) => {});
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "not-found",
+          "ユーザーの取得に失敗しました",
+          "firebase"
+        );
+      });
 
     return user;
   });
