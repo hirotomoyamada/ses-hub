@@ -4,41 +4,36 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
+const loginAuthenticated =
+  require("./functions/loginAuthenticated").loginAuthenticated;
+
+const userData = ({ context, doc, data }) => {
+  return {
+    uid: context.auth.uid,
+    icon: doc.data().icon,
+    cover: doc.data().cover,
+    provider: data
+      ? data.providerData.map((provider) => provider.providerId)
+      : doc.data().provider,
+    profile: doc.data().profile,
+    agree: doc.data().agree,
+    likes: doc.data().likes,
+    entries: doc.data().entries,
+    follows: doc.data().follows,
+    home: doc.data().home,
+    history: doc.data().history,
+    createAt: doc.data().createAt,
+    updateAt: doc.data().updateAt,
+  };
+};
+
 exports.login = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
+    await loginAuthenticated({ context: context, data: data });
+
     const dataTime = Date.now();
-
-    if (!context.auth) {
-      throw new functions.https.HttpsError(
-        "unauthenticated",
-        "認証されていないユーザーではログインできません",
-        "auth"
-      );
-    }
-
-    await db
-      .collection("companys")
-      .doc(context.auth.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          throw new functions.https.HttpsError(
-            "unavailable",
-            "このアカウントでは利用できません",
-            "disable"
-          );
-        }
-      });
-
-    if (!data.emailVerified) {
-      throw new functions.https.HttpsError(
-        "unauthenticated",
-        "メールアドレスが認証されていません",
-        "emailVerified"
-      );
-    }
 
     const user =
       context.auth &&
@@ -86,37 +81,9 @@ exports.login = functions
                 );
               });
 
-            if (doc.data().status === "hold") {
-              throw new functions.https.HttpsError(
-                "unavailable",
-                "このアカウントは承認されていません",
-                "hold"
-              );
-            }
+            await loginAuthenticated({ doc: doc });
 
-            if (doc.data().status === "disable") {
-              throw new functions.https.HttpsError(
-                "unavailable",
-                "このアカウントでは利用できません",
-                "disable"
-              );
-            }
-
-            return {
-              uid: context.auth.uid,
-              icon: doc.data().icon,
-              cover: doc.data().cover,
-              provider: data.providerData.map(
-                (provider) => provider.providerId
-              ),
-              profile: doc.data().profile,
-              agree: doc.data().agree,
-              entries: doc.data().entries,
-              likes: doc.data().likes,
-              follows: doc.data().follows,
-              createAt: doc.data().createAt,
-              updateAt: doc.data().updateAt,
-            };
+            return userData({ context: context, doc: doc, data: data });
           } else if (doc.exists) {
             doc.ref.set(
               {
@@ -125,35 +92,9 @@ exports.login = functions
               { merge: true }
             );
 
-            if (doc.data().status === "hold") {
-              throw new functions.https.HttpsError(
-                "unavailable",
-                "承認されていません",
-                "hold"
-              );
-            }
+            await loginAuthenticated({ doc: doc });
 
-            if (doc.data().status === "disable") {
-              throw new functions.https.HttpsError(
-                "unavailable",
-                "プロバイダーの更新に失敗しました",
-                "disable"
-              );
-            }
-
-            return {
-              uid: context.auth.uid,
-              icon: doc.data().icon,
-              cover: doc.data().cover,
-              provider: doc.data().provider,
-              profile: doc.data().profile,
-              agree: doc.data().agree,
-              entries: doc.data().entries,
-              likes: doc.data().likes,
-              follows: doc.data().follows,
-              createAt: doc.data().createAt,
-              updateAt: doc.data().updateAt,
-            };
+            return userData({ context: context, doc: doc });
           } else {
             throw new functions.https.HttpsError(
               "not-found",
@@ -182,7 +123,9 @@ exports.login = functions
       });
 
     const demo =
-      context.auth.uid === functions.config().demo.ses_hub.uid ? true : false;
+      context.auth.uid === functions.config().demo.freelance_direct.uid
+        ? true
+        : false;
 
     return { user: user, data: collection, demo: demo, auth: context.auth };
   });
