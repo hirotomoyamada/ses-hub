@@ -2,10 +2,8 @@ const db = require("../../../firebase").db;
 const algolia = require("../../../algolia").algolia;
 
 exports.organize = async ({ data, user }) => {
-  const index = data.index;
-  const uid = data.uid;
   const lists =
-    index === "companys"
+    data.index === "companys"
       ? {
           posts: {},
           follows: [],
@@ -14,7 +12,7 @@ exports.organize = async ({ data, user }) => {
           outputs: {},
           entries: {},
         }
-      : index === "persons" && {
+      : data.index === "persons" && {
           entries: [],
           likes: [],
           history: [],
@@ -23,7 +21,7 @@ exports.organize = async ({ data, user }) => {
         };
 
   for await (const list of Object.keys(lists)) {
-    if (index !== "persons") {
+    if (data.index !== "persons") {
       if (list === "follows" || list === "home") {
         if (user[list][0]) {
           const index = algolia.initIndex("companys");
@@ -35,8 +33,8 @@ exports.organize = async ({ data, user }) => {
             .catch((e) => {});
 
           await db
-            .collection(index)
-            .doc(uid)
+            .collection(data.index)
+            .doc(data.uid)
             .get()
             .then((doc) => {
               if (doc.exists) {
@@ -72,8 +70,8 @@ exports.organize = async ({ data, user }) => {
               .catch((e) => {});
 
             await db
-              .collection(index)
-              .doc(uid)
+              .collection(data.index)
+              .doc(data.uid)
               .get()
               .then((doc) => {
                 if (doc.exists) {
@@ -114,8 +112,8 @@ exports.organize = async ({ data, user }) => {
             .catch((e) => {});
 
           await db
-            .collection(index)
-            .doc(uid)
+            .collection(data.index)
+            .doc(data.uid)
             .get()
             .then((doc) => {
               if (doc.exists) {
@@ -154,8 +152,8 @@ exports.organize = async ({ data, user }) => {
             .catch((e) => {});
 
           await db
-            .collection(index)
-            .doc(uid)
+            .collection(data.index)
+            .doc(data.uid)
             .get()
             .then((doc) => {
               if (doc.exists) {
