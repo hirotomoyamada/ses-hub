@@ -16,3 +16,6 @@ exports.returnUser = require("./users/returnUser").returnUser;
 exports.deleteUser = require("./users/deleteUser").deleteUser;
 
 exports.createProfile = require("./users/createProfile").createProfile;
+
+// 投稿
+exports.fetchPosts = require("./posts/fetchPosts").fetchPosts;
