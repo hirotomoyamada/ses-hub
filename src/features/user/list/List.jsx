@@ -61,7 +61,8 @@ export const List = (props) => {
 
   useEffect(() => {
     index === "companys" && dispatch(postSlice.selectIndex("matters"));
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     dispatch(postSlice.handlePage(list));
