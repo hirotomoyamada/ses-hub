@@ -27,7 +27,7 @@ export const Requires = () => {
       {requiresFields.map((field, index) => (
         <div key={field.id} className={styles.item}>
           <input
-            placeholder="例："
+            placeholder=""
             className={`${styles.item_input} ${
               errors.requires?.[index]?.require && styles.item_input_error
             }`}

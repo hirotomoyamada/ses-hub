@@ -33,6 +33,10 @@ export const Handles = ({ index }) => {
                 errors.handles?.[i]?.handle && styles.item_input_error
               }`}
               {...register(`handles[${i}].handle`, {
+                required: i === 0 && {
+                  value: true,
+                  message: "項目を入力してください",
+                },
                 pattern: {
                   value: /^\S+/,
                   message: "先頭にスペースは使えません",
