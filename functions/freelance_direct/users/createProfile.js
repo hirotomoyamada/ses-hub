@@ -34,6 +34,7 @@ exports.createProfile = functions
       },
       entries: [],
       likes: [],
+      requests: [],
       follows: [],
       home: [],
       history: [],
