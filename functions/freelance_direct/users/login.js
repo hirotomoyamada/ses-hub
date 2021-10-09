@@ -123,10 +123,10 @@ exports.login = functions
         );
       });
 
-    const demo =
-      context.auth.uid === functions.config().demo.freelance_direct.uid
-        ? true
-        : false;
+    const demo = false;
+    // context.auth.uid === functions.config().demo.freelance_direct.uid
+    //   ? true
+    //   : false;
 
     return { user: user, data: collection, demo: demo, auth: context.auth };
   });
