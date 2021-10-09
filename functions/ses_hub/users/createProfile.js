@@ -9,7 +9,7 @@ exports.createProfile = functions
   .runWith(runtime)
   .https.onCall(async (data, context) => {
     const icon = Math.floor(Math.random() * 18);
-    const cover = Math.floor(Math.random() * 3);
+    const cover = Math.floor(Math.random() * 19);
 
     const index = algolia.initIndex("companys");
     const user = {
