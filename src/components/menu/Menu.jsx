@@ -16,9 +16,9 @@ import * as postSlice from "../../features/post/postSlice";
 import * as userSlice from "../../features/user/userSlice";
 
 export const Menu = ({ create, user }) => {
+  const dispatch = useDispatch();
   const history = useHistory();
 
-  const dispatch = useDispatch();
   const isModal = useSelector(postSlice.modal);
   const index = useSelector(postSlice.index);
   const page = useSelector(postSlice.page);
