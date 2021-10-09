@@ -27,7 +27,7 @@ export const Perfers = () => {
       {prefersFields.map((field, index) => (
         <div key={field.id} className={styles.item}>
           <input
-            placeholder="例："
+            placeholder=""
             defaultValue={`prefers[${index}].prefer`}
             name={`prefers[${index}].prefer`}
             className={`${styles.item_input} ${
