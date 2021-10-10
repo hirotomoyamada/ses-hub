@@ -15,7 +15,7 @@ exports.userAuthenticated = async ({
   }
 
   await db
-    .collection("companys")
+    .collection("persons")
     .doc(context.auth.uid)
     .get()
     .then((doc) => {
