@@ -8,7 +8,7 @@ const userAuthenticated =
   require("./functions/userAuthenticated").userAuthenticated;
 const fetch = require("./fetch/fetch");
 
-exports.showPost = functions
+exports.fetchPost = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
@@ -50,15 +50,17 @@ exports.showPost = functions
             post.costs.min = 0;
             post.costs.max = 0;
 
+            post.uid = null;
+
             post.user = {
-              uid: "freelanceDirect",
+              uid: null,
               icon: "icon97",
               profile: {
                 name: "Hit me up株式会社",
                 person: "freelance Direct 事務局",
                 body: null,
                 email: !demo ? functions.config().admin.freelance_direct : null,
-                social: {},
+                social: null,
               },
             };
           } else {

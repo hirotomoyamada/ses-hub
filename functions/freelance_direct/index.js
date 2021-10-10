@@ -17,6 +17,8 @@ exports.deleteUser = require("./users/deleteUser").deleteUser;
 
 exports.createProfile = require("./users/createProfile").createProfile;
 
+exports.fetchUser = require("./users/fetchUser").fetchUser;
+
 exports.addLike = require("./users/like").addLike;
 exports.removeLike = require("./users/like").removeLike;
 exports.addFollow = require("./users/follow").addFollow;
@@ -26,4 +28,5 @@ exports.addEntry = require("./users/entry").addEntry;
 
 // 投稿
 exports.fetchPosts = require("./posts/fetchPosts").fetchPosts;
-exports.showPost = require("./posts/showPost").showPost;
+exports.fetchPost = require("./posts/fetchPost").fetchPost;
+exports.userPosts = require("./posts/userPosts").userPosts;
