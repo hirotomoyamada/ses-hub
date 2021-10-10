@@ -11,15 +11,13 @@ exports.addFollow = functions
   .runWith(runtime)
   .https.onCall(async (data, context) => {
     await userAuthenticated({
-      data: data,
       context: context,
       demo: true,
-      canceled: true,
     });
 
     const dataTime = Date.now();
     await db
-      .collection("companys")
+      .collection("persons")
       .doc(context.auth.uid)
       .get()
       .then((doc) => {
@@ -30,21 +28,21 @@ exports.addFollow = functions
           doc.ref
             .set(
               follows
-                ? follows.indexOf(data.uid) < 0 &&
-                  home.indexOf(data.uid) < 0 &&
+                ? follows.indexOf(data) < 0 &&
+                  home.indexOf(data) < 0 &&
                   home.length < 15
                   ? {
-                      follows: [data.uid, ...follows],
-                      home: [data.uid, ...home],
+                      follows: [data, ...follows],
+                      home: [data, ...home],
                       updateAt: dataTime,
                     }
                   : follows.indexOf(data.uid) < 0 && {
-                      follows: [data.uid, ...follows],
+                      follows: [data, ...follows],
                       updateAt: dataTime,
                     }
                 : {
-                    follows: [data.uid],
-                    home: [data.uid],
+                    follows: [data],
+                    home: [data],
                     updateAt: dataTime,
                   },
               { merge: true }
@@ -74,21 +72,19 @@ exports.removeFollow = functions
   .runWith(runtime)
   .https.onCall(async (data, context) => {
     await userAuthenticated({
-      data: data,
       context: context,
       demo: true,
-      canceled: true,
     });
 
     const dataTime = Date.now();
     await db
-      .collection("companys")
+      .collection("persons")
       .doc(context.auth.uid)
       .get()
       .then((doc) => {
         if (doc.exists) {
-          const follows = doc.data().follows.filter((uid) => uid !== data.uid);
-          const home = doc.data().home.filter((uid) => uid !== data.uid);
+          const follows = doc.data().follows.filter((uid) => uid !== data);
+          const home = doc.data().home.filter((uid) => uid !== data);
 
           doc.ref
             .set(

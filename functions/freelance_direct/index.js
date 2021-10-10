@@ -17,5 +17,12 @@ exports.deleteUser = require("./users/deleteUser").deleteUser;
 
 exports.createProfile = require("./users/createProfile").createProfile;
 
+exports.addLike = require("./users/like").addLike;
+exports.removeLike = require("./users/like").removeLike;
+exports.addFollow = require("./users/follow").addFollow;
+exports.removeFollow = require("./users/follow").removeFollow;
+exports.updateHome = require("./users/home").updateHome;
+exports.addEntry = require("./users/entry").addEntry;
+
 // 投稿
 exports.fetchPosts = require("./posts/fetchPosts").fetchPosts;
