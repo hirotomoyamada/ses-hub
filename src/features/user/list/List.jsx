@@ -61,7 +61,7 @@ export const List = (props) => {
 
   useEffect(() => {
     index === "companys" && dispatch(postSlice.selectIndex("matters"));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -126,12 +126,6 @@ export const List = (props) => {
   const handleDelete = () => {
     dispatch(
       userSlice.removeOutput({
-        index: index,
-        objectIDs: selectOutputs.map((output) => output.objectID),
-      })
-    );
-    dispatch(
-      postSlice.removeOutput({
         index: index,
         objectIDs: selectOutputs.map((output) => output.objectID),
       })

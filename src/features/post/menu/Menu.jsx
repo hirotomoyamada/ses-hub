@@ -79,11 +79,9 @@ export const Menu = ({ index, post, user, back, postItem }) => {
 
   const handleLike = () => {
     if (!like) {
-      dispatch(userSlice.addLike({ index: index, objectID: post.objectID }));
-      dispatch(postSlice.addLike({ index: index, post: post }));
+      dispatch(userSlice.addLike({ index: index, post: post }));
     } else {
-      dispatch(userSlice.removeLike({ index: index, objectID: post.objectID }));
-      dispatch(postSlice.removeLike({ index: index, post: post }));
+      dispatch(userSlice.removeLike({ index: index, post: post }));
     }
 
     setLike(!like);
@@ -91,13 +89,9 @@ export const Menu = ({ index, post, user, back, postItem }) => {
 
   const handleOutput = () => {
     if (!output) {
-      dispatch(userSlice.addOutput({ index: index, objectID: post.objectID }));
-      dispatch(postSlice.addOutput({ index: index, post: post }));
+      dispatch(userSlice.addOutput({ index: index, post: post }));
     } else {
-      dispatch(
-        userSlice.removeOutput({ index: index, objectID: post.objectID })
-      );
-      dispatch(postSlice.removeOutput({ index: index, post: post }));
+      dispatch(userSlice.removeOutput({ index: index, post: post }));
     }
 
     setOutput(!output);
