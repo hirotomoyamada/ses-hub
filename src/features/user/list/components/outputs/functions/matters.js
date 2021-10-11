@@ -6,7 +6,7 @@ export const matters = ({ selectOutputs }) => {
     createAt: `作成：${timestamp(outputs?.createAt)}`,
     title: `■ ${outputs.title ? outputs.title : "不明な案件"}`,
     positon: `${outputs?.position}`,
-    body: `概要：\n${outputs?.body}`,
+    body: `詳細：\n${outputs?.body}`,
     period: `開始：${
       outputs?.period &&
       `${outputs?.period?.year}年 ${outputs?.period?.month}月`

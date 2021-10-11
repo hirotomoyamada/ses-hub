@@ -26,7 +26,7 @@ export const Matters = ({ index, post, user }) => {
         </div>
       )}
 
-      <Txt tag="概要" txt={post?.body} txtarea />
+      <Txt tag="案件詳細" txt={post?.body} txtarea />
 
       <Feilds tag="必須" objects={post?.requires} />
 
