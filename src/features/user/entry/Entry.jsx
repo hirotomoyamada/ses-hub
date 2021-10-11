@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
 import * as userSlice from "../userSlice";
-import * as postSlice from "../../post/postSlice";
 
 import { matters } from "./functions/matters";
 import { resources } from "./functions/resources";
@@ -35,8 +34,7 @@ export const Entry = ({ index, user, post }) => {
 
   const handleEntry = () => {
     if (user.entries[index].indexOf(post.objectID) < 0) {
-      dispatch(userSlice.addEntry({ index: index, objectID: post.objectID }));
-      dispatch(postSlice.addEntry({ index: index, post: post }));
+      dispatch(userSlice.addEntry({ index: index, post: post }));
     }
   };
 

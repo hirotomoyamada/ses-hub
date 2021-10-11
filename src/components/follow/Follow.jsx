@@ -2,7 +2,6 @@ import styles from "./Follow.module.scss";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as userSlice from "../../features/user/userSlice";
-import * as postSlice from "../../features/post/postSlice";
 
 export const Follow = ({ user, post, profile, select, selectUser }) => {
   const dispatch = useDispatch();
@@ -17,10 +16,7 @@ export const Follow = ({ user, post, profile, select, selectUser }) => {
 
   const handleFollow = () => {
     dispatch(
-      !follow ? userSlice.addFollow(post.uid) : userSlice.removeFollow(post.uid)
-    );
-    dispatch(
-      !follow ? postSlice.addFollow(post) : postSlice.removeFollow(post)
+      !follow ? userSlice.addFollow(post) : userSlice.removeFollow(post)
     );
   };
 

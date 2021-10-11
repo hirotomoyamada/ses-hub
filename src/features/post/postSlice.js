@@ -24,14 +24,6 @@ export const postSlice = createSlice({
     deletePost: (state, action) => reducers.deletePost(state, action),
     resetPost: (state, action) => reducers.resetPost(state, action),
 
-    addLike: (state, action) => reducers.addLike(state, action),
-    removeLike: (state, action) => reducers.removeLike(state, action),
-    addOutput: (state, action) => reducers.addOutput(state, action),
-    removeOutput: (state, action) => reducers.removeOutput(state, action),
-    addEntry: (state, action) => reducers.addEntry(state, action),
-    addFollow: (state, action) => reducers.addFollow(state, action),
-    removeFollow: (state, action) => reducers.removeFollow(state, action),
-
     handleSearch: (state, action) => reducers.handleSearch(state, action),
     handleSort: (state, action) => reducers.handleSort(state, action),
     handlePage: (state, action) => reducers.handlePage(state, action),
@@ -81,6 +73,53 @@ export const postSlice = createSlice({
     builder.addCase(createPost.fulfilled, (state, action) =>
       reducers.createPost(state, action)
     );
+
+    builder.addMatcher(
+      (action) => action.type.endsWith("/addLike"),
+      (state, action) => reducers.addLike(state, action)
+    );
+    builder.addMatcher(
+      (action) => action.type.endsWith("/removeLike"),
+      (state, action) => reducers.removeLike(state, action)
+    );
+
+    builder.addMatcher(
+      (action) => action.type.endsWith("/addOutput"),
+      (state, action) => reducers.addOutput(state, action)
+    );
+    builder.addMatcher(
+      (action) => action.type.endsWith("/removeOutput"),
+      (state, action) => reducers.removeOutput(state, action)
+    );
+
+    builder.addMatcher(
+      (action) => action.type.endsWith("/addEntry"),
+      (state, action) => reducers.addEntry(state, action)
+    );
+
+    builder.addMatcher(
+      (action) => action.type.endsWith("/addFollow"),
+      (state, action) => reducers.addFollow(state, action)
+    );
+    builder.addMatcher(
+      (action) => action.type.endsWith("/removeFollow"),
+      (state, action) => reducers.removeFollow(state, action)
+    );
+
+    // builder.addMatcher(
+    //   (action) => action.type.endsWith("/updateHome"),
+    //   (state) => reducers.resetControl(state)
+    // );
+
+    // builder.addMatcher(
+    //   (action) => action.type.endsWith("/handleIndex"),
+    //   (state, action) => reducers.resetPost(state, action)
+    // );
+
+    // builder.addMatcher(
+    //   (action) => action.type.endsWith("/handlePage"),
+    //   (state, action) => reducers.resetPost(state, action)
+    // );
   },
 });
 
@@ -91,14 +130,6 @@ export const {
   editPost,
   deletePost,
   resetPost,
-
-  addLike,
-  removeLike,
-  addOutput,
-  removeOutput,
-  addEntry,
-  addFollow,
-  removeFollow,
 
   handleSearch,
   handleSort,
