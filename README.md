@@ -84,7 +84,6 @@ firebase deploy --only hosting:sh
   - Functions
 
   - Extensions
-    - Trigger Email
     - Run Subscription Payments with Stripe
 
 - Algolia
