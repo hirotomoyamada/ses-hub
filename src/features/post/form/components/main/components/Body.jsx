@@ -11,7 +11,7 @@ export const Body = ({ index }) => {
   return (
     <div className={root.main_col}>
       <span className={root.main_tag}>
-        {index === "matters" && "概要"}
+        {index === "matters" && "案件詳細"}
         {index === "resources" && "PR文"}
       </span>
       <div className={styles.item}>
@@ -25,7 +25,7 @@ export const Body = ({ index }) => {
               ? {
                   required: {
                     value: true,
-                    message: "概要を入力してください",
+                    message: "案件詳細を入力してください",
                   },
                   pattern: {
                     value: /^\S+/,
