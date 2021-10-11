@@ -14,6 +14,10 @@ exports.persons = ({ posts, doc, index, i, hit, lists }) => {
       skills: hit.skills,
       urls: hit.urls,
       data: hit.data,
+      costs: hit.costs,
+      resident: hit.resident,
+      clothes: hit.clothes,
+      span: hit.span,
     };
   } else if (doc && index) {
     return {
@@ -45,6 +49,11 @@ exports.persons = ({ posts, doc, index, i, hit, lists }) => {
       skills: doc.data().profile.skills,
       urls: doc.data().profile.urls,
       data: doc.data().profile.data,
+      costs: doc.data().profile.costs,
+      working: doc.data().profile.working,
+      resident: doc.data().profile.resident,
+      clothes: doc.data().profile.clothes,
+      span: doc.data().profile.span,
     };
   } else {
     posts[i].icon = doc.data().icon;
@@ -55,7 +64,9 @@ exports.persons = ({ posts, doc, index, i, hit, lists }) => {
     posts[i].likes = doc.data().likes;
     posts[i].entries = doc.data().entries;
     posts[i].follows = doc.data().follows;
+    posts[i].requests = doc.data().requests;
     posts[i].home = doc.data().home;
+    posts[i].history = doc.data().history;
     posts[i].createAt = doc.data().createAt;
     posts[i].updateAt = doc.data().updateAt;
     posts[i].lastLogin = doc.data().lastLogin;
