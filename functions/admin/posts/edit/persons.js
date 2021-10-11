@@ -19,6 +19,11 @@ exports.persons = ({ data, user }) => {
         skills: data.user.skills,
         urls: data.user.urls,
         data: data.user.data,
+        costs: data.user.costs,
+        working: data.user.working,
+        resident: data.user.resident,
+        clothes: data.user.clothes,
+        span: data.user.span,
       },
       updateAt: dataTime,
     };
@@ -37,6 +42,11 @@ exports.persons = ({ data, user }) => {
       skills: user.profile.skills,
       urls: user.profile.urls,
       data: user.profile.data,
+      costs: user.profile.costs,
+      working: user.profile.working,
+      resident: user.profile.resident,
+      clothes: user.profile.clothes,
+      span: user.profile.span,
       updateAt: user.updateAt,
     };
   }
