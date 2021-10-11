@@ -58,7 +58,7 @@ export const Resources = ({ post }) => {
               <div className={styles.item_field}>
                 <span>{post?.costs?.type}</span>
               </div>
-            ) : post?.costs?.max ? (
+            ) : post?.costs?.min ? (
               <div className={styles.item_field}>
                 <span>
                   {post?.costs?.min}万&nbsp;〜&nbsp;{post?.costs?.max}万
@@ -66,7 +66,7 @@ export const Resources = ({ post }) => {
               </div>
             ) : (
               <div className={styles.item_field}>
-                <span>〜&nbsp;{post?.costs?.min}万</span>
+                <span>〜&nbsp;{post?.costs?.max}万</span>
               </div>
             )}
           </div>

@@ -11,19 +11,21 @@ import * as postSlice from "../../../../features/post/postSlice";
 
 import { Item } from "./components/Item";
 import { Btn } from "../../../components/btn/Btn";
+import * as userSlice from "../../../../features/user/userSlice";
 
 export const Post = ({ handleOpen }) => {
   const dispatch = useDispatch();
   const index = useSelector(postSlice.index);
   const load = useSelector(postSlice.load);
+  const status = useSelector(userSlice.verified).status;
 
   const posts = useSelector((state) =>
     postSlice.posts({ state: state, page: "search", index: index })
   );
 
   useEffect(() => {
-    dispatch(promotionPosts({ index: index }));
-  }, [dispatch, index]);
+    status !== "enable" && dispatch(promotionPosts({ index: index }));
+  }, [dispatch, index, status]);
 
   return (
     <section className={`${styles.post} ${root.section}`}>
