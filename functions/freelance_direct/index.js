@@ -28,5 +28,6 @@ exports.addEntry = require("./users/entry").addEntry;
 
 // 投稿
 exports.fetchPosts = require("./posts/fetchPosts").fetchPosts;
+exports.homePosts = require("./posts/homePosts").homePosts;
 exports.fetchPost = require("./posts/fetchPost").fetchPost;
 exports.userPosts = require("./posts/userPosts").userPosts;

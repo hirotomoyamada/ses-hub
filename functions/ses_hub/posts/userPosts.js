@@ -76,7 +76,6 @@ exports.userPosts = functions
             return results.map(
               (hit) =>
                 hit &&
-                data.index === "companys" &&
                 status && {
                   uid: hit.objectID,
                   profile: {
