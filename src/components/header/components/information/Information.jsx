@@ -10,7 +10,7 @@ export const Information = () => {
   const info = useSelector(rootSlice.data).information;
 
   const handleOpen = () => {
-    dispatch(rootSlice.handleModal("info"));
+    dispatch(rootSlice.handleModal({ type: "info" }));
   };
 
   return (

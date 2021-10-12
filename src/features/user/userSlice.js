@@ -44,7 +44,7 @@ export const userSlice = createSlice({
     );
 
     builder.addMatcher(
-      (action) => action.type.endsWith("/createPost"),
+      (action) => action.type.endsWith("/createPost/fulfilled"),
       (state, action) => reducers.createPost(state, action)
     );
 

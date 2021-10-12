@@ -45,7 +45,6 @@ export const Profile = ({ user, handleClose }) => {
     data.uid = user.uid;
 
     dispatch(userSlice.editProfile(data));
-    handleClose();
   };
 
   return (

@@ -7,8 +7,6 @@ export const initialState = {
     value: "",
     target: "",
     type: "",
-    status: "",
-    display: "",
     control: false,
   },
 

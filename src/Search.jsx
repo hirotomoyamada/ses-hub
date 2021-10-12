@@ -32,7 +32,7 @@ export const Search = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    (search.value || search.target || search.type || !search.control) &&
+    !search.control &&
       dispatch(
         fetchPosts({
           index: index,

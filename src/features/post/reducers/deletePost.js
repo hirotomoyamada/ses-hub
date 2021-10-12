@@ -6,8 +6,6 @@ export const deletePost = (state, action) => {
       return;
     }
 
-    console.log(type);
-
     state[type][action.payload.index].posts = state[type][
       action.payload.index
     ].posts.filter((post) => post?.objectID !== action.payload.post.objectID);

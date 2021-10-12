@@ -1,6 +1,6 @@
 export const createPost = (state, action) => {
   state.user.posts[action.payload.index] = [
-    action.payload.post,
+    action.payload.post.objectID,
     ...state.user.posts[action.payload.index],
   ];
 };
@@ -8,5 +8,5 @@ export const createPost = (state, action) => {
 export const deletePost = (state, action) => {
   state.user.posts[action.payload.index] = state.user.posts[
     action.payload.index
-  ].filter((post) => post?.objectID !== action.payload.post.objectID);
+  ].filter((objectID) => objectID !== action.payload.post.objectID);
 };

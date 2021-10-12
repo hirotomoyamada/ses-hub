@@ -128,7 +128,6 @@ export const List = (props) => {
   };
 
   const handleDelete = () => {
-    console.log(outputs);
     dispatch(
       userSlice.removeOutput({
         index: index,

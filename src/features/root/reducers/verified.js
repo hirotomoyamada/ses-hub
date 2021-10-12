@@ -2,9 +2,17 @@ export const verified = (state, action) => {
   if (action.payload && action.payload.user) {
     state.verified.status = "enable";
 
+    if (
+      action.payload.user.payment.status === "canceled" &&
+      action.payload.user.payment.notice
+    ) {
+      state.modal.type = "advertise";
+      state.modal.open = true;
+    }
+
     if (action.payload.user.agree === "disable") {
       state.verified.agree = true;
-      
+
       state.modal.type = "agree";
       state.modal.open = true;
     }
