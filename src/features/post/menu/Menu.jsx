@@ -46,14 +46,14 @@ export const Menu = ({ index, post, user, back, postItem }) => {
       rootSlice.handleModal({
         type: "delete",
         text: "投稿",
-        func: () => handleDelete(post),
+        delete: () => handleDelete(post),
       })
     );
     setOpen(!open);
   };
 
   const handleEdit = () => {
-    dispatch(rootSlice.handleModal("edit"));
+    dispatch(rootSlice.handleModal({ type: "edit" }));
     dispatch(postSlice.selectPost(post));
     setOpen(!open);
   };

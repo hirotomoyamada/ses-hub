@@ -33,7 +33,7 @@ export const Menu = ({ create, user }) => {
   };
 
   const handleSetting = () => {
-    dispatch(rootSlice.handleModal("home"));
+    dispatch(rootSlice.handleModal({ type: "home" }));
   };
 
   const handleBack = () => {

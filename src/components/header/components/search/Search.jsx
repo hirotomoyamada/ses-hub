@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchPosts } from "../../../../features/post/functions/fetchPosts";
 import * as rootSlice from "../../../../features/root/rootSlice";
 
 import { Command } from "../../../command/Command";
@@ -37,16 +36,6 @@ export const Search = ({ index, posts }) => {
     value && setControl(true);
 
     if (!value && control) {
-      posts.length &&
-        dispatch(
-          fetchPosts({
-            index: index,
-            value: "",
-            target: search.target,
-            type: search.type,
-            fetch: true,
-          })
-        );
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       dispatch(rootSlice.handleSearch());
       setControl(false);

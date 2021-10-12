@@ -54,7 +54,7 @@ export const Post = ({ index, objectID }) => {
   }, [history, post, user?.payment?.status]);
 
   const handleEntry = () => {
-    dispatch(rootSlice.handleModal("entry"));
+    dispatch(rootSlice.handleModal({ type: "entry" }));
   };
 
   return (

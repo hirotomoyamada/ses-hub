@@ -15,6 +15,7 @@ import { Information } from "./components/information/Information";
 import { Demo } from "./components/demo/Demo";
 import { Agree } from "./components/agree/Agree";
 import { Delete } from "./components/delete/Delete";
+import { Advertise } from "./components/advertise/Advertise";
 
 export const Modal = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,8 @@ export const Modal = () => {
     switch (modal.type) {
       case "agree":
         return <Agree user={user} />;
+      case "advertise":
+        return <Advertise user={user} handleClose={handleClose} />;
       case "demo":
         return <Demo user={user} handleClose={handleClose} />;
       case "info":
@@ -72,6 +75,7 @@ export const Modal = () => {
 
   const handleClose = () => {
     dispatch(rootSlice.handleModal());
+    modal.type === "advertise" && dispatch(userSlice.updatePayment("notice"));
   };
 
   return (

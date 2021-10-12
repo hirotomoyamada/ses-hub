@@ -1,9 +1,25 @@
 export const resetPost = (state, action) => {
-  if (action.payload === "selectUser") {
-    state.selectUser.matters.posts = [];
-    state.selectUser.resources.posts = [];
+  if (action.payload) {
+    if (action.payload !== "post") {
+      if (Object.keys(state.post).length) {
+        state.post = {};
+        state.bests = [];
+      } else {
+        Object.keys(state).forEach((type) => {
+          if (type === "bests" || type === "post") {
+            return;
+          }
+
+          Object.keys(state[type]).forEach((index) => {
+            state[type][index].posts = state[type][index].posts.slice(0, 50);
+            state[type][index].hit.currentPage = 0;
+          });
+        });
+      }
+    }
   } else {
     state.post = {};
+    state.bests = [];
   }
 };
 
