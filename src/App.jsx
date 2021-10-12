@@ -6,8 +6,8 @@ import { HelmetProvider } from "react-helmet-async";
 import { auth } from "./firebase";
 
 import { login } from "./features/user/functions/login";
+import * as rootSlice from "./features/root/rootSlice";
 import * as userSlice from "./features/user/userSlice";
-import * as postSlice from "./features/post/postSlice";
 
 import { Meta } from "./Meta";
 import { Load } from "./components/load/Load";
@@ -51,11 +51,8 @@ const App = () => {
   const dispatch = useDispatch();
 
   const user = useSelector(userSlice.user);
-  const access = useSelector(userSlice.verified).access;
-  const notFound = {
-    user: useSelector(userSlice.notFound),
-    post: useSelector(postSlice.notFound),
-  };
+  const access = useSelector(rootSlice.verified).access;
+  const notFound = useSelector(rootSlice.notFound);
 
   const [browser, setBrowser] = useState(true);
 
@@ -81,7 +78,7 @@ const App = () => {
     <HelmetProvider>
       <BrowserRouter>
         <Meta />
-        {notFound.user || notFound.post ? (
+        {notFound ? (
           <NotFound />
         ) : browser ? (
           <>

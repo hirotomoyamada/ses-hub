@@ -1,12 +1,12 @@
 import { functions } from "../../../firebase";
 
 export const deletePost = (state, action) => {
-  Object.keys(state.posts).forEach((type) => {
+  Object.keys(state).forEach((type) => {
     if (type === "selectUser" || type === "bests") {
       return;
     }
 
-    state.posts[type][action.payload.index].posts = state.posts[type][
+    state[type][action.payload.index].posts = state[type][
       action.payload.index
     ].posts.filter((post) => post?.objectID !== action.payload.post.objectID);
   });

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 
 import { useDispatch, useSelector } from "react-redux";
+import * as rootSlice from "../root/rootSlice";
 import * as userSlice from "../user/userSlice";
 import * as paySlice from "./paySlice";
 
@@ -21,7 +22,7 @@ export const Pay = () => {
   const history = useHistory();
 
   const user = useSelector(userSlice.user);
-  const demo = useSelector(userSlice.verified).demo;
+  const demo = useSelector(rootSlice.verified).demo;
 
   const products = useSelector(paySlice.products);
   const tax = useSelector(paySlice.tax);

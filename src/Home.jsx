@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { followsPosts } from "./features/post/functions/followsPosts";
+import * as rootSlice from "./features/root/rootSlice";
 import * as postSlice from "./features/post/postSlice";
 import * as userSlice from "./features/user/userSlice";
 
@@ -15,8 +16,8 @@ import { List } from "./features/post/list/List";
 export const Home = () => {
   const dispatch = useDispatch();
 
-  const index = useSelector(postSlice.index);
-  const info = useSelector(userSlice.data).information;
+  const index = useSelector(rootSlice.index);
+  const info = useSelector(rootSlice.data).information;
   const user = useSelector(userSlice.user);
 
   const posts = useSelector((state) =>
@@ -44,11 +45,11 @@ export const Home = () => {
 
   useEffect(() => {
     (index === "companys" || index === "persons") &&
-      dispatch(postSlice.selectIndex("matters"));
+      dispatch(rootSlice.handleIndex("matters"));
   }, [dispatch, index]);
 
   useEffect(() => {
-    dispatch(postSlice.handlePage("home"));
+    dispatch(rootSlice.handlePage("home"));
   }, [dispatch]);
 
   useEffect(() => {

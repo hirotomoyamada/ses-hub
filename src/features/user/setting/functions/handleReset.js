@@ -1,6 +1,6 @@
 import { auth } from "../../../../firebase";
 
-import * as userSlice from "../../userSlice";
+import * as rootSlice from "../../../root/rootSlice";
 
 export const handleReset = async ({
   dispatch,
@@ -22,7 +22,7 @@ export const handleReset = async ({
       methods.reset();
 
       dispatch(
-        userSlice.handleAnnounce({
+        rootSlice.handleAnnounce({
           type: "success",
           text: "登録しているメールアドレスに再送信しました",
         })
@@ -30,7 +30,7 @@ export const handleReset = async ({
     })
     .catch((e) => {
       dispatch(
-        userSlice.handleAnnounce({
+        rootSlice.handleAnnounce({
           type: "error",
           text: "メールアドレスが存在しません",
         })

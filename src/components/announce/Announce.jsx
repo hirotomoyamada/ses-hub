@@ -6,15 +6,15 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import * as userSlice from "../../features/user/userSlice";
+import * as rootSlice from "../../features/root/rootSlice";
 
 export const Announce = () => {
   const dispatch = useDispatch();
-  const announce = useSelector(userSlice.announce);
+  const announce = useSelector(rootSlice.announce);
 
   useEffect(() => {
     if (announce?.success || announce?.error) {
-      setTimeout(() => dispatch(userSlice.handleAnnounce("reset")), 4000);
+      setTimeout(() => dispatch(rootSlice.handleAnnounce("reset")), 4000);
     }
   }, [announce?.error, announce?.success, dispatch]);
 

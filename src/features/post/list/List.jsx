@@ -6,14 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchPosts } from "../functions/fetchPosts";
 import { followsPosts } from "../functions/followsPosts";
-import * as postSlice from "../postSlice";
+import * as rootSlice from "../../root/rootSlice";
 
 import { Item } from "../item/Item";
 
 export const List = ({ index, posts, user, home, search, hit }) => {
   const dispatch = useDispatch();
 
-  const fetchLoad = useSelector(postSlice.load);
+  const fetchLoad = useSelector(rootSlice.load);
 
   const load = useRef();
   const list = useRef();

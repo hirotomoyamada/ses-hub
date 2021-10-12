@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { extractPosts } from "../../post/functions/extractPosts";
+import * as rootSlice from "../../root/rootSlice";
 import * as postSlice from "../../post/postSlice";
 import * as userSlice from "../userSlice";
 
@@ -17,7 +18,7 @@ import { Modal } from "../../../components/modal/Modal";
 export const List = (props) => {
   const dispatch = useDispatch();
 
-  const index = useSelector(postSlice.index);
+  const index = useSelector(rootSlice.index);
   const user = useSelector(userSlice.user);
   const list = props.match.params.list;
 
@@ -60,12 +61,12 @@ export const List = (props) => {
   const [outputsOpen, setOutputsOpen] = useState(false);
 
   useEffect(() => {
-    index === "companys" && dispatch(postSlice.selectIndex("matters"));
+    index === "companys" && dispatch(rootSlice.handleIndex("matters"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    dispatch(postSlice.handlePage(list));
+    dispatch(rootSlice.handlePage(list));
     if (list === "likes" || list === "entries") {
       handleClose();
     }
@@ -141,7 +142,7 @@ export const List = (props) => {
       <Header
         dispatch={dispatch}
         index={index}
-        selectIndex={postSlice.selectIndex}
+        handleIndex={rootSlice.handleIndex}
         outputs={outputs}
         selectOutputs={selectOutputs}
       />

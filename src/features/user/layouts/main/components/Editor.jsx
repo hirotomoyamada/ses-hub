@@ -3,8 +3,7 @@ import styles from "../Main.module.scss";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import * as userSlice from "../../../userSlice";
-import * as postSlice from "../../../../post/postSlice";
+import * as rootSlice from "../../../../root/rootSlice";
 
 export const Editor = () => {
   const dispatch = useDispatch();
@@ -12,7 +11,7 @@ export const Editor = () => {
 
   const handleSetting = () => {
     history.push("/setting");
-    dispatch(postSlice.handlePage("setting"));
+    dispatch(rootSlice.handlePage("setting"));
   };
   return (
     <div className={styles.main_edit}>
@@ -27,7 +26,7 @@ export const Editor = () => {
       <button
         type="button"
         onClick={() =>
-          dispatch(userSlice.handleModal({ type: "profile", open: true }))
+          dispatch(rootSlice.handleModal({ type: "profile", open: true }))
         }
         className={styles.main_edit_btn}
       >

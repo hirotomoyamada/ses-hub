@@ -3,7 +3,7 @@ import styles from "./Header.module.scss";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import * as postSlice from "../../features/post/postSlice";
+import * as rootSlice from "../../features/root/rootSlice";
 
 import { Icon } from "../icon/Icon";
 import { Search } from "./components/search/Search";
@@ -18,7 +18,7 @@ export const Header = ({ index, user, posts, search, info }) => {
       return;
     }
     window.scrollTo(0, 0);
-    dispatch(postSlice.selectIndex(i));
+    dispatch(rootSlice.handleIndex(i));
   };
 
   return (

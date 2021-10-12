@@ -1,6 +1,6 @@
 import styles from "../Side.module.scss";
 import { useDispatch } from "react-redux";
-import { selectIndex } from "../../../../post/postSlice";
+import * as rootSlice from "../../../../root/rootSlice";
 
 export const Header = ({ index, user, uid, main, side }) => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export const Header = ({ index, user, uid, main, side }) => {
       window.scrollTo(0, main?.current?.clientHeight);
     }
 
-    dispatch(selectIndex(index));
+    dispatch(rootSlice.handleIndex(index));
   };
 
   return (

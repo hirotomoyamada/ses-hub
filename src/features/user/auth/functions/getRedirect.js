@@ -1,5 +1,5 @@
 import { auth } from "../../../../firebase";
-import * as userSlice from "../../userSlice";
+import * as rootSlice from "../../../root/rootSlice";
 
 export const getRedirect = ({ dispatch }) => {
   auth
@@ -7,7 +7,7 @@ export const getRedirect = ({ dispatch }) => {
     .then((result) => {
       if (result.credential && result.user.emailVerified) {
         dispatch(
-          userSlice.handleAnnounce({
+          rootSlice.handleAnnounce({
             type: "success",
             text: "認証されました",
           })
@@ -21,7 +21,7 @@ export const getRedirect = ({ dispatch }) => {
           })
           .catch((e) => {
             dispatch(
-              userSlice.handleAnnounce({
+              rootSlice.handleAnnounce({
                 type: "error",
                 text: "再度時間をおいてください",
               })
@@ -32,7 +32,7 @@ export const getRedirect = ({ dispatch }) => {
     .catch((e) => {
       if (e.code) {
         dispatch(
-          userSlice.handleAnnounce({
+          rootSlice.handleAnnounce({
             type: "error",
             text:
               e.code === "auth/account-exists-with-different-credential" &&

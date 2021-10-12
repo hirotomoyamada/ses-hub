@@ -7,17 +7,17 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { promotionPosts } from "../../../../features/post/functions/promotionPosts";
+import * as rootSlice from "../../../../features/root/rootSlice";
 import * as postSlice from "../../../../features/post/postSlice";
 
 import { Item } from "./components/Item";
 import { Btn } from "../../../components/btn/Btn";
-import * as userSlice from "../../../../features/user/userSlice";
 
 export const Post = ({ handleOpen }) => {
   const dispatch = useDispatch();
-  const index = useSelector(postSlice.index);
-  const load = useSelector(postSlice.load);
-  const status = useSelector(userSlice.verified).status;
+  const index = useSelector(rootSlice.index);
+  const load = useSelector(rootSlice.load);
+  const status = useSelector(rootSlice.verified).status;
 
   const posts = useSelector((state) =>
     postSlice.posts({ state: state, page: "search", index: index })
@@ -38,7 +38,7 @@ export const Post = ({ handleOpen }) => {
             className={`${styles.post_index_btn} ${
               index === "matters" && styles.post_index_btn_current
             }`}
-            onClick={() => dispatch(postSlice.selectIndex("matters"))}
+            onClick={() => dispatch(rootSlice.handleIndex("matters"))}
           >
             案件情報
           </button>
@@ -47,7 +47,7 @@ export const Post = ({ handleOpen }) => {
             className={`${styles.post_index_btn} ${
               index === "resources" && styles.post_index_btn_current
             }`}
-            onClick={() => dispatch(postSlice.selectIndex("resources"))}
+            onClick={() => dispatch(rootSlice.handleIndex("resources"))}
           >
             人材情報
           </button>

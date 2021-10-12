@@ -6,6 +6,7 @@ import { useHistory } from "react-router";
 
 import { showUser } from "./functions/showUser";
 import { userPosts } from "../post/functions/userPosts";
+import * as rootSlice from "../root/rootSlice";
 import * as postSlice from "../post/postSlice";
 import * as userSlice from "./userSlice";
 
@@ -20,7 +21,7 @@ export const User = ({ type, uid }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const index = useSelector(postSlice.index);
+  const index = useSelector(rootSlice.index);
 
   const currentUser = useSelector(userSlice.user);
   const selectUser = useSelector(userSlice.selectUser);
@@ -49,10 +50,10 @@ export const User = ({ type, uid }) => {
     })
   );
 
-  const sort = useSelector(postSlice.sort);
+  const sort = useSelector(rootSlice.sort);
 
   useEffect(() => {
-    dispatch(postSlice.handlePage("user"));
+    dispatch(rootSlice.handlePage("user"));
   }, [dispatch]);
 
   useEffect(() => {

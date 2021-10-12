@@ -1,8 +1,8 @@
 export const addEntry = (state, action) => {
-  if (state.posts.entries[action.payload.index].posts.length) {
-    state.posts.entries[action.payload.index].posts = [
+  if (state.entries[action.payload.index].posts.length) {
+    state.entries[action.payload.index].posts = [
       action.payload.post,
-      ...state.posts.entries[action.payload.index].posts,
+      ...state.entries[action.payload.index].posts,
     ];
   }
 };

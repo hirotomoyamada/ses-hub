@@ -12,28 +12,28 @@ import SettingsIcon from "@material-ui/icons/Settings";
 
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import * as rootSlice from "../../features/root/rootSlice";
 import * as postSlice from "../../features/post/postSlice";
-import * as userSlice from "../../features/user/userSlice";
 
 export const Menu = ({ create, user }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const isModal = useSelector(postSlice.modal);
-  const index = useSelector(postSlice.index);
-  const page = useSelector(postSlice.page);
-  const open = isModal.open;
+  const modal = useSelector(rootSlice.modal);
+  const index = useSelector(rootSlice.index);
+  const page = useSelector(rootSlice.page);
+  const open = modal.open;
 
   const handleOpen = () => {
     dispatch(postSlice.resetPost());
     if (index === "companys" || index === "persons") {
-      dispatch(postSlice.selectIndex("matters"));
+      dispatch(rootSlice.handleIndex("matters"));
     }
-    dispatch(postSlice.handleModal({ type: "new", open: !open }));
+    dispatch(rootSlice.handleModal({ type: "new", open: !open }));
   };
 
   const handleSetting = () => {
-    dispatch(userSlice.handleModal({ type: "home", open: !open }));
+    dispatch(rootSlice.handleModal({ type: "home", open: !open }));
   };
 
   const handleBack = () => {

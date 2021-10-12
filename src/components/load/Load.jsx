@@ -5,11 +5,10 @@ import Loader from "react-loader-spinner";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import * as userSlice from "../../features/user/userSlice";
-import * as postSlice from "../../features/post/postSlice";
+import * as rootSlice from "../../features/root/rootSlice";
 
 export const Load = () => {
-  const load = useSelector(userSlice.load);
+  const load = useSelector(rootSlice.load).root;
 
   const [none, setNone] = useState(true);
 
@@ -34,7 +33,7 @@ export const Load = () => {
 };
 
 export const Fetch = ({ user }) => {
-  const load = useSelector(postSlice.fetch);
+  const load = useSelector(rootSlice.load).fetch;
 
   const [none, setNone] = useState(true);
 

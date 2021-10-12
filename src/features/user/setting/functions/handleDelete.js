@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import { auth } from "../../../../firebase";
 
-import * as userSlice from "../../userSlice";
+import * as rootSlice from "../../../root/rootSlice";
 
 export const handleDelete = async ({
   dispatch,
@@ -32,7 +32,7 @@ export const handleDelete = async ({
         methods.reset();
 
         dispatch(
-          userSlice.handleAnnounce({
+          rootSlice.handleAnnounce({
             type: "error",
             text: "パスワードが正しくありません",
           })
@@ -46,7 +46,7 @@ export const handleDelete = async ({
           .delete()
           .then(() => {
             dispatch(
-              userSlice.handleAnnounce({
+              rootSlice.handleAnnounce({
                 type: "success",
                 text: "アカウントを削除しました",
               })
@@ -55,7 +55,7 @@ export const handleDelete = async ({
           })
           .catch((e) => {
             dispatch(
-              userSlice.handleAnnounce({
+              rootSlice.handleAnnounce({
                 type: "error",
                 text: "アカウントの削除に失敗しました",
               })
@@ -64,7 +64,7 @@ export const handleDelete = async ({
       })
       .catch((e) => {
         dispatch(
-          userSlice.handleAnnounce({
+          rootSlice.handleAnnounce({
             type: "error",
             text: "アカウントの削除に失敗しました 再度ログインし直してください",
           })
@@ -75,7 +75,7 @@ export const handleDelete = async ({
       .delete()
       .then(() => {
         dispatch(
-          userSlice.handleAnnounce({
+          rootSlice.handleAnnounce({
             type: "success",
             text: "アカウントを削除しました",
           })
@@ -84,7 +84,7 @@ export const handleDelete = async ({
       })
       .catch((e) => {
         dispatch(
-          userSlice.handleAnnounce({
+          rootSlice.handleAnnounce({
             type: "error",
             text: "アカウントの削除に失敗しました 再度ログインし直してください",
           })

@@ -1,15 +1,11 @@
 import styles from "./Header.module.scss";
 
-export const Header = ({
-  dispatch,
-  index,
-  selectIndex,
-  outputs,
-  selectOutputs,
-}) => {
+import * as rootSlice from "../../../../root/rootSlice";
+
+export const Header = ({ dispatch, index, outputs, selectOutputs }) => {
   const handleIndex = (index) => {
     window.scrollTo(0, 0);
-    dispatch(selectIndex(index));
+    dispatch(rootSlice.handleIndex(index));
   };
 
   return !outputs ? (

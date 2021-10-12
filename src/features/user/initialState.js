@@ -30,28 +30,4 @@ export const initialState = {
   },
 
   selectUser: {},
-
-  modal: {
-    type: "",
-    open: false,
-  },
-
-  announce: {
-    success: "",
-    error: "",
-  },
-
-  data: {},
-
-  verified: {
-    email: false,
-    profile: false,
-    agree: false,
-    status: "",
-    access: true,
-    demo: false,
-  },
-
-  load: true,
-  notFound: false,
 };

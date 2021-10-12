@@ -45,22 +45,20 @@ export const handlePage = (state, action) => {
     state.page = action.payload;
   } else {
     if (state.page === "post" || state.page === "setting") {
-      state.posts.bests = [];
+      state.bests = [];
     } else {
-      Object.keys(state.posts).forEach((type) => {
+      Object.keys(state).forEach((type) => {
         if (type === "bests") {
           return;
         }
 
-        Object.keys(state.posts[type]).forEach((index) => {
+        Object.keys(state[type]).forEach((index) => {
           if (type !== "selectUser") {
-            state.posts[type][index].posts = state.posts[type][
-              index
-            ].posts.slice(0, 50);
+            state[type][index].posts = state[type][index].posts.slice(0, 50);
           } else {
-            state.posts[type][index].posts = [];
+            state[type][index].posts = [];
           }
-          state.posts[type][index].hit.currentPage = 0;
+          state[type][index].hit.currentPage = 0;
         });
       });
     }
@@ -81,6 +79,6 @@ export const handleNotFound = (state, action) => {
 };
 
 export const handleControl = (state) => {
-  state.posts.home.matters.control = true;
-  state.posts.home.resources.control = true;
+  state.home.matters.control = true;
+  state.home.resources.control = true;
 };

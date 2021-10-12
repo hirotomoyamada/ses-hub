@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm, FormProvider } from "react-hook-form";
 
 import { createPost } from "../functions/createPost";
+import * as rootSlice from "../../root/rootSlice";
 import * as postSlice from "../postSlice";
 import * as userSlice from "../../user/userSlice";
 
@@ -17,15 +18,15 @@ export const Form = ({ edit }) => {
   const dispatch = useDispatch();
   const post = useSelector(postSlice.post);
   const user = useSelector(userSlice.user);
-  const index = useSelector(postSlice.index);
-  const demo = useSelector(userSlice.verified).demo;
+  const index = useSelector(rootSlice.index);
+  const demo = useSelector(rootSlice.verified).demo;
 
   const methods = useForm({
     defaultValues: defaultValues(index, post, edit),
   });
 
   const handleClose = () => {
-    dispatch(postSlice.handleModal({ open: false }));
+    dispatch(rootSlice.handleModal({ open: false }));
   };
 
   const handleCreate = (data) => {
@@ -37,15 +38,8 @@ export const Form = ({ edit }) => {
       index === "matters"
         ? matters(data)
         : index === "resources" && resources(data);
-    dispatch(createPost({ index: index, post: object })).then((action) => {
-      action.payload.post &&
-        dispatch(
-          userSlice.createPost({
-            index: action.payload.index,
-            post: action.payload.post,
-          })
-        );
-    });
+    dispatch(createPost({ index: index, post: object }));
+
     handleClose();
   };
 

@@ -1,10 +1,11 @@
 import styles from "./Outputs.module.scss";
 
 import React, { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
 import { useReactToPrint } from "react-to-print";
+import { useDispatch } from "react-redux";
 
-import { handleAnnounce } from "../../../userSlice";
+import * as rootSlice from "../../../../root/rootSlice";
+
 import { Modal } from "./components/modal/Modal";
 import { Menu } from "./components/menu/Menu";
 import { matters } from "./functions/matters";
@@ -33,7 +34,7 @@ export const Outputs = ({
   const handleCopy = () => {
     setCopy(true);
     dispatch(
-      handleAnnounce({
+      rootSlice.handleAnnounce({
         type: "success",
         text: "クリップボードにコピーしました",
       })

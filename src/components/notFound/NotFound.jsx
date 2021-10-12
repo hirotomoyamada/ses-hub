@@ -2,16 +2,14 @@ import styles from "./NotFound.module.scss";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import * as postSlice from "../../features/post/postSlice";
-import * as userSlice from "../../features/user/userSlice";
+import * as rootSlice from "../../features/root/rootSlice";
 
 export const NotFound = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const handleHome = () => {
-    dispatch(postSlice.handleNotFound(false));
-    dispatch(userSlice.handleNotFound(false));
+    dispatch(rootSlice.handleNotFound(false));
     history.push("/");
   };
 

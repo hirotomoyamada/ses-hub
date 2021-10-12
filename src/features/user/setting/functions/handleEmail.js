@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import { auth } from "../../../../firebase";
 
+import * as rootSlice from "../../../root/rootSlice";
 import * as userSlice from "../../userSlice";
 
 export const handleEmail = async ({
@@ -27,7 +28,7 @@ export const handleEmail = async ({
         methods.reset();
 
         dispatch(
-          userSlice.handleAnnounce({
+          rootSlice.handleAnnounce({
             type: "error",
             text: "パスワードが正しくありません",
           })
@@ -54,7 +55,7 @@ export const handleEmail = async ({
             methods.reset();
 
             dispatch(
-              userSlice.handleAnnounce({
+              rootSlice.handleAnnounce({
                 type: "success",
                 text: "メールドレスを更新しました",
               })
@@ -62,7 +63,7 @@ export const handleEmail = async ({
           })
           .catch((e) => {
             dispatch(
-              userSlice.handleAnnounce({
+              rootSlice.handleAnnounce({
                 type: "error",
                 text: "メールドレスの更新に失敗しました",
               })
@@ -71,7 +72,7 @@ export const handleEmail = async ({
       })
       .catch((e) => {
         dispatch(
-          userSlice.handleAnnounce({
+          rootSlice.handleAnnounce({
             type: "error",
             text: "パスワードが正しくありません",
           })

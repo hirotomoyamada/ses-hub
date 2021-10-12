@@ -3,6 +3,7 @@ import styles from "./Entry.module.scss";
 import { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
+import * as rootSlice from "../../root/rootSlice";
 import * as userSlice from "../userSlice";
 
 import { matters } from "./functions/matters";
@@ -24,7 +25,7 @@ export const Entry = ({ index, user, post }) => {
   }, [index, post]);
 
   const handleClose = () => {
-    dispatch(userSlice.handleModal({ open: false }));
+    dispatch(rootSlice.handleModal({ open: false }));
   };
 
   const handleCopy = () => {

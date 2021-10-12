@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm, FormProvider } from "react-hook-form";
 
+import * as rootSlice from "../../root/rootSlice";
 import * as userSlice from "../userSlice";
 
 import { Header } from "./components/header/Header";
@@ -36,7 +37,7 @@ export const Profile = ({ user }) => {
   });
 
   const handleClose = () => {
-    dispatch(userSlice.handleModal({ open: false }));
+    dispatch(rootSlice.handleModal({ open: false }));
   };
 
   const handleBack = () => {
