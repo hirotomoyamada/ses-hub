@@ -6,18 +6,12 @@ export const showPost = createAsyncThunk("post/showPost", async (data) => {
   const res = showPost({
     index: data.index,
     objectID: data.objectID,
-  })
-    .then(({ data }) => {
-      return {
-        post: data.post,
-        bests: data.bests.filter((post) => post),
-      };
-    })
-    .catch(() => {
-      return {
-        notFound: true,
-      };
-    });
+  }).then(({ data }) => {
+    return {
+      post: data.post,
+      bests: data.bests.filter((post) => post),
+    };
+  });
 
   return res;
 });

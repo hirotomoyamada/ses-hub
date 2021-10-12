@@ -6,15 +6,9 @@ export const showUser = createAsyncThunk("user/showUser", async (data) => {
   const user = showUser({
     type: data.type,
     uid: data.uid,
-  })
-    .then(({ data }) => {
-      return { user: data };
-    })
-    .catch(() => {
-      return {
-        notFound: true,
-      };
-    });
+  }).then(({ data }) => {
+    return { user: data };
+  });
 
   return user;
 });

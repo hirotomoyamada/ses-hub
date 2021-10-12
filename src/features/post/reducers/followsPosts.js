@@ -15,6 +15,4 @@ export const followsPosts = (state, action) => {
     };
     state.home[action.payload.index].control = false;
   }
-  state.fetch = false;
-  state.load = false;
 };
