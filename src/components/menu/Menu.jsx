@@ -29,11 +29,11 @@ export const Menu = ({ create, user }) => {
     if (index === "companys" || index === "persons") {
       dispatch(rootSlice.handleIndex("matters"));
     }
-    dispatch(rootSlice.handleModal({ type: "new", open: !open }));
+    dispatch(rootSlice.handleModal({ type: "new" }));
   };
 
   const handleSetting = () => {
-    dispatch(rootSlice.handleModal({ type: "home", open: !open }));
+    dispatch(rootSlice.handleModal("home"));
   };
 
   const handleBack = () => {

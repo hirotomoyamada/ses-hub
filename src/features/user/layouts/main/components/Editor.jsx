@@ -25,9 +25,7 @@ export const Editor = () => {
 
       <button
         type="button"
-        onClick={() =>
-          dispatch(rootSlice.handleModal({ type: "profile", open: true }))
-        }
+        onClick={() => dispatch(rootSlice.handleModal("profile"))}
         className={styles.main_edit_btn}
       >
         プロフィール変更

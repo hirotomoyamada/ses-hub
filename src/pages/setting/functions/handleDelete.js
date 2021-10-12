@@ -51,6 +51,7 @@ export const handleDelete = async ({
                 text: "アカウントを削除しました",
               })
             );
+            dispatch(rootSlice.handleModal());
             history.push("/");
           })
           .catch((e) => {
@@ -60,6 +61,7 @@ export const handleDelete = async ({
                 text: "アカウントの削除に失敗しました",
               })
             );
+            dispatch(rootSlice.handleModal());
           });
       })
       .catch((e) => {
@@ -69,6 +71,7 @@ export const handleDelete = async ({
             text: "アカウントの削除に失敗しました 再度ログインし直してください",
           })
         );
+        dispatch(rootSlice.handleModal());
       });
   } else if (!demo) {
     currentUser
@@ -80,6 +83,7 @@ export const handleDelete = async ({
             text: "アカウントを削除しました",
           })
         );
+        dispatch(rootSlice.handleModal());
         history.push("/");
       })
       .catch((e) => {
@@ -89,6 +93,7 @@ export const handleDelete = async ({
             text: "アカウントの削除に失敗しました 再度ログインし直してください",
           })
         );
+        dispatch(rootSlice.handleModal());
       });
   }
 };

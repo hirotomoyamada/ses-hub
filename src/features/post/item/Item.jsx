@@ -20,7 +20,6 @@ export const Item = ({
   status,
   display,
   outputs,
-  selectOutputs,
   handleSelect,
   handleCancel,
   search,
@@ -46,7 +45,7 @@ export const Item = ({
     index === "companys" && dispatch(rootSlice.handleIndex("matters"));
   };
 
-  return !outputs ? (
+  return !outputs?.length ? (
     <div className={styles.item_outer}>
       {!companys ? (
         <Menu index={index} post={post} user={user} postItem />
@@ -89,8 +88,8 @@ export const Item = ({
       className={styles.item_btn}
       type="button"
       onClick={() =>
-        selectOutputs[0]
-          ? selectOutputs.map((output) =>
+        outputs[0]
+          ? outputs.map((output) =>
               output.objectID !== post.objectID
                 ? handleSelect({ post })
                 : handleCancel(post.objectID)
@@ -98,7 +97,7 @@ export const Item = ({
           : handleSelect({ post })
       }
     >
-      {selectOutputs.map(
+      {outputs.map(
         (output) =>
           output.objectID === post.objectID && (
             <CheckCircleIcon
@@ -108,7 +107,7 @@ export const Item = ({
           )
       )}
       <article
-        className={`${styles.item} ${selectOutputs
+        className={`${styles.item} ${outputs
           .map(
             (output) => output.objectID === post.objectID && styles.item_outputs
           )

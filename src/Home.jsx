@@ -8,7 +8,6 @@ import * as userSlice from "./features/user/userSlice";
 
 import { Menu } from "./components/menu/Menu";
 import { Header } from "./components/header/Header";
-import { Modal } from "./components/modal/Modal";
 import { Fetch } from "./components/load/Load";
 
 import { List } from "./features/post/list/List";
@@ -65,12 +64,11 @@ export const Home = () => {
   }, [dispatch, index, user.home]);
 
   return (
-    <>
+    <div>
       <Fetch />
       <Header index={index} user={user} home />
       <List index={index} posts={posts} user={user} hit={hit} home />
-      <Modal user={user} />
       <Menu create user={user} />
-    </>
+    </div>
   );
 };

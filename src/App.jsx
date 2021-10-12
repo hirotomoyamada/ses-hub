@@ -31,6 +31,7 @@ import { Maintenance } from "./pages/maintenance/Maintenance";
 
 import { Promotion } from "./promotion/Promotion";
 import { Contact } from "./promotion/pages/contact/Contact";
+import { Modal } from "./components/modal/Modal";
 
 const Branch = (props) => {
   const index = props.match.params.index;
@@ -81,6 +82,7 @@ const App = () => {
           <>
             <Load />
             <Announce />
+            <Modal />
             <Maintenance />
 
             {!user.uid ? (

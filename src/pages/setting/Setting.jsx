@@ -126,6 +126,7 @@ export const Setting = () => {
   return (
     <FormProvider {...methods}>
       <form
+        id="form"
         className={`${styles.setting} ${
           !email &&
           !password &&

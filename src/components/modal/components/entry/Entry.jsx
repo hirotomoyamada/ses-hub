@@ -3,7 +3,6 @@ import styles from "./Entry.module.scss";
 import { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
-import * as rootSlice from "../../../../features/root/rootSlice";
 import * as userSlice from "../../../../features/user/userSlice";
 
 import { matters } from "./functions/matters";
@@ -11,7 +10,7 @@ import { resources } from "./functions/resources";
 import { Body } from "./components/Body";
 import { Social } from "./components/Social";
 
-export const Entry = ({ index, user, post }) => {
+export const Entry = ({ index, user, post, handleClose }) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState();
   const [copy, setCopy] = useState(false);
@@ -23,10 +22,6 @@ export const Entry = ({ index, user, post }) => {
         : index === "resources" && resources({ post })
     );
   }, [index, post]);
-
-  const handleClose = () => {
-    dispatch(rootSlice.handleModal({ open: false }));
-  };
 
   const handleCopy = () => {
     setCopy(true);
@@ -45,6 +40,7 @@ export const Entry = ({ index, user, post }) => {
         <button onClick={handleClose} className={styles.entry_head_cancel}>
           もどる
         </button>
+        <p className={styles.entry_head_ttl}>問い合わせをする内容</p>
       </div>
 
       <div className={styles.entry_inner}>

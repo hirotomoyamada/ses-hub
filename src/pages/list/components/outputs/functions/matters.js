@@ -1,8 +1,8 @@
 import { timestamp } from "../../../../../functions/timestamp";
 import { fields } from "./fields";
 
-export const matters = ({ selectOutputs }) => {
-  const values = selectOutputs.map((outputs) => ({
+export const matters = ({ posts }) => {
+  const values = posts.map((outputs) => ({
     createAt: `作成：${timestamp(outputs?.createAt)}`,
     title: `■ ${outputs.title ? outputs.title : "不明な案件"}`,
     positon: `${outputs?.position}`,

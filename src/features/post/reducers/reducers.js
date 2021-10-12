@@ -3,7 +3,7 @@ import { selectPost } from "./selectPost";
 import { createPost } from "./createPost";
 import { editPost } from "./editPost";
 import { deletePost } from "./deletePost";
-import { resetPost } from "./resetPost";
+import { resetPost, resetControl } from "./reset";
 
 import { addLike, removeLike } from "./like";
 import { addOutput, removeOutput } from "./output";
@@ -23,6 +23,7 @@ export {
   editPost,
   deletePost,
   resetPost,
+  resetControl,
   addLike,
   removeLike,
   addOutput,

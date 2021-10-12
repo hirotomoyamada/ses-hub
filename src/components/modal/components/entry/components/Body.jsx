@@ -12,21 +12,18 @@ export const Body = ({
   return (
     <>
       <div className={styles.entry_body}>
-        <p className={styles.entry_body_head}>問い合わせをする内容</p>
-        <div className={styles.entry_body_inner}>
-          <textarea
-            className={styles.entry_body_value}
-            defaultValue={value}
-            onChange={(e) => setValue(e.target.value)}
-          ></textarea>
+        <textarea
+          className={styles.entry_body_value}
+          defaultValue={value}
+          onChange={(e) => setValue(e.target.value)}
+        ></textarea>
 
-          <CopyToClipboard text={value} onCopy={!copy && handleCopy}>
-            <button className={styles.entry_body_btn}>
-              問い合わせする内容をクリップボードに保存する
-            </button>
-          </CopyToClipboard>
-          {copy && <div className={styles.entry_body_pop}>コピーしました</div>}
-        </div>
+        <CopyToClipboard text={value} onCopy={!copy && handleCopy}>
+          <button className={styles.entry_body_btn}>
+            問い合わせする内容をクリップボードに保存する
+          </button>
+        </CopyToClipboard>
+        {copy && <div className={styles.entry_body_pop}>コピーしました</div>}
       </div>
 
       <div className={styles.entry_email}>

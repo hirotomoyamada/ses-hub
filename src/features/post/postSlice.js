@@ -84,20 +84,27 @@ export const postSlice = createSlice({
       (state, action) => reducers.removeFollow(state, action)
     );
 
-    // builder.addMatcher(
-    //   (action) => action.type.endsWith("/updateHome"),
-    //   (state) => reducers.resetControl(state)
-    // );
+    builder.addMatcher(
+      (action) => action.type.endsWith("/updateHome"),
+      (state) => reducers.resetControl(state)
+    );
 
-    // builder.addMatcher(
-    //   (action) => action.type.endsWith("/handleIndex"),
-    //   (state, action) => reducers.resetPost(state, action)
-    // );
+    builder.addMatcher(
+      (action) => action.type.endsWith("/handleIndex"),
+      (state, action) => reducers.resetPost(state, action)
+    );
 
-    // builder.addMatcher(
-    //   (action) => action.type.endsWith("/handlePage"),
-    //   (state, action) => reducers.resetPost(state, action)
-    // );
+    builder.addMatcher(
+      (action) => action.type.endsWith("/handlePage"),
+      (state, action) => reducers.resetPost(state, action)
+    );
+
+    builder.addMatcher(
+      (action) => action.type.endsWith("/logout"),
+      () => {
+        return initialState;
+      }
+    );
   },
 });
 

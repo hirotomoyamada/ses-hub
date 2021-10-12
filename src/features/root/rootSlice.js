@@ -51,6 +51,13 @@ export const rootSlice = createSlice({
     );
 
     builder.addMatcher(
+      (action) => action.type.endsWith("/logout"),
+      (state) => {
+        state.load.root = false;
+      }
+    );
+
+    builder.addMatcher(
       (action) => action.type.endsWith("/updateHome"),
       (state) => reducers.modal(state)
     );
@@ -59,6 +66,7 @@ export const rootSlice = createSlice({
       (action) => action.type.endsWith("/enableAgree"),
       (state) => {
         state.verified.agree = false;
+        reducers.modal(state);
       }
     );
 
@@ -86,6 +94,13 @@ export const rootSlice = createSlice({
       (action) => action.type.endsWith("/userPosts/fulfilled"),
       (state) => {
         state.sort.control = false;
+      }
+    );
+
+    builder.addMatcher(
+      (action) => action.type.endsWith("/logout"),
+      () => {
+        return initialState;
       }
     );
   },

@@ -12,7 +12,9 @@ export const userSlice = createSlice({
   initialState,
 
   reducers: {
-    logout: (state) => reducers.logout(state),
+    logout: () => {
+      return initialState;
+    },
 
     resetUser: (state) => reducers.resetUser(state),
 

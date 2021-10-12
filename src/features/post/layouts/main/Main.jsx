@@ -9,7 +9,7 @@ import { Resources } from "./components/index/Resources";
 import { Entry } from "./components/entry/Entry";
 
 export const Main = ({ index, post, user, entry, handleEntry }) => {
-  const load = useSelector(rootSlice.load);
+  const load = useSelector(rootSlice.load).fetch;
 
   return (
     <div className={styles.main}>

@@ -26,7 +26,7 @@ export const Form = ({ edit }) => {
   });
 
   const handleClose = () => {
-    dispatch(rootSlice.handleModal({ open: false }));
+    dispatch(rootSlice.handleModal());
   };
 
   const handleCreate = (data) => {

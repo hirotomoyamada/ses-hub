@@ -1,16 +1,27 @@
 import styles from "./Page.module.scss";
 import root from "../../Setting.module.scss";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useFormContext } from "react-hook-form";
-import { VerificationModal } from "../../../../components/modal/Modal";
+
+import * as rootSlice from "../../../../features/root/rootSlice.js";
 
 export const Delete = ({ next, user, setReset, setNext }) => {
+  const dispatch = useDispatch();
   const {
     register,
     formState: { errors },
   } = useFormContext();
-  const [verification, setVerification] = useState(false);
+
+  const handleVerification = () => {
+    dispatch(
+      rootSlice.handleModal({
+        type: "delete",
+        text: "アカウント",
+      })
+    );
+  };
 
   useEffect(() => {
     const password = user.provider.find((provider) => provider === "password");
@@ -19,10 +30,6 @@ export const Delete = ({ next, user, setReset, setNext }) => {
       setNext(false);
     };
   }, [setNext, user.provider]);
-
-  const handleCancel = () => {
-    setVerification(false);
-  };
 
   return !next ? (
     <div className={root.setting_inner}>
@@ -72,18 +79,11 @@ export const Delete = ({ next, user, setReset, setNext }) => {
 
       <button
         type="button"
-        onClick={() => setVerification(true)}
+        onClick={handleVerification}
         className={`${root.setting_btn} ${root.setting_btn_delete}`}
       >
         　アカウント削除
       </button>
-
-      <VerificationModal
-        verification={verification}
-        text="アカウント"
-        cancel={handleCancel}
-        submit="submit"
-      />
     </div>
   );
 };

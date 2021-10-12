@@ -1,15 +1,7 @@
 import styles from "./Menu.module.scss";
 
-export const Menu = ({
-  index,
-  uid,
-  user,
-  handleIndex,
-  search,
-  outputs,
-  selectOutputs,
-}) => {
-  return !outputs ? (
+export const Menu = ({ index, uid, user, handleIndex, search, outputs }) => {
+  return !outputs?.length ? (
     <div
       className={`${styles.menu} ${
         (search ||
@@ -50,7 +42,7 @@ export const Menu = ({
   ) : (
     <div className={`${styles.menu} ${styles.menu_outputs}`}>
       <span className={styles.menu_outputs_txt}>
-        {selectOutputs.length}件&nbsp;選択中
+        {outputs.length}件&nbsp;選択中
       </span>
     </div>
   );

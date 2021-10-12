@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userPosts } from "../../../../features/post/functions/userPosts";
-import * as rootSlice from "../../../../features/root/rootSlice";
 import * as postSlice from "../../../../features/post/postSlice";
 import * as userSlice from "../../../../features/user/userSlice";
 
@@ -12,7 +11,7 @@ import { Header } from "./components/header/Header";
 import { List } from "./components/List/List";
 import { Select } from "./components/select/Select";
 
-export const Home = ({ user }) => {
+export const Home = ({ user, handleClose }) => {
   const dispatch = useDispatch();
 
   const [select, setSelect] = useState([]);
@@ -49,14 +48,8 @@ export const Home = ({ user }) => {
       );
   }, [dispatch, posts, user.follows, user.uid]);
 
-  const handleClose = () => {
-    dispatch(rootSlice.handleModal({ open: false }));
-  };
-
   const handleEdit = () => {
     dispatch(userSlice.updateHome(select));
-    // dispatch(postSlice.handleControl());
-    // dispatch(rootSlice.handleModal({ open: false }));
   };
 
   const handleDelete = () => {
