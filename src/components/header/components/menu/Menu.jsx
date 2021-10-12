@@ -1,8 +1,22 @@
 import styles from "./Menu.module.scss";
 
-export const Menu = ({ handleIndex, index, search }) => {
-  return (
-    <div className={`${styles.menu} ${search && styles.menu_search}`}>
+export const Menu = ({
+  index,
+  uid,
+  user,
+  handleIndex,
+  search,
+  outputs,
+  selectOutputs,
+}) => {
+  return !outputs ? (
+    <div
+      className={`${styles.menu} ${
+        (search ||
+          (user?.uid === uid && user?.payment?.status !== "canceled")) &&
+        styles.menu_search
+      }`}
+    >
       <button
         onClick={() => handleIndex("matters")}
         className={`${styles.menu_btn} ${
@@ -11,6 +25,7 @@ export const Menu = ({ handleIndex, index, search }) => {
       >
         案件
       </button>
+
       <button
         onClick={() => handleIndex("resources")}
         className={`${styles.menu_btn} ${
@@ -19,16 +34,24 @@ export const Menu = ({ handleIndex, index, search }) => {
       >
         人材
       </button>
-      {search && (
+
+      {(search ||
+        (user?.uid === uid && user?.payment?.status !== "canceled")) && (
         <button
           onClick={() => handleIndex("companys")}
           className={`${styles.menu_btn} ${
             index === "companys" && styles.menu_btn_active
           }`}
         >
-          メンバー
+          {!uid ? "メンバー" : "フォロー中"}
         </button>
       )}
+    </div>
+  ) : (
+    <div className={`${styles.menu} ${styles.menu_outputs}`}>
+      <span className={styles.menu_outputs_txt}>
+        {selectOutputs.length}件&nbsp;選択中
+      </span>
     </div>
   );
 };

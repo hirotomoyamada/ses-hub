@@ -1,0 +1,272 @@
+// サイト共有の初期設定
+@import "../../styles/config";
+@import "../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.auth {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: $main_clr;
+
+  @media (max-width: responsive-width(tb)) {
+    display: block;
+    height: auto;
+  }
+
+  &_verified {
+    @media (max-width: responsive-width(tb)) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  }
+
+  @media (max-width: responsive-width(sp)) {
+    font-size: 14px;
+  }
+
+  &_terms {
+    display: block;
+  }
+
+  &_inner {
+    width: auto-clamp(560px, 720px);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @media (max-width: responsive-width(tb)) {
+      margin: 0 auto;
+      padding: 32px 0;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      width: 100vw;
+      padding: 16px 12px;
+      gap: 16px;
+    }
+  }
+
+  &_ttl {
+    display: block;
+    color: $icn_clr;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 20px;
+    }
+  }
+
+  &_col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 4px;
+    }
+  }
+
+  &_toggle {
+    margin: 0 0 auto 0;
+    border-radius: 8px;
+    height: 32px;
+    background: $bg_clr;
+    padding: 4px;
+    border: 1px solid $bdr_clr;
+
+    &_btn {
+      color: $main_clr;
+      font-size: 12px;
+      height: 100%;
+      text-align: center;
+    }
+  }
+
+  .active {
+    border-radius: 6px;
+    color: $base_clr;
+    background: $icn_clr;
+  }
+
+  &_input {
+    background: $base_clr;
+    border: 1px solid $bdr_clr;
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    padding: 8px 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      height: 40px;
+      padding: 4px 12px;
+    }
+
+    &_min {
+      width: 164px;
+    }
+
+    &_error {
+      border: 1px solid $remove_clr;
+    }
+
+    &::placeholder {
+      color: $sub_clr;
+      opacity: 0.6;
+    }
+  }
+
+  &_error {
+    display: block;
+    white-space: pre;
+    color: $remove_clr;
+    font-size: 12px;
+    margin-top: 8px;
+
+    @media (max-width: responsive-width(sp)) {
+      margin-top: 4px;
+      font-size: 12px;
+    }
+
+    &_center {
+      text-align: center;
+    }
+  }
+
+  &_wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+
+    &_center {
+      justify-content: center;
+      gap: 8px;
+    }
+  }
+
+  &_desc {
+    color: $sub_clr;
+    font-size: 14px;
+
+    transition: all 0.4s;
+
+    &_center {
+      text-align: center;
+    }
+
+    &_logout {
+      align-self: flex-start;
+      color: $link_clr;
+      margin-bottom: 8px;
+
+      &_verified {
+        margin-bottom: 0;
+      }
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &_sign {
+      color: $link_clr;
+    }
+  }
+
+  &_strike {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 8px 0;
+
+    span {
+      display: block;
+      position: relative;
+      z-index: 1;
+      background: $bg_clr;
+      padding: 0 24px;
+      letter-spacing: 0.35px;
+      color: $sub_clr;
+    }
+
+    &:after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: $bdr_clr;
+      top: 50%;
+      left: 0;
+      position: absolute;
+    }
+  }
+
+  &_social {
+    display: flex;
+    gap: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+
+  &_btn {
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    text-align: center;
+    line-height: 48px;
+
+    background: $sign_clr;
+    color: $base_clr;
+
+    transition: all 0.4s;
+
+    @media (max-width: responsive-width(sp)) {
+      height: 40px;
+      line-height: 40px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &_reset {
+      align-self: flex-start;
+      color: $link_clr;
+      font-size: 14px;
+      margin-bottom: 16px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 12px;
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &_google {
+      background: $google_clr;
+    }
+
+    &_twitter {
+      background: $twitter_clr;
+    }
+
+    &_github {
+      background: $github_clr;
+    }
+  }
+}

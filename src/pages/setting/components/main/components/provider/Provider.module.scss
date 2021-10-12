@@ -1,0 +1,47 @@
+// サイト共有の初期設定
+@import "../../../../../../styles/config";
+@import "../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.provider {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  @media (max-width: responsive-width(sp)) {
+    gap: 12px;
+  }
+
+  &_icon {
+    font-size: 24px;
+    line-height: 32px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 16px;
+    }
+  }
+
+  &_tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &_password {
+      color: $icn_clr;
+    }
+
+    &_google {
+      color: $google_clr;
+    }
+
+    &_twitter {
+      color: $twitter_clr;
+    }
+
+    &_github {
+      color: $github_clr;
+    }
+  }
+}

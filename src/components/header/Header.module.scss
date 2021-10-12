@@ -6,12 +6,12 @@
 $width: responsive-width(pc);
 
 .header {
-  position: fixed;
+  position: sticky;
   top: 0;
   z-index: 999;
   background: $base_clr;
 
-  width: 100vw;
+  width: 100%;
   border-bottom: 1px solid $bdr_clr;
 
   display: flex;
@@ -34,6 +34,10 @@ $width: responsive-width(pc);
       padding: 16px 12px 0;
       gap: 12px;
     }
+
+    &_none {
+      display: none;
+    }
   }
 
   &_icon {
@@ -48,5 +52,49 @@ $width: responsive-width(pc);
 
   &_wrap {
     width: 100%;
+  }
+
+  &_back {
+    position: static;
+    width: 720px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 72px 1fr 72px;
+    height: 72px;
+    border: none;
+
+    @media (max-width: responsive-width(tb)) {
+      width: 100vw;
+      margin: 0;
+      padding: 0 12px;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      height: 48px;
+      font-size: 14px;
+    }
+
+    &_cancel {
+      color: $acnt_clr;
+      line-height: 72px;
+
+      @media (max-width: responsive-width(sp)) {
+        line-height: 48px;
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &_ttl {
+      line-height: 72px;
+      text-align: center;
+
+      @media (max-width: responsive-width(sp)) {
+        line-height: 48px;
+      }
+    }
   }
 }

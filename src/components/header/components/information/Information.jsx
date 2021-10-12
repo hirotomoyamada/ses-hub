@@ -3,10 +3,14 @@ import styles from "./Information.module.scss";
 import InfoIcon from "@material-ui/icons/Info";
 
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import * as rootSlice from "../../../../features/root/rootSlice";
 
 import { timestamp } from "../../../../functions/timestamp";
 
-export const Information = ({ info }) => {
+export const Information = () => {
+  const info = useSelector(rootSlice.data).information;
+
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -23,7 +27,7 @@ export const Information = ({ info }) => {
         <InfoIcon className={styles.info_icon} />
         <span className={styles.info_title}>{info?.title}</span>
       </button>
-      
+
       <div className={open ? styles.open : styles.close}>
         <div className={styles.overlay} onClick={handleClose}></div>
 

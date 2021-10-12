@@ -30,7 +30,7 @@ $width: responsive-width(pc);
   left: 50%;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  
+
   &_sp {
     @media (max-width: responsive-width(sp)) {
       top: 0;

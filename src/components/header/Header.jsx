@@ -1,7 +1,7 @@
 import styles from "./Header.module.scss";
 
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import * as rootSlice from "../../features/root/rootSlice";
 
@@ -10,33 +10,93 @@ import { Search } from "./components/search/Search";
 import { Menu } from "./components/menu/Menu";
 import { Information } from "./components/information/Information";
 
-export const Header = ({ index, user, posts, search, info }) => {
+export const Header = ({
+  index,
+  uid,
+  user,
+  posts,
+  home,
+  search,
+  outputs,
+  selectOutputs,
+  main,
+  side,
+  back,
+  email,
+  password,
+  create,
+  remove,
+  handleCancel,
+  ttl,
+}) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleIndex = (i) => {
     if (i === index) {
       return;
     }
-    window.scrollTo(0, 0);
-    dispatch(rootSlice.handleIndex(i));
+    if (uid) {
+      if (window.innerWidth > 959) {
+        side.current && side.current.scrollTo(0, 0);
+      } else {
+        window.scrollTo(0, main?.current?.clientHeight);
+      }
+
+      dispatch(rootSlice.handleIndex(i));
+    } else {
+      window.scrollTo(0, 0);
+      dispatch(rootSlice.handleIndex(i));
+    }
   };
 
-  return (
+  const handleBack = () => {
+    history.goBack();
+  };
+
+  return !back ? (
     <div className={styles.header}>
-      <div className={styles.header_container}>
-        <Link to={`/companys/${user.uid}`}>
+      <div
+        className={`${styles.header_container} ${
+          !home && !search && styles.header_container_none
+        }`}
+      >
+        <Link to={`/companys/${user?.uid}`}>
           <div className={styles.header_icon}>
             {user?.icon && <Icon src={user.icon} />}
           </div>
         </Link>
-        {search ? (
-          <Search index={index} posts={posts} />
-        ) : (
-          <Information info={info} />
-        )}
+        {search ? <Search index={index} posts={posts} /> : <Information />}
       </div>
 
-      <Menu index={index} search={search} handleIndex={handleIndex} />
+      <Menu
+        index={index}
+        uid={uid}
+        user={user}
+        search={search}
+        handleIndex={handleIndex}
+        outputs={outputs}
+        selectOutputs={selectOutputs}
+      />
+    </div>
+  ) : (
+    <div
+      className={`${styles.header} ${styles.header_back} ${
+        !ttl && styles.header_none
+      }`}
+    >
+      <button
+        type="button"
+        className={styles.header_back_cancel}
+        onClick={
+          !email && !password && !create && !remove ? handleBack : handleCancel
+        }
+      >
+        もどる
+      </button>
+      <span className={styles.header_back_ttl}>
+        {!email && !password && !create && !remove ? ttl : ""}
+      </span>
     </div>
   );
 };

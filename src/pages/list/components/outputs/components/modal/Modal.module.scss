@@ -1,0 +1,84 @@
+// サイト共有の初期設定
+@import "../../../../../../styles/config";
+@import "../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.open {
+  display: block;
+}
+
+.close {
+  display: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  background: $main_clr;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 999;
+  transform: translate(-50%, -50%);
+
+  background: $base_clr;
+  padding: 32px;
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  color: $sub_clr;
+  white-space: nowrap;
+  text-align: center;
+
+  @media (max-width: responsive-width(sp)) {
+    width: calc(100vw - 24px);
+    font-size: 12px;
+    padding: 24px;
+    gap: 24px;
+  }
+
+  &_menu {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      justify-content: space-between;
+    }
+
+    &_btn {
+      background: $add_clr;
+      color: $base_clr;
+      padding: 12px 16px;
+      border-radius: 12px;
+    }
+
+    &_cancel {
+      padding: 12px 16px;
+      transition: all 0.4s;
+
+      @media (max-width: responsive-width(sp)) {
+        padding: 12px 16px 12px 0;
+      }
+
+      &:hover {
+        background: $bg_clr;
+        border-radius: 12px;
+      }
+    }
+  }
+}

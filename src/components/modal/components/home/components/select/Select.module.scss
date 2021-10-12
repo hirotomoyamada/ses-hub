@@ -1,0 +1,26 @@
+// サイト共有の初期設定
+@import "../../../../../../styles/config";
+@import "../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.select {
+  display: none;
+
+  color: $acnt_clr;
+
+  span {
+    color: $sub_clr;
+  }
+
+  @media (max-width: responsive-width(sp)) {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 4px 12px 12px;
+  }
+}

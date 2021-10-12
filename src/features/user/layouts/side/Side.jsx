@@ -2,7 +2,7 @@ import styles from "./Side.module.scss";
 
 import { useRef } from "react";
 
-import { Header } from "./components/Header";
+import { Header } from "../../../../components/header/Header";
 import { Toggle } from "./components/Toggle";
 import { Sort } from "./components/Sort";
 import { List } from "./components/List";
