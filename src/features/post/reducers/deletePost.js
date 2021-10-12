@@ -2,9 +2,11 @@ import { functions } from "../../../firebase";
 
 export const deletePost = (state, action) => {
   Object.keys(state).forEach((type) => {
-    if (type === "selectUser" || type === "bests") {
+    if (type === "selectUser" || type === "bests" || type === "post") {
       return;
     }
+
+    console.log(type);
 
     state[type][action.payload.index].posts = state[type][
       action.payload.index

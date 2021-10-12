@@ -1,4 +1,4 @@
-import { login, logout } from "./auth";
+import { login } from "./login";
 import { showUser } from "./showUser";
 import { resetUser } from "./resetUser";
 
@@ -20,7 +20,6 @@ export {
   login,
   showUser,
   resetUser,
-  logout,
   editProfile,
   enableAgree,
   updatePayment,

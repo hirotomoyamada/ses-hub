@@ -10,7 +10,6 @@ import * as postSlice from "./postSlice";
 import * as userSlice from "../user/userSlice";
 
 import { Menu } from "../../components/menu/Menu";
-import { Modal } from "../../components/modal/Modal";
 
 import { Meta } from "./Meta";
 import { Main } from "./layouts/main/Main";
@@ -55,7 +54,7 @@ export const Post = ({ index, objectID }) => {
   }, [history, post, user?.payment?.status]);
 
   const handleEntry = () => {
-    dispatch(rootSlice.handleModal({ type: index, open: true }));
+    dispatch(rootSlice.handleModal("entry"));
   };
 
   return (
@@ -73,7 +72,6 @@ export const Post = ({ index, objectID }) => {
       <Side index={index} post={post} posts={posts} user={user} />
 
       {Object.keys(post).length && <Menu user={user} back />}
-      <Modal index={index} user={user} post={post} />
     </div>
   );
 };

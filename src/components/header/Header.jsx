@@ -18,7 +18,6 @@ export const Header = ({
   home,
   search,
   outputs,
-  selectOutputs,
   main,
   side,
   back,
@@ -76,7 +75,6 @@ export const Header = ({
         search={search}
         handleIndex={handleIndex}
         outputs={outputs}
-        selectOutputs={selectOutputs}
       />
     </div>
   ) : (

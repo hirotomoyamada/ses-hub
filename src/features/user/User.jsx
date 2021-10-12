@@ -11,7 +11,6 @@ import * as postSlice from "../post/postSlice";
 import * as userSlice from "./userSlice";
 
 import { Menu } from "../../components/menu/Menu";
-import { Modal } from "../../components/modal/Modal";
 
 import { Main } from "./layouts/main/Main";
 import { Side } from "./layouts/side/Side";
@@ -134,7 +133,6 @@ export const User = ({ type, uid }) => {
       />
 
       <Menu create user={user} />
-      <Modal user={user} />
     </div>
   );
 };

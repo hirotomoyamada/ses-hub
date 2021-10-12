@@ -16,7 +16,6 @@ export const Main = ({
   posts,
   hit,
   outputs,
-  selectOutputs,
   handleSelect,
   handleCancel,
 }) => {
@@ -92,7 +91,6 @@ export const Main = ({
                   post={post}
                   user={user}
                   outputs={outputs}
-                  selectOutputs={selectOutputs}
                   handleSelect={handleSelect}
                   handleCancel={handleCancel}
                 />

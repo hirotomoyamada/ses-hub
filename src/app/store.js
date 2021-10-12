@@ -11,4 +11,10 @@ export const store = configureStore({
     user: userReducer,
     pay: payReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ["root/handleModal", "post/deletePost"],
+      },
+    }),
 });

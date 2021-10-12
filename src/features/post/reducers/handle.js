@@ -67,18 +67,4 @@ export const handlePage = (state, action) => {
   }
 };
 
-export const handleModal = (state, action) => {
-  document.body.classList.toggle("lock");
-  state.modal.type = action.payload.type;
-  state.modal.open = action.payload.open;
-};
 
-export const handleNotFound = (state, action) => {
-  state.notFound = action.payload;
-  state.load = false;
-};
-
-export const handleControl = (state) => {
-  state.home.matters.control = true;
-  state.home.resources.control = true;
-};

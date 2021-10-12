@@ -7,7 +7,6 @@ import ClearIcon from "@material-ui/icons/Clear";
 export const Select = ({
   posts,
   outputs,
-  selectOutputs,
   handleOpen,
   handleOutputs,
   handleAllSelect,
@@ -15,7 +14,7 @@ export const Select = ({
 }) => {
   return (
     <div className={styles.select}>
-      {!outputs ? (
+      {!outputs?.length ? (
         <>
           <button
             type="button"
@@ -52,7 +51,7 @@ export const Select = ({
           <button
             type="button"
             className={`${styles.select_btn} ${styles.select_btn_open} ${
-              !selectOutputs.length && styles.select_btn_disabled
+              !outputs.length && styles.select_btn_disabled
             } `}
             onClick={handleOutputs}
           >

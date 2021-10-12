@@ -1,5 +1,3 @@
-import { initialState } from "../initialState";
-
 export const login = (state, action) => {
   if (action.payload && action.payload.user) {
     state.user.uid = action.payload.user.uid;
@@ -61,8 +59,4 @@ export const login = (state, action) => {
       };
     }
   }
-};
-
-export const logout = (state) => {
-  state = initialState;
 };

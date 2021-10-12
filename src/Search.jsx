@@ -8,7 +8,6 @@ import * as userSlice from "./features/user/userSlice";
 
 import { Menu } from "./components/menu/Menu";
 import { Header } from "./components/header/Header";
-import { Modal } from "./components/modal/Modal";
 import { Fetch } from "./components/load/Load";
 
 import { List } from "./features/post/list/List";
@@ -58,7 +57,6 @@ export const Search = () => {
       <Fetch />
       <Header index={index} user={user} posts={posts} search />
       <List index={index} posts={posts} user={user} search={search} hit={hit} />
-      <Modal />
       <Menu create user={user} />
     </>
   );

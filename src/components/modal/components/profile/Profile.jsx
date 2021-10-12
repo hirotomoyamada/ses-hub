@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm, FormProvider } from "react-hook-form";
 
-import * as rootSlice from "../../../../features/root/rootSlice";
 import * as userSlice from "../../../../features/user/userSlice";
 
 import { Header } from "./components/header/Header";
@@ -13,7 +12,7 @@ import { Icon } from "./components/icon/Icon";
 import { Form } from "./components/form/Form";
 import { Line } from "./components/line/Line";
 
-export const Profile = ({ user }) => {
+export const Profile = ({ user, handleClose }) => {
   const dispatch = useDispatch();
   const [cover, setCover] = useState(false);
   const [icon, setIcon] = useState(false);
@@ -35,10 +34,6 @@ export const Profile = ({ user }) => {
       social: user?.profile?.social,
     },
   });
-
-  const handleClose = () => {
-    dispatch(rootSlice.handleModal({ open: false }));
-  };
 
   const handleBack = () => {
     setCover(false);

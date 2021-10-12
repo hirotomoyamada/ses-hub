@@ -6,3 +6,8 @@ export const resetPost = (state, action) => {
     state.post = {};
   }
 };
+
+export const resetControl = (state) => {
+  state.home.matters.control = true;
+  state.home.resources.control = true;
+};

@@ -1,8 +1,8 @@
 import { timestamp } from "../../../../../functions/timestamp";
 import { fields } from "./fields";
 
-export const resources = ({ selectOutputs }) => {
-  const values = selectOutputs.map((outputs) => ({
+export const resources = ({ posts }) => {
+  const values = posts.map((outputs) => ({
     createAt: `作成：${timestamp(outputs?.createAt)}`,
     roman: `■ ${
       outputs?.roman

@@ -14,7 +14,6 @@ import { Main } from "./components/main/Main";
 
 import { Menu } from "../../components/menu/Menu";
 import { Fetch } from "../../components/load/Load";
-import { Modal } from "../../components/modal/Modal";
 
 export const List = (props) => {
   const dispatch = useDispatch();
@@ -57,9 +56,8 @@ export const List = (props) => {
     })
   );
 
-  const [outputs, setOutputs] = useState(false);
-  const [selectOutputs, setSelectOutputs] = useState([]);
-  const [outputsOpen, setOutputsOpen] = useState(false);
+  const [outputs, setOutputs] = useState([]);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     index === "companys" && dispatch(rootSlice.handleIndex("matters"));
@@ -71,6 +69,7 @@ export const List = (props) => {
     if (list === "likes" || list === "entries") {
       handleClose();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, list]);
 
   useEffect(() => {
@@ -86,50 +85,54 @@ export const List = (props) => {
   }, [dispatch, index, list, user]);
 
   const handleOpen = () => {
-    setOutputs(!outputs);
-    setSelectOutputs([posts[0]]);
+    setOutputs([posts[0]]);
   };
 
   const handleSelect = ({ post }) => {
-    const output = selectOutputs.find(
-      (output) => output.objectID === post.objectID
-    );
-    !output && setSelectOutputs([...selectOutputs, post]);
+    const output = outputs.find((output) => output.objectID === post.objectID);
+    !output && setOutputs([...outputs, post]);
   };
 
   const handleAllSelect = () => {
-    setOutputs(!outputs);
-    setSelectOutputs(posts.filter((output) => output && output));
+    setOutputs(posts.filter((output) => output && output));
   };
 
   const handleCancel = (objectID) => {
-    setSelectOutputs(
-      selectOutputs.filter((post) => post.objectID !== objectID)
-    );
+    setOutputs(outputs.filter((post) => post.objectID !== objectID));
   };
 
   const handleAllCancel = () => {
-    setOutputs(!outputs);
-    setSelectOutputs([]);
+    setOutputs([]);
   };
 
   const handleOutputs = () => {
     document.body.classList.add("lock");
-    setOutputsOpen(!outputsOpen);
+    setOpen(!open);
+  };
+
+  const handleBack = () => {
+    dispatch(
+      rootSlice.handleModal({
+        type: "delete",
+        text: "出力",
+        close: () => handleClose(),
+        delete: () => handleDelete(),
+      })
+    );
   };
 
   const handleClose = () => {
-    document.body.classList.remove("lock");
-    setOutputs(false);
-    setSelectOutputs([]);
-    setOutputsOpen(false);
+    open && dispatch(rootSlice.handleModal());
+    setOpen(false);
+    setOutputs([]);
   };
 
   const handleDelete = () => {
+    console.log(outputs);
     dispatch(
       userSlice.removeOutput({
         index: index,
-        objectIDs: selectOutputs.map((output) => output.objectID),
+        objectIDs: outputs.map((output) => output.objectID),
       })
     );
 
@@ -137,10 +140,10 @@ export const List = (props) => {
   };
 
   return (
-    <>
+    <div>
       <Fetch />
 
-      <Header index={index} outputs={outputs} selectOutputs={selectOutputs} />
+      <Header index={index} outputs={outputs} />
 
       <Main
         index={index}
@@ -149,25 +152,18 @@ export const List = (props) => {
         posts={posts}
         hit={hit}
         outputs={outputs}
-        selectOutputs={selectOutputs}
         handleCancel={handleCancel}
         handleSelect={handleSelect}
       />
 
-      {outputsOpen && (
-        <Outputs
-          index={index}
-          selectOutputs={selectOutputs}
-          handleClose={handleClose}
-          handleDelete={handleDelete}
-        />
+      {open && (
+        <Outputs index={index} posts={outputs} handleBack={handleBack} />
       )}
 
       {list === "outputs" && (
         <Select
           posts={posts}
           outputs={outputs}
-          selectOutputs={selectOutputs}
           handleOpen={handleOpen}
           handleOutputs={handleOutputs}
           handleAllSelect={handleAllSelect}
@@ -175,8 +171,7 @@ export const List = (props) => {
         />
       )}
 
-      <Modal user={user} />
       <Menu user={user} />
-    </>
+    </div>
   );
 };

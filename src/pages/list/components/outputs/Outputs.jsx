@@ -6,17 +6,11 @@ import { useDispatch } from "react-redux";
 
 import * as rootSlice from "../../../../features/root/rootSlice";
 
-import { Modal } from "./components/modal/Modal";
 import { Menu } from "./components/menu/Menu";
 import { matters } from "./functions/matters";
 import { resources } from "./functions/resources";
 
-export const Outputs = ({
-  index,
-  selectOutputs,
-  handleClose,
-  handleDelete,
-}) => {
+export const Outputs = ({ index, posts, handleBack }) => {
   const componentRef = useRef();
   const dispatch = useDispatch();
   const handlePrint = useReactToPrint({
@@ -24,12 +18,11 @@ export const Outputs = ({
   });
 
   const [copy, setCopy] = useState(false);
-  const [open, setOpen] = useState(false);
 
   const outputs =
     index === "matters"
-      ? matters({ selectOutputs })
-      : index === "resources" && resources({ selectOutputs });
+      ? matters({ posts })
+      : index === "resources" && resources({ posts });
 
   const handleCopy = () => {
     setCopy(true);
@@ -54,17 +47,10 @@ export const Outputs = ({
     <div className={styles.outputs}>
       <Outputs ref={componentRef} />
 
-      <Modal
-        open={open}
-        handleClose={handleClose}
-        handleDelete={handleDelete}
-      />
-
       <Menu
         outputs={outputs}
-        open={open}
-        setOpen={setOpen}
         copy={copy}
+        handleBack={handleBack}
         handleCopy={handleCopy}
         handlePrint={handlePrint}
       />

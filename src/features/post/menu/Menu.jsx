@@ -16,13 +16,11 @@ import * as postSlice from "../postSlice";
 import * as userSlice from "../../user/userSlice";
 
 import { Command } from "../../../components/command/Command";
-import { VerificationModal } from "../../../components/modal/Modal";
 
 export const Menu = ({ index, post, user, back, postItem }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [verification, setVerification] = useState(false);
   const [open, setOpen] = useState(false);
   const [like, setLike] = useState(false);
   const [output, setOutput] = useState(false);
@@ -43,33 +41,28 @@ export const Menu = ({ index, post, user, back, postItem }) => {
     window.removeEventListener("scroll", handleOpen);
   };
 
-  const handleCancel = () => {
-    document.body.classList.toggle("lock");
-
-    setVerification(false);
-  };
-
   const handleVerification = () => {
-    document.body.classList.toggle("lock");
-
-    setVerification(true);
-    setOpen(false);
+    dispatch(
+      rootSlice.handleModal({
+        type: "delete",
+        text: "投稿",
+        func: () => handleDelete(post),
+      })
+    );
+    setOpen(!open);
   };
 
   const handleEdit = () => {
-    dispatch(rootSlice.handleModal({ type: "edit", open: true }));
+    dispatch(rootSlice.handleModal("edit"));
     dispatch(postSlice.selectPost(post));
     setOpen(!open);
   };
 
   const handleDelete = (post) => {
-    document.body.classList.toggle("lock");
-
-    setVerification(false);
     dispatch(postSlice.deletePost({ index: index, post: post }));
+    dispatch(rootSlice.handleModal());
 
     back && history.goBack();
-    setOpen(!open);
   };
 
   const handleLike = () => {
@@ -133,13 +126,6 @@ export const Menu = ({ index, post, user, back, postItem }) => {
           </div>
         )}
       </div>
-
-      <VerificationModal
-        verification={verification}
-        text="投稿"
-        cancel={handleCancel}
-        submit={() => handleDelete(post)}
-      />
     </>
   );
 };

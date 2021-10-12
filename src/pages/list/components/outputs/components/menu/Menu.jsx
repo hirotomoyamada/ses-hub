@@ -7,8 +7,7 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 
 export const Menu = ({
   outputs,
-  open,
-  setOpen,
+  handleBack,
   copy,
   handleCopy,
   handlePrint,
@@ -17,16 +16,12 @@ export const Menu = ({
     <div className={styles.menu}>
       <button
         type="button"
-        onClick={() => setOpen(!open)}
+        onClick={handleBack}
         className={styles.menu_btn_close}
       >
         もどる
       </button>
-      <button
-        type="button"
-        className={styles.menu_btn}
-        onClick={handlePrint}
-      >
+      <button type="button" className={styles.menu_btn} onClick={handlePrint}>
         <PrintIcon className={styles.menu_btn_icon} />
         <span>プリント</span>
       </button>
