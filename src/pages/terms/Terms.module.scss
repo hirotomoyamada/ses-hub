@@ -1,0 +1,111 @@
+// サイト共有の初期設定
+@import "../../styles/config";
+@import "../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.terms {
+  background: $base_clr;
+  color: $main_clr;
+  line-height: 1.6;
+
+  &_inner {
+    margin: 0 auto;
+    width: 720px;
+
+    padding: 24px 0 64px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+
+    @media (max-width: responsive-width(tb)) {
+      width: 100vw;
+      margin: 0;
+      padding: 24px 12px 64px;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 10px;
+      gap: 32px;
+      padding-top: 13px;
+    }
+  }
+
+  &_body {
+    white-space: pre-wrap;
+
+    &::before {
+      content: "　";
+    }
+  }
+
+  &_section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    &_ttl {
+      font-size: 20px;
+      text-align: center;
+
+      padding-bottom: 8px;
+      border-bottom: 3px solid $bdr_clr;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 14px;
+        border-bottom: 1px solid $bdr_clr;
+      }
+    }
+
+    ol {
+      padding-left: 24px;
+
+      @media (max-width: responsive-width(sp)) {
+        padding-left: 12px;
+      }
+
+      li {
+        list-style-type: decimal;
+
+        p {
+          margin-left: 4px;
+          margin-bottom: 8px;
+        }
+
+        li {
+          list-style-type: none;
+
+          counter-increment: cnt;
+
+          &::marker {
+            content: "(" counter(cnt) ")";
+          }
+
+          p {
+            margin-left: 8px;
+          }
+
+          li {
+            counter-increment: none;
+            list-style-type: disc;
+
+            &::marker {
+              content: normal;
+            }
+
+            p {
+              margin-left: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &_backnumber {
+    padding-top: 24px;
+    border-top: 3px solid $bdr_clr;
+  }
+}

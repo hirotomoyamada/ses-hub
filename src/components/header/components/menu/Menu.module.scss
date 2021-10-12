@@ -35,4 +35,20 @@ $width: responsive-width(pc);
       }
     }
   }
+
+  &_outputs {
+    grid-template-columns: repeat(1, 1fr);
+
+    &_txt {
+      background: $add_clr;
+      color: $base_clr;
+      text-align: center;
+      line-height: 44px;
+
+      @media (max-width: responsive-width(sp)) {
+        line-height: 29px;
+        font-size: 12px;
+      }
+    }
+  }
 }

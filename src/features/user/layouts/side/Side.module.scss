@@ -19,47 +19,6 @@ $width: responsive-width(pc);
     width: 100vw;
   }
 
-  &_header {
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    background: $base_clr;
-    height: 44px;
-
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-
-    &_user {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    @media (max-width: responsive-width(sp)) {
-      height: 29px;
-    }
-
-    &_btn {
-      color: $sub_clr;
-      line-height: 44px;
-      text-align: center;
-      border-bottom: 4px solid $bdr_clr;
-
-      @media (max-width: responsive-width(sp)) {
-        line-height: 29px;
-        font-size: 12px;
-        border-bottom: 3px solid $bdr_clr;
-      }
-
-      &_active {
-        color: $acnt_clr;
-        border-bottom: 4px solid $acnt_clr;
-
-        @media (max-width: responsive-width(sp)) {
-          border-bottom: 3px solid $acnt_clr;
-        }
-      }
-    }
-  }
-
   &_toggle {
     position: absolute;
     background: $acnt_clr;

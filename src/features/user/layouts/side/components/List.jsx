@@ -13,7 +13,7 @@ import { Item } from "../../../../post/item/Item";
 export const List = ({ index, user, currentUser, posts, hit, sort, open }) => {
   const dispatch = useDispatch();
 
-  const fetchLoad = useSelector(rootSlice.load);
+  const fetchLoad = useSelector(rootSlice.load).list;
 
   const load = useRef();
   const list = useRef();

@@ -1,0 +1,87 @@
+// サイト共有の初期設定
+@import "../../styles/config";
+@import "../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.setting {
+  color: $main_clr;
+  background: $base_clr;
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+
+  display: grid;
+  grid-template-rows: 72px 1fr;
+  align-items: center;
+
+  &_main {
+    align-items: flex-start;
+  }
+
+  @media (max-width: responsive-width(sp)) {
+    align-items: flex-start;
+    grid-template-rows: 48px 1fr;
+  }
+
+  &_inner {
+    width: 720px;
+    overflow-y: scroll;
+    margin: 0 auto;
+    padding-bottom: 32px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @media (max-width: responsive-width(tb)) {
+      width: 100vw;
+      margin: 0;
+      padding: 0 12px 24px;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      padding-top: 24px;
+      gap: 12px;
+      font-size: 14px;
+    }
+
+    &_other {
+      padding-top: 0;
+      & > :not(:last-child) {
+        padding-top: 24px;
+        border-top: 1px solid $bdr_clr;
+
+        @media (max-width: responsive-width(sp)) {
+          padding-top: 12px;
+        }
+      }
+    }
+  }
+
+  &_btn {
+    background: $acnt_clr;
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+
+    color: $base_clr;
+    text-align: center;
+    line-height: 48px;
+
+    @media (max-width: responsive-width(sp)) {
+      margin-top: 16px;
+      height: 40px;
+      line-height: 40px;
+    }
+
+    &_logout {
+      background: $sub_clr;
+    }
+
+    &_delete {
+      background: $remove_clr;
+    }
+  }
+}

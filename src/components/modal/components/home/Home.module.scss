@@ -1,0 +1,26 @@
+// サイト共有の初期設定
+@import "../../../../styles/config";
+@import "../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.home {
+  position: relative;
+  width: 640px;
+  height: 80vh;
+  background: $base_clr;
+  color: $main_clr;
+  border-radius: 16px;
+
+  display: grid;
+  grid-template-rows: 72px 1fr;
+
+  overflow: hidden;
+
+  @media (max-width: responsive-width(sp)) {
+    width: calc(100vw - 24px);
+    grid-template-rows: 48px 30px 1fr;
+    font-size: 12px;
+  }
+}

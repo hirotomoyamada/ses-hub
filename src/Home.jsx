@@ -17,7 +17,6 @@ export const Home = () => {
   const dispatch = useDispatch();
 
   const index = useSelector(rootSlice.index);
-  const info = useSelector(rootSlice.data).information;
   const user = useSelector(userSlice.user);
 
   const posts = useSelector((state) =>
@@ -68,7 +67,7 @@ export const Home = () => {
   return (
     <>
       <Fetch />
-      <Header index={index} user={user} info={info} />
+      <Header index={index} user={user} home />
       <List index={index} posts={posts} user={user} hit={hit} home />
       <Modal user={user} />
       <Menu create user={user} />

@@ -1,0 +1,303 @@
+// サイト共有の初期設定
+@import "../../../../../../styles/config";
+@import "../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.form {
+  margin-top: 64px;
+  padding: 0 32px 32px;
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (max-width: responsive-width(sp)) {
+    margin-top: 48px;
+    padding: 0 12px 48px;
+    gap: 8px;
+  }
+
+  &_tag {
+    font-size: 16px;
+    color: $icn_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+    }
+
+    &_desc {
+      white-space: pre;
+      color: $sub_clr;
+      font-size: 12px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 10px;
+      }
+    }
+  }
+
+  &_col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 8px;
+    }
+  }
+
+  &_row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 8px;
+    }
+  }
+
+  &_wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+
+    &_center {
+      justify-content: center;
+      gap: 8px;
+    }
+  }
+
+  &_input {
+    background: $base_clr;
+    border: 1px solid $bdr_clr;
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    padding: 8px 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      height: 32px;
+      padding: 4px 12px;
+    }
+
+    &_min {
+      width: 164px;
+    }
+
+    &_error {
+      border: 1px solid $remove_clr;
+    }
+
+    &::placeholder {
+      color: $sub_clr;
+      opacity: 0.6;
+    }
+  }
+
+  &_textarea {
+    border: 1px solid $bdr_clr;
+    width: 100%;
+    height: 80px;
+    border-radius: 8px;
+    padding: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      height: 72px;
+      padding: 12px;
+    }
+
+    &_error {
+      border: 1px solid $remove_clr;
+    }
+  }
+
+  &_error {
+    display: block;
+    white-space: pre;
+    color: $remove_clr;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+  &_mores {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: $base_clr;
+    margin-top: 8px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 8px;
+      margin: 4px 0;
+    }
+
+    &_more {
+      display: none;
+
+      &_label {
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding-left: 32px;
+        margin-bottom: 8px;
+        cursor: pointer;
+
+        &:before {
+          content: "";
+          display: block;
+          width: 19px;
+          height: 19px;
+          border: 1px solid $sign_clr;
+          border-radius: 100%;
+          position: absolute;
+          left: 0;
+          top: 2px;
+          opacity: 0.6;
+          transition: all 0.12s, border-color 0.08s;
+
+          @media (max-width: responsive-width(sp)) {
+            width: 13px;
+            height: 13px;
+            top: 0;
+          }
+        }
+
+        &_disabled {
+          color: $sub_clr;
+          pointer-events: none;
+
+          &:before {
+            border-color: $sub_clr;
+            pointer-events: none;
+          }
+        }
+
+        @media (max-width: responsive-width(sp)) {
+          padding-left: 18px;
+          margin-bottom: 0;
+        }
+      }
+
+      &:checked + &_label {
+        color: $main_clr;
+        pointer-events: auto;
+
+        &:before {
+          border-color: $acnt_clr;
+          background-color: $acnt_clr;
+          box-shadow: inset 0 0 0 3px $base_clr;
+          pointer-events: auto;
+
+          @media (max-width: responsive-width(sp)) {
+            box-shadow: inset 0 0 0 2px $base_clr;
+          }
+        }
+      }
+    }
+  }
+
+  &_social {
+    position: relative;
+
+    &_url {
+      position: absolute;
+      top: 16px;
+      left: 64px;
+
+      @media (max-width: responsive-width(sp)) {
+        top: 10px;
+        left: 40px;
+      }
+    }
+
+    &_input {
+      background: $base_clr;
+      border: 1px solid $bdr_clr;
+      width: 100%;
+      height: 48px;
+      border-radius: 8px;
+      padding: 8px 16px 8px 224px;
+
+      &::placeholder {
+        color: $sub_clr;
+        opacity: 0.6;
+      }
+
+      @media (max-width: responsive-width(sp)) {
+        height: 32px;
+        padding: 8px 16px 8px 162px;
+      }
+
+      &_other {
+        padding-left: 254px;
+
+        @media (max-width: responsive-width(sp)) {
+          padding-left: 184px;
+        }
+      }
+    }
+  }
+
+  &_link {
+    font-size: 14px;
+    color: $link_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 10px;
+    }
+  }
+
+  &_icon {
+    color: $icn_clr;
+    font-size: 32px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 20px;
+    }
+
+    &_open {
+      color: $sub_clr;
+      font-size: 17.5px;
+      transform: rotate(90deg);
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 12px;
+      }
+    }
+
+    &_close {
+      color: $sub_clr;
+      transform: rotate(-90deg);
+    }
+
+    &_social {
+      position: absolute;
+      top: 8px;
+      left: 16px;
+
+      @media (max-width: responsive-width(sp)) {
+        top: 6px;
+        left: 12px;
+      }
+    }
+
+    &_line {
+      color: $acnt_clr;
+    }
+
+    &_twitter {
+      color: $twitter_clr;
+    }
+
+    &_instagram {
+      color: $instagram_clr;
+    }
+
+    &_linkedIn {
+      color: $linkedIn_clr;
+    }
+  }
+}

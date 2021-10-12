@@ -1,0 +1,82 @@
+// サイト共有の初期設定
+@import "../../../../styles/config";
+@import "../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.select {
+  position: fixed;
+  bottom: 128px;
+  right: 32px;
+  z-index: 9;
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+
+  @media (max-width: responsive-width(sp)) {
+    bottom: 88px;
+    right: 12px;
+    gap: 12px;
+  }
+
+  &_btn {
+    background: $add_clr;
+    padding: 0 16px;
+    height: 48px;
+    border-radius: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    color: $base_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 0 12px;
+      height: 40px;
+      font-size: 12px;
+    }
+
+    &_icon {
+      font-size: 32px !important;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 16px !important;
+      }
+
+      &_cancel {
+        font-size: 24px !important;
+
+        @media (max-width: responsive-width(sp)) {
+          font-size: 16px !important;
+        }
+      }
+    }
+
+    &_disabled {
+      background: $sub_clr;
+      pointer-events: none;
+    }
+
+    &_cancel {
+      background: $sub_clr;
+      width: 48px;
+      height: 48px;
+
+      @media (max-width: responsive-width(sp)) {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    &_open {
+      padding: 0 40px;
+
+      @media (max-width: responsive-width(sp)) {
+        padding: 0 24px;
+        font-size: 12px;
+      }
+    }
+  }
+}

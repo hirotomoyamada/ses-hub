@@ -1,0 +1,98 @@
+// サイト共有の初期設定
+@import "../../../../../../styles/config";
+@import "../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.header {
+  height: 72px;
+  padding: 0 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: responsive-width(sp)) {
+    height: 48px;
+    padding: 0 12px;
+  }
+
+  &_cancel {
+    color: $acnt_clr;
+    line-height: 72px;
+
+    @media (max-width: responsive-width(sp)) {
+      line-height: 48px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &_wrap {
+    display: flex;
+    gap: 16px;
+  }
+
+  &_select {
+    border: 1px solid $acnt_clr;
+    width: 120px;
+    height: 40px;
+    color: $acnt_clr;
+    border-radius: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      color: $sub_clr;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      display: none;
+    }
+  }
+
+  &_delete {
+    background: $remove_clr;
+    width: 120px;
+    height: 40px;
+    color: $base_clr;
+    border-radius: 20px;
+    text-align: center;
+
+    @media (max-width: responsive-width(sp)) {
+      width: 80px;
+      height: 32px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &_edit {
+    background: $acnt_clr;
+    width: 120px;
+    height: 40px;
+    color: $base_clr;
+    border-radius: 20px;
+    text-align: center;
+
+    @media (max-width: responsive-width(sp)) {
+      width: 80px;
+      height: 32px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &_disable {
+      background: $sub_clr;
+      pointer-events: none;
+    }
+  }
+}

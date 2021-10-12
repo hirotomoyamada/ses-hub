@@ -1,0 +1,93 @@
+// サイト共有の初期設定
+@import "../../../../../../styles/config";
+@import "../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.header {
+  height: 72px;
+  padding: 0 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: responsive-width(sp)) {
+    height: 48px;
+    padding: 0 12px;
+  }
+
+  &_cancel {
+    color: $acnt_clr;
+    line-height: 72px;
+
+    @media (max-width: responsive-width(sp)) {
+      line-height: 48px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &_wrap {
+    display: flex;
+    gap: 16px;
+  }
+
+  &_display {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    background: $bg_clr;
+    width: 160px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 14px;
+    padding: 4px;
+    border: 1px solid $bdr_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      width: 120px;
+      height: 32px;
+      font-size: 10px;
+      padding: 2px;
+    }
+
+    input {
+      display: none;
+    }
+
+    &_btn {
+      cursor: pointer;
+      color: $sub_clr;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    input:checked + &_btn {
+      background: $acnt_clr;
+      color: $base_clr;
+    }
+  }
+
+  &_submit {
+    background: $acnt_clr;
+    width: 160px;
+    height: 40px;
+    color: $base_clr;
+    border-radius: 20px;
+    text-align: center;
+
+    @media (max-width: responsive-width(sp)) {
+      width: 80px;
+      height: 32px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
