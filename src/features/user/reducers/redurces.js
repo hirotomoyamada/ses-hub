@@ -1,5 +1,4 @@
 import { login, logout } from "./auth";
-import { createProfile } from "./createProfile";
 import { showUser } from "./showUser";
 import { resetUser } from "./resetUser";
 
@@ -14,15 +13,11 @@ import { addOutput, removeOutput } from "./output";
 import { addEntry } from "./entry";
 import { addFollow, removeFollow } from "./follow";
 import { updateHome } from "./home";
+
 import { createPost, deletePost } from "./post";
-
-import { handleAnnounce, handleModal, handleNotFound } from "./handle";
-
-import { load } from "./load";
 
 export {
   login,
-  createProfile,
   showUser,
   resetUser,
   logout,
@@ -41,8 +36,4 @@ export {
   updateHome,
   createPost,
   deletePost,
-  handleModal,
-  handleAnnounce,
-  handleNotFound,
-  load,
 };

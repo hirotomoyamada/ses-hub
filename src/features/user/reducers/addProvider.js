@@ -12,6 +12,4 @@ export const addProvider = (state, action) => {
     provider: action.payload.provider,
     email: action.payload.email,
   }).catch((e) => {});
-
-  state.announce.success = "認証されました";
 };

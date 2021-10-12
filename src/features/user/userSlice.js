@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initialState";
 
 import { login } from "./functions/login";
-import { createProfile } from "./functions/createProfile";
 import { showUser } from "./functions/showUser";
 
 import * as reducers from "./reducers/redurces";
@@ -36,10 +35,6 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) =>
       reducers.login(state, action)
-    );
-
-    builder.addCase(createProfile.fulfilled, (state) =>
-      reducers.createProfile(state)
     );
 
     builder.addCase(showUser.fulfilled, (state, action) =>

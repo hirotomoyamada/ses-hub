@@ -16,5 +16,4 @@ export const extractPosts = (state, action) => {
       currentPage: action.payload.hit.currentPage,
     };
   }
-  state.load = false;
 };

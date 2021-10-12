@@ -20,7 +20,4 @@ export const userPosts = (state, action) => {
       currentPage: action.payload.hit.currentPage,
     };
   }
-
-  state.sort.control = false;
-  state.load = false;
 };
