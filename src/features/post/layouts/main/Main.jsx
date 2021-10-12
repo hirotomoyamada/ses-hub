@@ -2,14 +2,14 @@ import styles from "./Main.module.scss";
 import Loader from "react-loader-spinner";
 
 import { useSelector } from "react-redux";
-import * as postSlice from "../../postSlice";
+import * as rootSlice from "../../../root/rootSlice";
 
 import { Matters } from "./components/index/Matters";
 import { Resources } from "./components/index/Resources";
 import { Entry } from "./components/entry/Entry";
 
 export const Main = ({ index, post, user, entry, handleEntry }) => {
-  const load = useSelector(postSlice.load);
+  const load = useSelector(rootSlice.load);
 
   return (
     <div className={styles.main}>

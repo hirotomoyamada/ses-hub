@@ -2,10 +2,10 @@ import styles from "./Demo.module.scss";
 
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import * as userSlice from "../../features/user/userSlice";
+import * as rootSlice from "../../features/root/rootSlice";
 
 export const Demo = () => {
-  const demo = useSelector(userSlice.verified).demo;
+  const demo = useSelector(rootSlice.verified).demo;
 
   const [open, setOpen] = useState(false);
 

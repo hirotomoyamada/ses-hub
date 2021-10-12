@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import { auth } from "../../../../firebase";
 
+import * as rootSlice from "../../../root/rootSlice";
 import * as userSlice from "../../userSlice";
 
 export const handleCreate = async ({ dispatch, methods, handleBack, data }) => {
@@ -23,7 +24,7 @@ export const handleCreate = async ({ dispatch, methods, handleBack, data }) => {
       });
 
       dispatch(
-        userSlice.handleAnnounce({
+        rootSlice.handleAnnounce({
           type: "success",
           text: "メールアカウントを作成しました",
         })
@@ -31,7 +32,7 @@ export const handleCreate = async ({ dispatch, methods, handleBack, data }) => {
     })
     .catch((e) => {
       dispatch(
-        userSlice.handleAnnounce({
+        rootSlice.handleAnnounce({
           type: "error",
           text: "作成に失敗しました 再度ログインし直してください",
         })

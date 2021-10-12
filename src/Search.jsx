@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchPosts } from "./features/post/functions/fetchPosts";
+import * as rootSlice from "./features/root/rootSlice";
 import * as postSlice from "./features/post/postSlice";
 import * as userSlice from "./features/user/userSlice";
 
@@ -15,8 +16,8 @@ import { List } from "./features/post/list/List";
 export const Search = () => {
   const dispatch = useDispatch();
 
-  const index = useSelector(postSlice.index);
-  const search = useSelector(postSlice.search);
+  const index = useSelector(rootSlice.index);
+  const search = useSelector(rootSlice.search);
   const user = useSelector(userSlice.user);
 
   const posts = useSelector((state) =>
@@ -28,7 +29,7 @@ export const Search = () => {
   );
 
   useEffect(() => {
-    dispatch(postSlice.handlePage("search"));
+    dispatch(rootSlice.handlePage("search"));
   }, [dispatch]);
 
   useEffect(() => {

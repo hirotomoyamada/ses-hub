@@ -4,13 +4,13 @@ import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
-import * as postSlice from "../../postSlice";
+import * as rootSlice from "../../../root/rootSlice";
 
 import { Item } from "../../item/Item";
 import { Advertise } from "./components/Advertise";
 
 export const Side = ({ index, post, posts, user }) => {
-  const load = useSelector(postSlice.load);
+  const load = useSelector(rootSlice.load);
 
   return (
     <div className={styles.side}>

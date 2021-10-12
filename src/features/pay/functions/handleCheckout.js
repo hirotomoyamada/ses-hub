@@ -1,5 +1,6 @@
 import { functions, db } from "../../../firebase";
-import { handleAnnounce } from "../../user/userSlice";
+
+import * as rootSlice from "../../root/rootSlice";
 
 const createCheckout = functions.httpsCallable("sh-createCheckout");
 
@@ -25,7 +26,7 @@ export const handleCheckout = ({ setLoad, priceId, user, dispatch, demo }) => {
           const { error, url } = snap.data();
           if (error) {
             dispatch(
-              handleAnnounce({
+              rootSlice.handleAnnounce({
                 type: "error",
                 text: "アクセスに失敗しました 再度ページを更新してください",
               })

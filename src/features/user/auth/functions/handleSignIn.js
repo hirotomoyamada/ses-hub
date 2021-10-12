@@ -1,6 +1,6 @@
 import { auth } from "../../../../firebase";
 
-import * as userSlice from "../../userSlice";
+import * as rootSlice from "../../../root/rootSlice";
 
 export const handleSignIn = async ({ dispatch, methods, data }) => {
   const { email, password } = data;
@@ -9,7 +9,7 @@ export const handleSignIn = async ({ dispatch, methods, data }) => {
     methods.reset();
   } catch (e) {
     dispatch(
-      userSlice.handleAnnounce({
+      rootSlice.handleAnnounce({
         type: "error",
         text: "メールアドレスかパスワードが間違っています",
       })

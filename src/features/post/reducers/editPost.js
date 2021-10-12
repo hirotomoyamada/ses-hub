@@ -4,7 +4,7 @@ export const editPost = (state, action) => {
   const dataTime = Date.now();
 
   if (action.payload.post.display === "private") {
-    Object.keys(state.posts).forEach((type) => {
+    Object.keys(state).forEach((type) => {
       if (
         type === "user" ||
         type === "selectUser" ||
@@ -15,18 +15,18 @@ export const editPost = (state, action) => {
         return;
       }
 
-      state.posts[type][action.payload.index].posts = state.posts[type][
+      state[type][action.payload.index].posts = state[type][
         action.payload.index
       ].posts.filter((post) => post?.objectID !== action.payload.post.objectID);
     });
   }
 
-  Object.keys(state.posts).forEach((type) => {
+  Object.keys(state).forEach((type) => {
     if (type === "selectUser" || type === "bests") {
       return;
     }
 
-    const post = state.posts[type][action.payload.index].posts.find(
+    const post = state[type][action.payload.index].posts.find(
       (post) => post?.objectID === action.payload.post.objectID
     );
 

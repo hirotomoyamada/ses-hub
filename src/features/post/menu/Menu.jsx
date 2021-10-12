@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import * as rootSlice from "../../root/rootSlice";
 import * as postSlice from "../postSlice";
 import * as userSlice from "../../user/userSlice";
 
@@ -56,7 +57,7 @@ export const Menu = ({ index, post, user, back, postItem }) => {
   };
 
   const handleEdit = () => {
-    dispatch(postSlice.handleModal({ type: "edit", open: true }));
+    dispatch(rootSlice.handleModal({ type: "edit", open: true }));
     dispatch(postSlice.selectPost(post));
     setOpen(!open);
   };
@@ -66,12 +67,6 @@ export const Menu = ({ index, post, user, back, postItem }) => {
 
     setVerification(false);
     dispatch(postSlice.deletePost({ index: index, post: post }));
-    dispatch(
-      userSlice.deletePost({
-        index: index,
-        post: post,
-      })
-    );
 
     back && history.goBack();
     setOpen(!open);

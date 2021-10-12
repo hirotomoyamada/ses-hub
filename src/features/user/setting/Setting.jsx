@@ -1,13 +1,13 @@
 import styles from "./Setting.module.scss";
 
 import { useState } from "react";
+import { auth } from "../../../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 
+import * as rootSlice from "../../root/rootSlice";
 import * as userSlice from "../userSlice";
-import * as functions from "./functions/functions";
-import { auth } from "../../../firebase";
 
 import { Header } from "./components/header/Header";
 import { Password } from "./components/page/Password";
@@ -17,11 +17,13 @@ import { Reset } from "./components/page/Reset";
 import { Delete } from "./components/page/Delete";
 import { Main } from "./components/main/Main";
 
+import * as functions from "./functions/functions";
+
 export const Setting = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(userSlice.user);
-  const demo = useSelector(userSlice.verified).demo;
+  const demo = useSelector(rootSlice.verified).demo;
 
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
@@ -104,7 +106,7 @@ export const Setting = () => {
     history.push("/");
 
     dispatch(
-      userSlice.handleAnnounce({
+      rootSlice.handleAnnounce({
         type: "success",
         text: "ログアウトしました",
       })

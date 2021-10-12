@@ -1,6 +1,6 @@
 import { auth } from "../../../../firebase";
 
-import * as userSlice from "../../userSlice";
+import * as rootSlice from "../../../root/rootSlice";
 
 export const handleResend = async ({ dispatch }) => {
   try {
@@ -10,7 +10,7 @@ export const handleResend = async ({ dispatch }) => {
       })
       .then(() => {
         dispatch(
-          userSlice.handleAnnounce({
+          rootSlice.handleAnnounce({
             type: "success",
             text: "登録しているメールアドレスに再送信しました",
           })
@@ -18,7 +18,7 @@ export const handleResend = async ({ dispatch }) => {
       })
       .catch((e) => {
         dispatch(
-          userSlice.handleAnnounce({
+          rootSlice.handleAnnounce({
             type: "error",
             text: "再度時間をおいてください",
           })
@@ -26,7 +26,7 @@ export const handleResend = async ({ dispatch }) => {
       });
   } catch (e) {
     dispatch(
-      userSlice.handleAnnounce({
+      rootSlice.handleAnnounce({
         type: "error",
         text: "再送信に失敗しました",
       })

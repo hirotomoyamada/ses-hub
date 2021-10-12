@@ -1,4 +1,4 @@
-import { selectIndex, selectPost } from "./select";
+import { handleIndex, selectPost } from "./select";
 
 import { createPost } from "./createPost";
 import { editPost } from "./editPost";
@@ -29,7 +29,7 @@ import { showPost } from "./showPost";
 import { load, fetch } from "./load";
 
 export {
-  selectIndex,
+  handleIndex,
   selectPost,
   createPost,
   editPost,

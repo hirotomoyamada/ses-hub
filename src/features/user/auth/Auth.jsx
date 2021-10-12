@@ -1,14 +1,12 @@
 import styles from "./Auth.module.scss";
 
+import { auth } from "../../../firebase";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 
-import { auth } from "../../../firebase";
-
-import * as functions from "./functions/functions";
-import * as userSlice from "../userSlice";
+import * as rootSlice from "../../root/rootSlice";
 
 import { Sign } from "./components/Sign";
 import { Reset } from "./components/Reset";
@@ -17,11 +15,13 @@ import { Verified } from "./components/Verified";
 import { Help, StartGuide } from "./components/help/Help";
 import { Terms } from "../../../promotion/pages/terms/Terms";
 
+import * as functions from "./functions/functions";
+
 export const Auth = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const verified = useSelector(userSlice.verified);
+  const verified = useSelector(rootSlice.verified);
 
   const [sign, setSign] = useState(false);
   const [reset, setReset] = useState(false);

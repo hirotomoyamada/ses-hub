@@ -1,7 +1,8 @@
 import { auth } from "../../../../firebase";
 
 import { createProfile } from "../../functions/createProfile";
-import * as userSlice from "../../userSlice";
+import * as rootSlice from "../../../root/rootSlice";
+
 
 export const handleCreate = async ({ dispatch, data }) => {
   const object = {
@@ -18,7 +19,7 @@ export const handleCreate = async ({ dispatch, data }) => {
     dispatch(createProfile(object));
   } catch (e) {
     dispatch(
-      userSlice.handleAnnounce({
+      rootSlice.handleAnnounce({
         type: "error",
         text: "更新に失敗しました",
       })

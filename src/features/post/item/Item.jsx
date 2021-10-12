@@ -5,7 +5,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { selectIndex, handleSearch } from "../../post/postSlice";
+import * as rootSlice from "../../root/rootSlice";
 
 import { Post } from "./components/post/Post";
 import { User } from "./components/user/User";
@@ -34,16 +34,16 @@ export const Item = ({
   const history = useHistory();
 
   const handlePost = () => {
-    search && dispatch(handleSearch({ control: true }));
+    search && dispatch(rootSlice.handleSearch({ control: true }));
     history.push(`/${index}/${post.objectID}`);
   };
 
   const handleUser = () => {
-    search && dispatch(handleSearch({ control: true }));
+    search && dispatch(rootSlice.handleSearch({ control: true }));
     companys
       ? history.push(`/companys/${post.uid}`)
       : persons && history.push(`/persons/${post.uid}`);
-    index === "companys" && dispatch(selectIndex("matters"));
+    index === "companys" && dispatch(rootSlice.handleIndex("matters"));
   };
 
   return !outputs ? (

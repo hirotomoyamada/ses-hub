@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 
 import { showPost } from "./functions/showPost";
+import * as rootSlice from "../root/rootSlice";
 import * as postSlice from "./postSlice";
 import * as userSlice from "../user/userSlice";
 
@@ -31,12 +32,12 @@ export const Post = ({ index, objectID }) => {
   }, [pathname]);
 
   useEffect(() => {
-    dispatch(postSlice.handlePage("post"));
+    dispatch(rootSlice.handlePage("post"));
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(showPost({ index: index, objectID: objectID }));
-    dispatch(postSlice.selectIndex(index));
+    dispatch(rootSlice.handleIndex(index));
 
     return () => {
       dispatch(postSlice.resetPost());
@@ -54,7 +55,7 @@ export const Post = ({ index, objectID }) => {
   }, [history, post, user?.payment?.status]);
 
   const handleEntry = () => {
-    dispatch(userSlice.handleModal({ type: index, open: true }));
+    dispatch(rootSlice.handleModal({ type: index, open: true }));
   };
 
   return (

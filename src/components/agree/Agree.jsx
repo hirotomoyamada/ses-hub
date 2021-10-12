@@ -1,9 +1,10 @@
 import styles from "./Agree.module.scss";
 
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
+import * as rootSlice from "../../features/root/rootSlice";
 import * as userSlice from "../../features/user/userSlice";
 
 import { timestamp } from "../../functions/timestamp";
@@ -11,8 +12,8 @@ import { timestamp } from "../../functions/timestamp";
 export const Agree = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const agree = useSelector(userSlice.data).agree;
-  const verification = useSelector(userSlice.verified).agree;
+  const agree = useSelector(rootSlice.data).agree;
+  const verification = useSelector(rootSlice.verified).agree;
 
   useEffect(() => {
     verification &&

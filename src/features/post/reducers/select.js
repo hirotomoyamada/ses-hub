@@ -1,4 +1,4 @@
-export const selectIndex = (state, action) => {
+export const handleIndex = (state, action) => {
   state.index = action.payload;
 
   if (!(state.page === "post" || state.page === "setting")) {
@@ -7,17 +7,14 @@ export const selectIndex = (state, action) => {
     state.search.type = "";
     state.search.control = false;
 
-    Object.keys(state.posts).forEach((type) => {
+    Object.keys(state).forEach((type) => {
       if (type === "bests") {
         return;
       }
 
-      Object.keys(state.posts[type]).forEach((index) => {
-        state.posts[type][index].posts = state.posts[type][index].posts.slice(
-          0,
-          50
-        );
-        state.posts[type][index].hit.currentPage = 0;
+      Object.keys(state[type]).forEach((index) => {
+        state[type][index].posts = state[type][index].posts.slice(0, 50);
+        state[type][index].hit.currentPage = 0;
       });
     });
   }

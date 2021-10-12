@@ -1,10 +1,10 @@
 import styles from "./Entry.module.scss";
 
 import { useSelector } from "react-redux";
-import * as useSlice from "../../../../../user/userSlice";
+import * as rootSlice from "../../../../../root/rootSlice";
 
 export const Entry = ({ post, user, entry, handleEntry }) => {
-  const demo = useSelector(useSlice.verified).demo;
+  const demo = useSelector(rootSlice.verified).demo;
 
   return post?.user?.uid !== user?.uid ? (
     <button

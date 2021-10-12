@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { extractPosts } from "../../../../post/functions/extractPosts";
-import * as postSlice from "../../../../post/postSlice";
+import * as rootSlice from "../../../../root/rootSlice";
 
 import { Item } from "../../../../post/item/Item";
 
@@ -22,7 +22,7 @@ export const Main = ({
 }) => {
   const dispatch = useDispatch();
 
-  const fetchLoad = useSelector(postSlice.load);
+  const fetchLoad = useSelector(rootSlice.load);
 
   const load = useRef();
   const main = useRef();

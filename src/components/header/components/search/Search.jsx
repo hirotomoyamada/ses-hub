@@ -9,14 +9,14 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchPosts } from "../../../../features/post/functions/fetchPosts";
-import * as postSlice from "../../../../features/post/postSlice";
+import * as rootSlice from "../../../../features/root/rootSlice";
 
 import { Command } from "../../../command/Command";
 
 export const Search = ({ index, posts }) => {
   const dispatch = useDispatch();
 
-  const search = useSelector(postSlice.search);
+  const search = useSelector(rootSlice.search);
 
   const { register, handleSubmit, reset, watch } = useForm({
     defaultValues: {
@@ -48,7 +48,7 @@ export const Search = ({ index, posts }) => {
           })
         );
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-      dispatch(postSlice.handleSearch());
+      dispatch(rootSlice.handleSearch());
       setControl(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,7 +61,7 @@ export const Search = ({ index, posts }) => {
 
   const handleSortChange = (search) => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    dispatch(postSlice.handleSearch(search));
+    dispatch(rootSlice.handleSearch(search));
     setOpen(!open);
   };
 
@@ -70,12 +70,12 @@ export const Search = ({ index, posts }) => {
       document.activeElement.blur();
     }
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    dispatch(postSlice.handleSearch({ value: value }));
+    dispatch(rootSlice.handleSearch({ value: value }));
   };
 
   const handleReset = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    dispatch(postSlice.handleSearch());
+    dispatch(rootSlice.handleSearch());
     reset({ value: "" });
   };
 

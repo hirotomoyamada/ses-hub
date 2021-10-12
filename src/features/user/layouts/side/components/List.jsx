@@ -6,14 +6,14 @@ import Loader from "react-loader-spinner";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userPosts } from "../../../../post/functions/userPosts";
-import * as postSlice from "../../../../post/postSlice";
+import * as rootSlice from "../../../../root/rootSlice";
 
 import { Item } from "../../../../post/item/Item";
 
 export const List = ({ index, user, currentUser, posts, hit, sort, open }) => {
   const dispatch = useDispatch();
 
-  const fetchLoad = useSelector(postSlice.load);
+  const fetchLoad = useSelector(rootSlice.load);
 
   const load = useRef();
   const list = useRef();

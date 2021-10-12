@@ -3,7 +3,7 @@ import styles from "../Side.module.scss";
 import FilterListIcon from "@material-ui/icons/FilterList";
 
 import { useDispatch } from "react-redux";
-import * as postSlice from "../../../../post/postSlice";
+import * as rootSlice from "../../../../root/rootSlice";
 
 export const Sort = ({ index, user, sort, uid }) => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export const Sort = ({ index, user, sort, uid }) => {
           <select
             className={styles.side_sort_select}
             onChange={(e) =>
-              dispatch(postSlice.handleSort({ status: e.target.value }))
+              dispatch(rootSlice.handleSort({ status: e.target.value }))
             }
             defaultValue={sort.status}
           >
@@ -35,7 +35,7 @@ export const Sort = ({ index, user, sort, uid }) => {
           <select
             className={styles.side_sort_select}
             onChange={(e) =>
-              dispatch(postSlice.handleSort({ display: e.target.value }))
+              dispatch(rootSlice.handleSort({ display: e.target.value }))
             }
             defaultValue={sort.display}
           >
