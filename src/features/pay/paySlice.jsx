@@ -1,30 +1,15 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { functions } from "../../firebase";
+import { createSlice } from "@reduxjs/toolkit";
 
-// stateの初期値
+import { fetchProducts } from "./functions/fetchProfucts";
+
 const initialState = {
   products: {},
   tax: 0,
 };
 
-export const fetchProducts = createAsyncThunk(
-  "user/fetchProducts",
-  async () => {
-    const fetchProducts = functions.httpsCallable("sh-fetchProducts");
-
-    const products = fetchProducts().then(({ data }) => {
-      return data;
-    });
-
-    return products;
-  }
-);
-
 export const paySlice = createSlice({
   name: "pay",
   initialState,
-
-  // reducers: {},
 
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
@@ -33,8 +18,6 @@ export const paySlice = createSlice({
     });
   },
 });
-
-// export const {} = paySlice.actions;
 
 export const products = (state) => state.pay.products;
 export const tax = (state) => state.pay.tax;

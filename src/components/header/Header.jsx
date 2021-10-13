@@ -27,6 +27,7 @@ export const Header = ({
   remove,
   handleCancel,
   ttl,
+  setting,
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -50,7 +51,7 @@ export const Header = ({
   };
 
   const handleBack = () => {
-    history.goBack();
+    !setting ? history.goBack() : history.push(`/companys/${user.uid}`);
   };
 
   return !back ? (

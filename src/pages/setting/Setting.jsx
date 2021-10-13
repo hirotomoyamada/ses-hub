@@ -149,6 +149,7 @@ export const Setting = () => {
         )}
       >
         <Header
+          user={user}
           email={email}
           password={password}
           create={create}
@@ -156,6 +157,7 @@ export const Setting = () => {
           handleCancel={handleCancel}
           ttl="アカウント情報"
           back
+          setting
         />
 
         {reset ? (

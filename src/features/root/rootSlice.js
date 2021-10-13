@@ -27,15 +27,15 @@ export const rootSlice = createSlice({
       }
     );
 
-    builder.addMatcher(
-      (action) => action.type.endsWith("/rejected"),
-      (state) => {
-        state.notFound = true;
+    // builder.addMatcher(
+    //   (action) => action.type.endsWith("/rejected"),
+    //   (state) => {
+    //     state.notFound = true;
 
-        state.load.fetch = false;
-        state.load.list = false;
-      }
-    );
+    //     state.load.fetch = false;
+    //     state.load.list = false;
+    //   }
+    // );
 
     builder.addMatcher(
       (action) => action.type.endsWith("/fulfilled"),
