@@ -3,9 +3,9 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
-const fetch = require("./fetch/fetch");
+const fetch = require("../posts/fetch/fetch");
 
-const organize = require("./functions/organize").organize;
+const organize = require("../posts/functions/organize").organize;
 
 exports.fetchUser = functions
   .region(location)

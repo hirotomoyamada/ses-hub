@@ -44,35 +44,64 @@ exports.sendMail = functions
 
       return (
         config.admin.ses_hub !== email &&
-        config.demo.ses_hub.email !== email &&
+        config.admin.freelance_direct !== email &&
+        // config.demo.ses_hub.email !== email &&
+        // config.demo.freelance_direct.email !== email &&
         true
       );
     };
 
-    const to = await db
-      .collection("companys")
-      .where("status", "==", "enable")
-      .where(
-        "payment.status",
-        data.target !== "all" ? "==" : "in",
-        data.target !== "all" ? data.target : ["active", "canceled", "trialing"]
-      )
-      .get()
-      .then((querySnapshot) => {
-        // 本番コード
-        // return querySnapshot.docs.map((doc) => doc.data().profile.email);
+    const to =
+      data.index === "companys"
+        ? await db
+            .collection("companys")
+            .where("status", "==", "enable")
+            .where(
+              "payment.status",
+              data.target !== "all" ? "==" : "in",
+              data.target !== "all"
+                ? data.target
+                : ["active", "canceled", "trialing"]
+            )
+            .get()
+            .then((querySnapshot) => {
+              // 本番コード
+              return querySnapshot.docs.map(
+                (doc) => verified(doc) && doc.data().profile.email
+              );
 
-        // テストコード
-        const emails = querySnapshot.docs.map((doc) => {
-          const email = doc.data().profile.email;
-          const name = email.substring(0, email.indexOf("@"));
-          const dummy = name.concat("@sink.sendgrid.net");
+              // テストコード
+              // const emails = querySnapshot.docs.map((doc) => {
+              //   const email = doc.data().profile.email;
+              //   const name = email.substring(0, email.indexOf("@"));
+              //   const dummy = name.concat("@sink.sendgrid.net");
 
-          return verified(email) && dummy;
-        });
+              //   return verified(email) && dummy;
+              // });
 
-        return emails.filter((email) => email);
-      });
+              // return emails.filter((email) => email);
+            })
+        : await db
+            .collection("persons")
+            .where("status", "==", "enable")
+            .get()
+            .then((querySnapshot) => {
+              // 本番コード
+              return querySnapshot.docs.map(
+                (doc) => verified(doc) && doc.data().profile.email
+              );
+
+              // テストコード
+              // const emails = querySnapshot.docs.map((doc) => {
+              //   const email = doc.data().profile.email;
+              //   const name = email.substring(0, email.indexOf("@"));
+              //   const dummy = name.concat("@sink.sendgrid.net");
+
+              //   return verified(email) && dummy;
+              // });
+
+              // return emails.filter((email) => email);
+            });
 
     // テストコード
     // let to = [];
