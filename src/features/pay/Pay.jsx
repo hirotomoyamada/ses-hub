@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 
 import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "./functions/fetchProfucts";
 import * as rootSlice from "../root/rootSlice";
 import * as userSlice from "../user/userSlice";
 import * as paySlice from "./paySlice";
@@ -34,7 +35,7 @@ export const Pay = () => {
   });
 
   useEffect(() => {
-    dispatch(paySlice.fetchProducts());
+    dispatch(fetchProducts(""));
   }, [dispatch]);
 
   useEffect(() => {
