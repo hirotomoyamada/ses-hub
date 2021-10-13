@@ -1,7 +1,10 @@
 export const createPost = (state, action) => {
   if (action.payload) {
     if (action.payload.post.display === "private") {
-      if (state.user[action.payload.index].posts.length) {
+      if (
+        state.user[action.payload.index].posts.length ||
+        action.payload.page === "user"
+      ) {
         state.user[action.payload.index].posts = [
           action.payload.post,
           ...state.user[action.payload.index].posts,
@@ -10,7 +13,7 @@ export const createPost = (state, action) => {
     } else {
       if (
         state.user[action.payload.index].posts.length ||
-        state.page === "user"
+        action.payload.page === "user"
       ) {
         state.user[action.payload.index].posts = [
           action.payload.post,
@@ -19,7 +22,7 @@ export const createPost = (state, action) => {
       }
       if (
         state.search[action.payload.index].posts.length ||
-        state.page === "search"
+        action.payload.page === "search"
       ) {
         state.search[action.payload.index].posts = [
           action.payload.post,
@@ -28,7 +31,7 @@ export const createPost = (state, action) => {
       }
       if (
         state.home[action.payload.index].posts.length ||
-        state.page === "home"
+        action.payload.page === "home"
       ) {
         state.home[action.payload.index].posts = [
           action.payload.post,
@@ -37,6 +40,4 @@ export const createPost = (state, action) => {
       }
     }
   }
-
-  state.fetch = false;
 };

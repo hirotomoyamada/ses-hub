@@ -19,6 +19,7 @@ export const Form = ({ edit }) => {
   const post = useSelector(postSlice.post);
   const user = useSelector(userSlice.user);
   const index = useSelector(rootSlice.index);
+  const page = useSelector(rootSlice.page);
   const demo = useSelector(rootSlice.verified).demo;
 
   const methods = useForm({
@@ -38,7 +39,7 @@ export const Form = ({ edit }) => {
       index === "matters"
         ? matters(data)
         : index === "resources" && resources(data);
-    dispatch(createPost({ index: index, post: object }));
+    dispatch(createPost({ index: index, page: page, post: object }));
 
     handleClose();
   };
