@@ -5,6 +5,8 @@ export const createPost = createAsyncThunk("post/createPost", async (data) => {
   const createPost = functions.httpsCallable("sh-createPost");
   const sendPost = functions.httpsCallable("sh-sendPost");
 
+  const page = data.page;
+
   const post = createPost({
     index: data.index,
     post: data.post,
@@ -14,9 +16,11 @@ export const createPost = createAsyncThunk("post/createPost", async (data) => {
 
       return {
         index: data.index,
+        page: page,
         post: data.post,
       };
     })
     .catch((e) => {});
+
   return post;
 });

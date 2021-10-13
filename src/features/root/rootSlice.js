@@ -22,7 +22,10 @@ export const rootSlice = createSlice({
     builder.addMatcher(
       (action) => action.type.endsWith("/pending"),
       (state, action) => {
-        state.load.fetch = action.meta.arg.fetch ? true : false;
+        state.load.fetch =
+          action.meta.arg.fetch || action.type === "post/createPost/pending"
+            ? true
+            : false;
         state.load.list = true;
       }
     );
