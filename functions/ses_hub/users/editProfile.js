@@ -14,7 +14,7 @@ exports.editProfile = functions
     await userAuthenticated({ data: data, context: context, demo: true });
 
     const dataTime = Date.now();
-    
+
     const index = algolia.initIndex("companys");
     const user = {
       uid: context.auth.uid,
@@ -62,7 +62,7 @@ exports.editProfile = functions
       .catch((e) => {
         throw new functions.https.HttpsError(
           "not-found",
-          "ユーザー全体の取得に失敗しました",
+          "ユーザーの取得に失敗しました",
           "firebase"
         );
       });

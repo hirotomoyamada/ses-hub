@@ -58,7 +58,7 @@ exports.createPlan = functions
       .catch((e) => {
         throw new functions.https.HttpsError(
           "not-found",
-          "ユーザー全体の取得に失敗しました",
+          "ユーザーの取得に失敗しました",
           "firebase"
         );
       });
