@@ -1,10 +1,11 @@
-exports.login = require("./users/login").login;
-exports.editData = require("./users/editData").editData;
-exports.sendMail = require("./users/sendMail").sendMail;
+exports.login = require("./root/login").login;
+exports.editData = require("./root/editData").editData;
+exports.sendMail = require("./root/sendMail").sendMail;
 
 exports.fetchPosts = require("./posts/fetchPosts").fetchPosts;
-exports.extractPosts = require("./posts/extractPosts").extractPosts;
-exports.fetchUser = require("./posts/fetchUser").fetchUser;
 exports.editPost = require("./posts/editPost").editPost;
-exports.editUser = require("./posts/editUser").editUser;
 exports.deletePost = require("./posts/deletePost").deletePost;
+
+exports.fetchUser = require("./users/fetchUser").fetchUser;
+exports.editUser = require("./users/editUser").editUser;
+exports.extractPosts = require("./users/extractPosts").extractPosts;
