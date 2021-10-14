@@ -35,7 +35,7 @@ export const rootSlice = createSlice({
           profile: false,
           agree: false,
           status: "",
-          access: true,
+          access: false,
           demo: false,
         };
       }

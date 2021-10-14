@@ -51,8 +51,8 @@ export const handleDelete = async ({
                 text: "アカウントを削除しました",
               })
             );
+
             dispatch(rootSlice.handleModal());
-            history.push("/");
           })
           .catch((e) => {
             dispatch(
@@ -84,7 +84,6 @@ export const handleDelete = async ({
           })
         );
         dispatch(rootSlice.handleModal());
-        history.push("/");
       })
       .catch((e) => {
         dispatch(

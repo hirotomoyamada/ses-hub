@@ -99,8 +99,17 @@ export const Setting = () => {
   };
 
   const handleLogout = () => {
-    auth.signOut();
-    history.push("/");
+    document.body.classList.add("fadeIn");
+    document.body.classList.remove("fadeOut");
+
+    setTimeout(() => {
+      auth.signOut();
+    }, 400);
+
+    setTimeout(() => {
+      document.body.classList.add("fadeOut");
+      document.body.classList.remove("fadeIn");
+    }, 700);
 
     dispatch(
       rootSlice.handleAnnounce({
