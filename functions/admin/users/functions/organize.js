@@ -18,6 +18,7 @@ exports.organize = async ({ data, user }) => {
           history: [],
           follows: [],
           home: [],
+          requests: {},
         };
 
   for await (const list of Object.keys(lists)) {
@@ -140,42 +141,44 @@ exports.organize = async ({ data, user }) => {
           lists[list] = [];
         }
       } else {
-        if (user[list][0]) {
-          const index = algolia.initIndex(
-            list === "follows" || list === "home" ? "companys" : "matters"
-          );
-          const objectIDs = await index
-            .getObjects(user[list])
-            .then(({ results }) => {
-              return results.map((hit) => hit && hit.objectID);
-            })
-            .catch((e) => {});
+        for await (const i of Object.keys(user[list])) {
+          if (user[list][i][0]) {
+            const index = algolia.initIndex("companys");
+            const objectIDs = await index
+              .getObjects(user[list][i])
+              .then(({ results }) => {
+                return results.map((hit) => hit && hit.objectID);
+              })
+              .catch((e) => {});
 
-          await db
-            .collection(data.index)
-            .doc(data.uid)
-            .get()
-            .then((doc) => {
-              if (doc.exists) {
-                const objects = doc
-                  .data()
-                  [list].filter((objectID) => objectIDs.indexOf(objectID) > -1);
+            await db
+              .collection(data.index)
+              .doc(data.uid)
+              .get()
+              .then((doc) => {
+                if (doc.exists) {
+                  const objects = doc
+                    .data()
+                    [list][i].filter(
+                      (objectID) => objectIDs.indexOf(objectID) > -1
+                    );
 
-                lists[list] = objects;
+                  lists[list][i] = objects;
 
-                doc.ref
-                  .set(
-                    {
-                      [list]: [...objects],
-                    },
-                    { merge: true }
-                  )
-                  .catch((e) => {});
-              }
-            })
-            .catch((e) => {});
-        } else {
-          lists[list] = [];
+                  doc.ref
+                    .set(
+                      {
+                        [list]: { [i]: [...objects] },
+                      },
+                      { merge: true }
+                    )
+                    .catch((e) => {});
+                }
+              })
+              .catch((e) => {});
+          } else {
+            lists[list][i] = [];
+          }
         }
       }
     }
