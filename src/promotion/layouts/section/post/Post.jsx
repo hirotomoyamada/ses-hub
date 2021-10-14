@@ -6,7 +6,7 @@ import Loader from "react-loader-spinner";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { promotionPosts } from "../../../../features/post/functions/promotionPosts";
+import { promotionPosts } from "../../../../features/post/actions/promotionPosts";
 import * as rootSlice from "../../../../features/root/rootSlice";
 import * as postSlice from "../../../../features/post/postSlice";
 

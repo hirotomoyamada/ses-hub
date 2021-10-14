@@ -4,8 +4,8 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
-import { showUser } from "./functions/showUser";
-import { userPosts } from "../post/functions/userPosts";
+import { showUser } from "./actions/showUser";
+import { userPosts } from "../post/actions/userPosts";
 import * as rootSlice from "../root/rootSlice";
 import * as postSlice from "../post/postSlice";
 import * as userSlice from "./userSlice";
@@ -57,10 +57,8 @@ export const User = ({ type, uid }) => {
 
   useEffect(() => {
     if (currentUser?.uid !== uid && selectUser?.uid !== uid) {
-      dispatch(postSlice.resetPost("selectUser"));
       dispatch(showUser({ type: type, uid: uid }));
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, type, uid]);
 

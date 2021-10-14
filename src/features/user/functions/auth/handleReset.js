@@ -1,6 +1,5 @@
-import { auth } from "../../../firebase";
-
-import * as rootSlice from "../../../features/root/rootSlice";
+import { auth } from "../../../../firebase";
+import * as rootSlice from "../../../root/rootSlice";
 
 export const handleReset = async ({ dispatch, reset, setReset, data }) => {
   try {
@@ -9,7 +8,7 @@ export const handleReset = async ({ dispatch, reset, setReset, data }) => {
       dispatch(
         rootSlice.handleAnnounce({
           type: "success",
-          text: "再設定メールを送信しました",
+          text: "登録しているメールアドレスに再送信しました",
         })
       );
     });

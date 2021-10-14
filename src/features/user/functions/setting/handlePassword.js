@@ -1,13 +1,12 @@
 import firebase from "firebase/app";
-import { auth } from "../../../firebase";
+import { auth } from "../../../../firebase";
 
-import * as rootSlice from "../../../features/root/rootSlice";
-import * as userSlice from "../../../features/user/userSlice";
+import * as rootSlice from "../../../root/rootSlice";
 
-export const handleEmail = async ({
+export const handlePassword = async ({
   dispatch,
   methods,
-  setEmail,
+  setPassword,
   setNext,
   data,
   demo,
@@ -15,16 +14,15 @@ export const handleEmail = async ({
   const user = auth.currentUser;
   const credential = firebase.auth.EmailAuthProvider.credential(
     user.email,
-    data.password
+    data.currentPassword
   );
-
-  if (!data.email) {
+  if (!data.newPassword) {
     await user
       .reauthenticateWithCredential(credential)
       .then(() => {
         setNext(true);
       })
-      .catch((e) => {
+      .catch(() => {
         methods.reset();
 
         dispatch(
@@ -36,28 +34,22 @@ export const handleEmail = async ({
       });
   }
 
-  if (data.email && !demo) {
+  if (data.newPassword && !demo) {
     await user
       .reauthenticateWithCredential(credential)
       .then(() => {
         user
-          .updateEmail(data.email)
+          .updatePassword(data.newPassword)
           .then(() => {
-            setEmail(false);
+            setPassword(false);
             setNext(false);
-
-            dispatch(userSlice.changeEmail(data.email));
-
-            auth.currentUser.sendEmailVerification({
-              url: "https://ses-hub.app/login",
-            });
 
             methods.reset();
 
             dispatch(
               rootSlice.handleAnnounce({
                 type: "success",
-                text: "メールドレスを更新しました",
+                text: "パスワードを更新しました",
               })
             );
           })
@@ -65,12 +57,12 @@ export const handleEmail = async ({
             dispatch(
               rootSlice.handleAnnounce({
                 type: "error",
-                text: "メールドレスの更新に失敗しました",
+                text: "パスワードの更新に失敗しました",
               })
             );
           });
       })
-      .catch((e) => {
+      .catch(() => {
         dispatch(
           rootSlice.handleAnnounce({
             type: "error",

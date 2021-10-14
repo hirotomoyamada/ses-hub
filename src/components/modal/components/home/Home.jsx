@@ -3,7 +3,7 @@ import styles from "./Home.module.scss";
 import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { userPosts } from "../../../../features/post/functions/userPosts";
+import { userPosts } from "../../../../features/post/actions/userPosts";
 import * as postSlice from "../../../../features/post/postSlice";
 import * as userSlice from "../../../../features/user/userSlice";
 

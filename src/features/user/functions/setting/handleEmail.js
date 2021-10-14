@@ -1,12 +1,13 @@
 import firebase from "firebase/app";
-import { auth } from "../../../firebase";
+import { auth } from "../../../../firebase";
 
-import * as rootSlice from "../../../features/root/rootSlice";
+import * as rootSlice from "../../../root/rootSlice";
+import * as userSlice from "../../userSlice";
 
-export const handlePassword = async ({
+export const handleEmail = async ({
   dispatch,
   methods,
-  setPassword,
+  setEmail,
   setNext,
   data,
   demo,
@@ -14,15 +15,16 @@ export const handlePassword = async ({
   const user = auth.currentUser;
   const credential = firebase.auth.EmailAuthProvider.credential(
     user.email,
-    data.currentPassword
+    data.password
   );
-  if (!data.newPassword) {
+
+  if (!data.email) {
     await user
       .reauthenticateWithCredential(credential)
       .then(() => {
         setNext(true);
       })
-      .catch(() => {
+      .catch((e) => {
         methods.reset();
 
         dispatch(
@@ -34,22 +36,28 @@ export const handlePassword = async ({
       });
   }
 
-  if (data.newPassword && !demo) {
+  if (data.email && !demo) {
     await user
       .reauthenticateWithCredential(credential)
       .then(() => {
         user
-          .updatePassword(data.newPassword)
+          .updateEmail(data.email)
           .then(() => {
-            setPassword(false);
+            setEmail(false);
             setNext(false);
+
+            dispatch(userSlice.changeEmail(data.email));
+
+            auth.currentUser.sendEmailVerification({
+              url: "https://ses-hub.app/login",
+            });
 
             methods.reset();
 
             dispatch(
               rootSlice.handleAnnounce({
                 type: "success",
-                text: "パスワードを更新しました",
+                text: "メールドレスを更新しました",
               })
             );
           })
@@ -57,12 +65,12 @@ export const handlePassword = async ({
             dispatch(
               rootSlice.handleAnnounce({
                 type: "error",
-                text: "パスワードの更新に失敗しました",
+                text: "メールドレスの更新に失敗しました",
               })
             );
           });
       })
-      .catch(() => {
+      .catch((e) => {
         dispatch(
           rootSlice.handleAnnounce({
             type: "error",

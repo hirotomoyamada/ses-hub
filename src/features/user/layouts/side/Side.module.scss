@@ -128,6 +128,7 @@ $width: responsive-width(pc);
     }
     @media (max-width: responsive-width(sp)) {
       padding: 12px 12px 104px;
+      gap: 12px;
     }
 
     &_open {
@@ -136,7 +137,7 @@ $width: responsive-width(pc);
 
     &_none {
       width: 100%;
-      height: calc(100vh - 128px);
+      height: calc(100vh - 49px);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -158,6 +159,10 @@ $width: responsive-width(pc);
 
       @media (max-width: responsive-width(miniPc)) {
         padding-bottom: 144px;
+      }
+
+      &_none {
+        display: none;
       }
     }
   }

@@ -1,6 +1,6 @@
-import { auth } from "../../../firebase";
+import { auth } from "../../../../firebase";
 
-import * as rootSlice from "../../../features/root/rootSlice";
+import * as rootSlice from "../../../root/rootSlice";
 
 export const handleReset = async ({
   dispatch,

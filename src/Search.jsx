@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchPosts } from "./features/post/functions/fetchPosts";
+import { fetchPosts } from "./features/post/actions/fetchPosts";
 import * as rootSlice from "./features/root/rootSlice";
 import * as postSlice from "./features/post/postSlice";
 import * as userSlice from "./features/user/userSlice";

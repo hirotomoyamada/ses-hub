@@ -15,7 +15,7 @@ import { Verified } from "./components/Verified";
 import { Help, StartGuide } from "./components/help/Help";
 import { Terms } from "../../pages/terms/Terms";
 
-import * as functions from "./functions/functions";
+import * as functions from "../../features/user/functions/functions";
 
 export const Auth = () => {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ export const Auth = () => {
   const [create, setCreate] = useState(false);
 
   useEffect(() => {
-    functions.getRedirect({ dispatch });
+    functions.auth.getRedirect({ dispatch });
   }, [dispatch]);
 
   useEffect(() => {
@@ -51,15 +51,21 @@ export const Auth = () => {
   const methods = useForm();
 
   const handleSignIn = (data) => {
-    functions.handleSignIn({ dispatch, methods, data });
+    functions.auth.handleSignIn({ dispatch, methods, data });
   };
 
   const handleSignUp = (data) => {
-    functions.handleSignUp({ dispatch, methods, setCreate, setEmail, data });
+    functions.auth.handleSignUp({
+      dispatch,
+      methods,
+      setCreate,
+      setEmail,
+      data,
+    });
   };
 
   const handleProvider = (provider) => {
-    functions.handleProvider(provider);
+    functions.auth.handleProvider(provider);
   };
 
   const handleLogout = async () => {
@@ -72,15 +78,15 @@ export const Auth = () => {
   };
 
   const handleReset = (data) => {
-    functions.handleReset({ dispatch, reset, setReset, data });
+    functions.auth.handleReset({ dispatch, reset, setReset, data });
   };
 
   const handleResend = () => {
-    functions.handleResend({ dispatch });
+    functions.auth.handleResend({ dispatch });
   };
 
   const handleCreate = (data) => {
-    functions.handleCreate({ dispatch, data });
+    functions.auth.handleCreate({ dispatch, data });
   };
 
   return (

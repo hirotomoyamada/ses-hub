@@ -1,6 +1,5 @@
-import { auth } from "../../../firebase";
-
-import * as rootSlice from "../../../features/root/rootSlice";
+import { auth } from "../../../../firebase";
+import * as rootSlice from "../../../root/rootSlice";
 
 export const handleSignUp = async ({
   dispatch,

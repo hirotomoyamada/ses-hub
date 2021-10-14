@@ -3,7 +3,7 @@ import styles from "./Form.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, FormProvider } from "react-hook-form";
 
-import { createPost } from "../../../../features/post/functions/createPost";
+import { createPost } from "../../../../features/post/actions/createPost";
 import * as rootSlice from "../../../../features/root/rootSlice";
 import * as postSlice from "../../../../features/post/postSlice";
 import * as userSlice from "../../../../features/user/userSlice";

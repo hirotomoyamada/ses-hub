@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { initialState } from "./initialState";
 
-import { login } from "./functions/login";
-import { showUser } from "./functions/showUser";
+import { login } from "./actions/login";
+import { showUser } from "./actions/showUser";
 
 import * as reducers from "./reducers/redurces";
 
