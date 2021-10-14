@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { extractPosts } from "../../features/post/functions/extractPosts";
+import { extractPosts } from "../../features/post/actions/extractPosts";
 import * as rootSlice from "../../features/root/rootSlice";
 import * as postSlice from "../../features/post/postSlice";
 import * as userSlice from "../../features/user/userSlice";
@@ -20,7 +20,12 @@ export const List = (props) => {
 
   const index = useSelector(rootSlice.index);
   const user = useSelector(userSlice.user);
-  const list = props.match.params.list;
+  const list =
+    props.match.params.list === "likes" ||
+    props.match.params.list === "outputs" ||
+    props.match.params.list === "entries"
+      ? props.match.params.list
+      : "likes";
 
   const posts = useSelector((state) =>
     postSlice.posts({
@@ -65,15 +70,26 @@ export const List = (props) => {
   }, []);
 
   useEffect(() => {
-    dispatch(rootSlice.handlePage(list));
-    if (list === "likes" || list === "entries") {
-      handleClose();
+    if (
+      props.match.params.list !== "likes" &&
+      props.match.params.list !== "outputs" &&
+      props.match.params.list !== "entries"
+    ) {
+      dispatch(rootSlice.handleNotFound(true));
+    } else {
+      dispatch(rootSlice.handlePage(list));
+      if (list === "likes" || list === "entries") {
+        handleClose();
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, list]);
 
   useEffect(() => {
-    !posts.length &&
+    (props.match.params.list === "likes" ||
+      props.match.params.list === "outputs" ||
+      props.match.params.list === "entries") &&
+      !posts.length &&
       dispatch(
         extractPosts({
           index: index,

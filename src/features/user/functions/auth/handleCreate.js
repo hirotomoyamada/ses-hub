@@ -1,7 +1,6 @@
-import { auth } from "../../../firebase";
-
-import { createProfile } from "../../../features/user/functions/createProfile";
-import * as rootSlice from "../../../features/root/rootSlice";
+import { auth } from "../../../../firebase";
+import { createProfile } from "../../actions/createProfile";
+import * as rootSlice from "../../../root/rootSlice";
 
 export const handleCreate = async ({ dispatch, data }) => {
   const object = {

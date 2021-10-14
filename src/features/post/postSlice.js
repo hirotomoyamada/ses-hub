@@ -2,13 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { initialState } from "./initialState";
 
-import { promotionPosts } from "./functions/promotionPosts";
-import { fetchPosts } from "./functions/fetchPosts";
-import { userPosts } from "./functions/userPosts";
-import { followsPosts } from "./functions/followsPosts";
-import { extractPosts } from "./functions/extractPosts";
-import { showPost } from "./functions/showPost";
-import { createPost } from "./functions/createPost";
+import { promotionPosts } from "./actions/promotionPosts";
+import { fetchPosts } from "./actions/fetchPosts";
+import { userPosts } from "./actions/userPosts";
+import { followsPosts } from "./actions/followsPosts";
+import { extractPosts } from "./actions/extractPosts";
+import { showPost } from "./actions/showPost";
+import { createPost } from "./actions/createPost";
 
 import * as reducers from "./reducers/reducers";
 
@@ -46,6 +46,10 @@ export const postSlice = createSlice({
 
     builder.addCase(showPost.fulfilled, (state, action) =>
       reducers.showPost(state, action)
+    );
+
+    builder.addCase(showPost.pending, (state, action) =>
+      reducers.resetPost(state, action)
     );
 
     builder.addCase(createPost.fulfilled, (state, action) =>
@@ -100,6 +104,11 @@ export const postSlice = createSlice({
     );
 
     builder.addMatcher(
+      (action) => action.type.endsWith("/showUser/pending"),
+      (state, action) => reducers.resetPost(state, action)
+    );
+
+    builder.addMatcher(
       (action) => action.type.endsWith("/logout"),
       () => {
         return initialState;
@@ -112,10 +121,10 @@ export const { selectPost, editPost, deletePost, resetPost } =
   postSlice.actions;
 
 export const posts = ({ state, page, index }) =>
-  page && state.post[page][index].posts;
+  page && state.post?.[page]?.[index]?.posts;
 
 export const hit = ({ state, page, index }) =>
-  page && state.post[page][index].hit;
+  page && state.post?.[page]?.[index]?.hit;
 
 export const control = ({ state, index }) => state.post.home[index].control;
 

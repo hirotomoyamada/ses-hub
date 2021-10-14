@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { fetchProducts } from "./functions/fetchProfucts";
+import { fetchProducts } from "./actions/fetchProfucts";
 
 const initialState = {
   products: {},

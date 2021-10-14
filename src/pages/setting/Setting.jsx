@@ -18,7 +18,7 @@ import { Reset } from "./components/page/Reset";
 import { Delete } from "./components/page/Delete";
 import { Main } from "./components/main/Main";
 
-import * as functions from "./functions/functions";
+import * as functions from "../../features/user/functions/functions";
 
 export const Setting = () => {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ export const Setting = () => {
       return;
     }
 
-    functions.handleCreate({ dispatch, methods, handleCancel, data });
+    functions.setting.handleCreate({ dispatch, methods, handleCancel, data });
   };
 
   const handleProvider = (provider) => {
@@ -57,11 +57,11 @@ export const Setting = () => {
       return;
     }
 
-    functions.handleProvider(provider);
+    functions.setting.handleProvider(provider);
   };
 
   const handleEmail = (data) => {
-    functions.handleEmail({
+    functions.setting.handleEmail({
       dispatch,
       methods,
       setEmail,
@@ -72,7 +72,7 @@ export const Setting = () => {
   };
 
   const handlePassword = (data) => {
-    functions.handlePassword({
+    functions.setting.handlePassword({
       dispatch,
       methods,
       setPassword,
@@ -87,7 +87,7 @@ export const Setting = () => {
       return;
     }
 
-    functions.handleReset({
+    functions.setting.handleReset({
       dispatch,
       methods,
       setEmail,
@@ -111,7 +111,7 @@ export const Setting = () => {
   };
 
   const handleDelete = (data) => {
-    functions.handleDelete({
+    functions.setting.handleDelete({
       dispatch,
       history,
       methods,

@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import Loader from "react-loader-spinner";
 
 import { useDispatch, useSelector } from "react-redux";
-import { userPosts } from "../../../../../../features/post/functions/userPosts";
+import { userPosts } from "../../../../../../features/post/actions/userPosts";
 import * as rootSlice from "../../../../../../features/root/rootSlice";
 
 import { Item } from "../../../../../../features/post/item/Item";

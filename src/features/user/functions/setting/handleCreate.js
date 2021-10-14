@@ -1,10 +1,15 @@
 import firebase from "firebase/app";
-import { auth } from "../../../firebase";
+import { auth } from "../../../../firebase";
 
-import * as rootSlice from "../../../features/root/rootSlice";
-import * as userSlice from "../../../features/user/userSlice";
+import * as rootSlice from "../../../root/rootSlice";
+import * as userSlice from "../../userSlice";
 
-export const handleCreate = async ({ dispatch, methods, handleBack, data }) => {
+export const handleCreate = async ({
+  dispatch,
+  methods,
+  handleCancel,
+  data,
+}) => {
   const credential = firebase.auth.EmailAuthProvider.credential(
     data.email,
     data.password
@@ -38,6 +43,6 @@ export const handleCreate = async ({ dispatch, methods, handleBack, data }) => {
         })
       );
     });
-  handleBack();
+  handleCancel();
   methods.reset();
 };

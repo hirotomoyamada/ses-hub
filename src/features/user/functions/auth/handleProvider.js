@@ -3,10 +3,10 @@ import {
   providerGithub,
   providerGoogle,
   providerTwitter,
-} from "../../../firebase";
+} from "../../../../firebase";
 
 export const handleProvider = async (provider) => {
-  await auth.currentUser.linkWithRedirect(
+  await auth.signInWithRedirect(
     provider === "google"
       ? providerGoogle
       : provider === "twitter"

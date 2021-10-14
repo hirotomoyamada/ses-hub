@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import Loader from "react-loader-spinner";
 
 import { useDispatch, useSelector } from "react-redux";
-import { userPosts } from "../../../../post/functions/userPosts";
+import { userPosts } from "../../../../post/actions/userPosts";
 import * as rootSlice from "../../../../root/rootSlice";
 
 import { Item } from "../../../../post/item/Item";
@@ -33,8 +33,10 @@ export const List = ({ index, user, currentUser, posts, hit, sort, open }) => {
     ) {
       const observer = new IntersectionObserver(
         ([results]) => {
-          if (results.isIntersecting && !intersecting && page < hit.pages) {
-            setIntersecting(results.isIntersecting);
+          if (results.isIntersecting && !intersecting) {
+            if (page < hit.pages) {
+              setIntersecting(results.isIntersecting);
+            }
             setPage((prevPage) => prevPage + 1);
           }
         },
@@ -116,8 +118,13 @@ export const List = ({ index, user, currentUser, posts, hit, sort, open }) => {
         </div>
       )}
       {posts?.length >= 50 && (
-        <div ref={load} className={styles.side_list_load}>
-          {page < hit.pages - 1 && (
+        <div
+          ref={load}
+          className={`${styles.side_list_load} ${
+            page === hit.pages && styles.side_list_load_none
+          }`}
+        >
+          {page < hit.pages && (
             <Loader type="Oval" color="#49b757" height={32} width={32} />
           )}
         </div>

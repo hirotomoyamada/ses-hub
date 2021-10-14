@@ -25,10 +25,14 @@ $width: responsive-width(pc);
 
   &_none {
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 49px);
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: responsive-width(sp)) {
+      height: calc(100vh - 33px);
+    }
 
     &_message {
       font-size: 14px;
@@ -43,6 +47,10 @@ $width: responsive-width(pc);
 
     @media (max-width: responsive-width(tb)) {
       padding-bottom: 144px;
+    }
+
+    &_none {
+      display: none;
     }
   }
 }

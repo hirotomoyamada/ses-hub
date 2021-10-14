@@ -4,8 +4,8 @@ import Loader from "react-loader-spinner";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchPosts } from "../functions/fetchPosts";
-import { followsPosts } from "../functions/followsPosts";
+import { fetchPosts } from "../actions/fetchPosts";
+import { followsPosts } from "../actions/followsPosts";
 import * as rootSlice from "../../root/rootSlice";
 
 import { Item } from "../item/Item";
@@ -33,8 +33,10 @@ export const List = ({ index, posts, user, home, search, hit }) => {
     ) {
       const observer = new IntersectionObserver(
         ([results]) => {
-          if (results.isIntersecting && !intersecting && page < hit.pages) {
-            setIntersecting(results.isIntersecting);
+          if (results.isIntersecting && !intersecting) {
+            if (page < hit.pages) {
+              setIntersecting(results.isIntersecting);
+            }
             setPage((prevPage) => prevPage + 1);
           }
         },
@@ -156,8 +158,13 @@ export const List = ({ index, posts, user, home, search, hit }) => {
         </div>
       )}
       {posts?.length >= 50 && (
-        <div ref={load} className={styles.list_load}>
-          {page < hit.pages - 1 && (
+        <div
+          ref={load}
+          className={`${styles.list_load} ${
+            page === hit.pages && styles.list_load_none
+          }`}
+        >
+          {page < hit.pages && (
             <Loader type="Oval" color="#49b757" height={32} width={32} />
           )}
         </div>

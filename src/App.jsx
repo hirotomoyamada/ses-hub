@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { HelmetProvider } from "react-helmet-async";
 import { auth } from "./firebase";
 
-import { login } from "./features/user/functions/login";
+import { login } from "./features/user/actions/login";
 import * as rootSlice from "./features/root/rootSlice";
 import * as userSlice from "./features/user/userSlice";
 
@@ -34,8 +34,17 @@ import { Contact } from "./promotion/pages/contact/Contact";
 import { Modal } from "./components/modal/Modal";
 
 const Branch = (props) => {
+  const dispatch = useDispatch();
+
   const index = props.match.params.index;
   const id = props.match.params.id;
+
+  index !== "matters" &&
+    index !== "resources" &&
+    index !== "companys" &&
+    index !== "persons" &&
+    dispatch(rootSlice.handleNotFound(true));
+
   return index === "matters" || index === "resources" ? (
     <Post index={index} objectID={id} />
   ) : (

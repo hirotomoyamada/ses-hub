@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { followsPosts } from "./features/post/functions/followsPosts";
+import { followsPosts } from "./features/post/actions/followsPosts";
 import * as rootSlice from "./features/root/rootSlice";
 import * as postSlice from "./features/post/postSlice";
 import * as userSlice from "./features/user/userSlice";

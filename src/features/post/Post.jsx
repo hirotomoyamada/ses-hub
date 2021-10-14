@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 
-import { showPost } from "./functions/showPost";
+import { showPost } from "./actions/showPost";
 import * as rootSlice from "../root/rootSlice";
 import * as postSlice from "./postSlice";
 import * as userSlice from "../user/userSlice";
@@ -32,15 +32,11 @@ export const Post = ({ index, objectID }) => {
 
   useEffect(() => {
     dispatch(rootSlice.handlePage("post"));
-  }, [dispatch]);
+    dispatch(rootSlice.handleIndex(index));
+  }, [dispatch, index]);
 
   useEffect(() => {
     dispatch(showPost({ index: index, objectID: objectID }));
-    dispatch(rootSlice.handleIndex(index));
-
-    return () => {
-      dispatch(postSlice.resetPost());
-    };
   }, [dispatch, index, objectID, user.uid]);
 
   useEffect(() => {
