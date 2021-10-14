@@ -6,11 +6,9 @@ import * as rootSlice from "./features/root/rootSlice";
 import * as postSlice from "./features/post/postSlice";
 import * as userSlice from "./features/user/userSlice";
 
-import { Menu } from "./components/menu/Menu";
 import { Header } from "./components/header/Header";
-import { Fetch } from "./components/load/Load";
-
 import { List } from "./features/post/list/List";
+import { Fetch } from "./components/load/Load";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -68,7 +66,6 @@ export const Home = () => {
       <Fetch />
       <Header index={index} user={user} home />
       <List index={index} posts={posts} user={user} hit={hit} home />
-      <Menu create user={user} />
     </div>
   );
 };

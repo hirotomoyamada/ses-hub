@@ -10,8 +10,6 @@ import * as rootSlice from "../root/rootSlice";
 import * as postSlice from "../post/postSlice";
 import * as userSlice from "./userSlice";
 
-import { Menu } from "../../components/menu/Menu";
-
 import { Main } from "./layouts/main/Main";
 import { Side } from "./layouts/side/Side";
 import { Meta } from "./Meta";
@@ -130,7 +128,6 @@ export const User = ({ type, uid }) => {
         setOpen={setOpen}
       />
 
-      <Menu create user={user} />
     </div>
   );
 };

@@ -12,7 +12,6 @@ import { Outputs } from "./components/outputs/Outputs";
 import { Select } from "./components/select/Select";
 import { Main } from "./components/main/Main";
 
-import { Menu } from "../../components/menu/Menu";
 import { Fetch } from "../../components/load/Load";
 
 export const List = (props) => {
@@ -185,8 +184,6 @@ export const List = (props) => {
           handleAllCancel={handleAllCancel}
         />
       )}
-
-      <Menu user={user} />
     </div>
   );
 };

@@ -32,6 +32,7 @@ import { Maintenance } from "./pages/maintenance/Maintenance";
 import { Promotion } from "./promotion/Promotion";
 import { Contact } from "./promotion/pages/contact/Contact";
 import { Modal } from "./components/modal/Modal";
+import { Menu } from "./components/menu/Menu";
 
 const Branch = (props) => {
   const dispatch = useDispatch();
@@ -93,6 +94,7 @@ const App = () => {
             <Announce />
             <Modal />
             <Maintenance />
+            <Menu user={user} />
 
             {!user.uid ? (
               <Switch>
