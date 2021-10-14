@@ -2,7 +2,7 @@ import styles from "../Header.module.scss";
 
 export const Handles = ({ post }) => {
   const handles = post?.handles;
-  return (
+  return handles[0] ? (
     <div className={handles && styles.header_tags}>
       {handles?.[0] &&
         handles.map(
@@ -14,5 +14,7 @@ export const Handles = ({ post }) => {
             )
         )}
     </div>
+  ) : (
+    <></>
   );
 };

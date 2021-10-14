@@ -29,6 +29,7 @@ $width: responsive-width(pc);
     color: $sub_clr;
     font-size: 14px;
     text-align: center;
+    line-height: 1.4;
 
     @media (max-width: responsive-width(sp)) {
       font-size: 12px;
