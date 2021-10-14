@@ -65,6 +65,8 @@ exports.homePosts = functions
               return results.map(
                 (hit) =>
                   hit &&
+                  hit.status === "enable" &&
+                  // 有料プランの制限追加
                   status && {
                     uid: hit.objectID,
                     profile: {

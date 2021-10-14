@@ -44,6 +44,7 @@ exports.fetchPosts = functions
           data.index === "matters" && status
             ? fetch.matters({ hit: hit })
             : data.index === "companys" &&
+              // 有料プランの制限追加
               status && {
                 uid: hit.objectID,
                 profile: {
