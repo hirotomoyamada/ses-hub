@@ -10,17 +10,19 @@ import LaunchIcon from "@material-ui/icons/Launch";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import SettingsIcon from "@material-ui/icons/Settings";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as rootSlice from "../../features/root/rootSlice";
 import * as postSlice from "../../features/post/postSlice";
 
-export const Menu = ({ create, user }) => {
+export const Menu = ({ user }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation().pathname.replace("/", "");
 
   const modal = useSelector(rootSlice.modal);
   const index = useSelector(rootSlice.index);
+  const status = useSelector(rootSlice.verified).status;
   const page = useSelector(rootSlice.page);
   const open = modal.open;
 
@@ -47,17 +49,10 @@ export const Menu = ({ create, user }) => {
 
   const Btn = () => {
     if (
-      create &&
       index !== "companys" &&
       index !== "persons" &&
-      page === "search"
+      (page === "search" || page === "home" || page === "user")
     ) {
-      return (
-        <button className={styles.menu_main} onClick={handleOpen}>
-          <EditIcon className={styles.menu_main_icon} />
-        </button>
-      );
-    } else if (create && page !== "search") {
       return (
         <button className={styles.menu_main} onClick={handleOpen}>
           <EditIcon className={styles.menu_main_icon} />
@@ -75,7 +70,14 @@ export const Menu = ({ create, user }) => {
   };
 
   return (
-    !open && (
+    !open &&
+    status === "enable" &&
+    location !== "setting" &&
+    location !== "howto" &&
+    location !== "plan" &&
+    location !== "success" &&
+    location !== "terms" &&
+    location !== "asct" && (
       <div className={styles.menu}>
         <div
           className={`${styles.menu_list} ${

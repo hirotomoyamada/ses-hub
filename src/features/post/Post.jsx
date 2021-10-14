@@ -9,8 +9,6 @@ import * as rootSlice from "../root/rootSlice";
 import * as postSlice from "./postSlice";
 import * as userSlice from "../user/userSlice";
 
-import { Menu } from "../../components/menu/Menu";
-
 import { Meta } from "./Meta";
 import { Main } from "./layouts/main/Main";
 import { Side } from "./layouts/side/Side";
@@ -66,8 +64,6 @@ export const Post = ({ index, objectID }) => {
       />
 
       <Side index={index} post={post} posts={posts} user={user} />
-
-      {Object.keys(post).length && <Menu user={user} back />}
     </div>
   );
 };

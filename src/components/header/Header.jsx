@@ -14,7 +14,6 @@ export const Header = ({
   index,
   uid,
   user,
-  posts,
   home,
   search,
   outputs,
@@ -66,7 +65,7 @@ export const Header = ({
             {user?.icon && <Icon src={user.icon} />}
           </div>
         </Link>
-        {search ? <Search index={index} posts={posts} /> : <Information />}
+        {search ? <Search index={index} /> : <Information />}
       </div>
 
       <Menu
