@@ -36,7 +36,9 @@ export const List = (props) => {
             ? index
             : "matters"
           : list === "outputs"
-          ? index
+          ? index !== "companys"
+            ? index
+            : "matters"
           : list === "entries" && index !== "companys"
           ? index
           : "matters",
@@ -53,7 +55,9 @@ export const List = (props) => {
             ? index
             : "matters"
           : list === "outputs"
-          ? index
+          ? index !== "companys"
+            ? index
+            : "matters"
           : list === "entries" && index !== "companys"
           ? index
           : "matters",
