@@ -67,10 +67,10 @@ exports.extractPosts = functions
           .then((doc) => {
             if (doc.exists) {
               if (data.index === "companys") {
-                fetch.companys({ posts: posts, i: i, doc: doc });
+                fetch.companys({ posts: posts, index: i, doc: doc });
               }
               if (data.index === "persons") {
-                fetch.persons({ posts: posts, i: i, doc: doc });
+                fetch.persons({ posts: posts, index: i, doc: doc });
               }
             }
           })

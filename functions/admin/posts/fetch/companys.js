@@ -1,4 +1,4 @@
-exports.companys = ({ posts, doc, index, i, hit, lists }) => {
+exports.companys = ({ posts, doc, index, hit }) => {
   if (hit) {
     return {
       uid: hit.objectID,
@@ -15,55 +15,22 @@ exports.companys = ({ posts, doc, index, i, hit, lists }) => {
       more: hit.more,
       region: hit.region,
     };
-  } else if (doc && index) {
-    return {
-      index: index,
-      uid: doc.id,
-      icon: doc.data().icon,
-      cover: doc.data().cover,
-      status: doc.data().status,
-      payment: doc.data().payment,
-      agree: doc.data().agree,
-      provider: doc.data().provider,
-      createAt: doc.data().createAt,
-      updateAt: doc.data().updateAt,
-      lastLogin: doc.data().lastLogin,
-
-      follows: lists.follows,
-      posts: lists.posts,
-      outputs: lists.outputs,
-      likes: lists.likes,
-      entries: lists.entries,
-      home: lists.home,
-
-      name: doc.data().profile.name,
-      person: doc.data().profile.person,
-      position: doc.data().profile.position,
-      body: doc.data().profile.body,
-      more: doc.data().profile.more,
-      region: doc.data().profile.region,
-      postal: doc.data().profile.postal,
-      address: doc.data().profile.address,
-      tel: doc.data().profile.tel,
-      email: doc.data().profile.email,
-      social: doc.data().profile.social,
-    };
   } else {
-    posts[i].icon = doc.data().icon;
-    posts[i].cover = doc.data().cover;
-    posts[i].status = doc.data().status;
-    posts[i].provider = doc.data().provider;
-    posts[i].agree = doc.data().agree;
-    posts[i].posts = doc.data().posts;
-    posts[i].likes = doc.data().likes;
-    posts[i].outputs = doc.data().outputs;
-    posts[i].entries = doc.data().entries;
-    posts[i].follows = doc.data().follows;
-    posts[i].home = doc.data().home;
-    posts[i].payment = doc.data().payment;
-    posts[i].createAt = doc.data().createAt;
-    posts[i].updateAt = doc.data().updateAt;
-    posts[i].lastLogin = doc.data().lastLogin;
+    posts[index].icon = doc.data().icon;
+    posts[index].cover = doc.data().cover;
+    posts[index].status = doc.data().status;
+    posts[index].provider = doc.data().provider;
+    posts[index].agree = doc.data().agree;
+    posts[index].posts = doc.data().posts;
+    posts[index].likes = doc.data().likes;
+    posts[index].outputs = doc.data().outputs;
+    posts[index].entries = doc.data().entries;
+    posts[index].follows = doc.data().follows;
+    posts[index].home = doc.data().home;
+    posts[index].payment = doc.data().payment;
+    posts[index].createAt = doc.data().createAt;
+    posts[index].updateAt = doc.data().updateAt;
+    posts[index].lastLogin = doc.data().lastLogin;
 
     return;
   }
