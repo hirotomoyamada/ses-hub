@@ -19,6 +19,12 @@ $width: responsive-width(pc);
   border-radius: 20px;
   font-size: 14px;
 
+  transition: opacity 0.4s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
   @media (max-width: responsive-width(sp)) {
     width: 96px;
     font-size: 10px;
