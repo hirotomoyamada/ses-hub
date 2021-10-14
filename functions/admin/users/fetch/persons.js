@@ -18,7 +18,7 @@ exports.persons = ({ doc, index, lists, posts }) => {
       entries: lists.entries,
       history: lists.history,
       requests: lists.requests,
-
+      
       name: doc.data().profile.name,
       email: doc.data().profile.email,
       body: doc.data().profile.body,

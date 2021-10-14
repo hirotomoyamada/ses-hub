@@ -101,12 +101,14 @@ exports.organize = async ({ data, user }) => {
         }
       }
     } else {
-      if (list === "requests") {
+      if (list !== "requests") {
         if (user[list][0]) {
-          const index = algolia.initIndex("companys");
+          const index = algolia.initIndex(
+            list === "follows" || list === "home" ? "companys" : "matters"
+          );
 
           const objectIDs = await index
-            .getObjects(user[list].map((request) => request.uid))
+            .getObjects(user[list])
             .then(({ results }) => {
               return results.map((hit) => hit && hit.objectID);
             })
@@ -120,9 +122,7 @@ exports.organize = async ({ data, user }) => {
               if (doc.exists) {
                 const objects = doc
                   .data()
-                  [list].filter(
-                    (request) => objectIDs.indexOf(request.uid) > -1
-                  );
+                  [list].filter((objectID) => objectIDs.indexOf(objectID) > -1);
 
                 lists[list] = objects;
 
