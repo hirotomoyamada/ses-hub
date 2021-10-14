@@ -9,6 +9,13 @@ $width: responsive-width(pc);
   display: flex;
   flex-direction: column;
 
+  margin-bottom: 24px;
+
+  @media (max-width: responsive-width(sp)) {
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
   &_container {
     display: flex;
     gap: 8px;
@@ -115,12 +122,7 @@ $width: responsive-width(pc);
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
-    padding: 12px 0;
-
-    @media (max-width: responsive-width(sp)) {
-      padding: 6px 0 12px;
-    }
-
+    
     &_tag {
       background: $acnt_clr;
       color: $base_clr;
