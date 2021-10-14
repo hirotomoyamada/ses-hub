@@ -1,4 +1,5 @@
 export const verified = (state, action) => {
+  console.log(action);
   if (action.payload && action.payload.user) {
     state.verified.status = "enable";
 
