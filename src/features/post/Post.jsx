@@ -2,7 +2,7 @@ import styles from "./Post.module.scss";
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { showPost } from "./actions/showPost";
 import * as rootSlice from "../root/rootSlice";
@@ -15,7 +15,6 @@ import { Side } from "./layouts/side/Side";
 
 export const Post = ({ index, objectID }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const { pathname } = useLocation();
 
   const post = useSelector(postSlice.post);
@@ -42,10 +41,6 @@ export const Post = ({ index, objectID }) => {
       user.entries?.[index]?.indexOf(post?.objectID) >= 0 ? true : false
     );
   }, [index, post?.objectID, user.entries]);
-
-  useEffect(() => {
-    !post && user?.payment?.status === "canceled" && history.push("/plan");
-  }, [history, post, user?.payment?.status]);
 
   const handleEntry = () => {
     dispatch(rootSlice.handleModal({ type: "entry" }));
