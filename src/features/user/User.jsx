@@ -2,7 +2,6 @@ import styles from "./User.module.scss";
 
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
 
 import { showUser } from "./actions/showUser";
 import { userPosts } from "../post/actions/userPosts";
@@ -16,7 +15,6 @@ import { Meta } from "./Meta";
 
 export const User = ({ type, uid }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const index = useSelector(rootSlice.index);
 
@@ -94,12 +92,6 @@ export const User = ({ type, uid }) => {
       window.removeEventListener("resize", resize);
     };
   }, []);
-
-  useEffect(() => {
-    currentUser?.uid !== uid &&
-      currentUser?.payment?.status === "canceled" &&
-      history.push("/plan");
-  }, [currentUser?.payment?.status, currentUser?.uid, history, uid]);
 
   return (
     <div className={styles.user}>

@@ -1,6 +1,6 @@
 import styles from "./Header.module.scss";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 
 import * as rootSlice from "../../features/root/rootSlice";
@@ -14,8 +14,6 @@ export const Header = ({
   index,
   uid,
   user,
-  home,
-  search,
   outputs,
   main,
   side,
@@ -30,6 +28,7 @@ export const Header = ({
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const page = useSelector(rootSlice.page);
 
   const handleIndex = (i) => {
     if (i === index) {
@@ -57,7 +56,7 @@ export const Header = ({
     <div className={styles.header}>
       <div
         className={`${styles.header_container} ${
-          !home && !search && styles.header_container_none
+          page !== "home" && page !== "search" && styles.header_container_none
         }`}
       >
         <Link to={`/companys/${user?.uid}`}>
@@ -65,14 +64,14 @@ export const Header = ({
             {user?.icon && <Icon src={user.icon} />}
           </div>
         </Link>
-        {search ? <Search index={index} /> : <Information />}
+        {page === "search" ? <Search index={index} /> : <Information />}
       </div>
 
       <Menu
         index={index}
         uid={uid}
         user={user}
-        search={search}
+        page={page}
         handleIndex={handleIndex}
         outputs={outputs}
       />
