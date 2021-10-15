@@ -11,7 +11,6 @@ exports.addFollow = functions
   .runWith(runtime)
   .https.onCall(async (data, context) => {
     await userAuthenticated({
-      data: data,
       context: context,
       demo: true,
       canceled: true,

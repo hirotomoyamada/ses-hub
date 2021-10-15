@@ -11,7 +11,7 @@ exports.showUser = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    await userAuthenticated({ data: data, context: context, canceled: true });
+    await userAuthenticated({ context: context, canceled: true });
     const demo = context.auth.uid === functions.config().demo.ses_hub.uid;
 
     const index = algolia.initIndex(data.type);
