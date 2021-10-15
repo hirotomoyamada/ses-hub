@@ -4,7 +4,7 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
-const edit = require("./edit/edit");
+const edit = require("../edit/edit");
 
 exports.editUser = functions
   .region(location)

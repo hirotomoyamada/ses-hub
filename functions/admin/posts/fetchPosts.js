@@ -4,7 +4,7 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
-const fetch = require("./fetch/fetch");
+const fetch = require("../fetch/fetch");
 
 exports.fetchPosts = functions
   .region(location)

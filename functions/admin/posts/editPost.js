@@ -3,7 +3,7 @@ const algolia = require("../../algolia").algolia;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
-const edit = require("./edit/edit");
+const edit = require("../edit/edit");
 
 exports.editPost = functions
   .region(location)
