@@ -2,7 +2,6 @@ const functions = require("firebase-functions");
 const db = require("../../../firebase").db;
 
 exports.userAuthenticated = async ({
-  data,
   context,
   demo,
   agree,
