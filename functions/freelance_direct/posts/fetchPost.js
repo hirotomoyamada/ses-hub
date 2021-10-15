@@ -135,5 +135,32 @@ exports.fetchPost = functions
           }));
     }
 
+    await db
+      .collection("persons")
+      .doc(context.auth.uid)
+      .get()
+      .then(async (doc) => {
+        if (doc.exists) {
+          const history = doc
+            .data()
+            .history.filter((objectID) => objectID !== data);
+
+          await doc.ref
+            .set(
+              {
+                history: [data, ...history].slice(0, 100),
+              },
+              { merge: true }
+            )
+            .catch((e) => {
+              throw new functions.https.HttpsError(
+                "data-loss",
+                "プロフィールの更新に失敗しました",
+                "firebase"
+              );
+            });
+        }
+      });
+
     return { post: post, bests: bests };
   });
