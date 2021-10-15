@@ -16,6 +16,9 @@ exports.returnUser = require("./users/returnUser").returnUser;
 exports.deleteUser = require("./users/deleteUser").deleteUser;
 
 exports.createProfile = require("./users/createProfile").createProfile;
+exports.editProfile = require("./users/editProfile").editProfile;
+exports.changeEmail = require("./users/changeEmail").changeEmail;
+exports.addProvider = require("./users/addProvider").addProvider;
 
 exports.fetchUser = require("./users/fetchUser").fetchUser;
 
