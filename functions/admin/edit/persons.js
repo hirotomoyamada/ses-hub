@@ -23,7 +23,7 @@ exports.persons = ({ data, user }) => {
         working: data.user.working,
         resident: data.user.resident,
         clothes: data.user.clothes,
-        span: data.user.span,
+        period: data.user.period,
       },
       updateAt: dataTime,
     };
@@ -46,7 +46,7 @@ exports.persons = ({ data, user }) => {
       working: user.profile.working,
       resident: user.profile.resident,
       clothes: user.profile.clothes,
-      span: user.profile.span,
+      period: user.profile.period,
       updateAt: user.updateAt,
     };
   }

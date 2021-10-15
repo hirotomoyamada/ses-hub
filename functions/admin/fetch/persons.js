@@ -1,5 +1,25 @@
-exports.persons = ({ doc, index, lists, posts }) => {
-  if (!posts) {
+exports.persons = ({ doc, index, lists, posts, hit }) => {
+  if (hit) {
+    return {
+      uid: hit.objectID,
+      name: hit.name,
+      email: hit.email,
+      body: hit.body,
+      age: hit.age,
+      sex: hit.sex,
+      position: hit.position,
+      location: hit.location,
+      handles: hit.handles,
+      tools: hit.tools,
+      skills: hit.skills,
+      urls: hit.urls,
+      data: hit.data,
+      costs: hit.costs,
+      resident: hit.resident,
+      clothes: hit.clothes,
+      period: hit.period,
+    };
+  } else if (!posts) {
     return {
       index: index,
       uid: doc.id,
@@ -18,7 +38,7 @@ exports.persons = ({ doc, index, lists, posts }) => {
       entries: lists.entries,
       history: lists.history,
       requests: lists.requests,
-      
+
       name: doc.data().profile.name,
       email: doc.data().profile.email,
       body: doc.data().profile.body,
@@ -35,7 +55,7 @@ exports.persons = ({ doc, index, lists, posts }) => {
       working: doc.data().profile.working,
       resident: doc.data().profile.resident,
       clothes: doc.data().profile.clothes,
-      span: doc.data().profile.span,
+      period: doc.data().profile.period,
     };
   } else {
     posts[index].icon = doc.data().icon;

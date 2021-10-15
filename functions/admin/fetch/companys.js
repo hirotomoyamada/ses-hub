@@ -1,5 +1,21 @@
-exports.companys = ({ doc, index, lists, posts }) => {
-  if (!posts) {
+exports.companys = ({ doc, index, lists, posts, hit }) => {
+  if (hit) {
+    return {
+      uid: hit.objectID,
+      name: hit.name,
+      person: hit.person,
+      position: hit.position,
+      body: hit.body,
+      email: hit.email,
+      tel: hit.tel,
+      postal: hit.postal,
+      address: hit.address,
+      url: hit.url,
+      social: hit.social,
+      more: hit.more,
+      region: hit.region,
+    };
+  } else if (!posts) {
     return {
       index: index,
       uid: doc.id,
