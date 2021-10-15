@@ -10,6 +10,7 @@ import * as userSlice from "../../../../features/user/userSlice";
 
 import { Header } from "./components/header/Header";
 import { Main } from "./components/main/Main";
+
 import { defaultValues } from "./functions/defaultValues";
 import { matters } from "./functions/matters";
 import { resources } from "./functions/resources";
