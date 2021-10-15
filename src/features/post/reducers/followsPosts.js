@@ -7,6 +7,8 @@ export const followsPosts = (state, action) => {
       ];
     } else {
       state.home[action.payload.index].posts = action.payload.posts;
+
+      state.home[action.payload.index].control = false;
     }
     state.home[action.payload.index].hit = {
       posts: action.payload.hit.posts,
