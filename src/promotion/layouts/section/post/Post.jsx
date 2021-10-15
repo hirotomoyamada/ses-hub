@@ -24,7 +24,7 @@ export const Post = ({ handleOpen }) => {
   );
 
   useEffect(() => {
-    status !== "enable" && dispatch(promotionPosts({ index: index }));
+    status === "promo" && dispatch(promotionPosts({ index: index }));
   }, [dispatch, index, status]);
 
   return (

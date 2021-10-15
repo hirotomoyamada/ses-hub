@@ -20,6 +20,37 @@ export const rootSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addMatcher(
+      (action) => action.type.endsWith("/pending"),
+      (state, action) => {
+        state.load.fetch =
+          action.meta.arg.fetch || action.type === "post/createPost/pending"
+            ? true
+            : false;
+        state.load.list = true;
+      }
+    );
+
+    builder.addMatcher(
+      (action) => action.type.endsWith("/rejected"),
+      (state) => {
+        state.notFound = true;
+
+        state.load.fetch = false;
+        state.load.list = false;
+      }
+    );
+
+    builder.addMatcher(
+      (action) =>
+        action.type.endsWith("/fulfilled") &&
+        action.type !== "user/login/fulfilled",
+      (state) => {
+        state.load.fetch = false;
+        state.load.list = false;
+      }
+    );
+
+    builder.addMatcher(
       (action) => action.type.endsWith("/login/fulfilled"),
       (state, action) => reducers.verified(state, action)
     );
@@ -34,7 +65,7 @@ export const rootSlice = createSlice({
           email: false,
           profile: false,
           agree: false,
-          status: "",
+          status: "promo",
           access: false,
           demo: false,
         };
@@ -83,33 +114,9 @@ export const rootSlice = createSlice({
     );
 
     builder.addMatcher(
-      (action) => action.type.endsWith("/pending"),
-      (state, action) => {
-        state.load.fetch =
-          action.meta.arg.fetch || action.type === "post/createPost/pending"
-            ? true
-            : false;
-        state.load.list = true;
-      }
-    );
-
-    builder.addMatcher(
-      (action) => action.type.endsWith("/rejected"),
+      (action) => action.type.endsWith("/fetchPosts/fulfilled"),
       (state) => {
-        state.notFound = true;
-
-        state.load.fetch = false;
-        state.load.list = false;
-      }
-    );
-
-    builder.addMatcher(
-      (action) =>
-        action.type.endsWith("/fulfilled") &&
-        action.type !== "user/login/fulfilled",
-      (state, action) => {
-        state.load.fetch = false;
-        state.load.list = false;
+        state.search.control = true;
       }
     );
   },
