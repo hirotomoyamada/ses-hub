@@ -18,6 +18,7 @@ exports.createProfile = functions
       cover: `cover${cover}`,
       provider: [data.provider],
       profile: {
+        nickName: "",
         name: data.name,
         email: context.auth.token.email,
         age: data.age,
@@ -102,6 +103,7 @@ exports.createProfile = functions
           objectID: user.uid,
           uid: user.uid,
           status: user.status,
+          nickName: user.profile.nickName,
           name: user.profile.name,
           email: user.profile.email,
 
