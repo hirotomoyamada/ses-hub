@@ -20,6 +20,8 @@ exports.editProfile = require("./users/editProfile").editProfile;
 exports.changeEmail = require("./users/changeEmail").changeEmail;
 exports.addProvider = require("./users/addProvider").addProvider;
 
+exports.uploadResume = require("./users/uploadResume").uploadResume;
+
 exports.fetchUser = require("./users/fetchUser").fetchUser;
 
 exports.addLike = require("./users/like").addLike;

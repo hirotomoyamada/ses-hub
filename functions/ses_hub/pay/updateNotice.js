@@ -6,7 +6,7 @@ const runtime = require("../../firebase").runtime;
 exports.updateNotice = functions
   .region(location)
   .runWith(runtime)
-  .pubsub.schedule("0 0 * * 1,4")
+  .pubsub.schedule("0 0 * * *")
   .onRun(async () => {
     await db
       .collection("companys")
