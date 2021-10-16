@@ -30,7 +30,7 @@ exports.createProfile = functions
         tools: [],
         skills: [],
         urls: [],
-        data: [],
+        resume: [],
         costs: {
           min: "",
           max: "",
@@ -115,12 +115,11 @@ exports.createProfile = functions
           tools: user.profile.tools,
           skills: user.profile.skills,
           urls: user.profile.urls,
-          data: user.profile.data,
+          resume: user.profile.resume,
           costs: user.profile.costs,
           working: user.profile.working,
           clothes: user.profile.clothes,
           resident: user.profile.resident,
-          span: user.profile.span,
 
           createAt: user.createAt,
           lastLogin: user.createAt,
