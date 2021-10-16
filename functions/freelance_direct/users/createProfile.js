@@ -120,6 +120,7 @@ exports.createProfile = functions
           working: user.profile.working,
           clothes: user.profile.clothes,
           resident: user.profile.resident,
+          period: user.profile.period,
 
           createAt: user.createAt,
           lastLogin: user.createAt,
