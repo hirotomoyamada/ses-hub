@@ -31,7 +31,7 @@ exports.createProfile = functions
         tools: [],
         skills: [],
         urls: [],
-        resume: [],
+        resume: "",
         costs: {
           min: "",
           max: "",
