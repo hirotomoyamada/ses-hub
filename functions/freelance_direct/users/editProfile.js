@@ -22,7 +22,7 @@ exports.editProfile = functions
         icon: data.icon,
         cover: data.cover,
         profile: {
-          name: data.name,
+          nickName: data.nickName,
           body: data.body,
           age: data.age,
           sex: data.sex,
@@ -34,7 +34,6 @@ exports.editProfile = functions
           tools: data.tools,
           skills: data.skills,
           urls: data.urls,
-          data: data.data,
 
           resident: data.resident,
           working: data.working,
@@ -80,7 +79,7 @@ exports.editProfile = functions
         .partialUpdateObject(
           {
             objectID: user.uid,
-            name: user.profile.name,
+            nickName: user.profile.nickName,
             body: user.profile.body,
 
             age: user.profile.age,
@@ -93,7 +92,6 @@ exports.editProfile = functions
             tools: user.profile.tools,
             skills: user.profile.skills,
             urls: user.profile.urls,
-            data: user.profile.data,
 
             resident: user.profile.resident,
             working: user.profile.working,

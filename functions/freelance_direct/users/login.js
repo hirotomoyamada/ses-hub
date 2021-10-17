@@ -20,6 +20,7 @@ const userData = ({ context, doc, data }) => {
     likes: doc.data().likes,
     entries: doc.data().entries,
     requests: doc.data().requests,
+    resume: doc.data().resume,
     follows: doc.data().follows,
     home: doc.data().home,
     history: doc.data().history,

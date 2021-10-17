@@ -14,7 +14,6 @@ exports.persons = ({ doc, index, lists, posts, hit }) => {
       tools: hit.tools,
       skills: hit.skills,
       urls: hit.urls,
-      resume: hit.resume,
       costs: hit.costs,
       resident: hit.resident,
       clothes: hit.clothes,
@@ -29,6 +28,7 @@ exports.persons = ({ doc, index, lists, posts, hit }) => {
       status: doc.data().status,
       agree: doc.data().agree,
       provider: doc.data().provider,
+      resume: doc.data().resume,
       createAt: doc.data().createAt,
       updateAt: doc.data().updateAt,
       lastLogin: doc.data().lastLogin,
@@ -52,7 +52,6 @@ exports.persons = ({ doc, index, lists, posts, hit }) => {
       tools: doc.data().profile.tools,
       skills: doc.data().profile.skills,
       urls: doc.data().profile.urls,
-      resume: doc.data().profile.resume,
       costs: doc.data().profile.costs,
       working: doc.data().profile.working,
       resident: doc.data().profile.resident,
@@ -69,6 +68,7 @@ exports.persons = ({ doc, index, lists, posts, hit }) => {
     posts[index].entries = doc.data().entries;
     posts[index].follows = doc.data().follows;
     posts[index].requests = doc.data().requests;
+    posts[index].resume = doc.data().resume;
     posts[index].home = doc.data().home;
     posts[index].history = doc.data().history;
     posts[index].createAt = doc.data().createAt;
