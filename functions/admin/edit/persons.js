@@ -6,6 +6,7 @@ exports.persons = ({ data, user }) => {
       uid: data.user.uid,
       icon: data.user.icon,
       cover: data.user.cover,
+      resume: data.user.resume,
       status: data.user.status,
       profile: {
         nickName: data.user.nickName,
@@ -19,7 +20,6 @@ exports.persons = ({ data, user }) => {
         tools: data.user.tools,
         skills: data.user.skills,
         urls: data.user.urls,
-        resume: data.user.resume,
         costs: data.user.costs,
         working: data.user.working,
         resident: data.user.resident,
@@ -43,7 +43,6 @@ exports.persons = ({ data, user }) => {
       tools: user.profile.tools,
       skills: user.profile.skills,
       urls: user.profile.urls,
-      resume: user.profile.resume,
       costs: user.profile.costs,
       working: user.profile.working,
       resident: user.profile.resident,
