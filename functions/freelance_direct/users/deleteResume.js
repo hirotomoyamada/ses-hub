@@ -39,51 +39,18 @@ exports.deleteResume = functions
           const bucket = storage.bucket("ses-hub-resume");
           const path = bucket.file(name);
 
-          await path
-            .delete()
-            .then(async () => {
-              await doc.ref
-                .set(
-                  {
-                    profile: { resume: "" },
-                    updateAt: dataTime,
-                  },
-                  { merge: true }
-                )
-                .catch((e) => {
-                  throw new functions.https.HttpsError(
-                    "data-loss",
-                    "プロフィールの更新に失敗しました",
-                    "firebase"
-                  );
-                });
-
-              await index
-                .partialUpdateObject(
-                  {
-                    objectID: context.auth.uid,
-                    resume: "",
-                    updateAt: dataTime,
-                  },
-                  {
-                    createIfNotExists: true,
-                  }
-                )
-                .catch((e) => {
-                  throw new functions.https.HttpsError(
-                    "data-loss",
-                    "プロフィールの更新に失敗しました",
-                    "algolia"
-                  );
-                });
-            })
-            .catch((e) => {
+          await path.delete().then(async (err) => {
+            if (!err) {
+              await updateFirestore(doc);
+              await updateAlgolia();
+            } else {
               throw new functions.https.HttpsError(
                 "data-loss",
-                "データの削除に失敗しました",
+                "ファイルの削除に失敗しました",
                 "storage"
               );
-            });
+            }
+          });
         }
       })
       .catch((e) => {
@@ -93,6 +60,45 @@ exports.deleteResume = functions
           "firebase"
         );
       });
+
+    const updateFirestore = async (doc) => {
+      await doc.ref
+        .set(
+          {
+            profile: { resume: "" },
+            updateAt: dataTime,
+          },
+          { merge: true }
+        )
+        .catch((e) => {
+          throw new functions.https.HttpsError(
+            "data-loss",
+            "プロフィールの更新に失敗しました",
+            "firebase"
+          );
+        });
+    };
+
+    const updateAlgolia = async () => {
+      await index
+        .partialUpdateObject(
+          {
+            objectID: context.auth.uid,
+            resume: "",
+            updateAt: dataTime,
+          },
+          {
+            createIfNotExists: true,
+          }
+        )
+        .catch((e) => {
+          throw new functions.https.HttpsError(
+            "data-loss",
+            "プロフィールの更新に失敗しました",
+            "algolia"
+          );
+        });
+    };
 
     return;
   });
