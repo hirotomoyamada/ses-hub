@@ -21,6 +21,7 @@ exports.changeEmail = require("./users/changeEmail").changeEmail;
 exports.addProvider = require("./users/addProvider").addProvider;
 
 exports.uploadResume = require("./users/uploadResume").uploadResume;
+exports.deleteResume = require("./users/deleteResume").deleteResume;
 
 exports.fetchUser = require("./users/fetchUser").fetchUser;
 
