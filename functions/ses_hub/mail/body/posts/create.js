@@ -1,6 +1,12 @@
 exports.matters = (post, user, url) => {
   const title = post?.title ? `■ ${post.title}` : ``;
 
+  const handles = () => {
+    const handles = post?.handles?.map((handle) => handle && `【${handle}】`);
+
+    return handles?.[0] ? `${handles.join("")}` : ``;
+  };
+
   const position = post?.position ? post.position : ``;
 
   const period = post.period
@@ -37,6 +43,7 @@ exports.matters = (post, user, url) => {
 
   return `
 ${title}
+${handles()}
 
 ${position}
 
@@ -88,11 +95,11 @@ exports.resources = (post, user, url) => {
       }`
     : ``;
 
-  const skills = post?.skills
-    ? `スキル：\n${post?.skills
-        ?.map((skill) => skill && `・${skill}`)
-        .join("\n")}`
-    : ``;
+  const skills = () => {
+    const skills = post?.skills?.map((skill) => skill && `・${skill}`);
+
+    return skills?.[0] ? `スキル：\n${skills.join("\n")}` : ``;
+  };
 
   return `
 ${title}
@@ -107,7 +114,7 @@ ${station}
 
 ${costs}
 
-${skills}
+${skills()}
 
 URL：${url}
 担当：${user.name} ${user.person}`;

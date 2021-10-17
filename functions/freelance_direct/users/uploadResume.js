@@ -15,71 +15,72 @@ exports.uploadResume = functions
   .https.onCall(async (data, context) => {
     await userAuthenticated({ context: context, demo: true });
 
-    const bucket = storage.bucket("ses-hub-resume").file(context.auth.uid);
+    const dataTime = Date.now();
 
-    const file = await bucket.listAll().then((res) => {
-      return res;
-    });
+    const index = algolia.initIndex("persons");
 
-    // const dataTime = Date.now();
+    const resume = await db
+      .collection("persons")
+      .doc(context.auth.uid)
+      .get()
+      .then(async (doc) => {
+        if (doc.exists) {
+          const resume = doc.data().profile.resume
+            ? doc.data().profile.resume
+            : `${context.auth.uid}-${Math.random().toString(32).substring(2)}`;
 
-    // const index = algolia.initIndex("persons");
+          const name = `${resume}.pdf`;
+          const bucket = storage.bucket("ses-hub-resume");
+          const buffer = Buffer.from(data);
+          const path = bucket.file(name);
 
-    // const res = await db
-    //   .collection("persons")
-    //   .doc(context.auth.uid)
-    //   .get()
-    //   .then(async (doc) => {
-    //     const data = [
-    //       null, //ファイルURL
-    //       ...doc.data().data,
-    //     ].slice(0, 4);
+          await path.save(buffer);
 
-    //     doc.exists &&
-    //       (await doc.ref
-    //         .set(
-    //           {
-    //             data: data,
-    //             updateAt: dataTime,
-    //           },
-    //           { merge: true }
-    //         )
-    //         .catch((e) => {
-    //           throw new functions.https.HttpsError(
-    //             "data-loss",
-    //             "プロフィールの更新に失敗しました",
-    //             "firebase"
-    //           );
-    //         }));
+          await doc.ref
+            .set(
+              {
+                profile: { resume: resume },
+                updateAt: dataTime,
+              },
+              { merge: true }
+            )
+            .catch((e) => {
+              throw new functions.https.HttpsError(
+                "data-loss",
+                "プロフィールの更新に失敗しました",
+                "firebase"
+              );
+            });
 
-    //     return data;
-    //   })
-    //   .catch((e) => {
-    //     throw new functions.https.HttpsError(
-    //       "not-found",
-    //       "ユーザーの取得に失敗しました",
-    //       "firebase"
-    //     );
-    //   });
+          return resume;
+        }
+      })
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "not-found",
+          "ユーザーの取得に失敗しました",
+          "firebase"
+        );
+      });
 
-    // await index
-    //   .partialUpdateObject(
-    //     {
-    //       objectID: context.auth.uid,
-    //       data: res,
-    //       updateAt: dataTime,
-    //     },
-    //     {
-    //       createIfNotExists: true,
-    //     }
-    //   )
-    //   .catch((e) => {
-    //     throw new functions.https.HttpsError(
-    //       "data-loss",
-    //       "プロフィールの更新に失敗しました",
-    //       "algolia"
-    //     );
-    //   });
+    await index
+      .partialUpdateObject(
+        {
+          objectID: context.auth.uid,
+          resume: resume,
+          updateAt: dataTime,
+        },
+        {
+          createIfNotExists: true,
+        }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "プロフィールの更新に失敗しました",
+          "algolia"
+        );
+      });
 
-    return { file: file, data: data };
+    return resume;
   });
