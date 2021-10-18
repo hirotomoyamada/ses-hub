@@ -5,7 +5,7 @@ const runtime = require("../../firebase").runtime;
 
 const postAuthenticated =
   require("./functions/postAuthenticated").postAuthenticated;
-const post = require("./post/post");
+const post = require("./edit/edit");
 
 exports.editPost = functions
   .region(location)
