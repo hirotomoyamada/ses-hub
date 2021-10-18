@@ -6,7 +6,6 @@ exports.persons = ({ data, user }) => {
       uid: data.user.uid,
       icon: data.user.icon,
       cover: data.user.cover,
-      resume: data.user.resume,
       status: data.user.status,
       profile: {
         nickName: data.user.nickName,
