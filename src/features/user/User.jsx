@@ -3,7 +3,7 @@ import styles from "./User.module.scss";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { showUser } from "./actions/showUser";
+import { fetchUser } from "./actions/fetchUser";
 import { userPosts } from "../post/actions/userPosts";
 import * as rootSlice from "../root/rootSlice";
 import * as postSlice from "../post/postSlice";
@@ -53,7 +53,7 @@ export const User = ({ type, uid }) => {
 
   useEffect(() => {
     if (currentUser?.uid !== uid && selectUser?.uid !== uid) {
-      dispatch(showUser({ type: type, uid: uid }));
+      dispatch(fetchUser({ type: type, uid: uid }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, type, uid]);
@@ -119,7 +119,6 @@ export const User = ({ type, uid }) => {
         open={open}
         setOpen={setOpen}
       />
-
     </div>
   );
 };

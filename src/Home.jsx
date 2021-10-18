@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { followsPosts } from "./features/post/actions/followsPosts";
+import { homePosts } from "./features/post/actions/homePosts";
 import * as rootSlice from "./features/root/rootSlice";
 import * as postSlice from "./features/post/postSlice";
 import * as userSlice from "./features/user/userSlice";
@@ -52,7 +52,7 @@ export const Home = () => {
     (index === "matters" || index === "resources") &&
       (!posts.length || control) &&
       dispatch(
-        followsPosts({
+        homePosts({
           index: index,
           follows: [user.uid, ...user.home],
           fetch: posts.length && true,

@@ -12,10 +12,10 @@ import { addFollow, removeFollow } from "./follow";
 
 import { promotionPosts } from "./promotionPosts";
 import { fetchPosts } from "./fetchPosts";
-import { followsPosts } from "./followsPosts";
+import { homePosts } from "./homePosts";
 import { userPosts } from "./userPosts";
 import { extractPosts } from "./extractPosts";
-import { showPost } from "./showPost";
+import { fetchPost } from "./fetchPost";
 
 export {
   selectPost,
@@ -33,8 +33,8 @@ export {
   removeFollow,
   promotionPosts,
   fetchPosts,
-  followsPosts,
+  homePosts,
   userPosts,
   extractPosts,
-  showPost,
+  fetchPost,
 };

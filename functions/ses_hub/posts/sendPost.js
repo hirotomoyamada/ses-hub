@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
-const send = require("../../send-grid");
+const send = require("../../sendgrid");
 // const twitter = require("../../twitter");
 
 const postAuthenticated =

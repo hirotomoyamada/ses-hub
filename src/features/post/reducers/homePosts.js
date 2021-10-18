@@ -1,4 +1,4 @@
-export const followsPosts = (state, action) => {
+export const homePosts = (state, action) => {
   if (action.payload) {
     if (action.payload.hit.currentPage !== 0) {
       state.home[action.payload.index].posts = [

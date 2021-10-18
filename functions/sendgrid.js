@@ -1,7 +1,7 @@
 const functions = require("firebase-functions");
 
 const sgMail = require("@sendgrid/mail").setApiKey(
-  functions.config().sendgrid.apikey
+  functions.config().sendgrid.api_key
 );
 
 exports.freelanceDirect = async (data) => {

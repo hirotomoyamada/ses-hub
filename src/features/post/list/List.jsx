@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchPosts } from "../actions/fetchPosts";
-import { followsPosts } from "../actions/followsPosts";
+import { homePosts } from "../actions/homePosts";
 import * as rootSlice from "../../root/rootSlice";
 
 import { Item } from "../item/Item";
@@ -76,7 +76,7 @@ export const List = ({ index, posts, user, home, search, hit }) => {
       hit.pages &&
       page !== hit.pages &&
       dispatch(
-        followsPosts({
+        homePosts({
           index: index,
           follows: [user.uid, ...user.home],
           page: page,

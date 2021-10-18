@@ -3,7 +3,7 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
-const send = require("../../send-grid");
+const send = require("../../sendgrid");
 
 exports.sendMail = functions
   .region(location)
