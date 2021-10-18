@@ -8,7 +8,7 @@ const userAuthenticated =
   require("./functions/userAuthenticated").userAuthenticated;
 const fetch = require("./fetch/fetch");
 
-exports.followsPosts = functions
+exports.homePosts = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
