@@ -9,3 +9,6 @@ exports.deletePost = require("./posts/deletePost").deletePost;
 exports.fetchUser = require("./users/fetchUser").fetchUser;
 exports.editUser = require("./users/editUser").editUser;
 exports.extractPosts = require("./users/extractPosts").extractPosts;
+
+exports.uploadResume = require("./users/uploadResume").uploadResume;
+exports.deleteResume = require("./users/deleteResume").deleteResume;
