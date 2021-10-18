@@ -2,7 +2,7 @@
 /node_modules
 
 .firebase
-.env
+.env*
 .DS_Store
 
 *.log
