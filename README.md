@@ -2,11 +2,11 @@
 
 ## 構築
 
-|     Project      | Firebase | Algolia | Hosting |                    access                    |
-| :--------------: | :------: | :-----: | :-----: | :------------------------------------------: |
-|      admin       |   prod   |  prod   | enable  | [URL](https://ses-hub-admin-2e26u5.web.app/) |
-|     SES_HUB      |   prod   |  prod   | enable  |         [URL](https://ses-hub.app/)          |
-| Freelance Direct |   prod   |  prod   | enable  |     [URL](https://freelance-direct.app/)     |
+|     Project      | Firebase | Algolia | Stripe | Hosting |                    access                    |
+| :--------------: | :------: | :-----: | :----: | :-----: | :------------------------------------------: |
+|      admin       |   prod   |  prod   |   -    | enable  | [URL](https://ses-hub-admin-2e26u5.web.app/) |
+|     SES_HUB      |   prod   |  prod   |  prod  | enable  |         [URL](https://ses-hub.app/)          |
+| Freelance Direct |   prod   |  prod   |   -    | enable  |     [URL](https://freelance-direct.app/)     |
 
 ### ディレクトリ
 

@@ -1,5 +1,6 @@
 const functions = require("firebase-functions");
 const algolia = require("../../algolia").algolia;
+const storage = require("../../firebase").storage;
 const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
@@ -10,7 +11,9 @@ exports.createProfile = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    const user = createUser(context, data);
+    const file = await uploadFile(data.file, context.auth.uid);
+
+    const user = createUser(context, data, file);
 
     await createFirestore(context.auth.uid, user);
     await createAlgolia(context.auth.uid, user);
@@ -18,7 +21,45 @@ exports.createProfile = functions
     return user;
   });
 
-const createUser = (context, data) => {
+const uploadFile = async (file, uid) => {
+  if (file.length > 0.4 * 1024 * 1024) {
+    throw new functions.https.HttpsError(
+      "cancelled",
+      "容量が大きすぎます",
+      "storage"
+    );
+  }
+
+  const key = `${uid}-${Math.random().toString(32).substring(2)}`;
+
+  const name = `${key}.pdf`;
+  const bucket = storage.bucket(functions.config().storage.resume);
+  const buffer = Buffer.from(file, "base64");
+  const path = bucket.file(name);
+
+  const url = await path
+    .save(buffer, {
+      metadata: {
+        contentType: "application/pdf",
+      },
+    })
+    .then(async () => {
+      await path.makePublic();
+
+      return path.publicUrl();
+    })
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "data-loss",
+        "ファイルの作成に失敗しました",
+        "storage"
+      );
+    });
+
+  return { key: key, url: url };
+};
+
+const createUser = (context, data, file) => {
   const icon = Math.floor(Math.random() * (36 - 18) + 18);
   const cover = Math.floor(Math.random() * 19);
 
@@ -61,7 +102,10 @@ const createUser = (context, data) => {
     follows: [],
     home: [],
     history: [],
-    resume: { key: "", url: "" },
+    resume: {
+      key: file.key,
+      url: file.url,
+    },
     agree: data.agree,
     status: "hold",
     createAt: context.auth.token.auth_time * 1000,

@@ -21,13 +21,13 @@ exports.deleteUser = functions
         const key = doc.data().resume.key;
 
         const name = `${key}.pdf`;
-        const bucket = storage.bucket("ses-hub-resume");
+        const bucket = storage.bucket(functions.config().storage.resume);
         const path = bucket.file(name);
 
         await db.collection("persons").doc(uid).delete();
 
         await index.deleteObject(uid);
-        
+
         if (key) {
           await path.delete();
         }

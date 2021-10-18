@@ -18,7 +18,7 @@ exports.resources = functions
 
     const index = await algolia.initIndex(target);
     const path = `${target}/${timestamp()}.json`;
-    const bucket = storage.bucket("ses-hub-posts").file(path);
+    const bucket = storage.bucket(functions.config().storage.posts).file(path);
 
     let json = [];
 
