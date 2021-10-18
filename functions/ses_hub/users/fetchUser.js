@@ -7,7 +7,7 @@ const runtime = require("../../firebase").runtime;
 const userAuthenticated =
   require("./functions/userAuthenticated").userAuthenticated;
 
-exports.showUser = functions
+exports.fetchUser = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
