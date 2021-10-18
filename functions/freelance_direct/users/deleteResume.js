@@ -46,7 +46,7 @@ const deleteFile = async (doc) => {
   }
 
   const name = `${key}.pdf`;
-  const bucket = storage.bucket("ses-hub-resume");
+  const bucket = storage.bucket(functions.config().storage.resume);
   const path = bucket.file(name);
 
   await path
