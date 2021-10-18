@@ -6,7 +6,7 @@ const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 const timeZone = require("../../firebase").timeZone;
 
-const timestamp = require("./timestamp").timestamp;
+const timestamp = require("./functions/timestamp").timestamp;
 
 exports.matters = functions
   .region(location)
