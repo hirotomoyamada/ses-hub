@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { functions } from "../../../firebase";
 
-export const showUser = createAsyncThunk("user/showUser", async (data) => {
-  const showUser = functions.httpsCallable("sh-showUser");
-  const user = showUser({
+export const fetchUser = createAsyncThunk("user/fetchUser", async (data) => {
+  const fetchUser = functions.httpsCallable("sh-fetchUser");
+  const user = fetchUser({
     type: data.type,
     uid: data.uid,
   }).then(({ data }) => {

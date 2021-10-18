@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { functions } from "../../../firebase";
 
-export const showPost = createAsyncThunk("post/showPost", async (data) => {
-  const showPost = functions.httpsCallable("sh-showPost");
-  const res = showPost({
+export const fetchPost = createAsyncThunk("post/fetchPost", async (data) => {
+  const fetchPost = functions.httpsCallable("sh-fetchPost");
+  const res = fetchPost({
     index: data.index,
     objectID: data.objectID,
   }).then(({ data }) => {

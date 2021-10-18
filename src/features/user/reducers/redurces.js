@@ -1,5 +1,5 @@
 import { login } from "./login";
-import { showUser } from "./showUser";
+import { fetchUser } from "./fetchUser";
 import { resetUser } from "./resetUser";
 
 import { editProfile } from "./editProfile";
@@ -18,7 +18,7 @@ import { createPost, deletePost } from "./post";
 
 export {
   login,
-  showUser,
+  fetchUser,
   resetUser,
   editProfile,
   enableAgree,
