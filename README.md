@@ -2,18 +2,18 @@
 
 ## 構築
 
-|     Project      | Firebase | Algolia | Stripe | Hosting |                    access                    |
-| :--------------: | :------: | :-----: | :----: | :-----: | :------------------------------------------: |
-|      admin       |   prod   |  prod   |   -    | enable  | [URL](https://ses-hub-admin-2e26u5.web.app/) |
-|     SES_HUB      |   prod   |  prod   |  prod  | enable  |         [URL](https://ses-hub.app/)          |
-| Freelance Direct |   prod   |  prod   |   -    | enable  |     [URL](https://freelance-direct.app/)     |
+|     Project      | Hosting |                     prod                     |                      dev                       |
+| :--------------: | :-----: | :------------------------------------------: | :--------------------------------------------: |
+|      admin       | enable  | [URL](https://ses-hub-admin-2e26u5.web.app/) |   [URL](https://ses-hub-dev-ed356.web.app/)    |
+|     SES_HUB      | enable  |         [URL](https://ses-hub.app/)          |  [URL](https://ses-hub-admin-2c308.web.app/)   |
+| Freelance Direct | enable  |     [URL](https://freelance-direct.app/)     | [URL](https://freelance-direct-2855f.web.app/) |
 
 ### ディレクトリ
 
 ```
 ses_hub
 │
-├── build [ses-hub]
+├── build [ses-hub, ses-hub-dev-ed356]
 ├── functions
 │   ├─ ses_hub
 │   ├─ admin
@@ -21,10 +21,10 @@ ses_hub
 │   └─ export
 │
 ├── admin
-│   └─ build [ses-hub-admin-2e26u5]
+│   └─ build [ses-hub-admin-2e26u5, ses-hub-admin-2c308]
 │
 ├── freelance_direct
-│   └─ build [freelance-direct]
+│   └─ build [freelance-direct, freelance-direct-2855f]
 │
 ├── public
 └── src
@@ -43,8 +43,18 @@ ses_hub
 ### コマンド
 
 ```
+<!-- 環境切り替え -->
+firebase use dev //開発環境
+firebase use prod //本番環境
+
+<!-- 開発環境 -->
 yarn start
 yarn build
+
+<!-- 本番環境 -->
+yarn start-prod
+yarn build-prod
+
 firebase functions:config:get
 firebase functions:config:set
 firebase deploy
