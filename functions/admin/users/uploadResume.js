@@ -32,7 +32,7 @@ exports.uploadResume = functions
       .doc(data.uid)
       .get()
       .then(async (doc) => {
-        return doc.exists && (await uploadFile(data, doc, data.uid));
+        return doc.exists && (await uploadFile(data.file, doc, data.uid));
       })
       .catch((e) => {
         throw new functions.https.HttpsError(
@@ -45,14 +45,14 @@ exports.uploadResume = functions
     return url;
   });
 
-const uploadFile = async (data, doc, uid) => {
+const uploadFile = async (file, doc, uid) => {
   const key = doc.data().resume.key
     ? doc.data().resume.key
     : `${uid}-${Math.random().toString(32).substring(2)}`;
 
   const name = `${key}.pdf`;
   const bucket = storage.bucket("ses-hub-resume");
-  const buffer = Buffer.from(data, "base64");
+  const buffer = Buffer.from(file, "base64");
   const path = bucket.file(name);
 
   const url = await path
