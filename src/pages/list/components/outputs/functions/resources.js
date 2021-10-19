@@ -37,7 +37,7 @@ export const resources = ({ posts }) => {
       fields({ value: "スキル：", objects: outputs?.skills }),
     handles:
       outputs?.handles?.[0] &&
-      fields({ value: "言語：", objects: outputs?.handles }),
+      fields({ objects: outputs?.handles, handles: true }),
     tools:
       outputs?.tools?.[0] &&
       fields({ value: "ツール：", objects: outputs?.tools }),
@@ -45,14 +45,15 @@ export const resources = ({ posts }) => {
 
   return values.map(
     (output, index) =>
-      `${output.createAt}\n\n${output.roman}\n\n${output.positon}\n\n${
-        output.body
-      }\n${output.handles !== undefined ? `\n${output.handles}\n` : ""}${
-        output.tools !== undefined ? `\n${output.tools}\n` : ""
-      }\n${output.skills}\n\n${output.belong}\n\n${output.sex}\n${output.age}\n
-         ${output.period}\n${output.station}\n\n${output.costs}\n\n${
+      `${output.createAt}\n\n${output.roman}\n${
+        output.handles !== undefined ? `${output.handles}\n` : "\n"
+      }${output.positon}\n\n${
+        output.sex
+      }\n${output.age}\n${output.period}\n${output.station}\n${output.costs}\n${
         output.parallel
-      }\n\n${output.note}${
+      }\n${output.belong}\n${
+        output.tools !== undefined ? `\n${output.tools}\n` : ""
+      }\n${output.skills}\n\n${output.body}\n\n${output.note}${
         values.length !== index + 1
           ? "\n---------------------------------------------\n\n"
           : "\n"
