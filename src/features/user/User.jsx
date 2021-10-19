@@ -27,7 +27,7 @@ export const User = ({ type, uid }) => {
 
   const main = useRef();
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const posts = useSelector((state) =>
     postSlice.posts({
@@ -97,7 +97,7 @@ export const User = ({ type, uid }) => {
     <div className={styles.user}>
       <Meta user={user} />
 
-      {open && (
+      {!open && (
         <Main
           main={main}
           uid={uid}

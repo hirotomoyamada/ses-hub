@@ -26,6 +26,44 @@ $width: responsive-width(pc);
     gap: 12px;
   }
 
+  &_scroll {
+    overflow-y: scroll;
+  }
+
+  &_companys {
+    width: auto;
+    padding-left: auto-clamp(48px, 56px);
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (max-width: responsive-width(miniPc)) {
+      grid-template-columns: repeat(1, 1fr);
+      padding-left: 32px;
+
+      &_open {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: responsive-width(sp)) {
+      padding: 12px 12px 104px;
+      gap: 12px;
+    }
+
+    &_open {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &_select {
+    width: auto;
+    padding: 0;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0;
+
+    & > div:not(:last-child) {
+      border-bottom: 1px solid $bdr_clr;
+    }
+  }
+
   &_none {
     width: 100%;
     height: calc(100vh - 129px);
@@ -40,6 +78,18 @@ $width: responsive-width(pc);
     &_message {
       font-size: 14px;
       color: $sub_clr;
+    }
+
+    &_type {
+      height: calc(100vh - 49px);
+
+      @media (max-width: responsive-width(sp)) {
+        height: calc(100vh - 33px);
+      }
+    }
+
+    &_select {
+      height: 100%;
     }
   }
 
