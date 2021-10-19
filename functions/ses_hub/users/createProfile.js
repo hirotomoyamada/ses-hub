@@ -8,8 +8,8 @@ exports.createProfile = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    const icon = Math.floor(Math.random() * 18);
-    const cover = Math.floor(Math.random() * 19);
+    const icon = Math.floor(Math.random() * 17 + 1);
+    const cover = Math.floor(Math.random() * 18 + 1);
 
     const index = algolia.initIndex("companys");
     const user = {
