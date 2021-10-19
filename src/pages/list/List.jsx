@@ -36,7 +36,7 @@ export const List = (props) => {
             ? index
             : "matters"
           : list === "outputs"
-          ? index !== "companys"
+          ? index !== "companys" && index !== "persons"
             ? index
             : "matters"
           : list === "entries" && index !== "companys"
@@ -55,7 +55,7 @@ export const List = (props) => {
             ? index
             : "matters"
           : list === "outputs"
-          ? index !== "companys"
+          ? index !== "companys" && index !== "persons"
             ? index
             : "matters"
           : list === "entries" && index !== "companys"
@@ -68,9 +68,10 @@ export const List = (props) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    index === "companys" && dispatch(rootSlice.handleIndex("matters"));
+    (index === "companys" || (list === "outputs" && index === "persons")) &&
+      dispatch(rootSlice.handleIndex("matters"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [list]);
 
   useEffect(() => {
     if (
@@ -161,7 +162,7 @@ export const List = (props) => {
     <div>
       <Fetch />
 
-      <Header index={index} outputs={outputs} />
+      <Header index={index} user={user} outputs={outputs} />
 
       <Main
         index={index}

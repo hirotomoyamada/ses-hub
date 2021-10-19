@@ -10,8 +10,12 @@ $width: responsive-width(pc);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 
-  &_search {
+  &_triangle {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  &_over {
+    grid-template-columns: repeat(4, 1fr);
   }
 
   &_btn {
