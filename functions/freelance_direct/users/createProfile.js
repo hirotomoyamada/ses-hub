@@ -161,6 +161,7 @@ const createAlgolia = async (uid, user) => {
         objectID: uid,
         uid: uid,
         status: user.status,
+        name: user.profile.name,
         nickName: user.profile.nickName,
         email: user.profile.email,
 
