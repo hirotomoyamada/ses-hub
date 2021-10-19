@@ -24,12 +24,20 @@ exports.addLike = functions
           doc.ref
             .set(
               likes
-                ? likes.indexOf(data.objectID) < 0 && {
-                    likes: { [data.index]: [data.objectID, ...likes] },
+                ? likes.indexOf(data.objectID ? data.objectID : data.uid) <
+                    0 && {
+                    likes: {
+                      [data.index]: [
+                        data.objectID ? data.objectID : data.uid,
+                        ...likes,
+                      ],
+                    },
                     updateAt: dataTime,
                   }
                 : {
-                    likes: { [data.index]: [data.objectID] },
+                    likes: {
+                      [data.index]: [data.objectID ? data.objectID : data.uid],
+                    },
                     updateAt: dataTime,
                   },
               { merge: true }
@@ -70,7 +78,9 @@ exports.removeLike = functions
         if (doc.exists) {
           const likes = doc
             .data()
-            .likes[data.index].filter((objectID) => objectID !== data.objectID);
+            .likes[data.index].filter(
+              (id) => id !== (data.objectID ? data.objectID : data.uid)
+            );
 
           doc.ref
             .set(
