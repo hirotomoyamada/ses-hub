@@ -10,7 +10,7 @@ import { Header } from "../../components/header/Header";
 
 import { Outputs } from "./components/outputs/Outputs";
 import { Select } from "./components/select/Select";
-import { Main } from "./components/main/Main";
+import { List as Main } from "../../features/post/list/List";
 
 import { Fetch } from "../../components/load/Load";
 

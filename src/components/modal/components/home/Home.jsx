@@ -8,7 +8,7 @@ import * as postSlice from "../../../../features/post/postSlice";
 import * as userSlice from "../../../../features/user/userSlice";
 
 import { Header } from "./components/header/Header";
-import { List } from "./components/List/List";
+import { List } from "../../../../features/post/list/List";
 import { Select } from "./components/select/Select";
 
 export const Home = ({ user, handleClose }) => {

@@ -7,7 +7,7 @@ export const Toggle = ({ setOpen, open }) => {
     <button onClick={() => setOpen(!open)} className={styles.side_toggle}>
       <NavigateNextIcon
         className={`${styles.side_toggle_icon} ${
-          !open && styles.side_toggle_icon_open
+          open && styles.side_toggle_icon_open
         }`}
       />
     </button>
