@@ -38,7 +38,6 @@ export const matters = ({ posts }) => {
     handles:
       outputs?.handles?.[0] &&
       fields({
-        value: "言語など：",
         objects: outputs.handles,
         handles: true,
       }),
