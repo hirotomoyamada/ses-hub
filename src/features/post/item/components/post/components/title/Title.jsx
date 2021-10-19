@@ -1,7 +1,7 @@
 import styles from "./Title.module.scss";
 
 export const Title = ({ post, resources }) => {
-  const newPost = post?.createAt > Date.now() - 6000 * 600 * 24 * 3;
+  const newPost = post?.createAt > Date.now() - 60 * 60 * 24 * 3 * 1000;
 
   return !resources ? (
     <div className={styles.title}>
