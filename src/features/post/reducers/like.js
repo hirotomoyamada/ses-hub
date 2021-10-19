@@ -10,5 +10,11 @@ export const addLike = (state, action) => {
 export const removeLike = (state, action) => {
   state.likes[action.payload.index].posts = state.likes[
     action.payload.index
-  ].posts.filter((post) => post.objectID !== action.payload.post.objectID);
+  ].posts.filter(
+    (post) =>
+      (action.payload.index !== "persons" ? post.objectID : post.uid) !==
+      (action.payload.index !== "persons"
+        ? action.payload.post.objectID
+        : action.payload.post.uid)
+  );
 };

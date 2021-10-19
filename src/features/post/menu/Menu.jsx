@@ -27,14 +27,20 @@ export const Menu = ({ index, post, user, back, postItem }) => {
   const [entry, setEntry] = useState(false);
 
   useEffect(() => {
-    setLike(user.likes?.[index]?.indexOf(post?.objectID) >= 0 ? true : false);
+    setLike(
+      user.likes?.[index]?.indexOf(
+        index !== "persons" ? post?.objectID : post?.uid
+      ) >= 0
+        ? true
+        : false
+    );
     setOutput(
       user.outputs?.[index]?.indexOf(post?.objectID) >= 0 ? true : false
     );
     setEntry(
       user.entries?.[index]?.indexOf(post?.objectID) >= 0 ? true : false
     );
-  }, [index, post?.objectID, user.entries, user.likes, user.outputs]);
+  }, [index, post?.objectID, post?.uid, user.entries, user.likes, user.outputs]);
 
   const handleOpen = () => {
     setOpen(!open);
@@ -97,13 +103,15 @@ export const Menu = ({ index, post, user, back, postItem }) => {
             <FavoriteBorderIcon className={styles.menu_icon} />
           )}
         </button>
-        <button onClick={handleOutput}>
-          <LaunchIcon
-            className={`${styles.menu_icon} ${
-              output && styles.menu_icon_output
-            }`}
-          />
-        </button>
+        {index !== "persons" && (
+          <button onClick={handleOutput}>
+            <LaunchIcon
+              className={`${styles.menu_icon} ${
+                output && styles.menu_icon_output
+              }`}
+            />
+          </button>
+        )}
         {entry && (
           <CheckCircleOutlineIcon
             className={`${styles.menu_icon} ${styles.menu_icon_entry}`}
