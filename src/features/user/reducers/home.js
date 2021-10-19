@@ -4,5 +4,5 @@ export const updateHome = (state, action) => {
   state.user.home = action.payload;
 
   const updateHome = functions.httpsCallable("sh-updateHome");
-  updateHome({ uids: action.payload }).catch((e) => {});
+  updateHome(action.payload).catch((e) => {});
 };

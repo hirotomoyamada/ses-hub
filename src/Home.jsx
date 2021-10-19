@@ -54,7 +54,7 @@ export const Home = () => {
       dispatch(
         homePosts({
           index: index,
-          follows: [user.uid, ...user.home],
+          follows: [user?.uid, ...user?.home],
           fetch: posts.length && true,
         })
       );
