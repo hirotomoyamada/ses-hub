@@ -14,11 +14,11 @@ exports.fetchUser = functions
     await userAuthenticated({ context: context, canceled: true });
     const demo = context.auth.uid === functions.config().demo.ses_hub.uid;
 
-    const index = algolia.initIndex(data.type);
+    const index = algolia.initIndex(data.index);
     const user = await index
       .getObject(data.uid)
       .then((hit) => {
-        return hit && data.type === "companys"
+        return hit && data.index === "companys"
           ? {
               uid: hit.objectID,
               profile: {
@@ -36,7 +36,7 @@ exports.fetchUser = functions
               },
               createAt: hit.createAt,
             }
-          : data.type === "persons" && {
+          : data.index === "persons" && {
               uid: hit.objectID,
               profile: {
                 nickName: hit.nickName,
@@ -69,7 +69,7 @@ exports.fetchUser = functions
       });
 
     await db
-      .collection(data.type)
+      .collection(data.index)
       .doc(data.uid)
       .get()
       .then((doc) => {
@@ -78,7 +78,7 @@ exports.fetchUser = functions
           user.cover = doc.data().cover;
 
           if (
-            data.type === "persons" &&
+            data.index === "persons" &&
             doc.data().requests.enable.indexOf(context.auth.uid) < 0
           ) {
             user.profile.name = null;
@@ -99,7 +99,7 @@ exports.fetchUser = functions
       });
 
     const bests =
-      data.type === "persons" &&
+      data.index === "persons" &&
       (await index
         .search("", {
           queryLanguages: ["ja", "en"],
@@ -135,7 +135,7 @@ exports.fetchUser = functions
           );
         }));
 
-    if (data.type === "persons") {
+    if (data.index === "persons") {
       for (let i = 0; i < bests.length; i++) {
         bests[i] &&
           (await db
