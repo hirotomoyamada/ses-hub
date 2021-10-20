@@ -12,6 +12,7 @@ export const Posts = ({
   open,
   companys,
   outputs,
+  bests,
   handleSelect,
   handleCancel,
 }) => {
@@ -19,7 +20,7 @@ export const Posts = ({
     <div
       className={`${styles.list} ${companys && styles.list_companys} ${
         open && styles.list_companys_open
-      } ${select && styles.list_select}`}
+      } ${select && styles.list_select} ${bests && styles.list_bests}`}
       ref={list}
     >
       {posts.map(

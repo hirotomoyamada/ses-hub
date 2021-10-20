@@ -45,6 +45,7 @@ export const Side = ({
           hit={hit}
           sort={sort}
           open={open}
+          bests={index === "persons" && true}
           companys
         />
 

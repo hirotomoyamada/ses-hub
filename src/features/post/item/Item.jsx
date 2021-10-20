@@ -24,7 +24,6 @@ export const Item = ({
   search,
   select,
   selectUser,
-  home,
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();

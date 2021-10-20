@@ -5,14 +5,14 @@ import Loader from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import * as rootSlice from "../../../root/rootSlice";
 
-export const NotFound = ({ index, list, type, select }) => {
+export const NotFound = ({ index, list, type, select, bests }) => {
   const load = useSelector(rootSlice.load).list;
 
   return (
     <div
       className={`${styles.list_none} ${type && styles.list_none_type} ${
         select && styles.list_none_select
-      }`}
+      } ${bests && styles.list_none_bests}`}
       ref={list}
     >
       {load ? (
