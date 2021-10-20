@@ -64,6 +64,12 @@ $width: responsive-width(pc);
     }
   }
 
+  &_bests {
+    width: auto;
+    padding: 0;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
   &_none {
     width: 100%;
     height: calc(100vh - 129px);
@@ -76,8 +82,11 @@ $width: responsive-width(pc);
     }
 
     &_message {
-      font-size: 14px;
       color: $sub_clr;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 12px;
+      }
     }
 
     &_type {
@@ -90,6 +99,10 @@ $width: responsive-width(pc);
 
     &_select {
       height: 100%;
+    }
+
+    &_bests {
+      height: 160px;
     }
   }
 

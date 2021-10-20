@@ -36,6 +36,7 @@ export const postSlice = createSlice({
       reducers.userPosts(state, action)
     );
 
+
     builder.addCase(homePosts.fulfilled, (state, action) =>
       reducers.homePosts(state, action)
     );
@@ -47,7 +48,7 @@ export const postSlice = createSlice({
     builder.addCase(fetchPost.pending, (state, action) =>
       reducers.resetPost(state, action)
     );
-    
+
     builder.addCase(fetchPost.fulfilled, (state, action) =>
       reducers.fetchPost(state, action)
     );

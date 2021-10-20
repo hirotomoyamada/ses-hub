@@ -3,14 +3,11 @@ import styles from "./List.module.scss";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 
-import { fetchPosts } from "../actions/fetchPosts";
-import { homePosts } from "../actions/homePosts";
-import { userPosts } from "../actions/userPosts";
-import { extractPosts } from "../actions/extractPosts";
-
 import { Posts } from "./components/Posts";
 import { NotFound } from "./components/NotFound";
 import { Load } from "./components/Load";
+import { createObserver } from "./functions/createObserver";
+import { fetchScroll } from "./functions/fetchScroll";
 
 export const List = ({
   index,
@@ -28,6 +25,7 @@ export const List = ({
   type,
   hit,
   open,
+  bests,
 }) => {
   const dispatch = useDispatch();
 
@@ -38,100 +36,42 @@ export const List = ({
   const [intersecting, setIntersecting] = useState(false);
 
   useEffect(() => {
-    setPage(hit.currentPage);
-    setIntersecting(false);
-  }, [hit.currentPage, hit.pages]);
+    !bests && setPage(hit.currentPage);
+    !bests && setIntersecting(false);
+  }, [bests, hit?.currentPage, hit?.pages]);
 
   useEffect(() => {
-    if (
-      JSON.stringify(list.current.getBoundingClientRect().height) >
-      window.innerHeight + 100
-    ) {
-      const observer = new IntersectionObserver(
-        ([results]) => {
-          if (results.isIntersecting && !intersecting) {
-            if (page < hit.pages) {
-              setIntersecting(results.isIntersecting);
-            }
-            setPage((prevPage) => prevPage + 1);
-          }
-        },
-        {
-          rootMargin: `0px 0px ${window.innerHeight}px 0px`,
-        }
+    !bests &&
+      createObserver(
+        list,
+        load,
+        hit,
+        page,
+        setPage,
+        intersecting,
+        setIntersecting
       );
-
-      const ref = load.current;
-      ref && observer.observe(ref);
-
-      return () => {
-        ref && observer.unobserve(ref);
-      };
-    }
-  }, [hit.pages, intersecting, page]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hit?.pages, intersecting, page]);
 
   useEffect(() => {
-    search &&
-      intersecting &&
-      hit.pages &&
-      page !== hit.pages &&
-      dispatch(
-        fetchPosts({
-          index: index,
-          value: search.value,
-          target: search.target,
-          type: search.type,
-          page: page,
-        })
-      ).then(() => {
-        setIntersecting(!intersecting);
-      });
-
-    home &&
-      intersecting &&
-      hit.pages &&
-      page !== hit.pages &&
-      dispatch(
-        homePosts({
-          index: index,
-          follows: [user.uid, ...user.home],
-          page: page,
-        })
-      ).then(() => {
-        setIntersecting(!intersecting);
-      });
-
-    (companys || select) &&
-      intersecting &&
-      hit.pages &&
-      page !== hit.pages &&
-      dispatch(
-        userPosts({
-          index: !select ? index : "companys",
-          uid: user?.uid,
-          uids: (index === "companys" || select) && user?.follows,
-          status: !select && sort.status,
-          display: !select && sort.display,
-          page: page,
-        })
-      ).then(() => {
-        setIntersecting(!intersecting);
-      });
-
-    type &&
-      intersecting &&
-      hit.pages &&
-      page !== hit.pages &&
-      dispatch(
-        extractPosts({
-          index: index,
-          objectIDs: user[list][index],
-          type: list,
-          page: page,
-        })
-      ).then(() => {
-        setIntersecting(!intersecting);
-      });
+    !bests &&
+      fetchScroll(
+        dispatch,
+        intersecting,
+        setIntersecting,
+        page,
+        hit,
+        home,
+        search,
+        companys,
+        select,
+        type,
+        list,
+        index,
+        user,
+        sort
+      );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -149,6 +89,7 @@ export const List = ({
           type={type}
           companys={companys}
           outputs={outputs}
+          bests={bests}
           handleSelect={handleSelect}
           handleCancel={handleCancel}
         />
@@ -157,12 +98,15 @@ export const List = ({
           index={index}
           list={list}
           type={type}
+          bests={bests}
           companys={companys}
           select={select}
         />
       )}
 
-      {posts?.length >= 50 && <Load load={load} page={page} hit={hit} />}
+      {posts?.length >= 50 && (
+        <Load load={load} page={page} hit={hit} bests={bests} />
+      )}
     </div>
   );
 };

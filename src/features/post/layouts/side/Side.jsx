@@ -3,30 +3,26 @@ import Loader from "react-loader-spinner";
 
 import { Link } from "react-router-dom";
 
-import { useSelector } from "react-redux";
-import * as rootSlice from "../../../root/rootSlice";
-
 import { Item } from "../../item/Item";
 import { Advertise } from "./components/Advertise";
+import { List } from "../../list/List";
 
 export const Side = ({ index, post, posts, user }) => {
-  const load = useSelector(rootSlice.load);
-
   return (
     <div className={styles.side}>
       <span className={styles.side_tag}>投稿したユーザー</span>
 
       {post?.user?.uid ? (
-        <Item user={user} post={post?.user} companys />
+        <Item index={"companys"} user={user} post={post?.user} />
       ) : (
         <div className={styles.side_load}>
-          <Loader type="Oval" color="#49b757" height={32} width={32} />
+          <Loader type="Oval" color="#49b757" height={56} width={56} />
         </div>
       )}
 
       {user?.uid !== post?.user?.uid && (
-        <Link to={`/user/companys/${post?.user?.uid}`}>
-          <span className={styles.side_desc}>このユーザーの他の投稿を見る</span>
+        <Link to={`/companys/${post?.user?.uid}`} className={styles.side_desc}>
+          このユーザーの他の投稿を見る
         </Link>
       )}
 
@@ -41,27 +37,7 @@ export const Side = ({ index, post, posts, user }) => {
       </span>
 
       {user?.payment?.status !== "canceled" ? (
-        posts?.length ? (
-          posts.map(
-            (post) =>
-              post && (
-                <Item
-                  key={post?.objectID}
-                  index={index}
-                  post={post}
-                  user={user}
-                />
-              )
-          )
-        ) : load ? (
-          <div className={styles.side_load}>
-            <Loader type="Oval" color="#49b757" height={32} width={32} />
-          </div>
-        ) : (
-          <span className={styles.side_desc}>
-            似ている案件が見つかりませんでした
-          </span>
-        )
+        <List index={index} user={user} posts={posts} bests={true} />
       ) : (
         <Advertise user={user} />
       )}

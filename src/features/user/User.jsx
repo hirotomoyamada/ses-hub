@@ -32,7 +32,12 @@ export const User = ({ type, uid }) => {
   const posts = useSelector((state) =>
     postSlice.posts({
       state: state,
-      page: currentUser?.uid === uid ? "user" : "selectUser",
+      page:
+        type === "companys"
+          ? currentUser?.uid === uid
+            ? "user"
+            : "selectUser"
+          : "bests",
       index: index,
     })
   );
@@ -40,7 +45,8 @@ export const User = ({ type, uid }) => {
   const hit = useSelector((state) =>
     postSlice.hit({
       state: state,
-      page: currentUser?.uid === uid ? "user" : "selectUser",
+      page:
+        type === "companys" && currentUser?.uid === uid ? "user" : "selectUser",
       index: index,
     })
   );
@@ -59,8 +65,9 @@ export const User = ({ type, uid }) => {
   }, [dispatch, type, uid]);
 
   useEffect(() => {
-    (index !== "companys" || user.follows.length) &&
-      (!posts.length || sort.control) &&
+    type === "companys" &&
+      (index !== "companys" || user?.follows?.length) &&
+      (!posts?.length || sort.control) &&
       dispatch(
         userPosts({
           index: index,
@@ -73,17 +80,18 @@ export const User = ({ type, uid }) => {
   }, [
     dispatch,
     index,
-    posts.length,
+    posts?.length,
     sort.control,
     sort.display,
     sort.status,
+    type,
     uid,
-    user.follows,
+    user?.follows,
   ]);
 
   useEffect(() => {
     const resize = () => {
-      window.innerWidth < 1440 && setOpen(true);
+      window.innerWidth < 1440 && setOpen(false);
     };
 
     window.addEventListener("resize", resize);
