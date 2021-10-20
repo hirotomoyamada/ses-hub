@@ -1,0 +1,57 @@
+// サイト共有の初期設定
+@import "../../../../../../styles/config";
+@import "../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  @media (max-width: responsive-width(sp)) {
+    gap: 12px;
+  }
+
+  &_icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+
+    @media (max-width: responsive-width(sp)) {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  &_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &_ttl {
+    font-size: auto-clamp(20px, 24px);
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 14px;
+      width: auto-max(180px);
+    }
+  }
+
+  &_tag {
+    color: $sub_clr;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @media (max-width: responsive-width(sp)) {
+      width: auto-max(180px);
+    }
+  }
+}
