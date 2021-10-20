@@ -1,4 +1,4 @@
-import styles from "../Company.module.scss";
+import styles from "../Person.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
@@ -16,7 +16,7 @@ export const CreateAt = ({ user }) => {
       <FontAwesomeIcon icon={faCalendarAlt} className={styles.profile_icon} />
       <span>
         {timestamp(user?.createAt)}
-        からSES_HUBを利用しています
+        からFreelance Directを利用しています
       </span>
     </div>
   );

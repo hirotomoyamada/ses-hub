@@ -1,4 +1,4 @@
-import styles from "../../Profile.module.scss";
+import styles from "./Company.module.scss";
 
 import { Head } from "./components/Head";
 import { Body } from "./components/Body";

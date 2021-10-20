@@ -108,10 +108,10 @@ export const User = ({ type, uid }) => {
       {!open && (
         <Main
           main={main}
+          index={type}
           uid={uid}
           user={user}
           currentUser={currentUser}
-          type={type}
         />
       )}
 
