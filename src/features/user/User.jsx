@@ -103,7 +103,7 @@ export const User = ({ type, uid }) => {
 
   return (
     <div className={styles.user}>
-      <Meta user={user} />
+      <Meta index={index} user={user} />
 
       {!open && (
         <Main

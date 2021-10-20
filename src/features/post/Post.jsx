@@ -29,7 +29,6 @@ export const Post = ({ index, objectID }) => {
 
   useEffect(() => {
     dispatch(rootSlice.handlePage("post"));
-    dispatch(rootSlice.handleIndex(index));
   }, [dispatch, index]);
 
   useEffect(() => {

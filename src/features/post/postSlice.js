@@ -129,7 +129,9 @@ export const { selectPost, editPost, deletePost, resetPost } =
   postSlice.actions;
 
 export const posts = ({ state, page, index }) =>
-  page && state.post?.[page]?.[index]?.posts;
+  page && page !== "bests"
+    ? state.post?.[page]?.[index]?.posts
+    : state.post.bests;
 
 export const hit = ({ state, page, index }) =>
   page && state.post?.[page]?.[index]?.hit;

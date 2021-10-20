@@ -161,6 +161,17 @@ $width: responsive-width(pc);
 
   &_link {
     color: $link_clr;
+
+    &_dummy {
+      filter: blur(3px);
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+
+  &_dummy {
+    filter: blur(3px);
+    user-select: none;
   }
 
   &_createAt {

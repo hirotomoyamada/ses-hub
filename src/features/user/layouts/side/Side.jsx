@@ -24,13 +24,15 @@ export const Side = ({
 
   return (
     <div>
-      <Header
-        index={index}
-        uid={uid}
-        user={currentUser}
-        side={side}
-        main={main}
-      />
+      {index !== "persons" && (
+        <Header
+          index={index}
+          uid={uid}
+          user={currentUser}
+          side={side}
+          main={main}
+        />
+      )}
 
       <div className={`${styles.side} ${open && styles.side_open}`} ref={side}>
         <Toggle setOpen={setOpen} open={open} />

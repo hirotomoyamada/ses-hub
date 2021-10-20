@@ -21,7 +21,6 @@ export const Item = ({
   outputs,
   handleSelect,
   handleCancel,
-  search,
   select,
   selectUser,
 }) => {
@@ -29,13 +28,12 @@ export const Item = ({
   const history = useHistory();
 
   const handleOpen = () => {
-    search && dispatch(rootSlice.handleSearch({ control: true }));
+    dispatch(rootSlice.handleSearch({ control: true }));
     history.push(
       `/${index}/${
         index === "matters" || index === "resources" ? post.objectID : post.uid
       }`
     );
-    index === "companys" && dispatch(rootSlice.handleIndex("matters"));
   };
 
   return !outputs?.length ? (

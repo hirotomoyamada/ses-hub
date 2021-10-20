@@ -20,9 +20,15 @@ export const Posts = ({
     <div
       className={`${styles.list} ${companys && styles.list_companys} ${
         open && styles.list_companys_open
-      } ${select && styles.list_select} ${bests && styles.list_bests}`}
+      } ${select && styles.list_select} ${
+        bests && !companys && styles.list_bests
+      }`}
       ref={list}
     >
+      {companys && index === "persons" && (
+        <span className={styles.list_tag}>こんなエンジニアもオススメ</span>
+      )}
+
       {posts.map(
         (post) =>
           post && (
