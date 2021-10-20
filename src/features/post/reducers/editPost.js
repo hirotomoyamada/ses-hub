@@ -5,13 +5,7 @@ export const editPost = (state, action) => {
 
   if (action.payload.post.display === "private") {
     Object.keys(state).forEach((type) => {
-      if (
-        type === "user" ||
-        type === "selectUser" ||
-        type === "bests" ||
-        type === "likes" ||
-        type === "outputs"
-      ) {
+      if (type !== "search" && type !== "home") {
         return;
       }
 
@@ -21,8 +15,15 @@ export const editPost = (state, action) => {
     });
   }
 
+  if (
+    action.payload.post.display === "public" &&
+    state.post.display === "private"
+  ) {
+    state.home[action.payload.index].control = true;
+  }
+
   Object.keys(state).forEach((type) => {
-    if (type === "selectUser" || type === "bests") {
+    if (type === "selectUser" || type === "bests" || type === "post") {
       return;
     }
 
@@ -53,6 +54,7 @@ export const editPost = (state, action) => {
       post.memo = action.payload.post.memo;
       post.updateAt = dataTime;
     }
+
     if (action.payload.index === "resources" && post) {
       post.display = action.payload.post.display;
       post.roman = action.payload.post.roman;
