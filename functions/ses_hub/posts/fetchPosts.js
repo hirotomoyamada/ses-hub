@@ -92,7 +92,11 @@ exports.fetchPosts = functions
             .get()
             .then((doc) => {
               if (doc.exists) {
-                posts[i].icon = doc.data().icon;
+                if (doc.data().profile.nickName || data.index === "companys") {
+                  posts[i].icon = doc.data().icon;
+                } else {
+                  posts[i] = false;
+                }
               }
             })
             .catch((e) => {
