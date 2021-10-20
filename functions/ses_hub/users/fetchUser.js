@@ -81,12 +81,9 @@ exports.fetchUser = functions
             data.index === "persons" &&
             doc.data().requests.enable.indexOf(context.auth.uid) < 0
           ) {
-            user.profile.name = null;
-            user.profile.email = null;
-            user.profile.urls = [];
-            user.profile.working = null;
-            user.profile.resident = null;
-            user.profile.clothes = null;
+            user.profile.name = "非公開";
+            user.profile.email = "非公開";
+            user.profile.urls = "非公開";
           }
         }
       })

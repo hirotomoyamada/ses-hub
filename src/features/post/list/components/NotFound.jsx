@@ -5,14 +5,16 @@ import Loader from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import * as rootSlice from "../../../root/rootSlice";
 
-export const NotFound = ({ index, list, type, select, bests }) => {
+export const NotFound = ({ index, list, type, select, bests, companys }) => {
   const load = useSelector(rootSlice.load).list;
 
   return (
     <div
-      className={`${styles.list_none} ${type && styles.list_none_type} ${
-        select && styles.list_none_select
-      } ${bests && styles.list_none_bests}`}
+      className={`${styles.list_none} ${
+        (type || companys) && styles.list_none_type
+      } ${select && styles.list_none_select} ${
+        bests && !companys && styles.list_none_bests
+      } ${companys && styles.list_none_companys}`}
       ref={list}
     >
       {load ? (
@@ -25,7 +27,9 @@ export const NotFound = ({ index, list, type, select, bests }) => {
             ? "フォローしているユーザーがいません"
             : index === "resources"
             ? "人材情報がありません"
-            : index === "companys" && "メンバー情報がありません"}
+            : index === "companys"
+            ? "メンバー情報がありません"
+            : index === "persons" && "エンジニア情報がありません"}
         </span>
       )}
     </div>

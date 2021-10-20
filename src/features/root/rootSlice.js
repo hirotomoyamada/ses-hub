@@ -128,6 +128,23 @@ export const rootSlice = createSlice({
         }
       }
     );
+
+    builder.addMatcher(
+      (action) => action.type.endsWith("/fetchUser/pending"),
+      (state, action) => {
+        state.index =
+          action.meta.arg.index !== "companys"
+            ? action.meta.arg.index
+            : "matters";
+      }
+    );
+
+    builder.addMatcher(
+      (action) => action.type.endsWith("/fetchPost/pending"),
+      (state, action) => {
+        state.index = action.meta.arg.index;
+      }
+    );
   },
 });
 

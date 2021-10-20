@@ -104,6 +104,13 @@ $width: responsive-width(pc);
     &_bests {
       height: 160px;
     }
+
+    &_companys {
+      @media (max-width: responsive-width(tb)) {
+        height: 320px;
+        padding-bottom: 104px;
+      }
+    }
   }
 
   &_load {
@@ -117,6 +124,16 @@ $width: responsive-width(pc);
 
     &_none {
       display: none;
+    }
+  }
+
+  &_tag {
+    font-size: 24px;
+    color: $acnt_clr;
+    font-weight: bold;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 16px;
     }
   }
 }
