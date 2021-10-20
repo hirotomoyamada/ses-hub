@@ -59,7 +59,7 @@ export const User = ({ type, uid }) => {
 
   useEffect(() => {
     if (currentUser?.uid !== uid && selectUser?.uid !== uid) {
-      dispatch(fetchUser({ type: type, uid: uid }));
+      dispatch(fetchUser({ index: type, uid: uid }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, type, uid]);
