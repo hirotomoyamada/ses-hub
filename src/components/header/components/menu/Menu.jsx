@@ -36,6 +36,19 @@ export const Menu = ({ index, uid, user, handleIndex, page, outputs }) => {
         人材
       </button>
 
+      {(page === "search" || page === "likes" || page === "entries") &&
+        user?.payment?.status !== "canceled" &&
+        user?.payment?.option?.freelanceDirect && (
+          <button
+            onClick={() => handleIndex("persons")}
+            className={`${styles.menu_btn} ${
+              index === "persons" && styles.menu_btn_active
+            }`}
+          >
+            エンジニア
+          </button>
+        )}
+
       {((page === "search" && user?.payment?.status !== "canceled") ||
         (page === "user" &&
           user?.uid === uid &&
@@ -49,19 +62,6 @@ export const Menu = ({ index, uid, user, handleIndex, page, outputs }) => {
           {!uid ? "メンバー" : "フォロー中"}
         </button>
       )}
-
-      {(page === "search" || page === "likes" || page === "entries") &&
-        user?.payment?.status !== "canceled" &&
-        user?.payment?.option?.freelanceDirect && (
-          <button
-            onClick={() => handleIndex("persons")}
-            className={`${styles.menu_btn} ${
-              index === "persons" && styles.menu_btn_active
-            }`}
-          >
-            エンジニア
-          </button>
-        )}
     </div>
   ) : (
     <div className={`${styles.menu} ${styles.menu_outputs}`}>
