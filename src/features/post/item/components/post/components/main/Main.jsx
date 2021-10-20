@@ -12,13 +12,9 @@ export const Main = ({ post, resources }) => {
     <div className={styles.main}>
       <div className={styles.main_side}>
         <Location post={post} />
-
         <Remote post={post} />
-
         <Times post={post} />
-
         <Costs post={post} />
-
         <Adjustment post={post} />
       </div>
 
@@ -28,11 +24,8 @@ export const Main = ({ post, resources }) => {
     <div className={styles.main}>
       <div className={styles.main_side}>
         <Station post={post} />
-
         <Belong post={post} />
-
         <Period post={post} />
-
         <Costs post={post} />
       </div>
 

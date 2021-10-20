@@ -1,0 +1,35 @@
+// サイト共有の初期設定
+@import "../../../../../../styles/config";
+@import "../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.handles {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  &_tag {
+    background: $acnt_clr;
+    color: $base_clr;
+    padding: 6px 12px;
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 4px 8px;
+    }
+
+    &_txt {
+      font-size: 12px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 10px;
+      }
+    }
+  }
+}
