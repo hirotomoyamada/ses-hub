@@ -1,4 +1,4 @@
-import styles from "../Company.module.scss";
+import styles from "../Person.module.scss";
 
 export const Body = ({ user }) => {
   return user?.profile?.body ? (

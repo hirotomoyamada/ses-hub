@@ -7,7 +7,7 @@ import { Editor } from "./components/Editor";
 import { Profile } from "./components/profile/Profile";
 import { Follow } from "../../../../components/follow/Follow";
 
-export const Main = ({ uid, user, currentUser, type, main }) => {
+export const Main = ({ uid, user, currentUser, index, main }) => {
   return (
     <div className={styles.main} ref={main}>
       {user.uid ? (
@@ -21,7 +21,7 @@ export const Main = ({ uid, user, currentUser, type, main }) => {
               user.uid && <Follow user={currentUser} post={user} profile />
             )}
 
-            <Profile type={type} user={user} />
+            <Profile index={index} user={user} />
           </div>
         </>
       ) : (
