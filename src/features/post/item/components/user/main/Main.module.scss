@@ -57,6 +57,14 @@ $width: responsive-width(pc);
       @media (max-width: responsive-width(sp)) {
         -webkit-line-clamp: 5;
       }
+
+      &_none {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        color: $sub_clr;
+      }
     }
 
     &:after {
