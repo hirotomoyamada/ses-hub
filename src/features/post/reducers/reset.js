@@ -27,6 +27,8 @@ export const resetPost = (state, action) => {
     state.selectUser.matters.hit.currentPage = 0;
     state.selectUser.resources.posts = [];
     state.selectUser.resources.hit.currentPage = 0;
+
+    state.bests = [];
   }
 };
 

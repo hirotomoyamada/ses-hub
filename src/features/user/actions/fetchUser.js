@@ -7,7 +7,10 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async (data) => {
     type: data.type,
     uid: data.uid,
   }).then(({ data }) => {
-    return { user: data };
+    return {
+      user: data.user,
+      bests: data.bests && data.bests.filter((user) => user),
+    };
   });
 
   return user;

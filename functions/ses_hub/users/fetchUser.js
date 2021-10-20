@@ -81,12 +81,12 @@ exports.fetchUser = functions
             data.type === "persons" &&
             doc.data().requests.enable.indexOf(context.auth.uid) < 0
           ) {
-            user.name = null;
-            user.email = null;
-            user.urls = [];
-            user.working = null;
-            user.resident = null;
-            user.clothes = null;
+            user.profile.name = null;
+            user.profile.email = null;
+            user.profile.urls = [];
+            user.profile.working = null;
+            user.profile.resident = null;
+            user.profile.clothes = null;
           }
         }
       })
@@ -99,7 +99,7 @@ exports.fetchUser = functions
       });
 
     const bests =
-      data.tyae === "persons" &&
+      data.type === "persons" &&
       (await index
         .search("", {
           queryLanguages: ["ja", "en"],
@@ -111,7 +111,6 @@ exports.fetchUser = functions
         .then(({ hits }) => {
           return hits.map(
             (hit) =>
-              data.index === "persons" &&
               hit.objectID !== user.uid && {
                 uid: hit.objectID,
                 profile: {
@@ -136,7 +135,7 @@ exports.fetchUser = functions
           );
         }));
 
-    if (data.tyae === "persons") {
+    if (data.type === "persons") {
       for (let i = 0; i < bests.length; i++) {
         bests[i] &&
           (await db
