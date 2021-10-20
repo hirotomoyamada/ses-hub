@@ -73,7 +73,7 @@ export const Item = ({
           className={`${styles.item_btn} ${select && styles.item_btn_disable}`}
         >
           <article className={`${styles.item} ${select && styles.item_select}`}>
-            <User post={post} user={user} />
+            <User index={index} post={post} />
           </article>
         </button>
       )}
