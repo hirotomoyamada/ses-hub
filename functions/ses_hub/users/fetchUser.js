@@ -35,12 +35,29 @@ exports.fetchUser = functions
                 social: !demo ? hit.social : {},
               },
               createAt: hit.createAt,
-              updateAt: hit.updateAt,
             }
           : data.type === "persons" && {
               uid: hit.objectID,
+              profile: {
+                nickName: hit.nickName,
+                name: !demo ? hit.name : null,
+                email: !demo ? hit.email : null,
+                age: hit.age,
+                sex: hit.sex,
+                position: hit.position,
+                location: hit.location,
+                handles: hit.handles,
+                body: hit.body,
+                tools: hit.tools,
+                skills: hit.skills,
+                urls: !demo ? hit.urls : [],
+                costs: hit.costs,
+                working: hit.working,
+                resident: hit.resident,
+                clothes: hit.clothes,
+                period: hit.period,
+              },
               createAt: hit.createAt,
-              updateAt: hit.updateAt,
             };
       })
       .catch((e) => {
@@ -56,10 +73,20 @@ exports.fetchUser = functions
       .doc(data.uid)
       .get()
       .then((doc) => {
-        if (data.type === "companys") {
-          if (doc.exists) {
-            user.icon = doc.data().icon;
-            user.cover = doc.data().cover;
+        if (doc.exists) {
+          user.icon = doc.data().icon;
+          user.cover = doc.data().cover;
+
+          if (
+            data.type === "persons" &&
+            doc.data().requests.enable.indexOf(context.auth.uid) < 0
+          ) {
+            user.name = null;
+            user.email = null;
+            user.urls = [];
+            user.working = null;
+            user.resident = null;
+            user.clothes = null;
           }
         }
       })
@@ -71,5 +98,69 @@ exports.fetchUser = functions
         );
       });
 
-    return user;
+    const bests =
+      data.tyae === "persons" &&
+      (await index
+        .search("", {
+          queryLanguages: ["ja", "en"],
+          similarQuery: user?.handles?.join(" "),
+          filters: "status:enable",
+          hitsPerPage: 100,
+        })
+
+        .then(({ hits }) => {
+          return hits.map(
+            (hit) =>
+              data.index === "persons" &&
+              hit.objectID !== user.uid && {
+                uid: hit.objectID,
+                profile: {
+                  nickName: hit.nickName,
+                  position: hit.position,
+                  age: hit.age,
+                  sex: hit.sex,
+                  handles: hit.handles,
+                  costs: hit.costs,
+                  period: hit.period,
+                  location: hit.location,
+                  body: hit.body,
+                },
+              }
+          );
+        })
+        .catch((e) => {
+          throw new functions.https.HttpsError(
+            "not-found",
+            "投稿の取得に失敗しました",
+            "algolia"
+          );
+        }));
+
+    if (data.tyae === "persons") {
+      for (let i = 0; i < bests.length; i++) {
+        bests[i] &&
+          (await db
+            .collection(data.index)
+            .doc(bests[i].uid)
+            .get()
+            .then((doc) => {
+              if (doc.exists) {
+                if (doc.data().profile.nickName) {
+                  bests[i].icon = doc.data().icon;
+                } else {
+                  bests[i] = false;
+                }
+              }
+            })
+            .catch((e) => {
+              throw new functions.https.HttpsError(
+                "not-found",
+                "ユーザーの取得に失敗しました",
+                "firebase"
+              );
+            }));
+      }
+    }
+
+    return { user: user, bests: bests };
   });
