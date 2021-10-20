@@ -59,13 +59,10 @@ exports.fetchPost = functions
         };
       });
 
-    const handles = post?.handles?.map((t) => t[Object.keys(t)]);
-    const value = await handles?.join(" ");
-
     const bests = await index
       .search("", {
         queryLanguages: ["ja", "en"],
-        similarQuery: value,
+        similarQuery: post?.handles?.join(" "),
         filters: "display:public",
         hitsPerPage: 100,
       })
