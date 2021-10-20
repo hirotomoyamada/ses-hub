@@ -44,12 +44,12 @@ export const postSlice = createSlice({
       reducers.extractPosts(state, action)
     );
 
-    builder.addCase(fetchPost.fulfilled, (state, action) =>
-      reducers.fetchPost(state, action)
-    );
-
     builder.addCase(fetchPost.pending, (state, action) =>
       reducers.resetPost(state, action)
+    );
+    
+    builder.addCase(fetchPost.fulfilled, (state, action) =>
+      reducers.fetchPost(state, action)
     );
 
     builder.addCase(createPost.fulfilled, (state, action) =>

@@ -119,6 +119,15 @@ export const rootSlice = createSlice({
         state.search.control = true;
       }
     );
+
+    builder.addMatcher(
+      (action) => action.type.endsWith("/editPost"),
+      (state, action) => {
+        if (action.payload.post.display === "public") {
+          state.search.control = false;
+        }
+      }
+    );
   },
 });
 
