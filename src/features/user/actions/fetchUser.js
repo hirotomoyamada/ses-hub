@@ -9,7 +9,7 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async (data) => {
   }).then(({ data }) => {
     return {
       user: data.user,
-      bests: data.bests && data.bests.filter((user) => user),
+      bests: data.bests[0] && data.bests.filter((user) => user),
     };
   });
 
