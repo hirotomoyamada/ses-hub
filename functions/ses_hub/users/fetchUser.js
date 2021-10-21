@@ -16,7 +16,7 @@ exports.fetchUser = functions
 
     const demo = checkDemo(context);
     const user = await fetchProfile(context, data, demo);
-    const bests = data.index === "persons" && fetchBests(user, data);
+    const bests = data.index === "persons" && (await fetchBests(user, data));
 
     return { user: user, bests: bests };
   });
