@@ -22,7 +22,7 @@ exports.freelanceDirect = async (data) => {
 
 exports.seshub = async (data) => {
   if (typeof data.to === "string") {
-    await sgMail.send(data);
+    await sgMail.send(data).catch((e) => {});
   } else {
     const num = 1000;
     const page = Math.ceil(data.to.length / num);
