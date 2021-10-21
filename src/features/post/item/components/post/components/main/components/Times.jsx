@@ -22,7 +22,7 @@ export const Period = ({ post }) => {
       <CalendarTodayIcon className={styles.main_icon} />
       <div className={styles.main_field}>
         <span>
-          {post?.period.year}年&nbsp;{post?.period.month}月&nbsp;〜
+          {post?.period?.year}年&nbsp;{post?.period?.month}月&nbsp;〜
         </span>
       </div>
     </div>
