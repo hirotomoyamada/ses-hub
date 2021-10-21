@@ -34,15 +34,17 @@ $width: responsive-width(pc);
     right: 12px;
   }
 
-  &_enable {
-    background: $add_clr;
-    pointer-events: none;
-  }
-
   &_none {
     background: $base_clr;
     color: $promo_clr;
     border: 1px solid $promo_clr;
+    pointer-events: none;
+  }
+
+  &_enable {
+    background: $add_clr;
+    color: $base_clr;
+    border: none;
     pointer-events: none;
   }
 }
