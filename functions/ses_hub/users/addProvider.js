@@ -13,7 +13,7 @@ exports.addProvider = functions
   .https.onCall(async (data, context) => {
     await userAuthenticated({ context: context, demo: true });
 
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     const index = algolia.initIndex("companys");
 
@@ -28,13 +28,13 @@ exports.addProvider = functions
           doc.ref
             .set(
               !data.email
-                ? { provider: data.provider, updateAt: dataTime }
+                ? { provider: data.provider, updateAt: timestamp }
                 : {
                     provider: [data.provider, ...provider],
                     profile: {
                       email: data.email,
                     },
-                    updateAt: dataTime,
+                    updateAt: timestamp,
                   },
               { merge: true }
             )
@@ -61,7 +61,7 @@ exports.addProvider = functions
           {
             objectID: context.auth.uid,
             email: data.email,
-            updateAt: dataTime,
+            updateAt: timestamp,
           },
           {
             createIfNotExists: true,

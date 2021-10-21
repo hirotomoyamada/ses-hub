@@ -50,29 +50,8 @@ exports.fetchPosts = functions
             : data.index === "resources" && status
             ? fetch.resources({ hit: hit })
             : data.index === "companys" && status
-            ? {
-                uid: hit.objectID,
-                profile: {
-                  name: hit.name,
-                  person: hit.person,
-                  body: hit.body,
-                },
-              }
-            : data.index === "persons" &&
-              status && {
-                uid: hit.objectID,
-                profile: {
-                  nickName: hit.nickName,
-                  position: hit.position,
-                  age: hit.age,
-                  sex: hit.sex,
-                  handles: hit.handles,
-                  costs: hit.costs,
-                  period: hit.period,
-                  location: hit.location,
-                  body: hit.body,
-                },
-              }
+            ? fetch.companys({ hit: hit })
+            : data.index === "persons" && status && fetch.persons({ hit: hit })
         );
       })
       .catch((e) => {

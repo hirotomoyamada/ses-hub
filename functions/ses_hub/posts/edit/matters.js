@@ -1,5 +1,5 @@
 exports.matters = ({ data, context, edit }) => {
-  const dataTime = Date.now();
+  const timestamp = Date.now();
 
   const object = {
     display: data.post.display,
@@ -32,9 +32,9 @@ exports.matters = ({ data, context, edit }) => {
   };
 
   if (!edit) {
-    object.createAt = dataTime;
+    object.createAt = timestamp;
   } else {
-    object.updateAt = dataTime;
+    object.updateAt = timestamp;
   }
 
   return object;

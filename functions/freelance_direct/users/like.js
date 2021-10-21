@@ -12,7 +12,7 @@ exports.addLike = functions
   .https.onCall(async (data, context) => {
     await userAuthenticated({ context: context, demo: true });
 
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     await db
       .collection("persons")
@@ -26,11 +26,11 @@ exports.addLike = functions
               likes
                 ? likes.indexOf(data.objectID) < 0 && {
                     likes: [data, ...likes],
-                    updateAt: dataTime,
+                    updateAt: timestamp,
                   }
                 : {
                     likes: [data],
-                    updateAt: dataTime,
+                    updateAt: timestamp,
                   },
               { merge: true }
             )
@@ -60,7 +60,7 @@ exports.removeLike = functions
   .https.onCall(async (data, context) => {
     await userAuthenticated({ context: context, demo: true });
 
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     await db
       .collection("persons")
@@ -76,7 +76,7 @@ exports.removeLike = functions
             .set(
               {
                 likes: [...likes],
-                updateAt: dataTime,
+                updateAt: timestamp,
               },
               { merge: true }
             )

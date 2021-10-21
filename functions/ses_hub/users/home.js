@@ -16,8 +16,8 @@ exports.updateHome = functions
       canceled: true,
     });
 
-    const dataTime = Date.now();
-    
+    const timestamp = Date.now();
+
     await db
       .collection("companys")
       .doc(context.auth.uid)
@@ -28,7 +28,7 @@ exports.updateHome = functions
             .set(
               {
                 home: data,
-                updateAt: dataTime,
+                updateAt: timestamp,
               },
               { merge: true }
             )

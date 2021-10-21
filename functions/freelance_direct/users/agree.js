@@ -29,7 +29,7 @@ exports.enableAgree = functions
         }
       });
 
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     await db
       .collection("persons")
@@ -41,7 +41,7 @@ exports.enableAgree = functions
             .set(
               {
                 agree: "enable",
-                updateAt: dataTime,
+                updateAt: timestamp,
               },
               { merge: true }
             )

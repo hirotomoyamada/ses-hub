@@ -1,6 +1,6 @@
 exports.persons = ({ data, user }) => {
   if (!user) {
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     return {
       uid: data.user.uid,
@@ -25,7 +25,7 @@ exports.persons = ({ data, user }) => {
         clothes: data.user.clothes,
         period: data.user.period,
       },
-      updateAt: dataTime,
+      updateAt: timestamp,
     };
   } else {
     return {

@@ -110,8 +110,8 @@ export const postSlice = createSlice({
     builder.addMatcher(
       (action) => action.type.endsWith("/fetchUser/fulfilled"),
       (state, action) => {
-        if (action.payload.bests) {
-          state.bests = action.payload.bests;
+        if (action.payload?.bests) {
+          state.bests = action.payload?.bests;
         }
       }
     );

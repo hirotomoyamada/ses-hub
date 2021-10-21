@@ -1,7 +1,7 @@
 import { functions } from "../../../firebase";
 
 export const editPost = (state, action) => {
-  const dataTime = Date.now();
+  const timestamp = Date.now();
 
   if (action.payload.post.display === "private") {
     Object.keys(state).forEach((type) => {
@@ -52,7 +52,7 @@ export const editPost = (state, action) => {
       post.note = action.payload.post.note;
       post.status = action.payload.post.status;
       post.memo = action.payload.post.memo;
-      post.updateAt = dataTime;
+      post.updateAt = timestamp;
     }
 
     if (action.payload.index === "resources" && post) {
@@ -73,7 +73,7 @@ export const editPost = (state, action) => {
       post.note = action.payload.post.note;
       post.status = action.payload.post.status;
       post.memo = action.payload.post.memo;
-      post.updateAt = dataTime;
+      post.updateAt = timestamp;
     }
   });
 
@@ -100,7 +100,7 @@ export const editPost = (state, action) => {
     post.note = action.payload.post.note;
     post.status = action.payload.post.status;
     post.memo = action.payload.post.memo;
-    post.updateAt = dataTime;
+    post.updateAt = timestamp;
   }
 
   if (action.payload.index === "resources" && post) {
@@ -121,7 +121,7 @@ export const editPost = (state, action) => {
     post.note = action.payload.post.note;
     post.status = action.payload.post.status;
     post.memo = action.payload.post.memo;
-    post.updateAt = dataTime;
+    post.updateAt = timestamp;
   }
 
   const editPost = functions.httpsCallable("sh-editPost");

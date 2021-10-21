@@ -36,7 +36,7 @@ export const List = ({
   const [intersecting, setIntersecting] = useState(false);
 
   useEffect(() => {
-    !bests && setPage(hit.currentPage);
+    !bests && setPage(hit?.currentPage);
     !bests && setIntersecting(false);
   }, [bests, hit?.currentPage, hit?.pages]);
 

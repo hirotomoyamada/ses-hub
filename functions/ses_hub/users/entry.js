@@ -16,7 +16,7 @@ exports.addEntry = functions
       canceled: true,
     });
 
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     await db
       .collection("companys")
@@ -30,11 +30,11 @@ exports.addEntry = functions
               entries
                 ? entries.indexOf(data.objectID) < 0 && {
                     entries: { [data.index]: [data.objectID, ...entries] },
-                    updateAt: dataTime,
+                    updateAt: timestamp,
                   }
                 : {
                     entries: { [data.index]: [data.objectID] },
-                    updateAt: dataTime,
+                    updateAt: timestamp,
                   },
               { merge: true }
             )

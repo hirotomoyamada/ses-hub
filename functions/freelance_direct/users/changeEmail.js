@@ -13,10 +13,10 @@ exports.changeEmail = functions
   .https.onCall(async (data, context) => {
     await userAuthenticated({ context: context, demo: true });
 
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     const index = algolia.initIndex("persons");
-    
+
     await db
       .collection("persons")
       .doc(context.auth.uid)
@@ -29,7 +29,7 @@ exports.changeEmail = functions
                 profile: {
                   email: data.email,
                 },
-                updateAt: dataTime,
+                updateAt: timestamp,
               },
               { merge: true }
             )
@@ -55,7 +55,7 @@ exports.changeEmail = functions
         {
           objectID: context.auth.uid,
           email: data.email,
-          updateAt: dataTime,
+          updateAt: timestamp,
         },
         {
           createIfNotExists: true,

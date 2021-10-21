@@ -14,7 +14,7 @@ exports.editProfile = functions
     await userAuthenticated({ context: context, demo: true });
 
     if (context.auth.uid === data.uid) {
-      const dataTime = Date.now();
+      const timestamp = Date.now();
 
       const index = algolia.initIndex("persons");
       const user = {
@@ -40,7 +40,7 @@ exports.editProfile = functions
           clothes: data.clothes,
           costs: data.costs,
         },
-        updateAt: dataTime,
+        updateAt: timestamp,
       };
 
       await db
