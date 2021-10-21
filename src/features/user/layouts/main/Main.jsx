@@ -24,7 +24,7 @@ export const Main = ({ uid, user, currentUser, index, main }) => {
               index === "persons" && <Request user={currentUser} post={user} />
             )}
 
-            <Profile index={index} user={user} />
+            <Profile index={index} user={user} currentUser={currentUser} />
           </div>
         </>
       ) : (

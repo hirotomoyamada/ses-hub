@@ -85,7 +85,6 @@ export const List = ({
         <Posts
           index={index}
           posts={posts}
-          user={user}
           list={list}
           select={select}
           selectUser={selectUser}

@@ -17,7 +17,7 @@ import * as userSlice from "../../user/userSlice";
 
 import { Command } from "../../../components/command/Command";
 
-export const Menu = ({ index, post, user, back, postItem }) => {
+export const Menu = ({ index, post, user, back, postItem, person }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -40,7 +40,14 @@ export const Menu = ({ index, post, user, back, postItem }) => {
     setEntry(
       user.entries?.[index]?.indexOf(post?.objectID) >= 0 ? true : false
     );
-  }, [index, post?.objectID, post?.uid, user.entries, user.likes, user.outputs]);
+  }, [
+    index,
+    post?.objectID,
+    post?.uid,
+    user.entries,
+    user.likes,
+    user.outputs,
+  ]);
 
   const handleOpen = () => {
     setOpen(!open);
@@ -93,7 +100,11 @@ export const Menu = ({ index, post, user, back, postItem }) => {
 
   return (
     <>
-      <div className={`${styles.menu} ${postItem && styles.menu_postItem}`}>
+      <div
+        className={`${styles.menu} ${postItem && styles.menu_postItem} ${
+          person && styles.menu_person
+        }`}
+      >
         <button onClick={handleLike}>
           {like ? (
             <FavoriteIcon
