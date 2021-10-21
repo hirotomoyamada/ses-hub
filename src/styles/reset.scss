@@ -235,6 +235,7 @@ progress {
 
 textarea {
   overflow: auto;
+  resize: none;
 }
 
 [type="number"]::-webkit-inner-spin-button,
