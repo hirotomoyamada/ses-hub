@@ -12,7 +12,7 @@ exports.addOutput = functions
   .https.onCall(async (data, context) => {
     await userAuthenticated({ context: context, demo: true });
 
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     await db
       .collection("companys")
@@ -26,11 +26,11 @@ exports.addOutput = functions
               outputs
                 ? outputs.indexOf(data.objectID) < 0 && {
                     outputs: { [data.index]: [data.objectID, ...outputs] },
-                    updateAt: dataTime,
+                    updateAt: timestamp,
                   }
                 : {
                     outputs: { [data.index]: [data.objectID] },
-                    updateAt: dataTime,
+                    updateAt: timestamp,
                   },
               { merge: true }
             )
@@ -60,7 +60,7 @@ exports.removeOutput = functions
   .https.onCall(async (data, context) => {
     await userAuthenticated({ data: data, context: context, demo: true });
 
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     await db
       .collection("companys")
@@ -84,7 +84,7 @@ exports.removeOutput = functions
             .set(
               {
                 outputs: { [data.index]: [...outputs] },
-                updateAt: dataTime,
+                updateAt: timestamp,
               },
               { merge: true }
             )

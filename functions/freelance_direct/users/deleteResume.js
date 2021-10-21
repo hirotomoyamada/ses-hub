@@ -8,7 +8,7 @@ const runtime = require("../../firebase").runtime;
 const userAuthenticated =
   require("./functions/userAuthenticated").userAuthenticated;
 
-const dataTime = Date.now();
+const timestamp = Date.now();
 
 exports.deleteResume = functions
   .region(location)
@@ -68,7 +68,7 @@ const updateFirestore = async (doc) => {
     .set(
       {
         resume: { key: "", url: "" },
-        updateAt: dataTime,
+        updateAt: timestamp,
       },
       { merge: true }
     )

@@ -5,7 +5,7 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
-const dataTime = Date.now();
+const timestamp = Date.now();
 
 exports.uploadResume = functions
   .region(location)
@@ -86,7 +86,7 @@ const updateFirestore = async (doc, key, url) => {
     .set(
       {
         resume: { key: key, url: url },
-        updateAt: dataTime,
+        updateAt: timestamp,
       },
       { merge: true }
     )

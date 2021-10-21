@@ -15,7 +15,7 @@ exports.addFollow = functions
       demo: true,
     });
 
-    const dataTime = Date.now();
+    const timestamp = Date.now();
     await db
       .collection("persons")
       .doc(context.auth.uid)
@@ -34,16 +34,16 @@ exports.addFollow = functions
                   ? {
                       follows: [data, ...follows],
                       home: [data, ...home],
-                      updateAt: dataTime,
+                      updateAt: timestamp,
                     }
                   : follows.indexOf(data.uid) < 0 && {
                       follows: [data, ...follows],
-                      updateAt: dataTime,
+                      updateAt: timestamp,
                     }
                 : {
                     follows: [data],
                     home: [data],
-                    updateAt: dataTime,
+                    updateAt: timestamp,
                   },
               { merge: true }
             )
@@ -76,7 +76,7 @@ exports.removeFollow = functions
       demo: true,
     });
 
-    const dataTime = Date.now();
+    const timestamp = Date.now();
     await db
       .collection("persons")
       .doc(context.auth.uid)
@@ -91,7 +91,7 @@ exports.removeFollow = functions
               {
                 follows: [...follows],
                 home: [...home],
-                updateAt: dataTime,
+                updateAt: timestamp,
               },
               { merge: true }
             )

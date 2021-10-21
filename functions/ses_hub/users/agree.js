@@ -16,7 +16,7 @@ exports.enableAgree = functions
       agree: true,
     });
 
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     await db
       .collection("companys")
@@ -28,7 +28,7 @@ exports.enableAgree = functions
             .set(
               {
                 agree: "enable",
-                updateAt: dataTime,
+                updateAt: timestamp,
               },
               { merge: true }
             )

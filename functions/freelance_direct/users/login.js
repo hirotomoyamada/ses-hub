@@ -6,28 +6,7 @@ const runtime = require("../../firebase").runtime;
 
 const loginAuthenticated =
   require("./functions/loginAuthenticated").loginAuthenticated;
-
-const userData = ({ context, doc, data }) => {
-  return {
-    uid: context.auth.uid,
-    icon: doc.data().icon,
-    cover: doc.data().cover,
-    provider: data
-      ? data.providerData.map((provider) => provider.providerId)
-      : doc.data().provider,
-    profile: doc.data().profile,
-    agree: doc.data().agree,
-    likes: doc.data().likes,
-    entries: doc.data().entries,
-    requests: doc.data().requests,
-    resume: doc.data().resume,
-    follows: doc.data().follows,
-    home: doc.data().home,
-    history: doc.data().history,
-    createAt: doc.data().createAt,
-    updateAt: doc.data().updateAt,
-  };
-};
+const fetch = require("./fetch/fetch");
 
 exports.login = functions
   .region(location)
@@ -35,99 +14,116 @@ exports.login = functions
   .https.onCall(async (data, context) => {
     await loginAuthenticated({ context: context, data: data });
 
-    const dataTime = Date.now();
+    const user = await fetchUser(context, data);
+    const freelanceDirect = await fetchData();
+    const demo = checkDemo(context);
 
-    const user =
-      context.auth &&
-      data.emailVerified &&
-      (await db
-        .collection("persons")
-        .doc(context.auth.uid)
-        .get()
-        .then(async (doc) => {
-          const index = algolia.initIndex("persons");
+    return {
+      user: user,
+      data: freelanceDirect,
+      demo: demo,
+    };
+  });
 
-          await index
-            .partialUpdateObject({
-              objectID: context.auth.uid,
-              lastLogin: dataTime,
-            })
-            .catch((e) => {
-              throw new functions.https.HttpsError(
-                "data-loss",
-                "投稿の編集に失敗しました",
-                "algolia"
-              );
-            });
+const fetchUser = async (context, data) => {
+  const timestamp = Date.now();
 
-          if (
-            doc.exists &&
-            doc.data().provider.length !== data.providerData.length
-          ) {
-            doc.ref
-              .set(
-                {
-                  provider: data.providerData.map(
-                    (provider) => provider.providerId
-                  ),
-                  updateAt: dataTime,
-                  lastLogin: dataTime,
-                },
-                { merge: true }
-              )
-              .catch((e) => {
-                throw new functions.https.HttpsError(
-                  "data-loss",
-                  "プロバイダーの更新に失敗しました",
-                  "provider"
-                );
-              });
+  return await db
+    .collection("persons")
+    .doc(context.auth.uid)
+    .get()
+    .then(async (doc) => {
+      await updateAlgolia(context, timestamp);
 
-            await loginAuthenticated({ doc: doc });
+      if (doc.exists) {
+        if (doc.data().provider.length !== data.providerData.length) {
+          await updateProvider(doc, data, timestamp);
+          await loginAuthenticated({ doc: doc });
 
-            return userData({ context: context, doc: doc, data: data });
-          } else if (doc.exists) {
-            doc.ref.set(
-              {
-                lastLogin: dataTime,
-              },
-              { merge: true }
-            );
+          return fetch.persons({ context: context, doc: doc, data: data });
+        } else {
+          await updateLogin(doc, timestamp);
+          await loginAuthenticated({ doc: doc });
 
-            await loginAuthenticated({ doc: doc });
-
-            return userData({ context: context, doc: doc });
-          } else {
-            throw new functions.https.HttpsError(
-              "not-found",
-              "プロフィールが存在しません",
-              "profile"
-            );
-          }
-        }));
-
-    const collection = {};
-
-    await db
-      .collection("freelanceDirect")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          collection[doc.id] = doc.data();
-        });
-      })
-      .catch((e) => {
+          return fetch.persons({ context: context, doc: doc });
+        }
+      } else {
         throw new functions.https.HttpsError(
           "not-found",
-          "データの取得に失敗しました",
-          "firebase"
+          "プロフィールが存在しません",
+          "profile"
         );
+      }
+    });
+};
+
+const updateLogin = async (doc, timestamp) => {
+  await doc.ref.set(
+    {
+      lastLogin: timestamp,
+    },
+    { merge: true }
+  );
+};
+
+const updateProvider = async (doc, data, timestamp) => {
+  await doc.ref
+    .set(
+      {
+        provider: data.providerData.map((provider) => provider.providerId),
+        updateAt: timestamp,
+        lastLogin: timestamp,
+      },
+      { merge: true }
+    )
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "data-loss",
+        "プロバイダーの更新に失敗しました",
+        "provider"
+      );
+    });
+};
+
+const updateAlgolia = async (context, timestamp) => {
+  const index = algolia.initIndex("persons");
+
+  await index
+    .partialUpdateObject({
+      objectID: context.auth.uid,
+      lastLogin: timestamp,
+    })
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "data-loss",
+        "投稿の編集に失敗しました",
+        "algolia"
+      );
+    });
+};
+
+const fetchData = async () => {
+  const data = {};
+
+  await db
+    .collection("freelanceDirect")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        data[doc.id] = doc.data();
       });
+    })
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "データの取得に失敗しました",
+        "firebase"
+      );
+    });
 
-    const demo = false;
-    // context.auth.uid === functions.config().demo.freelance_direct.uid
-    //   ? true
-    //   : false;
+  return data;
+};
 
-    return { user: user, data: collection, demo: demo, auth: context.auth };
-  });
+const checkDemo = (context) => {
+  return context.auth.uid === functions.config().demo.freelance_direct.uid;
+};

@@ -1,5 +1,5 @@
 exports.resources = (data) => {
-  const dataTime = Date.now();
+  const timestamp = Date.now();
 
   return {
     display: data.post.display,
@@ -29,6 +29,6 @@ exports.resources = (data) => {
     note: data.post.note,
     status: data.post.status,
     memo: data.post.memo,
-    updateAt: dataTime,
+    updateAt: timestamp,
   };
 };
