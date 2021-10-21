@@ -5,6 +5,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import LaunchIcon from "@material-ui/icons/Launch";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import AutorenewIcon from "@material-ui/icons/Autorenew";
 
 import { useEffect, useState } from "react";
 
@@ -105,6 +106,18 @@ export const Menu = ({ index, post, user, back, postItem, person }) => {
           person && styles.menu_person
         }`}
       >
+        {post.request === "hold" ? (
+          <AutorenewIcon
+            className={`${styles.menu_icon} ${styles.menu_icon_hold}`}
+          />
+        ) : (
+          post.request === "enable" && (
+            <CheckCircleOutlineIcon
+              className={`${styles.menu_icon} ${styles.menu_icon_enable}`}
+            />
+          )
+        )}
+        
         <button onClick={handleLike}>
           {like ? (
             <FavoriteIcon
@@ -114,6 +127,7 @@ export const Menu = ({ index, post, user, back, postItem, person }) => {
             <FavoriteBorderIcon className={styles.menu_icon} />
           )}
         </button>
+
         {index !== "persons" && (
           <button onClick={handleOutput}>
             <LaunchIcon
@@ -123,11 +137,13 @@ export const Menu = ({ index, post, user, back, postItem, person }) => {
             />
           </button>
         )}
+
         {entry && (
           <CheckCircleOutlineIcon
             className={`${styles.menu_icon} ${styles.menu_icon_entry}`}
           />
         )}
+
         {post?.uid === user.uid && (
           <div className={styles.menu_cmd}>
             <button onClick={handleOpen}>

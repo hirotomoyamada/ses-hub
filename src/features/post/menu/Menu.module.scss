@@ -62,5 +62,13 @@ $width: responsive-width(pc);
     &_entry {
       color: $acnt_clr;
     }
+
+    &_hold {
+      color: $promo_clr;
+    }
+
+    &_enable {
+      color: $acnt_clr;
+    }
   }
 }
