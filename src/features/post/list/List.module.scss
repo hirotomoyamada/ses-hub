@@ -102,7 +102,11 @@ $width: responsive-width(pc);
     }
 
     &_bests {
-      height: 160px;
+      height: auto;
+
+      &_companys {
+        padding-top: 32px;
+      }
     }
 
     &_companys {
@@ -128,11 +132,14 @@ $width: responsive-width(pc);
   }
 
   &_tag {
+    padding: 32px 0 0 32px;
     font-size: 24px;
     color: $acnt_clr;
     font-weight: bold;
+    align-self: flex-start;
 
     @media (max-width: responsive-width(sp)) {
+      padding: 12px 0 0 12px;
       font-size: 16px;
     }
   }

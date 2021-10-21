@@ -11,10 +11,10 @@ export const NotFound = ({ index, list, type, select, bests, companys }) => {
   return (
     <div
       className={`${styles.list_none} ${
-        (type || companys) && styles.list_none_type
+        (type || companys) && !bests && styles.list_none_type
       } ${select && styles.list_none_select} ${
-        bests && !companys && styles.list_none_bests
-      } ${companys && styles.list_none_companys}`}
+        bests && styles.list_none_bests
+      } ${bests && companys && styles.list_none_bests_companys}`}
       ref={list}
     >
       {load ? (

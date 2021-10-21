@@ -13,10 +13,24 @@ $width: responsive-width(pc);
   @media (max-width: responsive-width(tb)) {
     width: 100vw;
     height: auto;
+    padding-bottom: 112px;
+  }
+
+  @media (max-width: responsive-width(sp)) {
+    padding-bottom: 0px;
   }
 
   &_open {
     width: 100vw;
+  }
+
+  &_bests {
+    height: 100vh;
+
+    @media (max-width: responsive-width(tb)) {
+      width: 100vw;
+      height: auto;
+    }
   }
 
   &_toggle {

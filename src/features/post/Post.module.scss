@@ -12,7 +12,7 @@ $width: responsive-width(pc);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 
-  @media (max-width: responsive-width(miniPc)) {
+  @media (max-width: responsive-width(tb)) {
     height: auto;
     grid-template-columns: 1fr;
   }
