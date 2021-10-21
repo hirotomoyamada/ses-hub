@@ -41,8 +41,8 @@ $width: responsive-width(pc);
 
   &_none {
     background: $base_clr;
-    color: $acnt_clr;
-    border: 1px solid $acnt_clr;
+    color: $promo_clr;
+    border: 1px solid $promo_clr;
     pointer-events: none;
   }
 }
