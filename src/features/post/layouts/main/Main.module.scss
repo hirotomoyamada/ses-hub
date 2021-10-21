@@ -15,6 +15,10 @@ $width: responsive-width(pc);
   display: inline-block;
 
   @media (max-width: responsive-width(miniPc)) {
+    width: auto;
+  }
+
+  @media (max-width: responsive-width(tb)) {
     width: 100vw;
     min-height: 100vh;
     overflow-y: auto;

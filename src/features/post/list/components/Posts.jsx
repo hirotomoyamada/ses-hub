@@ -22,13 +22,9 @@ export const Posts = ({
         open && styles.list_companys_open
       } ${select && styles.list_select} ${
         bests && !companys && styles.list_bests
-      }`}
+      } ${bests && companys && styles.list_bests_companys}`}
       ref={list}
     >
-      {companys && index === "persons" && (
-        <span className={styles.list_tag}>こんなエンジニアもオススメ</span>
-      )}
-
       {posts.map(
         (post) =>
           post && (

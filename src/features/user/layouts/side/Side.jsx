@@ -34,7 +34,12 @@ export const Side = ({
         />
       )}
 
-      <div className={`${styles.side} ${open && styles.side_open}`} ref={side}>
+      <div
+        className={`${styles.side} ${open && styles.side_open} ${
+          index === "persons" && styles.side_bests
+        }`}
+        ref={side}
+      >
         <Toggle setOpen={setOpen} open={open} />
 
         <Sort uid={uid} user={currentUser} sort={sort} index={index} />
