@@ -167,7 +167,7 @@ export const List = (props) => {
       <Main
         index={index}
         user={user}
-        list={list}
+        type={list}
         posts={posts}
         hit={hit}
         outputs={outputs}
