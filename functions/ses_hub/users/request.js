@@ -86,19 +86,14 @@ const updateDoc = async ({ context, doc, data, user }) => {
 
     await doc.ref
       .set(
-        entries
-          ? entries.indexOf(data.uid) < 0 && {
-              entries: {
-                persons: [data.uid, ...entries],
-              },
-              updateAt: timestamp,
-            }
-          : {
-              entries: {
-                persons: [data.uid],
-              },
-              updateAt: timestamp,
-            },
+        {
+          entries: {
+            persons: entries
+              ? entries.indexOf(data.uid) < 0 && [data.uid, ...entries]
+              : [data.uid],
+          },
+          updateAt: timestamp,
+        },
         { merge: true }
       )
       .catch((e) => {

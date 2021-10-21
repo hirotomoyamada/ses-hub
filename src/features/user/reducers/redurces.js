@@ -12,7 +12,7 @@ import { addLike, removeLike } from "./like";
 import { addOutput, removeOutput } from "./output";
 import { addEntry } from "./entry";
 import { addFollow, removeFollow } from "./follow";
-import { addRequest } from "./addRequest";
+import { addRequest } from "./request";
 import { updateHome } from "./home";
 
 import { createPost, deletePost } from "./post";
