@@ -19,10 +19,12 @@ exports.addRequest = functions
     return;
   });
 
-const sendMail = async (user, selectUser, data) => {
+const sendMail = async (context, user, selectUser, data) => {
   const url = {
-    user: `${functions.config().app.ses_hub.url}/persons/${selectUser.id}`,
-    selectUser: `${functions.config().app.freelance_direct.url}/user/${user.id}`,
+    user: `${functions.config().app.ses_hub.url}/persons/${data.uid}`,
+    selectUser: `${functions.config().app.freelance_direct.url}/user/${
+      context.auth.uid
+    }`,
   };
 
   const mail = {
@@ -75,7 +77,7 @@ const updateDoc = async ({ context, doc, data, user }) => {
       .catch((e) => {
         throw new functions.https.HttpsError(
           "data-loss",
-          e.message,
+          "リクエストの追加に失敗しました",
           "firebase"
         );
       });
@@ -102,7 +104,7 @@ const updateDoc = async ({ context, doc, data, user }) => {
       .catch((e) => {
         throw new functions.https.HttpsError(
           "data-loss",
-          e.message,
+          "エントリーの追加に失敗しました",
           "firebase"
         );
       });
@@ -134,13 +136,17 @@ const updateUser = async (context, data, selectUser) => {
       if (doc.exists) {
         const user = doc.data();
 
-        await sendMail(user, selectUser, data);
+        await sendMail(context, user, selectUser, data);
 
         await updateDoc({ context: context, doc: doc, data: data, user: true });
       }
     })
     .catch((e) => {
-      throw new functions.https.HttpsError("not-found", e.message, "firebase");
+      throw new functions.https.HttpsError(
+        "not-found",
+        "ユーザーの取得に失敗しました",
+        "firebase"
+      );
     });
 
   return;
@@ -159,7 +165,11 @@ const updatePerson = async (context, data) => {
       }
     })
     .catch((e) => {
-      throw new functions.https.HttpsError("not-found", e.message, "firebase");
+      throw new functions.https.HttpsError(
+        "not-found",
+        "ユーザーの取得に失敗しました",
+        "firebase"
+      );
     });
 
   return;
