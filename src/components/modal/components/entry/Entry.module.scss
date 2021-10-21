@@ -91,6 +91,7 @@ $width: responsive-width(pc);
       padding: 16px;
 
       @media (max-width: responsive-width(sp)) {
+        padding: 12px;
         font-size: 12px;
       }
     }

@@ -21,7 +21,7 @@ export const Main = ({ uid, user, currentUser, index, main }) => {
             ) : index === "companys" ? (
               <Follow user={currentUser} post={user} profile />
             ) : (
-              index === "persons" && <Request user={currentUser} post={user} />
+              index === "persons" && <Request user={user} />
             )}
 
             <Profile index={index} user={user} currentUser={currentUser} />
