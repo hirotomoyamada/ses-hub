@@ -76,6 +76,7 @@ exports.userPosts = functions
             return results.map(
               (hit) =>
                 hit &&
+                hit.status === "enable" &&
                 status && {
                   uid: hit.objectID,
                   profile: {
