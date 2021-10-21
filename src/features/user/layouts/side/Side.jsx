@@ -47,7 +47,6 @@ export const Side = ({
         <List
           index={index}
           user={user}
-          currentUser={currentUser}
           posts={posts}
           hit={hit}
           sort={sort}

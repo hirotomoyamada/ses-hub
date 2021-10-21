@@ -18,10 +18,10 @@ import { Email } from "./components/Email";
 import { Urls } from "./components/Urls";
 import { CreateAt } from "./components/CreateAt";
 
-export const Person = ({ user }) => {
+export const Person = ({ user, currentUser }) => {
   return (
     <div className={styles.profile}>
-      <Head user={user} />
+      <Head user={user} currentUser={currentUser} />
 
       <div
         className={`${styles.profile_container} ${

@@ -1,11 +1,13 @@
 import styles from "../List.module.scss";
 
+import { useSelector } from "react-redux";
+import * as userSlice from "../../../user/userSlice";
+
 import { Item } from "../../item/Item";
 
 export const Posts = ({
   index,
   posts,
-  user,
   list,
   select,
   selectUser,
@@ -16,6 +18,8 @@ export const Posts = ({
   handleSelect,
   handleCancel,
 }) => {
+  const user = useSelector(userSlice.user);
+  
   return (
     <div
       className={`${styles.list} ${companys && styles.list_companys} ${
