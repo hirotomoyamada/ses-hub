@@ -52,14 +52,13 @@ exports.extractPosts = functions
             : hit &&
               data.index === "companys" &&
               hit.status === "enable" &&
-              status && {
-                uid: hit.objectID,
-                profile: {
-                  name: hit.name,
-                  person: hit.person,
-                  body: hit.body,
-                },
-              }
+              status
+            ? fetch.companys({ hit: hit })
+            : hit &&
+              data.index === "persons" &&
+              hit.status === "enable" &&
+              status &&
+              fetch.persons({ hit: hit })
         );
       })
       .catch((e) => {
@@ -78,7 +77,29 @@ exports.extractPosts = functions
             .doc(posts[i].uid)
             .get()
             .then((doc) => {
-              posts[i].icon = doc.data().icon;
+              if (doc.exists) {
+                if (doc.data().profile.nickName || data.index === "companys") {
+                  posts[i].icon = doc.data().icon;
+
+                  if (data.index === "persons") {
+                    posts[i].request =
+                      doc.data().requests?.enable?.indexOf(context.auth.uid) >=
+                      0
+                        ? "enable"
+                        : doc
+                            .data()
+                            .requests?.hold?.indexOf(context.auth.uid) >= 0
+                        ? "hold"
+                        : doc
+                            .data()
+                            .requests?.disable?.indexOf(context.auth.uid) >= 0
+                        ? "hold"
+                        : "none";
+                  }
+                } else {
+                  posts[i] = false;
+                }
+              }
             })
             .catch((e) => {
               throw new functions.https.HttpsError(

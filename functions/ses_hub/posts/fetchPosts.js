@@ -73,6 +73,22 @@ exports.fetchPosts = functions
               if (doc.exists) {
                 if (doc.data().profile.nickName || data.index === "companys") {
                   posts[i].icon = doc.data().icon;
+
+                  if (data.index === "persons") {
+                    posts[i].request =
+                      doc.data().requests?.enable?.indexOf(context.auth.uid) >=
+                      0
+                        ? "enable"
+                        : doc
+                            .data()
+                            .requests?.hold?.indexOf(context.auth.uid) >= 0
+                        ? "hold"
+                        : doc
+                            .data()
+                            .requests?.disable?.indexOf(context.auth.uid) >= 0
+                        ? "hold"
+                        : "none";
+                  }
                 } else {
                   posts[i] = false;
                 }
