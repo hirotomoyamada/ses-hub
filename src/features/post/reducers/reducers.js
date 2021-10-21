@@ -9,6 +9,7 @@ import { addLike, removeLike } from "./like";
 import { addOutput, removeOutput } from "./output";
 import { addEntry } from "./entry";
 import { addFollow, removeFollow } from "./follow";
+import { addRequest } from "./request";
 
 import { promotionPosts } from "./promotionPosts";
 import { fetchPosts } from "./fetchPosts";
@@ -31,6 +32,7 @@ export {
   addEntry,
   addFollow,
   removeFollow,
+  addRequest,
   promotionPosts,
   fetchPosts,
   homePosts,

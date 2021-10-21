@@ -89,6 +89,11 @@ export const postSlice = createSlice({
     );
 
     builder.addMatcher(
+      (action) => action.type.endsWith("/addRequest"),
+      (state, action) => reducers.addRequest(state, action)
+    );
+
+    builder.addMatcher(
       (action) => action.type.endsWith("/updateHome"),
       (state) => reducers.resetControl(state)
     );

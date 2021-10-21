@@ -16,6 +16,7 @@ import { Demo } from "./components/demo/Demo";
 import { Agree } from "./components/agree/Agree";
 import { Delete } from "./components/delete/Delete";
 import { Advertise } from "./components/advertise/Advertise";
+import { Request } from "./components/request/Request";
 
 export const Modal = () => {
   const dispatch = useDispatch();
@@ -35,15 +36,17 @@ export const Modal = () => {
   const Inner = () => {
     switch (modal.type) {
       case "agree":
-        return <Agree user={user} />;
+        return <Agree />;
       case "advertise":
         return <Advertise user={user} handleClose={handleClose} />;
       case "demo":
-        return <Demo user={user} handleClose={handleClose} />;
+        return <Demo handleClose={handleClose} />;
       case "info":
-        return <Information user={user} handleClose={handleClose} />;
+        return <Information handleClose={handleClose} />;
       case "home":
         return <Home user={user} handleClose={handleClose} />;
+      case "request":
+        return <Request user={user} handleClose={handleClose} />;
       case "entry":
         return (
           <Entry

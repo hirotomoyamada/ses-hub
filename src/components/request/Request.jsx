@@ -1,19 +1,35 @@
 import styles from "./Request.module.scss";
 
-import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import * as userSlice from "../../features/user/userSlice";
+import * as rootSlice from "../../features/root/rootSlice";
 
-export const Request = ({ user, post }) => {
+export const Request = ({ user }) => {
   const dispatch = useDispatch();
+  const request = user.request;
 
-  const [requses, setRequest] = useState(false);
+  console.log(user.request);
 
-  const handleRequest = () => {};
-  
+  const handleRequest = () => {
+    if (request !== "none") {
+      return;
+    }
+
+    dispatch(rootSlice.handleModal({ type: "request" }));
+  };
+
   return (
-    <button className={styles.request}>
-      {!requses ? "リクエストする" : "リクエスト済み"}
+    <button
+      type="button"
+      onClick={handleRequest}
+      className={`${styles.request} ${
+        request === "enable" && styles.request_enable
+      } ${request !== "none" && styles.request_none}`}
+    >
+      {request === "enable"
+        ? "承認済み"
+        : request === "hold"
+        ? "リクエスト済み"
+        : request === "none" && "リクエストする"}
     </button>
   );
 };
