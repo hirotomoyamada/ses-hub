@@ -10,7 +10,7 @@ export const createProfile = createAsyncThunk(
       .then(async ({ data }) => {
         await auth.currentUser
           .updateProfile({
-            displayName: data.profile.person,
+            displayName: data.displayName,
           })
           .catch((e) => {});
       })
