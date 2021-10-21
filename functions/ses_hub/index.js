@@ -43,6 +43,7 @@ exports.addFollow = require("./users/follow").addFollow;
 exports.removeFollow = require("./users/follow").removeFollow;
 exports.updateHome = require("./users/home").updateHome;
 exports.addEntry = require("./users/entry").addEntry;
+exports.addRequest = require("./users/request").addRequest;
 
 // 投稿
 exports.promotionPosts = require("./posts/promotionPosts").promotionPosts;

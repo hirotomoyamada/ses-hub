@@ -7,8 +7,6 @@ export const Request = ({ user }) => {
   const dispatch = useDispatch();
   const request = user.request;
 
-  console.log(user.request);
-
   const handleRequest = () => {
     if (request !== "none") {
       return;

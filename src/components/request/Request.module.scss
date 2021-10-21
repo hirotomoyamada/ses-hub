@@ -34,18 +34,15 @@ $width: responsive-width(pc);
     right: 12px;
   }
 
-  &_followed {
+  &_enable {
+    background: $add_clr;
+    pointer-events: none;
+  }
+
+  &_none {
     background: $base_clr;
     color: $acnt_clr;
     border: 1px solid $acnt_clr;
-  }
-
-  &_remove {
-    background: $remove_clr;
-  }
-
-  &_disable {
-    background: $sub_clr;
     pointer-events: none;
   }
 }
