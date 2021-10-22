@@ -5,8 +5,6 @@ import { extractPosts } from "../../actions/extractPosts";
 
 export const fetchScroll = async (
   dispatch,
-  list,
-  page,
   index,
   user,
   home,
@@ -14,7 +12,8 @@ export const fetchScroll = async (
   companys,
   sort,
   type,
-  select
+  select,
+  page
 ) => {
   await dispatch(
     search
@@ -43,8 +42,8 @@ export const fetchScroll = async (
       : type &&
         extractPosts({
           index: index,
-          objectIDs: user[list][index],
-          type: list,
+          objectIDs: user[type][index],
+          type: type,
           page: page,
         })
   );
