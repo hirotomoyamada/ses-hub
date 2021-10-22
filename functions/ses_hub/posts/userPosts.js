@@ -12,7 +12,7 @@ exports.userPosts = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    const status = await userAuthenticated(context);
+    const status = await userAuthenticated({ context: context });
 
     const { posts, hit } = !data.uids
       ? await fetchPosts(context, data, status)

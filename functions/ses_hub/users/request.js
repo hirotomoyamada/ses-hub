@@ -12,7 +12,11 @@ exports.addRequest = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    await userAuthenticated({ context: context, demo: true });
+    await userAuthenticated({
+      context: context,
+      demo: true,
+      index: data.index,
+    });
 
     await updatePerson(context, data);
 

@@ -12,7 +12,11 @@ exports.fetchUser = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    await userAuthenticated({ context: context, canceled: true });
+    await userAuthenticated({
+      context: context,
+      canceled: true,
+      index: data.index,
+    });
 
     const demo = checkDemo(context);
     const user = await fetchProfile(context, data, demo);

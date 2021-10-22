@@ -12,7 +12,10 @@ exports.fetchPosts = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    const status = await userAuthenticated(context);
+    const status = await userAuthenticated({
+      context: context,
+      index: data.index,
+    });
 
     const { posts, hit } = await fetchAlgolia(context, data, status);
 

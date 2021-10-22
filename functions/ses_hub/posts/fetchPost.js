@@ -12,7 +12,7 @@ exports.fetchPost = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    const status = await userAuthenticated(context);
+    const status = await userAuthenticated({ context: context });
     const demo = context.auth.uid === functions.config().demo.ses_hub.uid;
 
     const post = await fetchalgolia(context, data, status, demo);
