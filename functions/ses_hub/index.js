@@ -8,7 +8,6 @@ exports.contactPromotion = require("./mail/contactPromotion").contactPromotion;
 // 支払い
 exports.fetchProducts = require("./pay/fetchProducts").fetchProducts;
 exports.createCheckout = require("./pay/createCheckout").createCheckout;
-exports.createPayment = require("./pay/createPayment").createPayment;
 exports.updateTaxBehavior =
   require("./pay/updateTaxBehavior").updateTaxBehavior;
 exports.createPlan = require("./pay/createPlan").createPlan;

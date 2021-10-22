@@ -1,4 +1,5 @@
 const functions = require("firebase-functions");
+const algolia = require("../../algolia").algolia;
 const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
@@ -8,56 +9,98 @@ exports.createPlan = functions
   .runWith(runtime)
   .firestore.document("customers/{uid}/subscriptions/{sub}")
   .onCreate(async (snapshot, context) => {
-    const status = snapshot.data().status;
-    const price = snapshot.data().items[0].plan.id;
-    const start = snapshot.data().current_period_start.seconds * 1000;
-    const end = snapshot.data().current_period_end.seconds * 1000;
-    const plan =
-      snapshot.data().items[0].price.product.metadata.name === "plan";
+    const data = snapshot.data();
+    const metadata = data.items[0].price.product.metadata;
 
-    if (!plan) {
+    const status = data.status;
+    const price = data.items[0].plan.id;
+    const start = data.current_period_start.seconds * 1000;
+    const end = data.current_period_end.seconds * 1000;
+    const plan = metadata.name === "plan";
+
+    checkPlan(plan);
+
+    await updateFirestore(context, status, price, start, end);
+    
+    await updateAlgolia(context);
+
+    return;
+  });
+
+const updateAlgolia = async (context) => {
+  const index = algolia.initIndex("companys");
+  const timestamp = Date.now();
+
+  await index
+    .partialUpdateObject(
+      {
+        objectID: context.auth.uid,
+        plan: "enable",
+        updateAt: timestamp,
+      },
+      {
+        createIfNotExists: true,
+      }
+    )
+    .catch((e) => {
       throw new functions.https.HttpsError(
-        "cancelled",
-        "プランの更新では無いので処理中止",
+        "data-loss",
+        "プロフィールの更新に失敗しました",
+        "algolia"
+      );
+    });
+};
+
+const updateFirestore = async (context, status, price, start, end) => {
+  await db
+    .collection("companys")
+    .doc(context.params.uid)
+    .get()
+    .then(async (doc) => {
+      doc.exists &&
+        (await doc.ref
+          .set(
+            {
+              payment: {
+                status: status,
+                price: price,
+                start: start,
+                end: end,
+                trial: false,
+                cancel: false,
+                notice: false,
+                load: false,
+              },
+            },
+            { merge: true }
+          )
+          .catch((e) => {
+            throw new functions.https.HttpsError(
+              "data-loss",
+              "プロフィールの更新に失敗しました",
+              "firebase"
+            );
+          }));
+    })
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "ユーザーの取得に失敗しました",
         "firebase"
       );
-    }
+    });
 
-    await db
-      .collection("companys")
-      .doc(context.params.uid)
-      .get()
-      .then(async (doc) => {
-        doc.exists &&
-          (await doc.ref
-            .set(
-              {
-                payment: {
-                  status: status,
-                  price: price,
-                  start: start,
-                  end: end,
-                  trial: false,
-                  cancel: false,
-                  notice: false,
-                  load: false,
-                },
-              },
-              { merge: true }
-            )
-            .catch((e) => {
-              throw new functions.https.HttpsError(
-                "data-loss",
-                "プロフィールの更新に失敗しました",
-                "firebase"
-              );
-            }));
-      })
-      .catch((e) => {
-        throw new functions.https.HttpsError(
-          "not-found",
-          "ユーザーの取得に失敗しました",
-          "firebase"
-        );
-      });
-  });
+  return;
+};
+
+const checkPlan = (plan) => {
+  if (!plan) {
+    throw new functions.https.HttpsError(
+      "cancelled",
+      "プランの更新では無いので処理中止",
+      "firebase"
+    );
+  }
+
+  return;
+};
