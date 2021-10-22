@@ -33,7 +33,7 @@ export const Search = () => {
     !search.control &&
       dispatch(
         fetchPosts({
-          index: index,
+          index: "matters",
           value: search.value,
           target: search.target,
           type: search.type,
