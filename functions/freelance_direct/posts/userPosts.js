@@ -1,5 +1,6 @@
 const functions = require("firebase-functions");
 const algolia = require("../../algolia").algolia;
+const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
@@ -13,10 +14,31 @@ exports.userPosts = functions
   .https.onCall(async (data, context) => {
     const status = await userAuthenticated(context);
 
+    await checkUser(data);
+
     const { posts, hit } = await fetchAlgolia(data, status);
 
     return { posts: posts, hit: hit };
   });
+
+const checkUser = async (data) => {
+  await db
+    .collection("companys")
+    .doc(data.uid)
+    .get()
+    .then((doc) => {
+      if (
+        doc.data().payment.status === "canceled" ||
+        !doc.data().payment.option?.freelanceDirect
+      ) {
+        throw new functions.https.HttpsError(
+          "cancelled",
+          "オプション未加入のユーザーのため、処理中止",
+          "firebase"
+        );
+      }
+    });
+};
 
 const fetchAlgolia = async (data, status) => {
   const index = algolia.initIndex("matters");
