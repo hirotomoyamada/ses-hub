@@ -63,8 +63,19 @@ const fetchFirestore = async (data, user) => {
     .get()
     .then((doc) => {
       if (doc.exists) {
-        user.icon = doc.data().icon;
-        user.cover = doc.data().cover;
+        if (
+          doc.data().payment.status === "canceled" ||
+          !doc.data().payment.option?.freelanceDirect
+        ) {
+          throw new functions.https.HttpsError(
+            "cancelled",
+            "オプション未加入のユーザーのため、処理中止",
+            "firebase"
+          );
+        } else {
+          user.icon = doc.data().icon;
+          user.cover = doc.data().cover;
+        }
       }
     })
     .catch((e) => {

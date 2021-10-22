@@ -57,7 +57,18 @@ const fetchUser = async (uid) => {
     .doc(uid)
     .get()
     .then((doc) => {
-      return doc.exists && doc.data();
+      if (
+        doc.data().payment.status === "canceled" ||
+        !doc.data().payment.option?.freelanceDirect
+      ) {
+        throw new functions.https.HttpsError(
+          "cancelled",
+          "オプション未加入のユーザーのため、処理中止",
+          "firebase"
+        );
+      } else {
+        return doc.exists && doc.data();
+      }
     })
     .catch((e) => {
       throw new functions.https.HttpsError(
@@ -125,7 +136,13 @@ const updateUser = async ({ context, data, enable }) => {
         });
       }
     })
-    .catch((e) => {});
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "ユーザーの取得に失敗しました",
+        "firebase"
+      );
+    });
 
   return;
 };

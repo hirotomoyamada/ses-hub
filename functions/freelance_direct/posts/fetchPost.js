@@ -69,7 +69,7 @@ const fetchFirestore = async ({ demo, post, i, bests }) => {
 
             post.user = {
               uid: null,
-              icon: "icon97",
+              icon: "freelanceDirect",
               profile: {
                 name: "Hit me up株式会社",
                 person: "freelance Direct 事務局",

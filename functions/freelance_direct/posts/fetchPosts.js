@@ -41,7 +41,7 @@ const fetchAlgolia = async (data, status) => {
             page: hit.currentPage,
           }
         : data.index === "companys" && {
-            filters: "status:enable AND option:freelanceDirect",
+            filters: "status:enable AND plan:enable AND freelanceDirect:enable",
             page: hit.currentPage,
           }
     )

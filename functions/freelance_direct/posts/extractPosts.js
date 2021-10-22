@@ -50,7 +50,6 @@ const fetchAlgolia = async (data, status) => {
           : hit &&
             data.type === "requests" &&
             hit.status === "enable" &&
-            // 有料プランの制限追加
             status && {
               uid: hit.objectID,
               profile: {
@@ -93,7 +92,20 @@ const fetchFirestore = async (data, posts) => {
               }
             }
             if (data.type === "requests") {
-              posts[i].icon = doc.data().icon;
+              if (
+                doc.data().payment.status === "canceled" ||
+                !doc.data().payment.option?.freelanceDirect
+              ) {
+                posts[i].icon = "none";
+                posts[i].status = "none";
+                posts[i].profile = {
+                  name: null,
+                  persons: "存在しないユーザー",
+                  body: null,
+                };
+              } else {
+                posts[i].icon = doc.data().icon;
+              }
             }
           }
         })

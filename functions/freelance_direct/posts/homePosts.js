@@ -74,7 +74,6 @@ const fetchAlgolia = async (context, data, status) => {
               (hit) =>
                 hit &&
                 hit.status === "enable" &&
-                // 有料プランの制限追加
                 status && {
                   uid: hit.objectID,
                   profile: {
@@ -106,12 +105,35 @@ const fetchFirestore = async (data, posts) => {
         .then((doc) => {
           if (doc.exists) {
             if (data.index === "matters") {
-              posts[i].user = {
-                name: doc.data().profile.name,
-                person: doc.data().profile.person,
-              };
+              if (
+                doc.data().payment.status === "canceled" ||
+                !doc.data().payment.option?.freelanceDirect
+              ) {
+                posts[i].user = {
+                  name: null,
+                  person: "存在しないユーザー",
+                };
+              } else {
+                posts[i].user = {
+                  name: doc.data().profile.name,
+                  person: doc.data().profile.person,
+                };
+              }
             } else {
-              posts[i].icon = doc.data().icon;
+              if (
+                doc.data().payment.status === "canceled" ||
+                !doc.data().payment.option?.freelanceDirect
+              ) {
+                posts[i].icon = "none";
+                posts[i].status = "none";
+                posts[i].profile = {
+                  name: null,
+                  persons: "存在しないユーザー",
+                  body: null,
+                };
+              } else {
+                posts[i].icon = doc.data().icon;
+              }
             }
           }
         })
