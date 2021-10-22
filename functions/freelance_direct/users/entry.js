@@ -21,20 +21,18 @@ exports.addEntry = functions
       .collection("persons")
       .doc(context.auth.uid)
       .get()
-      .then((doc) => {
+      .then(async (doc) => {
         if (doc.exists) {
           const entries = doc.data().entries;
-          doc.ref
+
+          await doc.ref
             .set(
-              entries
-                ? entries.indexOf(data) < 0 && {
-                    entries: [data, ...entries],
-                    updateAt: timestamp,
-                  }
-                : {
-                    entries: [data],
-                    updateAt: timestamp,
-                  },
+              {
+                entries: entries
+                  ? entries.indexOf(data) < 0 && [data, ...entries]
+                  : [data],
+                updateAt: timestamp,
+              },
               { merge: true }
             )
             .catch((e) => {

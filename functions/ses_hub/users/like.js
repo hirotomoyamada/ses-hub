@@ -12,52 +12,7 @@ exports.addLike = functions
   .https.onCall(async (data, context) => {
     await userAuthenticated({ context: context, demo: true });
 
-    const timestamp = Date.now();
-
-    await db
-      .collection("companys")
-      .doc(context.auth.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          const likes = doc.data().likes?.[data.index];
-          doc.ref
-            .set(
-              likes
-                ? likes.indexOf(data.objectID ? data.objectID : data.uid) <
-                    0 && {
-                    likes: {
-                      [data.index]: [
-                        data.objectID ? data.objectID : data.uid,
-                        ...likes,
-                      ],
-                    },
-                    updateAt: timestamp,
-                  }
-                : {
-                    likes: {
-                      [data.index]: [data.objectID ? data.objectID : data.uid],
-                    },
-                    updateAt: timestamp,
-                  },
-              { merge: true }
-            )
-            .catch((e) => {
-              throw new functions.https.HttpsError(
-                "data-loss",
-                "いいねの追加に失敗しました",
-                "firebase"
-              );
-            });
-        }
-      })
-      .catch((e) => {
-        throw new functions.https.HttpsError(
-          "not-found",
-          "ユーザーの取得に失敗しました",
-          "firebase"
-        );
-      });
+    await updateFirestore({ context: context, data: data, add: true });
 
     return;
   });
@@ -68,44 +23,66 @@ exports.removeLike = functions
   .https.onCall(async (data, context) => {
     await userAuthenticated({ data: data, context: context, demo: true });
 
-    const timestamp = Date.now();
-
-    await db
-      .collection("companys")
-      .doc(context.auth.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          const likes = doc
-            .data()
-            .likes[data.index].filter(
-              (id) => id !== (data.objectID ? data.objectID : data.uid)
-            );
-
-          doc.ref
-            .set(
-              {
-                likes: { [data.index]: [...likes] },
-                updateAt: timestamp,
-              },
-              { merge: true }
-            )
-            .catch((e) => {
-              throw new functions.https.HttpsError(
-                "data-loss",
-                "いいねの削除に失敗しました",
-                "firebase"
-              );
-            });
-        }
-      })
-      .catch((e) => {
-        throw new functions.https.HttpsError(
-          "not-found",
-          "ユーザーの取得に失敗しました",
-          "firebase"
-        );
-      });
+    await updateFirestore({ context: context, data: data });
 
     return;
   });
+
+const updateFirestore = async ({ context, data, add }) => {
+  const timestamp = Date.now();
+
+  await db
+    .collection("companys")
+    .doc(context.auth.uid)
+    .get()
+    .then(async (doc) => {
+      if (doc.exists) {
+        const likes = add
+          ? doc.data().likes?.[data.index]
+          : doc
+              .data()
+              .likes[data.index].filter(
+                (id) => id !== (data.objectID ? data.objectID : data.uid)
+              );
+
+        await doc.ref
+          .set(
+            {
+              likes: add
+                ? likes
+                  ? likes.indexOf(data.objectID ? data.objectID : data.uid) <
+                      0 && {
+                      [data.index]: [
+                        data.objectID ? data.objectID : data.uid,
+                        ...likes,
+                      ],
+                    }
+                  : {
+                      [data.index]: [data.objectID ? data.objectID : data.uid],
+                    }
+                : {
+                    [data.index]: [...likes],
+                  },
+              updateAt: timestamp,
+            },
+            { merge: true }
+          )
+          .catch((e) => {
+            throw new functions.https.HttpsError(
+              "data-loss",
+              "いいねの追加に失敗しました",
+              "firebase"
+            );
+          });
+      }
+    })
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "ユーザーの取得に失敗しました",
+        "firebase"
+      );
+    });
+
+  return;
+};
