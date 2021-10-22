@@ -40,8 +40,6 @@ export const List = ({
     !bests && setIntersecting(false);
   }, [bests, hit?.currentPage, hit?.pages]);
 
-  console.log(intersecting);
-
   useEffect(() => {
     if (
       JSON.stringify(list.current.getBoundingClientRect().height) >
