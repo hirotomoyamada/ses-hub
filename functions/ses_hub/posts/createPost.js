@@ -14,58 +14,69 @@ exports.createPost = functions
   .https.onCall(async (data, context) => {
     await postAuthenticated({ context: context });
 
-    const index = algolia.initIndex(data.index);
-    const object =
-      data.index === "matters"
-        ? post.matters({ data: data, context: context })
-        : data.index === "resources" &&
-          post.resources({ data: data, context: context });
+    const object = await createAlgolia(context, data);
 
-    await index
-      .saveObject(object, { autoGenerateObjectIDIfNotExist: true })
-      .then(async (post) => {
-        object.objectID = post.objectID;
-
-        await db
-          .collection("companys")
-          .doc(context.auth.uid)
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              const posts = doc.data().posts?.[data.index];
-              doc.ref
-                .set(
-                  posts
-                    ? {
-                        posts: { [data.index]: [post.objectID, ...posts] },
-                      }
-                    : { posts: { [data.index]: [post.objectID] } },
-                  { merge: true }
-                )
-                .catch((e) => {
-                  throw new functions.https.HttpsError(
-                    "unavailable",
-                    "プロフィールの更新に失敗しました",
-                    "disable"
-                  );
-                });
-            }
-          })
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "not-found",
-              "プロフィールが存在しません",
-              "profile"
-            );
-          });
-      })
-      .catch((e) => {
-        throw new functions.https.HttpsError(
-          "not-found",
-          "ユーザーの取得に失敗しました",
-          "firebase"
-        );
-      });
+    await createFirestore(context, data, object);
 
     return { index: data.index, post: object };
   });
+
+const createAlgolia = async (context, data) => {
+  const index = algolia.initIndex(data.index);
+
+  const object =
+    data.index === "matters"
+      ? post.matters({ data: data, context: context })
+      : data.index === "resources" &&
+        post.resources({ data: data, context: context });
+
+  await index
+    .saveObject(object, { autoGenerateObjectIDIfNotExist: true })
+    .then(async (post) => {
+      object.objectID = post.objectID;
+    })
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "ユーザーの取得に失敗しました",
+        "firebase"
+      );
+    });
+
+  return object;
+};
+
+const createFirestore = async (context, data, object) => {
+  await db
+    .collection("companys")
+    .doc(context.auth.uid)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        const posts = doc.data().posts?.[data.index];
+        doc.ref
+          .set(
+            posts
+              ? {
+                  posts: { [data.index]: [object.objectID, ...posts] },
+                }
+              : { posts: { [data.index]: [object.objectID] } },
+            { merge: true }
+          )
+          .catch((e) => {
+            throw new functions.https.HttpsError(
+              "unavailable",
+              "プロフィールの更新に失敗しました",
+              "disable"
+            );
+          });
+      }
+    })
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "プロフィールが存在しません",
+        "profile"
+      );
+    });
+};
