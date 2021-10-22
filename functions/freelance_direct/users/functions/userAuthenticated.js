@@ -1,12 +1,11 @@
 const functions = require("firebase-functions");
 const db = require("../../../firebase").db;
 
-exports.userAuthenticated = async ({
-  context,
-  demo,
-  agree,
-}) => {
-  if (context.auth.uid === functions.config().demo.ses_hub.uid && demo) {
+exports.userAuthenticated = async ({ context, demo, agree }) => {
+  if (
+    context.auth.uid === functions.config().demo.freelance_direct.uid &&
+    demo
+  ) {
     throw new functions.https.HttpsError(
       "cancelled",
       "デモユーザーのため、処理中止",

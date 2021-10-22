@@ -13,8 +13,7 @@ exports.fetchPost = functions
   .runWith(runtime)
   .https.onCall(async (data, context) => {
     const status = await userAuthenticated(context);
-    const demo = false;
-    // context.auth.uid === functions.config().demo.ses_hub.uid;
+    const demo = context.auth.uid === functions.config().demo.freelance_direct.uid;
 
     const post = await fetchAlgolia(data, status, demo);
 
