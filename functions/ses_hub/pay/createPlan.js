@@ -21,7 +21,7 @@ exports.createPlan = functions
     checkPlan(plan);
 
     await updateFirestore(context, status, price, start, end);
-    
+
     await updateAlgolia(context);
 
     return;
@@ -34,7 +34,7 @@ const updateAlgolia = async (context) => {
   await index
     .partialUpdateObject(
       {
-        objectID: context.auth.uid,
+        objectID: context.params.uid,
         plan: "enable",
         updateAt: timestamp,
       },
