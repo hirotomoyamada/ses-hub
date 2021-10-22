@@ -33,7 +33,7 @@ export const Option = ({
     >
       <div className={styles.item_container}>
         <div className={styles.item_wrap}>
-          <h2 className={styles.item_ttl}>{price?.name}</h2>
+          {price?.name && <h2 className={styles.item_ttl}>{price?.name}</h2>}
           <p className={styles.item_amount}>
             {(price?.unit_amount * tax).toLocaleString()}円
             <span
