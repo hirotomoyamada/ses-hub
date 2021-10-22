@@ -13,9 +13,7 @@ exports.createPlan = functions
     const start = snapshot.data().current_period_start.seconds * 1000;
     const end = snapshot.data().current_period_end.seconds * 1000;
     const plan =
-      snapshot.data().items[0].price.product.metadata.name === "plan"
-        ? true
-        : false;
+      snapshot.data().items[0].price.product.metadata.name === "plan";
 
     if (!plan) {
       throw new functions.https.HttpsError(
