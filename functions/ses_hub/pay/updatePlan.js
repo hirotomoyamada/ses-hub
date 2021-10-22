@@ -15,8 +15,8 @@ exports.updatePlan = functions
     const price = after.items[0].plan.id;
     const start = after.current_period_start.seconds * 1000;
     const end = after.current_period_end.seconds * 1000;
-    const cancel = after.canceled_at;
-    const remove = after.ended_at;
+    const cancel = after.canceled_at ? true : false;
+    const remove = after.ended_at ? true : false;
 
     const plan = after.items[0].price.product.metadata.name === "plan";
 

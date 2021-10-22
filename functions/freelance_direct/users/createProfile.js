@@ -58,14 +58,14 @@ const uploadFile = async (file, uid) => {
 
 const createFirestore = async (context, data, file) => {
   await db
-    .collection("companys")
+    .collection("persons")
     .doc(context.auth.uid)
     .get()
     .then(async (doc) => {
       !doc.exists &&
         (await doc.ref
           .set(
-            user.companys({
+            user.persons({
               context: context,
               data: data,
               file: file,
@@ -91,11 +91,11 @@ const createFirestore = async (context, data, file) => {
 };
 
 const createAlgolia = async (context, data) => {
-  const index = algolia.initIndex("companys");
+  const index = algolia.initIndex("persons");
 
   await index
     .partialUpdateObject(
-      user.companys({
+      user.persons({
         context: context,
         data: data,
         create: true,

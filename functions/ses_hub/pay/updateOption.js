@@ -12,7 +12,7 @@ exports.updateOption = functions
     const after = change.after.data();
     const status = after.status;
     const price = after.items[0].plan.id;
-    const remove = after.ended_at;
+    const remove = after.ended_at ? true : false;
 
     const metadata = after.items[0].price.product.metadata;
     const option = metadata.name === "option";
