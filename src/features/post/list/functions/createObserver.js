@@ -1,35 +1,30 @@
 export const createObserver = (
   list,
-  load,
+  bests,
   hit,
   page,
   setPage,
   intersecting,
   setIntersecting
 ) => {
-  if (
-    JSON.stringify(list.current.getBoundingClientRect().height) >
-    window.innerHeight + 100
-  ) {
-    const observer = new IntersectionObserver(
+  const listHeight = JSON.stringify(
+    list.current.getBoundingClientRect().height
+  );
+  const innerHeight = window.innerHeight + 100;
+
+  if (!bests && listHeight > innerHeight) {
+    return new IntersectionObserver(
       ([results]) => {
         if (results.isIntersecting && !intersecting) {
           if (page < hit.pages) {
-            setIntersecting(results.isIntersecting);
+            setIntersecting(true);
           }
           setPage((prevPage) => prevPage + 1);
         }
       },
       {
-        rootMargin: `0px 0px ${window.innerHeight}px 0px`,
+        rootMargin: `0px 0px ${innerHeight}px 0px`,
       }
     );
-
-    const ref = load.current;
-    ref && observer.observe(ref);
-
-    return () => {
-      ref && observer.unobserve(ref);
-    };
   }
 };
