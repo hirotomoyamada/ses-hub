@@ -6,6 +6,7 @@ exports.userAuthenticated = async ({
   demo,
   agree,
   canceled,
+  index,
 }) => {
   if (context.auth.uid === functions.config().demo.ses_hub.uid && demo) {
     throw new functions.https.HttpsError(
@@ -40,6 +41,18 @@ exports.userAuthenticated = async ({
         throw new functions.https.HttpsError(
           "cancelled",
           "リミテッドユーザーのため、処理中止",
+          "firebase"
+        );
+      }
+
+      if (
+        index === "persons" &&
+        (doc.data().payment.status === "canceled" ||
+          !doc.data().payment.option?.freelanceDirect)
+      ) {
+        throw new functions.https.HttpsError(
+          "cancelled",
+          "オプション未加入のユーザーのため、処理中止",
           "firebase"
         );
       }
