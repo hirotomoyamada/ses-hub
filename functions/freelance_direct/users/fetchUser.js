@@ -88,5 +88,5 @@ const fetchFirestore = async (data, user) => {
 };
 
 const checkDemo = (context) => {
-  return context.auth.uid === functions.config().demo.ses_hub.uid;
+  return context.auth.uid === functions.config().demo.freelance_direct.uid;
 };
