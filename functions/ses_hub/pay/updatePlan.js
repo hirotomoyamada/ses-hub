@@ -12,12 +12,10 @@ exports.updatePlan = functions
     const price = change.after.data().items[0].plan.id;
     const start = change.after.data().current_period_start.seconds * 1000;
     const end = change.after.data().current_period_end.seconds * 1000;
-    const cancel = change.after.data().canceled_at ? true : false;
-    const remove = change.after.data().ended_at ? true : false;
+    const cancel = change.after.data().canceled_at;
+    const remove = change.after.data().ended_at;
     const plan =
-      change.after.data().items[0].price.product.metadata.name === "plan"
-        ? true
-        : false;
+      change.after.data().items[0].price.product.metadata.name === "plan";
 
     if (!plan) {
       throw new functions.https.HttpsError(
@@ -42,7 +40,7 @@ exports.updatePlan = functions
             doc.data().items[0].price.product.metadata.name === "plan"
         ).length;
 
-        return docs > 1 && doc ? true : false;
+        return docs > 1 && doc;
       });
 
     if (duplicate && remove) {

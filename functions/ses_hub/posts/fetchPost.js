@@ -15,37 +15,50 @@ exports.fetchPost = functions
     const status = await userAuthenticated(context);
     const demo = context.auth.uid === functions.config().demo.ses_hub.uid;
 
-    const index = algolia.initIndex(data.index);
-    const post = await index
-      .getObject(data.objectID)
-      .then((hit) => {
-        return hit && data.index === "matters" && hit.uid === context.auth.uid
-          ? fetch.matters({ hit: hit, auth: true })
-          : hit &&
-            data.index === "matters" &&
-            hit.display === "public" &&
-            status
-          ? fetch.matters({ hit: hit })
-          : data.index === "resources" && hit.uid === context.auth.uid
-          ? fetch.resources({ hit: hit, auth: true })
-          : data.index === "resources" &&
-            hit.display === "public" &&
-            status &&
-            fetch.resources({ hit: hit });
-      })
-      .catch((e) => {
-        throw new functions.https.HttpsError(
-          "not-found",
-          "投稿の取得に失敗しました",
-          "algolia"
-        );
-      });
+    const post = await fetchalgolia(context, data, status, demo);
 
-    await db
-      .collection("companys")
-      .doc(post.uid)
-      .get()
-      .then((doc) => {
+    const bests = await fetchBests(context, data, status, post);
+
+    return { post: post, bests: bests };
+  });
+
+const fetchalgolia = async (context, data, status, demo) => {
+  const index = algolia.initIndex(data.index);
+
+  const post = await index
+    .getObject(data.objectID)
+    .then((hit) => {
+      return hit && data.index === "matters" && hit.uid === context.auth.uid
+        ? fetch.matters({ hit: hit, auth: true })
+        : hit && data.index === "matters" && hit.display === "public" && status
+        ? fetch.matters({ hit: hit })
+        : data.index === "resources" && hit.uid === context.auth.uid
+        ? fetch.resources({ hit: hit, auth: true })
+        : data.index === "resources" &&
+          hit.display === "public" &&
+          status &&
+          fetch.resources({ hit: hit });
+    })
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "投稿の取得に失敗しました",
+        "algolia"
+      );
+    });
+
+  await fetchFirestore(demo, post);
+
+  return post;
+};
+
+const fetchFirestore = async (demo, post) => {
+  await db
+    .collection("companys")
+    .doc(post.uid)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
         post.user = {
           uid: doc.id,
           icon: doc.data().icon,
@@ -57,43 +70,53 @@ exports.fetchPost = functions
             social: !demo ? doc.data().profile.social : {},
           },
         };
-      });
+      }
+    })
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "ユーザーの取得に失敗しました",
+        "firebase"
+      );
+    });
+};
 
-    const bests = await index
-      .search("", {
-        queryLanguages: ["ja", "en"],
-        similarQuery: post?.handles?.join(" "),
-        filters: "display:public",
-        hitsPerPage: 100,
-      })
+const fetchBests = async (context, data, status, post) => {
+  const index = algolia.initIndex(data.index);
 
-      .then(({ hits }) => {
-        return hits.map((hit) =>
-          data.index === "matters" &&
-          hit.uid === context.auth.uid &&
-          hit.objectID !== post.objectID
-            ? fetch.matters({ hit: hit, auth: true })
-            : data.index === "matters" &&
-              hit.objectID !== post.objectID &&
-              status
-            ? fetch.matters({ hit: hit })
-            : data.index === "resources" &&
-              hit.uid === context.auth.uid &&
-              hit.objectID !== post.objectID
-            ? fetch.resources({ hit: hit, auth: true })
-            : data.index === "resources" &&
-              hit.objectID !== post.objectID &&
-              status &&
-              fetch.resources({ hit: hit })
-        );
-      })
-      .catch((e) => {
-        throw new functions.https.HttpsError(
-          "not-found",
-          "投稿の取得に失敗しました",
-          "algolia"
-        );
-      });
+  const bests = await index
+    .search("", {
+      queryLanguages: ["ja", "en"],
+      similarQuery: post?.handles?.join(" "),
+      filters: "display:public",
+      hitsPerPage: 100,
+    })
 
-    return { post: post, bests: bests };
-  });
+    .then(({ hits }) => {
+      return hits.map((hit) =>
+        data.index === "matters" &&
+        hit.uid === context.auth.uid &&
+        hit.objectID !== post.objectID
+          ? fetch.matters({ hit: hit, auth: true })
+          : data.index === "matters" && hit.objectID !== post.objectID && status
+          ? fetch.matters({ hit: hit })
+          : data.index === "resources" &&
+            hit.uid === context.auth.uid &&
+            hit.objectID !== post.objectID
+          ? fetch.resources({ hit: hit, auth: true })
+          : data.index === "resources" &&
+            hit.objectID !== post.objectID &&
+            status &&
+            fetch.resources({ hit: hit })
+      );
+    })
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "投稿の取得に失敗しました",
+        "algolia"
+      );
+    });
+
+  return bests;
+};

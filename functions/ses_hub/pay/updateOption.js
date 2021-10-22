@@ -10,11 +10,10 @@ exports.updateOption = functions
   .onUpdate(async (change, context) => {
     const status = change.after.data().status;
     const price = change.after.data().items[0].plan.id;
-    const remove = change.after.data().ended_at ? true : false;
+    const remove = change.after.data().ended_at;
     const option =
-      change.after.data().items[0].price.product.metadata.name === "option"
-        ? true
-        : false;
+      change.after.data().items[0].price.product.metadata.name === "option";
+
     const type = change.after.data().items[0].price.product.metadata.type;
 
     if (!option) {
@@ -49,7 +48,7 @@ exports.updateOption = functions
             doc.data().items[0].price.product.metadata.type === type
         ).length;
 
-        return docs > 1 && doc ? true : false;
+        return docs > 1 && doc;
       });
 
     if (duplicate && remove) {

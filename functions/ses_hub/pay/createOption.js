@@ -9,9 +9,8 @@ exports.createOption = functions
   .firestore.document("customers/{uid}/subscriptions/{sub}")
   .onCreate(async (snapshot, context) => {
     const option =
-      snapshot.data().items[0].price.product.metadata.name === "option"
-        ? true
-        : false;
+      snapshot.data().items[0].price.product.metadata.name === "option";
+
     const type = snapshot.data().items[0].price.product.metadata.type;
 
     if (!option) {
