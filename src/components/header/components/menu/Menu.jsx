@@ -5,9 +5,10 @@ export const Menu = ({ index, uid, user, handleIndex, page, outputs }) => {
     <div
       className={`${styles.menu} ${
         page === "search"
-          ? user?.payment?.option?.freelanceDirect
+          ? user?.payment?.status !== "canceled" &&
+            user?.payment?.option?.freelanceDirect
             ? styles.menu_over
-            : styles.menu_triangle
+            : user?.payment?.status !== "canceled" && styles.menu_triangle
           : (page === "likes" || page === "entries") &&
             user?.payment?.status !== "canceled" &&
             user?.payment?.option?.freelanceDirect
