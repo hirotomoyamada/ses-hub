@@ -56,7 +56,7 @@ const updateAlgolia = async (context) => {
   await index
     .partialUpdateObject(
       {
-        objectID: context.auth.uid,
+        objectID: context.params.uid,
         plan: "disable",
         updateAt: timestamp,
       },
