@@ -12,20 +12,20 @@ import { fetchScroll } from "./functions/fetchScroll";
 export const List = ({
   index,
   posts,
+  hit,
   user,
+  selectUser,
   home,
   search,
   companys,
-  select,
-  selectUser,
-  outputs,
-  handleSelect,
-  handleCancel,
   sort,
   type,
-  hit,
-  open,
+  outputs,
+  select,
+  handleSelect,
+  handleCancel,
   bests,
+  open,
 }) => {
   const dispatch = useDispatch();
 
@@ -40,38 +40,52 @@ export const List = ({
     !bests && setIntersecting(false);
   }, [bests, hit?.currentPage, hit?.pages]);
 
+  console.log(intersecting);
+
   useEffect(() => {
-    !bests &&
-      createObserver(
+    if (
+      JSON.stringify(list.current.getBoundingClientRect().height) >
+      window.innerHeight + 100
+    ) {
+      const observer = createObserver(
         list,
-        load,
+        bests,
         hit,
         page,
         setPage,
         intersecting,
         setIntersecting
       );
+
+      const ref = load.current;
+      ref && observer.observe(ref);
+
+      return () => {
+        ref && observer.unobserve(ref);
+      };
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hit?.pages, intersecting, page]);
 
   useEffect(() => {
-    !bests &&
+    if (!bests && intersecting && hit.pages && page !== hit.pages) {
       fetchScroll(
         dispatch,
-        intersecting,
-        setIntersecting,
+        list,
         page,
-        hit,
+        index,
+        user,
         home,
         search,
         companys,
-        select,
+        sort,
         type,
-        list,
-        index,
-        user,
-        sort
-      );
+        select
+      ).then(() => {
+        setIntersecting(!intersecting);
+      });
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
