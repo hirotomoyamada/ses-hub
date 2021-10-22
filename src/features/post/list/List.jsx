@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { Posts } from "./components/Posts";
 import { NotFound } from "./components/NotFound";
 import { Load } from "./components/Load";
+
 import { createObserver } from "./functions/createObserver";
 import { fetchScroll } from "./functions/fetchScroll";
 
@@ -41,36 +42,32 @@ export const List = ({
   }, [bests, hit?.currentPage, hit?.pages]);
 
   useEffect(() => {
-    if (
-      JSON.stringify(list.current.getBoundingClientRect().height) >
-      window.innerHeight + 100
-    ) {
-      const observer = createObserver(
-        list,
-        bests,
-        hit,
-        page,
-        setPage,
-        intersecting,
-        setIntersecting
-      );
+    const observer = createObserver(
+      list,
+      bests,
+      hit,
+      page,
+      setPage,
+      intersecting,
+      setIntersecting
+    );
 
-      const ref = load.current;
-      ref && observer.observe(ref);
+    const ref = load.current;
+    ref && observer.observe(ref);
 
-      return () => {
-        ref && observer.unobserve(ref);
-      };
-    }
+    return () => {
+      ref && observer.unobserve(ref);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hit?.pages, intersecting, page]);
 
   useEffect(() => {
-    if (!bests && intersecting && hit.pages && page !== hit.pages) {
+    !bests &&
+      intersecting &&
+      hit.pages &&
+      page !== hit.pages &&
       fetchScroll(
         dispatch,
-        list,
-        page,
         index,
         user,
         home,
@@ -78,11 +75,11 @@ export const List = ({
         companys,
         sort,
         type,
-        select
+        select,
+        page
       ).then(() => {
         setIntersecting(!intersecting);
       });
-    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
