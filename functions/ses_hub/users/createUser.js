@@ -11,7 +11,7 @@ exports.createUser = functions
   .firestore.document("companys/{uid}")
   .onCreate(async (snapshot, context) => {
     const profile = snapshot.data().profile;
-    const url = "https://ses-hub.app/";
+    const url = functions.config().app.ses_hub.url;
     const adminUrl = functions.config().admin.url;
 
     const adminMail = {

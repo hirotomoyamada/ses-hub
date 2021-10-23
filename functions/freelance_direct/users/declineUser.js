@@ -13,7 +13,7 @@ exports.declineUser = functions
     const profile = change.after.data().profile;
     const beforeStatus = change.before.data().status;
     const afterStatus = change.after.data().status;
-    const url = "https://freelance-direct.app";
+    const url = functions.config().app.freelance_direct.url;
 
     const userMail = {
       to: change.after.data().profile.email,
