@@ -7,6 +7,7 @@ import { Uid } from "./components/Uid";
 import { Email } from "./components/Email";
 import { Password } from "./components/Password";
 import { Plan } from "./components/Plan";
+import { Option } from "./components/Option";
 import { At } from "./components/At";
 import { Provider } from "./components/provider/Provider";
 
@@ -31,6 +32,8 @@ export const Main = ({
       <Password user={user} password={password} setPassword={setPassword} />
 
       <Plan user={user} history={history} />
+
+      <Option user={user} />
 
       <At user={user} />
 
