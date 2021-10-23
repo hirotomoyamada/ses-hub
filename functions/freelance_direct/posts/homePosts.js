@@ -128,7 +128,7 @@ const fetchFirestore = async (data, posts) => {
                 posts[i].status = "none";
                 posts[i].profile = {
                   name: null,
-                  persons: "存在しないユーザー",
+                  person: "存在しないユーザー",
                   body: null,
                 };
               } else {
