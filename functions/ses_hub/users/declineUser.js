@@ -13,7 +13,7 @@ exports.declineUser = functions
     const profile = change.after.data().profile;
     const beforeStatus = change.before.data().status;
     const afterStatus = change.after.data().status;
-    const url = "https://ses-hub.app";
+    const url = functions.config().app.ses_hub.url;
 
     const userMail = {
       to: change.after.data().profile.email,

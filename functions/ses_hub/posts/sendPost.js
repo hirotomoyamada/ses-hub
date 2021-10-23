@@ -104,7 +104,9 @@ exports.sendPost = functions
             1
           )} . ${post.roman.lastName.substring(0, 1)}`;
 
-    const url = `https://ses-hub.app/${index}/${post.objectID}`;
+    const url = `${functions.config().app.ses_hub.url}/${index}/${
+      post.objectID
+    }`;
 
     const text =
       index === "matters"
