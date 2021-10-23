@@ -102,10 +102,20 @@ $width: responsive-width(pc);
     }
 
     &_bests {
-      height: auto;
+      height: calc(100vh - 472px);
+
+      @media (max-width: responsive-width(tb)) {
+        height: 64px;
+        padding-top: 12px;
+      }
 
       &_companys {
-        padding-top: 32px;
+        height: calc(100vh - 59px);
+
+        @media (max-width: responsive-width(tb)) {
+          height: 160px;
+          padding: 24px 0 104px;
+        }
       }
     }
 
