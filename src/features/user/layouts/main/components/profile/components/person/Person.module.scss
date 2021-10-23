@@ -171,6 +171,11 @@ $width: responsive-width(pc);
 
     cursor: pointer;
 
+    @media (max-width: responsive-width(sp)) {
+      width: 50%;
+      height: 120px;
+    }
+
     &_none {
       pointer-events: none;
       user-select: none;
