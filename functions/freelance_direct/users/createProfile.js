@@ -15,7 +15,7 @@ exports.createProfile = functions
     await createFirestore(context, data, file);
     await createAlgolia(context, data);
 
-    return user;
+    return { displayName: data.person };
   });
 
 const uploadFile = async (file, uid) => {
