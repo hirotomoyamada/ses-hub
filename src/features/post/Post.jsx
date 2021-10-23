@@ -25,11 +25,8 @@ export const Post = ({ index, objectID }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
-
-  useEffect(() => {
     dispatch(rootSlice.handlePage("post"));
-  }, [dispatch, index]);
+  }, [dispatch, index, pathname]);
 
   useEffect(() => {
     dispatch(fetchPost({ index: index, objectID: objectID }));
