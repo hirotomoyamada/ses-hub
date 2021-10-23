@@ -25,7 +25,7 @@ export const handleCreate = async ({
         })
       );
       auth.currentUser.sendEmailVerification({
-        url: "https://ses-hub.app/login",
+        url: `${process.env.REACT_APP_URL}/login`,
       });
 
       dispatch(
