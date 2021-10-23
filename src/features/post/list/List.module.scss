@@ -97,6 +97,26 @@ $width: responsive-width(pc);
       }
     }
 
+    &_user {
+      @media (max-width: responsive-width(tb)) {
+        height: 160px;
+        padding: 24px 0 104px;
+      }
+
+      &_companys {
+        height: calc(100vh - 49px);
+        padding-top: 80px;
+
+        @media (max-width: responsive-width(tb)) {
+          height: 160px;
+          padding: 120px 0 104px;
+        }
+        @media (max-width: responsive-width(sp)) {
+          padding: 84px 0 104px;
+        }
+      }
+    }
+
     &_select {
       height: 100%;
     }

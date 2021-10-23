@@ -5,13 +5,26 @@ import Loader from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import * as rootSlice from "../../../root/rootSlice";
 
-export const NotFound = ({ index, list, type, select, bests, companys }) => {
+export const NotFound = ({
+  index,
+  list,
+  type,
+  select,
+  selectUser,
+  bests,
+  companys,
+}) => {
   const load = useSelector(rootSlice.load).list;
 
   return (
     <div
       className={`${styles.list_none} ${
-        (type || companys) && !bests && styles.list_none_type
+        (type || companys) && !bests && selectUser && styles.list_none_type
+      } ${companys && !selectUser && styles.list_none_user} ${
+        companys &&
+        !selectUser &&
+        index === "companys" &&
+        styles.list_none_user_companys
       } ${select && styles.list_none_select} ${
         bests && styles.list_none_bests
       } ${bests && companys && styles.list_none_bests_companys}`}
