@@ -53,10 +53,10 @@ export const List = ({
     );
 
     const ref = load.current;
-    ref && observer.observe(ref);
+    ref && observer?.observe(ref);
 
     return () => {
-      ref && observer.unobserve(ref);
+      ref && observer?.unobserve(ref);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hit?.pages, intersecting, page]);
