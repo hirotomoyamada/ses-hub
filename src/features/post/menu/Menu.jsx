@@ -106,18 +106,6 @@ export const Menu = ({ index, post, user, back, postItem, person }) => {
           person && styles.menu_person
         }`}
       >
-        {post.request === "hold" ? (
-          <AutorenewIcon
-            className={`${styles.menu_icon} ${styles.menu_icon_hold}`}
-          />
-        ) : (
-          post.request === "enable" && (
-            <CheckCircleOutlineIcon
-              className={`${styles.menu_icon} ${styles.menu_icon_enable}`}
-            />
-          )
-        )}
-        
         <button onClick={handleLike}>
           {like ? (
             <FavoriteIcon
@@ -138,6 +126,18 @@ export const Menu = ({ index, post, user, back, postItem, person }) => {
           </button>
         )}
 
+        {post.request === "hold" ? (
+          <AutorenewIcon
+            className={`${styles.menu_icon} ${styles.menu_icon_hold}`}
+          />
+        ) : (
+          post.request === "enable" && (
+            <CheckCircleOutlineIcon
+              className={`${styles.menu_icon} ${styles.menu_icon_enable}`}
+            />
+          )
+        )}
+        
         {entry && (
           <CheckCircleOutlineIcon
             className={`${styles.menu_icon} ${styles.menu_icon_entry}`}
