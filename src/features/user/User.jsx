@@ -2,6 +2,7 @@ import styles from "./User.module.scss";
 
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 import { fetchUser } from "./actions/fetchUser";
 import { userPosts } from "../post/actions/userPosts";
@@ -15,6 +16,7 @@ import { Meta } from "./Meta";
 
 export const User = ({ type, uid }) => {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   const index = useSelector(rootSlice.index);
 
@@ -54,8 +56,9 @@ export const User = ({ type, uid }) => {
   const sort = useSelector(rootSlice.sort);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(rootSlice.handlePage("user"));
-  }, [dispatch]);
+  }, [dispatch, pathname]);
 
   useEffect(() => {
     if (currentUser?.uid !== uid && selectUser?.uid !== uid) {
