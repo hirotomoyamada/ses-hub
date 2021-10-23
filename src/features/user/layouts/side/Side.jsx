@@ -6,7 +6,6 @@ import { Header } from "../../../../components/header/Header";
 import { Toggle } from "./components/Toggle";
 import { Sort } from "./components/Sort";
 import { List } from "../../../post/list/List";
-import { Fetch } from "../../../../components/load/Load";
 
 export const Side = ({
   index,
@@ -54,8 +53,6 @@ export const Side = ({
           bests={index === "persons" && true}
           companys
         />
-
-        <Fetch user />
       </div>
     </div>
   );

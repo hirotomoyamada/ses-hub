@@ -8,7 +8,6 @@ import * as userSlice from "./features/user/userSlice";
 
 import { Header } from "./components/header/Header";
 import { List } from "./features/post/list/List";
-import { Fetch } from "./components/load/Load";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -63,7 +62,6 @@ export const Home = () => {
 
   return (
     <div>
-      <Fetch />
       <Header index={index} user={user} home />
       <List index={index} posts={posts} user={user} hit={hit} home />
     </div>

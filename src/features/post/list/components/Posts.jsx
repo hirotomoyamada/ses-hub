@@ -19,7 +19,7 @@ export const Posts = ({
   handleCancel,
 }) => {
   const user = useSelector(userSlice.user);
-  
+
   return (
     <div
       className={`${styles.list} ${companys && styles.list_companys} ${
