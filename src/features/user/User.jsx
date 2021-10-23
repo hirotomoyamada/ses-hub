@@ -61,11 +61,16 @@ export const User = ({ type, uid }) => {
     if (currentUser?.uid !== uid && selectUser?.uid !== uid) {
       dispatch(fetchUser({ index: type, uid: uid }));
     }
+
+    if (currentUser?.uid === uid && index === "persons") {
+      dispatch(rootSlice.handleIndex("matters"));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, type, uid]);
 
   useEffect(() => {
-    type === "companys" &&
+    index !== "persons" &&
+      type === "companys" &&
       (index !== "companys" || user?.follows?.length) &&
       (!posts?.length || sort.control) &&
       dispatch(
