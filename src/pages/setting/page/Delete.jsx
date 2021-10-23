@@ -1,13 +1,35 @@
 import styles from "./Page.module.scss";
-import root from "../../Setting.module.scss";
+import root from "../Setting.module.scss";
 
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useFormContext } from "react-hook-form";
 
-export const Email = ({ next, user, setReset }) => {
+import * as rootSlice from "../../../features/root/rootSlice.js";
+
+export const Delete = ({ next, user, setReset, setNext }) => {
+  const dispatch = useDispatch();
   const {
     register,
     formState: { errors },
   } = useFormContext();
+
+  const handleVerification = () => {
+    dispatch(
+      rootSlice.handleModal({
+        type: "delete",
+        text: "アカウント",
+      })
+    );
+  };
+
+  useEffect(() => {
+    const password = user.provider.find((provider) => provider === "password");
+    !password && setNext(true);
+    return () => {
+      setNext(false);
+    };
+  }, [setNext, user.provider]);
 
   return !next ? (
     <div className={root.setting_inner}>
@@ -49,40 +71,18 @@ export const Email = ({ next, user, setReset }) => {
   ) : (
     <div className={root.setting_inner}>
       <div className={styles.head}>
-        <p className={styles.head_ttl}>メールアドレスの変更</p>
+        <p className={styles.head_ttl}>アカウントを削除</p>
         <p className={styles.head_desc}>
-          現在のメールアドレスは{user.profile.email}
-          です。更新しますか？
-          <br />
-          メールアドレスは、すべてのユーザーに公開されます。
+          アカウントを削除すると、これまでのデータはすべて削除されます
         </p>
       </div>
 
-      <input type="hidden" {...register("password")} />
-
-      <div>
-        <input
-          type="text"
-          className={`${styles.input} ${errors.email && styles.input_error}`}
-          placeholder="メールアドレス"
-          {...register("email", {
-            required: {
-              value: true,
-              message: "メールアドレスを入力してください",
-            },
-            pattern: {
-              value:
-                /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/,
-              message: "メールアドレスを正しい形式で入力してください",
-            },
-          })}
-        />
-
-        <span className={styles.error}>{errors.email?.message}</span>
-      </div>
-
-      <button type="submit" className={root.setting_btn}>
-        　変更する
+      <button
+        type="button"
+        onClick={handleVerification}
+        className={`${root.setting_btn} ${root.setting_btn_delete}`}
+      >
+        　アカウント削除
       </button>
     </div>
   );

@@ -1,9 +1,9 @@
 import styles from "./Page.module.scss";
-import root from "../../Setting.module.scss";
+import root from "../Setting.module.scss";
 
 import { useFormContext } from "react-hook-form";
 
-export const Create = () => {
+export const Password = ({ next, setReset }) => {
   const {
     register,
     watch,
@@ -12,32 +12,52 @@ export const Create = () => {
 
   const verifiedPassword = watch("verifiedPassword");
 
-  return (
+  return !next ? (
     <div className={root.setting_inner}>
       <div className={styles.head}>
-        <p className={styles.head_ttl}>メールアカウント作成</p>
+        <p className={styles.head_ttl}>パスワードを再入力</p>
+        <p className={styles.head_desc}>
+          続けるにはアカウントのパスワードをもう一度入力してください
+        </p>
       </div>
 
       <div>
         <input
-          type="text"
-          className={`${styles.input} ${errors.email && styles.input_error}`}
-          placeholder="メールアドレス"
-          {...register("email", {
+          type="password"
+          className={`${styles.input} ${
+            errors.currentPassword && styles.input_error
+          }`}
+          placeholder="現在のパスワード"
+          {...register("currentPassword", {
             required: {
               value: true,
-              message: "メールアドレスを入力してください",
-            },
-            pattern: {
-              value:
-                /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/,
-              message: "メールアドレスを正しい形式で入力してください",
+              message: "パスワードを入力してください",
             },
           })}
         />
 
-        <span className={styles.error}>{errors.email?.message}</span>
+        <span className={styles.error}>{errors.currentPassword?.message}</span>
       </div>
+
+      <button
+        type="button"
+        className={styles.link}
+        onClick={() => setReset(true)}
+      >
+        パスワードをお忘れですか？
+      </button>
+
+      <button type="submit" className={root.setting_btn}>
+        次へ
+      </button>
+    </div>
+  ) : (
+    <div className={root.setting_inner}>
+      <div className={styles.head}>
+        <p className={styles.head_ttl}>パスワードの変更</p>
+      </div>
+
+      <input type="hidden" {...register("currentPassword")} />
 
       <div>
         <input
@@ -64,9 +84,11 @@ export const Create = () => {
       <div>
         <input
           type="password"
-          className={`${styles.input} ${errors.password && styles.input_error}`}
+          className={`${styles.input} ${
+            errors.newPassword && styles.input_error
+          }`}
           placeholder="パスワード確認"
-          {...register("password", {
+          {...register("newPassword", {
             required: {
               value: true,
               message: "パスワードを入力してください",
@@ -82,14 +104,15 @@ export const Create = () => {
         />
 
         <span className={styles.error}>
-          {errors.password?.type === "verified" && "パスワードが一致しません"}
+          {errors.newPassword?.type === "verified" &&
+            "パスワードが一致しません"}
         </span>
 
-        <span className={styles.error}>{errors.password?.message}</span>
+        <span className={styles.error}>{errors.newPassword?.message}</span>
       </div>
 
       <button type="submit" className={root.setting_btn}>
-        有効にする
+        　変更する
       </button>
     </div>
   );
