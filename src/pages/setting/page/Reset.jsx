@@ -1,5 +1,5 @@
 import styles from "./Page.module.scss";
-import root from "../../Setting.module.scss";
+import root from "../Setting.module.scss";
 
 import { useFormContext } from "react-hook-form";
 
