@@ -94,7 +94,20 @@ const fetchFirestore = async (data, posts) => {
             }
 
             if (data.index === "companys") {
-              posts[i].icon = doc.data().icon;
+              if (
+                doc.data().payment.status === "canceled" ||
+                !doc.data().payment.option?.freelanceDirect
+              ) {
+                posts[i].icon = "none";
+                posts[i].status = "none";
+                posts[i].profile = {
+                  name: null,
+                  person: "存在しないユーザー",
+                  body: null,
+                };
+              } else {
+                posts[i].icon = doc.data().icon;
+              }
             }
           }
         })
