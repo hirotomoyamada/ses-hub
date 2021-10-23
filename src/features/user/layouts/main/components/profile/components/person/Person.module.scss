@@ -155,6 +155,41 @@ $width: responsive-width(pc);
     }
   }
 
+  &_file {
+    background: $bg_clr;
+    width: 33%;
+    height: 160px;
+
+    border-radius: 10px;
+    border: 1px solid $bdr_clr;
+
+    color: $icn_clr;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    &_none {
+      pointer-events: none;
+      user-select: none;
+    }
+
+    &_icon {
+      color: $remove_clr;
+      font-size: 48px;
+
+      &_none {
+        filter: blur(4px);
+      }
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 36px;
+      }
+    }
+  }
+
   &_desc {
     color: $sub_clr;
   }
