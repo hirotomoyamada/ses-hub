@@ -1,10 +1,10 @@
-import { auth } from "../../../../firebase";
+import { auth, functions } from "../../../../firebase";
 import * as rootSlice from "../../../root/rootSlice";
 
 export const handleResend = async ({ dispatch }) => {
   await auth.currentUser
     .sendEmailVerification({
-      url: "https://ses-hub.app/login",
+      url: `${process.env.REACT_APP_URL}/login`,
     })
     .then(() => {
       dispatch(

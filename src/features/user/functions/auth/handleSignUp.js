@@ -15,7 +15,7 @@ export const handleSignUp = async ({
     .then(async (e) => {
       await auth.currentUser
         .sendEmailVerification({
-          url: "https://ses-hub.app/login",
+          url: `${process.env.REACT_APP_URL}/login`,
         })
         .then(() => {
           setCreate(true);
