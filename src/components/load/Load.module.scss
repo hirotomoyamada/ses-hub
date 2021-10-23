@@ -21,10 +21,17 @@ $width: responsive-width(pc);
   justify-content: center;
   align-items: center;
 
-  transition: all 0.7s;
+  transition: opacity 0.7s;
+
+  &_fetch {
+    padding-top: 132px;
+    background: none;
+    z-index: 99;
+  }
 
   &_user {
     width: calc(100% / 1.5);
+    padding-top: 124px;
 
     @media (max-width: responsive-width(miniPc)) {
       width: calc(100% / 2);
@@ -32,12 +39,16 @@ $width: responsive-width(pc);
 
     @media (max-width: responsive-width(tb)) {
       width: 100%;
+      padding: 0;
     }
   }
 
-  &_fetch {
-    background: none;
-    z-index: 99;
+  &_list {
+    padding-top: 49px;
+
+    @media (max-width: responsive-width(sp)) {
+      padding-top: 33px;
+    }
   }
 
   &_opacity {

@@ -26,7 +26,10 @@ export const rootSlice = createSlice({
           action.meta.arg.fetch || action.type === "post/createPost/pending"
             ? true
             : false;
-        state.load.list = true;
+
+        if (action.type !== "post/createPost/pending") {
+          state.load.list = true;
+        }
       }
     );
 

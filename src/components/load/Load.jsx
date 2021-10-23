@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 import * as rootSlice from "../../features/root/rootSlice";
 
-export const Load = () => {
+export const Root = () => {
   const load = useSelector(rootSlice.load).root;
 
   const [none, setNone] = useState(true);
@@ -32,8 +32,9 @@ export const Load = () => {
   );
 };
 
-export const Fetch = ({ user }) => {
+export const Fetch = () => {
   const load = useSelector(rootSlice.load).fetch;
+  const page = useSelector(rootSlice.page);
 
   const [none, setNone] = useState(true);
 
@@ -48,7 +49,10 @@ export const Fetch = ({ user }) => {
   return (
     <div
       className={`${styles.load} ${styles.load_fetch} ${
-        user && styles.load_user
+        page === "user" && styles.load_user
+      } ${
+        (page === "likes" || page === "outputs" || page === "entries") &&
+        styles.load_list
       }
       ${!load && styles.load_opacity} 
       ${!none && styles.load_none}
