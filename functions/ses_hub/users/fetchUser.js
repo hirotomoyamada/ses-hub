@@ -66,6 +66,10 @@ const fetchProfile = async (context, data, demo) => {
             user.profile.name = createDummy("name");
             user.profile.email = createDummy("email");
             user.profile.urls = createDummy("urls", 3);
+
+            user.resume = null;
+          } else {
+            user.resume = doc.data().resume.url;
           }
 
           user.request = request;
