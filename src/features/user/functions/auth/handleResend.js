@@ -1,4 +1,4 @@
-import { auth, functions } from "../../../../firebase";
+import { auth } from "../../../../firebase";
 import * as rootSlice from "../../../root/rootSlice";
 
 export const handleResend = async ({ dispatch }) => {
