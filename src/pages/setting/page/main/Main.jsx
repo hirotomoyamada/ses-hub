@@ -24,7 +24,7 @@ export const Main = ({
   history,
 }) => {
   return (
-    <div className={`${root.setting_inner} ${root.setting_inner_other}`}>
+    <div className={`${root.setting_inner} ${styles.main}`}>
       <Uid user={user} />
 
       <Email user={user} email={email} setEmail={setEmail} />
