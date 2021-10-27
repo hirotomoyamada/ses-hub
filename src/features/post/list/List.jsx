@@ -87,7 +87,7 @@ export const List = ({
   return (
     <div className={select && styles.list_scroll}>
       {companys && index === "persons" && (
-        <span className={styles.list_tag}>こんなエンジニアもオススメ</span>
+        <span className={styles.list_tag}>こんなフリーランスもオススメ</span>
       )}
 
       {posts?.length ? (

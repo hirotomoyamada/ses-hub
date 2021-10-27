@@ -42,7 +42,7 @@ export const NotFound = ({
             ? "人材情報がありません"
             : index === "companys"
             ? "メンバー情報がありません"
-            : index === "persons" && "エンジニア情報がありません"}
+            : index === "persons" && "フリーランス情報がありません"}
         </span>
       )}
     </div>
