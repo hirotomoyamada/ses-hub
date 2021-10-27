@@ -6,7 +6,14 @@ import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
-export const Sign = ({ sign, reset, setSign, setReset, handleProvider }) => {
+export const Sign = ({
+  inner,
+  sign,
+  reset,
+  setSign,
+  setReset,
+  handleProvider,
+}) => {
   const {
     register,
     watch,
@@ -16,7 +23,7 @@ export const Sign = ({ sign, reset, setSign, setReset, handleProvider }) => {
   const password = watch("password");
 
   return (
-    <div className={styles.auth_inner}>
+    <div className={styles.auth_inner} ref={inner}>
       <span className={styles.auth_ttl}>{sign ? "新規登録" : "ログイン"}</span>
 
       <div>
@@ -125,7 +132,7 @@ export const Sign = ({ sign, reset, setSign, setReset, handleProvider }) => {
             パスワードをお忘れですか？
           </button>
         )}
-        
+
         <button
           type="button"
           className={`${styles.auth_desc} ${styles.auth_desc_sign}`}

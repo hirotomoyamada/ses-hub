@@ -2,11 +2,14 @@ import styles from "./Auth.module.scss";
 
 import { auth } from "../../firebase";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
+import { useResize } from "./hook/useResize";
+import { useVerification } from "./hook/useVerification";
+
 import * as rootSlice from "../../features/root/rootSlice";
+import * as functions from "../../features/user/functions/functions";
 
 import { Sign } from "./components/Sign";
 import { Reset } from "./components/Reset";
@@ -15,40 +18,32 @@ import { Verified } from "./components/Verified";
 import { Help, StartGuide } from "./components/help/Help";
 import { Terms } from "../../pages/terms/Terms";
 
-import * as functions from "../../features/user/functions/functions";
-
 export const Auth = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
 
+  const methods = useForm();
   const verified = useSelector(rootSlice.verified);
 
-  const [sign, setSign] = useState(false);
   const [reset, setReset] = useState(false);
-
-  const [profile, setProfile] = useState(false);
-  const [email, setEmail] = useState(false);
   const [help, setHelp] = useState(false);
   const [terms, setTerms] = useState(false);
-  const [create, setCreate] = useState(false);
+
+  const [
+    sign,
+    setSign,
+    profile,
+    setProfile,
+    email,
+    setEmail,
+    create,
+    setCreate,
+  ] = useVerification(verified);
+
+  const [form, inner] = useResize();
 
   useEffect(() => {
     functions.auth.getRedirect({ dispatch });
   }, [dispatch]);
-
-  useEffect(() => {
-    setSign(location.pathname === "/signup" ? true : false);
-
-    setCreate(
-      verified.email || verified.profile || verified.status === "hold"
-        ? true
-        : false
-    );
-    setEmail(verified.email);
-    setProfile(verified.profile);
-  }, [location.pathname, verified]);
-
-  const methods = useForm();
 
   const handleSignIn = (data) => {
     functions.auth.handleSignIn({ dispatch, methods, data });
@@ -92,12 +87,7 @@ export const Auth = () => {
   return (
     <FormProvider {...methods}>
       <form
-        className={`${styles.auth} ${terms && styles.auth_terms} ${
-          (email ||
-            verified.status === "hold" ||
-            verified.status === "disable") &&
-          styles.auth_verified
-        }`}
+        className={`${styles.auth} ${terms && styles.auth_terms}`}
         onSubmit={
           reset
             ? methods.handleSubmit(handleReset)
@@ -107,6 +97,7 @@ export const Auth = () => {
             ? methods.handleSubmit(handleSignUp)
             : methods.handleSubmit(handleSignIn)
         }
+        ref={form}
       >
         {terms ? (
           <Terms create setTerms={setTerms} />
@@ -120,11 +111,16 @@ export const Auth = () => {
             verified={verified}
           />
         ) : profile ? (
-          <Create handleLogout={handleLogout} setTerms={setTerms} />
+          <Create
+            inner={inner}
+            handleLogout={handleLogout}
+            setTerms={setTerms}
+          />
         ) : reset ? (
           <Reset reset={reset} setReset={setReset} />
         ) : (
           <Sign
+            inner={inner}
             sign={sign}
             reset={reset}
             setSign={setSign}
