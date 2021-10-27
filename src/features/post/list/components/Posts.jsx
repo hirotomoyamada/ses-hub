@@ -22,11 +22,14 @@ export const Posts = ({
 
   return (
     <div
-      className={`${styles.list} ${companys && styles.list_companys} ${
-        open && styles.list_companys_open
-      } ${select && styles.list_select} ${
-        bests && !companys && styles.list_bests
-      } ${bests && companys && styles.list_bests_companys}`}
+      className={`
+      ${styles.list} 
+      ${companys && styles.list_companys} 
+      ${open && styles.list_companys_open} 
+      ${select && styles.list_select} 
+      ${bests && !companys && styles.list_bests} 
+      ${bests && companys && styles.list_bests_companys}
+      `}
       ref={list}
     >
       {posts.map(
