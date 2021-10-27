@@ -90,7 +90,7 @@ export const List = ({
         <span className={styles.list_tag}>こんなフリーランスもオススメ</span>
       )}
 
-      {!posts?.length ? (
+      {posts?.length ? (
         <Posts
           index={index}
           posts={posts}
