@@ -6,6 +6,17 @@
 $width: responsive-width(pc);
 
 .main {
+  padding-top: 0;
+  
+  & > :not(:last-child) {
+    padding-top: 24px;
+    border-top: 1px solid $bdr_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      padding-top: 12px;
+    }
+  }
+
   &_col {
     display: flex;
     flex-direction: column;
