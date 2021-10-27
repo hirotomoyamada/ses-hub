@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { usePosts } from "./hook/usePosts";
 
 import { homePosts } from "./features/post/actions/homePosts";
 import * as rootSlice from "./features/root/rootSlice";
-import * as postSlice from "./features/post/postSlice";
 import * as userSlice from "./features/user/userSlice";
 
 import { Header } from "./components/header/Header";
@@ -15,37 +15,7 @@ export const Home = () => {
   const index = useSelector(rootSlice.index);
   const user = useSelector(userSlice.user);
 
-  const posts = useSelector((state) =>
-    postSlice.posts({
-      state: state,
-      page: "home",
-      index: index === "matters" || index === "resources" ? index : "matters",
-    })
-  );
-
-  const hit = useSelector((state) =>
-    postSlice.hit({
-      state: state,
-      page: "home",
-      index: index === "matters" || index === "resources" ? index : "matters",
-    })
-  );
-
-  const control = useSelector((state) =>
-    postSlice.control({
-      state: state,
-      index: index === "matters" || index === "resources" ? index : "matters",
-    })
-  );
-
-  useEffect(() => {
-    (index === "companys" || index === "persons") &&
-      dispatch(rootSlice.handleIndex("matters"));
-  }, [dispatch, index]);
-
-  useEffect(() => {
-    dispatch(rootSlice.handlePage("home"));
-  }, [dispatch]);
+  const { posts, hit, control } = usePosts({ index: index, page: "home" });
 
   useEffect(() => {
     (index === "matters" || index === "resources") &&
