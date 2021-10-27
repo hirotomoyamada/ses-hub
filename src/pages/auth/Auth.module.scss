@@ -15,18 +15,9 @@ $width: responsive-width(pc);
 
   color: $main_clr;
 
-  @media (max-width: responsive-width(tb)) {
+  &_block {
     display: block;
     height: auto;
-  }
-
-  &_verified {
-    @media (max-width: responsive-width(tb)) {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
   }
 
   @media (max-width: responsive-width(sp)) {
@@ -43,7 +34,7 @@ $width: responsive-width(pc);
     flex-direction: column;
     gap: 24px;
 
-    @media (max-width: responsive-width(tb)) {
+    &_block {
       margin: 0 auto;
       padding: 32px 0;
     }
