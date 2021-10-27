@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { usePosts } from "./hook/usePosts";
 
 import { fetchPosts } from "./features/post/actions/fetchPosts";
 import * as rootSlice from "./features/root/rootSlice";
-import * as postSlice from "./features/post/postSlice";
 import * as userSlice from "./features/user/userSlice";
 
 import { Header } from "./components/header/Header";
@@ -16,17 +16,7 @@ export const Search = () => {
   const search = useSelector(rootSlice.search);
   const user = useSelector(userSlice.user);
 
-  const posts = useSelector((state) =>
-    postSlice.posts({ state: state, page: "search", index: index })
-  );
-
-  const hit = useSelector((state) =>
-    postSlice.hit({ state: state, page: "search", index: index })
-  );
-
-  useEffect(() => {
-    dispatch(rootSlice.handlePage("search"));
-  }, [dispatch]);
+  const { posts, hit } = usePosts({ index: index, page: "search" });
 
   useEffect(() => {
     !search.control &&
