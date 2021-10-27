@@ -11,9 +11,9 @@ export const HowTo = () => {
 
   return (
     <div className={styles.howto}>
+      <Header back />
+      
       <div className={styles.howto_inner}>
-        <Header back />
-
         <Menu page={page} setPage={setPage} />
         <Main page={page} />
       </div>
