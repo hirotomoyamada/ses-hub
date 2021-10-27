@@ -46,7 +46,7 @@ export const Menu = ({ index, uid, user, handleIndex, page, outputs }) => {
               index === "persons" && styles.menu_btn_active
             }`}
           >
-            エンジニア
+            フリーランス
           </button>
         )}
 
