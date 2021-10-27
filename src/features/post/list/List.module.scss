@@ -90,31 +90,17 @@ $width: responsive-width(pc);
     }
 
     &_type {
-      height: calc(100vh - 49px);
+      height: calc(100vh - 48px);
 
       @media (max-width: responsive-width(sp)) {
-        height: calc(100vh - 33px);
+        height: calc(100vh - 32px);
       }
     }
 
     &_user {
       @media (max-width: responsive-width(tb)) {
         height: 160px;
-        padding: 24px 0 104px;
-      }
-
-      &_companys {
-        height: calc(100vh - 49px);
-        padding-top: 80px;
-
-        @media (max-width: responsive-width(tb)) {
-          height: 160px;
-          padding: 120px 0 104px;
-        }
-        
-        @media (max-width: responsive-width(sp)) {
-          padding: 84px 0 104px;
-        }
+        padding: 24px 0;
       }
     }
 
@@ -135,7 +121,7 @@ $width: responsive-width(pc);
 
         @media (max-width: responsive-width(tb)) {
           height: 160px;
-          padding: 24px 0 104px;
+          padding: 24px 0;
         }
       }
     }

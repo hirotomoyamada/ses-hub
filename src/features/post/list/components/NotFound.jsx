@@ -10,7 +10,6 @@ export const NotFound = ({
   list,
   type,
   select,
-  selectUser,
   bests,
   companys,
 }) => {
@@ -18,16 +17,13 @@ export const NotFound = ({
 
   return (
     <div
-      className={`${styles.list_none} ${
-        (type || companys) && !bests && selectUser && styles.list_none_type
-      } ${companys && !selectUser && styles.list_none_user} ${
-        companys &&
-        !selectUser &&
-        index === "companys" &&
-        styles.list_none_user_companys
-      } ${select && styles.list_none_select} ${
-        bests && styles.list_none_bests
-      } ${bests && companys && styles.list_none_bests_companys}`}
+      className={`
+      ${styles.list_none} 
+      ${(type || companys) && !bests && styles.list_none_type} 
+      ${companys && styles.list_none_user} 
+      ${select && styles.list_none_select} 
+      ${bests && styles.list_none_bests} 
+      ${bests && companys && styles.list_none_bests_companys}`}
       ref={list}
     >
       {load ? (
