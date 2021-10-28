@@ -1,7 +1,7 @@
 const functions = require("firebase-functions");
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
-const send = require("../../send-grid");
+const send = require("../../sendgrid");
 
 const body = require("../mail/body/users/create");
 
@@ -11,7 +11,7 @@ exports.createUser = functions
   .firestore.document("persons/{uid}")
   .onCreate(async (snapshot, context) => {
     const profile = snapshot.data().profile;
-    const url = "https://freelance-direct.app/";
+    const url = functions.config().app.freelance_direct.url;
     const adminUrl = functions.config().admin.url;
 
     const adminMail = {

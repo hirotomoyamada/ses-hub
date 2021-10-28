@@ -1,7 +1,7 @@
 const functions = require("firebase-functions");
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
-const send = require("../../send-grid");
+const send = require("../../sendgrid");
 
 const body = require("./body/promotion/promotion");
 
@@ -9,7 +9,7 @@ exports.contactPromotion = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    const url = "https://ses-hub.app/";
+    const url = `${process.env.REACT_APP_URL}`;
 
     const adminMail = {
       to: functions.config().admin.ses_hub,

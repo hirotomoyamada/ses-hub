@@ -6,7 +6,7 @@ const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 const timeZone = require("../../firebase").timeZone;
 
-const timestamp = require("./timestamp").timestamp;
+const timestamp = require("./functions/timestamp").timestamp;
 
 exports.resources = functions
   .region(location)
@@ -18,7 +18,7 @@ exports.resources = functions
 
     const index = await algolia.initIndex(target);
     const path = `${target}/${timestamp()}.json`;
-    const bucket = storage.bucket("ses-hub-posts").file(path);
+    const bucket = storage.bucket(functions.config().storage.posts).file(path);
 
     let json = [];
 

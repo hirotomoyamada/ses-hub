@@ -15,26 +15,24 @@ exports.addEntry = functions
       demo: true,
     });
 
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     await db
       .collection("persons")
       .doc(context.auth.uid)
       .get()
-      .then((doc) => {
+      .then(async (doc) => {
         if (doc.exists) {
           const entries = doc.data().entries;
-          doc.ref
+
+          await doc.ref
             .set(
-              entries
-                ? entries.indexOf(data) < 0 && {
-                    entries: [data, ...entries],
-                    updateAt: dataTime,
-                  }
-                : {
-                    entries: [data],
-                    updateAt: dataTime,
-                  },
+              {
+                entries: entries
+                  ? entries.indexOf(data) < 0 && [data, ...entries]
+                  : [data],
+                updateAt: timestamp,
+              },
               { merge: true }
             )
             .catch((e) => {

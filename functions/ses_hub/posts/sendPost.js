@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
-const send = require("../../send-grid");
+const send = require("../../sendgrid");
 // const twitter = require("../../twitter");
 
 const postAuthenticated =
@@ -104,7 +104,9 @@ exports.sendPost = functions
             1
           )} . ${post.roman.lastName.substring(0, 1)}`;
 
-    const url = `https://ses-hub.app/${index}/${post.objectID}`;
+    const url = `${functions.config().app.ses_hub.url}/${index}/${
+      post.objectID
+    }`;
 
     const text =
       index === "matters"

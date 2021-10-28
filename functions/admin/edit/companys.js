@@ -1,6 +1,6 @@
 exports.companys = ({ data, user }) => {
   if (!user) {
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     return {
       uid: data.user.uid,
@@ -19,7 +19,7 @@ exports.companys = ({ data, user }) => {
         url: data.user.url,
         social: data.user.social,
       },
-      updateAt: dataTime,
+      updateAt: timestamp,
     };
   } else {
     return {

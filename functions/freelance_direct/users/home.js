@@ -15,7 +15,7 @@ exports.updateHome = functions
       demo: true,
     });
 
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     await db
       .collection("persons")
@@ -27,7 +27,7 @@ exports.updateHome = functions
             .set(
               {
                 home: data,
-                updateAt: dataTime,
+                updateAt: timestamp,
               },
               { merge: true }
             )

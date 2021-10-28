@@ -1,14 +1,14 @@
 exports.persons = ({ data, user }) => {
   if (!user) {
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     return {
       uid: data.user.uid,
       icon: data.user.icon,
       cover: data.user.cover,
-      resume: data.user.resume,
       status: data.user.status,
       profile: {
+        state: data.user.state,
         nickName: data.user.nickName,
         name: data.user.name,
         body: data.user.body,
@@ -26,12 +26,13 @@ exports.persons = ({ data, user }) => {
         clothes: data.user.clothes,
         period: data.user.period,
       },
-      updateAt: dataTime,
+      updateAt: timestamp,
     };
   } else {
     return {
       objectID: user.uid,
       status: user.status,
+      state: user.profile.state,
       nickName: user.profile.nickName,
       name: user.profile.name,
       body: user.profile.body,

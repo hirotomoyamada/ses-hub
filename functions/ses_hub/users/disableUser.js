@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const algolia = require("../../algolia").algolia;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
-const send = require("../../send-grid");
+const send = require("../../sendgrid");
 
 const body = require("../mail/body/users/disable");
 
@@ -14,7 +14,7 @@ exports.disableUser = functions
     const profile = change.after.data().profile;
     const beforeStatus = change.before.data().status;
     const afterStatus = change.after.data().status;
-    const url = "https://ses-hub.app";
+    const url = functions.config().app.ses_hub.url;
 
     const userMail = {
       to: change.after.data().profile.email,
