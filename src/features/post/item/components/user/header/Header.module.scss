@@ -25,9 +25,16 @@ $width: responsive-width(pc);
     }
   }
 
-  &_wrap {
+  &_container {
     display: flex;
     flex-direction: column;
+    gap: 8px;
+  }
+
+  &_wrap {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
   }
 
@@ -39,8 +46,32 @@ $width: responsive-width(pc);
     white-space: nowrap;
 
     @media (max-width: responsive-width(sp)) {
-      font-size: 14px;
-      width: auto-max(180px);
+      font-size: 16px;
+      max-width: auto-max(144px);
+    }
+  }
+
+  &_state {
+    display: inline-block;
+    padding: 0 8px;
+    border-radius: 8px;
+    line-height: 24px;
+    font-size: 12px;
+    background: $acnt_ext_clr;
+    color: $base_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      line-height: 20px;
+      border-radius: 6px;
+      font-size: 10px;
+    }
+
+    &_disable {
+      background: $sub_clr;
+    }
+
+    &_hurry {
+      background: $remove_clr;
     }
   }
 
