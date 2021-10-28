@@ -2,6 +2,7 @@ exports.persons = ({ doc, index, lists, posts, hit }) => {
   if (hit) {
     return {
       uid: hit.objectID,
+      state: hit.state,
       nickName: hit.nickName,
       name: hit.name,
       email: hit.email,
@@ -39,6 +40,7 @@ exports.persons = ({ doc, index, lists, posts, hit }) => {
       requests: lists.requests,
       history: lists.history,
 
+      state: doc.data().profile.state,
       nickName: doc.data().profile.nickName,
       name: doc.data().profile.name,
       email: doc.data().profile.email,

@@ -6,6 +6,7 @@ const runtime = require("../../firebase").runtime;
 
 const userAuthenticated =
   require("./functions/userAuthenticated").userAuthenticated;
+const fetch = require("./fetch/fetch");
 
 exports.fetchUser = functions
   .region(location)
@@ -26,24 +27,7 @@ const fetchAlgolia = async (data, demo) => {
   const user = await index
     .getObject(data)
     .then((hit) => {
-      return (
-        hit && {
-          uid: hit.objectID,
-          profile: {
-            name: hit.name,
-            person: hit.person,
-            body: hit.body,
-            postal: hit.postal,
-            address: hit.address,
-            tel: !demo ? hit.tel : null,
-            email: !demo ? hit.email : null,
-            url: !demo ? hit.url : null,
-            social: !demo ? hit.social : {},
-          },
-          createAt: hit.createAt,
-          updateAt: hit.updateAt,
-        }
-      );
+      return hit && fetch.companys({ hit: hit, demo: demo });
     })
     .catch((e) => {
       throw new functions.https.HttpsError(

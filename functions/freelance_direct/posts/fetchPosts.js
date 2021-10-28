@@ -51,15 +51,7 @@ const fetchAlgolia = async (data, status) => {
       return result.hits.map((hit) =>
         data.index === "matters" && status
           ? fetch.matters({ hit: hit })
-          : data.index === "companys" &&
-            status && {
-              uid: hit.objectID,
-              profile: {
-                name: hit.name,
-                person: hit.person,
-                body: hit.body,
-              },
-            }
+          : data.index === "companys" && status && fetch.companys({ hit: hit })
       );
     })
     .catch((e) => {

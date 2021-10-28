@@ -13,7 +13,8 @@ exports.fetchPost = functions
   .runWith(runtime)
   .https.onCall(async (data, context) => {
     const status = await userAuthenticated(context);
-    const demo = context.auth.uid === functions.config().demo.freelance_direct.uid;
+    const demo =
+      context.auth.uid === functions.config().demo.freelance_direct.uid;
 
     const post = await fetchAlgolia(data, status, demo);
 
@@ -66,29 +67,9 @@ const fetchFirestore = async ({ demo, post, i, bests }) => {
 
             post.uid = null;
 
-            post.user = {
-              uid: null,
-              icon: "freelanceDirect",
-              profile: {
-                name: "Hit me up株式会社",
-                person: "freelance Direct 事務局",
-                body: null,
-                email: !demo ? functions.config().admin.freelance_direct : null,
-                social: null,
-              },
-            };
+            post.user = fetch.companys({ doc: doc, demo: demo, none: true });
           } else {
-            post.user = {
-              uid: doc.id,
-              icon: doc.data().icon,
-              profile: {
-                name: doc.data().profile.name,
-                person: doc.data().profile.person,
-                body: doc.data().profile.body,
-                email: !demo ? doc.data().profile.email : null,
-                social: !demo ? doc.data().profile.social : {},
-              },
-            };
+            post.user = fetch.companys({ doc: doc, demo: demo });
           }
         } else {
           if (
