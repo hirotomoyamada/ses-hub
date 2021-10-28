@@ -34,6 +34,7 @@ exports.companys = ({ doc, index, lists, posts, hit }) => {
       outputs: lists.outputs,
       likes: lists.likes,
       entries: lists.entries,
+      home: lists.home,
 
       name: doc.data().profile.name,
       person: doc.data().profile.person,
