@@ -127,13 +127,17 @@ $width: responsive-width(pc);
   &_name {
     font-size: 24px;
     font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     @media (max-width: responsive-width(sp)) {
       font-size: 16px;
+      max-width: auto-max(240px);
     }
   }
 
-  &_position {
+  &_category {
     display: inline-block;
     padding: 0 8px;
     border-radius: 8px;
@@ -146,6 +150,18 @@ $width: responsive-width(pc);
       line-height: 20px;
       border-radius: 6px;
       font-size: 10px;
+    }
+
+    &_acnt {
+      background: $acnt_ext_clr;
+    }
+
+    &_disable {
+      background: $sub_clr;
+    }
+
+    &_hurry {
+      background: $remove_clr;
     }
   }
 
