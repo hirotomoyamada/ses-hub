@@ -18,6 +18,7 @@ exports.deleteUser = require("./users/deleteUser").deleteUser;
 exports.createProfile = require("./users/createProfile").createProfile;
 exports.editProfile = require("./users/editProfile").editProfile;
 exports.changeEmail = require("./users/changeEmail").changeEmail;
+exports.changeState = require("./users/changeState").changeState;
 exports.addProvider = require("./users/addProvider").addProvider;
 
 exports.uploadResume = require("./users/uploadResume").uploadResume;
