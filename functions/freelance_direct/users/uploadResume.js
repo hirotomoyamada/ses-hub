@@ -8,7 +8,7 @@ const runtime = require("../../firebase").runtime;
 const userAuthenticated =
   require("./functions/userAuthenticated").userAuthenticated;
 
-const dataTime = Date.now();
+const timestamp = Date.now();
 
 exports.uploadResume = functions
   .region(location)
@@ -48,7 +48,7 @@ const uploadFile = async (data, doc, uid) => {
     : `${uid}-${Math.random().toString(32).substring(2)}`;
 
   const name = `${key}.pdf`;
-  const bucket = storage.bucket("ses-hub-resume");
+  const bucket = storage.bucket(functions.config().storage.resume);
   const buffer = Buffer.from(data, "base64");
   const path = bucket.file(name);
 
@@ -83,7 +83,7 @@ const updateFirestore = async (doc, key, url) => {
     .set(
       {
         resume: { key: key, url: url },
-        updateAt: dataTime,
+        updateAt: timestamp,
       },
       { merge: true }
     )

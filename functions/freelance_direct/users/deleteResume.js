@@ -8,7 +8,7 @@ const runtime = require("../../firebase").runtime;
 const userAuthenticated =
   require("./functions/userAuthenticated").userAuthenticated;
 
-const dataTime = Date.now();
+const timestamp = Date.now();
 
 exports.deleteResume = functions
   .region(location)
@@ -21,7 +21,7 @@ exports.deleteResume = functions
       .doc(context.auth.uid)
       .get()
       .then(async (doc) => {
-        doc.exists && deleteFile(doc, context.auth.uid);
+        doc.exists && deleteFile(doc);
       })
       .catch((e) => {
         throw new functions.https.HttpsError(
@@ -34,7 +34,7 @@ exports.deleteResume = functions
     return;
   });
 
-const deleteFile = async (doc, uid) => {
+const deleteFile = async (doc) => {
   const key = doc.data().resume.key;
 
   if (!key) {
@@ -46,7 +46,7 @@ const deleteFile = async (doc, uid) => {
   }
 
   const name = `${key}.pdf`;
-  const bucket = storage.bucket("ses-hub-resume");
+  const bucket = storage.bucket(functions.config().storage.resume);
   const path = bucket.file(name);
 
   await path
@@ -68,7 +68,7 @@ const updateFirestore = async (doc) => {
     .set(
       {
         resume: { key: "", url: "" },
-        updateAt: dataTime,
+        updateAt: timestamp,
       },
       { merge: true }
     )

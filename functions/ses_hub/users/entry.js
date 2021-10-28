@@ -16,26 +16,26 @@ exports.addEntry = functions
       canceled: true,
     });
 
-    const dataTime = Date.now();
+    const timestamp = Date.now();
 
     await db
       .collection("companys")
       .doc(context.auth.uid)
       .get()
-      .then((doc) => {
+      .then(async (doc) => {
         if (doc.exists) {
           const entries = doc.data().entries?.[data.index];
-          doc.ref
+
+          await doc.ref
             .set(
-              entries
-                ? entries.indexOf(data.objectID) < 0 && {
-                    entries: { [data.index]: [data.objectID, ...entries] },
-                    updateAt: dataTime,
-                  }
-                : {
-                    entries: { [data.index]: [data.objectID] },
-                    updateAt: dataTime,
-                  },
+              {
+                entries: entries
+                  ? entries.indexOf(data.objectID) < 0 && {
+                      [data.index]: [data.objectID, ...entries],
+                    }
+                  : { [data.index]: [data.objectID] },
+                updateAt: timestamp,
+              },
               { merge: true }
             )
             .catch((e) => {

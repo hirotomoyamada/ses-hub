@@ -6,6 +6,7 @@ const runtime = require("../../firebase").runtime;
 
 const userAuthenticated =
   require("./functions/userAuthenticated").userAuthenticated;
+const user = require("./edit/edit");
 
 exports.editProfile = functions
   .region(location)
@@ -14,104 +15,64 @@ exports.editProfile = functions
     await userAuthenticated({ context: context, demo: true });
 
     if (context.auth.uid === data.uid) {
-      const dataTime = Date.now();
-
-      const index = algolia.initIndex("persons");
-      const user = {
-        uid: context.auth.uid,
-        icon: data.icon,
-        cover: data.cover,
-        profile: {
-          nickName: data.nickName,
-          body: data.body,
-          age: data.age,
-          sex: data.sex,
-          position: data.position,
-          location: data.location,
-          period: data.period,
-
-          handles: data.handles,
-          tools: data.tools,
-          skills: data.skills,
-          urls: data.urls,
-
-          resident: data.resident,
-          working: data.working,
-          clothes: data.clothes,
-          costs: data.costs,
-        },
-        updateAt: dataTime,
-      };
-
-      await db
-        .collection("persons")
-        .doc(context.auth.uid)
-        .get()
-        .then(async (doc) => {
-          doc.exists &&
-            (await doc.ref
-              .set(
-                {
-                  icon: user.icon,
-                  cover: user.cover,
-                  profile: user.profile,
-                  updateAt: user.updateAt,
-                },
-                { merge: true }
-              )
-              .catch((e) => {
-                throw new functions.https.HttpsError(
-                  "data-loss",
-                  "プロフィールの更新に失敗しました",
-                  "firebase"
-                );
-              }));
-        })
-        .catch((e) => {
-          throw new functions.https.HttpsError(
-            "not-found",
-            "ユーザーの取得に失敗しました",
-            "firebase"
-          );
-        });
-
-      await index
-        .partialUpdateObject(
-          {
-            objectID: user.uid,
-            nickName: user.profile.nickName,
-            body: user.profile.body,
-
-            age: user.profile.age,
-            sex: user.profile.sex,
-            position: user.profile.position,
-            location: user.profile.location,
-            period: user.profile.period,
-
-            handles: user.profile.handles,
-            tools: user.profile.tools,
-            skills: user.profile.skills,
-            urls: user.profile.urls,
-
-            resident: user.profile.resident,
-            working: user.profile.working,
-            clothes: user.profile.clothes,
-            costs: user.profile.costs,
-
-            updateAt: user.updateAt,
-          },
-          {
-            createIfNotExists: true,
-          }
-        )
-        .catch((e) => {
-          throw new functions.https.HttpsError(
-            "data-loss",
-            "プロフィールの更新に失敗しました",
-            "algolia"
-          );
-        });
+      await editFirestore(context, data);
+      await editAlgolia(context, data);
 
       return;
     }
   });
+
+const editFirestore = async (context, data) => {
+  await db
+    .collection("persons")
+    .doc(context.auth.uid)
+    .get()
+    .then(async (doc) => {
+      doc.exists &&
+        (await doc.ref
+          .set(
+            user.persons({
+              context: context,
+              data: data,
+              doc: true,
+            }),
+            { merge: true }
+          )
+          .catch((e) => {
+            throw new functions.https.HttpsError(
+              "data-loss",
+              "プロフィールの更新に失敗しました",
+              "firebase"
+            );
+          }));
+    })
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "ユーザーの取得に失敗しました",
+        "firebase"
+      );
+    });
+};
+
+const editAlgolia = async (context, data) => {
+  const index = algolia.initIndex("persons");
+
+  await index
+    .partialUpdateObject(
+      user.persons({
+        context: context,
+        data: data,
+      }),
+      {
+        createIfNotExists: true,
+      }
+    )
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "data-loss",
+        "プロフィールの更新に失敗しました",
+        "algolia"
+      );
+    });
+};

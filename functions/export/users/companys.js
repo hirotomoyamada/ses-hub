@@ -6,7 +6,7 @@ const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 const timeZone = require("../../firebase").timeZone;
 
-const bucket = "gs://ses-hub-companys";
+const bucket = `gs://${functions.config().storage.companys}`;
 
 exports.companys = functions
   .region(location)
