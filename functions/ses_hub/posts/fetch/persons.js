@@ -2,6 +2,7 @@ exports.persons = ({ hit }) => {
   return {
     uid: hit.objectID,
     profile: {
+      state: hit.state,
       nickName: hit.nickName,
       position: hit.position,
       age: hit.age,

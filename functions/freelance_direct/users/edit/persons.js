@@ -3,6 +3,7 @@ exports.persons = ({ context, data, file, create, doc }) => {
 
   const profile = create
     ? {
+        state: "案件探し中",
         nickName: "",
         name: data.name,
         email: context.auth.token.email,
@@ -97,8 +98,9 @@ exports.persons = ({ context, data, file, create, doc }) => {
         uid: context.auth.uid,
         status: "hold",
 
-        name: profile.name,
+        state: profile.state,
         nickName: profile.nickName,
+        name: profile.name,
         email: profile.email,
         age: profile.age,
         sex: profile.sex,

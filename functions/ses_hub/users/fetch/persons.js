@@ -3,6 +3,7 @@ exports.persons = ({ hit, demo, bests }) => {
     return {
       uid: hit.objectID,
       profile: {
+        state: hit.state,
         nickName: hit.nickName,
         position: hit.position,
         age: hit.age,
@@ -18,6 +19,7 @@ exports.persons = ({ hit, demo, bests }) => {
     return {
       uid: hit.objectID,
       profile: {
+        state: hit.state,
         nickName: hit.nickName,
         name: !demo ? hit.name : null,
         email: !demo ? hit.email : null,

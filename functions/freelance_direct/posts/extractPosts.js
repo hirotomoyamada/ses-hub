@@ -50,14 +50,8 @@ const fetchAlgolia = async (data, status) => {
           : hit &&
             data.type === "requests" &&
             hit.status === "enable" &&
-            status && {
-              uid: hit.objectID,
-              profile: {
-                name: hit.name,
-                person: hit.person,
-                body: hit.body,
-              },
-            }
+            status &&
+            fetch.companys({ hit: hit })
       );
     })
     .catch((e) => {

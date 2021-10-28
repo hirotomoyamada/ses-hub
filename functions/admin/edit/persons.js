@@ -8,6 +8,7 @@ exports.persons = ({ data, user }) => {
       cover: data.user.cover,
       status: data.user.status,
       profile: {
+        state: data.user.state,
         nickName: data.user.nickName,
         name: data.user.name,
         body: data.user.body,
@@ -31,6 +32,7 @@ exports.persons = ({ data, user }) => {
     return {
       objectID: user.uid,
       status: user.status,
+      state: user.profile.state,
       nickName: user.profile.nickName,
       name: user.profile.name,
       body: user.profile.body,
