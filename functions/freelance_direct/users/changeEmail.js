@@ -13,13 +13,13 @@ exports.changeEmail = functions
   .https.onCall(async (data, context) => {
     await userAuthenticated({ context: context, demo: true });
 
-    await addFirestore(context, data);
-    await addAlgolia(context, data);
+    await editFirestore(context, data);
+    await editAlgolia(context, data);
 
     return;
   });
 
-const addFirestore = async (context, data) => {
+const editFirestore = async (context, data) => {
   const timestamp = Date.now();
 
   await db
@@ -32,7 +32,7 @@ const addFirestore = async (context, data) => {
           .set(
             {
               profile: {
-                email: data.email,
+                email: data,
               },
               updateAt: timestamp,
             },
@@ -56,7 +56,7 @@ const addFirestore = async (context, data) => {
     });
 };
 
-const addAlgolia = async (context, data) => {
+const editAlgolia = async (context, data) => {
   const index = algolia.initIndex("persons");
   const timestamp = Date.now();
 
@@ -64,7 +64,7 @@ const addAlgolia = async (context, data) => {
     .partialUpdateObject(
       {
         objectID: context.auth.uid,
-        email: data.email,
+        email: data,
         updateAt: timestamp,
       },
       {
