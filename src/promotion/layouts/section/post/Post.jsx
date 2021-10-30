@@ -1,5 +1,5 @@
-import styles from "./Post.module.scss";
 import root from "../Section.module.scss";
+import styles from "./Post.module.scss";
 
 import Loader from "react-loader-spinner";
 

@@ -1,5 +1,5 @@
-import styles from "./Lets.module.scss";
 import root from "../Section.module.scss";
+import styles from "./Lets.module.scss";
 
 import { LinkBtn } from "../../../components/btn/Btn";
 
