@@ -1,5 +1,5 @@
-import styles from "./Plan.module.scss";
 import root from "../Section.module.scss";
+import styles from "./Plan.module.scss";
 
 import { Price } from "./components/Price";
 import { Function } from "./components/Function";
