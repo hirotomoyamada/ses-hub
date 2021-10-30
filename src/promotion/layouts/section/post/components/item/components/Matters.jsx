@@ -1,4 +1,4 @@
-import styles from "./Item.module.scss";
+import styles from "../Item.module.scss";
 
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import CodeIcon from "@material-ui/icons/Code";
@@ -6,7 +6,7 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import HowToVoteIcon from "@material-ui/icons/HowToVote";
 import BusinessIcon from "@material-ui/icons/Business";
 
-import { timestamp } from "../../../../../functions/timestamp";
+import { timestamp } from "../../../../../../../functions/timestamp";
 import { Handles } from "./Handles";
 
 export const Matters = ({ post }) => {
