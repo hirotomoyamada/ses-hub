@@ -1,4 +1,4 @@
-import styles from "./Item.module.scss";
+import styles from "../Item.module.scss";
 
 export const Handles = ({ post }) => {
   const handles = post?.handles;
