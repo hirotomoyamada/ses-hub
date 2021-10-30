@@ -16,7 +16,7 @@ import { Btn } from "../../../components/btn/Btn";
 export const Post = ({ handleOpen }) => {
   const dispatch = useDispatch();
   const index = useSelector(rootSlice.index);
-  const load = useSelector(rootSlice.load);
+  const load = useSelector(rootSlice.load).list;
   const status = useSelector(rootSlice.verified).status;
 
   const posts = useSelector((state) =>
