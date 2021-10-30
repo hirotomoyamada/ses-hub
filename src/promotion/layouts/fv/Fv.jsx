@@ -32,6 +32,12 @@ export const Fv = ({ handleOpen, fv }) => {
           />
         </div>
       </div>
+      
+      <img
+        src={`${process.env.PUBLIC_URL}/img/promotion/bg.svg`}
+        alt=""
+        className={styles.fv_bg}
+      />
     </div>
   );
 };
