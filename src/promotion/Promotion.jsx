@@ -4,14 +4,16 @@ import { useChange } from "./hook/useChange";
 
 import { Header } from "./layouts/header/Header";
 import { Fv } from "./layouts/fv/Fv";
+import { Footer } from "./layouts/footer/Footer";
+
+import { Modal } from "./components/modal/Modal";
+
 import { What } from "./layouts/section/what/What";
 import { Can } from "./layouts/section/can/Can";
 import { Post } from "./layouts/section/post/Post";
 import { Plan } from "./layouts/section/plan/Plan";
-import { Footer } from "./layouts/footer/Footer";
 import { Lets } from "./layouts/section/lets/Lets";
 
-import { Modal } from "./components/modal/Modal";
 
 export const Promotion = () => {
   const [open, handleOpen, handleClose] = useOpen();
