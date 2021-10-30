@@ -8,7 +8,7 @@ import { promotionPosts } from "../../../../features/post/actions/promotionPosts
 import * as rootSlice from "../../../../features/root/rootSlice";
 import * as postSlice from "../../../../features/post/postSlice";
 
-import { Index } from "./components/Index";
+import { Index } from "./components/index/Index";
 import { Posts } from "./components/Posts";
 import { NotFound } from "./components/NotFound";
 import { Btn } from "../../../components/btn/Btn";
