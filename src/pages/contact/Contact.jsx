@@ -2,7 +2,7 @@ import styles from "./Contact.module.scss";
 
 import Loader from "react-loader-spinner";
 
-import { functions } from "../../../firebase";
+import { functions } from "../../firebase";
 import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 

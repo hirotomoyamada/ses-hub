@@ -1,5 +1,5 @@
 import styles from "../Contact.module.scss";
-import { LinkBtn } from "../../../components/btn/Btn";
+import { LinkBtn } from "../../../promotion/components/btn/Btn";
 
 export const Complete = () => {
   return (
