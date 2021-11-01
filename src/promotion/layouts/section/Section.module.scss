@@ -42,4 +42,9 @@ $width: responsive-width(pc);
       }
     }
   }
+
+  &_desc {
+    text-align: center;
+    color: $sub_clr;
+  }
 }
