@@ -31,8 +31,8 @@ export const Promotion = () => {
         <Can />
         <Post handleOpen={handleOpen} />
         <Feature />
-        <Price />
         <Option />
+        <Price />
         <Lets />
       </div>
 
