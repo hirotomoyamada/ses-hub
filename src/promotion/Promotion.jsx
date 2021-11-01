@@ -11,9 +11,10 @@ import { Modal } from "./components/modal/Modal";
 import { What } from "./layouts/section/what/What";
 import { Can } from "./layouts/section/can/Can";
 import { Post } from "./layouts/section/post/Post";
-import { Plan } from "./layouts/section/plan/Plan";
+import { Feature } from "./layouts/section/feature/Feature";
 import { Lets } from "./layouts/section/lets/Lets";
-
+import { Price } from "./layouts/section/price/Price";
+import { Option } from "./layouts/section/option/Option";
 
 export const Promotion = () => {
   const [open, handleOpen, handleClose] = useOpen();
@@ -29,7 +30,9 @@ export const Promotion = () => {
         <What />
         <Can />
         <Post handleOpen={handleOpen} />
-        <Plan />
+        <Feature />
+        <Price />
+        <Option />
         <Lets />
       </div>
 

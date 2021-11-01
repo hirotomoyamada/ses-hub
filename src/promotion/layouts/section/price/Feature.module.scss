@@ -4,7 +4,7 @@
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
 
-.plan {
+.feature {
   background: $bg_clr;
   height: 100%;
   padding-bottom: 120px;
@@ -136,61 +136,23 @@ $width: responsive-width(pc);
     }
   }
 
-  &_function {
-    &_none {
-      @media (max-width: responsive-width(sp)) {
-        display: none;
-      }
+  &_icon {
+    font-size: 32px !important;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 24px !important;
     }
 
-    thead {
-      background: $sub_clr;
-
-      th {
-        &:nth-child(3) {
-          background: #fc5c6c;
-        }
-      }
-
-      @media (max-width: responsive-width(sp)) {
-        th {
-          &:not(:first-child) {
-            width: 72px;
-          }
-        }
-      }
+    &_enable {
+      color: #fc5c6c;
     }
 
-    tbody {
-      tr {
-        &:nth-child(2n) {
-          background: #f4f5f6;
-        }
-      }
+    &_limited {
+      color: $promo_clr;
     }
 
-    &_icon {
-      font-size: 32px !important;
-
-      @media (max-width: responsive-width(sp)) {
-        font-size: 24px !important;
-      }
-
-      &_enable {
-        color: #fc5c6c;
-      }
-
-      &_limited {
-        color: $promo_clr;
-      }
-
-      &_disable {
-        color: $sub_clr;
-      }
+    &_disable {
+      color: $sub_clr;
     }
-  }
-
-  &_price {
-    margin-top: 64px;
   }
 }
