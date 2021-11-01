@@ -16,10 +16,10 @@ export const Price = () => {
   };
 
   const corporate = {
-    five: { n: "5", p: Math.round(17500 * tax) },
-    ten: { n: "10", p: Math.round(30000 * tax) },
-    fifteen: { n: "15", p: Math.round(42000 * tax) },
-    twenty: { n: "20", p: Math.round(50000 * tax) },
+    five: { n: "5", p: Math.round(45000 * tax) },
+    ten: { n: "10", p: Math.round(90000 * tax) },
+    fifteen: { n: "15", p: Math.round(135000 * tax) },
+    twenty: { n: "20", p: Math.round(180000 * tax) },
   };
 
   const totalPrice = (i, n) => {
@@ -48,9 +48,12 @@ export const Price = () => {
         />
 
         {index === "corporate" && (
-          <span className={styles.price_announce}>
-            ※ 法人契約は、すべて3ヶ月単位の利用料金になっております。
-          </span>
+          <>
+            <span className={styles.price_announce}>
+              ※ 法人契約は、すべて3ヶ月単位の利用料金になっております。
+            </span>
+            <br />
+          </>
         )}
         <span className={styles.price_announce}>
           ※ 決済方法やプランは変更になる場合がございます。
