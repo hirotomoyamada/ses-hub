@@ -109,6 +109,7 @@ const fetchFirestore = async (data, posts) => {
                 };
               } else {
                 posts[i].user = {
+                  type: doc.data().profile.type,
                   name: doc.data().profile.name,
                   person: doc.data().profile.person,
                 };
@@ -120,6 +121,7 @@ const fetchFirestore = async (data, posts) => {
               ) {
                 posts[i].icon = "none";
                 posts[i].status = "none";
+                posts[i].type = "individual";
                 posts[i].profile = {
                   name: null,
                   person: "存在しないユーザー",

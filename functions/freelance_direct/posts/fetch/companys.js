@@ -14,6 +14,7 @@ exports.companys = ({ hit, doc, demo, none }) => {
     return {
       uid: null,
       icon: "freelanceDirect",
+      type: "individual",
       profile: {
         name: "Hit me up株式会社",
         person: "freelance Direct 事務局",
@@ -26,6 +27,7 @@ exports.companys = ({ hit, doc, demo, none }) => {
     return {
       uid: doc.id,
       icon: doc.data().icon,
+      type: doc.data().type,
       profile: {
         name: doc.data().profile.name,
         person: doc.data().profile.person,

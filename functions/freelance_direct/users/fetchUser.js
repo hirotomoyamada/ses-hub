@@ -59,6 +59,7 @@ const fetchFirestore = async (data, user) => {
         } else {
           user.icon = doc.data().icon;
           user.cover = doc.data().cover;
+          user.type = doc.data().type;
         }
       }
     })
