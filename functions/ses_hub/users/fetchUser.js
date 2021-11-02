@@ -52,6 +52,10 @@ const fetchProfile = async (context, data, demo) => {
         user.icon = doc.data().icon;
         user.cover = doc.data().cover;
 
+        if (data.index === "companys") {
+          user.type = doc.data().type;
+        }
+
         if (data.index === "persons") {
           const request =
             doc.data().requests?.enable?.indexOf(context.auth.uid) >= 0

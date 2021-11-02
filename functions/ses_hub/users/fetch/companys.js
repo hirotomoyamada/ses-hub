@@ -8,6 +8,7 @@ exports.companys = ({ context, doc, data, hit, demo }) => {
         ? data.providerData.map((provider) => provider.providerId)
         : doc.data().provider,
       profile: doc.data().profile,
+      type: doc.data().type,
       agree: doc.data().agree,
       payment: {
         status: doc.data().payment.status,

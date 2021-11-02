@@ -126,6 +126,7 @@ const fetchFirestore = async (data, posts) => {
         .then((doc) => {
           if (doc.exists) {
             posts[i].icon = doc.data().icon;
+            posts[i].type = doc.data().type;
           }
         })
         .catch((e) => {

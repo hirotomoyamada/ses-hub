@@ -89,6 +89,10 @@ const fetchFirestore = async (context, data, posts) => {
             if (doc.data().profile.nickName || data.index === "companys") {
               posts[i].icon = doc.data().icon;
 
+              if (data.index === "companys") {
+                posts[i].type = doc.data().type;
+              }
+
               if (data.index === "persons") {
                 posts[i].request =
                   doc.data().requests?.enable?.indexOf(context.auth.uid) >= 0
