@@ -40,7 +40,7 @@ exports.companys = ({ context, data, create, doc }) => {
         agree: data.agree,
         payment: {
           status: "canceled",
-          trial: true,
+          trial: data.type !== "corporate" ? true : false,
           notice: true,
         },
         provider: [data.provider],
