@@ -4,6 +4,7 @@ import root from "../../Setting.module.scss";
 import { Link } from "react-router-dom";
 
 import { Uid } from "./components/Uid";
+import { Type } from "./components/Type";
 import { Email } from "./components/Email";
 import { Password } from "./components/Password";
 import { Plan } from "./components/Plan";
@@ -26,6 +27,8 @@ export const Main = ({
   return (
     <div className={`${root.setting_inner} ${styles.main}`}>
       <Uid user={user} />
+
+      <Type user={user} />
 
       <Email user={user} email={email} setEmail={setEmail} />
 

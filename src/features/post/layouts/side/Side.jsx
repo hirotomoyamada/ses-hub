@@ -10,7 +10,9 @@ import { List } from "../../list/List";
 export const Side = ({ index, post, posts, user }) => {
   return (
     <div className={styles.side}>
-      <span className={styles.side_tag}>投稿したユーザー</span>
+      <span className={styles.side_tag}>
+        投稿した{post?.user?.type !== "corporate" ? "ユーザー" : "企業"}
+      </span>
 
       {post?.user?.uid ? (
         <Item index={"companys"} user={user} post={post?.user} />
@@ -22,7 +24,8 @@ export const Side = ({ index, post, posts, user }) => {
 
       {user?.uid !== post?.user?.uid && (
         <Link to={`/companys/${post?.user?.uid}`} className={styles.side_desc}>
-          このユーザーの他の投稿を見る
+          この{post?.user?.type !== "corporate" ? "ユーザー" : "企業"}
+          の他の投稿を見る
         </Link>
       )}
 
