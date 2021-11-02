@@ -21,7 +21,7 @@ import { Terms } from "../../pages/terms/Terms";
 export const Auth = () => {
   const dispatch = useDispatch();
 
-  const methods = useForm();
+  const methods = useForm({ defaultValues: { type: "individual" } });
   const verified = useSelector(rootSlice.verified);
 
   const [reset, setReset] = useState(false);
