@@ -9,7 +9,10 @@ export const Footer = ({ post, user }) => {
       {post?.user && user?.payment?.status !== "canceled" && (
         <div className={styles.footer_user}>
           <p className={styles.footer_user_name}>{post?.user?.name}</p>
-          <p className={styles.footer_user_person}>{post?.user?.person}</p>
+
+          {post?.user?.type !== "corporate" && (
+            <p className={styles.footer_user_person}>{post?.user?.person}</p>
+          )}
         </div>
       )}
     </div>
