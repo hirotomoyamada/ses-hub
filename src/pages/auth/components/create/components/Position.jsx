@@ -6,10 +6,13 @@ import { useFormContext } from "react-hook-form";
 export const Position = () => {
   const {
     register,
+    watch,
     formState: { errors },
   } = useFormContext();
 
-  return (
+  const type = watch("type");
+
+  return type === "individual" ? (
     <div className={root.auth_col}>
       <span className={styles.create_tag}>役職</span>
 
@@ -39,5 +42,7 @@ export const Position = () => {
         )}
       </div>
     </div>
+  ) : (
+    <></>
   );
 };

@@ -6,16 +6,21 @@ import { useFormContext } from "react-hook-form";
 export const Name = () => {
   const {
     register,
+    watch,
     formState: { errors },
   } = useFormContext();
+
+  const type = watch("type");
 
   return (
     <div className={root.auth_col}>
       <span className={styles.create_tag}>
         会社名
-        <span className={styles.create_tag_desc}>
-          &nbsp;※&nbsp;個人の方は、個人と入力してください
-        </span>
+        {type === "individual" && (
+          <span className={styles.create_tag_desc}>
+            &nbsp;※&nbsp;所属が無い場合は、個人と入力してください
+          </span>
+        )}
       </span>
 
       <div>

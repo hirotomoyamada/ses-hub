@@ -6,6 +6,7 @@ import { Position } from "./components/Position";
 import { Address } from "./components/Address";
 import { Tel } from "./components/Tel";
 import { Agree } from "./components/Agree";
+import { Type } from "./components/Type";
 
 export const Create = ({ inner, handleLogout, setTerms }) => {
   return (
@@ -17,6 +18,7 @@ export const Create = ({ inner, handleLogout, setTerms }) => {
       >
         ログイン画面に戻る
       </button>
+      <Type />
       <Name />
       <Person />
       <Position />
