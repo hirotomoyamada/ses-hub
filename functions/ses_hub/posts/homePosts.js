@@ -73,6 +73,7 @@ const fetchFiretore = async (posts) => {
         .then((doc) => {
           if (doc.exists) {
             posts[i].user = {
+              type: doc.data().type,
               name: doc.data().profile.name,
               person: doc.data().profile.person,
             };
