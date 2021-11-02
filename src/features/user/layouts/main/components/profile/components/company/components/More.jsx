@@ -9,7 +9,7 @@ export const More = ({ user }) => {
       <FontAwesomeIcon icon={faThumbsUp} className={styles.profile_icon} />
 
       <p className={styles.profile_address}>
-        私は、
+        {user?.type !== "corporate" ? "私は" : "弊社は"}、
         {user?.profile?.more[0] && (
           <span className={styles.profile_postal}>
             {user?.profile?.more}

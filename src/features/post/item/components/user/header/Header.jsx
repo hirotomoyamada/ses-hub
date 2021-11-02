@@ -12,7 +12,9 @@ export const Header = ({ post }) => {
       <div className={styles.header_container}>
         <div className={styles.header_wrap}>
           <h1 className={styles.header_ttl}>
-            {post?.profile?.person
+            {post?.type === "corporate"
+              ? post?.profile?.name
+              : post?.profile?.person
               ? post.profile.person
               : post.profile.nickName}
           </h1>
@@ -31,9 +33,12 @@ export const Header = ({ post }) => {
             </span>
           )}
         </div>
-        <h2 className={styles.header_tag}>
-          {post?.profile?.name ? post.profile.name : post.profile.position}
-        </h2>
+
+        {post?.type !== "corporate" && (
+          <h2 className={styles.header_tag}>
+            {post?.profile?.name ? post.profile.name : post.profile.position}
+          </h2>
+        )}
       </div>
     </div>
   );
