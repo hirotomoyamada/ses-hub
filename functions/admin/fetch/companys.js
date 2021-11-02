@@ -23,6 +23,7 @@ exports.companys = ({ doc, index, lists, posts, hit }) => {
       cover: doc.data().cover,
       status: doc.data().status,
       payment: doc.data().payment,
+      type: doc.data().type,
       agree: doc.data().agree,
       provider: doc.data().provider,
       createAt: doc.data().createAt,
@@ -53,6 +54,7 @@ exports.companys = ({ doc, index, lists, posts, hit }) => {
     posts[index].cover = doc.data().cover;
     posts[index].status = doc.data().status;
     posts[index].provider = doc.data().provider;
+    posts[index].type = doc.data().type;
     posts[index].agree = doc.data().agree;
     posts[index].posts = doc.data().posts;
     posts[index].likes = doc.data().likes;
