@@ -6,8 +6,16 @@ const runtime = require("../../firebase").runtime;
 exports.fetchProducts = functions
   .region(location)
   .runWith(runtime)
-  .https.onCall(async () => {
+  .https.onCall(async (data, context) => {
     const products = {};
+
+    const type = await db
+      .collection("companys")
+      .doc(context.auth.uid)
+      .get()
+      .then((doc) => {
+        return doc.data().type ? doc.data().type : "individual";
+      });
 
     await db
       .collectionGroup("prices")
@@ -48,7 +56,11 @@ exports.fetchProducts = functions
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          if (doc.data().active) {
+          if (
+            doc.data().active &&
+            (doc.data().metadata.type === type ||
+              doc.data().metadata.name === "option")
+          ) {
             delete Object.assign(products, {
               [doc.data().metadata.name]: {
                 id: doc.id,
