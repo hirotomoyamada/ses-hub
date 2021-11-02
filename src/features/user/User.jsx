@@ -22,13 +22,13 @@ export const User = ({ index, uid }) => {
   useEffect(() => {
     index?.post !== "persons" &&
       index?.user === "companys" &&
-      (index?.post !== "companys" || currentUser?.follows?.length) &&
+      (index?.post !== "companys" || user?.follows?.length) &&
       (!posts?.length || sort?.control) &&
       dispatch(
         userPosts({
           index: index?.post,
           uid: uid,
-          uids: index?.post === "companys" && currentUser?.follows,
+          uids: index?.post === "companys" && user?.follows,
           status: sort?.status,
           display: sort?.display,
         })
@@ -38,7 +38,7 @@ export const User = ({ index, uid }) => {
     index,
     posts?.length,
     uid,
-    currentUser?.follows,
+    user?.follows,
     sort?.control,
     sort?.status,
     sort?.display,
