@@ -14,10 +14,12 @@ export const Item = ({
   handlePortal,
   demo,
 }) => {
+  console.log();
   return product === "plan" ? (
     <Plan
       user={user}
       price={price}
+      type={type}
       tax={tax}
       load={load}
       setLoad={setLoad}

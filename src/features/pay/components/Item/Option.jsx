@@ -40,9 +40,9 @@ export const Option = ({
               className={`${styles.item_amount_tax} ${
                 (priceId === price?.id || user?.payment?.option?.[type]) &&
                 styles.item_amount_tax_select
-              }`}
+              } ${!user?.payment?.price && styles.item_amount_tax_disable}`}
             >
-              （税込）
+              (税込)/3ヶ月〜
             </span>
           </p>
         </div>

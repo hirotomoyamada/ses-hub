@@ -6,6 +6,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 export const Plan = ({
   user,
   price,
+  type,
   tax,
   load,
   setLoad,
@@ -14,6 +15,7 @@ export const Plan = ({
   handlePortal,
   demo,
 }) => {
+  console.log(type);
   return (
     <button
       type="button"
@@ -44,7 +46,7 @@ export const Plan = ({
                 styles.item_amount_tax_select
               }`}
             >
-              （税込）
+              (税込){type === "corporate" && "/3ヶ月〜"}
             </span>
           </p>
         </div>
@@ -58,7 +60,8 @@ export const Plan = ({
                   (price?.unit_amount * tax) /
                   (price?.interval === "month" ? price?.interval_count : 12)
                 ).toLocaleString()}
-                円<span className={styles.item_desc_acnt_tax}>（税込）</span>
+                円&nbsp;
+                <span className={styles.item_desc_acnt_tax}>(税込)</span>
               </span>
             </p>
           )}
