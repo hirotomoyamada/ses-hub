@@ -9,7 +9,7 @@ exports.contactPromotion = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    const url = `${process.env.REACT_APP_URL}`;
+    const url = `${process.env.REACT_APP_SES_HUB}`;
 
     const adminMail = {
       to: functions.config().admin.ses_hub,
