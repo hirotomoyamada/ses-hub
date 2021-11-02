@@ -34,7 +34,7 @@ import { rules } from "./data/rules";
 import { separation } from "./data/separation";
 import { law } from "./data/law";
 
-export const Terms = ({ setTerms }) => {
+export const Terms = ({ create, setTerms }) => {
   const sections = [
     definition,
     application,
@@ -69,8 +69,13 @@ export const Terms = ({ setTerms }) => {
 
   return (
     <div className={styles.terms}>
-      <Header setTerms={setTerms} ttl="利用規約" back />
-      
+      <Header
+        create={create}
+        handleCancel={() => setTerms(false)}
+        ttl="利用規約"
+        back
+      />
+
       <div className={styles.terms_inner}>
         <Body />
         {sections.map((section, index) => (
