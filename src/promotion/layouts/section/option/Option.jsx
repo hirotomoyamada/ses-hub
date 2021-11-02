@@ -37,7 +37,7 @@ export const Option = () => {
           </div>
 
           <a
-            href={`${true}/option`}
+            href={`${process.env.REACT_APP_FREELANCE_DIRECT}/option`}
             className={styles.option_btn}
             target="_blank"
             rel="noreferrer noopener"
