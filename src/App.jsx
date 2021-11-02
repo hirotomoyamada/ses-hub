@@ -26,6 +26,8 @@ import { Contact } from "./pages/contact/Contact";
 
 import { Promotion } from "./promotion/Promotion";
 
+import { Promotion as FreelanceDirect } from "../freelance_direct/src/promotion/Promotion";
+
 import { useApp } from "./hook/useApp";
 
 const App = () => {
@@ -57,6 +59,12 @@ const App = () => {
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/terms" component={Terms} />
                 <Route exact path="/asct" component={Asct} />
+
+                <Route
+                  exact
+                  path="/freelance-direct"
+                  component={FreelanceDirect}
+                />
 
                 {!access && (
                   <>

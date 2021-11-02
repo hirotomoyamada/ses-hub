@@ -40,7 +40,7 @@ export const Option = () => {
 
           <button
             type="button"
-            onClick={() => history.push("/option/freelance-direct")}
+            onClick={() => history.push("/freelance-direct")}
             className={styles.option_btn}
           >
             詳しく見る
