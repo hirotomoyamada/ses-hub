@@ -96,7 +96,7 @@ export const Modal = () => {
       <div className={styles.overlay}></div>
       <div
         className={`${styles.modal} ${
-          modal.type !== "home" && styles.modal_sp
+          modal.type !== "home" && modal.type !== "delete" && styles.modal_sp
         }`}
       >
         <Inner />
