@@ -73,6 +73,10 @@ $width: responsive-width(pc);
   }
 
   &_amount {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+
     &_tax {
       font-size: 14px;
       color: $sub_clr;
@@ -83,6 +87,10 @@ $width: responsive-width(pc);
       }
 
       &_select {
+        color: $base_clr;
+      }
+
+      &_disable {
         color: $base_clr;
       }
     }
