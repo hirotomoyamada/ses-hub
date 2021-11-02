@@ -38,6 +38,7 @@ const sendMail = async (context, user, selectUser, data) => {
       subject: "【リクエスト】確認メール",
       text: body.user({
         user: user.profile,
+        type: user.type,
         body: data.body,
         url: url.user,
       }),
@@ -46,9 +47,12 @@ const sendMail = async (context, user, selectUser, data) => {
     selectUser: {
       to: selectUser.profile.email,
       from: `SES_HUB <${functions.config().admin.freelance_direct}>`,
-      subject: `【リクエスト】${user.profile.name} ${user.profile.person}さんから、リクエストがありました`,
+      subject: `【リクエスト】${user.profile.name}${
+        user.type !== "corporate" && `\n${user.profile.person}`
+      }さんから、リクエストがありました`,
       text: body.selectUser({
         user: selectUser.profile,
+        type: user.type,
         body: data.body,
         url: url.selectUser,
       }),
