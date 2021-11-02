@@ -19,7 +19,8 @@ $width: responsive-width(pc);
     border-radius: 16px;
 
     display: grid;
-    grid-template-columns: 1fr 320px;
+    grid-template-columns: 1fr 300px;
+    align-items: center;
     gap: 32px;
 
     overflow: hidden;
@@ -59,7 +60,7 @@ $width: responsive-width(pc);
     gap: 16px;
 
     &:last-child {
-      width: 320px;
+      width: 300px;
 
       @media (max-width: responsive-width(tb)) {
         margin: 0 auto;
@@ -157,7 +158,7 @@ $width: responsive-width(pc);
     }
 
     &:after {
-      content: "(税込)/月〜";
+      content: "(税込)";
       font-size: 16px;
 
       @media (max-width: responsive-width(sp)) {
