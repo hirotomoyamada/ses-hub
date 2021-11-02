@@ -31,18 +31,10 @@ export const Option = () => {
 
         <div className={styles.option_container}>
           <div className={styles.option_wrap}>
-            <span className={styles.option_type}>個人</span>
+            <span className={styles.option_type}>3ヶ月</span>
 
             <span className={styles.option_price}>
-              {Math.round(15000 * tax).toLocaleString()}円
-            </span>
-          </div>
-
-          <div className={styles.option_wrap}>
-            <span className={styles.option_type}>法人</span>
-
-            <span className={styles.option_price}>
-              {Math.round(75000 * tax).toLocaleString()}円
+              {Math.round(45000 * tax).toLocaleString()}円
             </span>
           </div>
 
