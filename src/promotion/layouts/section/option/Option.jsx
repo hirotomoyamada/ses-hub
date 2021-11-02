@@ -21,7 +21,7 @@ export const Option = () => {
           </div>
 
           <p className={styles.option_desc}>
-            フリーランスエンジニアを検索やアプローチ、
+            フリーランスを検索やアプローチ、
             <span>プロフィールやスキルシートの閲覧</span>
             <span>などの機能がご利用いただけます。</span>
           </p>
