@@ -19,7 +19,7 @@ export const Index = ({ index, setIndex }) => {
         }`}
         onClick={() => setIndex("corporate")}
       >
-        　法人
+        法人
       </button>
     </div>
   );

@@ -17,15 +17,13 @@ export const Btn = ({ txt, acnt, square, func }) => {
 
 export const LinkBtn = ({ txt, acnt, square, src }) => {
   return (
-    <Link to={`/${src}`}>
-      <button
-        type="button"
-        className={`${styles.btn} ${square && styles.btn_square} ${
-          acnt && styles.btn_acnt
-        }`}
-      >
-        {txt}
-      </button>
+    <Link
+      to={`/${src}`}
+      className={`${styles.btn} ${square && styles.btn_square} ${
+        acnt && styles.btn_acnt
+      }`}
+    >
+      {txt}
     </Link>
   );
 };
