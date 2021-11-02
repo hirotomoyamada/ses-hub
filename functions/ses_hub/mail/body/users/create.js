@@ -7,11 +7,14 @@ exports.admin = (user, url) => {
 会社名：
 ${user.name}
 
-お名前：
+担当者名：
 ${user.person}
 
-役職：
-${user.position}
+${
+  user.position &&
+  `役職：
+${user.position}`
+}
 
 住所：
 ${user.postal && user.address ? `〒${user.postal} ${user.address}` : "記入なし"}
@@ -41,11 +44,14 @@ ${user.name} ${user.person} 様
 会社名：
 ${user.name}
 
-お名前：
+担当者名：
 ${user.person}
 
-役職：
-${user.position}
+${
+  user.position &&
+  `役職：
+${user.position}`
+}
 
 住所：
 ${user.postal && user.address ? `〒${user.postal} ${user.address}` : "記入なし"}

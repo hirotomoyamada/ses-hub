@@ -1,14 +1,17 @@
 const functions = require("firebase-functions");
 
-exports.user = ({ user, body, url }) => {
+exports.user = ({ user, type, body, url }) => {
   return `
 以下の内容でリクエストをしました。
 
 会社名：
 ${user.name}
 
-お名前：
-${user.person}
+${
+  type !== "corporate" &&
+  `お名前：
+${user.person}`
+}
 
 メッセージ：
 ${body}
@@ -20,14 +23,14 @@ SES_HUB ${functions.config().app.ses_hub.url}
 `;
 };
 
-exports.selectUser = ({ user, body, url }) => {
+exports.selectUser = ({ user, type, body, url }) => {
   return `
 ${user.nickName} ( ${user.name} ) さんへ、リクエストがあります。
 
 メッセージ：
 ${body}
 
-営業マン：
+${type !== "corporate" ? "ユーザー" : "企業"}情報：
 ${url}
 
 Freelance Direct ${functions.config().app.freelance_direct.url}
