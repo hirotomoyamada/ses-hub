@@ -109,7 +109,7 @@ const fetchFirestore = async (data, posts) => {
                 };
               } else {
                 posts[i].user = {
-                  type: doc.data().profile.type,
+                  type: doc.data().type,
                   name: doc.data().profile.name,
                   person: doc.data().profile.person,
                 };
