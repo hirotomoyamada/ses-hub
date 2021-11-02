@@ -49,7 +49,7 @@ export const handleEmail = async ({
             dispatch(userSlice.changeEmail(data.email));
 
             auth.currentUser.sendEmailVerification({
-              url: `${process.env.REACT_APP_URL}/login`,
+              url: `${process.env.REACT_APP_SES_HUB}/login`,
             });
 
             methods.reset();

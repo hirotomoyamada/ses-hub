@@ -1,9 +1,7 @@
-import { useHistory } from "react-router";
 import root from "../Section.module.scss";
 import styles from "./Option.module.scss";
 
 export const Option = () => {
-  const history = useHistory();
   const tax = 1.1;
 
   return (
@@ -38,13 +36,14 @@ export const Option = () => {
             </span>
           </div>
 
-          <button
-            type="button"
-            onClick={() => history.push("/freelance-direct")}
+          <a
+            href={`${true}/option`}
             className={styles.option_btn}
+            target="_blank"
+            rel="noreferrer noopener"
           >
             詳しく見る
-          </button>
+          </a>
         </div>
       </div>
 

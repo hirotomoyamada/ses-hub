@@ -17,7 +17,7 @@ export const getRedirect = ({ dispatch }) => {
       if (!result.user.emailVerified) {
         auth.currentUser
           .sendEmailVerification({
-            url: `${process.env.REACT_APP_URL}/login`,
+            url: `${process.env.REACT_APP_SES_HUB}/login`,
           })
           .catch((e) => {
             dispatch(
