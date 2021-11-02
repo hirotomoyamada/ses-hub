@@ -73,6 +73,7 @@ exports.fetchPosts = functions
             if (doc.exists) {
               if (data.index === "matters" || data.index === "resources") {
                 posts[i].user = {
+                  type: doc.data().type,
                   name: doc.data().profile.name,
                   person: doc.data().profile.person,
                 };
