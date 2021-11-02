@@ -62,6 +62,7 @@ const fetchFirestore = async (demo, post) => {
         post.user = {
           uid: doc.id,
           icon: doc.data().icon,
+          type: doc.data().type,
           profile: {
             name: doc.data().profile.name,
             person: doc.data().profile.person,

@@ -36,6 +36,7 @@ exports.companys = ({ context, data, create, doc }) => {
 
       return {
         status: "hold",
+        type: data.type,
         agree: data.agree,
         payment: {
           status: "canceled",
