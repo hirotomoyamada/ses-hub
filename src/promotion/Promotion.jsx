@@ -36,7 +36,7 @@ export const Promotion = () => {
         <Lets />
       </div>
 
-      <Footer handleOpen={handleOpen} />
+      <Footer />
     </div>
   );
 };
