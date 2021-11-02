@@ -104,6 +104,7 @@ const fetchFirestore = async (data, posts) => {
                 !doc.data().payment.option?.freelanceDirect
               ) {
                 posts[i].user = {
+                  type: "individual",
                   name: null,
                   person: "存在しないユーザー",
                 };
@@ -129,6 +130,7 @@ const fetchFirestore = async (data, posts) => {
                 };
               } else {
                 posts[i].icon = doc.data().icon;
+                posts[i].type = doc.data().type;
               }
             }
           }
