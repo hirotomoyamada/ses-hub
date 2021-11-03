@@ -93,7 +93,7 @@ $width: responsive-width(pc);
 
     &_input {
       background: $base_clr;
-      border: 1px solid $bdr_clr;
+
       width: 100%;
       height: 48px;
       border-radius: 8px;
@@ -112,7 +112,6 @@ $width: responsive-width(pc);
 
     &_textarea {
       background: $base_clr;
-      border: 1px solid $bdr_clr;
       width: 100%;
       height: 240px;
       border-radius: 8px;
