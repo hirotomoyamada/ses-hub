@@ -20,7 +20,11 @@ exports.extractPosts = functions
 
     const index = algolia.initIndex(data.index);
     const objectIDs =
-      data.type === "follows"
+      data.user.index === "companys"
+        ? data.type === "follows"
+          ? data.user[data.type]
+          : data.user[data.type][data.index]
+        : data.user.index === "persons" && data.type !== "requests"
         ? data.user[data.type]
         : data.user[data.type][data.index];
     const hitsPerPage = 50;
