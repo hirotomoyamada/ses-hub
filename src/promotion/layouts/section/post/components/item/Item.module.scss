@@ -13,7 +13,7 @@ $width: responsive-width(pc);
   font-size: 14px;
 
   @media (max-width: responsive-width(sp)) {
-    padding: 20px 16px;
+    padding: 16px;
   }
 
   &_position {
@@ -35,10 +35,10 @@ $width: responsive-width(pc);
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
-    padding: 12px 0;
+    padding: 12px 0 24px;
 
     @media (max-width: responsive-width(sp)) {
-      padding: 8px 0;
+      padding: 6px 0 16px;
     }
 
     &_tag {
