@@ -1,6 +1,6 @@
 const functions = require("firebase-functions");
 const db = require("../../firebase").db;
-const send = require("../../sendgrid");
+const send = require("../../sendgrid").send;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
