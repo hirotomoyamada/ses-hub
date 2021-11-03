@@ -2,53 +2,25 @@ import styles from "./Contact.module.scss";
 
 import Loader from "react-loader-spinner";
 
-import { functions } from "../../firebase";
-import { useState } from "react";
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm } from "./hook/useForm";
+import { useContact } from "./hook/useContact";
+import { FormProvider } from "react-hook-form";
 
 import { Form } from "./components/form/Form";
 import { Verification } from "./components/Verification";
 import { Complete } from "./components/Complete";
 
 export const Contact = () => {
-  const [complete, setComplete] = useState(false);
-  const [verification, setVerification] = useState(false);
-  const [load, setLoad] = useState(false);
-  const [error, setError] = useState(false);
-
-  const methods = useForm();
-
-  const onVerification = () => {
-    setVerification(!verification);
-  };
-
-  const onBack = () => {
-    setVerification(!verification);
-  };
-
-  const onSubmit = (data) => {
-    setLoad(true);
-    const contactPromotion = functions.httpsCallable("sh-contactPromotion");
-
-    contactPromotion(data)
-      .then(() => {
-        setLoad(false);
-        setComplete(true);
-      })
-      .catch((e) => {
-        setLoad(false);
-        setError(true);
-        setVerification(false);
-
-        setTimeout(() => setError(false), 4000);
-      });
-  };
-
-  const company = methods.watch("company");
-  const person = methods.watch("person");
-  const position = methods.watch("position");
-  const email = methods.watch("email");
-  const body = methods.watch("body");
+  const [methods, company, person, position, email, body] = useForm();
+  const [
+    complete,
+    verification,
+    load,
+    error,
+    onVerification,
+    onBack,
+    onSubmit,
+  ] = useContact();
 
   return (
     <div className={styles.contact}>
