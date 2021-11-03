@@ -13,7 +13,7 @@
 
       @media (prefers-color-scheme: dark) {
         path {
-            fill: #49b657; <!-- ダークモード時のカラー -->
+            fill: #80cc89; <!-- ダークモード時のカラー -->
         }
       }
     </style>
