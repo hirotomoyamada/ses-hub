@@ -23,6 +23,6 @@ exports.declineUser = functions
     };
 
     if (beforeStatus === "hold" && afterStatus === "disable") {
-      await send.seshub(userMail);
+      await send(userMail);
     }
   });

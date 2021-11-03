@@ -23,6 +23,6 @@ exports.declineUser = functions
     };
 
     if (beforeStatus === "hold" && afterStatus === "disable") {
-      await send.freelanceDirect(userMail);
+      await send(userMail);
     }
   });

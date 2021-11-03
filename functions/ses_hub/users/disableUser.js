@@ -24,7 +24,7 @@ exports.disableUser = functions
     };
 
     if (beforeStatus === "enable" && afterStatus === "disable") {
-      await send.seshub(userMail);
+      await send(userMail);
 
       if (change.before.data().posts.matters.length) {
         const index = algolia.initIndex("matters");

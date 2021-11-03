@@ -28,6 +28,6 @@ exports.createUser = functions
       text: body.user(profile, url),
     };
 
-    await send.freelanceDirect(adminMail);
-    await send.freelanceDirect(userMail);
+    await send(adminMail);
+    await send(userMail);
   });

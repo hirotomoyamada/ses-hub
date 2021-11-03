@@ -128,7 +128,7 @@ exports.sendMail = functions
       text: data.body,
     };
 
-    await send.seshub(mail);
+    await send(mail);
 
     return data;
   });

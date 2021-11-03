@@ -48,7 +48,7 @@ const sendMail = async (context, data, nickName) => {
     }),
   };
 
-  await send.freelanceDirect(mail);
+  await send(mail);
 };
 
 const fetchUser = async (uid) => {
