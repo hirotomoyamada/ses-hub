@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const algolia = require("../../algolia").algolia;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
-const send = require("../../sendgrid");
+const send = require("../../sendgrid").send;
 
 const body = require("../mail/body/users/disable");
 
