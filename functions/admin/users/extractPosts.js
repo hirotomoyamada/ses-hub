@@ -70,7 +70,7 @@ exports.extractPosts = functions
     ) {
       for (let i = 0; i < posts.length; i++) {
         await db
-          .collection(data.index)
+          .collection(data.type !== "requests" ? data.index : "companys")
           .doc(posts[i].uid)
           .get()
           .then((doc) => {
