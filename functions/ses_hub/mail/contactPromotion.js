@@ -25,6 +25,6 @@ exports.contactPromotion = functions
       text: body.user(data, url),
     };
 
-    await send.seshub(adminMail);
-    await send.seshub(userMail);
+    await send(adminMail);
+    await send(userMail);
   });

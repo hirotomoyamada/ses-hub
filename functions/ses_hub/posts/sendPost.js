@@ -124,7 +124,7 @@ exports.sendPost = functions
     // twitter.tweet(text);
 
     // sendGrid メール
-    await send.seshub(mail).catch((e) => {
+    await send(mail).catch((e) => {
       throw new functions.https.HttpsError(
         "unavailable",
         "メールの送信に失敗しました",

@@ -23,6 +23,6 @@ exports.enableUser = functions
     };
 
     if (beforeStatus === "hold" && afterStatus === "enable") {
-      await send.seshub(userMail);
+      await send(userMail);
     }
   });

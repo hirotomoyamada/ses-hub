@@ -27,6 +27,6 @@ exports.contactPromotion = functions
       },
     };
 
-    await send.freelanceDirect(adminMail);
-    await send.freelanceDirect(userMail);
+    await send(adminMail);
+    await send(userMail);
   });

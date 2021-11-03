@@ -28,6 +28,6 @@ exports.createUser = functions
       text: body.user(profile, url),
     };
 
-    await send.seshub(adminMail);
-    await send.seshub(userMail);
+    await send(adminMail);
+    await send(userMail);
   });

@@ -59,8 +59,8 @@ const sendMail = async (context, user, selectUser, data) => {
     },
   };
 
-  await send.seshub(mail.user);
-  await send.seshub(mail.selectUser);
+  await send(mail.user);
+  await send(mail.selectUser);
 };
 
 const updateDoc = async ({ context, doc, data, user }) => {
