@@ -7,7 +7,7 @@ export const handleCreate = async ({ dispatch, data }) => {
     type: data.type,
     name: data.name,
     person: data.person,
-    position: data.type === "individual" ? data.position : "",
+    position: data.type === "individual" ? data.position : null,
     postal: data.postal,
     address: data.address,
     tel: data.tel,
