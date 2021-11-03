@@ -15,8 +15,8 @@ export const Header = ({ post }) => {
             {post?.type === "corporate"
               ? post?.profile?.name
               : post?.profile?.person
-              ? post.profile.person
-              : post.profile.nickName}
+              ? post?.profile?.person
+              : post?.profile?.nickName}
           </h1>
           {post?.profile?.state && (
             <span
@@ -36,7 +36,7 @@ export const Header = ({ post }) => {
 
         {post?.type !== "corporate" && (
           <h2 className={styles.header_tag}>
-            {post?.profile?.name ? post.profile.name : post.profile.position}
+            {post?.profile?.name ? post?.profile?.name : post?.profile?.position}
           </h2>
         )}
       </div>
