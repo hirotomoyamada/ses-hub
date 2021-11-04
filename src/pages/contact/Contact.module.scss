@@ -9,7 +9,7 @@ $width: responsive-width(pc);
   background: $bg_clr;
   overflow-x: hidden;
   width: 100vw;
-  height: 100vh;
+  height: $innerHeight;
 
   position: relative;
 
@@ -246,7 +246,7 @@ $width: responsive-width(pc);
   &_load {
     position: fixed;
     width: 100vw;
-    height: 100vh;
+    height: $innerHeight;
     top: 0;
     left: 0;
     z-index: 9999;

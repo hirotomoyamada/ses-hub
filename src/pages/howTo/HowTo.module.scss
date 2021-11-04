@@ -20,7 +20,7 @@ $width: responsive-width(pc);
   &_inner {
     margin: 0 auto;
     width: 720px;
-    min-height: 100vh;
+    min-height: $innerHeight;
     background: $base_clr;
 
     @media (max-width: responsive-width(tb)) {

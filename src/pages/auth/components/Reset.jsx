@@ -1,8 +1,11 @@
 import styles from "../Auth.module.scss";
 
 import { useFormContext } from "react-hook-form";
+import { useScrollController } from "../../../hook/useScrollController";
 
 export const Reset = ({ reset, setReset }) => {
+  useScrollController();
+
   const {
     register,
     formState: { errors },

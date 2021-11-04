@@ -9,7 +9,7 @@ $width: responsive-width(pc);
   color: $main_clr;
   background: $base_clr;
   width: 100vw;
-  min-height: 100vh;
+  min-height: $innerHeight;
   position: relative;
 
   display: grid;

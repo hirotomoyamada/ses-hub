@@ -19,7 +19,7 @@ body {
 
     background: $bg_clr;
     width: 100vw;
-    height: 100vh;
+    height: $innerHeight;
 
     animation: fadeIn 0.4s ease-out forwards;
 
@@ -46,7 +46,7 @@ body {
 
     background: $bg_clr;
     width: 100vw;
-    height: 100vh;
+    height: $innerHeight;
 
     animation: fadeOut 0.4s ease-out forwards;
 
@@ -71,7 +71,7 @@ body {
 
 .disable {
   width: 100vw;
-  height: 100vh;
+  height: $innerHeight;
   display: flex;
   justify-content: center;
   align-items: center;

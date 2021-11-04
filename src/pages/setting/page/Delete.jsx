@@ -4,10 +4,13 @@ import root from "../Setting.module.scss";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useFormContext } from "react-hook-form";
+import { useScrollController } from "../../../hook/useScrollController";
 
 import * as rootSlice from "../../../features/root/rootSlice.js";
 
 export const Delete = ({ next, user, setReset, setNext }) => {
+  useScrollController();
+
   const dispatch = useDispatch();
   const {
     register,

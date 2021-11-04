@@ -20,7 +20,7 @@ $width: responsive-width(pc);
 
   @media (max-width: responsive-width(tb)) {
     width: 100vw;
-    min-height: 100vh;
+    min-height: $innerHeight;
     overflow-y: auto;
   }
 
@@ -37,10 +37,10 @@ $width: responsive-width(pc);
     align-items: center;
 
     @media (max-width: responsive-width(miniPc)) {
-      height: calc(100vh - 32px * 2);
+      height: calc($innerHeight - 32px * 2);
     }
     @media (max-width: responsive-width(sp)) {
-      height: calc(100vh - 12px * 2);
+      height: calc($innerHeight - 12px * 2);
     }
   }
 
