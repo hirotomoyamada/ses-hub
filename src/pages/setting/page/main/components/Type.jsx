@@ -1,12 +1,13 @@
 import styles from "../Main.module.scss";
 
 export const Type = ({ user }) => {
+  console.log(user.type);
   return (
     <div className={styles.main_row}>
       <div className={styles.main_col}>
         <span className={styles.main_tag}>タイプ</span>
         <span className={styles.main_value}>
-          {user?.type === "corporate" ? "個人" : "法人"}
+          {user?.type !== "corporate" ? "個人" : "法人"}
         </span>
 
         <span className={styles.main_desc}>変更することはできません</span>
