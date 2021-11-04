@@ -72,13 +72,13 @@ $width: responsive-width(pc);
 
   &_none {
     width: 100%;
-    height: calc($innerHeight - 129px);
+    height: calc(var(--vh, 1vh) * 100 - 129px);
     display: flex;
     justify-content: center;
     align-items: center;
 
     @media (max-width: responsive-width(sp)) {
-      height: calc($innerHeight - 89px);
+      height: calc(var(--vh, 1vh) * 100 - 89px);
     }
 
     &_message {
@@ -90,10 +90,10 @@ $width: responsive-width(pc);
     }
 
     &_type {
-      height: calc($innerHeight - 48px);
+      height: calc(var(--vh, 1vh) * 100 - 48px);
 
       @media (max-width: responsive-width(sp)) {
-        height: calc($innerHeight - 32px);
+        height: calc(var(--vh, 1vh) * 100 - 32px);
       }
     }
 
@@ -109,7 +109,7 @@ $width: responsive-width(pc);
     }
 
     &_bests {
-      height: calc($innerHeight - 472px);
+      height: calc(var(--vh, 1vh) * 100 - 472px);
 
       @media (max-width: responsive-width(tb)) {
         height: 64px;
@@ -117,7 +117,7 @@ $width: responsive-width(pc);
       }
 
       &_companys {
-        height: calc($innerHeight - 59px);
+        height: calc(var(--vh, 1vh) * 100 - 59px);
 
         @media (max-width: responsive-width(tb)) {
           height: 160px;
