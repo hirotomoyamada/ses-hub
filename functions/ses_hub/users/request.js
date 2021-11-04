@@ -46,9 +46,9 @@ const sendMail = async (context, user, selectUser, data) => {
 
     selectUser: {
       to: selectUser.profile.email,
-      from: `SES_HUB <${functions.config().admin.freelance_direct}>`,
+      from: `Freelance Direct <${functions.config().admin.freelance_direct}>`,
       subject: `【リクエスト】${user.profile.name}${
-        user.type !== "corporate" && `\n${user.profile.person}`
+        user.type !== "corporate" ? `\n${user.profile.person}` : ``
       }さんから、リクエストがありました`,
       text: body.selectUser({
         user: selectUser.profile,

@@ -6,13 +6,15 @@ exports.user = ({ user, type, body, url }) => {
 
 会社名：
 ${user.name}
-
 ${
-  type !== "corporate" &&
-  `お名前：
-${user.person}`
-}
+  type !== "corporate"
+    ? `
+お名前：
+${user.person}
 
+`
+    : ``
+}
 メッセージ：
 ${body}
 
