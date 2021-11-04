@@ -7,7 +7,7 @@ $width: responsive-width(pc);
 
 .auth {
   width: 100vw;
-  height: 100vh;
+  height: $innerHeight;
 
   display: flex;
   justify-content: center;
@@ -34,15 +34,21 @@ $width: responsive-width(pc);
     flex-direction: column;
     gap: 24px;
 
+    @media (max-width: responsive-width(sp)) {
+      width: 100vw;
+      padding: 16px 12px;
+      gap: 16px;
+    }
+
     &_block {
       margin: 0 auto;
       padding: 32px 0;
     }
 
-    @media (max-width: responsive-width(sp)) {
-      width: 100vw;
-      padding: 16px 12px;
-      gap: 16px;
+    &_sign {
+      @media (max-width: responsive-width(sp)) {
+        padding-top: 56px;
+      }
     }
   }
 

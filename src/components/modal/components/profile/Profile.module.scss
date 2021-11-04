@@ -16,7 +16,7 @@ $width: responsive-width(pc);
 
   @media (max-width: responsive-width(tb)) {
     width: 100vw;
-    height: 100vh;
+    height: $innerHeight;
     border-radius: 0px;
   }
 

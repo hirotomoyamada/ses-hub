@@ -108,7 +108,7 @@ $width: responsive-width(pc);
 
   @media (max-width: responsive-width(sp)) {
     width: 100vw;
-    height: 100vh;
+    height: $innerHeight;
     border-radius: 0;
     border: none;
     padding: 24px;
@@ -217,7 +217,7 @@ $width: responsive-width(pc);
     right: 0;
     z-index: 99;
     width: 100vw;
-    height: 100vh;
+    height: $innerHeight;
     background: $main_clr;
     opacity: 0.8;
     cursor: pointer;

@@ -19,7 +19,7 @@ $width: responsive-width(pc);
   left: 0;
   z-index: 9998;
   width: 100vw;
-  height: 100vh;
+  height: $innerHeight;
   background: $main_clr;
   opacity: 0.8;
 

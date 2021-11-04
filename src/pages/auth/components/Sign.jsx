@@ -23,7 +23,10 @@ export const Sign = ({
   const password = watch("password");
 
   return (
-    <div className={styles.auth_inner} ref={inner}>
+    <div
+      className={`${styles.auth_inner} ${sign && styles.auth_inner_sign}`}
+      ref={inner}
+    >
       <span className={styles.auth_ttl}>{sign ? "新規登録" : "ログイン"}</span>
 
       <div>

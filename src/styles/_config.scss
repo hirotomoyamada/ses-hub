@@ -16,6 +16,8 @@ $responsive-height: (
   "sp": 0px
 );
 
+$innerHeight: calc(var(--vh, 1vh) * 100);
+
 // 使用するカラー
 $base_clr: #fff;
 $bg_clr: #f6f6f6;
