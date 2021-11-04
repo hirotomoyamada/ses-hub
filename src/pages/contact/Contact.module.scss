@@ -15,6 +15,10 @@ $width: responsive-width(pc);
 
   color: $main_clr;
 
+  @media (max-width: responsive-width(sp)) {
+    height: auto;
+  }
+
   &_inner {
     position: relative;
     z-index: 1;
