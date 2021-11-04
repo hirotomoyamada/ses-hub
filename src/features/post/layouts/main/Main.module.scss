@@ -37,10 +37,10 @@ $width: responsive-width(pc);
     align-items: center;
 
     @media (max-width: responsive-width(miniPc)) {
-      height: calc($innerHeight - 32px * 2);
+      height: calc(var(--vh, 1vh) * 100 - (32px * 2));
     }
     @media (max-width: responsive-width(sp)) {
-      height: calc($innerHeight - 12px * 2);
+      height: calc(var(--vh, 1vh) * 100 - (12px * 2));
     }
   }
 
