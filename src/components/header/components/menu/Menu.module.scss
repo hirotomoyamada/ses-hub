@@ -44,6 +44,10 @@ $width: responsive-width(pc);
     height: 48px;
     grid-template-columns: repeat(1, 1fr);
 
+    @media (max-width: responsive-width(sp)) {
+      height: 32px;
+    }
+
     &_txt {
       background: $add_clr;
       color: $base_clr;
