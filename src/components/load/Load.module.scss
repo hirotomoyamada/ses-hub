@@ -27,6 +27,10 @@ $width: responsive-width(pc);
     padding-top: 132px;
     background: none;
     z-index: 99;
+
+    &_auth {
+      padding-top: 0;
+    }
   }
 
   &_user {

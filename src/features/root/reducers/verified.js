@@ -26,6 +26,19 @@ export const verified = (state, action) => {
     state.modal.open = true;
   }
 
+  if (action.payload && action.payload === "reset") {
+    state.verified = {
+      index: false,
+      email: false,
+      profile: true,
+      agree: false,
+      status: "",
+      access: false,
+      demo: false,
+      error: "",
+    };
+  }
+
   if (action.payload && action.payload.emailVerified) {
     state.verified.email = action.payload.emailVerified;
   }
