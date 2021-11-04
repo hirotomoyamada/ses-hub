@@ -12,6 +12,7 @@ export const handleCreate = async ({ dispatch, data }) => {
     tel: data.tel,
     agree: data.agree,
     provider: auth.currentUser.providerData[0].providerId,
+    fetch: true,
   };
 
   dispatch(createProfile(object));

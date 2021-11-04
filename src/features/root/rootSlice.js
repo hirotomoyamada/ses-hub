@@ -16,6 +16,7 @@ export const rootSlice = createSlice({
     handleModal: (state, action) => reducers.modal(state, action),
     handleAnnounce: (state, action) => reducers.announce(state, action),
     handleNotFound: (state, action) => reducers.notFound(state, action),
+    handleVerified: (state, action) => reducers.verified(state, action),
   },
 
   extraReducers: (builder) => {
@@ -71,17 +72,22 @@ export const rootSlice = createSlice({
           status: "promo",
           access: false,
           demo: false,
+          error: "",
         };
       }
     );
 
     builder.addMatcher(
       (action) => action.type.endsWith("/createProfile/fulfilled"),
-      (state) => {
+      (state, action) => {
         state.verified.email = false;
         state.verified.profile = false;
         state.verified.agree = false;
         state.verified.status = "hold";
+
+        if (action.payload) {
+          state.verified.error = action.payload;
+        }
       }
     );
 
@@ -161,6 +167,7 @@ export const {
   handleModal,
   handleAnnounce,
   handleNotFound,
+  handleVerified,
 } = rootSlice.actions;
 
 export const index = (state) => state.root.index;

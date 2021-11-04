@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import * as rootSlice from "../../features/root/rootSlice";
+import * as userSlice from "../../features/user/userSlice";
 
 export const Root = () => {
   const load = useSelector(rootSlice.load).root;
@@ -35,6 +36,7 @@ export const Root = () => {
 export const Fetch = () => {
   const load = useSelector(rootSlice.load).fetch;
   const page = useSelector(rootSlice.page);
+  const user = useSelector(userSlice.user).uid;
 
   const [none, setNone] = useState(true);
 
@@ -49,8 +51,8 @@ export const Fetch = () => {
   return (
     <div
       className={`${styles.load} ${styles.load_fetch} ${
-        page === "user" && styles.load_user
-      } ${
+        !user && styles.load_fetch_auth
+      } ${page === "user" && styles.load_user} ${
         (page === "likes" || page === "outputs" || page === "entries") &&
         styles.load_list
       }
