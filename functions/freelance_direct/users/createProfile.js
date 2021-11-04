@@ -22,7 +22,7 @@ const uploadFile = async (file, type, uid) => {
   if (file.length > 0.4 * 1024 * 1024) {
     throw new functions.https.HttpsError(
       "cancelled",
-      "容量が大きすぎるので処理中止",
+      "アップロードするファイルの容量が大きすぎます",
       "storage"
     );
   }
@@ -30,7 +30,7 @@ const uploadFile = async (file, type, uid) => {
   if (type !== "application/pdf") {
     throw new functions.https.HttpsError(
       "cancelled",
-      "PDFでは無いので処理中止",
+      "アップロードするファイルがpdf形式ではありません",
       "storage"
     );
   }
@@ -56,7 +56,7 @@ const uploadFile = async (file, type, uid) => {
     .catch((e) => {
       throw new functions.https.HttpsError(
         "data-loss",
-        "ファイルの作成に失敗しました",
+        "アップロードに失敗しました\npdfのみアップロードできます",
         "storage"
       );
     });
