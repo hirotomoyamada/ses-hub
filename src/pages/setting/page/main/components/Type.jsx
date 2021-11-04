@@ -1,7 +1,6 @@
 import styles from "../Main.module.scss";
 
 export const Type = ({ user }) => {
-  console.log(user.type);
   return (
     <div className={styles.main_row}>
       <div className={styles.main_col}>
