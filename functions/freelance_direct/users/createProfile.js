@@ -11,18 +11,26 @@ exports.createProfile = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    const file = await uploadFile(data.file, context.auth.uid);
+    const file = await uploadFile(data.file, data.type, context.auth.uid);
     await createFirestore(context, data, file);
     await createAlgolia(context, data);
 
     return { displayName: data.person };
   });
 
-const uploadFile = async (file, uid) => {
+const uploadFile = async (file, type, uid) => {
   if (file.length > 0.4 * 1024 * 1024) {
     throw new functions.https.HttpsError(
       "cancelled",
-      "容量が大きすぎます",
+      "容量が大きすぎるので処理中止",
+      "storage"
+    );
+  }
+
+  if (type !== "application/pdf") {
+    throw new functions.https.HttpsError(
+      "cancelled",
+      "PDFでは無いので処理中止",
       "storage"
     );
   }
