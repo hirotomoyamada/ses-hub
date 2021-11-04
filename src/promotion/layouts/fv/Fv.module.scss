@@ -106,9 +106,11 @@ $width: responsive-width(pc);
       width: auto-clamp(1040px, 1280px);
       height: auto;
 
-      animation: anime 0.7s ease-out;
+      animation-name: fadeOut;
+      animation-duration: 0.7s;
+      animation-timing-function: ease-out;
 
-      @keyframes anime {
+      @keyframes fadeIn {
         0% {
           transform: translateY(100%);
           opacity: 0;
