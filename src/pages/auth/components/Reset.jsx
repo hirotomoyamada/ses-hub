@@ -3,7 +3,7 @@ import styles from "../Auth.module.scss";
 import { useFormContext } from "react-hook-form";
 import { useScrollController } from "../../../hook/useScrollController";
 
-export const Reset = ({ reset, setReset }) => {
+export const Reset = ({ reset, setReset, resize }) => {
   useScrollController();
 
   const {
@@ -12,7 +12,9 @@ export const Reset = ({ reset, setReset }) => {
   } = useFormContext();
 
   return (
-    <div className={styles.auth_inner}>
+    <div
+      className={`${styles.auth_inner} ${resize && styles.auth_inner_resize}`}
+    >
       <button
         className={styles.auth_btn_reset}
         type="button"

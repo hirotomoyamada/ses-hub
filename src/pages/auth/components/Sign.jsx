@@ -13,6 +13,7 @@ export const Sign = ({
   setSign,
   setReset,
   handleProvider,
+  resize,
 }) => {
   const {
     register,
@@ -24,7 +25,9 @@ export const Sign = ({
 
   return (
     <div
-      className={`${styles.auth_inner} ${sign && styles.auth_inner_sign}`}
+      className={`${styles.auth_inner} ${sign && styles.auth_inner_sign} ${
+        resize && styles.auth_inner_resize
+      }`}
       ref={inner}
     >
       <span className={styles.auth_ttl}>{sign ? "新規登録" : "ログイン"}</span>

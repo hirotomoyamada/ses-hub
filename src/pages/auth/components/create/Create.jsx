@@ -8,9 +8,12 @@ import { Tel } from "./components/Tel";
 import { Agree } from "./components/Agree";
 import { Type } from "./components/Type";
 
-export const Create = ({ inner, handleLogout, setTerms }) => {
+export const Create = ({ inner, handleLogout, setTerms, resize }) => {
   return (
-    <div className={root.auth_inner} ref={inner}>
+    <div
+      className={`${root.auth_inner} ${resize && root.auth_inner_resize}`}
+      ref={inner}
+    >
       <button
         type="button"
         className={`${root.auth_desc} ${root.auth_desc_logout}`}

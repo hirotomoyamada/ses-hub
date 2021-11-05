@@ -39,7 +39,7 @@ export const Auth = () => {
     setCreate,
   ] = useVerification(verified);
 
-  const [form, inner] = useResize();
+  const [resize, form, inner] = useResize();
 
   useEffect(() => {
     functions.auth.getRedirect({ dispatch });
@@ -91,7 +91,9 @@ export const Auth = () => {
   return (
     <FormProvider {...methods}>
       <form
-        className={`${styles.auth} ${terms && styles.auth_terms}`}
+        className={`${styles.auth} ${terms && styles.auth_terms} ${
+          resize && styles.auth_resize
+        }`}
         onSubmit={
           reset
             ? methods.handleSubmit(handleReset)
@@ -114,15 +116,17 @@ export const Auth = () => {
             handleResend={handleResend}
             email={email}
             verified={verified}
+            resize={resize}
           />
         ) : profile ? (
           <Create
             inner={inner}
             handleLogout={handleLogout}
             setTerms={setTerms}
+            resize={resize}
           />
         ) : reset ? (
-          <Reset reset={reset} setReset={setReset} />
+          <Reset reset={reset} setReset={setReset} resize={resize} />
         ) : (
           <Sign
             inner={inner}
@@ -131,6 +135,7 @@ export const Auth = () => {
             setSign={setSign}
             setReset={setReset}
             handleProvider={handleProvider}
+            resize={resize}
           />
         )}
         {((sign && !create) || verified.email || verified.status === "hold") &&
