@@ -1,3 +1,5 @@
+const dummy = require("../../../dummy").dummy;
+
 exports.companys = ({ context, doc, data, hit, demo }) => {
   if (doc) {
     return {
@@ -33,8 +35,8 @@ exports.companys = ({ context, doc, data, hit, demo }) => {
     return {
       uid: hit.objectID,
       profile: {
-        name: hit.name,
-        person: hit.person,
+        name: !demo ? hit.name : dummy("name"),
+        person: !demo ? hit.person : dummy("person"),
         body: hit.body,
         postal: hit.postal,
         address: hit.address,

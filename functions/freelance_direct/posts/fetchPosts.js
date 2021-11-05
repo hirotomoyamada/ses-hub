@@ -13,15 +13,16 @@ exports.fetchPosts = functions
   .runWith(runtime)
   .https.onCall(async (data, context) => {
     const status = await userAuthenticated(context);
+    const demo = checkDemo(context);
 
-    const { posts, hit } = await fetchAlgolia(data, status);
+    const { posts, hit } = await fetchAlgolia(data, status, demo);
 
     await fetchFirestore(data, posts);
 
     return { index: data.index, posts: posts, hit: hit };
   });
 
-const fetchAlgolia = async (data, status) => {
+const fetchAlgolia = async (data, status, demo) => {
   const index = algolia.initIndex(
     !data.target || data.target === "createAt"
       ? data.index
@@ -51,7 +52,9 @@ const fetchAlgolia = async (data, status) => {
       return result.hits.map((hit) =>
         data.index === "matters" && status
           ? fetch.matters({ hit: hit })
-          : data.index === "companys" && status && fetch.companys({ hit: hit })
+          : data.index === "companys" &&
+            status &&
+            fetch.companys({ hit: hit, demo: demo })
       );
     })
     .catch((e) => {
@@ -115,4 +118,8 @@ const fetchFirestore = async (data, posts) => {
   }
 
   return;
+};
+
+const checkDemo = (context) => {
+  return context.auth.uid === functions.config().demo.freelance_direct.uid;
 };

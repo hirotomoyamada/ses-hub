@@ -3,6 +3,7 @@ const algolia = require("../../algolia").algolia;
 const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
+const dummy = require("../../dummy").dummy;
 
 const userAuthenticated =
   require("./functions/userAuthenticated").userAuthenticated;
@@ -64,8 +65,8 @@ const fetchFirestore = async (demo, post) => {
           icon: doc.data().icon,
           type: doc.data().type,
           profile: {
-            name: doc.data().profile.name,
-            person: doc.data().profile.person,
+            name: !demo ? doc.data().profile.name : dummy("name"),
+            person: !demo ? doc.data().profile.person : dummy("person"),
             body: doc.data().profile.body,
             email: !demo ? doc.data().profile.email : null,
             social: !demo ? doc.data().profile.social : {},

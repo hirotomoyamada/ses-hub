@@ -1,12 +1,13 @@
 const functions = require("firebase-functions");
+const dummy = require("../../../dummy").dummy;
 
 exports.companys = ({ hit, doc, demo, none }) => {
   if (!doc) {
     return {
       uid: hit.objectID,
       profile: {
-        name: hit.name,
-        person: hit.person,
+        name: !demo ? hit.name : dummy("name"),
+        person: !demo ? hit.person : dummy("person"),
         body: hit.body,
       },
     };
@@ -29,8 +30,8 @@ exports.companys = ({ hit, doc, demo, none }) => {
       icon: doc.data().icon,
       type: doc.data().type,
       profile: {
-        name: doc.data().profile.name,
-        person: doc.data().profile.person,
+        name: !demo ? hit.name : dummy("name"),
+        person: !demo ? hit.person : dummy("person"),
         body: doc.data().profile.body,
         email: !demo ? doc.data().profile.email : null,
         social: !demo ? doc.data().profile.social : {},

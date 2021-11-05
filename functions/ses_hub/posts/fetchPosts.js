@@ -16,8 +16,9 @@ exports.fetchPosts = functions
       context: context,
       index: data.index,
     });
+    const demo = checkDemo(context);
 
-    const { posts, hit } = await fetchAlgolia(context, data, status);
+    const { posts, hit } = await fetchAlgolia(context, data, status, demo);
 
     (data.index === "companys" || data.index === "persons") &&
       (await fetchFirestore(context, data, posts));
@@ -25,7 +26,7 @@ exports.fetchPosts = functions
     return { index: data.index, posts: posts, hit: hit };
   });
 
-const fetchAlgolia = async (context, data, status) => {
+const fetchAlgolia = async (context, data, status, demo) => {
   const index = algolia.initIndex(
     !data.target || data.target === "createAt"
       ? data.index
@@ -62,7 +63,7 @@ const fetchAlgolia = async (context, data, status) => {
           : data.index === "resources" && status
           ? fetch.resources({ hit: hit })
           : data.index === "companys" && status
-          ? fetch.companys({ hit: hit })
+          ? fetch.companys({ hit: hit, demo: demo })
           : data.index === "persons" && status && fetch.persons({ hit: hit })
       );
     })
@@ -119,4 +120,8 @@ const fetchFirestore = async (context, data, posts) => {
   }
 
   return;
+};
+
+const checkDemo = (context) => {
+  return context.auth.uid === functions.config().demo.ses_hub.uid;
 };
