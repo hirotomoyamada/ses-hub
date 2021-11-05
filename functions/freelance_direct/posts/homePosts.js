@@ -3,6 +3,7 @@ const algolia = require("../../algolia").algolia;
 const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
+const dummy = require("../../dummy").dummy;
 
 const userAuthenticated =
   require("./functions/userAuthenticated").userAuthenticated;
@@ -13,15 +14,16 @@ exports.homePosts = functions
   .runWith(runtime)
   .https.onCall(async (data, context) => {
     const status = await userAuthenticated(context);
+    const demo = checkDemo(context);
 
-    const { posts, hit } = await fetchAlgolia(context, data, status);
+    const { posts, hit } = await fetchAlgolia(context, data, status, demo);
 
-    posts.length && (await fetchFirestore(data, posts));
+    posts.length && (await fetchFirestore(data, posts, demo));
 
     return { index: data.index, posts: posts, hit: hit };
   });
 
-const fetchAlgolia = async (context, data, status) => {
+const fetchAlgolia = async (context, data, status, demo) => {
   const index = algolia.initIndex(data.index);
   const value =
     data.index === "matters" && [context.auth.uid, ...data.follows].join(" ");
@@ -75,7 +77,7 @@ const fetchAlgolia = async (context, data, status) => {
                 hit &&
                 hit.status === "enable" &&
                 status &&
-                fetch.companys({ hit: hit })
+                fetch.companys({ hit: hit, demo: demo })
             );
           })
           .catch((e) => {
@@ -89,7 +91,7 @@ const fetchAlgolia = async (context, data, status) => {
   return { posts, hit };
 };
 
-const fetchFirestore = async (data, posts) => {
+const fetchFirestore = async (data, posts, demo) => {
   for (let i = 0; i < posts.length; i++) {
     posts[i] &&
       (await db
@@ -111,8 +113,8 @@ const fetchFirestore = async (data, posts) => {
               } else {
                 posts[i].user = {
                   type: doc.data().type,
-                  name: doc.data().profile.name,
-                  person: doc.data().profile.person,
+                  name: !demo ? doc.data().profile.name : dummy("name"),
+                  person: !demo ? doc.data().profile.person : dummy("person"),
                 };
               }
             } else {
@@ -143,4 +145,8 @@ const fetchFirestore = async (data, posts) => {
           );
         }));
   }
+};
+
+const checkDemo = (context) => {
+  return context.auth.uid === functions.config().demo.freelance_direct.uid;
 };

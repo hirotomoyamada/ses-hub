@@ -3,6 +3,7 @@ const algolia = require("../../algolia").algolia;
 const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
+const dummy = require("../../dummy").dummy;
 
 const userAuthenticated =
   require("./functions/userAuthenticated").userAuthenticated;
@@ -13,10 +14,11 @@ exports.homePosts = functions
   .runWith(runtime)
   .https.onCall(async (data, context) => {
     const status = await userAuthenticated({ context: context });
+    const demo = checkDemo(context);
 
-    const { posts, hit } = await fetchAlgolia(context, data, status);
+    const { posts, hit } = await fetchAlgolia(context, data, status, demo);
 
-    posts.length && (await fetchFiretore(posts));
+    posts.length && (await fetchFiretore(posts, demo));
 
     return { index: data.index, posts: posts, hit: hit };
   });
@@ -63,7 +65,7 @@ const fetchAlgolia = async (context, data, status) => {
   return { posts, hit };
 };
 
-const fetchFiretore = async (posts) => {
+const fetchFiretore = async (posts, demo) => {
   for (let i = 0; i < posts.length; i++) {
     posts[i] &&
       (await db
@@ -74,8 +76,8 @@ const fetchFiretore = async (posts) => {
           if (doc.exists) {
             posts[i].user = {
               type: doc.data().type,
-              name: doc.data().profile.name,
-              person: doc.data().profile.person,
+              name: !demo ? doc.data().profile.name : dummy("name"),
+              person: !demo ? doc.data().profile.person : dummy("person"),
             };
           } else {
             posts[i].user = {
@@ -91,4 +93,8 @@ const fetchFiretore = async (posts) => {
           );
         }));
   }
+};
+
+const checkDemo = (context) => {
+  return context.auth.uid === functions.config().demo.ses_hub.uid;
 };
