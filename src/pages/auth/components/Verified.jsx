@@ -7,11 +7,14 @@ export const Verified = ({
   handleLogout,
   handleBack,
   handleResend,
+  resize,
 }) => {
   useScrollController();
 
   return (
-    <div className={styles.auth_inner}>
+    <div
+      className={`${styles.auth_inner} ${resize && styles.auth_inner_resize}`}
+    >
       <span className={styles.auth_ttl}>
         {verified.error
           ? "プロフィールの作成に失敗しました"
@@ -21,7 +24,7 @@ export const Verified = ({
           ? "このアカウントでは\nご利用いただけません"
           : verified.status === "hold" && "ただいま\n承認しております"}
       </span>
-      
+
       <div className={`${styles.auth_wrap} ${styles.auth_wrap_center}`}>
         <button
           type="button"

@@ -1,31 +1,35 @@
-import styles from "../Auth.module.scss";
-import { useEffect, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export const useResize = () => {
   const form = useRef();
   const inner = useRef();
 
-  const resize = () => {
-    if (
-      JSON.stringify(inner?.current?.getBoundingClientRect().height) >
-      window.innerHeight
-    ) {
-      form?.current?.classList.add(styles.auth_block);
-      inner?.current?.classList.add(styles.auth_inner_block);
-    } else {
-      form?.current?.classList.remove(styles.auth_block);
-      inner?.current?.classList.remove(styles.auth_inner_block);
-    }
-  };
+  const [resize, setResize] = useState(false);
 
   useEffect(() => {
-    resize();
-    window.addEventListener("resize", resize);
+    const resize = () => {
+      const innerHeight = inner?.current?.getBoundingClientRect().height;
+      const windowHeight = window.innerHeight;
+
+      innerHeight > windowHeight ? setResize(true) : setResize(false);
+    };
+
+    const observer = new ResizeObserver(() => {
+      resize();
+    });
+
+    const ref = inner?.current;
+
+    window.addEventListener("resize", () => {
+      resize();
+    });
+    ref && observer?.observe(ref);
 
     return () => {
       window.removeEventListener("resize", resize);
+      ref && observer.disconnect(ref);
     };
   }, []);
 
-  return [form, inner];
+  return [resize, form, inner];
 };
