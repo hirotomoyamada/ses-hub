@@ -5,7 +5,6 @@ import * as rootSlice from "../../../root/rootSlice";
 
 export const handleDelete = async ({
   dispatch,
-  history,
   methods,
   user,
   next,
