@@ -5,9 +5,9 @@ import { initialState } from "./initialState";
 import { promotionPosts } from "./actions/promotionPosts";
 import { fetchPosts } from "./actions/fetchPosts";
 import { userPosts } from "./actions/userPosts";
-import { followsPosts } from "./actions/followsPosts";
+import { homePosts } from "./actions/homePosts";
 import { extractPosts } from "./actions/extractPosts";
-import { showPost } from "./actions/showPost";
+import { fetchPost } from "./actions/fetchPost";
 import { createPost } from "./actions/createPost";
 
 import * as reducers from "./reducers/reducers";
@@ -36,20 +36,20 @@ export const postSlice = createSlice({
       reducers.userPosts(state, action)
     );
 
-    builder.addCase(followsPosts.fulfilled, (state, action) =>
-      reducers.followsPosts(state, action)
+    builder.addCase(homePosts.fulfilled, (state, action) =>
+      reducers.homePosts(state, action)
     );
 
     builder.addCase(extractPosts.fulfilled, (state, action) =>
       reducers.extractPosts(state, action)
     );
 
-    builder.addCase(showPost.pending, (state, action) =>
+    builder.addCase(fetchPost.pending, (state, action) =>
       reducers.resetPost(state, action)
     );
 
-    builder.addCase(showPost.fulfilled, (state, action) =>
-      reducers.showPost(state, action)
+    builder.addCase(fetchPost.fulfilled, (state, action) =>
+      reducers.fetchPost(state, action)
     );
 
     builder.addCase(createPost.fulfilled, (state, action) =>
@@ -89,6 +89,11 @@ export const postSlice = createSlice({
     );
 
     builder.addMatcher(
+      (action) => action.type.endsWith("/addRequest"),
+      (state, action) => reducers.addRequest(state, action)
+    );
+
+    builder.addMatcher(
       (action) => action.type.endsWith("/updateHome"),
       (state) => reducers.resetControl(state)
     );
@@ -104,8 +109,16 @@ export const postSlice = createSlice({
     );
 
     builder.addMatcher(
-      (action) => action.type.endsWith("/showUser/pending"),
+      (action) => action.type.endsWith("/fetchUser/pending"),
       (state, action) => reducers.resetPost(state, action)
+    );
+    builder.addMatcher(
+      (action) => action.type.endsWith("/fetchUser/fulfilled"),
+      (state, action) => {
+        if (action.payload?.bests) {
+          state.bests = action.payload?.bests;
+        }
+      }
     );
 
     builder.addMatcher(
@@ -121,7 +134,9 @@ export const { selectPost, editPost, deletePost, resetPost } =
   postSlice.actions;
 
 export const posts = ({ state, page, index }) =>
-  page && state.post?.[page]?.[index]?.posts;
+  page && page !== "bests"
+    ? state.post?.[page]?.[index]?.posts
+    : state.post.bests;
 
 export const hit = ({ state, page, index }) =>
   page && state.post?.[page]?.[index]?.hit;

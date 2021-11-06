@@ -6,7 +6,7 @@
 $width: responsive-width(pc);
 
 .fv {
-  background: $promo_clr;
+  // background: $promo_clr;
   width: 100vw;
   height: auto-clamp(880px, 1200px);
   position: relative;
@@ -106,9 +106,11 @@ $width: responsive-width(pc);
       width: auto-clamp(1040px, 1280px);
       height: auto;
 
-      animation: anime .7s ease-out;
+      animation-name: fadeOut;
+      animation-duration: 0.7s;
+      animation-timing-function: ease-out;
 
-      @keyframes anime {
+      @keyframes fadeIn {
         0% {
           transform: translateY(100%);
           opacity: 0;
@@ -124,5 +126,14 @@ $width: responsive-width(pc);
         width: 720px;
       }
     }
+  }
+
+  &_bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: auto-clamp(880px, 1200px);
+    z-index: -1;
   }
 }

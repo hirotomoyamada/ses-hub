@@ -10,9 +10,7 @@ import { Header } from "../../components/header/Header";
 
 import { Outputs } from "./components/outputs/Outputs";
 import { Select } from "./components/select/Select";
-import { Main } from "./components/main/Main";
-
-import { Fetch } from "../../components/load/Load";
+import { List as Main } from "../../features/post/list/List";
 
 export const List = (props) => {
   const dispatch = useDispatch();
@@ -36,7 +34,7 @@ export const List = (props) => {
             ? index
             : "matters"
           : list === "outputs"
-          ? index !== "companys"
+          ? index !== "companys" && index !== "persons"
             ? index
             : "matters"
           : list === "entries" && index !== "companys"
@@ -55,7 +53,7 @@ export const List = (props) => {
             ? index
             : "matters"
           : list === "outputs"
-          ? index !== "companys"
+          ? index !== "companys" && index !== "persons"
             ? index
             : "matters"
           : list === "entries" && index !== "companys"
@@ -68,9 +66,10 @@ export const List = (props) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    index === "companys" && dispatch(rootSlice.handleIndex("matters"));
+    (index === "companys" || (list === "outputs" && index === "persons")) &&
+      dispatch(rootSlice.handleIndex("matters"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [list]);
 
   useEffect(() => {
     if (
@@ -159,14 +158,12 @@ export const List = (props) => {
 
   return (
     <div>
-      <Fetch />
-
-      <Header index={index} outputs={outputs} />
+      <Header index={index} user={user} outputs={outputs} />
 
       <Main
         index={index}
         user={user}
-        list={list}
+        type={list}
         posts={posts}
         hit={hit}
         outputs={outputs}

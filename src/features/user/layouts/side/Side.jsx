@@ -5,8 +5,7 @@ import { useRef } from "react";
 import { Header } from "../../../../components/header/Header";
 import { Toggle } from "./components/Toggle";
 import { Sort } from "./components/Sort";
-import { List } from "./components/List";
-import { Fetch } from "../../../../components/load/Load";
+import { List } from "../../../post/list/List";
 
 export const Side = ({
   index,
@@ -24,15 +23,22 @@ export const Side = ({
 
   return (
     <div>
-      <Header
-        index={index}
-        uid={uid}
-        user={currentUser}
-        side={side}
-        main={main}
-      />
+      {index !== "persons" && (
+        <Header
+          index={index}
+          uid={uid}
+          user={currentUser}
+          side={side}
+          main={main}
+        />
+      )}
 
-      <div className={`${styles.side} ${!open && styles.side_open}`} ref={side}>
+      <div
+        className={`${styles.side} ${open && styles.side_open} ${
+          index === "persons" && styles.side_bests
+        }`}
+        ref={side}
+      >
         <Toggle setOpen={setOpen} open={open} />
 
         <Sort uid={uid} user={currentUser} sort={sort} index={index} />
@@ -40,14 +46,13 @@ export const Side = ({
         <List
           index={index}
           user={user}
-          currentUser={currentUser}
           posts={posts}
           hit={hit}
           sort={sort}
           open={open}
+          bests={index === "persons" && true}
+          companys
         />
-
-        <Fetch user />
       </div>
     </div>
   );

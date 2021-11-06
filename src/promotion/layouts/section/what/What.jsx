@@ -1,5 +1,5 @@
-import styles from "./What.module.scss";
 import root from "../Section.module.scss";
+import styles from "./What.module.scss";
 
 export const What = () => {
   return (

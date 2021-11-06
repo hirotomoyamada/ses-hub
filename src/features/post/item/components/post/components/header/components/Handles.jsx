@@ -8,7 +8,7 @@ export const Handles = ({ post }) => {
         handles.map(
           (handle, index) =>
             handle &&
-            index < 3 && (
+            index < 5 && (
               <div className={styles.header_tags_tag} key={index}>
                 <h3 className={styles.header_tags_tag_txt}>{handle}</h3>
               </div>

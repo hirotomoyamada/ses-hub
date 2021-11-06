@@ -1,5 +1,5 @@
 export const resetPost = (state, action) => {
-  if (action.type !== "user/showUser/pending") {
+  if (action.type !== "user/fetchUser/pending") {
     if (action.payload) {
       if (action.payload !== "post") {
         if (Object.keys(state.post).length) {
@@ -27,6 +27,8 @@ export const resetPost = (state, action) => {
     state.selectUser.matters.hit.currentPage = 0;
     state.selectUser.resources.posts = [];
     state.selectUser.resources.hit.currentPage = 0;
+
+    state.bests = [];
   }
 };
 

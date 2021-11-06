@@ -16,6 +16,7 @@ import { Demo } from "./components/demo/Demo";
 import { Agree } from "./components/agree/Agree";
 import { Delete } from "./components/delete/Delete";
 import { Advertise } from "./components/advertise/Advertise";
+import { Request } from "./components/request/Request";
 
 export const Modal = () => {
   const dispatch = useDispatch();
@@ -27,23 +28,27 @@ export const Modal = () => {
   const location = useLocation();
 
   useEffect(() => {
-    location?.pathname === "/asct" && location?.pathname === "/terms"
+    location?.pathname === "/asct" || location?.pathname === "/terms"
       ? document.body.classList.remove("lock")
-      : modal.open && document.body.classList.add("lock");
+      : modal.open
+      ? document.body.classList.add("lock")
+      : document.body.classList.remove("lock");
   }, [location, modal.open]);
 
   const Inner = () => {
     switch (modal.type) {
       case "agree":
-        return <Agree user={user} />;
+        return <Agree />;
       case "advertise":
         return <Advertise user={user} handleClose={handleClose} />;
       case "demo":
-        return <Demo user={user} handleClose={handleClose} />;
+        return <Demo handleClose={handleClose} />;
       case "info":
-        return <Information user={user} handleClose={handleClose} />;
+        return <Information handleClose={handleClose} />;
       case "home":
         return <Home user={user} handleClose={handleClose} />;
+      case "request":
+        return <Request user={user} handleClose={handleClose} />;
       case "entry":
         return (
           <Entry
@@ -91,7 +96,7 @@ export const Modal = () => {
       <div className={styles.overlay}></div>
       <div
         className={`${styles.modal} ${
-          modal.type !== "home" && styles.modal_sp
+          modal.type !== "home" && modal.type !== "delete" && styles.modal_sp
         }`}
       >
         <Inner />

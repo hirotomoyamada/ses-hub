@@ -36,6 +36,7 @@ exports.enableRequest = require("./users/request").enableRequest;
 exports.disableRequest = require("./users/request").disableRequest;
 
 // 投稿
+exports.promotionPosts = require("./posts/promotionPosts").promotionPosts;
 exports.fetchPosts = require("./posts/fetchPosts").fetchPosts;
 exports.homePosts = require("./posts/homePosts").homePosts;
 exports.extractPosts = require("./posts/extractPosts").extractPosts;

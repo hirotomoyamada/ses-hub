@@ -23,7 +23,7 @@ $width: responsive-width(pc);
     width: auto-clamp(720px, 800px);
     margin: 0 auto;
     padding: 32px;
-    height: 100vh;
+    height: $innerHeight;
     overflow-y: scroll;
 
     @media print {

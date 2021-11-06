@@ -6,14 +6,18 @@ export const createProfile = createAsyncThunk(
   async (data) => {
     const createProfile = functions.httpsCallable("sh-createProfile");
 
-    createProfile(data)
+    const error = await createProfile(data)
       .then(async ({ data }) => {
         await auth.currentUser
           .updateProfile({
-            displayName: data.profile.person,
+            displayName: data.displayName,
           })
           .catch((e) => {});
       })
-      .catch((e) => {});
+      .catch((e) => {
+        return e.message;
+      });
+
+    return error;
   }
 );

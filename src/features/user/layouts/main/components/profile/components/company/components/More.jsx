@@ -1,4 +1,4 @@
-import styles from "../../../Profile.module.scss";
+import styles from "../Company.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
@@ -6,13 +6,10 @@ import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 export const More = ({ user }) => {
   return user?.profile?.more?.[0] || user?.profile?.region?.[0] ? (
     <div className={styles.profile_field}>
-      <FontAwesomeIcon
-        icon={faThumbsUp}
-        className={styles.profile_icon}
-      />
+      <FontAwesomeIcon icon={faThumbsUp} className={styles.profile_icon} />
 
       <p className={styles.profile_address}>
-        私は、
+        {user?.type !== "corporate" ? "私は" : "弊社は"}、
         {user?.profile?.more[0] && (
           <span className={styles.profile_postal}>
             {user?.profile?.more}

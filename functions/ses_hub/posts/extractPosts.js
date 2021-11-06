@@ -17,7 +17,9 @@ exports.extractPosts = functions
       index: data.index,
     });
 
-    const { posts, hit } = await fetchAlgolia(context, data, status);
+    const demo = checkDemo(context);
+
+    const { posts, hit } = await fetchAlgolia(context, data, status, demo);
 
     posts.length &&
       (data.index === "companys" || data.index === "persons") &&
@@ -26,7 +28,7 @@ exports.extractPosts = functions
     return { index: data.index, posts: posts, hit: hit };
   });
 
-const fetchAlgolia = async (context, data, status) => {
+const fetchAlgolia = async (context, data, status, demo) => {
   const index = algolia.initIndex(data.index);
 
   const objectIDs = data.objectIDs;
@@ -66,7 +68,7 @@ const fetchAlgolia = async (context, data, status) => {
             data.index === "companys" &&
             hit.status === "enable" &&
             status
-          ? fetch.companys({ hit: hit })
+          ? fetch.companys({ hit: hit, demo: demo })
           : hit &&
             data.index === "persons" &&
             hit.status === "enable" &&
@@ -97,6 +99,10 @@ const fetchFirestore = async (context, data, posts) => {
             if (doc.data().profile.nickName || data.index === "companys") {
               posts[i].icon = doc.data().icon;
 
+              if (data.index === "companys") {
+                posts[i].type = doc.data().type;
+              }
+
               if (data.index === "persons") {
                 posts[i].request =
                   doc.data().requests?.enable?.indexOf(context.auth.uid) >= 0
@@ -121,4 +127,8 @@ const fetchFirestore = async (context, data, posts) => {
           );
         }));
   }
+};
+
+const checkDemo = (context) => {
+  return context.auth.uid === functions.config().demo.ses_hub.uid;
 };

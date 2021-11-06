@@ -9,13 +9,14 @@ import { addLike, removeLike } from "./like";
 import { addOutput, removeOutput } from "./output";
 import { addEntry } from "./entry";
 import { addFollow, removeFollow } from "./follow";
+import { addRequest } from "./request";
 
 import { promotionPosts } from "./promotionPosts";
 import { fetchPosts } from "./fetchPosts";
-import { followsPosts } from "./followsPosts";
+import { homePosts } from "./homePosts";
 import { userPosts } from "./userPosts";
 import { extractPosts } from "./extractPosts";
-import { showPost } from "./showPost";
+import { fetchPost } from "./fetchPost";
 
 export {
   selectPost,
@@ -31,10 +32,11 @@ export {
   addEntry,
   addFollow,
   removeFollow,
+  addRequest,
   promotionPosts,
   fetchPosts,
-  followsPosts,
+  homePosts,
   userPosts,
   extractPosts,
-  showPost,
+  fetchPost,
 };

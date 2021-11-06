@@ -11,12 +11,12 @@ import * as userSlice from "../../features/user/userSlice";
 
 import { Header } from "../../components/header/Header";
 
-import { Password } from "./components/page/Password";
-import { Email } from "./components/page/Email";
-import { Create } from "./components/page/Create";
-import { Reset } from "./components/page/Reset";
-import { Delete } from "./components/page/Delete";
-import { Main } from "./components/main/Main";
+import { Password } from "./page/Password";
+import { Email } from "./page/Email";
+import { Create } from "./page/Create";
+import { Reset } from "./page/Reset";
+import { Delete } from "./page/Delete";
+import { Main } from "./page/main/Main";
 
 import * as functions from "../../features/user/functions/functions";
 

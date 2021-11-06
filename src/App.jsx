@@ -1,22 +1,16 @@
-import { useEffect, useState } from "react";
-
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { HelmetProvider } from "react-helmet-async";
-import { auth } from "./firebase";
-
-import { login } from "./features/user/actions/login";
-import * as rootSlice from "./features/root/rootSlice";
-import * as userSlice from "./features/user/userSlice";
 
 import { Meta } from "./Meta";
-import { Load } from "./components/load/Load";
+import * as load from "./components/load/Load";
 import { Announce } from "./components/announce/Announce";
+import { Modal } from "./components/modal/Modal";
+import { Menu } from "./components/menu/Menu";
 
 import { Home } from "./Home";
 import { Search } from "./Search";
-import { Post } from "./features/post/Post";
-import { User } from "./features/user/User";
+import { Page } from "./Page";
+
 import { Pay } from "./features/pay/Pay";
 
 import { Auth } from "./pages/auth/Auth";
@@ -28,69 +22,27 @@ import { HowTo } from "./pages/howTo/HowTo";
 import { Success } from "./pages/success/Success";
 import { NotFound } from "./pages/notFound/NotFound";
 import { Maintenance } from "./pages/maintenance/Maintenance";
+import { Contact } from "./pages/contact/Contact";
 
 import { Promotion } from "./promotion/Promotion";
-import { Contact } from "./promotion/pages/contact/Contact";
-import { Modal } from "./components/modal/Modal";
-import { Menu } from "./components/menu/Menu";
 
-const Branch = (props) => {
-  const dispatch = useDispatch();
-
-  const index = props.match.params.index;
-  const id = props.match.params.id;
-
-  index !== "matters" &&
-    index !== "resources" &&
-    index !== "companys" &&
-    index !== "persons" &&
-    dispatch(rootSlice.handleNotFound(true));
-
-  return index === "matters" || index === "resources" ? (
-    <Post index={index} objectID={id} />
-  ) : (
-    (index === "companys" || index === "persons") && (
-      <User type={index} uid={id} />
-    )
-  );
-};
+import { useApp } from "./hook/useApp";
 
 const App = () => {
-  const dispatch = useDispatch();
-
-  const user = useSelector(userSlice.user);
-  const access = useSelector(rootSlice.verified).access;
-  const notFound = useSelector(rootSlice.notFound);
-
-  const [browser, setBrowser] = useState(true);
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        dispatch(login(user));
-      } else {
-        auth.signOut();
-        dispatch(userSlice.logout());
-      }
-    });
-  }, [dispatch]);
-
-  useEffect(() => {
-    const agent = window.navigator.userAgent.toLowerCase();
-    if (agent.indexOf("msie") !== -1 || agent.indexOf("trident") !== -1) {
-      setBrowser(false);
-    }
-  }, []);
+  const [user, access, notFound, browser] = useApp();
 
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Meta />
+
         {notFound ? (
           <NotFound />
         ) : browser ? (
           <>
-            <Load />
+            <load.Root />
+            <load.Fetch />
+
             <Announce />
             <Modal />
             <Maintenance />
@@ -140,7 +92,7 @@ const App = () => {
 
                 <Route exact path="/:list" component={List} />
 
-                <Route exact path="/:index/:id" component={Branch} />
+                <Route exact path="/:index/:id" component={Page} />
 
                 <Route component={NotFound} />
               </Switch>

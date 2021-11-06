@@ -11,7 +11,7 @@ $width: responsive-width(pc);
   left: 0;
   z-index: 9999;
   width: 100vw;
-  height: 100vh;
+  height: $innerHeight;
   background: $bg_clr;
 
   display: flex;

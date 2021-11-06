@@ -1,8 +1,8 @@
 const functions = require("firebase-functions");
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
-const send = require("../../sendgrid");
 
+const send = require("../../sendgrid").send;
 const body = require("../mail/body/users/create");
 
 exports.createUser = functions
@@ -28,6 +28,6 @@ exports.createUser = functions
       text: body.user(profile, url),
     };
 
-    await send.seshub(adminMail);
-    await send.seshub(userMail);
+    await send(adminMail);
+    await send(userMail);
   });

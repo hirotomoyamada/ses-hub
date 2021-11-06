@@ -22,6 +22,7 @@ export const Follow = ({ user, post, profile, select, selectUser }) => {
 
   return user?.uid !== post?.uid && !select ? (
     <button
+      type="button"
       onClick={handleFollow}
       className={`${styles.follow} ${follow && styles.follow_followed} ${
         profile && styles.follow_profile
@@ -31,6 +32,7 @@ export const Follow = ({ user, post, profile, select, selectUser }) => {
     </button>
   ) : (
     <button
+      type="button"
       onClick={() => selectUser(post.uid)}
       className={`${styles.follow} ${target && styles.follow_remove} ${
         !target && select.length >= 15 && styles.follow_disable

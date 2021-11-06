@@ -20,7 +20,7 @@ $width: responsive-width(pc);
   &_inner {
     margin: 0 auto;
     width: 720px;
-    min-height: 100vh;
+    min-height: $innerHeight;
     background: $base_clr;
 
     @media (max-width: responsive-width(tb)) {
@@ -51,11 +51,11 @@ $width: responsive-width(pc);
     display: flex;
     flex-direction: column;
     gap: 32px;
-    padding: 16px 0 32px;
+    padding: 32px 0;
 
     @media (max-width: responsive-width(sp)) {
       gap: 24px;
-      padding: 8px 0 24px;
+      padding: 24px 0;
     }
   }
 

@@ -6,35 +6,28 @@
 $width: responsive-width(pc);
 
 .icon {
-  padding: 0 56px;
-  height: 71vh;
+  padding: 0 32px 32px;
   overflow-y: scroll;
 
   @media (max-width: responsive-width(tb)) {
-    height: 100vh;
-    padding: 0 32px;
+    height: auto;
+    padding: 0 32px 32px;
   }
 
   @media (max-width: responsive-width(sp)) {
-    padding: 12px;
+    padding: 0 12px 12px;
   }
 
   &_inner {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 56px;
-
-    @media (max-width: responsive-width(miniPc)) {
-      gap: 32px;
-    }
+    gap: 32px;
 
     @media (max-width: responsive-width(miniPc)) {
       grid-template-columns: repeat(4, 1fr);
-      gap: 32px;
     }
 
     @media (max-width: responsive-width(sp)) {
-      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
     }
   }

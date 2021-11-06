@@ -1,0 +1,258 @@
+// サイト共有の初期設定
+@import "../../styles/config";
+@import "../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.contact {
+  background: $bg_clr;
+  overflow-x: hidden;
+  width: 100vw;
+  height: $innerHeight;
+
+  position: relative;
+
+  color: $main_clr;
+
+  @media (max-width: responsive-width(sp)) {
+    height: auto;
+  }
+
+  &_inner {
+    position: relative;
+    z-index: 1;
+    width: auto-clamp(560px, 720px);
+    margin: 0 auto;
+    padding: 64px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      width: 100vw;
+      padding: 32px 12px;
+      gap: 8px;
+    }
+  }
+
+  &_ttl {
+    margin-bottom: 32px;
+
+    color: $icn_clr;
+    font-size: 28px;
+    text-align: center;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 20px;
+    }
+  }
+
+  &_bg {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+
+    max-width: 480px;
+    opacity: 0.7;
+
+    @media (max-width: responsive-width(sp)) {
+      display: none;
+      width: 100%;
+
+      &_complete {
+        display: block;
+      }
+    }
+  }
+
+  &_form {
+    &_inner {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    &_item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    &_tag {
+      color: $icn_clr;
+
+      &_required {
+        color: $remove_clr;
+      }
+
+      &_verification {
+        color: $sub_clr;
+      }
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 14px;
+      }
+    }
+
+    &_input {
+      background: $base_clr;
+
+      width: 100%;
+      height: 48px;
+      border-radius: 8px;
+      padding: 8px 16px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 14px;
+        height: 40px;
+        padding: 4px 12px;
+      }
+
+      &_error {
+        border: 1px solid $remove_clr;
+      }
+    }
+
+    &_textarea {
+      background: $base_clr;
+      width: 100%;
+      height: 240px;
+      border-radius: 8px;
+      padding: 16px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 12px;
+        padding: 12px;
+      }
+
+      &_error {
+        border: 1px solid $remove_clr;
+      }
+    }
+
+    &_error {
+      display: block;
+      white-space: pre;
+      color: $sub_clr;
+      font-size: 12px;
+
+      &_submit {
+        text-align: center;
+        color: $remove_clr;
+      }
+
+      @media (max-width: responsive-width(sp)) {
+        margin-top: 4px;
+        font-size: 10px;
+      }
+    }
+
+    &_verification {
+      background: $base_clr;
+      width: 100%;
+      height: 48px;
+      border-radius: 8px;
+      padding: 0 16px;
+      line-height: 48px;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 14px;
+        height: 32px;
+        line-height: 32px;
+        padding: 0 12px;
+      }
+
+      &_textarea {
+        height: 240px;
+        padding: 16px;
+        line-height: 16px;
+        overflow-y: scroll;
+        white-space: pre-line;
+
+        @media (max-width: responsive-width(sp)) {
+          padding: 12px;
+          line-height: 14px;
+        }
+      }
+    }
+
+    &_desc {
+      font-size: 14px;
+      color: $icn_clr;
+      text-align: center;
+      line-height: 1.4;
+
+      @media (max-width: responsive-width(sp)) {
+        white-space: pre-line;
+        font-size: 12px;
+      }
+
+      span:after {
+        content: "\A\A";
+      }
+    }
+
+    &_btn {
+      margin-top: 32px;
+
+      width: 100%;
+      height: 48px;
+      border-radius: 8px;
+      text-align: center;
+      line-height: 48px;
+
+      background: $promo_clr;
+      color: $base_clr;
+
+      transition: all 0.4s;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      @media (max-width: responsive-width(sp)) {
+        margin-top: 0;
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+      }
+
+      &_link {
+        margin: 32px auto 0;
+      }
+
+      &_back {
+        background: $sub_clr;
+      }
+
+      &_disable {
+        background: $sub_clr;
+        pointer-events: none;
+      }
+    }
+
+    &_submit {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+  }
+
+  &_load {
+    position: fixed;
+    width: 100vw;
+    height: $innerHeight;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initialState";
 
 import { login } from "./actions/login";
-import { showUser } from "./actions/showUser";
+import { fetchUser } from "./actions/fetchUser";
 
 import * as reducers from "./reducers/redurces";
 
@@ -31,6 +31,7 @@ export const userSlice = createSlice({
     addEntry: (state, action) => reducers.addEntry(state, action),
     addFollow: (state, action) => reducers.addFollow(state, action),
     removeFollow: (state, action) => reducers.removeFollow(state, action),
+    addRequest: (state, action) => reducers.addRequest(state, action),
     updateHome: (state, action) => reducers.updateHome(state, action),
   },
 
@@ -39,8 +40,8 @@ export const userSlice = createSlice({
       reducers.login(state, action)
     );
 
-    builder.addCase(showUser.fulfilled, (state, action) =>
-      reducers.showUser(state, action)
+    builder.addCase(fetchUser.fulfilled, (state, action) =>
+      reducers.fetchUser(state, action)
     );
 
     builder.addMatcher(
@@ -73,6 +74,7 @@ export const {
   addEntry,
   addFollow,
   removeFollow,
+  addRequest,
   updateHome,
 } = userSlice.actions;
 

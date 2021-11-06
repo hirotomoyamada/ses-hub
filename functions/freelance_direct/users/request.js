@@ -1,6 +1,10 @@
 const functions = require("firebase-functions");
 const db = require("../../firebase").db;
+<<<<<<< HEAD
 const send = require("../../sendgrid");
+=======
+const send = require("../../sendgrid").send;
+>>>>>>> dev
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
@@ -48,7 +52,11 @@ const sendMail = async (context, data, nickName) => {
     }),
   };
 
+<<<<<<< HEAD
   await send.freelanceDirect(mail);
+=======
+  await send(mail);
+>>>>>>> dev
 };
 
 const fetchUser = async (uid) => {

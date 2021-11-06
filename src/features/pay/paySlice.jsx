@@ -13,7 +13,8 @@ export const paySlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      state.products = action.payload.products;
+      state.products.plan = action.payload.products.plan;
+      state.products.option = action.payload.products.option;
       state.tax = action.payload.tax;
     });
   },

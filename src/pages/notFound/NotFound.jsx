@@ -1,10 +1,13 @@
 import styles from "./NotFound.module.scss";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useScrollController } from "../../hook/useScrollController";
 
 import * as rootSlice from "../../features/root/rootSlice";
 
 export const NotFound = () => {
+  useScrollController();
+
   const dispatch = useDispatch();
   const history = useHistory();
 

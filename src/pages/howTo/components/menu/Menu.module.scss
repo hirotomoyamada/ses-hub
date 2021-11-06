@@ -6,11 +6,16 @@
 $width: responsive-width(pc);
 
 .menu {
-  margin-bottom: 16px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 8px;
+
+  margin-top: 4px;
+
+  @media (max-width: responsive-width(tb)) {
+    margin-top: 0;
+  }
 
   &_btn {
     border: 1px solid $sub_clr;

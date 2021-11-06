@@ -1,9 +1,12 @@
 import styles from "./Success.module.scss";
 
 import { db } from "../../firebase";
+
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+import { useScrollController } from "../../hook/useScrollController";
+
 import * as userSlice from "../../features/user/userSlice";
 
 import { Header } from "./components/Header";
@@ -11,6 +14,8 @@ import { Main } from "./components/Main";
 import { Footer } from "./components/Footer";
 
 export const Success = () => {
+  useScrollController();
+
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(userSlice.user);

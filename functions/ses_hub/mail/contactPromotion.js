@@ -1,15 +1,15 @@
 const functions = require("firebase-functions");
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
-const send = require("../../sendgrid");
 
+const send = require("../../sendgrid").send;
 const body = require("./body/promotion/promotion");
 
 exports.contactPromotion = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    const url = `${process.env.REACT_APP_URL}`;
+    const url = functions.config().app.ses_hub.url;
 
     const adminMail = {
       to: functions.config().admin.ses_hub,
@@ -25,6 +25,6 @@ exports.contactPromotion = functions
       text: body.user(data, url),
     };
 
-    await send.seshub(adminMail);
-    await send.seshub(userMail);
+    await send(adminMail);
+    await send(userMail);
   });

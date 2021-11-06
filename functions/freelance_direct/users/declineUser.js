@@ -1,7 +1,11 @@
 const functions = require("firebase-functions");
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
+<<<<<<< HEAD
 const send = require("../../sendgrid");
+=======
+const send = require("../../sendgrid").send;
+>>>>>>> dev
 
 const body = require("../mail/body/users/decline");
 
@@ -23,6 +27,6 @@ exports.declineUser = functions
     };
 
     if (beforeStatus === "hold" && afterStatus === "disable") {
-      await send.freelanceDirect(userMail);
+      await send(userMail);
     }
   });

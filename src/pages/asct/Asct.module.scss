@@ -7,7 +7,7 @@ $width: responsive-width(pc);
 
 .asct {
   background: $base_clr;
-  min-height: 100vh;
+  min-height: $innerHeight;
   color: $main_clr;
   line-height: 1.6;
 

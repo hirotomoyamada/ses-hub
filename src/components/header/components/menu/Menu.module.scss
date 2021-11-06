@@ -10,8 +10,12 @@ $width: responsive-width(pc);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 
-  &_search {
+  &_triangle {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  &_over {
+    grid-template-columns: repeat(4, 1fr);
   }
 
   &_btn {
@@ -37,7 +41,12 @@ $width: responsive-width(pc);
   }
 
   &_outputs {
+    height: 48px;
     grid-template-columns: repeat(1, 1fr);
+
+    @media (max-width: responsive-width(sp)) {
+      height: 32px;
+    }
 
     &_txt {
       background: $add_clr;

@@ -6,10 +6,14 @@ import { Position } from "./components/Position";
 import { Address } from "./components/Address";
 import { Tel } from "./components/Tel";
 import { Agree } from "./components/Agree";
+import { Type } from "./components/Type";
 
-export const Create = ({ handleLogout, setTerms }) => {
+export const Create = ({ inner, handleLogout, setTerms, resize }) => {
   return (
-    <div className={root.auth_inner}>
+    <div
+      className={`${root.auth_inner} ${resize && root.auth_inner_resize}`}
+      ref={inner}
+    >
       <button
         type="button"
         className={`${root.auth_desc} ${root.auth_desc_logout}`}
@@ -17,6 +21,7 @@ export const Create = ({ handleLogout, setTerms }) => {
       >
         ログイン画面に戻る
       </button>
+      <Type />
       <Name />
       <Person />
       <Position />

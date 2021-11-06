@@ -18,9 +18,15 @@ exports.extractPosts = functions
       );
     }
 
-    const index = algolia.initIndex(data.index);
+    const index = algolia.initIndex(
+      data.type !== "requests" ? data.index : "companys"
+    );
     const objectIDs =
-      data.type === "follows"
+      data.user.index === "companys"
+        ? data.type === "follows"
+          ? data.user[data.type]
+          : data.user[data.type][data.index]
+        : data.user.index === "persons" && data.type !== "requests"
         ? data.user[data.type]
         : data.user[data.type][data.index];
     const hitsPerPage = 50;
@@ -29,6 +35,7 @@ exports.extractPosts = functions
       pages: Math.ceil(objectIDs.length / 50),
       currentPage: data.page ? data.page : 0,
     };
+
     const posts = await index
       .getObjects(
         objectIDs.slice(
@@ -42,7 +49,7 @@ exports.extractPosts = functions
             ? fetch.matters({ hit: hit })
             : hit && data.index === "resources"
             ? fetch.resources({ hit: hit })
-            : hit && data.index === "companys"
+            : hit && (data.type === "requests" || data.index === "companys")
             ? fetch.companys({ hit: hit })
             : hit && data.index === "persons" && fetch.persons({ hit: hit })
         );
@@ -56,17 +63,19 @@ exports.extractPosts = functions
         );
       });
     if (
-      (data.index === "companys" || data.index === "persons") &&
+      (data.type === "requests" ||
+        data.index === "companys" ||
+        data.index === "persons") &&
       posts.length
     ) {
       for (let i = 0; i < posts.length; i++) {
         await db
-          .collection(data.index)
+          .collection(data.type !== "requests" ? data.index : "companys")
           .doc(posts[i].uid)
           .get()
           .then((doc) => {
             if (doc.exists) {
-              if (data.index === "companys") {
+              if (data.type === "requests" || data.index === "companys") {
                 fetch.companys({ posts: posts, index: i, doc: doc });
               }
               if (data.index === "persons") {

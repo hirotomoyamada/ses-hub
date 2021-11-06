@@ -8,12 +8,12 @@
   <g id="l5gtY9QkAemkF0ofcSc0Lw6">
     <style>
       path {
-        fill: #141414 <!-- ライトモード時のカラー -->
+        fill: #49b657; <!-- ライトモード時のカラー -->
       }
 
       @media (prefers-color-scheme: dark) {
         path {
-            fill: #FFF;
+            fill: #80cc89; <!-- ダークモード時のカラー -->
         }
       }
     </style>
