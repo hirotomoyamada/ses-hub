@@ -31,8 +31,8 @@ exports.companys = ({ hit, doc, demo, none }) => {
       icon: doc.data().icon,
       type: doc.data().type,
       profile: {
-        name: !demo ? hit.name : dummy("name"),
-        person: !demo ? hit.person : dummy("person"),
+        name: !demo ? doc.data().profile.name : dummy("name"),
+        person: !demo ? doc.data().profile.person : dummy("person"),
         body: doc.data().profile.body,
         email: !demo ? doc.data().profile.email : null,
         social: !demo ? doc.data().profile.social : {},

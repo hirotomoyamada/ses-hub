@@ -17,7 +17,7 @@ exports.fetchPost = functions
 
     const post = await fetchAlgolia(data, status, demo);
     const bests = await fetchBests(status, post);
-    
+
     !demo && (await addHistory(context, data));
 
     return { post: post, bests: bests };
