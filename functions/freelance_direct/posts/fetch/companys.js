@@ -7,8 +7,16 @@ exports.companys = ({ hit, doc, demo, none }) => {
     return {
       uid: hit.objectID,
       profile: {
-        name: !demo ? hit.name : dummy("name"),
-        person: !demo ? hit.person : dummy("person"),
+        name: !demo
+          ? hit.objectID !== functions.config().demo.freelance_direct.uid
+            ? hit.name
+            : "Hit me up株式会社"
+          : dummy("name"),
+        person: !demo
+          ? hit.objectID !== functions.config().demo.freelance_direct.uid
+            ? hit.person
+            : "羽生太郎"
+          : dummy("person"),
         body: hit.body,
       },
     };
@@ -31,8 +39,16 @@ exports.companys = ({ hit, doc, demo, none }) => {
       icon: doc.data().icon,
       type: doc.data().type,
       profile: {
-        name: !demo ? doc.data().profile.name : dummy("name"),
-        person: !demo ? doc.data().profile.person : dummy("person"),
+        name: !demo
+          ? doc.id !== functions.config().demo.freelance_direct.uid
+            ? doc.data().profile.name
+            : "Hit me up株式会社"
+          : dummy("name"),
+        person: !demo
+          ? doc.id !== functions.config().demo.freelance_direct.uid
+            ? doc.data().profile.person
+            : "羽生太郎"
+          : dummy("person"),
         body: doc.data().profile.body,
         email: !demo ? doc.data().profile.email : null,
         social: !demo ? doc.data().profile.social : {},
