@@ -76,7 +76,7 @@ exports.persons = ({ context, data, file, create, doc }) => {
         },
         follows: [],
         home: [],
-        history: [],
+        histories: [],
 
         createAt: timestamp,
         lastLogin: timestamp,

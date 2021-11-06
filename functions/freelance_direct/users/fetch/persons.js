@@ -14,7 +14,7 @@ exports.persons = ({ context, doc, data }) => {
     resume: doc.data().resume,
     follows: doc.data().follows,
     home: doc.data().home,
-    history: doc.data().history,
+    histories: doc.data().histories,
     createAt: doc.data().createAt,
     updateAt: doc.data().updateAt,
   };
