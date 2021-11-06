@@ -16,14 +16,10 @@ exports.fetchPosts = functions
       context: context,
       index: data.index,
     });
-<<<<<<< HEAD
 
-    const { posts, hit } = await fetchAlgolia(context, data, status);
-=======
     const demo = checkDemo(context);
 
     const { posts, hit } = await fetchAlgolia(context, data, status, demo);
->>>>>>> dev
 
     (data.index === "companys" || data.index === "persons") &&
       (await fetchFirestore(context, data, posts));
@@ -31,76 +27,12 @@ exports.fetchPosts = functions
     return { index: data.index, posts: posts, hit: hit };
   });
 
-<<<<<<< HEAD
-const fetchAlgolia = async (context, data, status) => {
-=======
 const fetchAlgolia = async (context, data, status, demo) => {
->>>>>>> dev
   const index = algolia.initIndex(
     !data.target || data.target === "createAt"
       ? data.index
       : `${data.index}_${data.target}_${data.type}`
   );
-<<<<<<< HEAD
-
-  const hit = {
-    currentPage: data.page ? data.page : 0,
-  };
-
-  const posts = await index
-    .search(
-      data.value,
-      data.index === "matters" || data.index === "resources"
-        ? {
-            filters: "display:public",
-            page: hit.currentPage,
-          }
-        : (data.index === "companys" || data.index === "persons") && {
-            filters: "status:enable",
-            page: hit.currentPage,
-          }
-    )
-    .then((result) => {
-      hit.posts = result.nbHits;
-      hit.pages = result.nbPages;
-      return result.hits.map((hit) =>
-        data.index === "matters" && hit.uid === context.auth.uid
-          ? fetch.matters({ hit: hit, auth: true })
-          : data.index === "matters" && status
-          ? fetch.matters({ hit: hit })
-          : data.index === "resources" && hit.uid === context.auth.uid
-          ? fetch.resources({ hit: hit, auth: true })
-          : data.index === "resources" && status
-          ? fetch.resources({ hit: hit })
-          : data.index === "companys" && status
-          ? fetch.companys({ hit: hit })
-          : data.index === "persons" && status && fetch.persons({ hit: hit })
-      );
-    })
-    .catch((e) => {
-      throw new functions.https.HttpsError(
-        "not-found",
-        "投稿の取得に失敗しました",
-        "algolia"
-      );
-    });
-
-  return { posts, hit };
-};
-
-const fetchFirestore = async (context, data, posts) => {
-  for (let i = 0; i < posts.length; i++) {
-    posts[i] &&
-      (await db
-        .collection(data.index)
-        .doc(posts[i].uid)
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            if (doc.data().profile.nickName || data.index === "companys") {
-              posts[i].icon = doc.data().icon;
-
-=======
 
   const hit = {
     currentPage: data.page ? data.page : 0,
@@ -163,7 +95,6 @@ const fetchFirestore = async (context, data, posts) => {
                 posts[i].type = doc.data().type;
               }
 
->>>>>>> dev
               if (data.index === "persons") {
                 posts[i].request =
                   doc.data().requests?.enable?.indexOf(context.auth.uid) >= 0
@@ -191,10 +122,7 @@ const fetchFirestore = async (context, data, posts) => {
 
   return;
 };
-<<<<<<< HEAD
-=======
 
 const checkDemo = (context) => {
   return context.auth.uid === functions.config().demo.ses_hub.uid;
 };
->>>>>>> dev
