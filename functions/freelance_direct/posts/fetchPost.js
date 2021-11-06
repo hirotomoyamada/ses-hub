@@ -13,22 +13,12 @@ exports.fetchPost = functions
   .runWith(runtime)
   .https.onCall(async (data, context) => {
     const status = await userAuthenticated(context);
-<<<<<<< HEAD
-    const demo =
-      context.auth.uid === functions.config().demo.freelance_direct.uid;
-=======
     const demo = checkDemo(context);
->>>>>>> dev
 
     const post = await fetchAlgolia(data, status, demo);
-
     const bests = await fetchBests(status, post);
-
-<<<<<<< HEAD
-    await addHistory(context, data);
-=======
+    
     !demo && (await addHistory(context, data));
->>>>>>> dev
 
     return { post: post, bests: bests };
   });
@@ -163,10 +153,7 @@ const addHistory = async (context, data) => {
       }
     });
 };
-<<<<<<< HEAD
-=======
 
 const checkDemo = (context) => {
   return context.auth.uid === functions.config().demo.freelance_direct.uid;
 };
->>>>>>> dev

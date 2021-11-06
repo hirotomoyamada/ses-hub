@@ -16,24 +16,14 @@ exports.homePosts = functions
     const status = await userAuthenticated(context);
     const demo = checkDemo(context);
 
-<<<<<<< HEAD
-    const { posts, hit } = await fetchAlgolia(context, data, status);
-
-    posts.length && (await fetchFirestore(data, posts));
-=======
     const { posts, hit } = await fetchAlgolia(context, data, status, demo);
 
     posts.length && (await fetchFirestore(data, posts, demo));
->>>>>>> dev
 
     return { index: data.index, posts: posts, hit: hit };
   });
 
-<<<<<<< HEAD
-const fetchAlgolia = async (context, data, status) => {
-=======
 const fetchAlgolia = async (context, data, status, demo) => {
->>>>>>> dev
   const index = algolia.initIndex(data.index);
   const value =
     data.index === "matters" && [context.auth.uid, ...data.follows].join(" ");
@@ -87,11 +77,7 @@ const fetchAlgolia = async (context, data, status, demo) => {
                 hit &&
                 hit.status === "enable" &&
                 status &&
-<<<<<<< HEAD
-                fetch.companys({ hit: hit })
-=======
                 fetch.companys({ hit: hit, demo: demo })
->>>>>>> dev
             );
           })
           .catch((e) => {
@@ -104,59 +90,6 @@ const fetchAlgolia = async (context, data, status, demo) => {
 
   return { posts, hit };
 };
-<<<<<<< HEAD
-
-const fetchFirestore = async (data, posts) => {
-  for (let i = 0; i < posts.length; i++) {
-    posts[i] &&
-      (await db
-        .collection("companys")
-        .doc(posts[i].uid)
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            if (data.index === "matters") {
-              if (
-                doc.data().payment.status === "canceled" ||
-                !doc.data().payment.option?.freelanceDirect
-              ) {
-                posts[i].user = {
-                  name: null,
-                  person: "存在しないユーザー",
-                };
-              } else {
-                posts[i].user = {
-                  name: doc.data().profile.name,
-                  person: doc.data().profile.person,
-                };
-              }
-            } else {
-              if (
-                doc.data().payment.status === "canceled" ||
-                !doc.data().payment.option?.freelanceDirect
-              ) {
-                posts[i].icon = "none";
-                posts[i].status = "none";
-                posts[i].profile = {
-                  name: null,
-                  person: "存在しないユーザー",
-                  body: null,
-                };
-              } else {
-                posts[i].icon = doc.data().icon;
-              }
-            }
-          }
-        })
-        .catch((e) => {
-          throw new functions.https.HttpsError(
-            "not-found",
-            "ユーザーの取得に失敗しました",
-            "firebase"
-          );
-        }));
-  }
-=======
 
 const fetchFirestore = async (data, posts, demo) => {
   for (let i = 0; i < posts.length; i++) {
@@ -216,5 +149,4 @@ const fetchFirestore = async (data, posts, demo) => {
 
 const checkDemo = (context) => {
   return context.auth.uid === functions.config().demo.freelance_direct.uid;
->>>>>>> dev
 };
