@@ -15,7 +15,6 @@ export const Plan = ({
   handlePortal,
   demo,
 }) => {
-  console.log(type);
   return (
     <button
       type="button"
