@@ -1,7 +1,7 @@
 import styles from "../Header.module.scss";
 
 export const Title = ({ post }) => {
-  const newPost = post?.createAt > Date.now() - 6000 * 600 * 24 * 3;
+  const newPost = post?.createAt > Date.now() - 60 * 60 * 24 * 3 * 1000;
 
   return post?.title ? (
     <h1 className={styles.header_ttl}>

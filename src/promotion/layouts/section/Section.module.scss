@@ -42,4 +42,34 @@ $width: responsive-width(pc);
       }
     }
   }
+
+  &_desc {
+    text-align: center;
+    color: $sub_clr;
+  }
+}
+
+.article {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 16px;
+
+  @media (max-width: responsive-width(sp)) {
+    padding: 0;
+  }
+
+  &_inner {
+    position: relative;
+  }
+
+  &_ttl {
+    font-size: 32px;
+
+    font-weight: bold;
+    text-align: center;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 22px;
+    }
+  }
 }

@@ -9,7 +9,7 @@ $width: responsive-width(pc);
   color: $main_clr;
   background: $base_clr;
   width: 100vw;
-  min-height: 100vh;
+  min-height: $innerHeight;
   position: relative;
 
   display: grid;
@@ -21,7 +21,6 @@ $width: responsive-width(pc);
   }
 
   @media (max-width: responsive-width(sp)) {
-    align-items: flex-start;
     grid-template-rows: 48px 1fr;
   }
 
@@ -38,25 +37,12 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(tb)) {
       width: 100vw;
       margin: 0;
-      padding: 0 12px 24px;
+      padding: 24px 12px;
     }
 
     @media (max-width: responsive-width(sp)) {
-      padding-top: 24px;
       gap: 12px;
       font-size: 14px;
-    }
-
-    &_other {
-      padding-top: 0;
-      & > :not(:last-child) {
-        padding-top: 24px;
-        border-top: 1px solid $bdr_clr;
-
-        @media (max-width: responsive-width(sp)) {
-          padding-top: 12px;
-        }
-      }
     }
   }
 

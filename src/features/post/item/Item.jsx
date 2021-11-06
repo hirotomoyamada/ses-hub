@@ -1,7 +1,5 @@
 import styles from "./Item.module.scss";
 
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -12,6 +10,7 @@ import { User } from "./components/user/User";
 import { Menu } from "../menu/Menu";
 
 import { Follow } from "../../../components/follow/Follow";
+import { Outputs } from "./components/Outputs";
 
 export const Item = ({
   index,
@@ -22,32 +21,24 @@ export const Item = ({
   outputs,
   handleSelect,
   handleCancel,
-  search,
   select,
   selectUser,
-  companys,
-  persons,
-  home,
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handlePost = () => {
-    search && dispatch(rootSlice.handleSearch({ control: true }));
-    history.push(`/${index}/${post.objectID}`);
-  };
-
-  const handleUser = () => {
-    search && dispatch(rootSlice.handleSearch({ control: true }));
-    companys
-      ? history.push(`/companys/${post.uid}`)
-      : persons && history.push(`/persons/${post.uid}`);
-    index === "companys" && dispatch(rootSlice.handleIndex("matters"));
+  const handleOpen = () => {
+    dispatch(rootSlice.handleSearch({ control: true }));
+    history.push(
+      `/${index}/${
+        index === "matters" || index === "resources" ? post.objectID : post.uid
+      }`
+    );
   };
 
   return !outputs?.length ? (
     <div className={styles.item_outer}>
-      {!companys ? (
+      {index !== "companys" && !select ? (
         <Menu index={index} post={post} user={user} postItem />
       ) : (
         post.uid !== user.uid && (
@@ -59,8 +50,9 @@ export const Item = ({
           />
         )
       )}
-      {!companys ? (
-        <button type="button" onClick={handlePost} className={styles.item_btn}>
+
+      {index === "matters" || index === "resources" ? (
+        <button type="button" onClick={handleOpen} className={styles.item_btn}>
           <article className={styles.item}>
             <Post
               index={index}
@@ -74,55 +66,23 @@ export const Item = ({
       ) : (
         <button
           type="button"
-          onClick={handleUser}
-          className={`${styles.item_btn} ${home && styles.item_btn_disable}`}
+          onClick={handleOpen}
+          className={`${styles.item_btn} ${select && styles.item_btn_disable}`}
         >
-          <article className={`${styles.item} ${home && styles.item_home}`}>
-            <User post={post} user={user} />
+          <article className={`${styles.item} ${select && styles.item_select}`}>
+            <User index={index} post={post} />
           </article>
         </button>
       )}
     </div>
   ) : (
-    <button
-      className={styles.item_btn}
-      type="button"
-      onClick={() =>
-        outputs[0]
-          ? outputs.map((output) =>
-              output.objectID !== post.objectID
-                ? handleSelect({ post })
-                : handleCancel(post.objectID)
-            )
-          : handleSelect({ post })
-      }
-    >
-      {outputs.map(
-        (output) =>
-          output.objectID === post.objectID && (
-            <CheckCircleIcon
-              key={output.objectID}
-              className={styles.item_outputs_icon}
-            />
-          )
-      )}
-      <article
-        className={`${styles.item} ${outputs
-          .map(
-            (output) => output.objectID === post.objectID && styles.item_outputs
-          )
-          .join(" ")}`}
-      >
-        <div className={styles.item_inner}>
-          <Post
-            index={index}
-            post={post}
-            user={user}
-            status={status}
-            display={display}
-          />
-        </div>
-      </article>
-    </button>
+    <Outputs
+      index={index}
+      post={post}
+      user={user}
+      outputs={outputs}
+      handleSelect={handleSelect}
+      handleCancel={handleCancel}
+    />
   );
 };

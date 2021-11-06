@@ -4,11 +4,19 @@ export const Menu = ({ index, uid, user, handleIndex, page, outputs }) => {
   return !outputs?.length ? (
     <div
       className={`${styles.menu} ${
-        ((page === "search" && user?.payment?.status !== "canceled") ||
-          (page === "user" &&
+        page === "search"
+          ? user?.payment?.status !== "canceled" &&
+            user?.payment?.option?.freelanceDirect
+            ? styles.menu_over
+            : user?.payment?.status !== "canceled" && styles.menu_triangle
+          : (page === "likes" || page === "entries") &&
+            user?.payment?.status !== "canceled" &&
+            user?.payment?.option?.freelanceDirect
+          ? styles.menu_triangle
+          : page === "user" &&
             user?.uid === uid &&
-            user?.payment?.status !== "canceled")) &&
-        styles.menu_search
+            user?.payment?.status !== "canceled" &&
+            styles.menu_triangle
       }`}
     >
       <button
@@ -28,6 +36,19 @@ export const Menu = ({ index, uid, user, handleIndex, page, outputs }) => {
       >
         人材
       </button>
+
+      {(page === "search" || page === "likes" || page === "entries") &&
+        user?.payment?.status !== "canceled" &&
+        user?.payment?.option?.freelanceDirect && (
+          <button
+            onClick={() => handleIndex("persons")}
+            className={`${styles.menu_btn} ${
+              index === "persons" && styles.menu_btn_active
+            }`}
+          >
+            フリーランス
+          </button>
+        )}
 
       {((page === "search" && user?.payment?.status !== "canceled") ||
         (page === "user" &&

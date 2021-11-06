@@ -11,18 +11,38 @@ exports.createProfile = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
+<<<<<<< HEAD
     const file = await uploadFile(data.file, context.auth.uid);
+=======
+    const file = await uploadFile(data.file, data.type, context.auth.uid);
+>>>>>>> dev
     await createFirestore(context, data, file);
     await createAlgolia(context, data);
 
     return { displayName: data.person };
   });
 
+<<<<<<< HEAD
 const uploadFile = async (file, uid) => {
   if (file.length > 0.4 * 1024 * 1024) {
     throw new functions.https.HttpsError(
       "cancelled",
       "容量が大きすぎます",
+=======
+const uploadFile = async (file, type, uid) => {
+  if (file.length > 0.4 * 1024 * 1024) {
+    throw new functions.https.HttpsError(
+      "cancelled",
+      "アップロードするファイルの容量が大きすぎます",
+      "storage"
+    );
+  }
+
+  if (type !== "application/pdf") {
+    throw new functions.https.HttpsError(
+      "cancelled",
+      "アップロードするファイルがpdf形式ではありません",
+>>>>>>> dev
       "storage"
     );
   }
@@ -48,7 +68,11 @@ const uploadFile = async (file, uid) => {
     .catch((e) => {
       throw new functions.https.HttpsError(
         "data-loss",
+<<<<<<< HEAD
         "ファイルの作成に失敗しました",
+=======
+        "アップロードに失敗しました\npdfのみアップロードできます",
+>>>>>>> dev
         "storage"
       );
     });

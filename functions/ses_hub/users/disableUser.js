@@ -2,7 +2,8 @@ const functions = require("firebase-functions");
 const algolia = require("../../algolia").algolia;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
-const send = require("../../sendgrid");
+
+const send = require("../../sendgrid").send;
 
 const body = require("../mail/body/users/disable");
 
@@ -24,7 +25,7 @@ exports.disableUser = functions
     };
 
     if (beforeStatus === "enable" && afterStatus === "disable") {
-      await send.seshub(userMail);
+      await send(userMail);
 
       if (change.before.data().posts.matters.length) {
         const index = algolia.initIndex("matters");

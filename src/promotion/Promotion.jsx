@@ -1,54 +1,24 @@
 import styles from "./Promotion.module.scss";
-
-import { useEffect, useState, useRef } from "react";
+import { useOpen } from "./hook/useOpen";
+import { useChange } from "./hook/useChange";
 
 import { Header } from "./layouts/header/Header";
 import { Fv } from "./layouts/fv/Fv";
-import { What } from "./layouts/section/what/What";
-import { Can } from "./layouts/section/can/Can";
-import { Post } from "./layouts/section/post/Post";
-import { Plan } from "./layouts/section/plan/Plan";
 import { Footer } from "./layouts/footer/Footer";
-import { Lets } from "./layouts/section/lets/Lets";
 
 import { Modal } from "./components/modal/Modal";
 
+import { What } from "./layouts/section/what/What";
+import { Can } from "./layouts/section/can/Can";
+import { Post } from "./layouts/section/post/Post";
+import { Feature } from "./layouts/section/feature/Feature";
+import { Lets } from "./layouts/section/lets/Lets";
+import { Price } from "./layouts/section/price/Price";
+import { Option } from "./layouts/section/option/Option";
+
 export const Promotion = () => {
-  const [open, setOpen] = useState(false);
-  const [change, setChange] = useState(false);
-
-  const fv = useRef();
-
-  useEffect(() => {
-    const changeHeader = () => {
-      if (
-        JSON.stringify(
-          fv.current && fv.current.getBoundingClientRect().height
-        ) -
-          96 <
-        window.scrollY
-      ) {
-        setChange(true);
-      } else {
-        setChange(false);
-      }
-    };
-    window.addEventListener("scroll", changeHeader);
-
-    return () => {
-      window.removeEventListener("scroll", changeHeader);
-    };
-  }, []);
-
-  const handleOpen = () => {
-    setOpen(!open);
-    document.body.classList.add("lock");
-  };
-
-  const handleClose = () => {
-    setOpen(!open);
-    document.body.classList.remove("lock");
-  };
+  const [open, handleOpen, handleClose] = useOpen();
+  const [fv, change] = useChange();
 
   return (
     <div className={styles.promotion}>
@@ -60,11 +30,13 @@ export const Promotion = () => {
         <What />
         <Can />
         <Post handleOpen={handleOpen} />
-        <Plan />
+        <Feature />
+        <Option />
+        <Price />
         <Lets />
       </div>
 
-      <Footer handleOpen={handleOpen} />
+      <Footer />
     </div>
   );
 };

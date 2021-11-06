@@ -1,12 +1,13 @@
 const functions = require("firebase-functions");
 const db = require("../../firebase").db;
-const send = require("../../sendgrid");
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
+const send = require("../../sendgrid").send;
+const body = require("../mail/body/users/request");
+
 const userAuthenticated =
   require("./functions/userAuthenticated").userAuthenticated;
-const body = require("../mail/body/users/request");
 
 exports.addRequest = functions
   .region(location)
@@ -38,6 +39,7 @@ const sendMail = async (context, user, selectUser, data) => {
       subject: "【リクエスト】確認メール",
       text: body.user({
         user: user.profile,
+        type: user.type,
         body: data.body,
         url: url.user,
       }),
@@ -45,18 +47,21 @@ const sendMail = async (context, user, selectUser, data) => {
 
     selectUser: {
       to: selectUser.profile.email,
-      from: `SES_HUB <${functions.config().admin.freelance_direct}>`,
-      subject: `【リクエスト】${user.profile.name} ${user.profile.person}さんから、リクエストがありました`,
+      from: `Freelance Direct <${functions.config().admin.freelance_direct}>`,
+      subject: `【リクエスト】${user.profile.name}${
+        user.type !== "corporate" ? `\n${user.profile.person}` : ``
+      }さんから、リクエストがありました`,
       text: body.selectUser({
         user: selectUser.profile,
+        type: user.type,
         body: data.body,
         url: url.selectUser,
       }),
     },
   };
 
-  await send.seshub(mail.user);
-  await send.seshub(mail.selectUser);
+  await send(mail.user);
+  await send(mail.selectUser);
 };
 
 const updateDoc = async ({ context, doc, data, user }) => {

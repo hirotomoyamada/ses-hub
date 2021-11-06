@@ -2,7 +2,8 @@ const functions = require("firebase-functions");
 const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
-const send = require("../../sendgrid");
+
+const send = require("../../sendgrid").send;
 // const twitter = require("../../twitter");
 
 const postAuthenticated =
@@ -29,7 +30,7 @@ exports.sendPost = functions
       return (
         post.uid !== id &&
         config.admin.ses_hub !== email &&
-        // config.demo.ses_hub.email !== email &&
+        config.demo.ses_hub.email !== email &&
         true
       );
     };
@@ -124,7 +125,7 @@ exports.sendPost = functions
     // twitter.tweet(text);
 
     // sendGrid メール
-    await send.seshub(mail).catch((e) => {
+    await send(mail).catch((e) => {
       throw new functions.https.HttpsError(
         "unavailable",
         "メールの送信に失敗しました",

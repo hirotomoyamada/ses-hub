@@ -3,7 +3,7 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
-const send = require("../../sendgrid");
+const send = require("../../sendgrid").send;
 
 exports.sendMail = functions
   .region(location)
@@ -45,8 +45,8 @@ exports.sendMail = functions
       return (
         config.admin.ses_hub !== email &&
         config.admin.freelance_direct !== email &&
-        // config.demo.ses_hub.email !== email &&
-        // config.demo.freelance_direct.email !== email &&
+        config.demo.ses_hub.email !== email &&
+        config.demo.freelance_direct.email !== email &&
         true
       );
     };
@@ -128,7 +128,7 @@ exports.sendMail = functions
       text: data.body,
     };
 
-    await send.seshub(mail);
+    await send(mail);
 
     return data;
   });

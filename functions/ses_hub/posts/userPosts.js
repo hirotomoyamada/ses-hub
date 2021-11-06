@@ -14,9 +14,11 @@ exports.userPosts = functions
   .https.onCall(async (data, context) => {
     const status = await userAuthenticated({ context: context });
 
+    const demo = checkDemo(context);
+
     const { posts, hit } = !data.uids
       ? await fetchPosts(context, data, status)
-      : await fetchFollows(data, status);
+      : await fetchFollows(data, status, demo);
 
     posts.length &&
       data.index === "companys" &&
@@ -72,7 +74,7 @@ const fetchPosts = async (context, data, status) => {
   return { posts, hit };
 };
 
-const fetchFollows = async (data, status) => {
+const fetchFollows = async (data, status, demo) => {
   const index = algolia.initIndex(data.index);
 
   const hitsPerPage = 50;
@@ -95,14 +97,8 @@ const fetchFollows = async (data, status) => {
         (hit) =>
           hit &&
           hit.status === "enable" &&
-          status && {
-            uid: hit.objectID,
-            profile: {
-              name: hit.name,
-              person: hit.person,
-              body: hit.body,
-            },
-          }
+          status &&
+          fetch.companys({ hit: hit, demo: demo })
       );
     })
     .catch((e) => {
@@ -126,6 +122,7 @@ const fetchFirestore = async (data, posts) => {
         .then((doc) => {
           if (doc.exists) {
             posts[i].icon = doc.data().icon;
+            posts[i].type = doc.data().type;
           }
         })
         .catch((e) => {
@@ -136,4 +133,8 @@ const fetchFirestore = async (data, posts) => {
           );
         }));
   }
+};
+
+const checkDemo = (context) => {
+  return context.auth.uid === functions.config().demo.ses_hub.uid;
 };

@@ -33,16 +33,16 @@ export const Option = ({
     >
       <div className={styles.item_container}>
         <div className={styles.item_wrap}>
-          <h2 className={styles.item_ttl}>{price?.name}</h2>
+          {price?.name && <h2 className={styles.item_ttl}>{price?.name}</h2>}
           <p className={styles.item_amount}>
             {(price?.unit_amount * tax).toLocaleString()}円
             <span
               className={`${styles.item_amount_tax} ${
                 (priceId === price?.id || user?.payment?.option?.[type]) &&
                 styles.item_amount_tax_select
-              }`}
+              } ${!user?.payment?.price && styles.item_amount_tax_disable}`}
             >
-              （税込）
+              (税込)/3ヶ月〜
             </span>
           </p>
         </div>

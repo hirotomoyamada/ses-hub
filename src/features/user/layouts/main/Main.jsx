@@ -6,8 +6,9 @@ import { Header } from "./components/Header";
 import { Editor } from "./components/Editor";
 import { Profile } from "./components/profile/Profile";
 import { Follow } from "../../../../components/follow/Follow";
+import { Request } from "../../../../components/request/Request";
 
-export const Main = ({ uid, user, currentUser, type, main }) => {
+export const Main = ({ uid, user, currentUser, index, main }) => {
   return (
     <div className={styles.main} ref={main}>
       {user.uid ? (
@@ -17,11 +18,13 @@ export const Main = ({ uid, user, currentUser, type, main }) => {
           <div className={styles.main_inner}>
             {currentUser.uid === uid ? (
               <Editor />
+            ) : index === "companys" ? (
+              <Follow user={currentUser} post={user} profile />
             ) : (
-              user.uid && <Follow user={currentUser} post={user} profile />
+              index === "persons" && <Request user={user} />
             )}
 
-            <Profile type={type} user={user} />
+            <Profile index={index} user={user} currentUser={currentUser} />
           </div>
         </>
       ) : (

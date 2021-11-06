@@ -1,8 +1,8 @@
 const functions = require("firebase-functions");
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
-const send = require("../../sendgrid");
 
+const send = require("../../sendgrid").send;
 const body = require("../mail/body/users/enable");
 
 exports.enableUser = functions
@@ -23,6 +23,6 @@ exports.enableUser = functions
     };
 
     if (beforeStatus === "hold" && afterStatus === "enable") {
-      await send.seshub(userMail);
+      await send(userMail);
     }
   });

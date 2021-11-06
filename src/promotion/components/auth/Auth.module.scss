@@ -42,9 +42,9 @@ $width: responsive-width(pc);
       color: $base_clr;
 
       &:hover {
-        background: $bg_clr;
-        border-color: $promo_clr;
-        color: $promo_clr;
+        background: $acnt_clr;
+        border-color: $acnt_clr;
+        color: $base_clr;
       }
     }
   }

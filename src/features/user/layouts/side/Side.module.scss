@@ -7,16 +7,30 @@ $width: responsive-width(pc);
 
 .side {
   overflow-y: scroll;
-  height: calc(100vh - 44px);
+  height: calc(var(--vh, 1vh) * 100 - 44px);
   position: relative;
 
   @media (max-width: responsive-width(tb)) {
     width: 100vw;
     height: auto;
+    padding-bottom: 112px;
+  }
+
+  @media (max-width: responsive-width(sp)) {
+    padding-bottom: 0px;
   }
 
   &_open {
     width: 100vw;
+  }
+
+  &_bests {
+    height: $innerHeight;
+
+    @media (max-width: responsive-width(tb)) {
+      width: 100vw;
+      height: auto;
+    }
   }
 
   &_toggle {
@@ -137,7 +151,7 @@ $width: responsive-width(pc);
 
     &_none {
       width: 100%;
-      height: calc(100vh - 49px);
+      height: calc(var(--vh, 1vh) * 100 - 49px);
       display: flex;
       justify-content: center;
       align-items: center;

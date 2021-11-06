@@ -28,6 +28,16 @@ $width: responsive-width(pc);
     }
   }
 
+  button {
+    display: flex;
+  }
+
+  &_person {
+    position: static;
+    margin-right: 2px;
+    margin-left: auto;
+  }
+
   &_cmd {
     position: relative;
   }
@@ -49,6 +59,14 @@ $width: responsive-width(pc);
 
     &_entry {
       color: $acnt_clr;
+    }
+
+    &_hold {
+      color: $promo_clr;
+    }
+
+    &_enable {
+      color: $add_clr;
     }
   }
 }

@@ -6,6 +6,7 @@
 $width: responsive-width(pc);
 
 .btn {
+  display: block;
   border: 1px solid $bdr_clr;
   padding: 16px 32px;
   background: $promo_clr;

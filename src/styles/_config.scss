@@ -16,6 +16,7 @@ $responsive-height: (
   "sp": 0px
 );
 
+$innerHeight: calc(var(--vh, 1vh) * 100);
 
 // 使用するカラー
 $base_clr: #fff;
@@ -24,16 +25,16 @@ $main_clr: #303030;
 $shdw_clr: #3030303b;
 $sub_clr: #aeaeae;
 $promo_clr: #ff9900;
-$acnt_clr: hsl(128, 43%, 50%);
-$acnt_hvr_clr: hsl(128, 53%, 50%);
+$acnt_clr: #49b657;
+$acnt_hvr_clr: #3cc34e;
 $acnt_sub_clr: #b749a9;
 $acnt_ext_clr: #b78e49;
 $acnt_bg_clr: #dbf0dd;
 $bdr_clr: #eeeeee;
 $icn_clr: #515a74;
-$add_clr: #4285f4;
-$add_hvr_clr: #4d91fe;
-$add_bg_clr: #d9e7fd;
+$add_clr: #1d9bf0;
+$add_hvr_clr: #3985fe;
+$add_bg_clr: #d2ebfc;
 $remove_clr: #e94235db;
 $remove_bg_clr: #fbd9d7;
 $like_clr: #e0255e;

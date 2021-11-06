@@ -1,7 +1,11 @@
 const functions = require("firebase-functions");
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
+<<<<<<< HEAD
 const send = require("../../sendgrid");
+=======
+const send = require("../../sendgrid").send;
+>>>>>>> dev
 
 const body = require("./body/promotion/promotion");
 
@@ -13,20 +17,18 @@ exports.contactPromotion = functions
 
     const adminMail = {
       to: functions.config().admin.freelance_direct,
-      message: {
-        subject: `【お問い合わせ】${data.company} ${data.person}様より`,
-        text: body.admin(data),
-      },
+      from: `Freelance Direct <${functions.config().admin.freelance_direct}>`,
+      subject: `【お問い合わせ】${data.company} ${data.person}様より`,
+      text: body.admin(data),
     };
 
     const userMail = {
       to: data.email,
-      message: {
-        subject: "Freelance Direct お問い合わせありがとうございます",
-        text: body.user(data, url),
-      },
+      from: `Freelance Direct <${functions.config().admin.freelance_direct}>`,
+      subject: "Freelance Direct お問い合わせありがとうございます",
+      text: body.user(data, url),
     };
 
-    await send.freelanceDirect(adminMail);
-    await send.freelanceDirect(userMail);
+    await send(adminMail);
+    await send(userMail);
   });

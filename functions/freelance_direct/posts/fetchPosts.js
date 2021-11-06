@@ -13,15 +13,24 @@ exports.fetchPosts = functions
   .runWith(runtime)
   .https.onCall(async (data, context) => {
     const status = await userAuthenticated(context);
+    const demo = checkDemo(context);
 
+<<<<<<< HEAD
     const { posts, hit } = await fetchAlgolia(data, status);
+=======
+    const { posts, hit } = await fetchAlgolia(data, status, demo);
+>>>>>>> dev
 
     await fetchFirestore(data, posts);
 
     return { index: data.index, posts: posts, hit: hit };
   });
 
+<<<<<<< HEAD
 const fetchAlgolia = async (data, status) => {
+=======
+const fetchAlgolia = async (data, status, demo) => {
+>>>>>>> dev
   const index = algolia.initIndex(
     !data.target || data.target === "createAt"
       ? data.index
@@ -51,7 +60,13 @@ const fetchAlgolia = async (data, status) => {
       return result.hits.map((hit) =>
         data.index === "matters" && status
           ? fetch.matters({ hit: hit })
+<<<<<<< HEAD
           : data.index === "companys" && status && fetch.companys({ hit: hit })
+=======
+          : data.index === "companys" &&
+            status &&
+            fetch.companys({ hit: hit, demo: demo })
+>>>>>>> dev
       );
     })
     .catch((e) => {
@@ -92,6 +107,10 @@ const fetchFirestore = async (data, posts) => {
               ) {
                 posts[i].icon = "none";
                 posts[i].status = "none";
+<<<<<<< HEAD
+=======
+                posts[i].type = "individual";
+>>>>>>> dev
                 posts[i].profile = {
                   name: null,
                   person: "存在しないユーザー",
@@ -99,6 +118,7 @@ const fetchFirestore = async (data, posts) => {
                 };
               } else {
                 posts[i].icon = doc.data().icon;
+                posts[i].type = doc.data().type;
               }
             }
           }
@@ -114,3 +134,10 @@ const fetchFirestore = async (data, posts) => {
 
   return;
 };
+<<<<<<< HEAD
+=======
+
+const checkDemo = (context) => {
+  return context.auth.uid === functions.config().demo.freelance_direct.uid;
+};
+>>>>>>> dev

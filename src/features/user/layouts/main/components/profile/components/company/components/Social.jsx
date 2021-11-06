@@ -1,4 +1,4 @@
-import styles from "../../../Profile.module.scss";
+import styles from "../Company.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLine } from "@fortawesome/free-brands-svg-icons";

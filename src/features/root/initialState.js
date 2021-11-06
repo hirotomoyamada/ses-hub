@@ -36,6 +36,7 @@ export const initialState = {
     status: "",
     access: true,
     demo: false,
+    error: "",
   },
 
   load: {

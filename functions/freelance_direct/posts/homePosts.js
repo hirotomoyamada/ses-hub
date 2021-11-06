@@ -3,6 +3,7 @@ const algolia = require("../../algolia").algolia;
 const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
+const dummy = require("../../dummy").dummy;
 
 const userAuthenticated =
   require("./functions/userAuthenticated").userAuthenticated;
@@ -13,15 +14,26 @@ exports.homePosts = functions
   .runWith(runtime)
   .https.onCall(async (data, context) => {
     const status = await userAuthenticated(context);
+    const demo = checkDemo(context);
 
+<<<<<<< HEAD
     const { posts, hit } = await fetchAlgolia(context, data, status);
 
     posts.length && (await fetchFirestore(data, posts));
+=======
+    const { posts, hit } = await fetchAlgolia(context, data, status, demo);
+
+    posts.length && (await fetchFirestore(data, posts, demo));
+>>>>>>> dev
 
     return { index: data.index, posts: posts, hit: hit };
   });
 
+<<<<<<< HEAD
 const fetchAlgolia = async (context, data, status) => {
+=======
+const fetchAlgolia = async (context, data, status, demo) => {
+>>>>>>> dev
   const index = algolia.initIndex(data.index);
   const value =
     data.index === "matters" && [context.auth.uid, ...data.follows].join(" ");
@@ -75,7 +87,11 @@ const fetchAlgolia = async (context, data, status) => {
                 hit &&
                 hit.status === "enable" &&
                 status &&
+<<<<<<< HEAD
                 fetch.companys({ hit: hit })
+=======
+                fetch.companys({ hit: hit, demo: demo })
+>>>>>>> dev
             );
           })
           .catch((e) => {
@@ -88,6 +104,7 @@ const fetchAlgolia = async (context, data, status) => {
 
   return { posts, hit };
 };
+<<<<<<< HEAD
 
 const fetchFirestore = async (data, posts) => {
   for (let i = 0; i < posts.length; i++) {
@@ -139,4 +156,65 @@ const fetchFirestore = async (data, posts) => {
           );
         }));
   }
+=======
+
+const fetchFirestore = async (data, posts, demo) => {
+  for (let i = 0; i < posts.length; i++) {
+    posts[i] &&
+      (await db
+        .collection("companys")
+        .doc(posts[i].uid)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            if (data.index === "matters") {
+              if (
+                doc.data().payment.status === "canceled" ||
+                !doc.data().payment.option?.freelanceDirect
+              ) {
+                posts[i].user = {
+                  type: "individual",
+                  name: null,
+                  person: "存在しないユーザー",
+                };
+              } else {
+                posts[i].user = {
+                  type: doc.data().type,
+                  name: !demo ? doc.data().profile.name : dummy("name"),
+                  person: !demo ? doc.data().profile.person : dummy("person"),
+                };
+              }
+            } else {
+              if (
+                doc.data().payment.status === "canceled" ||
+                !doc.data().payment.option?.freelanceDirect
+              ) {
+                posts[i].icon = "none";
+                posts[i].status = "none";
+                posts[i].type = "individual";
+                posts[i].profile = {
+                  name: null,
+                  person: "存在しないユーザー",
+                  body: null,
+                };
+              } else {
+                posts[i].icon = doc.data().icon;
+                posts[i].type = doc.data().type;
+              }
+            }
+          }
+        })
+        .catch((e) => {
+          throw new functions.https.HttpsError(
+            "not-found",
+            "ユーザーの取得に失敗しました",
+            "firebase"
+          );
+        }));
+  }
+};
+
+const checkDemo = (context) => {
+  return context.auth.uid === functions.config().demo.freelance_direct.uid;
+>>>>>>> dev
 };

@@ -1,5 +1,5 @@
 import { login } from "./login";
-import { showUser } from "./showUser";
+import { fetchUser } from "./fetchUser";
 import { resetUser } from "./resetUser";
 
 import { editProfile } from "./editProfile";
@@ -12,13 +12,14 @@ import { addLike, removeLike } from "./like";
 import { addOutput, removeOutput } from "./output";
 import { addEntry } from "./entry";
 import { addFollow, removeFollow } from "./follow";
+import { addRequest } from "./request";
 import { updateHome } from "./home";
 
 import { createPost, deletePost } from "./post";
 
 export {
   login,
-  showUser,
+  fetchUser,
   resetUser,
   editProfile,
   enableAgree,
@@ -32,6 +33,7 @@ export {
   addEntry,
   addFollow,
   removeFollow,
+  addRequest,
   updateHome,
   createPost,
   deletePost,

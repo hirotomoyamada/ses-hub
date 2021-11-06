@@ -4,6 +4,8 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
+const dummy = require("../../dummy").dummy;
+
 const userAuthenticated =
   require("./functions/userAuthenticated").userAuthenticated;
 const fetch = require("./fetch/fetch");
@@ -52,6 +54,10 @@ const fetchProfile = async (context, data, demo) => {
         user.icon = doc.data().icon;
         user.cover = doc.data().cover;
 
+        if (data.index === "companys") {
+          user.type = doc.data().type;
+        }
+
         if (data.index === "persons") {
           const request =
             doc.data().requests?.enable?.indexOf(context.auth.uid) >= 0
@@ -63,9 +69,9 @@ const fetchProfile = async (context, data, demo) => {
               : "none";
 
           if (request !== "enable") {
-            user.profile.name = createDummy("name");
-            user.profile.email = createDummy("email");
-            user.profile.urls = createDummy("urls", 3);
+            user.profile.name = dummy("person");
+            user.profile.email = dummy("email");
+            user.profile.urls = dummy("urls", 3);
 
             user.resume = null;
           } else {
@@ -141,36 +147,4 @@ const fetchBests = async (user, data) => {
 
 const checkDemo = (context) => {
   return context.auth.uid === functions.config().demo.ses_hub.uid;
-};
-
-const createDummy = (d, i) => {
-  const dummy =
-    d === "name"
-      ? ["貞子", "幽明異境", "脇見厳禁", "呪呪呪", "八大地獄", "奇奇怪怪"]
-      : d === "email"
-      ? [
-          "miseruwakeganai@gmail.com",
-          "dameyo-damedame@dame.co.jp",
-          "watasi-ha-yamada@yamada.com",
-          "tousen-omedetougozaimasu@tousen.mail",
-          "oreoreoreoreore-sagi@gmail.com",
-        ]
-      : d === "urls" && [
-          "https://dummy.com",
-          "https://zettai-misenasen.co.jp",
-          "https://mireru-wakega-nai.net",
-          "https://sadako.github.io/portfolio",
-          "https://sonnani_mitaino.net",
-          "https://koreo-mitara-sinu.me",
-          "https://dame_zettai.com",
-        ];
-
-  if (!i) {
-    return dummy[Math.floor(Math.random() * dummy.length)];
-  } else {
-    return [...Array(Math.floor(Math.random() * i + 1))].map(
-      () =>
-        [...dummy].splice(Math.floor(Math.random() * [...dummy].length), 1)[0]
-    );
-  }
 };

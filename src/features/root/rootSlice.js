@@ -16,6 +16,7 @@ export const rootSlice = createSlice({
     handleModal: (state, action) => reducers.modal(state, action),
     handleAnnounce: (state, action) => reducers.announce(state, action),
     handleNotFound: (state, action) => reducers.notFound(state, action),
+    handleVerified: (state, action) => reducers.verified(state, action),
   },
 
   extraReducers: (builder) => {
@@ -26,7 +27,10 @@ export const rootSlice = createSlice({
           action.meta.arg.fetch || action.type === "post/createPost/pending"
             ? true
             : false;
-        state.load.list = true;
+
+        if (action.type !== "post/createPost/pending") {
+          state.load.list = true;
+        }
       }
     );
 
@@ -68,17 +72,22 @@ export const rootSlice = createSlice({
           status: "promo",
           access: false,
           demo: false,
+          error: "",
         };
       }
     );
 
     builder.addMatcher(
       (action) => action.type.endsWith("/createProfile/fulfilled"),
-      (state) => {
+      (state, action) => {
         state.verified.email = false;
         state.verified.profile = false;
         state.verified.agree = false;
         state.verified.status = "hold";
+
+        if (action.payload) {
+          state.verified.error = action.payload;
+        }
       }
     );
 
@@ -94,6 +103,8 @@ export const rootSlice = createSlice({
         action.type.endsWith("/createPost") ||
         action.type.endsWith("/editPost") ||
         action.type.endsWith("/editProfile") ||
+        action.type.endsWith("/addRequest") ||
+        action.type.endsWith("/updatePayment") ||
         action.type.endsWith("/updateHome"),
       (state) => reducers.modal(state)
     );
@@ -128,6 +139,23 @@ export const rootSlice = createSlice({
         }
       }
     );
+
+    builder.addMatcher(
+      (action) => action.type.endsWith("/fetchUser/pending"),
+      (state, action) => {
+        state.index =
+          action.meta.arg.index !== "companys"
+            ? action.meta.arg.index
+            : "matters";
+      }
+    );
+
+    builder.addMatcher(
+      (action) => action.type.endsWith("/fetchPost/pending"),
+      (state, action) => {
+        state.index = action.meta.arg.index;
+      }
+    );
   },
 });
 
@@ -139,6 +167,7 @@ export const {
   handleModal,
   handleAnnounce,
   handleNotFound,
+  handleVerified,
 } = rootSlice.actions;
 
 export const index = (state) => state.root.index;
