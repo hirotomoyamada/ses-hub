@@ -8,15 +8,15 @@ exports.companys = ({ hit, doc, demo, none }) => {
       uid: hit.objectID,
       profile: {
         name: !demo
-          ? hit.objectID !== functions.config().demo.freelance_direct.uid
-            ? hit.name
-            : "Hit me up株式会社"
-          : dummy("name"),
+          ? hit.name
+          : hit.objectID !== functions.config().demo.freelance_direct.uid
+          ? dummy("name")
+          : "Hit me up株式会社",
         person: !demo
-          ? hit.objectID !== functions.config().demo.freelance_direct.uid
-            ? hit.person
-            : "羽生太郎"
-          : dummy("person"),
+          ? hit.person
+          : hit.objectID !== functions.config().demo.freelance_direct.uid
+          ? dummy("person")
+          : "羽生太郎",
         body: hit.body,
       },
     };
@@ -40,15 +40,15 @@ exports.companys = ({ hit, doc, demo, none }) => {
       type: doc.data().type,
       profile: {
         name: !demo
-          ? doc.id !== functions.config().demo.freelance_direct.uid
-            ? doc.data().profile.name
-            : "Hit me up株式会社"
-          : dummy("name"),
+          ? doc.data().profile.name
+          : doc.id !== functions.config().demo.freelance_direct.uid
+          ? dummy("name")
+          : "Hit me up株式会社",
         person: !demo
-          ? doc.id !== functions.config().demo.freelance_direct.uid
-            ? doc.data().profile.person
-            : "羽生太郎"
-          : dummy("person"),
+          ? doc.data().profile.person
+          : doc.id !== functions.config().demo.freelance_direct.uid
+          ? dummy("person")
+          : "羽生太郎",
         body: doc.data().profile.body,
         email: !demo ? doc.data().profile.email : null,
         social: !demo ? doc.data().profile.social : {},
