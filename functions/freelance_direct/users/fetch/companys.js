@@ -1,11 +1,21 @@
+const functions = require("firebase-functions");
+
 const dummy = require("../../../dummy").dummy;
 
 exports.companys = ({ hit, demo }) => {
   return {
     uid: hit.objectID,
     profile: {
-      name: !demo ? hit.name : dummy("name"),
-      person: !demo ? hit.person : dummy("person"),
+      name: !demo
+        ? hit.name
+        : hit.objectID !== functions.config().demo.freelance_direct.uid
+        ? dummy("name")
+        : "Hit me up株式会社",
+      person: !demo
+        ? hit.person
+        : hit.objectID !== functions.config().demo.freelance_direct.uid
+        ? dummy("person")
+        : "羽生太郎",
       body: hit.body,
       postal: hit.postal,
       address: hit.address,
