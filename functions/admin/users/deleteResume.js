@@ -21,7 +21,7 @@ exports.deleteResume = functions
 
     await db
       .collection("persons")
-      .doc(data.uid)
+      .doc(data)
       .get()
       .then(async (doc) => {
         doc.exists && deleteFile(doc);
