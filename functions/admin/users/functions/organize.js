@@ -15,7 +15,7 @@ exports.organize = async ({ data, user }) => {
       : data.index === "persons" && {
           entries: [],
           likes: [],
-          history: [],
+          histories: [],
           follows: [],
           home: [],
           requests: {},

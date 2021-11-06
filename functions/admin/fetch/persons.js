@@ -38,7 +38,7 @@ exports.persons = ({ doc, index, lists, posts, hit }) => {
       likes: lists.likes,
       entries: lists.entries,
       requests: lists.requests,
-      history: lists.history,
+      histories: lists.histories,
       home: lists.home,
 
       state: doc.data().profile.state,
@@ -72,7 +72,7 @@ exports.persons = ({ doc, index, lists, posts, hit }) => {
     posts[index].requests = doc.data().requests;
     posts[index].resume = doc.data().resume;
     posts[index].home = doc.data().home;
-    posts[index].history = doc.data().history;
+    posts[index].histories = doc.data().histories;
     posts[index].createAt = doc.data().createAt;
     posts[index].updateAt = doc.data().updateAt;
     posts[index].lastLogin = doc.data().lastLogin;

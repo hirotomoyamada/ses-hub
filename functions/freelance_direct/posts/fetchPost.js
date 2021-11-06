@@ -132,14 +132,14 @@ const addHistory = async (context, data) => {
     .get()
     .then(async (doc) => {
       if (doc.exists) {
-        const history = doc
+        const histories = doc
           .data()
-          .history.filter((objectID) => objectID !== data);
+          .histories.filter((objectID) => objectID !== data);
 
         await doc.ref
           .set(
             {
-              history: [data, ...history].slice(0, 100),
+              histories: [data, ...histories].slice(0, 100),
             },
             { merge: true }
           )
