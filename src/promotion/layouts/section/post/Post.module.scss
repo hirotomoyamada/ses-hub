@@ -51,6 +51,8 @@ $width: responsive-width(pc);
   }
 
   &_more {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
