@@ -50,9 +50,7 @@ export const Profile = ({ user, handleClose }) => {
   return (
     <FormProvider {...methods}>
       <form
-        className={`${styles.profile} ${
-          (cover || icon || line) && styles.profile_change
-        }`}
+        className={styles.profile}
         onSubmit={methods.handleSubmit(handleEdit)}
       >
         <Header
