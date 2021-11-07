@@ -2,6 +2,7 @@ import styles from "../Auth.module.scss";
 import { useScrollController } from "../../../hook/useScrollController";
 
 export const Verified = ({
+  inner,
   email,
   verified,
   handleLogout,
@@ -14,6 +15,7 @@ export const Verified = ({
   return (
     <div
       className={`${styles.auth_inner} ${resize && styles.auth_inner_resize}`}
+      ref={inner}
     >
       <span className={styles.auth_ttl}>
         {verified.error
