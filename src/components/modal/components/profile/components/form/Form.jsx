@@ -12,10 +12,10 @@ import { More } from "./components/More";
 
 export const Form = ({ cover, icon, setCover, setIcon, setLine }) => {
   return (
-    <>
+    <div className={styles.form}>
       <Header cover={cover} icon={icon} setCover={setCover} setIcon={setIcon} />
 
-      <div className={styles.form}>
+      <div className={styles.form_inner}>
         <Name />
         <Person />
         <Body />
@@ -25,6 +25,6 @@ export const Form = ({ cover, icon, setCover, setIcon, setLine }) => {
         <Url />
         <Social setLine={setLine} />
       </div>
-    </>
+    </div>
   );
 };

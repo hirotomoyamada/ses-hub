@@ -12,7 +12,7 @@ $width: responsive-width(pc);
   height: 80vh;
   border-radius: 16px;
   display: grid;
-  grid-template-rows: 72px auto-clamp(160px, 240px) 1fr;
+  grid-template-rows: 72px 1fr;
 
   @media (max-width: responsive-width(tb)) {
     width: 100vw;
@@ -21,15 +21,7 @@ $width: responsive-width(pc);
   }
 
   @media (max-width: responsive-width(sp)) {
-    grid-template-rows: 48px 80px 1fr;
+    grid-template-rows: 48px 1fr;
     font-size: 12px;
-  }
-
-  &_change {
-    grid-template-rows: 72px 1fr;
-
-    @media (max-width: responsive-width(sp)) {
-      grid-template-rows: 48px 1fr;
-    }
   }
 }
