@@ -26,7 +26,7 @@ export const Advertise = ({ user, handleClose }) => {
       <div className={styles.advertise_header}>
         <span className={styles.advertise_desc}>
           {user?.payment?.trial
-            ? "\\ 今なら１ヶ月無料 /"
+            ? "\\ キャンペーン中 /"
             : "\\ メンバーたちと一緒に /"}
         </span>
         <p className={styles.advertise_ttl}>
