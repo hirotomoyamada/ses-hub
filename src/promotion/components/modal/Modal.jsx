@@ -9,7 +9,7 @@ export const Modal = ({ handleClose, open }) => {
       <div className={styles.modal}>
         <div className={styles.modal_inner}>
           <span className={styles.modal_desc}>
-            \&nbsp;&nbsp;今なら1ヶ月無料&nbsp;&nbsp;/
+            \&nbsp;&nbsp;フリートライアルキャンペーン中&nbsp;&nbsp;/
           </span>
 
           <h1 className={styles.modal_ttl}>

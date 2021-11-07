@@ -1,4 +1,4 @@
-import styles from "../Side.module.scss";
+import styles from "./Advertise.module.scss";
 
 import { Link } from "react-router-dom";
 
@@ -8,7 +8,7 @@ export const Advertise = ({ user }) => {
       <div className={styles.advertise_header}>
         <span className={styles.advertise_desc}>
           {user?.payment?.trial
-            ? "\\ 今なら１ヶ月無料 /"
+            ? "\\ キャンペーン中 /"
             : "\\ メンバーたちと一緒に /"}
         </span>
         <p className={styles.advertise_ttl}>
