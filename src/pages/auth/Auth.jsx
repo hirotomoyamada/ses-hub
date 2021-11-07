@@ -140,7 +140,7 @@ export const Auth = () => {
         )}
         {((sign && !create) || verified.email || verified.status === "hold") &&
           verified.status !== "disable" && (
-            <StartGuide help={help} setHelp={setHelp} />
+            <StartGuide help={help} setHelp={setHelp} resize={resize} />
           )}
       </form>
 

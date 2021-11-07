@@ -73,9 +73,9 @@ export const Help = ({ help, email, profile, create, setHelp }) => {
   );
 };
 
-export const StartGuide = ({ help, setHelp }) => {
+export const StartGuide = ({ help, setHelp, resize }) => {
   return (
-    <div className={styles.help_open}>
+    <div className={`${styles.help_open} ${resize && styles.help_open_resize}`}>
       <button
         type="button"
         className={styles.help_open_inner}
