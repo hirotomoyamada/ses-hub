@@ -39,19 +39,12 @@ export const useApp = () => {
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
 
-    setFillHeight();
+    window.addEventListener("resize", setFillHeight);
 
     return () => {
-      setFillHeight();
+      window.removeEventListener("resize", setFillHeight);
     };
   }, []);
-
-  const setFillHeight = () => {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  };
-
-  setFillHeight();
 
   return [user, access, notFound, browser];
 };
