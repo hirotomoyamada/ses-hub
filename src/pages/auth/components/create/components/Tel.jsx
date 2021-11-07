@@ -20,10 +20,10 @@ export const Tel = () => {
           }`}
           placeholder="01-2345-6789"
           {...register("tel", {
-            required: {
-              value: true,
-              message: "電話番号を入力してください",
-            },
+            // required: {
+            //   value: true,
+            //   message: "電話番号を入力してください",
+            // },
             pattern: {
               value: /^0\d{2,4}-\d{2,4}-\d{3,4}$/,
               message: "正しい電話番号を入力してください",

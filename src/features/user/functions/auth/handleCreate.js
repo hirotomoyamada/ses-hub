@@ -1,7 +1,27 @@
 import { auth } from "../../../../firebase";
 import { createProfile } from "../../actions/createProfile";
 
+import * as rootSlice from "../../../root/rootSlice";
+
 export const handleCreate = async ({ dispatch, data }) => {
+  if (
+    !data.type ||
+    !data.name ||
+    !data.person ||
+    (data.type === "individual" && !data.position) ||
+    !data.tel ||
+    !data.agree
+  ) {
+    dispatch(
+      rootSlice.handleAnnounce({
+        type: "error",
+        text: "登録に失敗しました ページを更新してください",
+      })
+    );
+
+    return;
+  }
+
   const object = {
     type: data.type,
     name: data.name,
