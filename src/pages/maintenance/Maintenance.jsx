@@ -4,8 +4,7 @@ import { useSelector } from "react-redux";
 import * as rootSlice from "../../features/root/rootSlice";
 
 export const Maintenance = () => {
-  const maintenance = "disable";
-  // useSelector(rootSlice.data).maintenance?.status;
+  const maintenance = useSelector(rootSlice.data).maintenance?.status;
 
   return (
     maintenance === "enable" && (
