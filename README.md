@@ -38,7 +38,7 @@ ses_hub
 ### 取得
 
 1. `firebase functions:config:get seshub > .config.json`
-2. 各自 `.env` に入れ込む
+2. 各自 `.env` `.env.dev` に入れ込む
 
 ### コマンド
 
