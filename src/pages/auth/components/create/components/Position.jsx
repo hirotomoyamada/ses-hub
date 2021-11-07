@@ -22,10 +22,10 @@ export const Position = () => {
             errors.position && root.auth_input_error
           }`}
           {...register("position", {
-            // required: {
-            //   value: true,
-            //   message: "役職を選択してください",
-            // },
+            required: {
+              value: true,
+              message: "役職を選択してください",
+            },
           })}
         >
           <option value="経営者">経営者</option>
