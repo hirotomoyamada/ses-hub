@@ -39,10 +39,28 @@ export const useApp = () => {
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
 
-    window.addEventListener("resize", setFillHeight);
+    const resize = (t) => {
+      if (
+        navigator.userAgent.indexOf("iPhone") > 0 ||
+        (navigator.userAgent.indexOf("Android") > 0 &&
+          navigator.userAgent.indexOf("Mobile") > 0) ||
+        navigator.userAgent.indexOf("iPad") > 0 ||
+        navigator.userAgent.indexOf("Android") > 0
+      ) {
+        setFillHeight();
+      } else {
+        if (t) {
+          window.addEventListener("resize", setFillHeight);
+        } else {
+          window.removeEventListener("resize", setFillHeight);
+        }
+      }
+    };
+
+    resize(true);
 
     return () => {
-      window.removeEventListener("resize", setFillHeight);
+      resize(false);
     };
   }, []);
 
