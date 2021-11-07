@@ -1,13 +1,13 @@
 import { useEffect, useState, useRef } from "react";
 
-export const useResize = () => {
+export const useResize = (verified) => {
   const form = useRef();
   const inner = useRef();
 
   const [resize, setResize] = useState(false);
 
   useEffect(() => {
-    const resize = () => {
+    const resizeObserver = () => {
       const innerHeight = inner?.current?.getBoundingClientRect().height;
       const windowHeight = window.innerHeight;
 
@@ -15,21 +15,21 @@ export const useResize = () => {
     };
 
     const observer = new ResizeObserver(() => {
-      resize();
+      resizeObserver();
     });
 
     const ref = inner?.current;
 
     window.addEventListener("resize", () => {
-      resize();
+      resizeObserver();
     });
     ref && observer?.observe(ref);
 
     return () => {
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", resizeObserver);
       ref && observer.disconnect(ref);
     };
-  }, []);
+  }, [inner, resize, verified]);
 
   return [resize, form, inner];
 };
