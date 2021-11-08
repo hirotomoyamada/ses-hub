@@ -56,5 +56,5 @@ exports.fetchUser = functions
         );
       });
 
-    return { user: user, type: data.type };
+    return user;
   });
