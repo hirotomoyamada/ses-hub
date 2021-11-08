@@ -31,6 +31,7 @@ exports.resources = ({ data, context, edit }) => {
   if (!edit) {
     object.createAt = timestamp;
   } else {
+    object.objectID = data.post.objectID;
     object.updateAt = timestamp;
   }
 
