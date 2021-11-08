@@ -1,6 +1,7 @@
 exports.login = require("./root/login").login;
 exports.editData = require("./root/editData").editData;
 exports.sendMail = require("./root/sendMail").sendMail;
+exports.updateUser = require("./root/updateUser").updateUser;
 
 exports.fetchPosts = require("./posts/fetchPosts").fetchPosts;
 exports.editPost = require("./posts/editPost").editPost;
