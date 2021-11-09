@@ -22,6 +22,7 @@ export const Header = ({
   password,
   create,
   remove,
+  reset,
   handleCancel,
   ttl,
   setting,
@@ -91,13 +92,15 @@ export const Header = ({
         type="button"
         className={styles.header_back_cancel}
         onClick={
-          !email && !password && !create && !remove ? handleBack : handleCancel
+          !email && !password && !create && !remove && !reset
+            ? handleBack
+            : handleCancel
         }
       >
-        {!goSetting ? "もどる" : "アカウント情報 へもどる"}
+        {!goSetting || reset ? "もどる" : "アカウント情報 へもどる"}
       </button>
       <span className={styles.header_back_ttl}>
-        {!email && !password && !create && !remove ? ttl : ""}
+        {!email && !password && !create && !remove && !reset ? ttl : ""}
       </span>
     </div>
   );
