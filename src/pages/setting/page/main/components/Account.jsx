@@ -6,7 +6,7 @@ export const Account = ({ user, history }) => {
       <div className={styles.main_col}>
         <span className={styles.main_tag}>アカウント</span>
         <span className={styles.main_value}>
-          <strong>4</strong> アカウントまで作成できます
+          4&nbsp;アカウントまで作成できます
         </span>
         {user?.provider && user.provider.indexOf("password") < 0 && (
           <span className={styles.main_desc}>
@@ -14,7 +14,6 @@ export const Account = ({ user, history }) => {
           </span>
         )}
       </div>
-      
       <button
         className={`${styles.main_btn} ${
           user?.provider &&

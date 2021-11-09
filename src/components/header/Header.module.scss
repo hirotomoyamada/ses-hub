@@ -99,6 +99,10 @@ $width: responsive-width(pc);
 
     &_setting {
       grid-template-columns: repeat(3, 1fr);
+
+      @media (max-width: responsive-width(sp)) {
+        grid-template-columns: 1fr 0.5fr;
+      }
     }
   }
 }
