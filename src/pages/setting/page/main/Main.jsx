@@ -9,9 +9,9 @@ import { Email } from "./components/Email";
 import { Password } from "./components/Password";
 import { Plan } from "./components/Plan";
 import { Option } from "./components/Option";
+import { Account } from "./components/Account";
 import { At } from "./components/At";
 import { Provider } from "./components/provider/Provider";
-import { Account } from "./components/Account";
 
 export const Main = ({
   user,
