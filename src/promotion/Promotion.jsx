@@ -14,7 +14,7 @@ import { Post } from "./layouts/section/post/Post";
 import { Feature } from "./layouts/section/feature/Feature";
 import { Lets } from "./layouts/section/lets/Lets";
 import { Price } from "./layouts/section/price/Price";
-// import { Option } from "./layouts/section/option/Option"; // ver 2.0.0
+import { Option } from "./layouts/section/option/Option"; // ver 2.0.0
 
 export const Promotion = () => {
   const [open, handleOpen, handleClose] = useOpen();
@@ -31,7 +31,8 @@ export const Promotion = () => {
         <Can />
         <Post handleOpen={handleOpen} />
         <Feature />
-        {/* <Option /> // ver 2.0.0 */}
+        {/* ver 2.0.0 */}
+        <Option />
         <Price />
         <Lets />
       </div>

@@ -3,7 +3,7 @@ import styles from "./Price.module.scss";
 
 import { useState } from "react";
 
-// import { Index } from "./components/index/Index"; // ver 2.0.0
+import { Index } from "./components/index/Index"; // ver 2.0.0
 import { Table } from "./components/table/Table";
 
 export const Price = () => {
@@ -28,7 +28,7 @@ export const Price = () => {
 
   const [
     index,
-    // setIndex // ver 2.0.0
+    setIndex // ver 2.0.0
   ] = useState("individual");
 
   return (
@@ -36,7 +36,8 @@ export const Price = () => {
       <div className={`${root.section_inner} ${root.section_inner_content}`}>
         <h1 className={`${styles.price_ttl} ${root.section_ttl}`}>料金</h1>
 
-        {/* <Index index={index} setIndex={setIndex} /> */}
+        {/* ver 2.0.0 */}
+        <Index index={index} setIndex={setIndex} />
 
         <p className={`${styles.price_desc} ${root.section_desc}`}>
           {index === "individual"
