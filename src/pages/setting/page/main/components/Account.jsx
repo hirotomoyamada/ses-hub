@@ -14,6 +14,7 @@ export const Account = ({ user, history }) => {
           </span>
         )}
       </div>
+      
       <button
         className={`${styles.main_btn} ${
           user?.provider &&

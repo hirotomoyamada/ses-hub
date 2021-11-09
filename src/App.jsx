@@ -16,6 +16,7 @@ import { Pay } from "./features/pay/Pay";
 import { Auth } from "./pages/auth/Auth";
 import { List } from "./pages/list/List";
 import { Setting } from "./pages/setting/Setting";
+import { Account } from "./pages/account/Account";
 import { Terms } from "./pages/terms/Terms";
 import { Asct } from "./pages/asct/Asct";
 import { HowTo } from "./pages/howTo/HowTo";
@@ -27,7 +28,6 @@ import { Contact } from "./pages/contact/Contact";
 import { Promotion } from "./promotion/Promotion";
 
 import { useApp } from "./hook/useApp";
-import { Account } from "./pages/account/Account";
 
 const App = () => {
   const [user, access, notFound, browser] = useApp();
