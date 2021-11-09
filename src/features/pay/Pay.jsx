@@ -45,7 +45,7 @@ export const Pay = () => {
     <div className={styles.pay}>
       {Object.keys(products).length ? (
         <>
-          <Header back plan />
+          <Header back goSetting />
           <div className={styles.pay_inner}>
             <FreeTrial user={user} />
             <Container
