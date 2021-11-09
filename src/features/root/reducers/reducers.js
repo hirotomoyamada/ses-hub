@@ -6,5 +6,16 @@ import { modal } from "./modal";
 import { announce } from "./announce";
 import { verified } from "./verified";
 import { notFound } from "./notFound";
+import { token } from "./token";
 
-export { index, page, sort, search, modal, announce, verified, notFound };
+export {
+  index,
+  page,
+  sort,
+  search,
+  modal,
+  announce,
+  verified,
+  notFound,
+  token,
+};

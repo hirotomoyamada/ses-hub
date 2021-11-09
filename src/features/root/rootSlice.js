@@ -17,6 +17,7 @@ export const rootSlice = createSlice({
     handleAnnounce: (state, action) => reducers.announce(state, action),
     handleNotFound: (state, action) => reducers.notFound(state, action),
     handleVerified: (state, action) => reducers.verified(state, action),
+    handleToken: (state, action) => reducers.token(state, action),
   },
 
   extraReducers: (builder) => {
@@ -168,6 +169,7 @@ export const {
   handleAnnounce,
   handleNotFound,
   handleVerified,
+  handleToken,
 } = rootSlice.actions;
 
 export const index = (state) => state.root.index;

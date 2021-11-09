@@ -14,6 +14,14 @@ export const handleAuth = async ({ dispatch, methods, setAuth, data }) => {
     .reauthenticateWithCredential(credential)
     .then(() => {
       setAuth(false);
+      
+      dispatch(
+        rootSlice.handleToken({
+          uid: user.uid,
+          email: user.email,
+          password: data.password,
+        })
+      );
     })
     .catch((e) => {
       methods.reset();
