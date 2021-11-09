@@ -27,6 +27,7 @@ import { Contact } from "./pages/contact/Contact";
 import { Promotion } from "./promotion/Promotion";
 
 import { useApp } from "./hook/useApp";
+import { Account } from "./pages/account/Account";
 
 const App = () => {
   const [user, access, notFound, browser] = useApp();
@@ -81,14 +82,14 @@ const App = () => {
                 <Route exact path="/home" component={Home} />
                 <Route exact path="/search" component={Search} />
                 <Route exact path="/setting" component={Setting} />
+                <Route exact path="/account" component={Account} />
 
                 <Route exact path="/terms" component={Terms} />
                 <Route exact path="/asct" component={Asct} />
+                <Route exact path="/howto" component={HowTo} />
 
                 <Route exact path="/plan" component={Pay} />
                 <Route exact path="/success" component={Success} />
-
-                <Route exact path="/howto" component={HowTo} />
 
                 <Route exact path="/:list" component={List} />
 
