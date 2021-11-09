@@ -6,7 +6,7 @@ import { useScrollController } from "../../../hook/useScrollController";
 
 export const Password = ({ next, setReset }) => {
   useScrollController();
-  
+
   const {
     register,
     watch,
@@ -39,7 +39,11 @@ export const Password = ({ next, setReset }) => {
           })}
         />
 
-        <span className={styles.error}>{errors.currentPassword?.message}</span>
+        {errors.currentPassword?.message && (
+          <span className={styles.error}>
+            {errors.currentPassword?.message}
+          </span>
+        )}
       </div>
 
       <button
@@ -81,7 +85,11 @@ export const Password = ({ next, setReset }) => {
           })}
         />
 
-        <span className={styles.error}>{errors.verifiedPassword?.message}</span>
+        {errors.verifiedPassword?.message && (
+          <span className={styles.error}>
+            {errors.verifiedPassword?.message}
+          </span>
+        )}
       </div>
 
       <div>
@@ -106,12 +114,13 @@ export const Password = ({ next, setReset }) => {
           })}
         />
 
-        <span className={styles.error}>
-          {errors.newPassword?.type === "verified" &&
-            "パスワードが一致しません"}
-        </span>
+        {errors.newPassword?.type === "verified" && (
+          <span className={styles.error}>パスワードが一致しません</span>
+        )}
 
-        <span className={styles.error}>{errors.newPassword?.message}</span>
+        {errors.newPassword?.message && (
+          <span className={styles.error}>{errors.newPassword?.message}</span>
+        )}
       </div>
 
       <button type="submit" className={root.setting_btn}>

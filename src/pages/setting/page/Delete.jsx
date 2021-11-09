@@ -55,8 +55,10 @@ export const Delete = ({ next, user, setReset, setNext }) => {
             },
           })}
         />
-
-        <span className={styles.error}>{errors.password?.message}</span>
+        
+        {errors.password?.message && (
+          <span className={styles.error}>{errors.password?.message}</span>
+        )}
       </div>
 
       <button
