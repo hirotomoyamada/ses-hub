@@ -11,6 +11,7 @@ import { Plan } from "./components/Plan";
 import { Option } from "./components/Option";
 import { At } from "./components/At";
 import { Provider } from "./components/provider/Provider";
+import { Account } from "./components/Account";
 
 export const Main = ({
   user,
@@ -37,6 +38,8 @@ export const Main = ({
       <Plan user={user} history={history} />
 
       <Option user={user} />
+
+      <Account user={user} history={history} />
 
       <At user={user} />
 
