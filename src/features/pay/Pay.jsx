@@ -3,7 +3,6 @@ import styles from "./Pay.module.scss";
 import Loader from "react-loader-spinner";
 
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "./actions/fetchProfucts";
@@ -11,16 +10,16 @@ import * as rootSlice from "../root/rootSlice";
 import * as userSlice from "../user/userSlice";
 import * as paySlice from "./paySlice";
 
-import { Back, Checkout } from "./components/btn/Btn";
 import { FreeTrial } from "./components/freetrial/FreeTrial";
 import { Container } from "./components/container/Container";
+import { Btn } from "./components/btn/Btn";
 
 import { handleCheckout } from "./functions/handleCheckout";
 import { handlePortal } from "./functions/handlePortal";
+import { Header } from "../../components/header/Header";
 
 export const Pay = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const user = useSelector(userSlice.user);
   const demo = useSelector(rootSlice.verified).demo;
@@ -45,30 +44,32 @@ export const Pay = () => {
   return (
     <div className={styles.pay}>
       {Object.keys(products).length ? (
-        <div className={styles.pay_inner}>
-          <Back history={history} />
-          <FreeTrial user={user} />
-          <Container
-            products={products}
-            user={user}
-            tax={tax}
-            load={load}
-            setLoad={setLoad}
-            priceId={priceId}
-            setPriceId={setPriceId}
-            handlePortal={handlePortal}
-            demo={demo}
-          />
-          <Checkout
-            user={user}
-            priceId={priceId}
-            load={load}
-            setLoad={setLoad}
-            dispatch={dispatch}
-            handleCheckout={handleCheckout}
-            demo={demo}
-          />
-        </div>
+        <>
+          <Header back plan />
+          <div className={styles.pay_inner}>
+            <FreeTrial user={user} />
+            <Container
+              products={products}
+              user={user}
+              tax={tax}
+              load={load}
+              setLoad={setLoad}
+              priceId={priceId}
+              setPriceId={setPriceId}
+              handlePortal={handlePortal}
+              demo={demo}
+            />
+            <Btn
+              user={user}
+              priceId={priceId}
+              load={load}
+              setLoad={setLoad}
+              dispatch={dispatch}
+              handleCheckout={handleCheckout}
+              demo={demo}
+            />
+          </div>
+        </>
       ) : (
         <div className={`${styles.pay_inner} ${styles.pay_inner_load}`}>
           <Loader type="Oval" color="#49b757" height={56} width={56} />
