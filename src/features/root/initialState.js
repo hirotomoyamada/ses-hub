@@ -27,6 +27,7 @@ export const initialState = {
   },
 
   data: {},
+  token: {},
 
   verified: {
     index: false,
