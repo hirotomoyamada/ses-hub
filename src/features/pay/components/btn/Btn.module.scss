@@ -5,15 +5,7 @@
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
 
-.back {
-  color: $acnt_clr;
-
-  @media (max-width: responsive-width(sp)) {
-    font-size: 14px;
-  }
-}
-
-.checkout {
+.btn {
   position: relative;
   background: $acnt_clr;
   width: 100%;

@@ -25,6 +25,7 @@ export const Header = ({
   handleCancel,
   ttl,
   setting,
+  plan,
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -49,7 +50,11 @@ export const Header = ({
   };
 
   const handleBack = () => {
-    !setting ? history.goBack() : history.push(`/companys/${user.uid}`);
+    !setting && !plan
+      ? history.goBack()
+      : setting
+      ? history.push(`/companys/${user.uid}`)
+      : plan && history.push("/setting");
   };
 
   return !back ? (
@@ -80,7 +85,7 @@ export const Header = ({
     <div
       className={`${styles.header} ${styles.header_back} ${
         !ttl && styles.header_none
-      }`}
+      } ${plan && styles.header_back_plan}`}
     >
       <button
         type="button"
@@ -89,7 +94,7 @@ export const Header = ({
           !email && !password && !create && !remove ? handleBack : handleCancel
         }
       >
-        もどる
+        {!plan ? "もどる" : "アカウント情報 へもどる"}
       </button>
       <span className={styles.header_back_ttl}>
         {!email && !password && !create && !remove ? ttl : ""}

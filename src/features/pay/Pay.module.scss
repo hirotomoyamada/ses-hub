@@ -6,7 +6,7 @@
 $width: responsive-width(pc);
 
 .pay {
-  background: $bg_clr;
+  background: $base_clr;
   color: $main_clr;
   letter-spacing: 0.4px;
 
@@ -15,7 +15,7 @@ $width: responsive-width(pc);
     width: 720px;
     min-height: $innerHeight;
 
-    padding: 29px 0;
+    padding: 24px 0 48px;
 
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(tb)) {
       width: 100vw;
       margin: 0;
-      padding: 29px 12px;
+      padding: 24px 12px 48px;
     }
 
     @media (max-width: responsive-width(sp)) {
