@@ -4,7 +4,7 @@ import { functions, auth } from "../../../firebase";
 export const login = createAsyncThunk("user/login", async (data) => {
   const login = functions.httpsCallable("sh-login");
 
-  const user = login({
+  const user = await login({
     emailVerified: data.emailVerified,
     providerData: data.providerData,
   })
