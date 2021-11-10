@@ -1,7 +1,7 @@
 import { auth } from "../../../firebase";
 
 export const userPosts = (state, action) => {
-  if (action.payload) {
+  if (!action.payload.error) {
     const user =
       auth.currentUser?.uid === action.payload.uid ? "user" : "selectUser";
 

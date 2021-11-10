@@ -19,7 +19,15 @@ exports.uploadResume = functions
     if (data.length > 0.4 * 1024 * 1024) {
       throw new functions.https.HttpsError(
         "cancelled",
-        "容量が大きすぎます",
+        "アップロードするファイルの容量が大きすぎます",
+        "storage"
+      );
+    }
+
+    if (data.type !== "application/pdf") {
+      throw new functions.https.HttpsError(
+        "cancelled",
+        "アップロードするファイルがpdf形式ではありません",
         "storage"
       );
     }
@@ -29,7 +37,9 @@ exports.uploadResume = functions
       .doc(context.auth.uid)
       .get()
       .then(async (doc) => {
-        return doc.exists && (await uploadFile(data, doc, context.auth.uid));
+        return (
+          doc.exists && (await uploadFile(data.file, doc, context.auth.uid))
+        );
       })
       .catch((e) => {
         throw new functions.https.HttpsError(
@@ -42,14 +52,14 @@ exports.uploadResume = functions
     return url;
   });
 
-const uploadFile = async (data, doc, uid) => {
+const uploadFile = async (file, doc, uid) => {
   const key = doc.data().resume.key
     ? doc.data().resume.key
     : `${uid}-${Math.random().toString(32).substring(2)}`;
 
   const name = `${key}.pdf`;
   const bucket = storage.bucket(functions.config().storage.resume);
-  const buffer = Buffer.from(data, "base64");
+  const buffer = Buffer.from(file, "base64");
   const path = bucket.file(name);
 
   const url = await path
@@ -70,7 +80,7 @@ const uploadFile = async (data, doc, uid) => {
     .catch((e) => {
       throw new functions.https.HttpsError(
         "data-loss",
-        "ファイルの作成に失敗しました",
+        "ファイルのアップロードに失敗しました",
         "storage"
       );
     });
