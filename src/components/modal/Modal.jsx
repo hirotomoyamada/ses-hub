@@ -40,7 +40,14 @@ export const Modal = () => {
       case "agree":
         return <Agree />;
       case "advertise":
-        return <Advertise user={user} handleClose={handleClose} />;
+        return (
+          <Advertise
+            user={user}
+            text={modal.text}
+            close={modal.close}
+            handleClose={handleClose}
+          />
+        );
       case "demo":
         return <Demo handleClose={handleClose} />;
       case "info":

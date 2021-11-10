@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import * as userSlice from "../../../../features/user/userSlice";
 
-export const Advertise = ({ user, handleClose }) => {
+export const Advertise = ({ user, text, close, handleClose }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -18,21 +18,29 @@ export const Advertise = ({ user, handleClose }) => {
       <button
         type="button"
         className={styles.advertise_back}
-        onClick={handleClose}
+        onClick={!close ? handleClose : close}
       >
         今はしない
       </button>
 
-      <div className={styles.advertise_header}>
-        <span className={styles.advertise_desc}>
-          {user?.payment?.trial
-            ? "\\ キャンペーン中 /"
-            : "\\ メンバーたちと一緒に /"}
-        </span>
+      <div
+        className={`${styles.advertise_header} ${
+          text && styles.advertise_header_account
+        }`}
+      >
+        {!text && (
+          <span className={styles.advertise_desc}>
+            {user?.payment?.trial
+              ? "\\ キャンペーン中 /"
+              : "\\ メンバーたちと一緒に /"}
+          </span>
+        )}
         <p className={styles.advertise_ttl}>
-          {user?.payment?.trial
-            ? "フリートライアル"
-            : "案件・人材を共有しませんか？"}
+          {!text
+            ? user?.payment?.trial
+              ? "フリートライアル"
+              : "案件・人材を共有しませんか？"
+            : text}
         </p>
       </div>
 
