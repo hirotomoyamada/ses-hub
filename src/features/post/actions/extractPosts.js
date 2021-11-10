@@ -7,7 +7,8 @@ export const extractPosts = createAsyncThunk(
     const type = data.type;
 
     const extractPosts = functions.httpsCallable("sh-extractPosts");
-    const posts = extractPosts({
+    
+    const posts = await extractPosts({
       index: data.index,
       objectIDs: data.objectIDs,
       page: data.page,

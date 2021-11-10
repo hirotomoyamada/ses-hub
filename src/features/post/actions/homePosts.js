@@ -3,7 +3,8 @@ import { functions } from "../../../firebase";
 
 export const homePosts = createAsyncThunk("post/homePosts", async (data) => {
   const homePosts = functions.httpsCallable("sh-homePosts");
-  const posts = homePosts({
+
+  const posts = await homePosts({
     index: data.index,
     follows: data.follows,
     page: data.page,

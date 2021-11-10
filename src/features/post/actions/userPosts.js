@@ -5,7 +5,8 @@ export const userPosts = createAsyncThunk("post/userPosts", async (data) => {
   const uid = data.uid;
 
   const userPosts = functions.httpsCallable("sh-userPosts");
-  const posts = userPosts({
+  
+  const posts = await userPosts({
     index: data.index,
     uid: data.uid,
     uids: data.uids,
