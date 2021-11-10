@@ -7,7 +7,7 @@ export const createPost = createAsyncThunk("post/createPost", async (data) => {
 
   const page = data.page;
 
-  const post = createPost({
+  const post = await createPost({
     index: data.index,
     post: data.post,
   })

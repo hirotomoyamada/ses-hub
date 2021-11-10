@@ -5,7 +5,8 @@ export const promotionPosts = createAsyncThunk(
   "post/promotionPosts",
   async (data) => {
     const promotionPosts = functions.httpsCallable("sh-promotionPosts");
-    const posts = promotionPosts({
+
+    const posts = await promotionPosts({
       index: data.index,
     })
       .then(({ data }) => {
