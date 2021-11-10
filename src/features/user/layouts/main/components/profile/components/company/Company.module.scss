@@ -51,7 +51,7 @@ $width: responsive-width(pc);
 
   &_payment {
     align-self: flex-start;
-    background: $acnt_clr;
+    background: $promo_clr;
     color: $base_clr;
     padding: 6px 12px;
     border-radius: 8px;
@@ -65,7 +65,7 @@ $width: responsive-width(pc);
     }
 
     &_active {
-      background: $promo_clr;
+      background: $acnt_clr;
     }
 
     &_trialing {

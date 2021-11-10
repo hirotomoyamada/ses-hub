@@ -5,7 +5,8 @@ export const userPosts = createAsyncThunk("post/userPosts", async (data) => {
   const uid = data.uid;
 
   const userPosts = functions.httpsCallable("sh-userPosts");
-  const posts = userPosts({
+
+  const posts = await userPosts({
     index: data.index,
     uid: data.uid,
     uids: data.uids,
@@ -21,7 +22,9 @@ export const userPosts = createAsyncThunk("post/userPosts", async (data) => {
         hit: data.hit,
       };
     })
-    .catch((e) => {});
+    .catch((e) => {
+      return { error: "ページを更新してください" };
+    });
 
   return posts;
 });

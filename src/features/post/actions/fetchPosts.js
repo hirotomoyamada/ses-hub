@@ -3,7 +3,8 @@ import { functions } from "../../../firebase";
 
 export const fetchPosts = createAsyncThunk("post/fetchPosts", async (data) => {
   const fetchPosts = functions.httpsCallable("sh-fetchPosts");
-  const posts = fetchPosts({
+
+  const posts = await fetchPosts({
     index: data.index,
     target: data.target,
     value: data.value,
@@ -17,7 +18,9 @@ export const fetchPosts = createAsyncThunk("post/fetchPosts", async (data) => {
         hit: data.hit,
       };
     })
-    .catch((e) => {});
+    .catch((e) => {
+      return { error: "ページを更新してください" };
+    });
 
   return posts;
 });

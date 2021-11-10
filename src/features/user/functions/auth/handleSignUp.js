@@ -23,7 +23,6 @@ export const handleSignUp = async ({
           methods.reset();
         })
         .catch((e) => {
-          console.log(e);
           dispatch(
             rootSlice.handleAnnounce({
               type: "error",

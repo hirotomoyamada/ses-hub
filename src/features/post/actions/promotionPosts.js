@@ -5,7 +5,8 @@ export const promotionPosts = createAsyncThunk(
   "post/promotionPosts",
   async (data) => {
     const promotionPosts = functions.httpsCallable("sh-promotionPosts");
-    const posts = promotionPosts({
+
+    const posts = await promotionPosts({
       index: data.index,
     })
       .then(({ data }) => {
@@ -14,7 +15,9 @@ export const promotionPosts = createAsyncThunk(
           posts: data.posts,
         };
       })
-      .catch((e) => {});
+      .catch((e) => {
+        return { error: "ページを更新してください" };
+      });
 
     return posts;
   }

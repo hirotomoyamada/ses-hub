@@ -1,5 +1,5 @@
 export const homePosts = (state, action) => {
-  if (action.payload) {
+  if (!action.payload.error) {
     if (action.payload.hit.currentPage !== 0) {
       state.home[action.payload.index].posts = [
         ...state.home[action.payload.index].posts,

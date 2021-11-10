@@ -1,6 +1,6 @@
 import styles from "./Setting.module.scss";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { auth } from "../../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -34,6 +34,10 @@ export const Setting = () => {
   const [reset, setReset] = useState(false);
 
   const methods = useForm();
+
+  useEffect(() => {
+    functions.setting.getRedirect({ dispatch });
+  }, [dispatch]);
 
   const handleCancel = () => {
     setEmail(false);

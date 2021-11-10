@@ -7,7 +7,8 @@ export const extractPosts = createAsyncThunk(
     const type = data.type;
 
     const extractPosts = functions.httpsCallable("sh-extractPosts");
-    const posts = extractPosts({
+    
+    const posts = await extractPosts({
       index: data.index,
       objectIDs: data.objectIDs,
       page: data.page,
@@ -20,7 +21,9 @@ export const extractPosts = createAsyncThunk(
           hit: data.hit,
         };
       })
-      .catch((e) => {});
+      .catch((e) => {
+        return { error: "ページを更新してください" };
+      });
 
     return posts;
   }

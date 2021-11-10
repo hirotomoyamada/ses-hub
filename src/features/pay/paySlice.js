@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { fetchProducts } from "./actions/fetchProfucts";
+import { fetchProducts } from "./actions/fetchProducts";
 
 const initialState = {
   products: {},
@@ -13,9 +13,11 @@ export const paySlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      state.products.plan = action.payload.products.plan;
-      state.products.option = action.payload.products.option;
-      state.tax = action.payload.tax;
+      if (!action.payload.error) {
+        state.products.plan = action.payload.products.plan;
+        state.products.option = action.payload.products.option;
+        state.tax = action.payload.tax;
+      }
     });
   },
 });
