@@ -16,10 +16,6 @@ $width: responsive-width(pc);
   grid-template-rows: 72px 1fr;
   align-items: center;
 
-  &_main {
-    align-items: flex-start;
-  }
-
   @media (max-width: responsive-width(sp)) {
     grid-template-rows: 48px 1fr;
   }
@@ -36,12 +32,17 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(tb)) {
       width: 100vw;
       margin: 0;
-      padding: 24px 12px;
+      padding: 0 12px;
     }
 
     @media (max-width: responsive-width(sp)) {
       gap: 12px;
       font-size: 14px;
+    }
+
+    &_load {
+      justify-content: center;
+      align-items: center;
     }
   }
 
