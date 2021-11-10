@@ -19,7 +19,15 @@ exports.uploadResume = functions
     if (data.length > 0.4 * 1024 * 1024) {
       throw new functions.https.HttpsError(
         "cancelled",
-        "容量が大きすぎます",
+        "アップロードするファイルの容量が大きすぎます",
+        "storage"
+      );
+    }
+
+    if (data.type !== "application/pdf") {
+      throw new functions.https.HttpsError(
+        "cancelled",
+        "アップロードするファイルがpdf形式ではありません",
         "storage"
       );
     }
@@ -70,7 +78,7 @@ const uploadFile = async (data, doc, uid) => {
     .catch((e) => {
       throw new functions.https.HttpsError(
         "data-loss",
-        "ファイルの作成に失敗しました",
+        "ファイルのアップロードに失敗しました",
         "storage"
       );
     });
