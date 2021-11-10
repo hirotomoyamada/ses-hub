@@ -20,7 +20,8 @@ export const getRedirect = ({ dispatch }) => {
           rootSlice.handleAnnounce({
             type: "error",
             text:
-              e.code === "auth/email-already-in-use" &&
+              (e.code === "auth/email-already-in-use" ||
+                e.code === "auth/credential-already-in-use") &&
               "同じメールアドレスのアカウントがすでに存在しています",
           })
         );
