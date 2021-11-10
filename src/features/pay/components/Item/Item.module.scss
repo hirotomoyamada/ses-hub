@@ -45,7 +45,7 @@ $width: responsive-width(pc);
   &_select {
     background: $acnt_clr;
     color: $base_clr;
-    border: none;
+    border: 1px solid $acnt_clr;
   }
 
   &_container {
@@ -131,18 +131,26 @@ $width: responsive-width(pc);
     border-radius: 16px;
     padding: 0px 16px;
     height: 32px;
-    line-height: 32px;
+    line-height: 30px;
     cursor: pointer;
+    border: 1px solid $base_clr;
 
     font-size: 14px;
     color: $acnt_clr;
 
+    transition: all 0.4s;
+
     @media (max-width: responsive-width(sp)) {
       padding: 0px 8px;
       height: 24px;
-      line-height: 24px;
+      line-height: 22px;
 
       font-size: 10px;
+    }
+
+    &:hover {
+      background: $acnt_clr;
+      color: $base_clr;
     }
   }
 }
