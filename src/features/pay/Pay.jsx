@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "./actions/fetchProfucts";
+import { fetchProducts } from "./actions/fetchProducts";
 import * as rootSlice from "../root/rootSlice";
 import * as userSlice from "../user/userSlice";
 import * as paySlice from "./paySlice";

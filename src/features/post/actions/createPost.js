@@ -12,7 +12,9 @@ export const createPost = createAsyncThunk("post/createPost", async (data) => {
     post: data.post,
   })
     .then(({ data }) => {
-      sendPost({ index: data.index, post: data.post }).catch((e) => {});
+      sendPost({ index: data.index, post: data.post }).catch((e) => {
+        return { error: "投稿の作成に失敗しました" };
+      });
 
       return {
         index: data.index,
@@ -20,7 +22,9 @@ export const createPost = createAsyncThunk("post/createPost", async (data) => {
         post: data.post,
       };
     })
-    .catch((e) => {});
+    .catch((e) => {
+      return { error: "投稿の作成に失敗しました" };
+    });
 
   return post;
 });

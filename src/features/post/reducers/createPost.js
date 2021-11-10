@@ -1,5 +1,5 @@
 export const createPost = (state, action) => {
-  if (action.payload) {
+  if (!action.payload.error) {
     if (action.payload.post.display === "private") {
       if (
         state.user[action.payload.index].posts.length ||
