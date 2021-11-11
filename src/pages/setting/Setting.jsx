@@ -36,6 +36,10 @@ export const Setting = () => {
   const methods = useForm();
 
   useEffect(() => {
+    dispatch(rootSlice.handlePage("setting"));
+  }, [dispatch]);
+
+  useEffect(() => {
     functions.setting.getRedirect({ dispatch });
   }, [dispatch]);
 
