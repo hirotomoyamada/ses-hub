@@ -18,9 +18,12 @@ exports.createPlan = functions
     const end = data.current_period_end.seconds * 1000;
     const plan = metadata.name === "plan";
 
+    const type = metadata.type === "individual";
+    const account = data.items[0].price.metadata.account;
+
     checkPlan(plan);
 
-    await updateFirestore(context, status, price, start, end);
+    await updateFirestore(context, status, price, type, account, start, end);
 
     await updateAlgolia(context);
 
@@ -51,7 +54,15 @@ const updateAlgolia = async (context) => {
     });
 };
 
-const updateFirestore = async (context, status, price, start, end) => {
+const updateFirestore = async (
+  context,
+  status,
+  price,
+  type,
+  account,
+  start,
+  end
+) => {
   await db
     .collection("companys")
     .doc(context.params.uid)
@@ -61,16 +72,29 @@ const updateFirestore = async (context, status, price, start, end) => {
         (await doc.ref
           .set(
             {
-              payment: {
-                status: status,
-                price: price,
-                start: start,
-                end: end,
-                trial: false,
-                cancel: false,
-                notice: false,
-                load: false,
-              },
+              payment: type
+                ? {
+                    status: status,
+                    price: price,
+                    start: start,
+                    end: end,
+                    trial: false,
+                    cancel: false,
+                    notice: false,
+                    load: false,
+                  }
+                : {
+                    status: status,
+                    price: price,
+                    account: account,
+                    children: [],
+                    start: start,
+                    end: end,
+                    trial: false,
+                    cancel: false,
+                    notice: false,
+                    load: false,
+                  },
             },
             { merge: true }
           )

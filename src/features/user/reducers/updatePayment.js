@@ -11,6 +11,8 @@ export const updatePayment = (state, action) => {
       status: action.payload.status,
       option: action.payload.option,
       price: action.payload.price,
+      account: action.payload.account,
+      children: action.payload.children,
       end: action.payload.end,
       notice: action.payload.notice,
       cancel: action.payload.cancel,
