@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initialState";
 
 import * as reducers from "./reducers/reducers";
+import { extraReducers } from "./extraReducers/extraReducers";
 
 export const postSlice = createSlice({
   name: "post",
@@ -15,7 +16,7 @@ export const postSlice = createSlice({
     resetPost: (state, action) => reducers.resetPost(state, action),
   },
 
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => extraReducers(builder),
 });
 
 export const { selectPost, editPost, deletePost, resetPost } =
