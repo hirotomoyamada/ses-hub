@@ -19,12 +19,23 @@ exports.updatePlan = functions
     const remove = after.ended_at ? true : false;
 
     const plan = after.items[0].price.product.metadata.name === "plan";
+    const type = after.items[0].price.product.metadata.type === "individual";
+    const account = after.items[0].price.metadata.account;
 
     checkPlan(plan);
 
     await checkDuplicate(context, remove, price);
 
-    await updateFirestore(context, status, cancel, price, start, end);
+    await updateFirestore(
+      context,
+      status,
+      cancel,
+      price,
+      type,
+      account,
+      start,
+      end
+    );
 
     status === "canceled" && (await updateAlgolia(context));
 
@@ -73,7 +84,16 @@ const updateAlgolia = async (context) => {
     });
 };
 
-const updateFirestore = async (context, status, cancel, price, start, end) => {
+const updateFirestore = async (
+  context,
+  status,
+  cancel,
+  price,
+  type,
+  account,
+  start,
+  end
+) => {
   await db
     .collection("companys")
     .doc(context.params.uid)
@@ -82,8 +102,8 @@ const updateFirestore = async (context, status, cancel, price, start, end) => {
       await doc.ref
         .set(
           {
-            payment:
-              status === "canceled"
+            payment: type
+              ? status === "canceled"
                 ? {
                     status: status,
                     price: null,
@@ -98,7 +118,25 @@ const updateFirestore = async (context, status, cancel, price, start, end) => {
                     start: start,
                     end: end,
                     cancel: cancel,
-                  },
+                  }
+              : status === "canceled"
+              ? {
+                  status: status,
+                  price: null,
+                  start: null,
+                  end: null,
+                  account: 0,
+                  cancel: false,
+                  notice: true,
+                }
+              : {
+                  status: status,
+                  price: price,
+                  account: account,
+                  start: start,
+                  end: end,
+                  cancel: cancel,
+                },
           },
           { merge: true }
         )
