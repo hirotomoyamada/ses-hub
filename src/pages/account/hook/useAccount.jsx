@@ -4,16 +4,26 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as rootSlice from "../../../features/root/rootSlice";
 import * as userSlice from "../../../features/user/userSlice";
+import { fetchUser } from "../../../features/user/actions/fetchUser";
 
 export const useAccount = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(userSlice.user);
-  const status = user.payment.status !== "canceled";
-  // const account = user.payment.account;
-  const account = 19;
-  // const children = user.children;
-  const children = [];
+  const children = useSelector(userSlice.selectUser);
+  const status = user?.payment?.status !== "canceled";
+  const account = user?.payment?.account - 1;
+
+  useEffect(() => {
+    user?.payment?.children?.length &&
+      dispatch(
+        fetchUser({
+          index: "companys",
+          uids: user?.payment?.children,
+          fetch: true,
+        })
+      );
+  }, [dispatch, user?.payment?.children]);
 
   useEffect(() => {
     !status &&
