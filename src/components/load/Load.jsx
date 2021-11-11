@@ -51,7 +51,7 @@ export const Fetch = () => {
   return (
     <div
       className={`${styles.load} ${styles.load_fetch} ${
-        !user && styles.load_fetch_auth
+        (!user || page === "account") && styles.load_fetch_auth
       } ${page === "user" && styles.load_user} ${
         (page === "likes" || page === "outputs" || page === "entries") &&
         styles.load_list
