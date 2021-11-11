@@ -14,16 +14,7 @@ exports.companys = ({ context, doc, data, hit, demo }) => {
       type: doc.data().type,
 
       agree: doc.data().agree,
-      payment: {
-        status: doc.data().payment.status,
-        option: doc.data().payment.option,
-        price: doc.data().payment.price,
-        end: doc.data().payment.end,
-        notice: doc.data().payment.notice,
-        cancel: doc.data().payment.cancel,
-        trial: doc.data().payment.trial,
-        load: doc.data().payment.load,
-      },
+      payment: doc.data().payment,
       posts: doc.data().posts,
       entries: doc.data().entries,
       likes: doc.data().likes,
