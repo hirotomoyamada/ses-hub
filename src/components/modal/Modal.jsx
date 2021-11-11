@@ -17,6 +17,7 @@ import { Agree } from "./components/agree/Agree";
 import { Delete } from "./components/delete/Delete";
 import { Advertise } from "./components/advertise/Advertise";
 import { Request } from "./components/request/Request";
+import { Account } from "./components/account/Account";
 
 export const Modal = () => {
   const dispatch = useDispatch();
@@ -67,6 +68,15 @@ export const Modal = () => {
         );
       case "profile":
         return <Profile user={user} handleClose={handleClose} />;
+      case "account":
+        return (
+          <Account
+            user={user}
+            create={modal.meta.type === "create"}
+            email={modal.meta.target}
+            handleClose={handleClose}
+          />
+        );
       case "delete":
         return (
           <Delete
@@ -103,7 +113,10 @@ export const Modal = () => {
       <div className={styles.overlay}></div>
       <div
         className={`${styles.modal} ${
-          modal.type !== "home" && modal.type !== "delete" && styles.modal_sp
+          modal.type !== "home" &&
+          modal.type !== "delete" &&
+          modal.type !== "account" &&
+          styles.modal_sp
         }`}
       >
         <Inner />
