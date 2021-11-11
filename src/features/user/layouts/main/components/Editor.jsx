@@ -11,8 +11,8 @@ export const Editor = () => {
 
   const handleSetting = () => {
     history.push("/setting");
-    dispatch(rootSlice.handlePage("setting"));
   };
+  
   return (
     <div className={styles.main_edit}>
       <button
