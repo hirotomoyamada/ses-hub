@@ -29,7 +29,6 @@ export const Account = () => {
   }, [dispatch]);
 
   const handleAuth = (data) => {
-    console.log(data);
     functions.account.handleAuth({
       dispatch,
       methods,
@@ -39,7 +38,6 @@ export const Account = () => {
   };
 
   const handleReset = (data) => {
-    console.log(data);
     const email = data.email;
 
     functions.account.handleReset({

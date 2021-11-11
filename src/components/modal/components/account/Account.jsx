@@ -22,7 +22,6 @@ export const Account = ({ user, create, email, handleClose }) => {
   };
 
   const handleDelete = (data) => {
-    setVerification(true);
     const password = data.password;
 
     if (!verification) {
