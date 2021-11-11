@@ -132,7 +132,7 @@ const updateFirestore = async (
               : {
                   status: status,
                   price: price,
-                  account: account,
+                  account: Number(account),
                   start: start,
                   end: end,
                   cancel: cancel,
