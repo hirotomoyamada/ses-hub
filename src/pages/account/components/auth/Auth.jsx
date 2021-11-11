@@ -57,7 +57,14 @@ export const Auth = ({ reset, setReset }) => {
         <p className={styles.head_ttl}>パスワード再設定メールを送る</p>
       </div>
 
-      <input type="hidden" {...register("password")} />
+      <input
+        type="hidden"
+        {...register("password", {
+          required: {
+            value: false,
+          },
+        })}
+      />
 
       <div>
         <input
