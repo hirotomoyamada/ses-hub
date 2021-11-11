@@ -12,19 +12,22 @@ export const useApp = () => {
   const user = useSelector(userSlice.user);
   const access = useSelector(rootSlice.verified).access;
   const notFound = useSelector(rootSlice.notFound);
+  const token = useSelector(rootSlice.token);
 
   const [browser, setBrowser] = useState(true);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      if (user) {
-        dispatch(login(user));
-      } else {
-        auth.signOut();
-        dispatch(userSlice.logout());
+      if (!token) {
+        if (user) {
+          dispatch(login(user));
+        } else {
+          auth.signOut();
+          dispatch(userSlice.logout());
+        }
       }
     });
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   useEffect(() => {
     const agent = window.navigator.userAgent.toLowerCase();
