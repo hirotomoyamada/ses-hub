@@ -1,9 +1,11 @@
 import styles from "./Account.module.scss";
 
 import { useDevice } from "./hook/useDevice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm, FormProvider } from "react-hook-form";
+
+import * as rootSlice from "../../features/root/rootSlice";
 
 import { Header } from "../../components/header/Header";
 import { Main } from "./components/main/Main";
@@ -22,7 +24,12 @@ export const Account = () => {
 
   const methods = useForm();
 
+  useEffect(() => {
+    dispatch(rootSlice.handlePage("account"));
+  }, [dispatch]);
+
   const handleAuth = (data) => {
+    console.log(data);
     functions.account.handleAuth({
       dispatch,
       methods,
@@ -32,11 +39,14 @@ export const Account = () => {
   };
 
   const handleReset = (data) => {
+    console.log(data);
+    const email = data.email;
+
     functions.account.handleReset({
       dispatch,
       methods,
       setReset,
-      data,
+      email,
     });
   };
 
