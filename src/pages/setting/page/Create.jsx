@@ -94,7 +94,9 @@ export const Create = () => {
           <span className={styles.error}>パスワードが一致しません</span>
         )}
 
-        <span className={styles.error}>{errors.password?.message}</span>
+        {errors.password?.message && (
+          <span className={styles.error}>{errors.password?.message}</span>
+        )}
       </div>
 
       <button type="submit" className={root.setting_btn}>
