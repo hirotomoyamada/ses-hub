@@ -2,18 +2,13 @@ import { auth } from "../../../../firebase";
 
 import * as rootSlice from "../../../root/rootSlice";
 
-export const handleReset = async ({
-  dispatch,
-  methods,
-  setReset,
-  data,
-}) => {
+export const handleReset = async ({ dispatch, methods, setReset, email }) => {
   await auth
-    .sendPasswordResetEmail(data.email)
+    .sendPasswordResetEmail(email)
     .then(() => {
-      setReset(false);
+      setReset && setReset(false);
 
-      methods.reset();
+      methods?.reset();
 
       dispatch(
         rootSlice.handleAnnounce({
@@ -23,6 +18,7 @@ export const handleReset = async ({
       );
     })
     .catch((e) => {
+      console.log(e);
       dispatch(
         rootSlice.handleAnnounce({
           type: "error",
