@@ -18,8 +18,11 @@ export const useApp = () => {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
+      console.log(token);
       if (!token) {
+        console.log("tokenが通過");
         if (user) {
+          console.log("userが追加");
           dispatch(login(user));
         } else {
           auth.signOut();
