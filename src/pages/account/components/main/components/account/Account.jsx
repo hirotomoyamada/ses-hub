@@ -21,7 +21,7 @@ export const Account = ({ user, current }) => {
     dispatch(
       rootSlice.handleModal({
         type: "account",
-        meta: { type: "create", target: user?.profile?.email },
+        meta: { type: "create", selectUser: user },
       })
     );
   };
@@ -30,7 +30,7 @@ export const Account = ({ user, current }) => {
     dispatch(
       rootSlice.handleModal({
         type: "account",
-        meta: { type: "delete", target: user?.profile?.email },
+        meta: { type: "delete", selectUser: user },
       })
     );
   };

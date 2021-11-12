@@ -73,7 +73,7 @@ export const Modal = () => {
           <Account
             user={user}
             create={modal.meta.type === "create"}
-            email={modal.meta.target}
+            selectUser={modal.meta.selectUser}
             handleClose={handleClose}
           />
         );

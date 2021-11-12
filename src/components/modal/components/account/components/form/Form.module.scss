@@ -6,8 +6,6 @@
 $width: responsive-width(pc);
 
 .form {
-  min-height: 240px;
-  
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -96,10 +94,21 @@ $width: responsive-width(pc);
     text-align: center;
     line-height: 48px;
 
+    transition: all 0.4s;
+
     @media (max-width: responsive-width(sp)) {
       margin-top: 16px;
       height: 40px;
       line-height: 40px;
+    }
+
+    &_delete {
+      background: $remove_clr;
+    }
+
+    &_disable {
+      background: $sub_clr;
+      pointer-events: none;
     }
   }
 }

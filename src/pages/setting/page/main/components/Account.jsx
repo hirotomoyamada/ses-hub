@@ -1,12 +1,14 @@
 import styles from "../Main.module.scss";
 
 export const Account = ({ user, history }) => {
-  return user.type === "corporate" ? (
+  return user.type === "parent" ? (
     <div className={styles.main_row}>
       <div className={styles.main_col}>
         <span className={styles.main_tag}>アカウント</span>
         <span className={styles.main_value}>
-          {user?.payment?.account ? user?.payment?.account - 1 : 0}
+          {user?.payment?.account
+            ? user?.payment?.account - user?.payment?.children?.length - 1
+            : 0}
           &nbsp;アカウントまで作成できます
         </span>
         {user?.provider && user.provider.indexOf("password") < 0 && (

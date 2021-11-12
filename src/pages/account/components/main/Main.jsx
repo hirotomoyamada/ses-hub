@@ -4,6 +4,7 @@ import styles from "./Main.module.scss";
 import Loader from "react-loader-spinner";
 
 import { useAccount } from "../../hook/useAccount";
+
 import { Header } from "./components/header/Header";
 import { List } from "./components/list/List";
 

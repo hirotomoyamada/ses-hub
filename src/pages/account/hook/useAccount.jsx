@@ -15,7 +15,8 @@ export const useAccount = () => {
   const account = user?.payment?.account - 1;
 
   useEffect(() => {
-    user?.payment?.children?.length &&
+    !children.length &&
+      user?.payment?.children?.length &&
       dispatch(
         fetchUser({
           index: "companys",
@@ -23,7 +24,7 @@ export const useAccount = () => {
           fetch: true,
         })
       );
-  }, [dispatch, user?.payment?.children]);
+  }, [children, dispatch, user?.payment?.children]);
 
   useEffect(() => {
     !status &&

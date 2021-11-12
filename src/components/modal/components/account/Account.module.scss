@@ -21,4 +21,10 @@ $width: responsive-width(pc);
     grid-template-rows: 48px 1fr;
     font-size: 12px;
   }
+
+  &_load {
+    display: block;
+    padding: 64px 32px;
+    grid-template-columns: 1fr;
+  }
 }

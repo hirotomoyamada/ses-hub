@@ -9,17 +9,28 @@ export const Form = ({ create }) => {
     formState: { errors },
   } = useFormContext();
 
+  const email = watch("email");
+  const password = watch("password");
   const verifiedPassword = watch("verifiedPassword");
 
   return (
     <div className={styles.form}>
       <div className={styles.form_head}>
         <p className={styles.form_head_ttl}>
-          {create ? "新しいアカウントの作成" : "パスワードを再入力"}
+          {create ? "新しいアカウントの作成" : "アカウントを削除"}
         </p>
         {!create && (
           <p className={styles.form_head_desc}>
-            続けるにはこのアカウントのパスワードをもう一度入力してください
+            削除するには、このアカウントのパスワードを入力してください
+            <br />
+            <br />
+            アカウントを削除すると、これまでのデータはすべて削除され
+            <br />
+            アカウント同士のリンクも解除されます
+            <br />
+            <br />
+            また、復元することもできませんのでご注意ください
+            <br />
           </p>
         )}
       </div>
@@ -70,14 +81,14 @@ export const Form = ({ create }) => {
           })}
         />
 
-        {(create && errors.verifiedPassword?.message) ||
-          (!create && errors.password?.message && (
-            <span className={styles.form_error}>
-              {create
-                ? errors.verifiedPassword?.message
-                : errors.password?.message}
-            </span>
-          ))}
+        {((create && errors.verifiedPassword?.message) ||
+          (!create && errors.password?.message)) && (
+          <span className={styles.form_error}>
+            {create
+              ? errors.verifiedPassword?.message
+              : errors.password?.message}
+          </span>
+        )}
       </div>
 
       {create && (
@@ -115,8 +126,21 @@ export const Form = ({ create }) => {
         </div>
       )}
 
-      <button type="submit" className={styles.form_btn}>
-        {create ? "作成する" : "次へ"}
+      <button
+        type="submit"
+        className={`${styles.form_btn} ${!create && styles.form_btn_delete} ${
+          ((create && (!email || !password || !verifiedPassword)) ||
+            (!create && !password)) &&
+          styles.form_btn_disable
+        }`}
+      >
+        {create
+          ? email && password && verifiedPassword
+            ? "作成する"
+            : "メールアドレスとパスワードを入力してください"
+          : password
+          ? "アカウントを削除"
+          : "パスワードを入力してください"}
       </button>
     </div>
   );

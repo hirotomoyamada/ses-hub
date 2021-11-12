@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { auth } from "../firebase";
 
 import { login } from "../features/user/actions/login";
@@ -12,25 +13,19 @@ export const useApp = () => {
   const user = useSelector(userSlice.user);
   const access = useSelector(rootSlice.verified).access;
   const notFound = useSelector(rootSlice.notFound);
-  const token = useSelector(rootSlice.token);
 
   const [browser, setBrowser] = useState(true);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      console.log(token);
-      if (!token) {
-        console.log("tokenが通過");
-        if (user) {
-          console.log("userが追加");
-          dispatch(login(user));
-        } else {
-          auth.signOut();
-          dispatch(userSlice.logout());
-        }
+      if (user) {
+        dispatch(login(user));
+      } else {
+        auth.signOut();
+        dispatch(userSlice.logout());
       }
     });
-  }, [dispatch, token]);
+  }, [dispatch]);
 
   useEffect(() => {
     const agent = window.navigator.userAgent.toLowerCase();
