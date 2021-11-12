@@ -12,6 +12,7 @@ export const Index = ({ index, setIndex }) => {
       >
         個人
       </button>
+      
       <button
         type="button"
         className={`${styles.index_btn} ${

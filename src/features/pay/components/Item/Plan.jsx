@@ -45,7 +45,7 @@ export const Plan = ({
                 styles.item_amount_tax_select
               }`}
             >
-              (税込){type === "corporate" && "/3ヶ月〜"}
+              (税込){type === "parent" && "/3ヶ月〜"}
             </span>
           </p>
         </div>

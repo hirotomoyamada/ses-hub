@@ -2,6 +2,9 @@ import { login } from "./login";
 import { fetchUser } from "./fetchUser";
 import { resetUser } from "./resetUser";
 
+import { updateToken } from "./token";
+import { createChild } from "./createChild";
+
 import { editProfile } from "./editProfile";
 import { enableAgree } from "./enableAgree";
 import { updatePayment } from "./updatePayment";
@@ -21,6 +24,8 @@ export {
   login,
   fetchUser,
   resetUser,
+  updateToken,
+  createChild,
   editProfile,
   enableAgree,
   updatePayment,

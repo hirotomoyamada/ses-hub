@@ -25,11 +25,11 @@ export const Type = () => {
       <input
         type="radio"
         {...register("type")}
-        id="corporate"
+        id="parent"
         name="type"
-        value="corporate"
+        value="parent"
       />
-      <label htmlFor="corporate" className={styles.type_btn}>
+      <label htmlFor="parent" className={styles.type_btn}>
         法人
       </label>
 

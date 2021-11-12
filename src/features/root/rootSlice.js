@@ -18,7 +18,6 @@ export const rootSlice = createSlice({
     handleAnnounce: (state, action) => reducers.announce(state, action),
     handleNotFound: (state, action) => reducers.notFound(state, action),
     handleVerified: (state, action) => reducers.verified(state, action),
-    handleToken: (state, action) => reducers.token(state, action),
   },
 
   extraReducers: (builder) => extraReducers(builder),
@@ -33,7 +32,6 @@ export const {
   handleAnnounce,
   handleNotFound,
   handleVerified,
-  handleToken,
 } = rootSlice.actions;
 
 export const index = (state) => state.root.index;
@@ -46,6 +44,5 @@ export const notFound = (state) => state.root.notFound;
 export const data = (state) => state.root.data;
 export const verified = (state) => state.root.verified;
 export const load = (state) => state.root.load;
-export const token = (state) => state.root?.token;
 
 export default rootSlice.reducer;

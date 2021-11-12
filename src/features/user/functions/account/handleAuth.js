@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import { auth } from "../../../../firebase";
 
+import * as userSlice from "../../userSlice";
 import * as rootSlice from "../../../root/rootSlice";
 
 export const handleAuth = async ({ dispatch, methods, setAuth, data }) => {
@@ -14,14 +15,8 @@ export const handleAuth = async ({ dispatch, methods, setAuth, data }) => {
     .reauthenticateWithCredential(credential)
     .then(() => {
       setAuth(false);
-      
-      dispatch(
-        rootSlice.handleToken({
-          uid: user.uid,
-          email: user.email,
-          password: data.password,
-        })
-      );
+
+      dispatch(userSlice.updateToken(data.password));
     })
     .catch((e) => {
       methods.reset();

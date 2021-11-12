@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useForm, FormProvider } from "react-hook-form";
 
 import * as rootSlice from "../../features/root/rootSlice";
+import * as userSlice from "../../features/user/userSlice";
 
 import { Header } from "../../components/header/Header";
 import { Main } from "./components/main/Main";
@@ -26,6 +27,10 @@ export const Account = () => {
 
   useEffect(() => {
     dispatch(rootSlice.handlePage("account"));
+
+    return () => {
+      dispatch(userSlice.updateToken());
+    };
   }, [dispatch]);
 
   const handleAuth = (data) => {
