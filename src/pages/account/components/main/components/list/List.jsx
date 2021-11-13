@@ -1,7 +1,10 @@
-import { Account } from "../account/Account";
 import styles from "./List.module.scss";
 
-export const List = ({ user, account, children, load }) => {
+import Loader from "react-loader-spinner";
+
+import { Account } from "../account/Account";
+
+export const List = ({ status, user, account, children, load }) => {
   const Children = () => {
     const array = [];
 
@@ -21,7 +24,19 @@ export const List = ({ user, account, children, load }) => {
   return (
     <div className={styles.list}>
       <Account user={user} current />
-      <Children />
+      {status ? (
+        <Children />
+      ) : (
+        <div className={styles.list_load}>
+          <Loader
+            className={styles.list_load_icon}
+            type="Oval"
+            color="#49b757"
+            height={32}
+            width={32}
+          />
+        </div>
+      )}
     </div>
   );
 };
