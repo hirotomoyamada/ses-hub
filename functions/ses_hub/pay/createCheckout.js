@@ -10,7 +10,7 @@ exports.createCheckout = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    await userAuthenticated(context.auth.uid);
+    await userAuthenticated(context.auth.uid, data.priceId, data.productId);
 
     checkDemo(context);
     onLoad(context);

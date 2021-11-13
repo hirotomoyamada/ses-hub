@@ -1,5 +1,6 @@
 import styles from "./Item.module.scss";
 
+import { useHistory } from "react-router";
 import Loader from "react-loader-spinner";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
@@ -15,11 +16,16 @@ export const Plan = ({
   handlePortal,
   demo,
 }) => {
+  const history = useHistory();
+
   return (
     <button
       type="button"
       onClick={() =>
-        price?.id !== user?.payment?.price
+        type === "parent" &&
+        user?.payment?.children?.length + 1 > price?.account
+          ? history.push("/account")
+          : price?.id !== user?.payment?.price
           ? setPriceId(price?.id)
           : handlePortal({ setLoad, demo })
       }
@@ -32,6 +38,11 @@ export const Plan = ({
         price?.id !== user?.payment?.price &&
         styles.item_other
       }
+      ${
+        type === "parent" &&
+        user?.payment?.children?.length + 1 > price?.account &&
+        styles.item_none
+      }
       }`}
     >
       <div className={styles.item_container}>
@@ -41,7 +52,9 @@ export const Plan = ({
             {(price?.unit_amount * tax).toLocaleString()}円
             <span
               className={`${styles.item_amount_tax} ${
-                (priceId === price?.id || user?.payment?.price) &&
+                (priceId === price?.id ||
+                  user?.payment?.price ||
+                  user?.payment?.children?.length + 1 > price?.account) &&
                 styles.item_amount_tax_select
               }`}
             >
@@ -49,7 +62,10 @@ export const Plan = ({
             </span>
           </p>
         </div>
-        {priceId !== price?.id &&
+
+        {type !== "parent" ||
+        user?.payment?.children?.length < price?.account ? (
+          priceId !== price?.id &&
           !user?.payment?.price &&
           (price?.interval_count !== 1 || price?.interval !== "month") && (
             <p className={styles.item_desc}>
@@ -63,9 +79,20 @@ export const Plan = ({
                 <span className={styles.item_desc_acnt_tax}>(税込)</span>
               </span>
             </p>
-          )}
+          )
+        ) : (
+          <p className={styles.item_desc_error}>
+            ※&nbsp;保有しているアカウントが、
+            <span>プランの人数より多いため購入することができません。</span>
+          </p>
+        )}
       </div>
-      {price?.id === user?.payment?.price ? (
+
+      {user?.payment?.children?.length + 1 > price?.account ? (
+        <div className={`${styles.item_btn} ${styles.item_btn_account}`}>
+          管理
+        </div>
+      ) : price?.id === user?.payment?.price ? (
         !load ? (
           <div className={styles.item_btn}>更新する</div>
         ) : (

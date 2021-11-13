@@ -4,6 +4,7 @@ import Loader from "react-loader-spinner";
 export const Btn = ({
   user,
   priceId,
+  productId,
   load,
   setLoad,
   dispatch,
@@ -20,6 +21,7 @@ export const Btn = ({
         handleCheckout({
           setLoad,
           priceId,
+          productId,
           user,
           dispatch,
           demo,

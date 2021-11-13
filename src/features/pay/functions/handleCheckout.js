@@ -4,13 +4,21 @@ import * as rootSlice from "../../root/rootSlice";
 
 const createCheckout = functions.httpsCallable("sh-createCheckout");
 
-export const handleCheckout = ({ setLoad, priceId, user, dispatch, demo }) => {
+export const handleCheckout = ({
+  setLoad,
+  productId,
+  priceId,
+  user,
+  dispatch,
+  demo,
+}) => {
   if (demo) {
     return;
   }
 
   setLoad({ checkout: true });
   createCheckout({
+    productId: productId,
     priceId: priceId,
     url: {
       success: `${window.location.origin}/success`,
@@ -39,5 +47,7 @@ export const handleCheckout = ({ setLoad, priceId, user, dispatch, demo }) => {
           }
         });
     })
-    .catch((e) => {});
+    .catch((e) => {
+      console.log(e);
+    });
 };

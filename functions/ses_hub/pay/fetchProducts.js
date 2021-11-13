@@ -29,28 +29,26 @@ exports.fetchProducts = functions
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
+          const product = {
+            id: doc.id,
+            name: doc.data().description,
+            account: doc.data().metadata?.account
+              ? Number(doc.data().metadata.account)
+              : null,
+            interval: doc.data().recurring.interval,
+            interval_count: doc.data().recurring.interval_count,
+            trial_period_days: doc.data().recurring.trial_period_days,
+            unit_amount: doc.data().unit_amount,
+          };
+
           if (!products[doc.ref.parent.parent.path.replace("products/", "")]) {
             products[doc.ref.parent.parent.path.replace("products/", "")] = [
-              {
-                id: doc.id,
-                name: doc.data().description,
-                interval: doc.data().recurring.interval,
-                interval_count: doc.data().recurring.interval_count,
-                trial_period_days: doc.data().recurring.trial_period_days,
-                unit_amount: doc.data().unit_amount,
-              },
+              product,
             ];
           } else {
             products[doc.ref.parent.parent.path.replace("products/", "")] = [
               ...products[doc.ref.parent.parent.path.replace("products/", "")],
-              {
-                id: doc.id,
-                name: doc.data().description,
-                interval: doc.data().recurring.interval,
-                interval_count: doc.data().recurring.interval_count,
-                trial_period_days: doc.data().recurring.trial_period_days,
-                unit_amount: doc.data().unit_amount,
-              },
+              product,
             ];
           }
         });

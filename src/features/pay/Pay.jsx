@@ -28,6 +28,7 @@ export const Pay = () => {
   const tax = useSelector(paySlice.tax);
 
   const [priceId, setPriceId] = useState("");
+  const [productId, setProductId] = useState("");
   const [load, setLoad] = useState({
     checkout: false,
     portal: false,
@@ -38,8 +39,27 @@ export const Pay = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    setPriceId(user?.payment?.price ? "" : products?.plan?.prices?.[0]?.id);
-  }, [products?.plan?.prices, user?.payment?.price]);
+    Object.keys(products)?.forEach((product) => {
+      const price = products?.[product]?.prices?.find(
+        (price) => price.id === priceId
+      );
+      if (price) {
+        setProductId(products?.[product]?.id);
+      }
+    });
+  }, [priceId, products]);
+
+  useEffect(() => {
+    setPriceId(
+      user?.payment?.price
+        ? ""
+        : products?.plan?.type === "individual"
+        ? products?.plan?.prices?.[0]?.id
+        : products?.plan?.prices?.find(
+            (price) => user?.payment?.children?.length < price.account
+          )?.id
+    );
+  }, [products, user]);
 
   return (
     <div className={styles.pay}>
@@ -62,6 +82,7 @@ export const Pay = () => {
             <Btn
               user={user}
               priceId={priceId}
+              productId={productId}
               load={load}
               setLoad={setLoad}
               dispatch={dispatch}
