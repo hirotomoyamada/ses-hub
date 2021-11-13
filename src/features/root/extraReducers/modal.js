@@ -8,10 +8,18 @@ export const modal = (builder) => {
       action.type.endsWith("/editProfile") ||
       action.type.endsWith("/addRequest") ||
       action.type.endsWith("/updatePayment") ||
-      action.type.endsWith("/resetUser") ||
-      action.type.endsWith("/createChild/fulfilled") ||
       action.type.endsWith("/updateHome"),
     (state) => reducers.modal(state)
+  );
+  builder.addMatcher(
+    (action) =>
+      action.type.endsWith("/createChild/fulfilled") ||
+      action.type.endsWith("/deleteChild/fulfilled"),
+    (state, action) => {
+      if (!action.payload.error) {
+        reducers.modal(state);
+      }
+    }
   );
 
   builder.addMatcher(

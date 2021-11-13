@@ -3,7 +3,7 @@ import { fetchUser } from "./fetchUser";
 import { resetUser } from "./resetUser";
 
 import { updateToken } from "./token";
-import { createChild } from "./createChild";
+import { createChild, deleteChild } from "./child";
 
 import { editProfile } from "./editProfile";
 import { enableAgree } from "./enableAgree";
@@ -26,6 +26,7 @@ export {
   resetUser,
   updateToken,
   createChild,
+  deleteChild,
   editProfile,
   enableAgree,
   updatePayment,
