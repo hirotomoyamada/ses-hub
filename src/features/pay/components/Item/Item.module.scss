@@ -27,6 +27,11 @@ $width: responsive-width(pc);
     pointer-events: none;
   }
 
+  &_none {
+    background: $sub_clr;
+    color: $base_clr;
+  }
+
   &_disable {
     background: $sub_clr;
     color: $base_clr;
@@ -119,6 +124,15 @@ $width: responsive-width(pc);
         }
       }
     }
+
+    &_error {
+      font-size: 12px;
+      color: $base_clr;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 10px;
+      }
+    }
   }
 
   &_icon {
@@ -127,6 +141,7 @@ $width: responsive-width(pc);
   }
 
   &_btn {
+    white-space: nowrap;
     background: $base_clr;
     border-radius: 16px;
     padding: 0px 16px;
@@ -151,6 +166,16 @@ $width: responsive-width(pc);
     &:hover {
       background: $acnt_clr;
       color: $base_clr;
+    }
+
+    &_account {
+      color: $remove_clr;
+
+      &:hover {
+        background: $remove_clr;
+        border: 1px solid $remove_clr;
+        color: $base_clr;
+      }
     }
   }
 }

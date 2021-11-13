@@ -1,7 +1,7 @@
 const functions = require("firebase-functions");
 const db = require("../../../firebase").db;
 
-exports.userAuthenticated = async (uid) => {
+exports.userAuthenticated = async (uid, price, product) => {
   if (uid === functions.config().demo.ses_hub.uid) {
     throw new functions.https.HttpsError(
       "cancelled",
@@ -15,6 +15,8 @@ exports.userAuthenticated = async (uid) => {
     .doc(uid)
     .get()
     .then((doc) => {
+      const children = doc.data().payment?.children?.length;
+
       if (doc.data().status !== "enable") {
         throw new functions.https.HttpsError(
           "cancelled",
@@ -37,6 +39,31 @@ exports.userAuthenticated = async (uid) => {
           "子アカウントのため、処理中止",
           "firebase"
         );
+      }
+
+      if (children && price && product) {
+        db.collection("products")
+          .doc(product)
+          .collection("prices")
+          .doc(price)
+          .get()
+          .then((doc) => {
+            const account = doc.data().metadata?.account
+              ? Number(doc.data().metadata.account)
+              : null;
+
+            if (!account) {
+              return;
+            }
+
+            if (children >= account) {
+              throw new functions.https.HttpsError(
+                "cancelled",
+                "保有しているアカウントがプランの上限以上のため処理中止",
+                "firebase"
+              );
+            }
+          });
       }
     });
 };
