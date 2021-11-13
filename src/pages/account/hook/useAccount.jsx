@@ -10,12 +10,11 @@ export const useAccount = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(userSlice.user);
+  const parent = user.type === "parent";
   const children = useSelector(userSlice.selectUser);
   const status = user?.payment?.status !== "canceled";
   const account = user?.payment?.account - 1;
   const load = useSelector(rootSlice.load).fetch;
-
-  useEffect(() => {}, []);
 
   useEffect(() => {
     !children.length &&
@@ -30,18 +29,20 @@ export const useAccount = () => {
   }, [children, dispatch, user?.payment?.children]);
 
   useEffect(() => {
-    !status &&
-      dispatch(
-        rootSlice.handleModal({
-          type: "advertise",
-          text: "まだプランが選択されていません",
-          close: () => {
-            dispatch(rootSlice.handleModal());
-            history.push("/setting");
-          },
-        })
-      );
-  }, [dispatch, history, status]);
+    !parent
+      ? history.push("/setting")
+      : !status &&
+        dispatch(
+          rootSlice.handleModal({
+            type: "advertise",
+            text: "まだプランが選択されていません",
+            close: () => {
+              dispatch(rootSlice.handleModal());
+              history.push("/setting");
+            },
+          })
+        );
+  }, [dispatch, history, parent, status]);
 
   return [user, status, account, children, load];
 };
