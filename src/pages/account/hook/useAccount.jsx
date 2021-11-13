@@ -17,7 +17,8 @@ export const useAccount = () => {
   const load = useSelector(rootSlice.load).fetch;
 
   useEffect(() => {
-    !children.length &&
+    status &&
+      !children.length &&
       user?.payment?.children?.length &&
       dispatch(
         fetchUser({
@@ -26,7 +27,7 @@ export const useAccount = () => {
           fetch: true,
         })
       );
-  }, [children, dispatch, user?.payment?.children]);
+  }, [children, dispatch, status, user]);
 
   useEffect(() => {
     !parent

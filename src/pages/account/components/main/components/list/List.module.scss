@@ -11,4 +11,13 @@ $width: responsive-width(pc);
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  &_load {
+    padding-top: 8px;
+
+    &_icon {
+      display: flex;
+      justify-content: center;
+    }
+  }
 }
