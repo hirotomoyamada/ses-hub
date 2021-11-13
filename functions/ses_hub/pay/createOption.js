@@ -4,31 +4,69 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
+const userAuthenticated =
+  require("./functions/userAuthenticated").userAuthenticated;
+
 exports.createOption = functions
   .region(location)
   .runWith(runtime)
   .firestore.document("customers/{uid}/subscriptions/{sub}")
   .onCreate(async (snapshot, context) => {
+    await userAuthenticated(context.params.uid);
+
     const metadata = snapshot.data().items[0].price.product.metadata;
     const option = metadata.name === "option";
     const type = metadata.type;
 
     checkOption(option);
 
-    await updateFirestore(context, type);
-    await updateAlgolia(context, type);
+    const children = await fetchChildren(context);
+
+    await updateFirestore(context, type, children);
+    await updateAlgolia(context, type, children);
 
     return;
   });
 
-const updateAlgolia = async (context, type) => {
+const fetchChildren = async (context) => {
+  const children = await db
+    .collection("companys")
+    .doc(context.params.uid)
+    .get()
+    .then(async (doc) => {
+      if (doc.exists && doc.data().payment?.children) {
+        return doc.data().payment.children;
+      }
+    })
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "ユーザーの取得に失敗しました",
+        "firebase"
+      );
+    });
+
+  return children;
+};
+
+const updateAlgolia = async (context, type, children) => {
+  await partialUpdateObject(context.params.uid, type);
+
+  if (children?.length) {
+    for await (const uid of children) {
+      await partialUpdateObject(uid, type);
+    }
+  }
+};
+
+const partialUpdateObject = async (uid, type) => {
   const index = algolia.initIndex("companys");
   const timestamp = Date.now();
 
   await index
     .partialUpdateObject(
       {
-        objectID: context.params.uid,
+        objectID: uid,
         [type]: "enable",
         updateAt: timestamp,
       },
@@ -43,12 +81,26 @@ const updateAlgolia = async (context, type) => {
         "algolia"
       );
     });
+
+  return;
 };
 
-const updateFirestore = async (context, type) => {
+const updateFirestore = async (context, type, children) => {
+  await set(context.params.uid, type);
+
+  if (children?.length) {
+    for await (const uid of children) {
+      await set(uid, type);
+    }
+  }
+
+  return;
+};
+
+const set = async (uid, type) => {
   await db
     .collection("companys")
-    .doc(context.params.uid)
+    .doc(uid)
     .get()
     .then(async (doc) => {
       if (doc.exists) {
@@ -83,6 +135,8 @@ const updateFirestore = async (context, type) => {
         "firebase"
       );
     });
+
+  return;
 };
 
 const checkOption = (option) => {
@@ -93,4 +147,6 @@ const checkOption = (option) => {
       "firebase"
     );
   }
+
+  return;
 };
