@@ -18,7 +18,6 @@ export const handleReset = async ({ dispatch, methods, setReset, email }) => {
       );
     })
     .catch((e) => {
-      console.log(e);
       dispatch(
         rootSlice.handleAnnounce({
           type: "error",
