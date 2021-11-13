@@ -9,12 +9,12 @@ import { Header } from "./components/header/Header";
 import { List } from "./components/list/List";
 
 export const Main = () => {
-  const [user, status, account, children] = useAccount();
+  const [user, status, account, children, load] = useAccount();
 
   return status ? (
     <div className={`${root.account_inner} ${styles.main}`}>
       <Header />
-      <List user={user} account={account} children={children} />
+      <List user={user} account={account} children={children} load={load} />
     </div>
   ) : (
     <div className={`${root.account_inner} ${root.account_inner_load}`}>

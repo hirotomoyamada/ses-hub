@@ -1,5 +1,7 @@
 import styles from "./Account.module.scss";
 
+import Loader from "react-loader-spinner";
+
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
@@ -9,7 +11,7 @@ import { Btn } from "../btn/Btn";
 
 import * as functions from "../../../../../../features/user/functions/functions";
 
-export const Account = ({ user, current }) => {
+export const Account = ({ user, current, load }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -21,7 +23,7 @@ export const Account = ({ user, current }) => {
     dispatch(
       rootSlice.handleModal({
         type: "account",
-        meta: { type: "create", selectUser: user },
+        meta: { type: "create", email: user?.profile?.email },
       })
     );
   };
@@ -30,7 +32,7 @@ export const Account = ({ user, current }) => {
     dispatch(
       rootSlice.handleModal({
         type: "account",
-        meta: { type: "delete", selectUser: user },
+        meta: { type: "delete", email: user?.profile?.email },
       })
     );
   };
@@ -44,7 +46,7 @@ export const Account = ({ user, current }) => {
     });
   };
 
-  return (
+  return !load ? (
     <div className={`${styles.account} ${current && styles.account_current}`}>
       {current && (
         <span className={styles.account_txt}>あなたのアカウント</span>
@@ -73,6 +75,16 @@ export const Account = ({ user, current }) => {
           </div>
         )}
       </div>
+    </div>
+  ) : (
+    <div className={`${styles.account} ${styles.account_load}`}>
+      <Loader
+        className={styles.load_ttl_icon}
+        type="Oval"
+        color="#49b757"
+        height={32}
+        width={32}
+      />
     </div>
   );
 };

@@ -13,6 +13,9 @@ export const useAccount = () => {
   const children = useSelector(userSlice.selectUser);
   const status = user?.payment?.status !== "canceled";
   const account = user?.payment?.account - 1;
+  const load = useSelector(rootSlice.load).fetch;
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
     !children.length &&
@@ -40,5 +43,5 @@ export const useAccount = () => {
       );
   }, [dispatch, history, status]);
 
-  return [user, status, account, children];
+  return [user, status, account, children, load];
 };

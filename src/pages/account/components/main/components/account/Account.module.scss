@@ -25,6 +25,10 @@ $width: responsive-width(pc);
     padding: 0 18px;
   }
 
+  &_load {
+    align-items: center;
+  }
+
   &_current {
     background: $acnt_clr;
     color: $base_clr;
