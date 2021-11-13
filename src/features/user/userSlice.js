@@ -16,7 +16,7 @@ export const userSlice = createSlice({
       }
     },
 
-    resetUser: (state, action) => reducers.resetUser(state, action),
+    resetUser: (state) => reducers.resetUser(state),
 
     updateToken: (state, action) => reducers.updateToken(state, action),
 

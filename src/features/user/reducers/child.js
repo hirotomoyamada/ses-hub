@@ -11,3 +11,14 @@ export const createChild = (state, action) => {
     }
   }
 };
+
+export const deleteChild = (state, action) => {
+  if (!action.payload.error) {
+    state.user.payment.children = state.user.payment.children.filter(
+      (uid) => uid !== action.payload
+    );
+    state.selectUser = state.selectUser.filter(
+      (user) => user.uid !== action.payload
+    );
+  }
+};

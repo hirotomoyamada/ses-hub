@@ -43,6 +43,7 @@ export const initialState = {
     root: true,
     list: true,
     fetch: false,
+    create: false,
   },
 
   notFound: false,
