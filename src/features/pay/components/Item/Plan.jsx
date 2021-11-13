@@ -64,6 +64,7 @@ export const Plan = ({
         </div>
 
         {type !== "parent" ||
+        !user?.payment?.children ||
         user?.payment?.children?.length < price?.account ? (
           priceId !== price?.id &&
           !user?.payment?.price &&
@@ -83,7 +84,7 @@ export const Plan = ({
         ) : (
           <p className={styles.item_desc_error}>
             ※&nbsp;保有しているアカウントが、
-            <span>プランの人数より多いため購入することができません。</span>
+            <span>プランの上限より多いため購入することができません。</span>
           </p>
         )}
       </div>

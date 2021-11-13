@@ -14,8 +14,9 @@ exports.userAuthenticated = async (uid, price, product) => {
     .collection("companys")
     .doc(uid)
     .get()
-    .then((doc) => {
+    .then(async (doc) => {
       const children = doc.data().payment?.children?.length;
+      const parent = doc.data().type === "parent";
 
       if (doc.data().status !== "enable") {
         throw new functions.https.HttpsError(
@@ -42,7 +43,8 @@ exports.userAuthenticated = async (uid, price, product) => {
       }
 
       if (children && price && product) {
-        db.collection("products")
+        await db
+          .collection("products")
           .doc(product)
           .collection("prices")
           .doc(price)
@@ -52,7 +54,8 @@ exports.userAuthenticated = async (uid, price, product) => {
               ? Number(doc.data().metadata.account)
               : null;
 
-            if (!account) {
+            if (!account || !parent) {
+              // 法人プランではない、親アカウントでは無いため処理続行
               return;
             }
 
