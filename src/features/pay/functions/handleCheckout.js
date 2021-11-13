@@ -47,7 +47,5 @@ export const handleCheckout = ({
           }
         });
     })
-    .catch((e) => {
-      console.log(e);
-    });
+    .catch((e) => {});
 };
