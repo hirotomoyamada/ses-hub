@@ -6,7 +6,9 @@ export const Account = ({ user, history }) => {
       <div className={styles.main_col}>
         <span className={styles.main_tag}>アカウント</span>
         <span className={styles.main_value}>
-          {user?.payment?.account
+          {user?.payment?.status !== "canceled" &&
+          user?.payment?.price &&
+          user?.payment?.account
             ? user?.payment?.account - user?.payment?.children?.length - 1
             : 0}
           &nbsp;アカウントまで作成できます
