@@ -4,7 +4,7 @@ export const Account = ({ user, history }) => {
   return user.type === "parent" ? (
     <div className={styles.main_row}>
       <div className={styles.main_col}>
-        <span className={styles.main_tag}>アカウント</span>
+        <span className={styles.main_tag}>グループアカウント</span>
         <span className={styles.main_value}>
           {user?.payment?.status !== "canceled" &&
           user?.payment?.price &&
