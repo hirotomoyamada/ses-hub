@@ -11,6 +11,7 @@ export const modal = (builder) => {
       action.type.endsWith("/updateHome"),
     (state) => reducers.modal(state)
   );
+
   builder.addMatcher(
     (action) =>
       action.type.endsWith("/createChild/fulfilled") ||
@@ -24,9 +25,15 @@ export const modal = (builder) => {
 
   builder.addMatcher(
     (action) => action.type.endsWith("/enableAgree"),
-    (state) => {
+    (state, action) => {
+      console.log(action.payload);
       state.verified.agree = false;
-      reducers.modal(state);
+
+      if (action.payload.profile?.person) {
+        reducers.modal(state);
+      } else {
+        state.modal.type = "profile";
+      }
     }
   );
 };

@@ -10,7 +10,7 @@ export const announce = (builder) => {
       action.type.endsWith("/userPosts/fulfilled") ||
       action.type.endsWith("/fetchProducts/fulfilled"),
     (state, action) => {
-      if (action.payload.error) {
+      if (action.payload.error && !state.modal.open) {
         state.announce.error = action.payload.error;
       }
     }

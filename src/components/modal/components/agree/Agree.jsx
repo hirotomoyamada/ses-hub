@@ -8,12 +8,12 @@ import * as userSlice from "../../../../features/user/userSlice";
 
 import { timestamp } from "../../../../functions/timestamp";
 
-export const Agree = () => {
+export const Agree = ({ user }) => {
   const dispatch = useDispatch();
   const agree = useSelector(rootSlice.data).agree;
 
   const handleAgree = () => {
-    dispatch(userSlice.enableAgree());
+    dispatch(userSlice.enableAgree(user));
   };
 
   return (
