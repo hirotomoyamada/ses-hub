@@ -1,5 +1,12 @@
 import styles from "../Auth.module.scss";
+
+import { auth } from "../../../firebase";
+
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useScrollController } from "../../../hook/useScrollController";
+
+import * as rootSlice from "../../../features/root/rootSlice";
 
 export const Verified = ({
   inner,
@@ -10,7 +17,24 @@ export const Verified = ({
   handleResend,
   resize,
 }) => {
+  const dispatch = useDispatch();
   useScrollController();
+
+  useEffect(() => {
+    email &&
+      auth.currentUser
+        .sendEmailVerification({
+          url: `${process.env.REACT_APP_SES_HUB}/login`,
+        })
+        .catch((e) => {
+          dispatch(
+            rootSlice.handleAnnounce({
+              type: "error",
+              text: "確認メールの送信に失敗しました",
+            })
+          );
+        });
+  }, [dispatch, email]);
 
   return (
     <div
@@ -35,6 +59,7 @@ export const Verified = ({
         >
           {!verified.error ? "ログイン画面に戻る" : "プロフィール画面に戻る"}
         </button>
+
         {email && (
           <>
             <span className={styles.auth_desc}>|</span>
