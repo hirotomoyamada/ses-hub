@@ -6,10 +6,11 @@ export const verified = (state, action) => {
       state.modal.type = "profile";
       state.modal.open = true;
     }
-    
+
     if (
       action.payload.user.payment.status === "canceled" &&
-      action.payload.user.payment.notice
+      action.payload.user.payment.notice &&
+      action.payload.user.type !== "child"
     ) {
       state.modal.type = "advertise";
       state.modal.open = true;
