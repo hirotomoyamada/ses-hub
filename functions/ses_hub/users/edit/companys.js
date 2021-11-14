@@ -98,27 +98,54 @@ exports.companys = ({ context, data, create, child, doc }) => {
     }
   } else {
     if (create) {
-      return {
-        objectID: context.auth.uid,
-        uid: context.auth.uid,
-        status: !child ? "hold" : "enable",
+      return !child
+        ? {
+            objectID: context.auth.uid,
+            uid: context.auth.uid,
+            status: "hold",
 
-        name: profile.name,
-        person: profile.person,
-        body: profile.body,
-        position: profile.position,
-        postal: profile.postal,
-        address: profile.address,
-        tel: profile.tel,
-        email: profile.email,
-        more: profile.more,
-        region: profile.region,
-        social: profile.social,
-        url: profile.url,
+            name: profile.name,
+            person: profile.person,
+            body: profile.body,
+            position: profile.position,
+            postal: profile.postal,
+            address: profile.address,
+            tel: profile.tel,
+            email: profile.email,
+            more: profile.more,
+            region: profile.region,
+            social: profile.social,
+            url: profile.url,
 
-        createAt: timestamp,
-        lastLogin: timestamp,
-      };
+            createAt: timestamp,
+            lastLogin: timestamp,
+          }
+        : {
+            objectID: context.auth.uid,
+            uid: context.auth.uid,
+            status: "enable",
+
+            plan: data.payment?.status !== "canceled" ? "enable" : "disable",
+            freelanceDirect: data.payment?.option?.freelanceDirect
+              ? "enable"
+              : "disable",
+
+            name: profile.name,
+            person: profile.person,
+            body: profile.body,
+            position: profile.position,
+            postal: profile.postal,
+            address: profile.address,
+            tel: profile.tel,
+            email: profile.email,
+            more: profile.more,
+            region: profile.region,
+            social: profile.social,
+            url: profile.url,
+
+            createAt: timestamp,
+            lastLogin: timestamp,
+          };
     } else {
       return {
         objectID: context.auth.uid,
