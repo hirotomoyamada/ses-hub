@@ -26,7 +26,6 @@ export const modal = (builder) => {
   builder.addMatcher(
     (action) => action.type.endsWith("/enableAgree"),
     (state, action) => {
-      console.log(action.payload);
       state.verified.agree = false;
 
       if (action.payload.profile?.person) {
