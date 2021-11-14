@@ -34,79 +34,58 @@ exports.companys = ({ context, data, create, child, doc }) => {
       const icon = Math.floor(Math.random() * 17 + 1);
       const cover = Math.floor(Math.random() * 18 + 1);
 
-      return !child
-        ? {
-            status: "hold",
-            type: data.type,
-            agree: data.agree,
-            payment: {
+      return {
+        status: !child ? "hold" : "enable",
+        type: !child ? data.type : "child",
+        agree: !child ? data.agree : "enable",
+        payment: !child
+          ? {
               status: "canceled",
               trial: data.type !== "parent" ? true : false,
               notice: true,
+            }
+          : data.payment.option
+          ? {
+              option: data.payment.option,
+
+              status: data.payment.status,
+              cancel: data.payment.cancel,
+              trial: data.payment.trial,
+              load: data.payment.load,
+              parent: data.uid,
+              start: data.payment.start,
+              end: data.payment.end,
+              price: data.payment.price,
+              notice: data.payment.notice,
+            }
+          : {
+              status: data.payment.status,
+              cancel: data.payment.cancel,
+              trial: data.payment.trial,
+              load: data.payment.load,
+              parent: data.uid,
+              start: data.payment.start,
+              end: data.payment.end,
+              price: data.payment.price,
+              notice: data.payment.notice,
             },
-            provider: [data.provider],
+        provider: !child ? [data.provider] : ["password"],
 
-            icon: `icon${icon}`,
-            cover: `cover${cover}`,
+        icon: `icon${icon}`,
+        cover: `cover${cover}`,
 
-            profile: profile,
+        profile: profile,
 
-            posts: { matters: [], resources: [] },
-            entries: { matters: [], resources: [], persons: [] },
-            likes: { matters: [], resources: [], persons: [] },
-            outputs: { matters: [], resources: [] },
-            follows: [],
-            home: [],
+        posts: { matters: [], resources: [] },
+        entries: { matters: [], resources: [], persons: [] },
+        likes: { matters: [], resources: [], persons: [] },
+        outputs: { matters: [], resources: [] },
+        follows: [],
+        home: [],
 
-            createAt: timestamp,
-            lastLogin: timestamp,
-          }
-        : {
-            status: "enable",
-            type: "child",
-            agree: data.agree,
-            payment: data.payment.option
-              ? {
-                  option: data.payment.option,
-                  
-                  status: data.payment.status,
-                  cancel: data.payment.cancel,
-                  trial: data.payment.trial,
-                  load: data.payment.load,
-                  parent: data.uid,
-                  start: data.payment.start,
-                  end: data.payment.end,
-                  price: data.payment.price,
-                  notice: data.payment.notice,
-                }
-              : {
-                  status: data.payment.status,
-                  cancel: data.payment.cancel,
-                  trial: data.payment.trial,
-                  load: data.payment.load,
-                  parent: data.uid,
-                  start: data.payment.start,
-                  end: data.payment.end,
-                  price: data.payment.price,
-                  notice: data.payment.notice,
-                },
-            provider: ["password"],
-
-            icon: `icon${icon}`,
-            cover: `cover${cover}`,
-
-            profile: profile,
-
-            posts: { matters: [], resources: [] },
-            entries: { matters: [], resources: [], persons: [] },
-            likes: { matters: [], resources: [], persons: [] },
-            outputs: { matters: [], resources: [] },
-            follows: [],
-            home: [],
-
-            createAt: timestamp,
-            lastLogin: timestamp,
-          };
+        createAt: timestamp,
+        lastLogin: timestamp,
+      };
     } else {
       return {
         icon: data.icon,
@@ -119,49 +98,27 @@ exports.companys = ({ context, data, create, child, doc }) => {
     }
   } else {
     if (create) {
-      return !child
-        ? {
-            objectID: context.auth.uid,
-            uid: context.auth.uid,
-            status: "enable",
+      return {
+        objectID: context.auth.uid,
+        uid: context.auth.uid,
+        status: !child ? "hold" : "enable",
 
-            name: profile.name,
-            person: profile.person,
-            body: profile.body,
-            position: profile.position,
-            postal: profile.postal,
-            address: profile.address,
-            tel: profile.tel,
-            email: profile.email,
-            more: profile.more,
-            region: profile.region,
-            social: profile.social,
-            url: profile.url,
+        name: profile.name,
+        person: profile.person,
+        body: profile.body,
+        position: profile.position,
+        postal: profile.postal,
+        address: profile.address,
+        tel: profile.tel,
+        email: profile.email,
+        more: profile.more,
+        region: profile.region,
+        social: profile.social,
+        url: profile.url,
 
-            createAt: timestamp,
-            lastLogin: timestamp,
-          }
-        : {
-            objectID: context.auth.uid,
-            uid: context.auth.uid,
-            status: "hold",
-
-            name: profile.name,
-            person: profile.person,
-            body: profile.body,
-            position: profile.position,
-            postal: profile.postal,
-            address: profile.address,
-            tel: profile.tel,
-            email: profile.email,
-            more: profile.more,
-            region: profile.region,
-            social: profile.social,
-            url: profile.url,
-
-            createAt: timestamp,
-            lastLogin: timestamp,
-          };
+        createAt: timestamp,
+        lastLogin: timestamp,
+      };
     } else {
       return {
         objectID: context.auth.uid,
