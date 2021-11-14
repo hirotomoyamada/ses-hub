@@ -23,7 +23,9 @@ exports.extractPosts = functions
     );
     const objectIDs =
       data.user.index === "companys"
-        ? data.type === "follows"
+        ? data.type === "children"
+          ? data.user.payment.children
+          : data.type === "follows"
           ? data.user[data.type]
           : data.user[data.type][data.index]
         : data.user.index === "persons" && data.type !== "requests"
@@ -62,6 +64,7 @@ exports.extractPosts = functions
           "algolia"
         );
       });
+      
     if (
       (data.type === "requests" ||
         data.index === "companys" ||

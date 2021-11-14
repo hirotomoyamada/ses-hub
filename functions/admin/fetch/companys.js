@@ -1,4 +1,4 @@
-exports.companys = ({ doc, index, lists, posts, hit }) => {
+exports.companys = ({ doc, index, lists, parent, posts, hit }) => {
   if (hit) {
     return {
       uid: hit.objectID,
@@ -30,12 +30,12 @@ exports.companys = ({ doc, index, lists, posts, hit }) => {
       updateAt: doc.data().updateAt,
       lastLogin: doc.data().lastLogin,
 
-      follows: lists.follows,
-      posts: lists.posts,
-      outputs: lists.outputs,
-      likes: lists.likes,
-      entries: lists.entries,
-      home: lists.home,
+      follows: lists ? lists.follows : doc.data().follows,
+      posts: lists ? lists.posts : doc.data().posts,
+      outputs: lists ? lists.outputs : doc.data().outputs,
+      likes: lists ? lists.likes : doc.data().likes,
+      entries: lists ? lists.entries : doc.data().entries,
+      home: lists ? lists.home : doc.data().home,
 
       name: doc.data().profile.name,
       person: doc.data().profile.person,
@@ -48,6 +48,8 @@ exports.companys = ({ doc, index, lists, posts, hit }) => {
       tel: doc.data().profile.tel,
       email: doc.data().profile.email,
       social: doc.data().profile.social,
+
+      parent: parent ? parent : null,
     };
   } else {
     posts[index].icon = doc.data().icon;

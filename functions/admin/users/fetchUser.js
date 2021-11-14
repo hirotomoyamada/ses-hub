@@ -26,12 +26,18 @@ exports.fetchUser = functions
       .then(async (doc) => {
         if (doc.exists) {
           return await organize({ data: data, user: doc.data() })
-            .then((lists) => {
+            .then(async (lists) => {
+              const parent =
+                doc.data().type === "child"
+                  ? await fetchParent(doc.data().payment?.parent)
+                  : null;
+
               return data.index === "companys"
                 ? fetch.companys({
                     index: data.index,
                     doc: doc,
                     lists: lists,
+                    parent: parent,
                   })
                 : fetch.persons({
                     index: data.index,
@@ -58,3 +64,20 @@ exports.fetchUser = functions
 
     return user;
   });
+
+const fetchParent = async (uid) => {
+  const parent = await db
+    .collection("companys")
+    .doc(uid)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        return fetch.companys({
+          index: "companys",
+          doc: doc,
+        });
+      }
+    });
+
+  return parent;
+};
