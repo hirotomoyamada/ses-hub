@@ -2,6 +2,11 @@ export const verified = (state, action) => {
   if (action.payload && action.payload.user) {
     state.verified.status = "enable";
 
+    if (!action.payload.user.profile?.person) {
+      state.modal.type = "profile";
+      state.modal.open = true;
+    }
+    
     if (
       action.payload.user.payment.status === "canceled" &&
       action.payload.user.payment.notice

@@ -39,7 +39,7 @@ export const Modal = () => {
   const Inner = () => {
     switch (modal.type) {
       case "agree":
-        return <Agree />;
+        return <Agree user={user} />;
       case "advertise":
         return (
           <Advertise

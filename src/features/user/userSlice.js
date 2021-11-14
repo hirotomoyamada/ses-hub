@@ -21,7 +21,7 @@ export const userSlice = createSlice({
     updateToken: (state, action) => reducers.updateToken(state, action),
 
     editProfile: (state, action) => reducers.editProfile(state, action),
-    enableAgree: (state) => reducers.enableAgree(state),
+    enableAgree: (state, action) => reducers.enableAgree(state, action),
     updatePayment: (state, action) => reducers.updatePayment(state, action),
     addProvider: (state, action) => reducers.addProvider(state, action),
     changeEmail: (state, action) => reducers.changeEmail(state, action),
