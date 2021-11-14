@@ -6,7 +6,11 @@ export const Type = ({ user }) => {
       <div className={styles.main_col}>
         <span className={styles.main_tag}>タイプ</span>
         <span className={styles.main_value}>
-          {user?.type === "individual" ? "個人" : "法人"}
+          {user?.type === "individual"
+            ? "個人"
+            : !(user?.payment?.status !== "canceled" && !user?.payment?.price)
+            ? "法人"
+            : "エキストラ"}
         </span>
 
         <span className={styles.main_desc}>変更することはできません</span>

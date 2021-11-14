@@ -1,7 +1,8 @@
 import styles from "../Main.module.scss";
 
 export const Account = ({ user, history }) => {
-  return user.type === "parent" ? (
+  return user.type === "parent" &&
+    !(user?.payment?.status !== "canceled" && !user?.payment?.price) ? (
     <div className={styles.main_row}>
       <div className={styles.main_col}>
         <span className={styles.main_tag}>グループアカウント</span>
@@ -24,7 +25,7 @@ export const Account = ({ user, history }) => {
           </span>
         )}
       </div>
-      
+
       <button
         className={`${styles.main_btn} ${
           ((user?.provider && user.provider.indexOf("password") < 0) ||
