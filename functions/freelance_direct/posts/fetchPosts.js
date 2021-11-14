@@ -53,6 +53,7 @@ const fetchAlgolia = async (data, status, demo) => {
         data.index === "matters" && status
           ? fetch.matters({ hit: hit })
           : data.index === "companys" &&
+            hit.person &&
             status &&
             fetch.companys({ hit: hit, demo: demo })
       );

@@ -29,7 +29,11 @@ exports.companys = ({ context, doc, data, hit, demo }) => {
       uid: hit.objectID,
       profile: {
         name: !demo ? hit.name : dummy("name"),
-        person: !demo ? hit.person : dummy("person"),
+        person: !demo
+          ? hit.person
+            ? hit.person
+            : "名無しさん"
+          : dummy("person"),
         body: hit.body,
         postal: hit.postal,
         address: hit.address,

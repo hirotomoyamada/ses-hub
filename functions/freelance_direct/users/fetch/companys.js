@@ -13,6 +13,8 @@ exports.companys = ({ hit, demo }) => {
         : "Hit me up株式会社",
       person: !demo
         ? hit.person
+          ? hit.person
+          : "名無しさん"
         : hit.objectID !== functions.config().demo.ses_hub.uid
         ? dummy("person")
         : "羽生太郎",
