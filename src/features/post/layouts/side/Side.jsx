@@ -26,20 +26,24 @@ export const Side = ({ index, post, posts, user }) => {
         </Link>
       )}
 
-      <span className={styles.side_tag}>
-        {index === "matters"
-          ? user?.payment?.status !== "canceled"
-            ? "こんな案件もオススメ"
-            : "もっと案件をご覧になりますか？"
-          : index === "resources" && user?.payment?.status !== "canceled"
-          ? "こんな人材もオススメ"
-          : "もっと人材をご覧になりますか？"}
-      </span>
+      {user?.type !== "child" && (
+        <>
+          <span className={styles.side_tag}>
+            {index === "matters"
+              ? user?.payment?.status !== "canceled"
+                ? "こんな案件もオススメ"
+                : "もっと案件をご覧になりますか？"
+              : index === "resources" && user?.payment?.status !== "canceled"
+              ? "こんな人材もオススメ"
+              : "もっと人材をご覧になりますか？"}
+          </span>
 
-      {user?.payment?.status !== "canceled" ? (
-        <List index={index} user={user} posts={posts} bests={true} />
-      ) : (
-        <Advertise user={user} />
+          {user?.payment?.status !== "canceled" ? (
+            <List index={index} user={user} posts={posts} bests={true} />
+          ) : (
+            <Advertise user={user} />
+          )}
+        </>
       )}
     </div>
   );
