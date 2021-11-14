@@ -78,6 +78,12 @@ export const Main = ({
         </button>
       </div>
 
+      <div className={`${styles.main_col} ${styles.main_col_center}`}>
+        <span className={styles.main_link}>
+          ver&nbsp;{process.env.REACT_APP_VER}
+        </span>
+      </div>
+
       <button
         onClick={handleLogout}
         type="button"
