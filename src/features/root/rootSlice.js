@@ -44,5 +44,6 @@ export const notFound = (state) => state.root.notFound;
 export const data = (state) => state.root.data;
 export const verified = (state) => state.root.verified;
 export const load = (state) => state.root.load;
+export const ver = (state) => state.root.ver;
 
 export default rootSlice.reducer;

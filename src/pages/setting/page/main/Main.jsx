@@ -3,6 +3,9 @@ import root from "../../Setting.module.scss";
 
 import { Link } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+import * as rootSlice from "../../../../features/root/rootSlice";
+
 import { Uid } from "./components/Uid";
 import { Type } from "./components/Type";
 import { Email } from "./components/Email";
@@ -25,6 +28,8 @@ export const Main = ({
   handleLogout,
   history,
 }) => {
+  const ver = useSelector(rootSlice.ver);
+
   return (
     <div className={`${root.setting_inner} ${styles.main}`}>
       <Uid user={user} />
@@ -79,9 +84,7 @@ export const Main = ({
       </div>
 
       <div className={`${styles.main_col} ${styles.main_col_center}`}>
-        <span className={styles.main_link}>
-          ver&nbsp;{process.env.REACT_APP_VER}
-        </span>
+        <span className={styles.main_link}>ver&nbsp;{ver}</span>
       </div>
 
       <button

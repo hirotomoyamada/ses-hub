@@ -47,4 +47,6 @@ export const initialState = {
   },
 
   notFound: false,
+
+  ver: "2.0.0",
 };
