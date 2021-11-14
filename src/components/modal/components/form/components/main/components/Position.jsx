@@ -42,7 +42,10 @@ export const Position = () => {
             <option value="マークアップエンジニア">
               マークアップエンジニア
             </option>
+            <option value="テストエンジニア">テストエンジニア</option>
+            <option value="テスター">テスター</option>
             <option value="PM/PL">PM/PL</option>
+            <option value="リードエンジニア">リードエンジニア</option>
             <option value="UX/UI">UX/UI</option>
             <option value="Webディレクター">Webディレクター</option>
             <option value="Webデザイナー">Webデザイナー</option>
@@ -50,6 +53,7 @@ export const Position = () => {
             <option value="ゲームプランナー">ゲームプランナー</option>
             <option value="ゲームデザイナー">ゲームデザイナー</option>
             <option value="ITコンサルタント">ITコンサルタント</option>
+            <option value="PMO">PMO</option>
             <option value="SAP">SAP</option>
             <option value="サポート">サポート</option>
             <option value="その他">その他</option>
