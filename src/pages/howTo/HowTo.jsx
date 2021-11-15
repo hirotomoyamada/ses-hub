@@ -1,12 +1,16 @@
 import styles from "./HowTo.module.scss";
 
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+import * as userSlice from "../../features/user/userSlice";
 
 import { Header } from "../../components/header/Header";
 import { Menu } from "./components/menu/Menu";
 import { Main } from "./components/Main/Main";
 
 export const HowTo = () => {
+  const type = useSelector(userSlice.user).type;
   const [page, setPage] = useState("home");
 
   useEffect(() => {
@@ -18,8 +22,8 @@ export const HowTo = () => {
       <Header back />
 
       <div className={styles.howto_inner}>
-        <Menu page={page} setPage={setPage} />
-        <Main page={page} />
+        <Menu page={page} setPage={setPage} type={type} />
+        <Main page={page} type={type} />
       </div>
     </div>
   );

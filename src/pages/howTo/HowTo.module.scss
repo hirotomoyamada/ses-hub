@@ -86,6 +86,22 @@ $width: responsive-width(pc);
       color: $remove_clr;
     }
 
+    &_tag {
+      background: $icn_clr;
+      color: $base_clr;
+      font-size: 14px;
+      border-radius: 4px;
+      padding: 0 6px;
+      margin: 0 8px;
+      vertical-align: 1px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 10px;
+        padding: 0 4px;
+        margin: 0 4px;
+      }
+    }
+
     @media (max-width: responsive-width(sp)) {
       padding: 24px;
     }
