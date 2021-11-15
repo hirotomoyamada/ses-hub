@@ -47,10 +47,12 @@ export const verified = (state, action) => {
 
   if (action.payload && action.payload.emailVerified) {
     state.verified.email = action.payload.emailVerified;
+    state.verified.access = false;
   }
 
   if (action.payload && action.payload.profileVerified) {
     state.verified.profile = action.payload.profileVerified;
+    state.verified.access = false;
   }
 
   if (action.payload && action.payload.statusVerified) {
