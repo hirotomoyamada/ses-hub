@@ -1,4 +1,4 @@
-exports.companys = ({ context, data, create, child, doc }) => {
+exports.companys = ({ context, data, customer, create, child, doc }) => {
   const timestamp = create ? context.auth.token.auth_time * 1000 : Date.now();
 
   const profile = create
@@ -40,6 +40,8 @@ exports.companys = ({ context, data, create, child, doc }) => {
         agree: !child ? data.agree : "enable",
         payment: !child
           ? {
+              id: customer.stripeId,
+              link: customer.stripeLink,
               status: "canceled",
               trial: data.type !== "parent" ? true : false,
               notice: true,
