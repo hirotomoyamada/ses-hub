@@ -21,7 +21,8 @@ export const Search = () => {
       <div className={styles.howto_container}>
         <Tag tag="タブを切り替える" paid />
         <p>
-          検索では、<span className={styles.howto_container_tag}>案件</span>
+          <span className={styles.howto_container_tag}>検索</span>では、
+          <span className={styles.howto_container_tag}>案件</span>
           <span className={styles.howto_container_tag}>人材</span>
           <span className={styles.howto_container_tag}>フリーランス</span>
           <span className={styles.howto_container_tag}>メンバー</span>
