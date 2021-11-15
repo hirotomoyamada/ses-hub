@@ -4,8 +4,11 @@ import { Likes } from "./Likes";
 import { Outputs } from "./Outputs";
 import { Entries } from "./Entries";
 import { Posts } from "./Posts";
+import { Requests } from "./Requests";
+import { Account } from "./Account";
+import { Plan } from "./Plan";
 
-export const Main = ({ page }) => {
+export const Main = ({ page, type }) => {
   switch (page) {
     default:
       return <Home />;
@@ -19,5 +22,11 @@ export const Main = ({ page }) => {
       return <Entries />;
     case "posts":
       return <Posts />;
+    case "plan":
+      return <Plan type={type} />;
+    case "requests":
+      return <Requests />;
+    case "account":
+      return <Account type={type} />;
   }
 };
