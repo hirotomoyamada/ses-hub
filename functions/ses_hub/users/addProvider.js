@@ -1,5 +1,6 @@
 const functions = require("firebase-functions");
 const algolia = require("../../algolia").algolia;
+const stripe = require("../../stripe").stripe;
 const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
@@ -15,6 +16,7 @@ exports.addProvider = functions
 
     await addFirestore(context, data);
     data.email && addAlgolia(context, data);
+    data.email && addStripe(context, data);
 
     return;
   });
@@ -83,4 +85,22 @@ const addAlgolia = async (context, data) => {
         "algolia"
       );
     });
+};
+
+const addStripe = async (context, data) => {
+  const doc = await db.collection("customers").doc(context.auth.uid).get();
+  const { stripeId } = doc.exists && doc.data();
+
+  stripeId &&
+    (await stripe.customers
+      .update(stripeId, {
+        email: data.email,
+      })
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "メールアドレスの更新に失敗しました",
+          "stripe"
+        );
+      }));
 };
