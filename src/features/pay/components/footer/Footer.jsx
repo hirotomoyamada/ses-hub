@@ -17,7 +17,7 @@ export const Footer = ({ product, user }) => {
     </ul>
   ) : product === "option" && !user?.payment?.option?.[product.type] ? (
     <ul className={styles.footer}>
-      <li>オプションの加入には、プランを契約する必要があります。</li>
+      <li>オプションの契約には、プランを契約する必要があります。</li>
       <li>オプションだけのSES_HUBのご利用はできません。</li>
       <li>
         オプションの契約もプラン同様、規約に基づき契約月度にて請求が発生します。またプランの更新がなされない場合、オプションをご利用になることはできません。
