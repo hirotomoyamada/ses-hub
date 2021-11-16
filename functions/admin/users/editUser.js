@@ -33,6 +33,7 @@ exports.editUser = functions
           (await doc.ref
             .set(
               {
+                type: user.type,
                 icon: user.icon,
                 cover: user.cover,
                 status: user.status,
