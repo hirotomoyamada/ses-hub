@@ -53,7 +53,8 @@ export const Pay = () => {
     setPriceId(
       user?.payment?.price
         ? ""
-        : products?.plan?.type === "individual"
+        : products?.plan?.type === "individual" ||
+          !user?.payment?.children?.length
         ? products?.plan?.prices?.[0]?.id
         : products?.plan?.prices?.find(
             (price) => user?.payment?.children?.length < price.account
