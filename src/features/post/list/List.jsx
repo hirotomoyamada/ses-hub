@@ -68,7 +68,7 @@ export const List = ({
         />
       )}
 
-      {hit.pages && page < hit.pages - 1 && (
+      {hit?.pages && page < hit?.pages - 1 && (
         <Load load={load} page={page} hit={hit} bests={bests} />
       )}
     </div>
