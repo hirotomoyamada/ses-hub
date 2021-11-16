@@ -15,7 +15,10 @@ exports.updateOption = functions
     await userAuthenticated(context.params.uid);
 
     const after = change.after.data();
-    const status = after.status;
+    const status =
+      after.status === "active" || after.status === "trialing"
+        ? after.status
+        : "canceled";
     const price = after.items[0].plan.id;
     const remove = after.ended_at ? true : false;
 
@@ -121,7 +124,7 @@ const updateFirestore = async (context, type, children) => {
       await set(uid, type);
     }
   }
-  
+
   return;
 };
 
