@@ -10,13 +10,21 @@ exports.createProfile = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    await createFirestore(context, data);
+    const customer = await fetchStripe(context);
+    await createFirestore(context, data, customer);
     await createAlgolia(context, data);
 
     return { displayName: data.person };
   });
 
-const createFirestore = async (context, data) => {
+const fetchStripe = async (context) => {
+  const doc = await db.collection("customers").doc(context.auth.uid).get();
+  const { stripeId, stripeLink } = doc.exists && doc.data();
+
+  return { stripeId, stripeLink };
+};
+
+const createFirestore = async (context, data, customer) => {
   await db
     .collection("companys")
     .doc(context.auth.uid)
@@ -28,6 +36,7 @@ const createFirestore = async (context, data) => {
             user.companys({
               context: context,
               data: data,
+              customer: customer,
               create: true,
               doc: true,
             })

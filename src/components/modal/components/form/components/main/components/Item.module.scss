@@ -46,7 +46,12 @@ $width: responsive-width(pc);
   &_select {
     position: relative;
 
+    select {
+      cursor: pointer;
+    }
+
     &:after {
+      pointer-events: none;
       border-left: 6px solid transparent;
       border-right: 6px solid transparent;
       border-top: 8px solid $acnt_clr;

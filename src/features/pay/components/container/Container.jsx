@@ -19,8 +19,7 @@ export const Container = ({
     products &&
     Object.keys(products).map(
       (product) =>
-        products?.[product]?.prices?.length &&
-         (
+        products?.[product]?.prices?.length && (
           <div key={product} className={styles.container}>
             <Header products={products} product={product} />
             <List

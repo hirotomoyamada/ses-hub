@@ -4,11 +4,16 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
+const userAuthenticated =
+  require("./functions/userAuthenticated").userAuthenticated;
+
 exports.updateOption = functions
   .region(location)
   .runWith(runtime)
   .firestore.document("customers/{uid}/subscriptions/{sub}")
   .onUpdate(async (change, context) => {
+    await userAuthenticated(context.params.uid);
+
     const after = change.after.data();
     const status = after.status;
     const price = after.items[0].plan.id;
@@ -23,13 +28,36 @@ exports.updateOption = functions
 
     await checkDuplicate(context, remove, price, type);
 
-    await updateFirestore(context, type);
-    await updateAlgolia(context, type);
+    const children = await fetchChildren(context);
+
+    await updateFirestore(context, type, children);
+    await updateAlgolia(context, type, children);
 
     remove && (await deleteOption(context));
 
     return;
   });
+
+const fetchChildren = async (context) => {
+  const children = await db
+    .collection("companys")
+    .doc(context.params.uid)
+    .get()
+    .then(async (doc) => {
+      if (doc.exists && doc.data().payment?.children) {
+        return doc.data().payment.children;
+      }
+    })
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "ユーザーの取得に失敗しました",
+        "firebase"
+      );
+    });
+
+  return children;
+};
 
 const deleteOption = async (context) => {
   await db
@@ -49,14 +77,24 @@ const deleteOption = async (context) => {
   return;
 };
 
-const updateAlgolia = async (context, type) => {
+const updateAlgolia = async (context, type, children) => {
+  await partialUpdateObject(context.params.uid, type);
+
+  if (children?.length) {
+    for await (const uid of children) {
+      await partialUpdateObject(uid, type);
+    }
+  }
+};
+
+const partialUpdateObject = async (uid, type) => {
   const index = algolia.initIndex("companys");
   const timestamp = Date.now();
 
   await index
     .partialUpdateObject(
       {
-        objectID: context.params.uid,
+        objectID: uid,
         [type]: "disable",
         updateAt: timestamp,
       },
@@ -71,12 +109,26 @@ const updateAlgolia = async (context, type) => {
         "algolia"
       );
     });
+
+  return;
 };
 
-const updateFirestore = async (context, type) => {
+const updateFirestore = async (context, type, children) => {
+  await set(context.params.uid, type);
+
+  if (children?.length) {
+    for await (const uid of children) {
+      await set(uid, type);
+    }
+  }
+  
+  return;
+};
+
+const set = async (uid, type) => {
   await db
     .collection("companys")
-    .doc(context.params.uid)
+    .doc(uid)
     .get()
     .then(async (doc) => {
       const option = doc.data().payment?.option
@@ -108,6 +160,8 @@ const updateFirestore = async (context, type) => {
         "firebase"
       );
     });
+
+  return;
 };
 
 const checkDuplicate = async (context, remove, price, type) => {

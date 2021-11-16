@@ -36,7 +36,9 @@ export const Reset = () => {
           })}
         />
 
-        <span className={styles.error}>{errors.email?.message}</span>
+        {errors.email?.message && (
+          <span className={styles.error}>{errors.email?.message}</span>
+        )}
       </div>
 
       <button type="submit" className={root.setting_btn}>

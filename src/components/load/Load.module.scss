@@ -16,7 +16,7 @@ $width: responsive-width(pc);
   height: 100%;
   z-index: 9999;
 
-  background: $bg_clr;
+  background: $base_clr;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,10 +27,10 @@ $width: responsive-width(pc);
     padding-top: 132px;
     background: none;
     z-index: 99;
-
-    &_auth {
-      padding-top: 0;
-    }
+  }
+  
+  &_auth {
+    padding-top: 0;
   }
 
   &_user {

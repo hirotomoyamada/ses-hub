@@ -20,9 +20,20 @@ export const Plan = ({ user, history }) => {
             </span>
           )}
         </span>
+        {((user?.payment?.status !== "canceled" && !user?.payment?.price) ||
+          user?.type === "child") && (
+          <span className={styles.main_desc}>
+            このアカウントでは変更することはできません
+          </span>
+        )}
       </div>
+
       <button
-        className={styles.main_btn}
+        className={`${styles.main_btn} ${
+          ((user?.payment?.status !== "canceled" && !user?.payment?.price) ||
+            user?.type === "child") &&
+          styles.main_btn_disabled
+        }`}
         type="button"
         onClick={() => history.push("/plan")}
       >

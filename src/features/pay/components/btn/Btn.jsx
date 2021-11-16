@@ -1,21 +1,10 @@
 import styles from "./Btn.module.scss";
 import Loader from "react-loader-spinner";
 
-export const Back = ({ history }) => {
-  return (
-    <button
-      className={styles.back}
-      type="button"
-      onClick={() => history.push("/setting")}
-    >
-      アカウント設定 へもどる
-    </button>
-  );
-};
-
-export const Checkout = ({
+export const Btn = ({
   user,
   priceId,
+  productId,
   load,
   setLoad,
   dispatch,
@@ -24,14 +13,15 @@ export const Checkout = ({
 }) => {
   return (
     <button
-      className={`${styles.checkout} ${load.checkout && styles.checkout_load} ${
-        !priceId && styles.checkout_disable
+      className={`${styles.btn} ${load.checkout && styles.btn_load} ${
+        !priceId && styles.btn_disable
       }`}
       type="button"
       onClick={() =>
         handleCheckout({
           setLoad,
           priceId,
+          productId,
           user,
           dispatch,
           demo,
@@ -49,7 +39,7 @@ export const Checkout = ({
           color="#FFF"
           height={32}
           width={32}
-          className={styles.checkout_icon}
+          className={styles.btn_icon}
         />
       )}
     </button>

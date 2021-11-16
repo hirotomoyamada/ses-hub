@@ -10,14 +10,18 @@ export const userSlice = createSlice({
   initialState,
 
   reducers: {
-    logout: () => {
-      return initialState;
+    logout: (state) => {
+      if (!state.token) {
+        return initialState;
+      }
     },
 
     resetUser: (state) => reducers.resetUser(state),
 
+    updateToken: (state, action) => reducers.updateToken(state, action),
+
     editProfile: (state, action) => reducers.editProfile(state, action),
-    enableAgree: (state) => reducers.enableAgree(state),
+    enableAgree: (state, action) => reducers.enableAgree(state, action),
     updatePayment: (state, action) => reducers.updatePayment(state, action),
     addProvider: (state, action) => reducers.addProvider(state, action),
     changeEmail: (state, action) => reducers.changeEmail(state, action),
@@ -39,6 +43,8 @@ export const userSlice = createSlice({
 export const {
   logout,
 
+  updateToken,
+
   resetUser,
 
   editProfile,
@@ -59,6 +65,7 @@ export const {
 } = userSlice.actions;
 
 export const user = (state) => state.user.user;
+export const token = (state) => state.user.token;
 
 export const selectUser = (state) => state.user.selectUser;
 

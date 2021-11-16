@@ -2,9 +2,15 @@ export const verified = (state, action) => {
   if (action.payload && action.payload.user) {
     state.verified.status = "enable";
 
+    if (!action.payload.user.profile?.person) {
+      state.modal.type = "profile";
+      state.modal.open = true;
+    }
+
     if (
       action.payload.user.payment.status === "canceled" &&
-      action.payload.user.payment.notice
+      action.payload.user.payment.notice &&
+      action.payload.user.type !== "child"
     ) {
       state.modal.type = "advertise";
       state.modal.open = true;
@@ -41,10 +47,12 @@ export const verified = (state, action) => {
 
   if (action.payload && action.payload.emailVerified) {
     state.verified.email = action.payload.emailVerified;
+    state.verified.access = false;
   }
 
   if (action.payload && action.payload.profileVerified) {
     state.verified.profile = action.payload.profileVerified;
+    state.verified.access = false;
   }
 
   if (action.payload && action.payload.statusVerified) {

@@ -1,5 +1,6 @@
 const functions = require("firebase-functions");
 const algolia = require("../../algolia").algolia;
+const stripe = require("../../stripe").stripe;
 const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
@@ -15,6 +16,7 @@ exports.changeEmail = functions
 
     await editFirestore(context, data);
     await editAlgolia(context, data);
+    await editStripe(context, data);
 
     return;
   });
@@ -78,4 +80,22 @@ const editAlgolia = async (context, data) => {
         "algolia"
       );
     });
+};
+
+const editStripe = async (context, data) => {
+  const doc = await db.collection("customers").doc(context.auth.uid).get();
+  const { stripeId } = doc.exists && doc.data();
+
+  stripeId &&
+    (await stripe.customers
+      .update(stripeId, {
+        email: data,
+      })
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "メールアドレスの更新に失敗しました",
+          "stripe"
+        );
+      }));
 };

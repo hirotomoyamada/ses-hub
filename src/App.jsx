@@ -16,6 +16,7 @@ import { Pay } from "./features/pay/Pay";
 import { Auth } from "./pages/auth/Auth";
 import { List } from "./pages/list/List";
 import { Setting } from "./pages/setting/Setting";
+import { Account } from "./pages/account/Account";
 import { Terms } from "./pages/terms/Terms";
 import { Asct } from "./pages/asct/Asct";
 import { HowTo } from "./pages/howTo/HowTo";
@@ -81,14 +82,14 @@ const App = () => {
                 <Route exact path="/home" component={Home} />
                 <Route exact path="/search" component={Search} />
                 <Route exact path="/setting" component={Setting} />
+                <Route exact path="/account" component={Account} />
 
                 <Route exact path="/terms" component={Terms} />
                 <Route exact path="/asct" component={Asct} />
+                <Route exact path="/howto" component={HowTo} />
 
                 <Route exact path="/plan" component={Pay} />
                 <Route exact path="/success" component={Success} />
-
-                <Route exact path="/howto" component={HowTo} />
 
                 <Route exact path="/:list" component={List} />
 

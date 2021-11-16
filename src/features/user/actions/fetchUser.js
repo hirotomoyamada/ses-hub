@@ -7,6 +7,7 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async (data) => {
   const user = await fetchUser({
     index: data.index,
     uid: data.uid,
+    uids: data.uids,
   }).then(({ data }) => {
     return {
       user: data.user,

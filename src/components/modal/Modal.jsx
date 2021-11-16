@@ -17,6 +17,7 @@ import { Agree } from "./components/agree/Agree";
 import { Delete } from "./components/delete/Delete";
 import { Advertise } from "./components/advertise/Advertise";
 import { Request } from "./components/request/Request";
+import { Account } from "./components/account/Account";
 
 export const Modal = () => {
   const dispatch = useDispatch();
@@ -38,9 +39,16 @@ export const Modal = () => {
   const Inner = () => {
     switch (modal.type) {
       case "agree":
-        return <Agree />;
+        return <Agree user={user} />;
       case "advertise":
-        return <Advertise user={user} handleClose={handleClose} />;
+        return (
+          <Advertise
+            user={user}
+            text={modal.text}
+            close={modal.close}
+            handleClose={handleClose}
+          />
+        );
       case "demo":
         return <Demo handleClose={handleClose} />;
       case "info":
@@ -60,6 +68,18 @@ export const Modal = () => {
         );
       case "profile":
         return <Profile user={user} handleClose={handleClose} />;
+      case "account":
+        return (
+          <Account
+            uid={user.uid}
+            email={{
+              user: user.profile.email,
+              selectUser: modal.meta.email,
+            }}
+            create={modal.meta.type === "create"}
+            handleClose={handleClose}
+          />
+        );
       case "delete":
         return (
           <Delete
@@ -96,7 +116,10 @@ export const Modal = () => {
       <div className={styles.overlay}></div>
       <div
         className={`${styles.modal} ${
-          modal.type !== "home" && modal.type !== "delete" && styles.modal_sp
+          modal.type !== "home" &&
+          modal.type !== "delete" &&
+          modal.type !== "account" &&
+          styles.modal_sp
         }`}
       >
         <Inner />

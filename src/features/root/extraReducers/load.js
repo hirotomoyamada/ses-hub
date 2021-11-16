@@ -8,7 +8,14 @@ export const load = (builder) => {
           : false;
 
       if (action.type !== "post/createPost/pending") {
-        state.load.list = true;
+        if (
+          action.type !== "user/createChild/pending" &&
+          action.type !== "user/deleteChild/pending"
+        ) {
+          state.load.list = true;
+        } else {
+          state.load.create = true;
+        }
       }
     }
   );
@@ -20,6 +27,7 @@ export const load = (builder) => {
 
       state.load.fetch = false;
       state.load.list = false;
+      state.load.create = false;
     }
   );
 
@@ -30,6 +38,9 @@ export const load = (builder) => {
     (state) => {
       state.load.fetch = false;
       state.load.list = false;
+      state.load.create = false;
+
+      
     }
   );
 };

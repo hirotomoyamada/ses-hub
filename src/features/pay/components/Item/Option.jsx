@@ -46,6 +46,22 @@ export const Option = ({
             </span>
           </p>
         </div>
+
+        {priceId !== price?.id &&
+          user?.payment?.price &&
+          !user?.payment?.option?.freelanceDirect && (
+            <p className={styles.item_desc}>
+              1ヶ月あたり
+              <span className={styles.item_desc_acnt}>
+                {(
+                  (price?.unit_amount * tax) /
+                  (price?.interval === "month" ? price?.interval_count : 12)
+                ).toLocaleString()}
+                円&nbsp;
+                <span className={styles.item_desc_acnt_tax}>(税込)</span>
+              </span>
+            </p>
+          )}
       </div>
 
       {!user?.payment?.price ? (

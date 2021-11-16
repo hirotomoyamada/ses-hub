@@ -1,6 +1,9 @@
 import styles from "../Create.module.scss";
 import root from "../../../Auth.module.scss";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
+
 import { useFormContext } from "react-hook-form";
 
 export const Type = () => {
@@ -18,19 +21,35 @@ export const Type = () => {
         name="type"
         value="individual"
       />
-      <label htmlFor="individual" className={styles.type_btn}>
-        個人
+      <label
+        htmlFor="individual"
+        className={`${styles.type_btn} ${styles.type_btn_individual}`}
+      >
+        <span>個人</span>
+
+        <FontAwesomeIcon
+          icon={faQuestionCircle}
+          className={styles.type_btn_icon}
+        />
       </label>
 
       <input
         type="radio"
         {...register("type")}
-        id="corporate"
+        id="parent"
         name="type"
-        value="corporate"
+        value="parent"
       />
-      <label htmlFor="corporate" className={styles.type_btn}>
-        法人
+      <label
+        htmlFor="parent"
+        className={`${styles.type_btn} ${styles.type_btn_parent}`}
+      >
+        <span>法人</span>
+
+        <FontAwesomeIcon
+          icon={faQuestionCircle}
+          className={styles.type_btn_icon}
+        />
       </label>
 
       {errors.type?.message && (

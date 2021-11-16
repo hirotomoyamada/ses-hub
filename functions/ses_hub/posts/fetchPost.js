@@ -67,7 +67,11 @@ const fetchFirestore = async (demo, post) => {
           type: doc.data().type,
           profile: {
             name: !demo ? doc.data().profile.name : dummy("name"),
-            person: !demo ? doc.data().profile.person : dummy("person"),
+            person: !demo
+              ? doc.data().profile.person
+                ? doc.data().profile.person
+                : "名無しさん"
+              : dummy("person"),
             body: doc.data().profile.body,
             email: !demo ? doc.data().profile.email : null,
             social: !demo ? doc.data().profile.social : {},

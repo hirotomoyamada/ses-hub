@@ -1,0 +1,17 @@
+// サイト共有の初期設定
+@import "../../../../styles/config";
+@import "../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.main {
+  align-items: flex-start;
+  height: 100%;
+
+  padding-bottom: 48px;
+
+  @media (max-width: responsive-width(sp)) {
+    padding-bottom: 24px;
+  }
+}

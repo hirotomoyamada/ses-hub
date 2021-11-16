@@ -1,6 +1,7 @@
 export const announce = (builder) => {
   builder.addMatcher(
     (action) =>
+      action.type.endsWith("/createChild/fulfilled") ||
       action.type.endsWith("/createPost/fulfilled") ||
       action.type.endsWith("/fetchPosts/fulfilled") ||
       action.type.endsWith("/extractPosts/fulfilled") ||
@@ -9,7 +10,14 @@ export const announce = (builder) => {
       action.type.endsWith("/userPosts/fulfilled") ||
       action.type.endsWith("/fetchProducts/fulfilled"),
     (state, action) => {
-      if (action.payload.error) {
+      if (
+        action.payload.error &&
+        (!state.modal.open ||
+          state.modal.type === "home" ||
+          state.modal.type === "account" ||
+          state.modal.type === "edit" ||
+          state.modal.type === "new")
+      ) {
         state.announce.error = action.payload.error;
       }
     }

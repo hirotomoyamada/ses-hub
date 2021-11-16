@@ -58,6 +58,10 @@ $width: responsive-width(pc);
     flex-direction: column;
     align-items: center;
     gap: 8px;
+
+    &_account {
+      margin-top: 26px;
+    }
   }
 
   &_ttl {

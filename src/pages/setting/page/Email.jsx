@@ -6,7 +6,7 @@ import { useScrollController } from "../../../hook/useScrollController";
 
 export const Email = ({ next, user, setReset }) => {
   useScrollController();
-  
+
   const {
     register,
     formState: { errors },
@@ -34,7 +34,9 @@ export const Email = ({ next, user, setReset }) => {
           })}
         />
 
-        <span className={styles.error}>{errors.password?.message}</span>
+        {errors.password?.message && (
+          <span className={styles.error}>{errors.password?.message}</span>
+        )}
       </div>
 
       <button
@@ -81,7 +83,9 @@ export const Email = ({ next, user, setReset }) => {
           })}
         />
 
-        <span className={styles.error}>{errors.email?.message}</span>
+        {errors.email?.message && (
+          <span className={styles.error}>{errors.email?.message}</span>
+        )}
       </div>
 
       <button type="submit" className={root.setting_btn}>

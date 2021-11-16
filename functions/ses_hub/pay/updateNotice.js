@@ -10,6 +10,7 @@ exports.updateNotice = functions
   .onRun(async () => {
     await db
       .collection("companys")
+      .where("type", "!=", "child")
       .where("payment.status", "==", "canceled")
       .get()
       .then((querySnapshot) => {

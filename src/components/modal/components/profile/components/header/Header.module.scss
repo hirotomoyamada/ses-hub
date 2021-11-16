@@ -28,6 +28,11 @@ $width: responsive-width(pc);
     &:hover {
       opacity: 0.8;
     }
+
+    &_disable {
+      color: $sub_clr;
+      pointer-events: none;
+    }
   }
 
   &_submit {

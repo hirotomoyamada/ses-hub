@@ -73,8 +73,9 @@ export const Menu = ({ user }) => {
     !open &&
     status === "enable" &&
     location !== "setting" &&
-    location !== "howto" &&
+    location !== "account" &&
     location !== "plan" &&
+    location !== "howto" &&
     location !== "success" &&
     location !== "terms" &&
     location !== "asct" && (

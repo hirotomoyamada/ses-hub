@@ -1,0 +1,60 @@
+// サイト共有の初期設定
+@import "../../../../../../styles/config";
+@import "../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.account {
+  position: relative;
+  background: $base_clr;
+  border: 1px solid $bdr_clr;
+  height: 72px;
+  padding: 0 32px;
+  border-radius: 12px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+
+  transition: all 0.4s;
+
+  @media (max-width: responsive-width(sp)) {
+    height: 64px;
+    padding: 0 18px;
+  }
+
+  &_load {
+    align-items: center;
+  }
+
+  &_current {
+    background: $acnt_clr;
+    color: $base_clr;
+    border: none;
+  }
+
+  &_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &_txt {
+    font-size: 14px;
+
+    &_none {
+      color: $sub_clr;
+    }
+  }
+
+  &_btn {
+    display: flex;
+    gap: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 8px;
+    }
+  }
+}

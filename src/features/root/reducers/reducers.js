@@ -7,4 +7,13 @@ import { announce } from "./announce";
 import { verified } from "./verified";
 import { notFound } from "./notFound";
 
-export { index, page, sort, search, modal, announce, verified, notFound };
+export {
+  index,
+  page,
+  sort,
+  search,
+  modal,
+  announce,
+  verified,
+  notFound,
+};
