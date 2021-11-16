@@ -47,7 +47,7 @@ $width: responsive-width(pc);
 
     &_sign {
       @media (max-width: responsive-width(sp)) {
-        padding-top: 56px;
+        // padding-top: 56px;
       }
     }
   }
@@ -248,6 +248,17 @@ $width: responsive-width(pc);
       @media (max-width: responsive-width(sp)) {
         font-size: 12px;
       }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &_back {
+      align-self: flex-start;
+      color: $link_clr;
+      font-size: 14px;
+      margin-bottom: 16px;
 
       &:hover {
         opacity: 0.8;
