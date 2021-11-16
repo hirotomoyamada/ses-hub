@@ -16,7 +16,10 @@ exports.updatePlan = functions
 
     const after = change.after.data();
 
-    const status = after.status;
+    const status =
+      after.status === "active" || after.status === "trialing"
+        ? after.status
+        : "canceled";
     const price = after.items[0].plan.id;
     const start = after.current_period_start.seconds * 1000;
     const end = after.current_period_end.seconds * 1000;
