@@ -21,7 +21,7 @@ export const Container = ({
       (product) =>
         products?.[product]?.prices?.length &&
         // ------ 削除予定 ------
-        // product !== "option" && // ver 2.0.0
+        product !== "option" && // ver 1.8.0
         // ------ 削除予定 ------
          (
           <div key={product} className={styles.container}>
