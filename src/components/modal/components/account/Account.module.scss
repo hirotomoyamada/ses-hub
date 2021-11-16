@@ -1,0 +1,30 @@
+// サイト共有の初期設定
+@import "../../../../styles/config";
+@import "../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.account {
+  color: $main_clr;
+  background: $base_clr;
+  width: 720px;
+  border-radius: 16px;
+  display: grid;
+  grid-template-rows: 72px 1fr;
+
+  @media (max-width: responsive-width(tb)) {
+    width: calc(100vw - 24px);
+  }
+
+  @media (max-width: responsive-width(sp)) {
+    grid-template-rows: 48px 1fr;
+    font-size: 12px;
+  }
+
+  &_load {
+    display: block;
+    padding: 64px 32px;
+    grid-template-columns: 1fr;
+  }
+}

@@ -14,16 +14,7 @@ exports.companys = ({ context, doc, data, hit, demo }) => {
       type: doc.data().type,
 
       agree: doc.data().agree,
-      payment: {
-        status: doc.data().payment.status,
-        option: doc.data().payment.option,
-        price: doc.data().payment.price,
-        end: doc.data().payment.end,
-        notice: doc.data().payment.notice,
-        cancel: doc.data().payment.cancel,
-        trial: doc.data().payment.trial,
-        load: doc.data().payment.load,
-      },
+      payment: doc.data().payment,
       posts: doc.data().posts,
       entries: doc.data().entries,
       likes: doc.data().likes,
@@ -38,7 +29,11 @@ exports.companys = ({ context, doc, data, hit, demo }) => {
       uid: hit.objectID,
       profile: {
         name: !demo ? hit.name : dummy("name"),
-        person: !demo ? hit.person : dummy("person"),
+        person: !demo
+          ? hit.person
+            ? hit.person
+            : "名無しさん"
+          : dummy("person"),
         body: hit.body,
         postal: hit.postal,
         address: hit.address,

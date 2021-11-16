@@ -15,7 +15,7 @@ export const Footer = ({ load, handleRedirect }) => {
         onClick={() => handleRedirect("/setting")}
         className={styles.success_footer_btn}
       >
-        アカウント設定
+        アカウント情報
       </button>
     </div>
   ) : (

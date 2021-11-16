@@ -6,7 +6,7 @@ import { Position } from "./components/Position";
 import { Address } from "./components/Address";
 import { Tel } from "./components/Tel";
 import { Agree } from "./components/Agree";
-import { Type } from "./components/Type";
+// import { Type } from "./components/Type";
 
 export const Create = ({ inner, handleLogout, setTerms, resize }) => {
   return (
@@ -21,14 +21,14 @@ export const Create = ({ inner, handleLogout, setTerms, resize }) => {
       >
         ログイン画面に戻る
       </button>
-      <Type />
+      {/* ver 2.0.0 */}
+      {/* <Type /> */}
       <Name />
       <Person />
       <Position />
       <Address />
       <Tel />
       <Agree setTerms={setTerms} />
-
       <button type="submit" className={root.auth_btn}>
         登録
       </button>

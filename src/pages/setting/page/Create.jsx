@@ -39,7 +39,9 @@ export const Create = () => {
           })}
         />
 
-        <span className={styles.error}>{errors.email?.message}</span>
+        {errors.email?.message && (
+          <span className={styles.error}>{errors.email?.message}</span>
+        )}
       </div>
 
       <div>
@@ -61,7 +63,11 @@ export const Create = () => {
           })}
         />
 
-        <span className={styles.error}>{errors.verifiedPassword?.message}</span>
+        {errors.verifiedPassword?.message && (
+          <span className={styles.error}>
+            {errors.verifiedPassword?.message}
+          </span>
+        )}
       </div>
 
       <div>
@@ -84,11 +90,13 @@ export const Create = () => {
           })}
         />
 
-        <span className={styles.error}>
-          {errors.password?.type === "verified" && "パスワードが一致しません"}
-        </span>
+        {errors.password?.type === "verified" && (
+          <span className={styles.error}>パスワードが一致しません</span>
+        )}
 
-        <span className={styles.error}>{errors.password?.message}</span>
+        {errors.password?.message && (
+          <span className={styles.error}>{errors.password?.message}</span>
+        )}
       </div>
 
       <button type="submit" className={root.setting_btn}>

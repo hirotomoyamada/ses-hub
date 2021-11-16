@@ -12,24 +12,10 @@ export const handleSignUp = async ({
 
   await auth
     .createUserWithEmailAndPassword(email, password)
-    .then(async (e) => {
-      await auth.currentUser
-        .sendEmailVerification({
-          url: `${process.env.REACT_APP_SES_HUB}/login`,
-        })
-        .then(() => {
-          setCreate(true);
-          setEmail(true);
-          methods.reset();
-        })
-        .catch((e) => {
-          dispatch(
-            rootSlice.handleAnnounce({
-              type: "error",
-              text: "再度時間をおいてください",
-            })
-          );
-        });
+    .then((e) => {
+      setCreate(true);
+      setEmail(true);
+      methods.reset();
     })
     .catch((e) => {
       dispatch(

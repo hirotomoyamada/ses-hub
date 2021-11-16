@@ -3,12 +3,18 @@ const db = require("../../../firebase").db;
 
 exports.userAuthenticated = async ({
   context,
+  uid,
   demo,
   agree,
   canceled,
   index,
+  parent,
 }) => {
-  if (context.auth.uid === functions.config().demo.ses_hub.uid && demo) {
+  if (
+    (!parent ? context.auth.uid : uid) ===
+      functions.config().demo.ses_hub.uid &&
+    demo
+  ) {
     throw new functions.https.HttpsError(
       "cancelled",
       "デモユーザーのため、処理中止",
@@ -18,7 +24,7 @@ exports.userAuthenticated = async ({
 
   await db
     .collection("companys")
-    .doc(context.auth.uid)
+    .doc(!parent ? context.auth.uid : uid)
     .get()
     .then((doc) => {
       if (doc.data().status !== "enable") {

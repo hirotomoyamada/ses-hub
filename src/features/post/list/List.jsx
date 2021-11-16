@@ -68,7 +68,7 @@ export const List = ({
         />
       )}
 
-      {posts?.length >= 50 && (
+      {hit.pages && page < hit.pages - 1 && (
         <Load load={load} page={page} hit={hit} bests={bests} />
       )}
     </div>

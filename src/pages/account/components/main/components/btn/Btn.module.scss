@@ -1,0 +1,74 @@
+// サイト共有の初期設定
+@import "../../../../../../styles/config";
+@import "../../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.btn {
+  background: $base_clr;
+  border: 1px solid $sub_clr;
+  border-radius: 16px;
+  padding: 0px 16px;
+  height: 32px;
+  cursor: pointer;
+
+  font-size: 14px;
+  color: $sub_clr;
+
+  transition: all 0.4s;
+
+  &:hover {
+    background: $sub_clr;
+    color: $base_clr;
+  }
+
+  &_create {
+    border: 1px solid $acnt_clr;
+    color: $acnt_clr;
+
+    &:hover {
+      background: $acnt_clr;
+      color: $base_clr;
+    }
+  }
+
+  &_delete {
+    background: $remove_clr;
+    border: none;
+    color: $base_clr;
+
+    &:hover {
+      background: $remove_clr;
+      opacity: 0.8;
+    }
+  }
+
+  &_plan {
+    position: absolute;
+    top: 50%;
+    right: 32px;
+    transform: translateY(-50%);
+
+    color: $acnt_clr;
+    border: 1px solid $base_clr;
+
+    &:hover {
+      background: $acnt_clr;
+      color: $base_clr;
+      border: 1px solid $base_clr;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      right: 16px;
+    }
+  }
+
+  @media (max-width: responsive-width(sp)) {
+    padding: 0px 8px;
+    height: 24px;
+    line-height: 22px;
+
+    font-size: 10px;
+  }
+}

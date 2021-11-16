@@ -10,9 +10,19 @@ exports.createUser = functions
   .runWith(runtime)
   .firestore.document("companys/{uid}")
   .onCreate(async (snapshot, context) => {
+    const child = snapshot.data().type === "child";
     const profile = snapshot.data().profile;
+
     const url = functions.config().app.ses_hub.url;
     const adminUrl = functions.config().admin.url;
+
+    if (child) {
+      throw new functions.https.HttpsError(
+        "cancelled",
+        "子アカウントのため、処理中止",
+        "firebase"
+      );
+    }
 
     const adminMail = {
       to: functions.config().admin.ses_hub,

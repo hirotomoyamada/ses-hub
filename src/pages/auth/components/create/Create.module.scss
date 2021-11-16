@@ -42,6 +42,7 @@ $width: responsive-width(pc);
   }
 
   &_btn {
+    position: relative;
     color: $sub_clr;
     font-size: 14px;
     border-radius: 4px;
@@ -51,6 +52,89 @@ $width: responsive-width(pc);
     align-items: center;
 
     transition: all 0.4s;
+
+    &_icon {
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      font-size: 18px;
+
+      @media (max-width: responsive-width(sp)) {
+        right: 8px;
+        font-size: 16px;
+      }
+    }
+
+    &_individual:hover:after {
+      position: absolute;
+      top: -48px;
+
+      content: "一人でアカウントを使う場合は、こちら";
+      display: block;
+
+      background: $acnt_bg_clr;
+      color: $acnt_clr;
+      white-space: nowrap;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid $acnt_clr;
+
+      padding: 8px 12px;
+
+      animation-name: fadeIn;
+      animation-duration: 0.4s;
+      animation-fill-mode: forwards;
+      animation-timing-function: ease-out;
+
+      @media (max-width: responsive-width(sp)) {
+        top: -36px;
+        left: 0;
+        font-size: 10px;
+        padding: 6px 8px;
+        border-radius: 4px;
+      }
+    }
+
+    &_parent:hover:after {
+      position: absolute;
+      top: -48px;
+
+      content: "複数でアカウントを使う場合は、こちら";
+      display: block;
+
+      background: $acnt_bg_clr;
+      color: $acnt_clr;
+      white-space: nowrap;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid $acnt_clr;
+
+      padding: 8px 12px;
+
+      animation-name: fadeIn;
+      animation-duration: 0.4s;
+      animation-fill-mode: forwards;
+      animation-timing-function: ease-out;
+
+      @media (max-width: responsive-width(sp)) {
+        top: -36px;
+        right: 0;
+        font-size: 10px;
+        padding: 6px 8px;
+        border-radius: 4px;
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
   }
 
   input {
@@ -67,7 +151,12 @@ $width: responsive-width(pc);
   position: relative;
   width: 164px;
 
+  select {
+    cursor: pointer;
+  }
+
   &:after {
+    pointer-events: none;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-top: 8px solid $acnt_clr;

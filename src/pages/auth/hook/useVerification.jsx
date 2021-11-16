@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { auth, db } from "../../../firebase";
 
 export const useVerification = (verified) => {
   const location = useLocation();
@@ -8,6 +9,9 @@ export const useVerification = (verified) => {
   const [profile, setProfile] = useState(false);
   const [email, setEmail] = useState(false);
   const [create, setCreate] = useState(false);
+  const [account, setAccount] = useState(false);
+
+  const uid = auth.currentUser?.uid;
 
   useEffect(() => {
     setSign(location.pathname === "/signup" ? true : false);
@@ -21,7 +25,17 @@ export const useVerification = (verified) => {
     setEmail(verified.email);
 
     setProfile(verified.profile);
-  }, [location.pathname, verified]);
+
+    if (uid) {
+      db.collection("companys")
+        .doc(uid)
+        .get()
+        .then((doc) => {
+          setAccount(doc?.exists && doc?.data().status === "enable");
+        })
+        .catch((e) => {});
+    }
+  }, [location.pathname, uid, verified]);
 
   return [
     sign,
@@ -32,5 +46,6 @@ export const useVerification = (verified) => {
     setEmail,
     create,
     setCreate,
+    account,
   ];
 };

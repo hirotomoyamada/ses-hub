@@ -1,5 +1,7 @@
 import styles from "../Auth.module.scss";
+
 import { useFormContext } from "react-hook-form";
+import { useHistory } from "react-router";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
@@ -15,6 +17,8 @@ export const Sign = ({
   handleProvider,
   resize,
 }) => {
+  const history = useHistory();
+
   const {
     register,
     watch,
@@ -30,6 +34,14 @@ export const Sign = ({
       }`}
       ref={inner}
     >
+      <button
+        className={`${styles.auth_btn_back}`}
+        type="button"
+        onClick={() => history.push("/")}
+      >
+        トップページにもどる
+      </button>
+      
       <span className={styles.auth_ttl}>{sign ? "新規登録" : "ログイン"}</span>
 
       <div>

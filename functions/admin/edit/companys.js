@@ -4,6 +4,7 @@ exports.companys = ({ data, user }) => {
 
     return {
       uid: data.user.uid,
+      type: data.user.type,
       icon: data.user.icon,
       cover: data.user.cover,
       status: data.user.status,

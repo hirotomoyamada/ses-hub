@@ -3,10 +3,15 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
+const userAuthenticated =
+  require("./functions/userAuthenticated").userAuthenticated;
+
 exports.createCheckout = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
+    await userAuthenticated(context.auth.uid, data.priceId, data.productId);
+
     checkDemo(context);
     onLoad(context);
 

@@ -1,16 +1,16 @@
-exports.companys = ({ context, data, create, doc }) => {
+exports.companys = ({ context, data, customer, create, child, doc }) => {
   const timestamp = create ? context.auth.token.auth_time * 1000 : Date.now();
 
   const profile = create
     ? {
-        name: data.name,
-        person: data.person,
-        position: data.position,
+        name: !child ? data.name : data.profile.name,
+        person: !child ? data.person : "",
+        position: !child ? data.position : "",
         body: "",
-        postal: data.postal,
-        address: data.address,
+        postal: !child ? data.postal : data.profile.postal,
+        address: !child ? data.address : data.profile.address,
         email: context.auth.token.email,
-        tel: data.tel,
+        tel: !child ? data.tel : "",
         more: [],
         region: [],
         url: "",
@@ -35,15 +35,43 @@ exports.companys = ({ context, data, create, doc }) => {
       const cover = Math.floor(Math.random() * 18 + 1);
 
       return {
-        status: "hold",
-        type: data.type,
-        agree: data.agree,
-        payment: {
-          status: "canceled",
-          trial: data.type !== "corporate" ? true : false,
-          notice: true,
-        },
-        provider: [data.provider],
+        status: !child ? "hold" : "enable",
+        type: !child ? data.type : "child",
+        agree: !child ? data.agree : "enable",
+        payment: !child
+          ? {
+              id: customer.stripeId,
+              link: customer.stripeLink,
+              status: "canceled",
+              trial: data.type !== "parent" ? true : false,
+              notice: true,
+            }
+          : data.payment.option
+          ? {
+              option: data.payment.option,
+
+              status: data.payment.status,
+              cancel: data.payment.cancel,
+              trial: data.payment.trial,
+              load: data.payment.load,
+              parent: data.uid,
+              start: data.payment.start,
+              end: data.payment.end,
+              price: data.payment.price,
+              notice: data.payment.notice,
+            }
+          : {
+              status: data.payment.status,
+              cancel: data.payment.cancel,
+              trial: data.payment.trial,
+              load: data.payment.load,
+              parent: data.uid,
+              start: data.payment.start,
+              end: data.payment.end,
+              price: data.payment.price,
+              notice: data.payment.notice,
+            },
+        provider: !child ? [data.provider] : ["password"],
 
         icon: `icon${icon}`,
         cover: `cover${cover}`,
@@ -72,27 +100,54 @@ exports.companys = ({ context, data, create, doc }) => {
     }
   } else {
     if (create) {
-      return {
-        objectID: context.auth.uid,
-        uid: context.auth.uid,
-        status: "hold",
+      return !child
+        ? {
+            objectID: context.auth.uid,
+            uid: context.auth.uid,
+            status: "hold",
 
-        name: profile.name,
-        person: profile.person,
-        body: profile.body,
-        position: profile.position,
-        postal: profile.postal,
-        address: profile.address,
-        tel: profile.tel,
-        email: profile.email,
-        more: profile.more,
-        region: profile.region,
-        social: profile.social,
-        url: profile.url,
+            name: profile.name,
+            person: profile.person,
+            body: profile.body,
+            position: profile.position,
+            postal: profile.postal,
+            address: profile.address,
+            tel: profile.tel,
+            email: profile.email,
+            more: profile.more,
+            region: profile.region,
+            social: profile.social,
+            url: profile.url,
 
-        createAt: timestamp,
-        lastLogin: timestamp,
-      };
+            createAt: timestamp,
+            lastLogin: timestamp,
+          }
+        : {
+            objectID: context.auth.uid,
+            uid: context.auth.uid,
+            status: "enable",
+
+            plan: data.payment?.status !== "canceled" ? "enable" : "disable",
+            freelanceDirect: data.payment?.option?.freelanceDirect
+              ? "enable"
+              : "disable",
+
+            name: profile.name,
+            person: profile.person,
+            body: profile.body,
+            position: profile.position,
+            postal: profile.postal,
+            address: profile.address,
+            tel: profile.tel,
+            email: profile.email,
+            more: profile.more,
+            region: profile.region,
+            social: profile.social,
+            url: profile.url,
+
+            createAt: timestamp,
+            lastLogin: timestamp,
+          };
     } else {
       return {
         objectID: context.auth.uid,

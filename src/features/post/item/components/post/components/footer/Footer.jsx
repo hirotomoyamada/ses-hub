@@ -10,9 +10,7 @@ export const Footer = ({ post, user }) => {
         <div className={styles.footer_user}>
           <p className={styles.footer_user_name}>{post?.user?.name}</p>
 
-          {post?.user?.type !== "corporate" && (
-            <p className={styles.footer_user_person}>{post?.user?.person}</p>
-          )}
+          <p className={styles.footer_user_person}>{post?.user?.person}</p>
         </div>
       )}
     </div>

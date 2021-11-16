@@ -14,6 +14,8 @@ exports.companys = ({ hit, doc, demo, none }) => {
           : "Hit me up株式会社",
         person: !demo
           ? hit.person
+            ? hit.person
+            : "名無しさん"
           : hit.objectID !== functions.config().demo.ses_hub.uid
           ? dummy("person")
           : "羽生太郎",
@@ -46,6 +48,8 @@ exports.companys = ({ hit, doc, demo, none }) => {
           : "Hit me up株式会社",
         person: !demo
           ? doc.data().profile.person
+            ? doc.data().profile.person
+            : "名無しさん"
           : doc.id !== functions.config().demo.ses_hub.uid
           ? dummy("person")
           : "羽生太郎",
