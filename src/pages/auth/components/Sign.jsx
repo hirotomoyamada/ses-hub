@@ -41,6 +41,7 @@ export const Sign = ({
       >
         トップページにもどる
       </button>
+      
       <span className={styles.auth_ttl}>{sign ? "新規登録" : "ログイン"}</span>
 
       <div>
