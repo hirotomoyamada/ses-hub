@@ -32,14 +32,22 @@ exports.editUser = functions
         doc.exists &&
           (await doc.ref
             .set(
-              {
-                type: user.type,
-                icon: user.icon,
-                cover: user.cover,
-                status: user.status,
-                profile: user.profile,
-                updateAt: user.updateAt,
-              },
+              data.index === "companys"
+                ? {
+                    type: user.type,
+                    icon: user.icon,
+                    cover: user.cover,
+                    status: user.status,
+                    profile: user.profile,
+                    updateAt: user.updateAt,
+                  }
+                : {
+                    icon: user.icon,
+                    cover: user.cover,
+                    status: user.status,
+                    profile: user.profile,
+                    updateAt: user.updateAt,
+                  },
               { merge: true }
             )
             .catch((e) => {
