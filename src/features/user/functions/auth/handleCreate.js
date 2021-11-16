@@ -5,13 +5,10 @@ import * as rootSlice from "../../../root/rootSlice";
 
 export const handleCreate = async ({ dispatch, data }) => {
   if (
-    // !data.type || // ver 2.0.0
+    !data.type ||
     !data.name ||
     !data.person ||
-    // (data.type === "individual" && !data.position) || ver 2.0.0
-    // ------ 削除予定 ------
-    !data.position ||
-    // ------ 削除予定 ------
+    (data.type === "individual" && !data.position) ||
     !data.tel ||
     !data.agree
   ) {
@@ -26,16 +23,10 @@ export const handleCreate = async ({ dispatch, data }) => {
   }
 
   const object = {
-    // type: data.type, // ver 2.0.0
-    // ------ 削除予定 ------
-    type: "individual",
-    // ------ 削除予定 ------
+    type: data.type,
     name: data.name,
     person: data.person,
-    // position: data.type === "individual" ? data.position : "", // ver 2.0.0
-    // ------ 削除予定 ------
-    position: data.position,
-    // ------ 削除予定 ------
+    position: data.type === "individual" ? data.position : "",
     postal: data.postal,
     address: data.address,
     tel: data.tel,
