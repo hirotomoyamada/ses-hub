@@ -15,43 +15,31 @@ exports.login = functions
       );
     }
 
-    const seshub = {};
-    const freelanceDirect = {};
-
-    await db
-      .collection("seshub")
-      .get()
-      .then((docs) => {
-        docs.forEach((doc) => {
-          seshub[doc.id] = doc.data();
-        });
-      })
-      .catch((e) => {
-        throw new functions.https.HttpsError(
-          "not-found",
-          "データの取得に失敗しました",
-          "firebase"
-        );
-      });
-    await db
-      .collection("freelanceDirect")
-      .get()
-      .then((docs) => {
-        docs.forEach((doc) => {
-          freelanceDirect[doc.id] = doc.data();
-        });
-      })
-      .catch((e) => {
-        throw new functions.https.HttpsError(
-          "not-found",
-          "データの取得に失敗しました",
-          "firebase"
-        );
-      });
-
-    return {
+    const auth = {
       uid: context.auth.uid,
-      seshub: seshub,
-      freelanceDirect: freelanceDirect,
+      seshub: {},
+      freelanceDirect: {},
     };
+
+    for await (const index of Object.keys(auth)) {
+      if (index !== "uid") {
+        await db
+          .collection(index)
+          .get()
+          .then((docs) => {
+            docs.forEach((doc) => {
+              auth[index][doc.id] = doc.data();
+            });
+          })
+          .catch((e) => {
+            throw new functions.https.HttpsError(
+              "not-found",
+              "データの取得に失敗しました",
+              "firebase"
+            );
+          });
+      }
+    }
+
+    return auth;
   });
