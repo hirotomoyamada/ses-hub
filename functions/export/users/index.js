@@ -1,8 +1,8 @@
-// メンバー情報
+// 営業
 exports.companys = require("./companys").companys;
 
-// エンジニア情報
+// エンジニア
 exports.persons = require("./persons").persons;
 
-// Stripe情報
+// Stripe
 exports.customers = require("./customers").customers;
