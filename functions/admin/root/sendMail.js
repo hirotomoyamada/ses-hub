@@ -8,20 +8,32 @@ const userAuthenticated =
 
 const send = require("../../sendgrid").send;
 
+/**********************************
+ * お知らせメール 一斉送信
+ **********************************/
+
 exports.sendMail = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
+    // 有効なアカウントかどうかを判定
     await userAuthenticated(context);
 
+    // Firestore へ保存
     await updateFirestore(data);
 
+    // リクエストに基づいてメール内容を作成
     const mail = await createMail(data);
 
+    // SendGrid でメールを一斉送信
     await send(mail);
 
     return data;
   });
+
+/**********************************
+ * 送信しない宛先を判定
+ **********************************/
 
 const verified = (email) => {
   const config = functions.config();
@@ -34,6 +46,10 @@ const verified = (email) => {
     true
   );
 };
+
+/**********************************
+ * 送信する宛先をすべて取得
+ **********************************/
 
 const fetchTo = async (data) => {
   const to =
@@ -69,6 +85,10 @@ const fetchTo = async (data) => {
   return to;
 };
 
+/**********************************
+ * 送信するメール内容を作成
+ **********************************/
+
 const createMail = async (data) => {
   const to = await fetchTo(data);
 
@@ -84,7 +104,12 @@ const createMail = async (data) => {
   };
 };
 
+/**********************************
+ * Firestore 保存
+ **********************************/
+
 const updateFirestore = async (data) => {
+  // ドキュメントを取得
   await db
     .collection(
       data.index === "companys"
@@ -94,16 +119,24 @@ const updateFirestore = async (data) => {
     .doc("mail")
     .get()
     .then(async (doc) => {
+      // 更新日時を挿入
       data.updateAt = Date.now();
 
+      // ドキュメントがあるかどうか判定
       if (doc.exists) {
-        await doc.ref.set(data, { merge: true }).catch((e) => {
-          throw new functions.https.HttpsError(
-            "data-loss",
-            "データの更新に失敗しました",
-            "firebase"
-          );
-        });
+        await doc.ref
+          .set(
+            data,
+            // 上書きを許可するかどうか
+            { merge: true }
+          )
+          .catch((e) => {
+            throw new functions.https.HttpsError(
+              "data-loss",
+              "データの更新に失敗しました",
+              "firebase"
+            );
+          });
       }
     });
 };

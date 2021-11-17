@@ -1,188 +1,131 @@
 const db = require("../../firebase").db;
 const algolia = require("../../algolia").algolia;
 
+/**********************************
+ * ユーザーが保持している投稿が存在しているかどうか判定
+ **********************************/
+
 exports.organize = async ({ data, user }) => {
-  const lists =
-    data.index === "companys"
-      ? {
-          posts: {},
-          follows: [],
-          home: [],
-          likes: {},
-          outputs: {},
-          entries: {},
-        }
-      : data.index === "persons" && {
-          entries: [],
-          likes: [],
-          histories: [],
-          follows: [],
-          home: [],
-          requests: {},
-        };
+  // 取得した投稿を格納しておくオブジェクト
+  const lists = initLists(data.index)
 
+  // オブジェクトごとにループ処理
   for await (const list of Object.keys(lists)) {
-    if (data.index !== "persons") {
-      if (list === "follows" || list === "home") {
-        if (user[list][0]) {
-          const index = algolia.initIndex("companys");
-          const objectIDs = await index
-            .getObjects(user[list])
-            .then(({ results }) => {
-              return results.map((hit) => hit && hit.objectID);
-            })
-            .catch((e) => {});
-
-          await db
-            .collection(data.index)
-            .doc(data.uid)
-            .get()
-            .then((doc) => {
-              if (doc.exists) {
-                const objects = doc
-                  .data()
-                  [list].filter((objectID) => objectIDs.indexOf(objectID) > -1);
-
-                lists[list] = objects;
-
-                doc.ref
-                  .set(
-                    {
-                      [list]: [...objects],
-                    },
-                    { merge: true }
-                  )
-                  .catch((e) => {});
-              }
-            })
-            .catch((e) => {});
-        } else {
-          lists[list] = [];
-        }
-      } else {
-        for await (const i of Object.keys(user[list])) {
-          if (user[list][i][0]) {
-            const index = algolia.initIndex(i);
-            const objectIDs = await index
-              .getObjects(user[list][i])
-              .then(({ results }) => {
-                return results.map((hit) => hit && hit.objectID);
-              })
-              .catch((e) => {});
-
-            await db
-              .collection(data.index)
-              .doc(data.uid)
-              .get()
-              .then((doc) => {
-                if (doc.exists) {
-                  const objects = doc
-                    .data()
-                    [list][i].filter(
-                      (objectID) => objectIDs.indexOf(objectID) > -1
-                    );
-
-                  lists[list][i] = objects;
-
-                  doc.ref
-                    .set(
-                      {
-                        [list]: { [i]: [...objects] },
-                      },
-                      { merge: true }
-                    )
-                    .catch((e) => {});
-                }
-              })
-              .catch((e) => {});
-          } else {
-            lists[list][i] = [];
-          }
-        }
-      }
-    } else {
-      if (list !== "requests") {
-        if (user[list][0]) {
-          const index = algolia.initIndex(
-            list === "follows" || list === "home" ? "companys" : "matters"
-          );
-
-          const objectIDs = await index
-            .getObjects(user[list])
-            .then(({ results }) => {
-              return results.map((hit) => hit && hit.objectID);
-            })
-            .catch((e) => {});
-
-          await db
-            .collection(data.index)
-            .doc(data.uid)
-            .get()
-            .then((doc) => {
-              if (doc.exists) {
-                const objects = doc
-                  .data()
-                  [list].filter((objectID) => objectIDs.indexOf(objectID) > -1);
-
-                lists[list] = objects;
-
-                doc.ref
-                  .set(
-                    {
-                      [list]: [...objects],
-                    },
-                    { merge: true }
-                  )
-                  .catch((e) => {});
-              }
-            })
-            .catch((e) => {});
-        } else {
-          lists[list] = [];
-        }
-      } else {
-        for await (const i of Object.keys(user[list])) {
-          if (user[list][i][0]) {
-            const index = algolia.initIndex("companys");
-            const objectIDs = await index
-              .getObjects(user[list][i])
-              .then(({ results }) => {
-                return results.map((hit) => hit && hit.objectID);
-              })
-              .catch((e) => {});
-
-            await db
-              .collection(data.index)
-              .doc(data.uid)
-              .get()
-              .then((doc) => {
-                if (doc.exists) {
-                  const objects = doc
-                    .data()
-                    [list][i].filter(
-                      (objectID) => objectIDs.indexOf(objectID) > -1
-                    );
-
-                  lists[list][i] = objects;
-
-                  doc.ref
-                    .set(
-                      {
-                        [list]: { [i]: [...objects] },
-                      },
-                      { merge: true }
-                    )
-                    .catch((e) => {});
-                }
-              })
-              .catch((e) => {});
-          } else {
-            lists[list][i] = [];
-          }
-        }
-      }
-    }
+    await updateList({ data: data, user: user, lists: lists, list: list });
   }
 
   return lists;
+};
+
+/**********************************
+ * 格納するオブジェクト
+ **********************************/
+
+const initLists = (index) => {
+  return index === "companys"
+    ? { posts: {},
+        follows: [],
+        home: [],
+        likes: {},
+        outputs: {},
+        entries: {}
+     }
+    : index === "persoms" && {
+        entries: [],
+        likes: [],
+        histories: [],
+        follows: [],
+        home: [],
+        requests: {},
+      };
+};
+
+/**********************************
+ * リストを更新する処理
+ **********************************/
+
+const updateList = async ({ data, user, lists, list }) => {
+  // array・objectかを判定
+  if (Array.isArray(lists[list])) {
+    // 配列がある場合
+    if (user[list].length) {
+      // ドキュメントを取得
+      await updateFirestore({
+        data: data,
+        lists: lists,
+        list: list,
+      });
+    }
+  } else {
+    for await (const i of Object.keys(user[list])) {
+      // 配列がある場合
+      if (user[list][i].length) {
+        // ドキュメントを取得
+        await updateFirestore({
+          data: data,
+          lists: lists,
+          list: list,
+          i: i,
+        });
+      }
+    }
+  }
+};
+
+/**********************************
+ * Algolia 取得
+ **********************************/
+
+const fetchAlgolia = async ({ data, user, list, i }) => {
+  const index = algolia.initIndex(
+    list === "follows" || list === "home" || list === "requests"
+      ? "companys"
+      : data.index !== "persons"
+      ? i
+      : "matters"
+  );
+
+  // Algolia 存在している投稿かどうか判定
+  const { results } = await index.getObjects(i ? user[list][i] : user[list]);
+  return results.map((hit) => hit && hit.objectID);
+};
+
+/**********************************
+ * Firestore 上書き保存
+ **********************************/
+
+const updateFirestore = async ({ data, user, lists, list, i }) => {
+  // Algolia 存在している投稿かどうか判定
+  const objectIDs = await fetchAlgolia({
+    data: data,
+    user: user,
+    list: list,
+    i: i,
+  });
+
+  // ドキュメントを取得
+  const doc = await db.collection(data.index).doc(data.uid).get();
+
+  // ドキュメントがあるかどうか判定
+  if (doc.exists) {
+    // 配列を定義
+    const before = i ? doc.data()[list][i] : doc.data()[list];
+
+    // 存在しない投稿を消して、新しい配列を作成
+    const after = before.filter((objectID) => objectIDs.indexOf(objectID) > -1);
+
+    // 新しい配列を格納オブジェクトに挿入
+    Object.assign(i ? lists[list][i] : lists[list], ...after);
+
+    // ドキュメントに上書き保存
+    doc.ref
+      .set(
+        {
+          [list]: i ? { [i]: [...after] } : [...after],
+        },
+        // 上書きを許可するかどうか
+        { merge: true }
+      )
+      .catch((e) => {});
+  }
 };

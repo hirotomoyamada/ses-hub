@@ -9,17 +9,24 @@ const userAuthenticated =
 
 const timestamp = Date.now();
 
+/**********************************
+ * 職務経歴書 を削除
+ **********************************/
+
 exports.deleteResume = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
+    // 有効なアカウントかどうかを判定
     await userAuthenticated(context);
 
+    // ドキュメントを取得
     await db
       .collection("persons")
       .doc(data)
       .get()
       .then(async (doc) => {
+        // ドキュメントがあるかどうか判定
         doc.exists && deleteFile(doc);
       })
       .catch((e) => {
@@ -33,9 +40,15 @@ exports.deleteResume = functions
     return;
   });
 
+/**********************************
+ * ファイル 削除
+ **********************************/
+
 const deleteFile = async (doc) => {
+  // Firestorage へアクセスするURL
   const key = doc.data().resume.key;
 
+  // URLがなければ処理中止
   if (!key) {
     throw new functions.https.HttpsError(
       "cancelled",
@@ -44,13 +57,20 @@ const deleteFile = async (doc) => {
     );
   }
 
+  // ファイル名 定義
   const name = `${key}.pdf`;
+
+  // Firestorage バケットを指定
   const bucket = storage.bucket(functions.config().storage.resume);
+
+  // Firestorage ファイルの保存先を指定
   const path = bucket.file(name);
 
+  // ファイルの保存先を取得・削除
   await path
     .delete()
     .then(async () => {
+      // Firestore 上書き保存
       await updateFirestore(doc);
     })
     .catch((e) => {
@@ -62,13 +82,19 @@ const deleteFile = async (doc) => {
     });
 };
 
+/**********************************
+ * Firestore 上書き保存
+ **********************************/
+
 const updateFirestore = async (doc) => {
+  // ドキュメントに上書き保存
   await doc.ref
     .set(
       {
         resume: { key: "", url: "" },
         updateAt: timestamp,
       },
+      // 上書きを許可するかどうか
       { merge: true }
     )
     .catch((e) => {
