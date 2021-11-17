@@ -4,7 +4,7 @@ const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
 const userAuthenticated =
-  require("./functions/userAuthenticated").userAuthenticated;
+  require("../functions/userAuthenticated").userAuthenticated;
 const edit = require("../edit/edit");
 
 exports.editPost = functions

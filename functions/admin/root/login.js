@@ -3,17 +3,14 @@ const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
+const userAuthenticated =
+  require("../functions/userAuthenticated").userAuthenticated;
+
 exports.login = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    if (context.auth.uid !== functions.config().admin.uid) {
-      throw new functions.https.HttpsError(
-        "cancelled",
-        "無効なユーザーのため、処理中止",
-        "firebase"
-      );
-    }
+    await userAuthenticated(context);
 
     const auth = {
       uid: context.auth.uid,
