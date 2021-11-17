@@ -5,7 +5,7 @@ const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
 const userAuthenticated =
-  require("./functions/userAuthenticated").userAuthenticated;
+  require("../functions/userAuthenticated").userAuthenticated;
 
 exports.deletePost = functions
   .region(location)
