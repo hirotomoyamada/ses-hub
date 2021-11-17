@@ -1,4 +1,5 @@
 exports.persons = ({ data, user }) => {
+  // Firestore
   if (!user) {
     const timestamp = Date.now();
 
@@ -28,7 +29,9 @@ exports.persons = ({ data, user }) => {
       },
       updateAt: timestamp,
     };
-  } else {
+  }
+  // Algolia
+  else {
     return {
       objectID: user.uid,
       status: user.status,
