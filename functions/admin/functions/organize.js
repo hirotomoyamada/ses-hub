@@ -1,5 +1,5 @@
-const db = require("../../../firebase").db;
-const algolia = require("../../../algolia").algolia;
+const db = require("../../firebase").db;
+const algolia = require("../../algolia").algolia;
 
 exports.organize = async ({ data, user }) => {
   const lists =
