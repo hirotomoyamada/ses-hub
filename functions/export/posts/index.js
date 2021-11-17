@@ -1,11 +1,11 @@
-// 案件全体
+// 案件
 exports.matters = require("./matters").matters;
 
-// 人材全体
+// 人材
 exports.persons = require("./persons").persons;
 
-// メンバー全体
+// 営業
 exports.companys = require("./companys").companys;
 
-// エンジニア全体
+// エンジニア
 exports.resources = require("./resources").resources;
