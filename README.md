@@ -105,6 +105,7 @@ firebase deploy --only hosting:sh
 - Algolia
 - Stripe
 - SendGrid
+- Twiiter
 
 - Fort Awesome
 - Material-UI
