@@ -25,8 +25,8 @@ export const useUser = (index, uid) => {
   }, [dispatch, pathname]);
 
   useEffect(() => {
-    currentUser?.payment?.status === "canceled" && history.push("/plan");
-  }, [currentUser, history]);
+    currentUser?.payment?.status === "canceled" && currentUser?.uid !== uid && history.push("/plan");
+  }, [currentUser, history, uid]);
 
   useEffect(() => {
     if (currentUser?.uid !== uid && selectUser?.uid !== uid) {
