@@ -5,26 +5,18 @@ export const Menu = ({ index, uid, user, handleIndex, page, outputs }) => {
     <div
       className={`${styles.menu} ${
         page === "search"
-          ? user?.payment?.status !== "canceled" && styles.menu_triangle
+          ? user?.payment?.status !== "canceled" &&
+            user?.payment?.option?.freelanceDirect
+            ? styles.menu_over
+            : user?.payment?.status !== "canceled" && styles.menu_triangle
+          : (page === "likes" || page === "entries") &&
+            user?.payment?.status !== "canceled" &&
+            user?.payment?.option?.freelanceDirect
+          ? styles.menu_triangle
           : page === "user" &&
             user?.uid === uid &&
             user?.payment?.status !== "canceled" &&
             styles.menu_triangle
-
-        // ver 1.9.0
-        // page === "search"
-        //   ? user?.payment?.status !== "canceled" &&
-        //     user?.payment?.option?.freelanceDirect
-        //     ? styles.menu_over
-        //     : user?.payment?.status !== "canceled" && styles.menu_triangle
-        //   : (page === "likes" || page === "entries") &&
-        //     user?.payment?.status !== "canceled" &&
-        //     user?.payment?.option?.freelanceDirect
-        //   ? styles.menu_triangle
-        //   : page === "user" &&
-        //     user?.uid === uid &&
-        //     user?.payment?.status !== "canceled" &&
-        //     styles.menu_triangle
       }`}
     >
       <button
@@ -45,8 +37,7 @@ export const Menu = ({ index, uid, user, handleIndex, page, outputs }) => {
         人材
       </button>
 
-      {/* ver 1.9.0 */}
-      {/* {(page === "search" || page === "likes" || page === "entries") &&
+      {(page === "search" || page === "likes" || page === "entries") &&
         user?.payment?.status !== "canceled" &&
         user?.payment?.option?.freelanceDirect && (
           <button
@@ -57,7 +48,7 @@ export const Menu = ({ index, uid, user, handleIndex, page, outputs }) => {
           >
             フリーランス
           </button>
-        )} */}
+        )}
 
       {((page === "search" && user?.payment?.status !== "canceled") ||
         (page === "user" &&

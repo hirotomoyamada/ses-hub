@@ -11,7 +11,7 @@ import { Type } from "./components/Type";
 import { Email } from "./components/Email";
 import { Password } from "./components/Password";
 import { Plan } from "./components/Plan";
-// import { Option } from "./components/Option"; // ver 1.9.0
+import { Option } from "./components/Option";
 import { Account } from "./components/Account";
 import { At } from "./components/At";
 import { Provider } from "./components/provider/Provider";
@@ -42,8 +42,7 @@ export const Main = ({
 
       <Plan user={user} history={history} />
 
-      {/* ver 1.9.0 */}
-      {/* <Option user={user} /> */}
+      <Option user={user} />
 
       <Account user={user} history={history} />
 
