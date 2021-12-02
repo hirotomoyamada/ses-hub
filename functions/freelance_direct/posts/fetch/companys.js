@@ -29,7 +29,7 @@ exports.companys = ({ hit, doc, demo, none }) => {
       type: "individual",
       profile: {
         name: "Hit me up株式会社",
-        person: "freelance Direct 事務局",
+        person: "Freelance Direct 事務局",
         body: null,
         email: !demo ? functions.config().admin.contact : null,
         social: null,
