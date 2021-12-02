@@ -45,6 +45,9 @@ exports.companys = ({ context, data, customer, create, child, doc }) => {
               status: "canceled",
               trial: data.type !== "parent" ? true : false,
               notice: true,
+              // ver 2.0.0
+              // 削除予定
+              option: { freelanceDirect: true },
             }
           : data.payment.option
           ? {
@@ -105,6 +108,10 @@ exports.companys = ({ context, data, customer, create, child, doc }) => {
             objectID: context.auth.uid,
             uid: context.auth.uid,
             status: "hold",
+
+            // ver 2.0.0
+            // 削除予定
+            freelanceDirect: "enable",
 
             name: profile.name,
             person: profile.person,
