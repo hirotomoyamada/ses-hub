@@ -19,11 +19,10 @@ export const Container = ({
     products &&
     Object.keys(products).map(
       (product) =>
-        products?.[product]?.prices?.length &&
-        // ------ 削除予定 ------
-        product !== "option" && // ver 1.8.0
-        // ------ 削除予定 ------
-         (
+        // ver 2.0.0
+        // 削除予定
+        product !== "option" &&
+        products?.[product]?.prices?.length && (
           <div key={product} className={styles.container}>
             <Header products={products} product={product} />
             <List

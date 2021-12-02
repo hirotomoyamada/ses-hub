@@ -27,8 +27,8 @@ export const Price = () => {
   };
 
   const [
-    index,
-    // setIndex // ver 2.0.0
+    index, 
+    // setIndex, // ver 2.0.0
   ] = useState("individual");
 
   return (
