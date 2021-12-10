@@ -22,8 +22,10 @@ export const usePost = (index, objectID) => {
   }, [dispatch, index, pathname]);
 
   useEffect(() => {
-    user.payment.status === "canceled" && history.push("/plan");
-  }, [history, user]);
+    !user?.posts?.[index]?.includes(objectID) &&
+      user.payment.status === "canceled" &&
+      history.push("/plan");
+  }, [history, index, objectID, user]);
 
   useEffect(() => {
     dispatch(fetchPost({ index: index, objectID: objectID }));

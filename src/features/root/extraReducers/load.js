@@ -23,7 +23,10 @@ export const load = (builder) => {
   builder.addMatcher(
     (action) => action.type.endsWith("/rejected"),
     (state) => {
-      if (state.page !== "post" && state.page !== "user") {
+      if (
+        state.verified.payment !== "canceled" ||
+        (state.page !== "post" && state.page !== "user")
+      ) {
         state.notFound = true;
       }
 
