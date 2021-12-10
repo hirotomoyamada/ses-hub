@@ -25,6 +25,7 @@ export const verified = (state, action) => {
 
     state.data = action.payload.data;
     state.verified.demo = action.payload.demo;
+    state.verified.payment = action.payload.user.payment.status;
   }
 
   if (action.payload && state.verified.demo) {

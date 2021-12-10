@@ -37,6 +37,7 @@ export const initialState = {
     access: true,
     demo: false,
     error: "",
+    payment: "canceled",
   },
 
   load: {
