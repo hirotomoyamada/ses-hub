@@ -53,6 +53,7 @@ exports.matters = ({ hit, promotion }) => {
       remote: hit.remote,
       distribution: hit.distribution,
       span: hit.span,
+      approval: hit.approval,
       note: hit.note,
       status: hit.status !== "成約" && true,
       uid: hit.uid,

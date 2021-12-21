@@ -29,6 +29,7 @@ export const matters = ({ posts }) => {
         : `〜 ${outputs?.costs?.max}万`
     }`,
     distribution: `商流：${outputs?.distribution}`,
+    approval: `稟議：${outputs?.approval ? outputs?.approval : "不明"}`,
     interviews: `面談：${
       outputs?.interviews &&
       `${outputs?.interviews?.type} ${outputs?.interviews?.count}`
@@ -60,11 +61,13 @@ export const matters = ({ posts }) => {
         output.times
       }\n${output.remote}\n${output.adjustment}\n${output.costs}\n${
         output.distribution
-      }\n${output.interviews}\n${output.span}\n\n${output.body}\n${
-        output.tools !== undefined ? `\n${output.tools}\n` : ""
-      }\n${output.requires}\n${
-        output.prefers !== undefined ? `\n${output.prefers}\n` : ""
-      }\n${output.note}${
+      }\n${output.interviews}\n${output.approval}\n${output.span}\n\n${
+        output.body
+      }\n${output.tools !== undefined ? `\n${output.tools}\n` : ""}\n${
+        output.requires
+      }\n${output.prefers !== undefined ? `\n${output.prefers}\n` : ""}\n${
+        output.note
+      }${
         values.length !== index + 1
           ? "\n---------------------------------------------\n\n"
           : "\n"
