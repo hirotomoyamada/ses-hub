@@ -18,6 +18,7 @@ exports.matters = ({ hit }) => {
     remote: hit.remote,
     distribution: hit.distribution,
     span: hit.span,
+    approval: hit.approval,
     note: hit.note,
     status: hit.status,
     memo: hit.memo,
