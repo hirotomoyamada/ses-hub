@@ -56,6 +56,10 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(sp)) {
       margin-bottom: 12px;
     }
+
+    &_none {
+      margin-bottom: 0px;
+    }
   }
 
   &_row {
@@ -74,7 +78,8 @@ $width: responsive-width(pc);
     width: 100%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 16px;
+    row-gap: 0px;
+    column-gap: 16px;
 
     @media (max-width: responsive-width(miniPc)) {
       grid-template-columns: repeat(4, 1fr);
@@ -139,7 +144,7 @@ $width: responsive-width(pc);
     }
 
     &_body {
-      padding-bottom: 8px;
+      padding-bottom: 16px;
       gap: 16px;
 
       @media (max-width: responsive-width(sp)) {

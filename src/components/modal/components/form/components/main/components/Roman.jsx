@@ -41,14 +41,17 @@ export const Roman = () => {
             })}
           />
 
-          <span className={styles.item_error}>
-            {errors.roman?.firstName?.type === "string" &&
-              "半角大文字英字で入力してください"}
-          </span>
+          {errors.roman?.firstName?.type === "string" && (
+            <span className={styles.item_error}>
+              半角大文字英字で入力してください
+            </span>
+          )}
 
-          <span className={styles.item_error}>
-            {errors.roman?.firstName?.message}
-          </span>
+          {errors.roman?.firstName?.message && (
+            <span className={styles.item_error}>
+              {errors.roman?.firstName?.message}
+            </span>
+          )}
         </div>
       </div>
 
@@ -83,14 +86,17 @@ export const Roman = () => {
             })}
           />
 
-          <span className={styles.item_error}>
-            {errors.roman?.lastName?.type === "string" &&
-              "半角大文字英字で入力してください"}
-          </span>
+          {errors.roman?.lastName?.type === "string" && (
+            <span className={styles.item_error}>
+              半角大文字英字で入力してください
+            </span>
+          )}
 
-          <span className={styles.item_error}>
-            {errors.roman?.lastName?.message}
-          </span>
+          {errors.roman?.lastName?.message && (
+            <span className={styles.item_error}>
+              {errors.roman?.lastName?.message}
+            </span>
+          )}
         </div>
       </div>
     </div>

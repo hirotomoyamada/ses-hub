@@ -29,9 +29,11 @@ export const Distribution = () => {
           <option value={"営業支援"}>営業支援</option>
           <option value={"その他"}>その他</option>
         </select>
-        <span className={styles.item_error}>
-          {errors.distribution?.message}
-        </span>
+        {errors.distribution?.message && (
+          <span className={styles.item_error}>
+            {errors.distribution?.message}
+          </span>
+        )}
       </div>
     </div>
   );
