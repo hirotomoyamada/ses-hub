@@ -26,6 +26,7 @@ import { Age } from "./components/Age";
 import { Sex } from "./components/Sex";
 import { Roman } from "./components/Roman";
 import { Memo } from "./components/Memo";
+import { Approval } from "./components/Approval";
 
 export const Main = ({ index }) => {
   switch (index) {
@@ -48,7 +49,7 @@ export const Main = ({ index }) => {
             <Times />
           </div>
 
-          <div className={styles.main_col}>
+          <div className={`${styles.main_col} ${styles.main_col_none}`}>
             <span className={styles.main_tag}>開発環境</span>
             <div>
               <Handles index={index} />
@@ -56,12 +57,12 @@ export const Main = ({ index }) => {
             </div>
           </div>
 
-          <div className={styles.main_col}>
+          <div className={`${styles.main_col} ${styles.main_col_none}`}>
             <span className={styles.main_tag}>必須</span>
             <Requires />
           </div>
 
-          <div className={styles.main_col}>
+          <div className={`${styles.main_col} ${styles.main_col_none}`}>
             <span className={styles.main_tag}>尚可</span>
             <Perfers />
           </div>
@@ -74,6 +75,7 @@ export const Main = ({ index }) => {
             <Adjustment />
             <Distribution />
             <Span />
+            <Approval />
           </div>
 
           <Note />
@@ -106,13 +108,13 @@ export const Main = ({ index }) => {
           </div>
           <Costs />
 
-          <div className={styles.main_col}>
+          <div className={`${styles.main_col} ${styles.main_col_none}`}>
             <span className={styles.main_tag}>開発環境</span>
             <Handles index={index} />
             <Tools index={index} />
           </div>
 
-          <div className={styles.main_col}>
+          <div className={`${styles.main_col} ${styles.main_col_none}`}>
             <span className={styles.main_tag}>スキル</span>
             <Skills />
           </div>

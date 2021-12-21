@@ -25,7 +25,7 @@ export const Perfers = () => {
   return (
     <div className={root.main_col}>
       {prefersFields.map((field, index) => (
-        <div key={field.id} className={styles.item}>
+        <div key={field.id} className={`${styles.item} ${styles.item_field}`}>
           <input
             placeholder=""
             defaultValue={`prefers[${index}].prefer`}
@@ -70,9 +70,11 @@ export const Perfers = () => {
             )}
           </div>
 
-          <span className={styles.item_error}>
-            {errors.prefers?.[index]?.prefer.message}
-          </span>
+          {errors.prefers?.[index]?.prefer.message && (
+            <span className={styles.item_error}>
+              {errors.prefers?.[index]?.prefer.message}
+            </span>
+          )}
         </div>
       ))}
     </div>

@@ -78,9 +78,11 @@ export const Tools = ({ index }) => {
               )}
             </div>
 
-            <span className={styles.item_error}>
-              {errors.tools?.[i]?.tool.message}
-            </span>
+            {errors.tools?.[i]?.tool.message && (
+              <span className={styles.item_error}>
+                {errors.tools?.[i]?.tool.message}
+              </span>
+            )}
           </div>
         ))}
       </div>

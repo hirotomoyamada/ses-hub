@@ -35,7 +35,10 @@ export const Title = () => {
             },
           })}
         />
-        <span className={styles.item_error}>{errors.title?.message}</span>
+
+        {errors.title?.message && (
+          <span className={styles.item_error}>{errors.title?.message}</span>
+        )}
       </div>
     </div>
   );
