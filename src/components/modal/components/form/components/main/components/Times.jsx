@@ -27,7 +27,9 @@ export const Times = () => {
             })}
           />
         </div>
+
         <span className={styles.item_mark}>〜</span>
+
         <div className={styles.item}>
           <input
             className={`${styles.item_input} ${styles.item_input_center} ${
@@ -44,12 +46,22 @@ export const Times = () => {
           />
         </div>
       </div>
-      <div>
-        <span className={styles.item_error}>
-          {errors.times?.start?.message}
-        </span>
-        <span className={styles.item_error}>{errors.times?.end?.message}</span>
-      </div>
+
+      {(errors.times?.start?.message || errors.times?.end?.message) && (
+        <div>
+          {errors.times?.start?.message && (
+            <span className={styles.item_error}>
+              {errors.times?.start?.message}
+            </span>
+          )}
+
+          {errors.times?.end?.message && (
+            <span className={styles.item_error}>
+              {errors.times?.end?.message}
+            </span>
+          )}
+        </div>
+      )}
     </div>
   );
 };

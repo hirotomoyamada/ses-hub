@@ -61,9 +61,12 @@ export const AreaLocation = () => {
           <option value="宮城県">宮城県</option>
           <option value="その他">その他</option>
         </select>
-        <span className={styles.item_error}>
-          {errors.location?.area?.message}
-        </span>
+
+        {errors.location?.area?.message && (
+          <span className={styles.item_error}>
+            {errors.location?.area?.message}
+          </span>
+        )}
       </div>
     </div>
   );
@@ -95,9 +98,12 @@ export const PlaceLocation = () => {
             },
           })}
         />
-        <span className={styles.item_error}>
-          {errors.location?.place?.message}
-        </span>
+
+        {errors.location?.place?.message && (
+          <span className={styles.item_error}>
+            {errors.location?.place?.message}
+          </span>
+        )}
       </div>
     </div>
   );

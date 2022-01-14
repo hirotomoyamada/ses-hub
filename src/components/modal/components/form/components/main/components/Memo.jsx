@@ -37,7 +37,10 @@ export const Memo = ({ index }) => {
               },
             })}
           ></textarea>
-          <span className={styles.item_error}>{errors.memo?.message}</span>
+
+          {errors.memo?.message && (
+            <span className={styles.item_error}>{errors.memo?.message}</span>
+          )}
         </div>
       ) : (
         index === "resources" && (
@@ -83,9 +86,12 @@ export const Memo = ({ index }) => {
                     },
                   })}
                 />
-                <span className={styles.item_error}>
-                  {errors.memo?.tel?.message}
-                </span>
+
+                {errors.memo?.tel?.message && (
+                  <span className={styles.item_error}>
+                    {errors.memo?.tel?.message}
+                  </span>
+                )}
               </div>
             </div>
             <div className={root.main_col}>
@@ -106,9 +112,12 @@ export const Memo = ({ index }) => {
                     },
                   })}
                 />
-                <span className={styles.item_error}>
-                  {errors.memo?.address?.message}
-                </span>
+
+                {errors.memo?.address?.message && (
+                  <span className={styles.item_error}>
+                    {errors.memo?.address?.message}
+                  </span>
+                )}
               </div>
             </div>
           </div>

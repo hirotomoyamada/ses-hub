@@ -19,6 +19,9 @@ export const Container = ({
     products &&
     Object.keys(products).map(
       (product) =>
+        // ver 2.X.X
+        // 削除予定
+        product !== "option" &&
         products?.[product]?.prices?.length && (
           <div key={product} className={styles.container}>
             <Header products={products} product={product} />

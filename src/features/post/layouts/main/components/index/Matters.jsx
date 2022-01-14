@@ -52,6 +52,8 @@ export const Matters = ({ index, post, user }) => {
 
       <Txt tag="支払いサイト" txt={post?.span} end="日" />
 
+      <Txt tag="稟議速度" txt={post?.approval ? post?.approval : "不明"} />
+
       <Interviews
         interviews={post?.interviews}
         none={post?.note ? false : true}

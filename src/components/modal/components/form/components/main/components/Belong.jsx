@@ -36,7 +36,9 @@ export const Belong = () => {
             },
           })}
         />
-        <span className={styles.item_error}>{errors.belong?.message}</span>
+        {errors.belong?.message && (
+          <span className={styles.item_error}>{errors.belong?.message}</span>
+        )}
       </div>
     </div>
   );

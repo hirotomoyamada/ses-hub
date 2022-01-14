@@ -36,11 +36,13 @@ export const Station = () => {
           })}
         />
 
-        <span className={styles.item_error}>
-          {errors.station?.type === "station" && "駅を含めてください"}
-        </span>
+        {errors.station?.type === "station" && (
+          <span className={styles.item_error}>駅を含めてください</span>
+        )}
 
-        <span className={styles.item_error}>{errors.station?.message}</span>
+        {errors.station?.message && (
+          <span className={styles.item_error}>{errors.station?.message}</span>
+        )}
       </div>
     </div>
   );
