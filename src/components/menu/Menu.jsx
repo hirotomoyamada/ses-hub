@@ -38,8 +38,8 @@ export const Menu = ({ user }) => {
     dispatch(rootSlice.handleModal({ type: "home" }));
   };
 
-  const handleBack = () => {
-    history.goBack();
+  const handleClose = () => {
+    window.close();
   };
 
   const handlePage = (page) => {
@@ -51,7 +51,11 @@ export const Menu = ({ user }) => {
     if (
       index !== "companys" &&
       index !== "persons" &&
-      (page === "search" || page === "home" || page === "user")
+      (page === "search" ||
+        page === "home" ||
+        (page === "user" &&
+          user.uid ===
+            location.substring(location.indexOf("/") + 1, location.length)))
     ) {
       return (
         <button className={styles.menu_main} onClick={handleOpen}>
@@ -60,7 +64,7 @@ export const Menu = ({ user }) => {
       );
     } else {
       return (
-        <button className={styles.menu_main} onClick={handleBack}>
+        <button className={styles.menu_main} onClick={handleClose}>
           <ArrowBackIosIcon
             className={`${styles.menu_main_icon} ${styles.menu_main_icon_back}`}
           />

@@ -25,7 +25,7 @@ export const Requires = () => {
   return (
     <div className={root.main_col}>
       {requiresFields.map((field, index) => (
-        <div key={field.id} className={styles.item}>
+        <div key={field.id} className={`${styles.item} ${styles.item_field}`}>
           <input
             placeholder=""
             className={`${styles.item_input} ${
@@ -72,9 +72,11 @@ export const Requires = () => {
             )}
           </div>
 
-          <span className={styles.item_error}>
-            {errors.requires?.[index]?.require.message}
-          </span>
+          {errors.requires?.[index]?.require.message && (
+            <span className={styles.item_error}>
+              {errors.requires?.[index]?.require.message}
+            </span>
+          )}
         </div>
       ))}
     </div>

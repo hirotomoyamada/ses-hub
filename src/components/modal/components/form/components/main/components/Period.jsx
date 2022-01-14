@@ -36,9 +36,12 @@ export const Period = ({ index }) => {
         >
           {year}
         </select>
-        <span className={styles.item_error}>
-          {errors.period?.year?.message}
-        </span>
+
+        {errors.period?.year?.message && (
+          <span className={styles.item_error}>
+            {errors.period?.year?.message}
+          </span>
+        )}
       </div>
     );
   };
@@ -74,9 +77,12 @@ export const Period = ({ index }) => {
         >
           {month}
         </select>
-        <span className={styles.item_error}>
-          {errors.period?.month?.message}
-        </span>
+
+        {errors.period?.month?.message && (
+          <span className={styles.item_error}>
+            {errors.period?.month?.message}
+          </span>
+        )}
       </div>
     );
   };

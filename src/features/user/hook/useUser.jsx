@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 import { fetchUser } from "../actions/fetchUser";
 
@@ -10,6 +10,7 @@ import * as userSlice from "../userSlice";
 export const useUser = (index, uid) => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const history = useHistory();
 
   const currentUser = useSelector(userSlice.user);
   const selectUser = useSelector(userSlice.selectUser);
@@ -22,6 +23,10 @@ export const useUser = (index, uid) => {
     window.scrollTo(0, 0);
     dispatch(rootSlice.handlePage("user"));
   }, [dispatch, pathname]);
+
+  useEffect(() => {
+    currentUser?.payment?.status === "canceled" && currentUser?.uid !== uid && history.push("/plan");
+  }, [currentUser, history, uid]);
 
   useEffect(() => {
     if (currentUser?.uid !== uid && selectUser?.uid !== uid) {

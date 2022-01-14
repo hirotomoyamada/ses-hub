@@ -29,6 +29,7 @@ exports.matters = (data) => {
     remote: data.post.remote,
     distribution: data.post.distribution,
     span: data.post.span,
+    approval: data.post.approval,
     note: data.post.note,
     status: data.post.status,
     memo: data.post.memo,

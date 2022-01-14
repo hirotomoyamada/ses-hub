@@ -60,7 +60,9 @@ export const Body = ({ index }) => {
                 }
           )}
         ></textarea>
-        <span className={styles.item_error}>{errors.body?.message}</span>
+        {errors.body?.message && (
+          <span className={styles.item_error}>{errors.body?.message}</span>
+        )}
       </div>
     </div>
   );

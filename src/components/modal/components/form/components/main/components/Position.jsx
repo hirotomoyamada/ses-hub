@@ -58,7 +58,12 @@ export const Position = () => {
             <option value="サポート">サポート</option>
             <option value="その他">その他</option>
           </select>
-          <span className={styles.item_error}>{errors.position?.message}</span>
+
+          {errors.position?.message && (
+            <span className={styles.item_error}>
+              {errors.position?.message}
+            </span>
+          )}
         </div>
       </div>
     </div>

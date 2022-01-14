@@ -16,6 +16,10 @@ $width: responsive-width(pc);
     gap: 4px;
   }
 
+  &_field:not(:last-child) {
+    margin-bottom: 8px;
+  }
+
   &_input {
     background: $bg_clr;
     border: 1px solid $bdr_clr;
