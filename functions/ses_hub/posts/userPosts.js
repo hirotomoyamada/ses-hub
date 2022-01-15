@@ -121,8 +121,22 @@ const fetchFirestore = async (data, posts) => {
         .get()
         .then((doc) => {
           if (doc.exists) {
-            posts[i].icon = doc.data().icon;
-            posts[i].type = doc.data().type;
+            if (
+              doc.data().type !== "individual" &&
+              doc.data().payment.status === "canceled"
+            ) {
+              posts[i].icon = "none";
+              posts[i].status = "none";
+              posts[i].type = "individual";
+              posts[i].profile = {
+                name: null,
+                person: "存在しないユーザー",
+                body: null,
+              };
+            } else {
+              posts[i].icon = doc.data().icon;
+              posts[i].type = doc.data().type;
+            }
           }
         })
         .catch((e) => {

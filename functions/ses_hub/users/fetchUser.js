@@ -84,6 +84,17 @@ const fetchFirestore = async (context, data, user) => {
           user.cover = doc.data().cover;
 
           if (data.index === "companys") {
+            if (
+              doc.data().type !== "individual" &&
+              doc.data().payment.status === "canceled"
+            ) {
+              throw new functions.https.HttpsError(
+                "not-found",
+                "ユーザーの取得に失敗しました",
+                "firebase"
+              );
+            }
+
             user.type = doc.data().type;
           }
 

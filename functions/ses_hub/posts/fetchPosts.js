@@ -21,8 +21,7 @@ exports.fetchPosts = functions
 
     const { posts, hit } = await fetchAlgolia(context, data, status, demo);
 
-    (data.index === "companys" || data.index === "persons") &&
-      (await fetchFirestore(context, data, posts));
+    posts.length && (await fetchFirestore(context, data, posts));
 
     return { index: data.index, posts: posts, hit: hit };
   });
@@ -46,7 +45,12 @@ const fetchAlgolia = async (context, data, status, demo) => {
             filters: "display:public",
             page: hit.currentPage,
           }
-        : (data.index === "companys" || data.index === "persons") && {
+        : data.index === "companys"
+        ? {
+            filters: "status:enable AND (plan:enable OR type:individual)",
+            page: hit.currentPage,
+          }
+        : data.index === "persons" && {
             filters: "status:enable",
             page: hit.currentPage,
           }
@@ -83,31 +87,48 @@ const fetchFirestore = async (context, data, posts) => {
   for (let i = 0; i < posts.length; i++) {
     posts[i] &&
       (await db
-        .collection(data.index)
+        .collection(
+          data.index === "matters" || data.index === "resources"
+            ? "companys"
+            : data.index
+        )
         .doc(posts[i].uid)
         .get()
         .then((doc) => {
           if (doc.exists) {
-            if (doc.data().profile.nickName || data.index === "companys") {
-              posts[i].icon = doc.data().icon;
+            if (data.index === "matters" || data.index === "resources") {
+              if (
+                doc.data().type !== "individual" &&
+                doc.data().payment.status === "canceled"
+              ) {
+                posts[i] = false;
+              }
+            }
 
+            if (data.index === "companys" || data.index === "persons") {
               if (data.index === "companys") {
+                posts[i].icon = doc.data().icon;
                 posts[i].type = doc.data().type;
               }
 
               if (data.index === "persons") {
-                posts[i].request =
-                  doc.data().requests?.enable?.indexOf(context.auth.uid) >= 0
-                    ? "enable"
-                    : doc.data().requests?.hold?.indexOf(context.auth.uid) >= 0
-                    ? "hold"
-                    : doc.data().requests?.disable?.indexOf(context.auth.uid) >=
-                      0
-                    ? "hold"
-                    : "none";
+                if (doc.data().profile.nickName) {
+                  posts[i].icon = doc.data().icon;
+                  posts[i].request =
+                    doc.data().requests?.enable?.indexOf(context.auth.uid) >= 0
+                      ? "enable"
+                      : doc.data().requests?.hold?.indexOf(context.auth.uid) >=
+                        0
+                      ? "hold"
+                      : doc
+                          .data()
+                          .requests?.disable?.indexOf(context.auth.uid) >= 0
+                      ? "hold"
+                      : "none";
+                } else {
+                  posts[i] = false;
+                }
               }
-            } else {
-              posts[i] = false;
             }
           }
         })

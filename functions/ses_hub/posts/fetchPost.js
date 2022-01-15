@@ -60,6 +60,17 @@ const fetchFirestore = async (demo, post) => {
     .doc(post.uid)
     .get()
     .then((doc) => {
+      if (
+        doc.data().type !== "individual" &&
+        doc.data().payment.status === "canceled"
+      ) {
+        throw new functions.https.HttpsError(
+          "not-found",
+          "投稿の取得に失敗しました",
+          "firebase"
+        );
+      }
+
       if (doc.exists) {
         post.user = {
           uid: doc.id,
