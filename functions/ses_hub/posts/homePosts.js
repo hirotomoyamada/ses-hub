@@ -76,11 +76,18 @@ const fetchFiretore = async (posts, demo) => {
         .get()
         .then((doc) => {
           if (doc.exists) {
-            posts[i].user = {
-              type: doc.data().type,
-              name: !demo ? doc.data().profile.name : dummy("name"),
-              person: !demo ? doc.data().profile.person : dummy("person"),
-            };
+            if (
+              doc.data().type !== "individual" &&
+              doc.data().payment.status === "canceled"
+            ) {
+              posts[i] = false;
+            } else {
+              posts[i].user = {
+                type: doc.data().type,
+                name: !demo ? doc.data().profile.name : dummy("name"),
+                person: !demo ? doc.data().profile.person : dummy("person"),
+              };
+            }
           } else {
             posts[i].user = {
               person: "不明なメンバー",
