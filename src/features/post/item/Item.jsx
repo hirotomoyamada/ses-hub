@@ -74,7 +74,9 @@ export const Item = ({
         <Link
           to={`/${index}/${post.uid}`}
           target="_blank"
-          className={`${styles.item_btn} ${select && styles.item_btn_disable}`}
+          className={`${styles.item_btn} ${
+            (select || post?.status === "none") && styles.item_btn_disable
+          }`}
         >
           <article className={`${styles.item} ${select && styles.item_select}`}>
             <User index={index} post={post} />
