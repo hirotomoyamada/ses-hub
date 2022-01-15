@@ -13,7 +13,7 @@ $width: responsive-width(pc);
   &_inner {
     margin: 0 auto;
     width: 720px;
-    min-height: $innerHeight;
+    height: $innerHeight;
 
     padding: 24px 0 48px;
 
@@ -32,9 +32,24 @@ $width: responsive-width(pc);
       gap: 32px;
     }
 
+    &_disable {
+      min-height: calc(var(--vh, 1vh) * 100 - 72px);
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+
+      color: $sub_clr;
+
+      @media (max-width: responsive-width(sp)) {
+        min-height: calc(var(--vh, 1vh) * 100 - 48px);
+        font-size: 14px;
+      }
+    }
+
     &_load {
       align-items: center;
       justify-content: center;
+      padding: 0;
     }
   }
 }
