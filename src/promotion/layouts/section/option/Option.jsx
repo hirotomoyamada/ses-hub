@@ -2,7 +2,7 @@ import root from "../Section.module.scss";
 import styles from "./Option.module.scss";
 
 export const Option = () => {
-  // ver 2.0.0
+  // ver 2.X.X
   // const tax = 1.1;
 
   return (
@@ -30,7 +30,7 @@ export const Option = () => {
 
         <div className={styles.option_container}>
           <div className={styles.option_wrap}>
-            {/* ver 2.0.0 */}
+            {/* ver 2.X.X */}
             {/* <span className={styles.option_type}>3ヶ月</span>
 
             <span className={styles.option_price}>
@@ -52,7 +52,7 @@ export const Option = () => {
         </div>
       </div>
 
-      {/* ver 2.0.0 */}
+      {/* ver 2.X.X */}
       {/* <span className={styles.option_announce}>
         ※ オプションのみではSES_HUBをご利用いただけません。
       </span>
