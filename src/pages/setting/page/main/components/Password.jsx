@@ -10,11 +10,16 @@ export const Password = ({ user, password, setPassword }) => {
             メールログインを有効にする必要があります
           </span>
         )}
+        {user?.type === "child" && (
+          <span className={styles.main_desc}>
+            このアカウントでは変更することはできません
+          </span>
+        )}
       </div>
       <button
         className={`${styles.main_btn} ${
-          user?.provider &&
-          user.provider.indexOf("password") < 0 &&
+          (user?.type === "child" ||
+            (user?.provider && user.provider.indexOf("password") < 0)) &&
           styles.main_btn_disabled
         }`}
         type="button"

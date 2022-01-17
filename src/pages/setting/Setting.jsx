@@ -65,13 +65,14 @@ export const Setting = () => {
       return;
     }
 
-    functions.setting.handleProvider(provider);
+    functions.setting.handleProvider({ dispatch, user, provider });
   };
 
   const handleEmail = (data) => {
     functions.setting.handleEmail({
       dispatch,
       methods,
+      user,
       setEmail,
       setNext,
       data,
@@ -83,6 +84,7 @@ export const Setting = () => {
     functions.setting.handlePassword({
       dispatch,
       methods,
+      user,
       setPassword,
       setNext,
       data,

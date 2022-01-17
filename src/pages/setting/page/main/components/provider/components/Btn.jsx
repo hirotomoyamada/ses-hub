@@ -36,11 +36,11 @@ export const Btn = ({ user, provider, handleProvider, setCreate }) => {
           {provider === "password" ? "メール" : provider}
         </span>
       </div>
-      
+
       <button
         className={`${root.main_btn} ${
-          user?.provider &&
-          user.provider.indexOf(url[provider]) >= 0 &&
+          (user?.type === "child" ||
+            (user?.provider && user.provider.indexOf(url[provider]) >= 0)) &&
           root.main_btn_disabled
         }`}
         type="button"
