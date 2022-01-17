@@ -57,4 +57,10 @@ $width: responsive-width(pc);
       line-height: 40px;
     }
   }
+
+  &_desc {
+    align-self: center;
+    font-size: 14px;
+    color: $acnt_clr;
+  }
 }
