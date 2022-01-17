@@ -26,7 +26,7 @@ const editFirestore = async (context, data) => {
 
   await db
     .collection("companys")
-    .doc(context.auth.uid)
+    .doc(!data.uid ? context.auth.uid : data.uid)
     .get()
     .then((doc) => {
       if (doc.exists) {
@@ -34,7 +34,7 @@ const editFirestore = async (context, data) => {
           .set(
             {
               profile: {
-                email: data,
+                email: data.email,
               },
               updateAt: timestamp,
             },
@@ -65,8 +65,8 @@ const editAlgolia = async (context, data) => {
   await index
     .partialUpdateObject(
       {
-        objectID: context.auth.uid,
-        email: data,
+        objectID: !data.uid ? context.auth.uid : data.uid,
+        email: data.email,
         updateAt: timestamp,
       },
       {
@@ -83,13 +83,16 @@ const editAlgolia = async (context, data) => {
 };
 
 const editStripe = async (context, data) => {
-  const doc = await db.collection("customers").doc(context.auth.uid).get();
+  const doc = await db
+    .collection("customers")
+    .doc(!data.uid ? context.auth.uid : data.uid)
+    .get();
   const { stripeId } = doc.exists && doc.data();
 
   stripeId &&
     (await stripe.customers
       .update(stripeId, {
-        email: data,
+        email: data.email,
       })
       .catch((e) => {
         throw new functions.https.HttpsError(
