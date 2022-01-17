@@ -2,6 +2,8 @@ export const announce = (builder) => {
   builder.addMatcher(
     (action) =>
       action.type.endsWith("/createChild/fulfilled") ||
+      action.type.endsWith("/changeEmailChild/fulfilled") ||
+      action.type.endsWith("/deleteChild/fulfilled") ||
       action.type.endsWith("/createPost/fulfilled") ||
       action.type.endsWith("/fetchPosts/fulfilled") ||
       action.type.endsWith("/extractPosts/fulfilled") ||

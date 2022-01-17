@@ -44,8 +44,51 @@ $width: responsive-width(pc);
   &_txt {
     font-size: 14px;
 
-    &_none {
+    &_email {
+      position: relative;
+      transition: all 0.4s;
+
+      &:hover {
+        color: $link_clr;
+      }
+    }
+
+    &_uid {
+      position: relative;
       color: $sub_clr;
+      transition: all 0.4s;
+
+      &:hover {
+        color: $link_clr;
+      }
+    }
+
+    &_copy {
+      &:after {
+        content: "コピーしました";
+
+        position: absolute;
+        top: -32px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        display: block;
+        background: $link_clr;
+        color: $base_clr;
+        border-radius: 6px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 8px;
+        font-size: 12px;
+      }
+    }
+
+    &_disable {
+      pointer-events: none;
+
+      &_none {
+        color: $sub_clr;
+      }
     }
   }
 

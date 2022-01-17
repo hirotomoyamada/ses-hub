@@ -10,6 +10,7 @@ export const load = (builder) => {
       if (action.type !== "post/createPost/pending") {
         if (
           action.type !== "user/createChild/pending" &&
+          action.type !== "user/changeEmailChild/pending" &&
           action.type !== "user/deleteChild/pending"
         ) {
           state.load.list = true;
