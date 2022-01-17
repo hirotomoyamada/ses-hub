@@ -5,7 +5,18 @@ import {
   providerTwitter,
 } from "../../../../firebase";
 
-export const handleProvider = async (provider) => {
+import * as rootSlice from "../../../root/rootSlice";
+
+export const handleProvider = async ({ dispatch, user, provider }) => {
+  if (user?.type === "child") {
+    throw new dispatch(
+      rootSlice.handleAnnounce({
+        type: "error",
+        text: "このアカウントでは認証できません",
+      })
+    );
+  }
+
   await auth.currentUser.linkWithRedirect(
     provider === "google"
       ? providerGoogle

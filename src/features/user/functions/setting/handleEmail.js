@@ -7,19 +7,20 @@ import * as userSlice from "../../userSlice";
 export const handleEmail = async ({
   dispatch,
   methods,
+  user,
   setEmail,
   setNext,
   data,
   demo,
 }) => {
-  const user = auth.currentUser;
+  const currentUser = auth.currentUser;
   const credential = firebase.auth.EmailAuthProvider.credential(
-    user.email,
+    currentUser.email,
     data.password
   );
 
   if (!data.email) {
-    await user
+    await currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
         setNext(true);
@@ -37,10 +38,19 @@ export const handleEmail = async ({
   }
 
   if (data.email && !demo) {
-    await user
+    if (user?.type === "child") {
+      throw new dispatch(
+        rootSlice.handleAnnounce({
+          type: "error",
+          text: "このアカウントでは変更できません",
+        })
+      );
+    }
+
+    await currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
-        user
+        currentUser
           .updateEmail(data.email)
           .then(() => {
             setEmail(false);
