@@ -5,6 +5,7 @@ import * as rootSlice from "../../../../../features/root/rootSlice";
 import * as userSlice from "../../../../../features/user/userSlice";
 import { createChild } from "../../../../../features/user/actions/createChild";
 import { deleteChild } from "../../../../../features/user/actions/deleteChild";
+import { changeEmailChild } from "../../../../../features/user/actions/changeEmailChild";
 
 export const useAccount = (uid, email) => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export const useAccount = (uid, email) => {
 
   const handleCreate = async (data) => {
     const user = {
-      uid: uid,
+      uid: uid.user,
       email: email.user,
       password: window.atob(token),
     };
@@ -30,6 +31,23 @@ export const useAccount = (uid, email) => {
     methods.reset();
   };
 
+  const handleEmail = async (data) => {
+    const user = {
+      email: email.user,
+      password: window.atob(token),
+    };
+    const selectUser = {
+      uid: uid.selectUser,
+      currentEmail: email.selectUser,
+      email: data.email,
+      password: data.password,
+    };
+
+    dispatch(changeEmailChild({ user: user, selectUser: selectUser }));
+
+    methods.reset();
+  };
+
   const handleDelete = async (data) => {
     const user = { email: email.user, password: window.atob(token) };
     const selectUser = { email: email.selectUser, password: data.password };
@@ -39,5 +57,5 @@ export const useAccount = (uid, email) => {
     methods.reset();
   };
 
-  return [load, methods, handleCreate, handleDelete];
+  return [load, methods, handleCreate, handleEmail, handleDelete];
 };

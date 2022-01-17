@@ -15,6 +15,7 @@ export const modal = (builder) => {
   builder.addMatcher(
     (action) =>
       action.type.endsWith("/createChild/fulfilled") ||
+      action.type.endsWith("/changeEmailChild/fulfilled") ||
       action.type.endsWith("/deleteChild/fulfilled"),
     (state, action) => {
       if (!action.payload.error) {

@@ -71,12 +71,12 @@ export const Modal = () => {
       case "account":
         return (
           <Account
-            uid={user.uid}
+            uid={{ user: user.uid, selectUser: modal.meta.uid }}
             email={{
               user: user.profile.email,
               selectUser: modal.meta.email,
             }}
-            create={modal.meta.type === "create"}
+            type={modal.meta.type}
             handleClose={handleClose}
           />
         );
