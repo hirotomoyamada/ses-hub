@@ -21,7 +21,8 @@ export const Profile = ({ user, handleClose }) => {
   const methods = useForm({
     defaultValues: {
       name: user?.profile?.name,
-      person: user?.profile?.person,
+      person:
+        user?.profile?.person !== "名無しさん" ? user?.profile?.person : "",
       icon: user?.icon,
       cover: user?.cover,
       body: user?.profile?.body,

@@ -159,7 +159,7 @@ exports.companys = ({ context, data, customer, create, child, doc }) => {
           };
     } else {
       return {
-        objectID: context.auth.uid,
+        objectID: context.auth.uid === data.uid ? context.auth.uid : data.uid,
 
         name: profile.name,
         person: profile.person,

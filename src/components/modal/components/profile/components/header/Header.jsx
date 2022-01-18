@@ -13,7 +13,7 @@ export const Header = ({
       <button
         type="button"
         className={`${styles.header_cancel} ${
-          !user?.profile?.person &&
+          (!user?.profile?.person || user?.profile?.person === "名無しさん") &&
           !cover &&
           !icon &&
           !line &&

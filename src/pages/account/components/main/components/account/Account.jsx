@@ -47,6 +47,15 @@ export const Account = ({ user, current, load }) => {
     );
   };
 
+  const handleProfile = () => {
+    dispatch(
+      rootSlice.handleModal({
+        type: "profile",
+        meta: { type: "selectUser", selectUser: user },
+      })
+    );
+  };
+
   const handleEmail = () => {
     dispatch(
       rootSlice.handleModal({
@@ -106,14 +115,28 @@ export const Account = ({ user, current, load }) => {
 
             {user?.profile?.email && (
               <Btn
+                type="link"
+                txt="ユーザーページ"
+                src={`/companys/${user?.uid}`}
+              />
+            )}
+
+            {user?.profile?.email && (
+              <Btn
                 type="setting"
                 txt="設定"
                 command={[
                   email ? "ユーザーID確認" : "メールアドレス確認",
+                  "プロフィール変更",
                   "メールアドレス変更",
                   "パスワード再設定",
                 ]}
-                func={[() => setEmail(!email), handleEmail, handleReset]}
+                func={[
+                  () => setEmail(!email),
+                  handleProfile,
+                  handleEmail,
+                  handleReset,
+                ]}
               />
             )}
 
