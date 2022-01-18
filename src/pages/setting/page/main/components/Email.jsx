@@ -5,9 +5,7 @@ export const Email = ({ user, email, setEmail }) => {
     <div className={styles.main_row}>
       <div className={styles.main_col}>
         <span className={styles.main_tag}>メールアドレス</span>
-        <span className={styles.main_value}>
-          {user?.profile?.email && user.profile.email}
-        </span>
+        <span className={styles.main_value}>{user?.profile?.email}</span>
         {user?.provider && user.provider.indexOf("password") < 0 && (
           <span className={styles.main_desc}>
             メールログインを有効にする必要があります
