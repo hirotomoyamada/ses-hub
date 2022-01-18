@@ -38,6 +38,8 @@ $width: responsive-width(pc);
   }
 
   &_value {
+    transition: all 0.4s;
+    
     @media (max-width: responsive-width(sp)) {
       display: flex;
       flex-direction: column;
