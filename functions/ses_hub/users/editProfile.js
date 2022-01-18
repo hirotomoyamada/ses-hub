@@ -14,18 +14,36 @@ exports.editProfile = functions
   .https.onCall(async (data, context) => {
     await userAuthenticated({ context: context, demo: true });
 
-    if (context.auth.uid === data.uid) {
+    const child = await fetchChild(context, data);
+
+    if (context.auth.uid === data.uid || child) {
       await editFirestore(context, data);
       await editAlgolia(context, data);
-      
+
       return;
     }
   });
 
+const fetchChild = async (context, data) => {
+  const child = await db
+    .collection("companys")
+    .doc(context.auth.uid)
+    .get()
+    .then((doc) => {
+      return (
+        doc.exists &&
+        doc.data().type === "parent" &&
+        doc.data().payment?.children?.find((uid) => uid === data.uid)
+      );
+    });
+
+  return child;
+};
+
 const editFirestore = async (context, data) => {
   await db
     .collection("companys")
-    .doc(context.auth.uid)
+    .doc(context.auth.uid === data.uid ? context.auth.uid : data.uid)
     .get()
     .then(async (doc) => {
       doc.exists &&

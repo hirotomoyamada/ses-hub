@@ -67,7 +67,14 @@ export const Modal = () => {
           />
         );
       case "profile":
-        return <Profile user={user} handleClose={handleClose} />;
+        return (
+          <Profile
+            user={
+              modal?.meta?.type !== "selectUser" ? user : modal?.meta?.selectUser
+            }
+            handleClose={handleClose}
+          />
+        );
       case "account":
         return (
           <Account
