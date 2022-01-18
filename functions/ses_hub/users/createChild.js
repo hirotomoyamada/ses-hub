@@ -112,7 +112,7 @@ const createFirestore = async (context, parent) => {
   return {
     uid: context.auth.uid,
     icon: child.icon,
-    cover: child.icon,
+    cover: child.cover,
     type: child.type,
     profile: child.profile,
     createAt: child.createAt,
