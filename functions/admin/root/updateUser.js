@@ -17,36 +17,77 @@ exports.updateUser = functions
     }
 
     for await (const user of data) {
-      await updateFirestore(user);
+      const children = await updateFirestore(user);
       await updateAlgolia(user);
+
+      if (children?.length) {
+        for await (const child of children) {
+          await updateFirestore(user, child);
+          await updateAlgolia(user, child);
+        }
+      }
     }
 
     return data;
   });
 
-const updateFirestore = async (user) => {
-  await db
+const updateFirestore = async (user, child) => {
+  const children = await db
     .collection("companys")
-    .doc(user.uid)
+    .doc(!child ? user?.uid : child)
     .get()
-    .then((doc) => {
+    .then(async (doc) => {
       if (doc.exists) {
-        doc.ref
+        const parent = doc.data().type === "parent";
+
+        await doc.ref
           .set(
-            user.option
+            user?.option
               ? {
-                  payment: {
-                    status: user.status,
-                    option: {
-                      freelanceDirect: user.option === "enable" ? true : false,
-                    },
-                  },
+                  payment:
+                    !user?.account || child
+                      ? !parent || user?.status !== "canceled"
+                        ? {
+                            status: user?.status,
+                            option: {
+                              freelanceDirect:
+                                user?.option === "enable" ? true : false,
+                            },
+                          }
+                        : {
+                            status: user?.status,
+                            option: {
+                              freelanceDirect:
+                                user?.option === "enable" ? true : false,
+                            },
+                            account: 0,
+                          }
+                      : {
+                          status: user?.status,
+                          option: {
+                            freelanceDirect:
+                              user?.option === "enable" ? true : false,
+                          },
+                          account: user?.account,
+                        },
                 }
               : {
-                  payment: {
-                    status: user.status,
-                  },
+                  payment:
+                    !user?.account || child
+                      ? !parent || user?.status !== "canceled"
+                        ? {
+                            status: user?.status,
+                          }
+                        : {
+                            status: user?.status,
+                            account: 0,
+                          }
+                      : {
+                          status: user?.status,
+                          account: user?.account,
+                        },
                 },
+
             {
               merge: true,
             }
@@ -58,6 +99,8 @@ const updateFirestore = async (user) => {
               "firebase"
             );
           });
+
+        return doc.data().payment?.children;
       }
     })
     .catch((e) => {
@@ -67,22 +110,24 @@ const updateFirestore = async (user) => {
         "firebase"
       );
     });
+
+  return children;
 };
 
-const updateAlgolia = async (user) => {
+const updateAlgolia = async (user, child) => {
   const index = algolia.initIndex("companys");
 
   await index
     .partialUpdateObject(
       user.option
         ? {
-            objectID: user.uid,
-            plan: user.status !== "canceled" ? "enable" : "disable",
-            freelanceDirect: user.option,
+            objectID: !child ? user?.uid : child,
+            plan: user?.status !== "canceled" ? "enable" : "disable",
+            freelanceDirect: user?.option,
           }
         : {
-            objectID: user.uid,
-            plan: user.status !== "canceled" ? "enable" : "disable",
+            objectID: user?.uid,
+            plan: user?.status !== "canceled" ? "enable" : "disable",
           },
       {
         createIfNotExists: true,
