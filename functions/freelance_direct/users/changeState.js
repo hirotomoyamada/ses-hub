@@ -22,31 +22,10 @@ exports.changeState = functions
 const editFirestore = async (context, data) => {
   const timestamp = Date.now();
 
-  await db
+  const doc = await db
     .collection("persons")
     .doc(context.auth.uid)
     .get()
-    .then((doc) => {
-      if (doc.exists) {
-        doc.ref
-          .set(
-            {
-              profile: {
-                state: data,
-              },
-              updateAt: timestamp,
-            },
-            { merge: true }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              "プロフィールの更新に失敗しました",
-              "firebase"
-            );
-          });
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -54,6 +33,26 @@ const editFirestore = async (context, data) => {
         "firebase"
       );
     });
+
+  if (doc.exists) {
+    await doc.ref
+      .set(
+        {
+          profile: {
+            state: data,
+          },
+          updateAt: timestamp,
+        },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "プロフィールの更新に失敗しました",
+          "firebase"
+        );
+      });
+  }
 };
 
 const editAlgolia = async (context, data) => {

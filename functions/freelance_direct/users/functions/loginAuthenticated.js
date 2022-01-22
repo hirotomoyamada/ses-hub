@@ -11,20 +11,6 @@ exports.loginAuthenticated = async ({ data, context, doc }) => {
       );
     }
 
-    await db
-      .collection("companys")
-      .doc(context.auth.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          throw new functions.https.HttpsError(
-            "unavailable",
-            "このアカウントでは利用できません",
-            "disable"
-          );
-        }
-      });
-
     if (!data.emailVerified) {
       throw new functions.https.HttpsError(
         "unauthenticated",
@@ -32,6 +18,8 @@ exports.loginAuthenticated = async ({ data, context, doc }) => {
         "emailVerified"
       );
     }
+
+    isCompanys(context);
   } else {
     if (doc.data().status === "hold") {
       throw new functions.https.HttpsError(
@@ -48,5 +36,17 @@ exports.loginAuthenticated = async ({ data, context, doc }) => {
         "disable"
       );
     }
+  }
+};
+
+const isCompanys = async (context) => {
+  const doc = await db.collection("companys").doc(context.auth.uid).get();
+
+  if (doc.exists) {
+    throw new functions.https.HttpsError(
+      "unavailable",
+      "このアカウントでは利用できません",
+      "disable"
+    );
   }
 };

@@ -27,13 +27,10 @@ exports.uploadResume = functions
       );
     }
 
-    const url = await db
+    const doc = await db
       .collection("persons")
       .doc(data.uid)
       .get()
-      .then(async (doc) => {
-        return doc.exists && (await uploadFile(data.file, doc, data.uid));
-      })
       .catch((e) => {
         throw new functions.https.HttpsError(
           "not-found",
@@ -41,6 +38,8 @@ exports.uploadResume = functions
           "firebase"
         );
       });
+
+    const url = doc.exists && (await uploadFile(data.file, doc, data.uid));
 
     return url;
   });

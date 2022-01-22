@@ -41,28 +41,10 @@ const updateFiresotre = async ({ context, everyone }) => {
   const timestamp = Date.now();
 
   if (!everyone) {
-    await db
+    const doc = await db
       .collection("persons")
       .doc(context.auth.uid)
       .get()
-      .then(async (doc) => {
-        doc.exists &&
-          (await doc.ref
-            .set(
-              {
-                agree: "enable",
-                updateAt: timestamp,
-              },
-              { merge: true }
-            )
-            .catch((e) => {
-              throw new functions.https.HttpsError(
-                "data-loss",
-                "プロフィールの更新に失敗しました",
-                "firebase"
-              );
-            }));
-      })
       .catch((e) => {
         throw new functions.https.HttpsError(
           "not-found",
@@ -70,28 +52,28 @@ const updateFiresotre = async ({ context, everyone }) => {
           "firebase"
         );
       });
+
+    if (doc.exists) {
+      await doc.ref
+        .set(
+          {
+            agree: "enable",
+            updateAt: timestamp,
+          },
+          { merge: true }
+        )
+        .catch((e) => {
+          throw new functions.https.HttpsError(
+            "data-loss",
+            "プロフィールの更新に失敗しました",
+            "firebase"
+          );
+        });
+    }
   } else {
-    await db
+    const querySnapshot = await db
       .collection("persons")
       .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          doc.ref
-            .set(
-              {
-                agree: "disable",
-              },
-              { merge: true }
-            )
-            .catch((e) => {
-              throw new functions.https.HttpsError(
-                "data-loss",
-                "プロフィールの更新に失敗しました",
-                "firebase"
-              );
-            });
-        });
-      })
       .catch((e) => {
         throw new functions.https.HttpsError(
           "not-found",
@@ -99,19 +81,33 @@ const updateFiresotre = async ({ context, everyone }) => {
           "firebase"
         );
       });
+
+    querySnapshot?.forEach(async (doc) => {
+      await doc.ref
+        .set(
+          {
+            agree: "disable",
+          },
+          { merge: true }
+        )
+        .catch((e) => {
+          throw new functions.https.HttpsError(
+            "data-loss",
+            "プロフィールの更新に失敗しました",
+            "firebase"
+          );
+        });
+    });
   }
 
   return;
 };
 
 const updateData = async () => {
-  await db
+  const doc = await db
     .collection("freelanceDirect")
     .doc("agree")
     .get()
-    .then(async (doc) => {
-      await doc.ref.set({ status: "disable" }, { merge: true });
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "data-loss",
@@ -119,6 +115,8 @@ const updateData = async () => {
         "firebase"
       );
     });
+
+  await doc.ref.set({ status: "disable" }, { merge: true });
 
   return;
 };

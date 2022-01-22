@@ -13,25 +13,21 @@ exports.deleteUser = functions
     const uid = user.uid;
     const index = algolia.initIndex("persons");
 
-    await db
-      .collection("persons")
-      .doc(uid)
-      .get()
-      .then(async (doc) => {
-        const key = doc.data().resume.key;
+    const doc = await db.collection("persons").doc(uid).get();
 
-        const name = `${key}.pdf`;
-        const bucket = storage.bucket(functions.config().storage.resume);
-        const path = bucket.file(name);
+    const key = doc.data().resume.key;
 
-        await db.collection("persons").doc(uid).delete();
+    const name = `${key}.pdf`;
+    const bucket = storage.bucket(functions.config().storage.resume);
+    const path = bucket.file(name);
 
-        await index.deleteObject(uid);
+    await db.collection("persons").doc(uid).delete();
 
-        if (key) {
-          await path.delete();
-        }
-      });
+    await index.deleteObject(uid);
+
+    if (key) {
+      await path.delete();
+    }
 
     return;
   });

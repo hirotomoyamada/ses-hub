@@ -17,27 +17,10 @@ exports.editData = functions
 
     for await (const type of Object.keys(data)) {
       if (type !== "index") {
-        await db
-          .collection(
-            data.index === "companys"
-              ? "seshub"
-              : data.index === "persons" && "freelanceDirect"
-          )
+        const doc = await db
+          .collection(data.index === "companys" ? "seshub" : "freelanceDirect")
           .doc(type)
           .get()
-          .then(async (doc) => {
-            data[type].updateAt = Date.now();
-
-            if (doc.exists) {
-              await doc.ref.set(data[type], { merge: true }).catch((e) => {
-                throw new functions.https.HttpsError(
-                  "data-loss",
-                  "データの更新に失敗しました",
-                  "firebase"
-                );
-              });
-            }
-          })
           .catch((e) => {
             throw new functions.https.HttpsError(
               "not-found",
@@ -45,6 +28,18 @@ exports.editData = functions
               "firebase"
             );
           });
+
+        if (doc.exists) {
+          data[type].updateAt = Date.now();
+
+          await doc.ref.set(data[type], { merge: true }).catch((e) => {
+            throw new functions.https.HttpsError(
+              "data-loss",
+              "データの更新に失敗しました",
+              "firebase"
+            );
+          });
+        }
       }
     }
 

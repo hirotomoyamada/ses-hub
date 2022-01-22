@@ -22,22 +22,18 @@ exports.userPosts = functions
   });
 
 const checkUser = async (data) => {
-  await db
-    .collection("companys")
-    .doc(data.uid)
-    .get()
-    .then((doc) => {
-      if (
-        doc.data().payment.status === "canceled" ||
-        !doc.data().payment.option?.freelanceDirect
-      ) {
-        throw new functions.https.HttpsError(
-          "cancelled",
-          "オプション未加入のユーザーのため、処理中止",
-          "firebase"
-        );
-      }
-    });
+  const doc = await db.collection("companys").doc(data.uid).get();
+
+  if (
+    doc.data().payment.status === "canceled" ||
+    !doc.data().payment.option?.freelanceDirect
+  ) {
+    throw new functions.https.HttpsError(
+      "cancelled",
+      "オプション未加入のユーザーのため、処理中止",
+      "firebase"
+    );
+  }
 };
 
 const fetchAlgolia = async (data, status) => {
@@ -47,17 +43,10 @@ const fetchAlgolia = async (data, status) => {
     currentPage: data.page ? data.page : 0,
   };
 
-  const posts = await index
+  const result = await index
     .search(data.uid, {
       filters: "display:public",
       page: hit.currentPage,
-    })
-    .then((result) => {
-      hit.posts = result.nbHits;
-      hit.pages = result.nbPages;
-      return result.hits.map(
-        (hit) => hit && status && fetch.matters({ hit: hit })
-      );
     })
     .catch((e) => {
       throw new functions.https.HttpsError(
@@ -67,5 +56,14 @@ const fetchAlgolia = async (data, status) => {
       );
     });
 
-  return { posts, hit };
+  if (result) {
+    hit.posts = result.nbHits;
+    hit.pages = result.nbPages;
+
+    const posts = result.hits.map(
+      (hit) => hit && status && fetch.matters({ hit: hit })
+    );
+
+    return { posts, hit };
+  }
 };

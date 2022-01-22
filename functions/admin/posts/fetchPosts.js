@@ -28,33 +28,12 @@ exports.fetchPosts = functions
 const fetchFirestore = async (data, posts) => {
   if (posts.length) {
     for (let i = 0; i < posts.length; i++) {
-      await db
-        .collection(
-          data.index === "matters" ||
-            data.index === "resources" ||
-            data.index === "companys"
-            ? "companys"
-            : data.index === "persons" && "persons"
-        )
+      const index = data.index !== "persons" ? "companys" : "persons";
+
+      const doc = await db
+        .collection(index)
         .doc(posts[i].uid)
         .get()
-        .then((doc) => {
-          if (doc.exists) {
-            if (data.index === "matters" || data.index === "resources") {
-              posts[i].user = {
-                type: doc.data().type,
-                name: doc.data().profile.name,
-                person: doc.data().profile.person,
-              };
-            }
-            if (data.index === "companys") {
-              fetch.companys({ posts: posts, index: i, doc: doc });
-            }
-            if (data.index === "persons") {
-              fetch.persons({ posts: posts, index: i, doc: doc });
-            }
-          }
-        })
         .catch((e) => {
           throw new functions.https.HttpsError(
             "not-found",
@@ -62,6 +41,24 @@ const fetchFirestore = async (data, posts) => {
             "firebase"
           );
         });
+
+      if (doc.exists) {
+        if (data.index === "matters" || data.index === "resources") {
+          posts[i].user = {
+            type: doc.data().type,
+            name: doc.data().profile.name,
+            person: doc.data().profile.person,
+          };
+        }
+
+        if (data.index === "companys") {
+          fetch.companys({ posts: posts, index: i, doc: doc });
+        }
+
+        if (data.index === "persons") {
+          fetch.persons({ posts: posts, index: i, doc: doc });
+        }
+      }
     }
   }
 
@@ -83,24 +80,10 @@ const fetchAlgolia = async (data) => {
     currentPage: data.page ? data.page : 0,
   };
 
-  const posts = await index
+  const result = await index
     .search(data.value, {
       page: hit.currentPage,
       filters: data.filter === "all" ? "" : data.filter,
-    })
-    .then((result) => {
-      hit.posts = result.nbHits;
-      hit.pages = result.nbPages;
-      const res = result.hits.map((hit) =>
-        data.index === "matters"
-          ? fetch.matters({ hit: hit })
-          : data.index === "resources"
-          ? fetch.resources({ hit: hit })
-          : data.index === "companys"
-          ? fetch.companys({ hit: hit })
-          : data.index === "persons" && fetch.persons({ hit: hit })
-      );
-      return res.filter((res) => res);
     })
     .catch((e) => {
       throw new functions.https.HttpsError(
@@ -110,5 +93,22 @@ const fetchAlgolia = async (data) => {
       );
     });
 
-  return { posts, hit };
+  if (result) {
+    hit.posts = result?.nbHits;
+    hit.pages = result?.nbPages;
+
+    const posts = result?.hits
+      ?.map((hit) =>
+        data.index === "matters"
+          ? fetch.matters({ hit: hit })
+          : data.index === "resources"
+          ? fetch.resources({ hit: hit })
+          : data.index === "companys"
+          ? fetch.companys({ hit: hit })
+          : data.index === "persons" && fetch.persons({ hit: hit })
+      )
+      ?.filter((post) => post);
+
+    return { posts, hit };
+  }
 };

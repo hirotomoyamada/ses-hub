@@ -2,187 +2,79 @@ const db = require("../../../firebase").db;
 const algolia = require("../../../algolia").algolia;
 
 exports.organize = async ({ data, user }) => {
-  const lists =
-    data.index === "companys"
-      ? {
-          posts: {},
-          follows: [],
-          home: [],
-          likes: {},
-          outputs: {},
-          entries: {},
-        }
-      : data.index === "persons" && {
-          entries: [],
-          likes: [],
-          histories: [],
-          follows: [],
-          home: [],
-          requests: {},
-        };
+  const lists = initLists(data.index);
 
   for await (const list of Object.keys(lists)) {
-    if (data.index !== "persons") {
-      if (list === "follows" || list === "home") {
-        if (user[list][0]) {
-          const index = algolia.initIndex("companys");
-          const objectIDs = await index
-            .getObjects(user[list])
-            .then(({ results }) => {
-              return results.map((hit) => hit && hit.objectID);
-            })
-            .catch((e) => {});
-
-          await db
-            .collection(data.index)
-            .doc(data.uid)
-            .get()
-            .then((doc) => {
-              if (doc.exists) {
-                const objects = doc
-                  .data()
-                  [list].filter((objectID) => objectIDs.indexOf(objectID) > -1);
-
-                lists[list] = objects;
-
-                doc.ref
-                  .set(
-                    {
-                      [list]: [...objects],
-                    },
-                    { merge: true }
-                  )
-                  .catch((e) => {});
-              }
-            })
-            .catch((e) => {});
-        } else {
-          lists[list] = [];
-        }
-      } else {
-        for await (const i of Object.keys(user[list])) {
-          if (user[list][i][0]) {
-            const index = algolia.initIndex(i);
-            const objectIDs = await index
-              .getObjects(user[list][i])
-              .then(({ results }) => {
-                return results.map((hit) => hit && hit.objectID);
-              })
-              .catch((e) => {});
-
-            await db
-              .collection(data.index)
-              .doc(data.uid)
-              .get()
-              .then((doc) => {
-                if (doc.exists) {
-                  const objects = doc
-                    .data()
-                    [list][i].filter(
-                      (objectID) => objectIDs.indexOf(objectID) > -1
-                    );
-
-                  lists[list][i] = objects;
-
-                  doc.ref
-                    .set(
-                      {
-                        [list]: { [i]: [...objects] },
-                      },
-                      { merge: true }
-                    )
-                    .catch((e) => {});
-                }
-              })
-              .catch((e) => {});
-          } else {
-            lists[list][i] = [];
-          }
-        }
-      }
-    } else {
-      if (list !== "requests") {
-        if (user[list][0]) {
-          const index = algolia.initIndex(
-            list === "follows" || list === "home" ? "companys" : "matters"
-          );
-
-          const objectIDs = await index
-            .getObjects(user[list])
-            .then(({ results }) => {
-              return results.map((hit) => hit && hit.objectID);
-            })
-            .catch((e) => {});
-
-          await db
-            .collection(data.index)
-            .doc(data.uid)
-            .get()
-            .then((doc) => {
-              if (doc.exists) {
-                const objects = doc
-                  .data()
-                  [list].filter((objectID) => objectIDs.indexOf(objectID) > -1);
-
-                lists[list] = objects;
-
-                doc.ref
-                  .set(
-                    {
-                      [list]: [...objects],
-                    },
-                    { merge: true }
-                  )
-                  .catch((e) => {});
-              }
-            })
-            .catch((e) => {});
-        } else {
-          lists[list] = [];
-        }
-      } else {
-        for await (const i of Object.keys(user[list])) {
-          if (user[list][i][0]) {
-            const index = algolia.initIndex("companys");
-            const objectIDs = await index
-              .getObjects(user[list][i])
-              .then(({ results }) => {
-                return results.map((hit) => hit && hit.objectID);
-              })
-              .catch((e) => {});
-
-            await db
-              .collection(data.index)
-              .doc(data.uid)
-              .get()
-              .then((doc) => {
-                if (doc.exists) {
-                  const objects = doc
-                    .data()
-                    [list][i].filter(
-                      (objectID) => objectIDs.indexOf(objectID) > -1
-                    );
-
-                  lists[list][i] = objects;
-
-                  doc.ref
-                    .set(
-                      {
-                        [list]: { [i]: [...objects] },
-                      },
-                      { merge: true }
-                    )
-                    .catch((e) => {});
-                }
-              })
-              .catch((e) => {});
-          } else {
-            lists[list][i] = [];
-          }
-        }
-      }
-    }
+    await updateLists({ data: data, user: user, lists: lists, list: list });
   }
 
   return lists;
+};
+
+const initLists = (index) => {
+  return index === "companys"
+    ? {
+        posts: {},
+        follows: [],
+        home: [],
+        likes: {},
+        outputs: {},
+        entries: {},
+      }
+    : index === "persons" && {
+        entries: [],
+        likes: [],
+        histories: [],
+        follows: [],
+        home: [],
+        requests: {},
+      };
+};
+
+const updateLists = async ({ data, user, lists, list }) => {
+  if (Array.isArray(lists[list])) {
+    user[list].length && (await updateFirestore({ data, lists, list }));
+  } else {
+    for await (const i of Object.keys(user[list])) {
+      user[list][i].length &&
+        (await updateFirestore({ data: data, lists: lists, list: list, i: i }));
+    }
+  }
+};
+
+const fetchAlgolia = async ({ data, user, list, i }) => {
+  const index = algolia.initIndex(
+    list === "follows" || list === "home" || list === "requests"
+      ? "companys"
+      : data.index !== "persons"
+      ? i
+      : "matters"
+  );
+
+  const { results } = await index.getObjects(i ? user[list][i] : user[list]);
+
+  return results?.map((hit) => hit && hit.objectID);
+};
+
+const updateFirestore = async ({ data, user, lists, list, i }) => {
+  const objectIDs = await fetchAlgolia({
+    data: data,
+    user: user,
+    list: list,
+    i: i,
+  });
+
+  const doc = await db.collection(data.index).doc(data.uid).get();
+
+  if (doc.exists) {
+    const before = i ? doc.data()[list][i] : doc.data()[list];
+    
+    const after = before.filter((objectID) => objectIDs.indexOf(objectID) > -1);
+
+    Object.assign(i ? lists[list][i] : lists[list], ...after);
+
+    doc.ref
+      .set({ [list]: i ? { [i]: [...after] } : [...after] }, { merge: true })
+      .catch((e) => {});
+  }
 };

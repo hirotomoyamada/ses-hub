@@ -26,62 +26,27 @@ exports.fetchPost = functions
 const fetchAlgolia = async (data, status, demo) => {
   const index = algolia.initIndex("matters");
 
-  const post = await index
-    .getObject(data)
-    .then((hit) => {
-      return (
-        hit && hit.display === "public" && status && fetch.matters({ hit: hit })
-      );
-    })
-    .catch((e) => {
-      throw new functions.https.HttpsError(
-        "not-found",
-        "投稿の取得に失敗しました",
-        "algolia"
-      );
-    });
+  const hit = await index.getObject(data).catch((e) => {
+    throw new functions.https.HttpsError(
+      "not-found",
+      "投稿の取得に失敗しました",
+      "algolia"
+    );
+  });
 
-  await fetchFirestore({ demo: demo, post: post });
+  const post =
+    hit && hit?.display === "public" && status && fetch.matters({ hit: hit });
+
+  post && (await fetchFirestore({ demo: demo, post: post }));
 
   return post;
 };
 
 const fetchFirestore = async ({ demo, post, i, bests }) => {
-  await db
+  const doc = await db
     .collection("companys")
     .doc(!bests ? post.uid : bests[i].uid)
     .get()
-    .then((doc) => {
-      if (doc.exists) {
-        if (!bests) {
-          if (
-            doc.data().payment.status === "canceled" ||
-            !doc.data().payment.option?.freelanceDirect
-          ) {
-            post.costs.display = "private";
-            post.costs.type = "応談";
-            post.costs.min = 0;
-            post.costs.max = 0;
-
-            post.uid = null;
-
-            post.user = fetch.companys({ doc: doc, demo: demo, none: true });
-          } else {
-            post.user = fetch.companys({ doc: doc, demo: demo });
-          }
-        } else {
-          if (
-            doc.data().payment.status === "canceled" ||
-            !doc.data().payment.option?.freelanceDirect
-          ) {
-            bests[i].costs.display = "private";
-            bests[i].costs.type = "応談";
-            bests[i].costs.min = 0;
-            bests[i].costs.max = 0;
-          }
-        }
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -89,26 +54,49 @@ const fetchFirestore = async ({ demo, post, i, bests }) => {
         "firebase"
       );
     });
+
+  if (doc.exists) {
+    if (!bests) {
+      if (
+        doc.data().payment.status === "canceled" ||
+        !doc.data().payment.option?.freelanceDirect
+      ) {
+        post.costs.display = "private";
+        post.costs.type = "応談";
+        post.costs.min = 0;
+        post.costs.max = 0;
+
+        post.uid = null;
+
+        post.user = fetch.companys({ doc: doc, demo: demo, none: true });
+      } else {
+        post.user = fetch.companys({ doc: doc, demo: demo });
+      }
+    } else {
+      if (
+        doc.data().payment.status === "canceled" ||
+        !doc.data().payment.option?.freelanceDirect
+      ) {
+        bests[i].costs.display = "private";
+        bests[i].costs.type = "応談";
+        bests[i].costs.min = 0;
+        bests[i].costs.max = 0;
+      }
+    }
+  }
+
+  return;
 };
 
 const fetchBests = async (status, post) => {
   const index = algolia.initIndex("matters");
 
-  const bests = await index
+  const { hits } = await index
     .search("", {
       queryLanguages: ["ja", "en"],
       similarQuery: post?.handles?.join(" "),
       filters: "display:public",
       hitsPerPage: 100,
-    })
-    .then(({ hits }) => {
-      return hits.map(
-        (hit) =>
-          hit &&
-          hit.objectID !== post.objectID &&
-          status &&
-          fetch.matters({ hit: hit })
-      );
     })
     .catch((e) => {
       throw new functions.https.HttpsError(
@@ -118,40 +106,60 @@ const fetchBests = async (status, post) => {
       );
     });
 
-  for (let i = 0; i < bests.length; i++) {
-    bests[i] && (await fetchFirestore({ i: i, bests: bests }));
-  }
+  const bests = hits
+    ?.map(
+      (hit) =>
+        hit &&
+        hit.objectID !== post.objectID &&
+        status &&
+        fetch.matters({ hit: hit })
+    )
+    ?.filter((post) => post);
 
-  return bests;
+  if (bests) {
+    for (let i = 0; i < bests.length; i++) {
+      bests[i] && (await fetchFirestore({ i: i, bests: bests }));
+    }
+
+    return bests;
+  }
 };
 
 const addHistory = async (context, data) => {
-  await db
+  const doc = await db
     .collection("persons")
     .doc(context.auth.uid)
     .get()
-    .then(async (doc) => {
-      if (doc.exists) {
-        const histories = doc
-          .data()
-          .histories.filter((objectID) => objectID !== data);
-
-        await doc.ref
-          .set(
-            {
-              histories: [data, ...histories].slice(0, 100),
-            },
-            { merge: true }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              "プロフィールの更新に失敗しました",
-              "firebase"
-            );
-          });
-      }
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "data-loss",
+        "プロフィールの更新に失敗しました",
+        "firebase"
+      );
     });
+
+  if (doc.exists) {
+    const histories = doc
+      .data()
+      .histories.filter((objectID) => objectID !== data);
+
+    await doc.ref
+      .set(
+        {
+          histories: [data, ...histories].slice(0, 100),
+        },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "プロフィールの更新に失敗しました",
+          "firebase"
+        );
+      });
+  }
+
+  return;
 };
 
 const checkDemo = (context) => {

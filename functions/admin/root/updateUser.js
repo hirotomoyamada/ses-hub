@@ -32,77 +32,10 @@ exports.updateUser = functions
   });
 
 const updateFirestore = async (user, child) => {
-  const children = await db
+  const doc = await db
     .collection("companys")
     .doc(!child ? user?.uid : child)
     .get()
-    .then(async (doc) => {
-      if (doc.exists) {
-        const parent = doc.data().type === "parent";
-
-        await doc.ref
-          .set(
-            user?.option
-              ? {
-                  payment:
-                    !user?.account || child
-                      ? !parent || user?.status !== "canceled"
-                        ? {
-                            status: user?.status,
-                            option: {
-                              freelanceDirect:
-                                user?.option === "enable" ? true : false,
-                            },
-                          }
-                        : {
-                            status: user?.status,
-                            option: {
-                              freelanceDirect:
-                                user?.option === "enable" ? true : false,
-                            },
-                            account: 0,
-                          }
-                      : {
-                          status: user?.status,
-                          option: {
-                            freelanceDirect:
-                              user?.option === "enable" ? true : false,
-                          },
-                          account: user?.account,
-                        },
-                }
-              : {
-                  payment:
-                    !user?.account || child
-                      ? !parent || user?.status !== "canceled"
-                        ? {
-                            status: user?.status,
-                          }
-                        : {
-                            status: user?.status,
-                            account: 0,
-                          }
-                      : {
-                          status: user?.status,
-                          account: user?.account,
-                        },
-                },
-
-            {
-              merge: true,
-            }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              "ユーザーの編集に失敗しました",
-              "firebase"
-            );
-          });
-
-        return doc.data().payment?.children;
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -111,7 +44,53 @@ const updateFirestore = async (user, child) => {
       );
     });
 
-  return children;
+  if (doc.exists) {
+    const parent = doc.data().type === "parent";
+
+    const children = doc.data().payment?.children;
+
+    const status = {
+      payment: !parent
+        ? {
+            status: user?.status,
+          }
+        : {
+            status: user?.status,
+            account: !user?.account ? 0 : user?.account,
+          },
+    };
+    
+    const option = {
+      payment: !parent
+        ? {
+            status: user?.status,
+            option: {
+              freelanceDirect: user?.option === "enable" ? true : false,
+            },
+          }
+        : {
+            status: user?.status,
+            option: {
+              freelanceDirect: user?.option === "enable" ? true : false,
+            },
+            account: !user?.account ? 0 : user?.account,
+          },
+    };
+
+    await doc.ref
+      .set(!user?.option ? status : option, {
+        merge: true,
+      })
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "ユーザーの編集に失敗しました",
+          "firebase"
+        );
+      });
+
+    return children;
+  }
 };
 
 const updateAlgolia = async (user, child) => {
