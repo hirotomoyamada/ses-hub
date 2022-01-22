@@ -13,23 +13,20 @@ exports.verificationUser = functions
   });
 
 const verificationType = async (data) => {
-  await db
-    .collection("companys")
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        if (
-          doc.data().profile?.email === data.email &&
-          doc.data().type === data.type
-        ) {
-          throw new functions.https.HttpsError(
-            "cancelled",
-            "無効なユーザーのため、処理中止",
-            "firebase"
-          );
-        }
-      });
-    });
+  const querySnapshot = await db.collection("companys").get();
+
+  querySnapshot?.forEach((doc) => {
+    if (
+      doc.data().profile?.email === data.email &&
+      doc.data().type === data.type
+    ) {
+      throw new functions.https.HttpsError(
+        "cancelled",
+        "無効なユーザーのため、処理中止",
+        "firebase"
+      );
+    }
+  });
 
   return;
 };

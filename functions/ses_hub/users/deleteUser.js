@@ -14,42 +14,34 @@ exports.deleteUser = functions
     const matters = algolia.initIndex("matters");
     const resources = algolia.initIndex("resources");
 
-    await db
-      .collection("companys")
-      .doc(uid)
-      .get()
-      .then(async (doc) => {
-        const posts = doc.data().posts;
-        const child = doc.data().type === "child";
-        const parent = doc.data().payment.parent;
+    const doc = await db.collection("companys").doc(uid).get();
 
-        await db.collection("companys").doc(uid).delete();
-        await db.collection("customers").doc(uid).delete();
-        await companys.deleteObject(uid);
+    if (doc.exists) {
+      const posts = doc.data().posts;
+      const child = doc.data().type === "child";
+      const parent = doc.data().payment.parent;
 
-        posts.matters[0] && (await matters.deleteObjects(posts.matters));
-        posts.resources[0] && (await resources.deleteObjects(posts.resources));
+      await db.collection("companys").doc(uid).delete();
+      await db.collection("customers").doc(uid).delete();
+      await companys.deleteObject(uid);
 
-        child && (await deleteChild({ parent: parent, child: uid }));
-      });
+      posts.matters[0] && (await matters.deleteObjects(posts.matters));
+      posts.resources[0] && (await resources.deleteObjects(posts.resources));
+
+      child && (await deleteChild({ parent: parent, child: uid }));
+    }
 
     return;
   });
 
 const deleteChild = async ({ parent, child }) => {
-  await db
-    .collection("companys")
-    .doc(parent)
-    .get()
-    .then(async (doc) => {
-      if (doc.exists) {
-        const children = doc
-          .data()
-          .payment.children.filter((uid) => uid !== child);
+  const doc = await db.collection("companys").doc(parent).get();
 
-        await doc.ref.set({ payment: { children: children } }, { merge: true });
-      }
-    });
+  if (doc.exists) {
+    const children = doc.data().payment.children.filter((uid) => uid !== child);
+
+    await doc.ref.set({ payment: { children: children } }, { merge: true });
+  }
 
   return;
 };

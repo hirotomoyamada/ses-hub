@@ -11,19 +11,15 @@ exports.loginAuthenticated = async ({ data, context, doc }) => {
       );
     }
 
-    await db
-      .collection("persons")
-      .doc(context.auth.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          throw new functions.https.HttpsError(
-            "unavailable",
-            "このアカウントでは利用できません",
-            "disable"
-          );
-        }
-      });
+    const doc = await db.collection("persons").doc(context.auth.uid).get();
+
+    if (doc.exists) {
+      throw new functions.https.HttpsError(
+        "unavailable",
+        "このアカウントでは利用できません",
+        "disable"
+      );
+    }
 
     if (!data.emailVerified) {
       throw new functions.https.HttpsError(

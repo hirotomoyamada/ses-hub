@@ -24,31 +24,10 @@ exports.changeEmail = functions
 const editFirestore = async (context, data) => {
   const timestamp = Date.now();
 
-  await db
+  const doc = await db
     .collection("companys")
     .doc(!data.uid ? context.auth.uid : data.uid)
     .get()
-    .then((doc) => {
-      if (doc.exists) {
-        doc.ref
-          .set(
-            {
-              profile: {
-                email: data.email,
-              },
-              updateAt: timestamp,
-            },
-            { merge: true }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              "メールアドレスの更新に失敗しました",
-              "firebase"
-            );
-          });
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -56,6 +35,26 @@ const editFirestore = async (context, data) => {
         "firebase"
       );
     });
+
+  if (doc.exists) {
+    await doc.ref
+      .set(
+        {
+          profile: {
+            email: data.email,
+          },
+          updateAt: timestamp,
+        },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "メールアドレスの更新に失敗しました",
+          "firebase"
+        );
+      });
+  }
 };
 
 const editAlgolia = async (context, data) => {

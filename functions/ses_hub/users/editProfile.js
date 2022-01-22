@@ -25,45 +25,20 @@ exports.editProfile = functions
   });
 
 const fetchChild = async (context, data) => {
-  const child = await db
-    .collection("companys")
-    .doc(context.auth.uid)
-    .get()
-    .then((doc) => {
-      return (
-        doc.exists &&
-        doc.data().type === "parent" &&
-        doc.data().payment?.children?.find((uid) => uid === data.uid)
-      );
-    });
+  const doc = await db.collection("companys").doc(context.auth.uid).get();
 
-  return child;
+  return (
+    doc.exists &&
+    doc.data().type === "parent" &&
+    doc.data().payment?.children?.find((uid) => uid === data.uid)
+  );
 };
 
 const editFirestore = async (context, data) => {
-  await db
+  const doc = await db
     .collection("companys")
     .doc(context.auth.uid === data.uid ? context.auth.uid : data.uid)
     .get()
-    .then(async (doc) => {
-      doc.exists &&
-        (await doc.ref
-          .set(
-            user.companys({
-              context: context,
-              data: data,
-              doc: true,
-            }),
-            { merge: true }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              "プロフィールの更新に失敗しました",
-              "firebase"
-            );
-          }));
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -71,6 +46,24 @@ const editFirestore = async (context, data) => {
         "firebase"
       );
     });
+
+  doc.exists &&
+    (await doc.ref
+      .set(
+        user.companys({
+          context: context,
+          data: data,
+          doc: true,
+        }),
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "プロフィールの更新に失敗しました",
+          "firebase"
+        );
+      }));
 };
 
 const editAlgolia = async (context, data) => {

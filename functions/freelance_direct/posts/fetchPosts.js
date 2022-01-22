@@ -57,7 +57,7 @@ const fetchAlgolia = async (data, status, demo) => {
   hit.posts = result?.nbHits;
   hit.pages = result?.nbPages;
 
-  const posts = result?.hits.map((hit) =>
+  const posts = result?.hits?.map((hit) =>
     data.index === "matters" && status
       ? fetch.matters({ hit: hit })
       : data.index === "companys" &&

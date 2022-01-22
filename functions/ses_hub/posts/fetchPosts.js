@@ -37,7 +37,7 @@ const fetchAlgolia = async (context, data, status, demo) => {
     currentPage: data.page ? data.page : 0,
   };
 
-  const posts = await index
+  const result = await index
     .search(
       data.value,
       data.index === "matters" || data.index === "resources"
@@ -55,23 +55,6 @@ const fetchAlgolia = async (context, data, status, demo) => {
             page: hit.currentPage,
           }
     )
-    .then((result) => {
-      hit.posts = result.nbHits;
-      hit.pages = result.nbPages;
-      return result.hits.map((hit) =>
-        data.index === "matters" && hit.uid === context.auth.uid
-          ? fetch.matters({ hit: hit, auth: true })
-          : data.index === "matters" && status
-          ? fetch.matters({ hit: hit })
-          : data.index === "resources" && hit.uid === context.auth.uid
-          ? fetch.resources({ hit: hit, auth: true })
-          : data.index === "resources" && status
-          ? fetch.resources({ hit: hit })
-          : data.index === "companys" && hit.person && status
-          ? fetch.companys({ hit: hit, demo: demo })
-          : data.index === "persons" && status && fetch.persons({ hit: hit })
-      );
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -80,13 +63,30 @@ const fetchAlgolia = async (context, data, status, demo) => {
       );
     });
 
+  hit.posts = result?.nbHits;
+  hit.pages = result?.nbPages;
+
+  const posts = result?.hits?.map((hit) =>
+    data.index === "matters" && hit.uid === context.auth.uid
+      ? fetch.matters({ hit: hit, auth: true })
+      : data.index === "matters" && status
+      ? fetch.matters({ hit: hit })
+      : data.index === "resources" && hit.uid === context.auth.uid
+      ? fetch.resources({ hit: hit, auth: true })
+      : data.index === "resources" && status
+      ? fetch.resources({ hit: hit })
+      : data.index === "companys" && hit.person && status
+      ? fetch.companys({ hit: hit, demo: demo })
+      : data.index === "persons" && status && fetch.persons({ hit: hit })
+  );
+
   return { posts, hit };
 };
 
 const fetchFirestore = async (context, data, posts) => {
   for (let i = 0; i < posts.length; i++) {
-    posts[i] &&
-      (await db
+    if (posts[i]) {
+      const doc = await db
         .collection(
           data.index === "matters" || data.index === "resources"
             ? "companys"
@@ -94,51 +94,48 @@ const fetchFirestore = async (context, data, posts) => {
         )
         .doc(posts[i].uid)
         .get()
-        .then((doc) => {
-          if (doc.exists) {
-            if (data.index === "matters" || data.index === "resources") {
-              if (
-                doc.data().type !== "individual" &&
-                doc.data().payment.status === "canceled"
-              ) {
-                posts[i] = false;
-              }
-            }
-
-            if (data.index === "companys" || data.index === "persons") {
-              if (data.index === "companys") {
-                posts[i].icon = doc.data().icon;
-                posts[i].type = doc.data().type;
-              }
-
-              if (data.index === "persons") {
-                if (doc.data().profile.nickName) {
-                  posts[i].icon = doc.data().icon;
-                  posts[i].request =
-                    doc.data().requests?.enable?.indexOf(context.auth.uid) >= 0
-                      ? "enable"
-                      : doc.data().requests?.hold?.indexOf(context.auth.uid) >=
-                        0
-                      ? "hold"
-                      : doc
-                          .data()
-                          .requests?.disable?.indexOf(context.auth.uid) >= 0
-                      ? "hold"
-                      : "none";
-                } else {
-                  posts[i] = false;
-                }
-              }
-            }
-          }
-        })
         .catch((e) => {
           throw new functions.https.HttpsError(
             "not-found",
             "ユーザーの取得に失敗しました",
             "firebase"
           );
-        }));
+        });
+
+      if (doc.exists) {
+        if (data.index === "matters" || data.index === "resources") {
+          if (
+            doc.data().type !== "individual" &&
+            doc.data().payment.status === "canceled"
+          ) {
+            posts[i] = false;
+          }
+        }
+
+        if (data.index === "companys" || data.index === "persons") {
+          if (data.index === "companys") {
+            posts[i].icon = doc.data().icon;
+            posts[i].type = doc.data().type;
+          }
+
+          if (data.index === "persons") {
+            if (doc.data().profile.nickName) {
+              posts[i].icon = doc.data().icon;
+              posts[i].request =
+                doc.data().requests?.enable?.indexOf(context.auth.uid) >= 0
+                  ? "enable"
+                  : doc.data().requests?.hold?.indexOf(context.auth.uid) >= 0
+                  ? "hold"
+                  : doc.data().requests?.disable?.indexOf(context.auth.uid) >= 0
+                  ? "hold"
+                  : "none";
+            } else {
+              posts[i] = false;
+            }
+          }
+        }
+      }
+    }
   }
 
   return;
