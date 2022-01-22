@@ -33,62 +33,52 @@ exports.createCheckout = functions
   });
 
 const addCheckouts = async (context, session) => {
-  return await db
+  const doc = await db
     .collection("customers")
     .doc(context.auth.uid)
     .collection("checkout_sessions")
-    .add(session)
-    .then((doc) => {
-      return doc.id;
-    });
+    .add(session);
+
+  return doc.id;
 };
 
 const fetchTrial = async (context) => {
-  return await db
-    .collection("companys")
-    .doc(context.auth.uid)
-    .get()
-    .then((doc) => {
-      return doc.data().payment.trial;
-    });
+  const doc = await db.collection("companys").doc(context.auth.uid).get();
+
+  return doc.data().payment.trial;
 };
 
 const fetchTaxRate = async () => {
-  return await db
+  const querySnapshot = await db
     .collection("products")
     .doc("tax_rates")
     .collection("tax_rates")
     .where("active", "==", true)
-    .get()
-    .then((querySnapshot) => {
-      return querySnapshot.docs[0].id;
-    });
+    .get();
+
+  return querySnapshot.docs[0].id;
 };
 
 const onLoad = async (context) => {
-  await db
-    .collection("companys")
-    .doc(context.auth.uid)
-    .get()
-    .then(async (doc) => {
-      doc.exists &&
-        (await doc.ref
-          .set(
-            {
-              payment: {
-                load: true,
-              },
-            },
-            { merge: true }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              "プロフィールの更新に失敗しました",
-              "firebase"
-            );
-          }));
-    });
+  const doc = await db.collection("companys").doc(context.auth.uid).get();
+
+  doc.exists &&
+    (await doc.ref
+      .set(
+        {
+          payment: {
+            load: true,
+          },
+        },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "プロフィールの更新に失敗しました",
+          "firebase"
+        );
+      }));
 };
 
 const checkDemo = (context) => {

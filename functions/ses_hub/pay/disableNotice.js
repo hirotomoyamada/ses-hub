@@ -7,30 +7,10 @@ exports.disableNotice = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    await db
+    const doc = await db
       .collection("companys")
       .doc(context.auth.uid)
       .get()
-      .then(async (doc) => {
-        if (doc.exists) {
-          await doc.ref
-            .set(
-              {
-                payment: {
-                  notice: false,
-                },
-              },
-              { merge: true }
-            )
-            .catch((e) => {
-              throw new functions.https.HttpsError(
-                "data-loss",
-                "プロフィールの更新に失敗しました",
-                "firebase"
-              );
-            });
-        }
-      })
       .catch((e) => {
         throw new functions.https.HttpsError(
           "not-found",
@@ -38,6 +18,25 @@ exports.disableNotice = functions
           "firebase"
         );
       });
+
+    if (doc.exists) {
+      await doc.ref
+        .set(
+          {
+            payment: {
+              notice: false,
+            },
+          },
+          { merge: true }
+        )
+        .catch((e) => {
+          throw new functions.https.HttpsError(
+            "data-loss",
+            "プロフィールの更新に失敗しました",
+            "firebase"
+          );
+        });
+    }
 
     return;
   });
