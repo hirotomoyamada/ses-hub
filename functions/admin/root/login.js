@@ -33,6 +33,7 @@ exports.login = functions
           "firebase"
         );
       });
+
     await db
       .collection("freelanceDirect")
       .get()
