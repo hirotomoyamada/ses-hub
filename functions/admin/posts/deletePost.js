@@ -23,26 +23,10 @@ exports.deletePost = functions
   });
 
 const deleteFirestore = async (data) => {
-  await db
+  const doc = await db
     .collection("companys")
     .doc(data.post.uid)
     .get()
-    .then((doc) => {
-      if (doc.exists) {
-        const posts = doc
-          .data()
-          .posts[data.index].filter(
-            (objectID) => objectID !== data.post.objectID
-          );
-
-        doc.ref.set(
-          {
-            posts: { [data.index]: [...posts] },
-          },
-          { merge: true }
-        );
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "data-loss",
@@ -50,6 +34,19 @@ const deleteFirestore = async (data) => {
         "firebase"
       );
     });
+
+  if (doc.exists) {
+    const posts = doc
+      .data()
+      .posts[data.index].filter((objectID) => objectID !== data.post.objectID);
+
+    doc.ref.set(
+      {
+        posts: { [data.index]: [...posts] },
+      },
+      { merge: true }
+    );
+  }
 
   return;
 };

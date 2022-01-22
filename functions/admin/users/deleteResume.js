@@ -19,13 +19,10 @@ exports.deleteResume = functions
       );
     }
 
-    await db
+    const doc = await db
       .collection("persons")
       .doc(data)
       .get()
-      .then(async (doc) => {
-        doc.exists && deleteFile(doc);
-      })
       .catch((e) => {
         throw new functions.https.HttpsError(
           "not-found",
@@ -33,6 +30,8 @@ exports.deleteResume = functions
           "firebase"
         );
       });
+
+    doc.exists && (await deleteFile(doc));
 
     return;
   });

@@ -32,15 +32,10 @@ exports.uploadResume = functions
       );
     }
 
-    const url = await db
+    const doc = await db
       .collection("persons")
       .doc(context.auth.uid)
       .get()
-      .then(async (doc) => {
-        return (
-          doc.exists && (await uploadFile(data.file, doc, context.auth.uid))
-        );
-      })
       .catch((e) => {
         throw new functions.https.HttpsError(
           "not-found",
@@ -49,7 +44,11 @@ exports.uploadResume = functions
         );
       });
 
-    return url;
+    if (doc.exists) {
+      const url = await uploadFile(data.file, doc, context.auth.uid);
+
+      return url;
+    }
   });
 
 const uploadFile = async (file, doc, uid) => {

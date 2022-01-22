@@ -45,10 +45,10 @@ const createMail = async (data) => {
 };
 
 const fetchTo = async (data) => {
-  const to =
+  const querySnapshot =
     data.index === "companys"
       ? await db
-          .collection("companys")
+          .collection(data.index)
           .where("status", "==", "enable")
           .where(
             "payment.status",
@@ -58,46 +58,36 @@ const fetchTo = async (data) => {
               : ["active", "canceled", "trialing"]
           )
           .get()
-          .then((querySnapshot) => {
-            return querySnapshot.docs.map(
-              (doc) => verified(doc) && doc.data().profile.email
-            );
-          })
-      : await db
-          .collection("persons")
-          .where("status", "==", "enable")
-          .get()
-          .then((querySnapshot) => {
-            return querySnapshot.docs.map(
-              (doc) => verified(doc) && doc.data().profile.email
-            );
-          });
+      : await db.collection(data.index).where("status", "==", "enable").get();
+
+  const to = querySnapshot.docs.map(
+    (doc) => verified(doc) && doc.data().profile.email
+  );
 
   return to;
 };
 
 const updateFirestore = async (data) => {
-  await db
+  const doc = await db
     .collection(
       data.index === "companys"
         ? "seshub"
         : data.index === "persons" && "freelanceDirect"
     )
     .doc("mail")
-    .get()
-    .then(async (doc) => {
-      data.updateAt = Date.now();
+    .get();
 
-      if (doc.exists) {
-        await doc.ref.set(data, { merge: true }).catch((e) => {
-          throw new functions.https.HttpsError(
-            "data-loss",
-            "データの更新に失敗しました",
-            "firebase"
-          );
-        });
-      }
+  if (doc.exists) {
+    data.updateAt = Date.now();
+
+    await doc.ref.set(data, { merge: true }).catch((e) => {
+      throw new functions.https.HttpsError(
+        "data-loss",
+        "データの更新に失敗しました",
+        "firebase"
+      );
     });
+  }
 
   return;
 };

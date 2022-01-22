@@ -17,7 +17,7 @@ exports.editUser = functions
         "firebase"
       );
     }
-    
+
     await editFirestore(data);
     await editAlgolia(data);
 
@@ -58,40 +58,10 @@ const editFirestore = async (data) => {
       ? edit.companys({ data: data })
       : data.index === "persons" && edit.persons({ data: data });
 
-  await db
+  const doc = await db
     .collection(data.index)
     .doc(data.user.uid)
     .get()
-    .then(async (doc) => {
-      doc.exists &&
-        (await doc.ref
-          .set(
-            data.index === "companys"
-              ? {
-                  type: user.type,
-                  icon: user.icon,
-                  cover: user.cover,
-                  status: user.status,
-                  profile: user.profile,
-                  updateAt: user.updateAt,
-                }
-              : {
-                  icon: user.icon,
-                  cover: user.cover,
-                  status: user.status,
-                  profile: user.profile,
-                  updateAt: user.updateAt,
-                },
-            { merge: true }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              "ユーザーの編集に失敗しました",
-              "firebase"
-            );
-          }));
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -99,6 +69,35 @@ const editFirestore = async (data) => {
         "firebase"
       );
     });
+
+  doc.exists &&
+    (await doc.ref
+      .set(
+        data.index === "companys"
+          ? {
+              type: user.type,
+              icon: user.icon,
+              cover: user.cover,
+              status: user.status,
+              profile: user.profile,
+              updateAt: user.updateAt,
+            }
+          : {
+              icon: user.icon,
+              cover: user.cover,
+              status: user.status,
+              profile: user.profile,
+              updateAt: user.updateAt,
+            },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "ユーザーの編集に失敗しました",
+          "firebase"
+        );
+      }));
 
   return;
 };

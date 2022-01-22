@@ -19,64 +19,66 @@ exports.fetchUser = functions
       );
     }
 
-    const user = await db
-      .collection(data.index)
-      .doc(data.uid)
-      .get()
-      .then(async (doc) => {
-        if (doc.exists) {
-          return await organize({ data: data, user: doc.data() })
-            .then(async (lists) => {
-              const parent =
-                doc.data().type === "child"
-                  ? await fetchParent(doc.data().payment?.parent)
-                  : null;
-
-              return data.index === "companys"
-                ? fetch.companys({
-                    index: data.index,
-                    doc: doc,
-                    lists: lists,
-                    parent: parent,
-                  })
-                : fetch.persons({
-                    index: data.index,
-                    doc: doc,
-                    lists: lists,
-                  });
-            })
-            .catch((e) => {
-              throw new functions.https.HttpsError(
-                "data-loss",
-                "ユーザーの編集に失敗しました",
-                "firebase"
-              );
-            });
-        }
-      })
-      .catch((e) => {
-        throw new functions.https.HttpsError(
-          "not-found",
-          "ユーザーの取得に失敗しました",
-          "firebase"
-        );
-      });
+    const user = await fetchFirestore(data);
 
     return user;
   });
 
-const fetchParent = async (uid) => {
-  const parent = await db
-    .collection("companys")
-    .doc(uid)
+const fetchFirestore = async (data) => {
+  const doc = await db
+    .collection(data.index)
+    .doc(data.uid)
     .get()
-    .then((doc) => {
-      if (doc.exists) {
-        return fetch.companys({
-          index: "companys",
-          doc: doc,
-        });
+    .catch((e) => {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "ユーザーの取得に失敗しました",
+        "firebase"
+      );
+    });
+
+  if (doc.exists) {
+    const parent =
+      doc.data().type === "child"
+        ? await fetchParent(doc.data().payment?.parent)
+        : null;
+
+    const lists = await organize({ data: data, user: doc.data() }).catch(
+      (e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "ユーザーの編集に失敗しました",
+          "firebase"
+        );
       }
+    );
+
+    const user =
+      data.index === "companys"
+        ? fetch.companys({
+            index: data.index,
+            doc: doc,
+            lists: lists,
+            parent: parent,
+          })
+        : fetch.persons({
+            index: data.index,
+            doc: doc,
+            lists: lists,
+          });
+
+    return user;
+  }
+};
+
+const fetchParent = async (uid) => {
+  const doc = await db.collection("companys").doc(uid).get();
+
+  const parent =
+    doc.exists &&
+    fetch.companys({
+      index: "companys",
+      doc: doc,
     });
 
   return parent;

@@ -31,37 +31,10 @@ exports.removeLike = functions
 const updateFirestore = async ({ context, data, add }) => {
   const timestamp = Date.now();
 
-  await db
+  const doc = await db
     .collection("persons")
     .doc(context.auth.uid)
     .get()
-    .then(async (doc) => {
-      if (doc.exists) {
-        const likes = add
-          ? doc.data().likes
-          : doc.data().likes.filter((objectID) => objectID !== data);
-
-        await doc.ref
-          .set(
-            {
-              likes: add
-                ? likes
-                  ? likes.indexOf(data.objectID) < 0 && [data, ...likes]
-                  : [data]
-                : [...likes],
-              updateAt: timestamp,
-            },
-            { merge: true }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              add ? "いいねの追加に失敗しました" : "いいねの削除に失敗しました",
-              "firebase"
-            );
-          });
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -69,6 +42,32 @@ const updateFirestore = async ({ context, data, add }) => {
         "firebase"
       );
     });
+
+  if (doc.exists) {
+    const likes = add
+      ? doc.data().likes
+      : doc.data().likes.filter((objectID) => objectID !== data);
+
+    await doc.ref
+      .set(
+        {
+          likes: add
+            ? likes
+              ? likes.indexOf(data.objectID) < 0 && [data, ...likes]
+              : [data]
+            : [...likes],
+          updateAt: timestamp,
+        },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          add ? "いいねの追加に失敗しました" : "いいねの削除に失敗しました",
+          "firebase"
+        );
+      });
+  }
 
   return;
 };
