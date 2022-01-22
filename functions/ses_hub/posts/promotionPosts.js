@@ -11,18 +11,10 @@ exports.promotionPosts = functions
   .https.onCall(async (data) => {
     const index = algolia.initIndex(data.index);
 
-    const posts = await index
+    const result = await index
       .search("", {
         filters: "display:public",
         hitsPerPage: 8,
-      })
-      .then((result) => {
-        return result.hits.map((hit) =>
-          data.index === "matters"
-            ? fetch.matters({ hit: hit, promotion: true })
-            : data.index === "resources" &&
-              fetch.resources({ hit: hit, promotion: true })
-        );
       })
       .catch((e) => {
         throw new functions.https.HttpsError(
@@ -31,6 +23,13 @@ exports.promotionPosts = functions
           "algolia"
         );
       });
+
+    const posts = result?.hits?.map((hit) =>
+      data.index === "matters"
+        ? fetch.matters({ hit: hit, promotion: true })
+        : data.index === "resources" &&
+          fetch.resources({ hit: hit, promotion: true })
+    );
 
     return { index: data.index, posts: posts };
   });
