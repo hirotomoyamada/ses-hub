@@ -254,7 +254,7 @@
 
 // ses_hub
 ├── components
-│   ├── announce // アカウント(画面上に表示される通知)
+│   ├── announce // アナウンス(画面上に表示される通知)
 │   ├── command // コマンド(ボタンを押した際、表示されるモーダル)
 │   ├── cover // カバー
 │   ├── follow // フォロー(ボタン)
@@ -430,7 +430,7 @@
 
 // freelance_direct
 ├── components
-│   ├── announce // アカウント(画面上に表示される通知)
+│   ├── announce // アナウンス(画面上に表示される通知)
 │   ├── command // コマンド(ボタンを押した際、表示されるモーダル)
 │   ├── cover // カバー
 │   ├── follow // フォロー(ボタン)
