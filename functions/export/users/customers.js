@@ -7,28 +7,19 @@ const timeZone = require("../../firebase").timeZone;
 
 const bucket = `gs://${functions.config().storage.customers}`;
 
-/**********************************
- * Firestore Stripe バックアップ
- **********************************/
-
 exports.customers = functions
   .region(location)
   .runWith(runtime)
-  // 毎日24時に実行する
   .pubsub.schedule("0 0 * * *")
   .timeZone(timeZone)
   .onRun((context) => {
-    // エクスポートする Firestore を定義
     const projectId = process.env.GCP_PROJECT || process.env.GCLOUD_PROJECT;
     const databaseName = client.databasePath(projectId, "(default)");
 
-    // Firestoreからエクスポートして、Firestorageに保存
     return client
       .exportDocuments({
         name: databaseName,
-        // ファイルを保存する先
         outputUriPrefix: bucket,
-        // エクスポートするコレクション
         collectionIds: ["customers"],
       })
       .then((responses) => {
