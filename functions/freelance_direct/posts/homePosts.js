@@ -60,10 +60,9 @@ const fetchAlgolia = async (context, data, status, demo) => {
     hit.posts = results?.nbHits;
     hit.pages = results?.nbPages;
 
-    const posts = results?.hits.map(
-      (hit) =>
-        hit && status && fetch.matters({ hit: hit })?.filter((post) => post)
-    );
+    const posts = results?.hits
+      .map((hit) => hit && status && fetch.matters({ hit: hit }))
+      ?.filter((post) => post);
 
     return { posts, hit };
   } else {
