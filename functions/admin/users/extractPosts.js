@@ -15,7 +15,7 @@ exports.extractPosts = functions
   .https.onCall(async (data, context) => {
     await userAuthenticated(context);
 
-    const { posts, hit } = fetchAlgolia(data);
+    const { posts, hit } = await fetchAlgolia(data);
 
     await fetchFirestore(data, posts);
 
@@ -23,7 +23,7 @@ exports.extractPosts = functions
   });
 
 const fetchFirestore = async (data, posts) => {
-  if (!posts.length) {
+  if (!posts?.length) {
     return;
   }
 
