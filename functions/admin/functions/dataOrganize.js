@@ -14,7 +14,7 @@ exports.dataOrganize = async ({ data, user }) => {
 const initLists = (index) => {
   return index === "companys"
     ? { posts: {}, follows: [], home: [], likes: {}, outputs: {}, entries: {} }
-    : index === "persoms" && {
+    : index === "persons" && {
         entries: [],
         likes: [],
         histories: [],
@@ -29,6 +29,7 @@ const updateList = async ({ data, user, lists, list }) => {
     if (user[list].length) {
       await updateFirestore({
         data: data,
+        user: user,
         lists: lists,
         list: list,
       });
@@ -38,6 +39,7 @@ const updateList = async ({ data, user, lists, list }) => {
       if (user[list][i].length) {
         await updateFirestore({
           data: data,
+          user: user,
           lists: lists,
           list: list,
           i: i,
@@ -75,7 +77,7 @@ const updateFirestore = async ({ data, user, lists, list, i }) => {
 
     const after = before.filter((objectID) => objectIDs.indexOf(objectID) > -1);
 
-    Object.assign(i ? lists[list][i] : lists[list], ...after);
+    Object.assign(i ? lists[list] : lists, { [i ? i : list]: [...after] });
 
     await doc.ref
       .set(
