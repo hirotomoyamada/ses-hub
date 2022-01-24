@@ -5,7 +5,7 @@ const runtime = require("../../firebase").runtime;
 
 const userAuthenticated =
   require("../functions/userAuthenticated").userAuthenticated;
-const organize = require("../functions/organize").organize;
+const dataOrganize = require("../functions/dataOrganize").dataOrganize;
 
 const fetch = require("../fetch/fetch");
 
@@ -39,7 +39,7 @@ const fetchFirestore = async (data) => {
         ? await fetchParent(doc.data().payment?.parent)
         : null;
 
-    const lists = await organize({ data: data, user: doc.data() }).catch(
+    const lists = await dataOrganize({ data: data, user: doc.data() }).catch(
       (e) => {
         throw new functions.https.HttpsError(
           "data-loss",

@@ -1,7 +1,7 @@
 const db = require("../../firebase").db;
 const algolia = require("../../algolia").algolia;
 
-exports.organize = async ({ data, user }) => {
+exports.dataOrganize = async ({ data, user }) => {
   const lists = initLists(data.index);
 
   for await (const list of Object.keys(lists)) {
