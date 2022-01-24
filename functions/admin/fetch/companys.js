@@ -1,5 +1,4 @@
 exports.companys = ({ doc, index, lists, parent, posts, hit }) => {
-  // fetchPosts, extractPosts
   if (hit) {
     return {
       uid: hit.objectID,
@@ -17,7 +16,6 @@ exports.companys = ({ doc, index, lists, parent, posts, hit }) => {
       region: hit.region,
     };
   }
-  // fetchUser
   else if (!posts) {
     return {
       index: index,
@@ -55,7 +53,6 @@ exports.companys = ({ doc, index, lists, parent, posts, hit }) => {
       parent: parent ? parent : null,
     };
   }
-  // fetchPosts, extractPosts 追加取得
   else {
     posts[index].icon = doc.data().icon;
     posts[index].cover = doc.data().cover;

@@ -1,5 +1,4 @@
 exports.persons = ({ doc, index, lists, posts, hit }) => {
-  // fetchPosts, extractPosts
   if (hit) {
     return {
       uid: hit.objectID,
@@ -22,7 +21,6 @@ exports.persons = ({ doc, index, lists, posts, hit }) => {
       period: hit.period,
     };
   }
-  // fetchUser
   else if (!posts) {
     return {
       index: index,
@@ -64,7 +62,6 @@ exports.persons = ({ doc, index, lists, posts, hit }) => {
       period: doc.data().profile.period,
     };
   }
-  // fetchPosts, extractPosts 追加取得
   else {
     posts[index].icon = doc.data().icon;
     posts[index].cover = doc.data().cover;
