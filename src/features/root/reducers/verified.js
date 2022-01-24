@@ -8,9 +8,9 @@ export const verified = (state, action) => {
     }
 
     if (
+      action.payload.user.type === "individual" &&
       action.payload.user.payment.status === "canceled" &&
-      action.payload.user.payment.notice &&
-      action.payload.user.type !== "child"
+      action.payload.user.payment.notice
     ) {
       state.modal.type = "advertise";
       state.modal.open = true;
@@ -25,6 +25,7 @@ export const verified = (state, action) => {
 
     state.data = action.payload.data;
     state.verified.demo = action.payload.demo;
+    state.verified.payment = action.payload.user.payment.status;
   }
 
   if (action.payload && state.verified.demo) {

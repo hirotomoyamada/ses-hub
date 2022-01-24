@@ -83,10 +83,12 @@ export const Handles = ({ index }) => {
                   </button>
                 )}
             </div>
-
-            <span className={styles.item_error}>
-              {errors.handles?.[i]?.handle.message}
-            </span>
+            
+            {errors.handles?.[i]?.handle.message && (
+              <span className={styles.item_error}>
+                {errors.handles?.[i]?.handle.message}
+              </span>
+            )}
           </div>
         ))}
       </div>

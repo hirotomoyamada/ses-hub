@@ -7,7 +7,9 @@ export const Plan = ({ user, history }) => {
       <div className={styles.main_col}>
         <span className={styles.main_tag}>プラン</span>
         <span className={styles.main_value}>
-          {user?.payment?.status === "active"
+          {user?.type !== "individual" && user?.payment?.status === "canceled"
+            ? "未加入"
+            : user?.payment?.status === "active"
             ? "レギュラー"
             : user?.payment?.status === "trialing"
             ? "レギュラー(フリートライアル)"

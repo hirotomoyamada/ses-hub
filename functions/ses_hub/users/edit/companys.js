@@ -45,6 +45,9 @@ exports.companys = ({ context, data, customer, create, child, doc }) => {
               status: "canceled",
               trial: data.type !== "parent" ? true : false,
               notice: true,
+              // ver 2.X.X
+              // 削除予定
+              option: { freelanceDirect: true },
             }
           : data.payment.option
           ? {
@@ -105,6 +108,11 @@ exports.companys = ({ context, data, customer, create, child, doc }) => {
             objectID: context.auth.uid,
             uid: context.auth.uid,
             status: "hold",
+            type: data.type,
+
+            // ver 2.X.X
+            // 削除予定
+            freelanceDirect: "enable",
 
             name: profile.name,
             person: profile.person,
@@ -126,6 +134,7 @@ exports.companys = ({ context, data, customer, create, child, doc }) => {
             objectID: context.auth.uid,
             uid: context.auth.uid,
             status: "enable",
+            type: "child",
 
             plan: data.payment?.status !== "canceled" ? "enable" : "disable",
             freelanceDirect: data.payment?.option?.freelanceDirect
@@ -150,7 +159,7 @@ exports.companys = ({ context, data, customer, create, child, doc }) => {
           };
     } else {
       return {
-        objectID: context.auth.uid,
+        objectID: context.auth.uid === data.uid ? context.auth.uid : data.uid,
 
         name: profile.name,
         person: profile.person,

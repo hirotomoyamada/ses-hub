@@ -41,109 +41,114 @@ const fetchAlgolia = async (context, data, status, demo) => {
           currentPage: data.page ? data.page : 0,
         };
 
-  const posts =
-    data.index === "matters"
-      ? await index
-          .search("", {
-            queryLanguages: ["ja", "en"],
-            similarQuery: value,
-            filters: "display:public",
-            page: hit.currentPage,
-          })
-          .then((result) => {
-            hit.posts = result.nbHits;
-            hit.pages = result.nbPages;
-            return result.hits.map(
-              (hit) => hit && status && fetch.matters({ hit: hit })
-            );
-          })
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "not-found",
-              "投稿の取得に失敗しました",
-              "algolia"
-            );
-          })
-      : await index
-          .getObjects(
-            data.follows.slice(
-              hit.currentPage * hitsPerPage,
-              hitsPerPage * (hit.currentPage + 1)
-            )
-          )
-          .then(({ results }) => {
-            return results.map(
-              (hit) =>
-                hit &&
-                hit.status === "enable" &&
-                status &&
-                fetch.companys({ hit: hit, demo: demo })
-            );
-          })
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "not-found",
-              "投稿の取得に失敗しました",
-              "algolia"
-            );
-          });
+  if (data.index === "matters") {
+    const results = await index
+      .search("", {
+        queryLanguages: ["ja", "en"],
+        similarQuery: value,
+        filters: "display:public",
+        page: hit.currentPage,
+      })
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "not-found",
+          "投稿の取得に失敗しました",
+          "algolia"
+        );
+      });
 
-  return { posts, hit };
+    hit.posts = results?.nbHits;
+    hit.pages = results?.nbPages;
+
+    const posts = results?.hits.map(
+      (hit) =>
+        hit && status && fetch.matters({ hit: hit })?.filter((post) => post)
+    );
+
+    return { posts, hit };
+  } else {
+    const { results } = await index
+      .getObjects(
+        data.follows.slice(
+          hit.currentPage * hitsPerPage,
+          hitsPerPage * (hit.currentPage + 1)
+        )
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "not-found",
+          "投稿の取得に失敗しました",
+          "algolia"
+        );
+      });
+
+    const posts = results
+      ?.map(
+        (hit) =>
+          hit &&
+          hit.status === "enable" &&
+          status &&
+          fetch.companys({ hit: hit, demo: demo })
+      )
+      ?.filter((post) => post);
+
+    return { posts, hit };
+  }
 };
 
 const fetchFirestore = async (data, posts, demo) => {
   for (let i = 0; i < posts.length; i++) {
-    posts[i] &&
-      (await db
+    if (posts[i]) {
+      const doc = await db
         .collection("companys")
         .doc(posts[i].uid)
         .get()
-        .then((doc) => {
-          if (doc.exists) {
-            if (data.index === "matters") {
-              if (
-                doc.data().payment.status === "canceled" ||
-                !doc.data().payment.option?.freelanceDirect
-              ) {
-                posts[i].user = {
-                  type: "individual",
-                  name: null,
-                  person: "存在しないユーザー",
-                };
-              } else {
-                posts[i].user = {
-                  type: doc.data().type,
-                  name: !demo ? doc.data().profile.name : dummy("name"),
-                  person: !demo ? doc.data().profile.person : dummy("person"),
-                };
-              }
-            } else {
-              if (
-                doc.data().payment.status === "canceled" ||
-                !doc.data().payment.option?.freelanceDirect
-              ) {
-                posts[i].icon = "none";
-                posts[i].status = "none";
-                posts[i].type = "individual";
-                posts[i].profile = {
-                  name: null,
-                  person: "存在しないユーザー",
-                  body: null,
-                };
-              } else {
-                posts[i].icon = doc.data().icon;
-                posts[i].type = doc.data().type;
-              }
-            }
-          }
-        })
         .catch((e) => {
           throw new functions.https.HttpsError(
             "not-found",
             "ユーザーの取得に失敗しました",
             "firebase"
           );
-        }));
+        });
+
+      if (doc.exists) {
+        if (data.index === "matters") {
+          if (
+            doc.data().payment.status === "canceled" ||
+            !doc.data().payment.option?.freelanceDirect
+          ) {
+            posts[i].user = {
+              type: "individual",
+              name: null,
+              person: "存在しないユーザー",
+            };
+          } else {
+            posts[i].user = {
+              type: doc.data().type,
+              name: !demo ? doc.data().profile.name : dummy("name"),
+              person: !demo ? doc.data().profile.person : dummy("person"),
+            };
+          }
+        } else {
+          if (
+            doc.data().payment.status === "canceled" ||
+            !doc.data().payment.option?.freelanceDirect
+          ) {
+            posts[i].icon = "none";
+            posts[i].status = "none";
+            posts[i].type = "individual";
+            posts[i].profile = {
+              name: null,
+              person: "存在しないユーザー",
+              body: null,
+            };
+          } else {
+            posts[i].icon = doc.data().icon;
+            posts[i].type = doc.data().type;
+          }
+        }
+      }
+    }
   }
 };
 

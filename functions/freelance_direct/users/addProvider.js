@@ -22,36 +22,10 @@ exports.addProvider = functions
 const addFirestore = async (context, data) => {
   const timestamp = Date.now();
 
-  await db
+  const doc = await db
     .collection("persons")
     .doc(context.auth.uid)
     .get()
-    .then((doc) => {
-      if (doc.exists) {
-        const provider = doc.data().provider;
-
-        doc.ref
-          .set(
-            !data.email
-              ? { provider: data.provider, updateAt: timestamp }
-              : {
-                  provider: [data.provider, ...provider],
-                  profile: {
-                    email: data.email,
-                  },
-                  updateAt: timestamp,
-                },
-            { merge: true }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              "プロバイダーの更新に失敗しました",
-              "firebase"
-            );
-          });
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -59,6 +33,31 @@ const addFirestore = async (context, data) => {
         "firebase"
       );
     });
+
+  if (doc.exists) {
+    const provider = doc.data().provider;
+
+    await doc.ref
+      .set(
+        !data.email
+          ? { provider: data.provider, updateAt: timestamp }
+          : {
+              provider: [data.provider, ...provider],
+              profile: {
+                email: data.email,
+              },
+              updateAt: timestamp,
+            },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "プロバイダーの更新に失敗しました",
+          "firebase"
+        );
+      });
+  }
 };
 
 const addAlgolia = async (context, data) => {

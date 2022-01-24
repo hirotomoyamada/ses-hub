@@ -44,6 +44,7 @@ export const defaultValues = (index, post, edit) => {
         remote: edit ? post.remote : "あり",
         distribution: edit ? post.distribution : "プライム",
         span: edit ? post.span : 30,
+        approval: edit ? (post.approval ? post.approval : "不明") : "不明",
         note: edit ? post.note : "",
         status: edit ? post.status : "新規",
         memo: edit ? post.memo : "",

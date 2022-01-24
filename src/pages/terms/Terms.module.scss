@@ -107,5 +107,8 @@ $width: responsive-width(pc);
   &_backnumber {
     padding-top: 24px;
     border-top: 3px solid $bdr_clr;
+
+    display: flex;
+    flex-direction: column;
   }
 }

@@ -30,8 +30,12 @@ export const Interviews = () => {
               <option value={"現地"}>現地</option>
               <option value={"その他"}>その他</option>
             </select>
-            <span>{errors.interviews?.type?.message}</span>
+
+            {errors.interviews?.type?.message && (
+              <span>{errors.interviews?.type?.message}</span>
+            )}
           </div>
+
           <div className={`${styles.item} ${styles.item_select}`}>
             <select
               className={`${styles.item_input} ${
@@ -48,7 +52,10 @@ export const Interviews = () => {
               <option value={"2回"}>2回</option>
               <option value={"その他"}>その他</option>
             </select>
-            <span>{errors.interviews?.count?.message}</span>
+
+            {errors.interviews?.count?.message && (
+              <span>{errors.interviews?.count?.message}</span>
+            )}
           </div>
         </div>
       </div>

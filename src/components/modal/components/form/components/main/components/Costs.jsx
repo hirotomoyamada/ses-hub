@@ -63,7 +63,9 @@ export const Costs = () => {
                   })}
                 />
               </div>
+
               <span className={styles.item_mark}>〜</span>
+              
               <div className={`${styles.item} ${styles.item_cost}`}>
                 <input
                   placeholder="最大"

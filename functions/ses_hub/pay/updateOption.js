@@ -42,15 +42,10 @@ exports.updateOption = functions
   });
 
 const fetchChildren = async (context) => {
-  const children = await db
+  const doc = await db
     .collection("companys")
     .doc(context.params.uid)
     .get()
-    .then(async (doc) => {
-      if (doc.exists && doc.data().payment?.children) {
-        return doc.data().payment.children;
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -59,7 +54,9 @@ const fetchChildren = async (context) => {
       );
     });
 
-  return children;
+  if (doc.exists && doc.data().payment?.children) {
+    return doc.data().payment.children;
+  }
 };
 
 const deleteOption = async (context) => {
@@ -117,45 +114,22 @@ const partialUpdateObject = async (uid, type) => {
 };
 
 const updateFirestore = async (context, type, children) => {
-  await set(context.params.uid, type);
+  await updateDoc(context.params.uid, type);
 
   if (children?.length) {
     for await (const uid of children) {
-      await set(uid, type);
+      await updateDoc(uid, type);
     }
   }
 
   return;
 };
 
-const set = async (uid, type) => {
-  await db
+const updateDoc = async (uid, type) => {
+  const doc = await db
     .collection("companys")
     .doc(uid)
     .get()
-    .then(async (doc) => {
-      const option = doc.data().payment?.option
-        ? doc.data().payment?.option
-        : {};
-      option[type] = false;
-
-      await doc.ref
-        .set(
-          {
-            payment: {
-              option: option,
-            },
-          },
-          { merge: true }
-        )
-        .catch((e) => {
-          throw new functions.https.HttpsError(
-            "data-loss",
-            "プロフィールの更新に失敗しました",
-            "firebase"
-          );
-        });
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -164,30 +138,48 @@ const set = async (uid, type) => {
       );
     });
 
+  if (doc.exists) {
+    const option = doc.data().payment?.option ? doc.data().payment?.option : {};
+    option[type] = false;
+
+    await doc.ref
+      .set(
+        {
+          payment: {
+            option: option,
+          },
+        },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "プロフィールの更新に失敗しました",
+          "firebase"
+        );
+      });
+  }
+
   return;
 };
 
 const checkDuplicate = async (context, remove, price, type) => {
-  const duplicate = await db
+  const subscriptions = await db
     .collection("customers")
     .doc(context.params.uid)
     .collection("subscriptions")
-    .get()
-    .then((subscriptions) => {
-      const docs = subscriptions.docs.length;
-      const doc = subscriptions.docs.filter(
-        (doc) =>
-          (doc.data().status === "active" ||
-            doc.data().status === "trialing") &&
-          doc.data().items[0].price.id !== price &&
-          doc.data().items[0].price.product.metadata.name === "option" &&
-          doc.data().items[0].price.product.metadata.type === type
-      ).length;
+    .get();
 
-      return docs > 1 && doc;
-    });
+  const docs = subscriptions?.docs?.length;
+  const doc = subscriptions?.docs?.filter(
+    (doc) =>
+      (doc.data().status === "active" || doc.data().status === "trialing") &&
+      doc.data().items[0].price.id !== price &&
+      doc.data().items[0].price.product.metadata.name === "option" &&
+      doc.data().items[0].price.product.metadata.type === type
+  ).length;
 
-  if (duplicate && remove) {
+  if (docs > 1 && doc && remove) {
     await db
       .collection("customers")
       .doc(context.params.uid)
@@ -208,7 +200,7 @@ const checkDuplicate = async (context, remove, price, type) => {
           "firebase"
         );
       });
-  } else if (duplicate) {
+  } else if (docs > 1 && doc) {
     throw new functions.https.HttpsError(
       "cancelled",
       "同じ属性のオプションが有効のため処理中止",

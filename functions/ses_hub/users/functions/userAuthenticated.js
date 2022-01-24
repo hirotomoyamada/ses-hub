@@ -10,6 +10,11 @@ exports.userAuthenticated = async ({
   index,
   parent,
 }) => {
+  const doc = await db
+    .collection("companys")
+    .doc(!parent ? context.auth.uid : uid)
+    .get();
+
   if (
     (!parent ? context.auth.uid : uid) ===
       functions.config().demo.ses_hub.uid &&
@@ -22,45 +27,39 @@ exports.userAuthenticated = async ({
     );
   }
 
-  await db
-    .collection("companys")
-    .doc(!parent ? context.auth.uid : uid)
-    .get()
-    .then((doc) => {
-      if (doc.data().status !== "enable") {
-        throw new functions.https.HttpsError(
-          "cancelled",
-          "無効なユーザーのため、処理中止",
-          "firebase"
-        );
-      }
+  if (doc.data().status !== "enable") {
+    throw new functions.https.HttpsError(
+      "cancelled",
+      "無効なユーザーのため、処理中止",
+      "firebase"
+    );
+  }
 
-      if (doc.data().agree !== "enable" && !agree) {
-        throw new functions.https.HttpsError(
-          "cancelled",
-          "利用規約に同意が無いユーザーのため、処理中止",
-          "firebase"
-        );
-      }
+  if (doc.data().agree !== "enable" && !agree) {
+    throw new functions.https.HttpsError(
+      "cancelled",
+      "利用規約に同意が無いユーザーのため、処理中止",
+      "firebase"
+    );
+  }
 
-      if (doc.data().payment.status === "canceled" && canceled) {
-        throw new functions.https.HttpsError(
-          "cancelled",
-          "リミテッドユーザーのため、処理中止",
-          "firebase"
-        );
-      }
+  if (doc.data().payment.status === "canceled" && canceled) {
+    throw new functions.https.HttpsError(
+      "cancelled",
+      "リミテッドユーザーのため、処理中止",
+      "firebase"
+    );
+  }
 
-      if (
-        index === "persons" &&
-        (doc.data().payment.status === "canceled" ||
-          !doc.data().payment.option?.freelanceDirect)
-      ) {
-        throw new functions.https.HttpsError(
-          "cancelled",
-          "オプション未加入のユーザーのため、処理中止",
-          "firebase"
-        );
-      }
-    });
+  if (
+    index === "persons" &&
+    (doc.data().payment.status === "canceled" ||
+      !doc.data().payment.option?.freelanceDirect)
+  ) {
+    throw new functions.https.HttpsError(
+      "cancelled",
+      "オプション未加入のユーザーのため、処理中止",
+      "firebase"
+    );
+  }
 };

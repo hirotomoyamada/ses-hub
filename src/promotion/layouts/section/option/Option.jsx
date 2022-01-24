@@ -2,7 +2,8 @@ import root from "../Section.module.scss";
 import styles from "./Option.module.scss";
 
 export const Option = () => {
-  const tax = 1.1;
+  // ver 2.X.X
+  // const tax = 1.1;
 
   return (
     <article className={`${styles.option} ${root.article}`}>
@@ -29,11 +30,15 @@ export const Option = () => {
 
         <div className={styles.option_container}>
           <div className={styles.option_wrap}>
-            <span className={styles.option_type}>3ヶ月</span>
+            {/* ver 2.X.X */}
+            {/* <span className={styles.option_type}>3ヶ月</span>
 
             <span className={styles.option_price}>
               {Math.round(45000 * tax).toLocaleString()}円
-            </span>
+            </span> */}
+
+            {/* 削除予定 */}
+            <span className={styles.option_type}>今なら無料体験中</span>
           </div>
 
           <a
@@ -47,12 +52,18 @@ export const Option = () => {
         </div>
       </div>
 
-      <span className={styles.option_announce}>
+      {/* ver 2.X.X */}
+      {/* <span className={styles.option_announce}>
         ※ オプションのみではSES_HUBをご利用いただけません。
       </span>
       <br />
       <span className={styles.option_announce}>
         ※ 有料プランと合わせてご利用ください。
+      </span> */}
+
+      {/* 削除予定 */}
+      <span className={styles.option_announce}>
+        ※ オプションを無料体験していただくには、プランの加入が必要です。
       </span>
     </article>
   );

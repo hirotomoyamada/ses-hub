@@ -1,7 +1,7 @@
 import styles from "../Main.module.scss";
 
-export const Option = ({ user, history }) => {
-  return user?.payment?.option?.freelanceDirect ? (
+export const Option = ({ user }) => {
+  return user?.payment?.status !== "canceled" && user?.payment?.option?.freelanceDirect ? (
     <div className={styles.main_row}>
       <div className={styles.main_col}>
         <span className={styles.main_tag}>オプション</span>

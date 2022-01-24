@@ -19,6 +19,9 @@ export const Main = () => {
         children={children}
         load={load}
       />
+      <span className={root.account_desc}>
+        すべてのアカウントはログイン可能です
+      </span>
     </div>
   );
 };

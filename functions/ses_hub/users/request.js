@@ -130,19 +130,10 @@ const checkDuplicate = (context, doc) => {
 };
 
 const updateUser = async (context, data, selectUser) => {
-  await db
+  const doc = await db
     .collection("companys")
     .doc(context.auth.uid)
     .get()
-    .then(async (doc) => {
-      if (doc.exists) {
-        const user = doc.data();
-
-        await sendMail(context, user, selectUser, data);
-
-        await updateDoc({ context: context, doc: doc, data: data, user: true });
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -150,22 +141,23 @@ const updateUser = async (context, data, selectUser) => {
         "firebase"
       );
     });
+
+  if (doc.exists) {
+    const user = doc.data();
+
+    await sendMail(context, user, selectUser, data);
+
+    await updateDoc({ context: context, doc: doc, data: data, user: true });
+  }
 
   return;
 };
 
 const updatePerson = async (context, data) => {
-  await db
+  const doc = await db
     .collection("persons")
     .doc(data.uid)
     .get()
-    .then(async (doc) => {
-      if (doc.exists) {
-        checkDuplicate(context, doc);
-
-        await updateDoc({ context: context, doc: doc, data: data });
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -173,6 +165,12 @@ const updatePerson = async (context, data) => {
         "firebase"
       );
     });
+
+  if (doc.exists) {
+    checkDuplicate(context, doc);
+
+    await updateDoc({ context: context, doc: doc, data: data });
+  }
 
   return;
 };

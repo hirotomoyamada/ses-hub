@@ -31,51 +31,10 @@ exports.removeLike = functions
 const updateFirestore = async ({ context, data, add }) => {
   const timestamp = Date.now();
 
-  await db
+  const doc = await db
     .collection("companys")
     .doc(context.auth.uid)
     .get()
-    .then(async (doc) => {
-      if (doc.exists) {
-        const likes = add
-          ? doc.data().likes?.[data.index]
-          : doc
-              .data()
-              .likes[data.index].filter(
-                (id) => id !== (data.objectID ? data.objectID : data.uid)
-              );
-
-        await doc.ref
-          .set(
-            {
-              likes: add
-                ? likes
-                  ? likes.indexOf(data.objectID ? data.objectID : data.uid) <
-                      0 && {
-                      [data.index]: [
-                        data.objectID ? data.objectID : data.uid,
-                        ...likes,
-                      ],
-                    }
-                  : {
-                      [data.index]: [data.objectID ? data.objectID : data.uid],
-                    }
-                : {
-                    [data.index]: [...likes],
-                  },
-              updateAt: timestamp,
-            },
-            { merge: true }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              "いいねの追加に失敗しました",
-              "firebase"
-            );
-          });
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -83,6 +42,45 @@ const updateFirestore = async ({ context, data, add }) => {
         "firebase"
       );
     });
+
+  if (doc.exists) {
+    const likes = add
+      ? doc.data().likes?.[data.index]
+      : doc
+          .data()
+          .likes[data.index].filter(
+            (id) => id !== (data.objectID ? data.objectID : data.uid)
+          );
+
+    await doc.ref
+      .set(
+        {
+          likes: add
+            ? likes
+              ? likes.indexOf(data.objectID ? data.objectID : data.uid) < 0 && {
+                  [data.index]: [
+                    data.objectID ? data.objectID : data.uid,
+                    ...likes,
+                  ],
+                }
+              : {
+                  [data.index]: [data.objectID ? data.objectID : data.uid],
+                }
+            : {
+                [data.index]: [...likes],
+              },
+          updateAt: timestamp,
+        },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "いいねの追加に失敗しました",
+          "firebase"
+        );
+      });
+  }
 
   return;
 };

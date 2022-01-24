@@ -1,7 +1,18 @@
-import { auth } from "../../../../firebase";
+import { auth, functions } from "../../../../firebase";
 import * as rootSlice from "../../../root/rootSlice";
 
 export const handleReset = async ({ dispatch, reset, setReset, data }) => {
+  const verificationUser = functions.httpsCallable("sh-verificationUser");
+
+  await verificationUser({ type: "child", email: data.reset }).catch((e) => {
+    throw new dispatch(
+      rootSlice.handleAnnounce({
+        type: "error",
+        text: "登録しているメールアドレスではパスワードの再設定は行えません",
+      })
+    );
+  });
+
   await auth
     .sendPasswordResetEmail(data.reset)
     .then(() => {

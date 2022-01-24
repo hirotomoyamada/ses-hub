@@ -28,33 +28,29 @@ exports.login = functions
 const fetchUser = async (context, data) => {
   const timestamp = Date.now();
 
-  return await db
-    .collection("persons")
-    .doc(context.auth.uid)
-    .get()
-    .then(async (doc) => {
-      await updateAlgolia(context, timestamp);
+  const doc = await db.collection("persons").doc(context.auth.uid).get();
 
-      if (doc.exists) {
-        if (doc.data().provider.length !== data.providerData.length) {
-          await updateProvider(doc, data, timestamp);
-          await loginAuthenticated({ doc: doc });
+  await updateAlgolia(context, timestamp);
 
-          return fetch.persons({ context: context, doc: doc, data: data });
-        } else {
-          await updateLogin(doc, timestamp);
-          await loginAuthenticated({ doc: doc });
+  if (doc.exists) {
+    if (doc.data().provider.length !== data.providerData.length) {
+      await updateProvider(doc, data, timestamp);
+      await loginAuthenticated({ doc: doc });
 
-          return fetch.persons({ context: context, doc: doc });
-        }
-      } else {
-        throw new functions.https.HttpsError(
-          "not-found",
-          "プロフィールが存在しません",
-          "profile"
-        );
-      }
-    });
+      return fetch.persons({ context: context, doc: doc, data: data });
+    } else {
+      await updateLogin(doc, timestamp);
+      await loginAuthenticated({ doc: doc });
+
+      return fetch.persons({ context: context, doc: doc });
+    }
+  } else {
+    throw new functions.https.HttpsError(
+      "not-found",
+      "プロフィールが存在しません",
+      "profile"
+    );
+  }
 };
 
 const updateLogin = async (doc, timestamp) => {
@@ -105,14 +101,9 @@ const updateAlgolia = async (context, timestamp) => {
 const fetchData = async () => {
   const data = {};
 
-  await db
+  const querySnapshot = await db
     .collection("freelanceDirect")
     .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        data[doc.id] = doc.data();
-      });
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -120,6 +111,10 @@ const fetchData = async () => {
         "firebase"
       );
     });
+
+  querySnapshot.forEach((doc) => {
+    data[doc.id] = doc.data();
+  });
 
   return data;
 };

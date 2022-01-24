@@ -17,6 +17,7 @@ import { plan } from "./data/plan";
 import { start } from "./data/start";
 import { price } from "./data/price";
 import { period } from "./data/period";
+import { trial } from "./data/trial";
 import { secret } from "./data/secret";
 import { ban } from "./data/ban";
 import { suspension } from "./data/suspension";
@@ -45,6 +46,7 @@ export const Terms = ({ create, setTerms }) => {
     start,
     price,
     period,
+    trial,
     secret,
     ban,
     suspension,

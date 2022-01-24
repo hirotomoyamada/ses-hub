@@ -4,8 +4,8 @@
 
 |     Project      | Hosting | Branch |                     prod                     |                      dev                       |
 | :--------------: | :-----: | :----: | :------------------------------------------: | :--------------------------------------------: |
-|      admin       | enable  |  main  | [URL](https://ses-hub-admin-2e26u5.web.app/) |   [URL](https://ses-hub-dev-ed356.web.app/)    |
-|     SES_HUB      | enable  |  main  |         [URL](https://ses-hub.app/)          |  [URL](https://ses-hub-admin-2c308.web.app/)   |
+|      admin       | enable  |  main  | [URL](https://ses-hub-admin-2e26u5.web.app/) |   [URL](https://ses-hub-admin-2c308.web.app/)    |
+|     SES_HUB      | enable  |  main  |         [URL](https://ses-hub.app/)          |  [URL](https://ses-hub-dev-ed356.web.app/)   |
 | Freelance Direct | enable  |  main  |     [URL](https://freelance-direct.app/)     | [URL](https://freelance-direct-2855f.web.app/) |
 
 ### ブランチ
@@ -105,6 +105,7 @@ firebase deploy --only hosting:sh
 - Algolia
 - Stripe
 - SendGrid
+- Twiiter
 
 - Fort Awesome
 - Material-UI

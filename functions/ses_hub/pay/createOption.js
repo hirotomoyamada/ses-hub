@@ -29,15 +29,10 @@ exports.createOption = functions
   });
 
 const fetchChildren = async (context) => {
-  const children = await db
+  const doc = await db
     .collection("companys")
     .doc(context.params.uid)
     .get()
-    .then(async (doc) => {
-      if (doc.exists && doc.data().payment?.children) {
-        return doc.data().payment.children;
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -46,7 +41,9 @@ const fetchChildren = async (context) => {
       );
     });
 
-  return children;
+  if (doc.exists && doc.data().payment?.children) {
+    return doc.data().payment.children;
+  }
 };
 
 const updateAlgolia = async (context, type, children) => {
@@ -86,48 +83,22 @@ const partialUpdateObject = async (uid, type) => {
 };
 
 const updateFirestore = async (context, type, children) => {
-  await set(context.params.uid, type);
+  await updateDoc(context.params.uid, type);
 
   if (children?.length) {
     for await (const uid of children) {
-      await set(uid, type);
+      await updateDoc(uid, type);
     }
   }
 
   return;
 };
 
-const set = async (uid, type) => {
-  await db
+const updateDoc = async (uid, type) => {
+  const doc = await db
     .collection("companys")
     .doc(uid)
     .get()
-    .then(async (doc) => {
-      if (doc.exists) {
-        const option = doc.data().payment?.option
-          ? doc.data().payment?.option
-          : {};
-        option[type] = true;
-
-        await doc.ref
-          .set(
-            {
-              payment: {
-                option: option,
-                load: false,
-              },
-            },
-            { merge: true }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              "プロフィールの更新に失敗しました",
-              "firebase"
-            );
-          });
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -135,6 +106,29 @@ const set = async (uid, type) => {
         "firebase"
       );
     });
+
+  if (doc.exists) {
+    const option = doc.data().payment?.option ? doc.data().payment?.option : {};
+    option[type] = true;
+
+    await doc.ref
+      .set(
+        {
+          payment: {
+            option: option,
+            load: false,
+          },
+        },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "プロフィールの更新に失敗しました",
+          "firebase"
+        );
+      });
+  }
 
   return;
 };

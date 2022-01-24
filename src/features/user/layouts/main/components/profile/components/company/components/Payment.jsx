@@ -18,13 +18,14 @@ export const Payment = ({ user }) => {
           : "リミテッド"}
       </div>
 
-      {user?.payment?.option?.freelanceDirect && (
-        <div
-          className={`${styles.profile_payment} ${styles.profile_payment_option}`}
-        >
-          フリーランスダイレクト
-        </div>
-      )}
+      {user?.payment?.status !== "canceled" &&
+        user?.payment?.option?.freelanceDirect && (
+          <div
+            className={`${styles.profile_payment} ${styles.profile_payment_option}`}
+          >
+            フリーランスダイレクト
+          </div>
+        )}
     </div>
   );
 };

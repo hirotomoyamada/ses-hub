@@ -56,15 +56,10 @@ exports.updatePlan = functions
   });
 
 const fetchChildren = async (context) => {
-  const children = await db
+  const doc = await db
     .collection("companys")
     .doc(context.params.uid)
     .get()
-    .then(async (doc) => {
-      if (doc.exists && doc.data().payment?.children) {
-        return doc.data().payment.children;
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -73,7 +68,9 @@ const fetchChildren = async (context) => {
       );
     });
 
-  return children;
+  if (doc.exists && doc.data().payment?.children) {
+    return doc.data().payment.children;
+  }
 };
 
 const deletePlan = async (context) => {
@@ -143,7 +140,7 @@ const updateFirestore = async (
   start,
   end
 ) => {
-  await set({
+  await updateDoc({
     uid: context.params.uid,
     status: status,
     cancel: cancel,
@@ -156,7 +153,7 @@ const updateFirestore = async (
 
   if (children?.length) {
     for await (const uid of children) {
-      await set({
+      await updateDoc({
         uid: uid,
         status: status,
         cancel: cancel,
@@ -173,7 +170,7 @@ const updateFirestore = async (
   return;
 };
 
-const set = async ({
+const updateDoc = async ({
   uid,
   status,
   cancel,
@@ -184,61 +181,10 @@ const set = async ({
   start,
   end,
 }) => {
-  await db
+  const doc = await db
     .collection("companys")
     .doc(uid)
     .get()
-    .then(async (doc) => {
-      await doc.ref
-        .set(
-          {
-            payment:
-              !parent || child
-                ? status === "canceled"
-                  ? {
-                      status: status,
-                      price: null,
-                      start: null,
-                      end: null,
-                      cancel: false,
-                      notice: !child ? true : false,
-                    }
-                  : {
-                      status: status,
-                      price: price,
-                      start: start,
-                      end: end,
-                      cancel: cancel,
-                    }
-                : status === "canceled"
-                ? {
-                    status: status,
-                    price: null,
-                    start: null,
-                    end: null,
-                    account: 0,
-                    cancel: false,
-                    notice: true,
-                  }
-                : {
-                    status: status,
-                    price: price,
-                    account: Number(account),
-                    start: start,
-                    end: end,
-                    cancel: cancel,
-                  },
-          },
-          { merge: true }
-        )
-        .catch((e) => {
-          throw new functions.https.HttpsError(
-            "data-loss",
-            "プロフィールの更新に失敗しました",
-            "firebase"
-          );
-        });
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -247,29 +193,77 @@ const set = async ({
       );
     });
 
+  if (doc.exists) {
+    await doc.ref
+      .set(
+        {
+          payment:
+            !parent || child
+              ? status === "canceled"
+                ? {
+                    status: status,
+                    price: null,
+                    start: null,
+                    end: null,
+                    cancel: false,
+                    notice: !child ? true : false,
+                  }
+                : {
+                    status: status,
+                    price: price,
+                    start: start,
+                    end: end,
+                    cancel: cancel,
+                  }
+              : status === "canceled"
+              ? {
+                  status: status,
+                  price: null,
+                  start: null,
+                  end: null,
+                  account: 0,
+                  cancel: false,
+                  notice: true,
+                }
+              : {
+                  status: status,
+                  price: price,
+                  account: Number(account),
+                  start: start,
+                  end: end,
+                  cancel: cancel,
+                },
+        },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "プロフィールの更新に失敗しました",
+          "firebase"
+        );
+      });
+  }
+
   return;
 };
 
 const checkDuplicate = async (context, remove, price) => {
-  const duplicate = await db
+  const subscriptions = await db
     .collection("customers")
     .doc(context.params.uid)
     .collection("subscriptions")
-    .get()
-    .then((subscriptions) => {
-      const docs = subscriptions.docs.length;
-      const doc = subscriptions.docs.filter(
-        (doc) =>
-          (doc.data().status === "active" ||
-            doc.data().status === "trialing") &&
-          doc.data().items[0].price.id !== price &&
-          doc.data().items[0].price.product.metadata.name === "plan"
-      ).length;
+    .get();
 
-      return docs > 1 && doc;
-    });
+  const docs = subscriptions?.docs?.length;
+  const doc = subscriptions?.docs?.filter(
+    (doc) =>
+      (doc.data().status === "active" || doc.data().status === "trialing") &&
+      doc.data().items[0].price.id !== price &&
+      doc.data().items[0].price.product.metadata.name === "plan"
+  ).length;
 
-  if (duplicate && remove) {
+  if (docs > 1 && doc && remove) {
     db.collection("customers")
       .doc(context.params.uid)
       .collection("subscriptions")
@@ -289,7 +283,7 @@ const checkDuplicate = async (context, remove, price) => {
           "firebase"
         );
       });
-  } else if (duplicate) {
+  } else if (docs > 1 && doc) {
     throw new functions.https.HttpsError(
       "cancelled",
       "他のプランが有効のため処理中止",

@@ -49,7 +49,7 @@ const App = () => {
             <Maintenance />
             <Menu user={user} />
 
-            {!user.uid ? (
+            {!user?.uid ? (
               <Switch>
                 <Route exact path="/" component={Promotion} />
                 <Route exact path="/login" component={Auth} />
@@ -72,6 +72,22 @@ const App = () => {
                     <Route component={NotFound} />
                   </>
                 )}
+              </Switch>
+            ) : user?.type !== "individual" &&
+              user?.payment?.status === "canceled" ? (
+              <Switch>
+                <Route exact path="/setting" component={Setting} />
+
+                <Route exact path="/terms" component={Terms} />
+                <Route exact path="/asct" component={Asct} />
+                <Route exact path="/howto" component={HowTo} />
+
+                <Route exact path="/plan" component={Pay} />
+                <Route exact path="/success" component={Success} />
+
+                <Redirect exact path="/:others" to="/plan" />
+
+                <Route component={NotFound} />
               </Switch>
             ) : (
               <Switch>

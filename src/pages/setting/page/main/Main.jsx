@@ -74,13 +74,15 @@ export const Main = ({
           特定商取引法に基づく表示
         </Link>
 
-        <button
-          type="button"
-          onClick={() => setRemove(true)}
-          className={styles.main_btn_delete}
-        >
-          アカウント削除
-        </button>
+        {user?.type !== "child" && (
+          <button
+            type="button"
+            onClick={() => setRemove(true)}
+            className={styles.main_btn_delete}
+          >
+            アカウント削除
+          </button>
+        )}
       </div>
 
       <div className={`${styles.main_col} ${styles.main_col_center}`}>

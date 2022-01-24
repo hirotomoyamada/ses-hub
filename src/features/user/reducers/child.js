@@ -12,6 +12,18 @@ export const createChild = (state, action) => {
   }
 };
 
+export const changeEmailChild = (state, action) => {
+  if (!action.payload.error) {
+    const selectUser = state.selectUser.find(
+      (user) => user.uid === action.payload.uid
+    );
+
+    if (selectUser) {
+      selectUser.profile.email = action.payload.email;
+    }
+  }
+};
+
 export const deleteChild = (state, action) => {
   if (!action.payload.error) {
     state.user.payment.children = state.user.payment.children.filter(

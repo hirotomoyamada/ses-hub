@@ -28,7 +28,12 @@ export const Parallel = () => {
             <option value={"なし"}>なし</option>
             <option value={"提案中"}>提案中</option>
           </select>
-          <span className={styles.item_error}>{errors.parallel?.message}</span>
+
+          {errors.parallel?.message && (
+            <span className={styles.item_error}>
+              {errors.parallel?.message}
+            </span>
+          )}
         </div>
       </div>
     </div>

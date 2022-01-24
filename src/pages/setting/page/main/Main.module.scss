@@ -7,7 +7,7 @@ $width: responsive-width(pc);
 
 .main {
   padding-top: 0;
-  
+
   & > :not(:last-child) {
     padding-top: 24px;
     border-top: 1px solid $bdr_clr;
@@ -38,6 +38,8 @@ $width: responsive-width(pc);
   }
 
   &_value {
+    transition: all 0.4s;
+    
     @media (max-width: responsive-width(sp)) {
       display: flex;
       flex-direction: column;
@@ -45,7 +47,13 @@ $width: responsive-width(pc);
     }
 
     &_id {
+      position: relative;
+      align-self: flex-start;
       color: $sub_clr;
+
+      &:hover {
+        color: $link_clr;
+      }
     }
 
     &_time {
@@ -53,6 +61,30 @@ $width: responsive-width(pc);
 
       @media (max-width: responsive-width(sp)) {
         font-size: 12px;
+      }
+    }
+
+    &_copy {
+      &:after {
+        content: "コピーしました";
+
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        display: block;
+        background: $link_clr;
+        color: $base_clr;
+        border-radius: 6px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 8px;
+        font-size: 12px;
+
+        @media (max-width: responsive-width(sp)) {
+          top: -29px;
+        }
       }
     }
   }

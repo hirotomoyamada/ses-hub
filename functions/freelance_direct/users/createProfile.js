@@ -66,30 +66,10 @@ const uploadFile = async (file, type, uid) => {
 };
 
 const createFirestore = async (context, data, file) => {
-  await db
+  const doc = await db
     .collection("persons")
     .doc(context.auth.uid)
     .get()
-    .then(async (doc) => {
-      !doc.exists &&
-        (await doc.ref
-          .set(
-            user.persons({
-              context: context,
-              data: data,
-              file: file,
-              create: true,
-              doc: true,
-            })
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              "プロフィールの作成に失敗しました",
-              "firebase"
-            );
-          }));
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -97,6 +77,26 @@ const createFirestore = async (context, data, file) => {
         "firebase"
       );
     });
+
+  if (doc.exists) {
+    await doc.ref
+      .set(
+        user.persons({
+          context: context,
+          data: data,
+          file: file,
+          create: true,
+          doc: true,
+        })
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "プロフィールの作成に失敗しました",
+          "firebase"
+        );
+      });
+  }
 };
 
 const createAlgolia = async (context, data) => {
