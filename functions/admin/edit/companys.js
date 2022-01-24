@@ -1,5 +1,4 @@
 exports.companys = ({ data, user }) => {
-  // Firestore
   if (!user) {
     const timestamp = Date.now();
 
@@ -24,7 +23,6 @@ exports.companys = ({ data, user }) => {
       updateAt: timestamp,
     };
   }
-  // algolia
   else {
     return {
       objectID: user.uid,
