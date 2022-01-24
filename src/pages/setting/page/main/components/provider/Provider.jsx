@@ -8,6 +8,12 @@ export const Provider = ({ user, setCreate, handleProvider, social }) => {
       <span className={root.main_tag}>メールログイン</span>
 
       <Btn user={user} provider="password" setCreate={setCreate} />
+
+      {user?.type === "child" && (
+        <span className={root.main_desc}>
+          このアカウントでは認証することはできません
+        </span>
+      )}
     </div>
   ) : (
     <div className={styles.provider}>
@@ -18,6 +24,12 @@ export const Provider = ({ user, setCreate, handleProvider, social }) => {
       <Btn user={user} provider="twitter" handleProvider={handleProvider} />
 
       <Btn user={user} provider="github" handleProvider={handleProvider} />
+
+      {user?.type === "child" && (
+        <span className={root.main_desc}>
+          このアカウントでは認証することはできません
+        </span>
+      )}
     </div>
   );
 };

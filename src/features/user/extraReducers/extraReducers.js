@@ -1,6 +1,7 @@
 import { login } from "../actions/login";
 import { fetchUser } from "../actions/fetchUser";
 import { createChild } from "../actions/createChild";
+import { changeEmailChild } from "../actions/changeEmailChild";
 import { deleteChild } from "../actions/deleteChild";
 
 import * as reducers from "../reducers/redurces";
@@ -18,6 +19,10 @@ export const extraReducers = (builder) => {
 
   builder.addCase(createChild.fulfilled, (state, action) =>
     reducers.createChild(state, action)
+  );
+
+  builder.addCase(changeEmailChild.fulfilled, (state, action) =>
+    reducers.changeEmailChild(state, action)
   );
 
   builder.addCase(deleteChild.fulfilled, (state, action) =>

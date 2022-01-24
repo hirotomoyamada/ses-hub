@@ -24,45 +24,24 @@ exports.fetchUser = functions
 const fetchAlgolia = async (data, demo) => {
   const index = algolia.initIndex("companys");
 
-  const user = await index
-    .getObject(data)
-    .then((hit) => {
-      return hit && fetch.companys({ hit: hit, demo: demo });
-    })
-    .catch((e) => {
-      throw new functions.https.HttpsError(
-        "not-found",
-        "プロフィールの取得に失敗しました",
-        "algolia"
-      );
-    });
+  const hit = await index.getObject(data).catch((e) => {
+    throw new functions.https.HttpsError(
+      "not-found",
+      "プロフィールの取得に失敗しました",
+      "algolia"
+    );
+  });
+
+  const user = hit && fetch.companys({ hit: hit, demo: demo });
 
   return user;
 };
 
 const fetchFirestore = async (data, user) => {
-  await db
+  const doc = await db
     .collection("companys")
     .doc(data)
     .get()
-    .then((doc) => {
-      if (doc.exists) {
-        if (
-          doc.data().payment.status === "canceled" ||
-          !doc.data().payment.option?.freelanceDirect
-        ) {
-          throw new functions.https.HttpsError(
-            "cancelled",
-            "オプション未加入のユーザーのため、処理中止",
-            "firebase"
-          );
-        } else {
-          user.icon = doc.data().icon;
-          user.cover = doc.data().cover;
-          user.type = doc.data().type;
-        }
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -70,6 +49,23 @@ const fetchFirestore = async (data, user) => {
         "firebase"
       );
     });
+
+  if (doc.exists) {
+    if (
+      doc.data().payment.status === "canceled" ||
+      !doc.data().payment.option?.freelanceDirect
+    ) {
+      throw new functions.https.HttpsError(
+        "cancelled",
+        "オプション未加入のユーザーのため、処理中止",
+        "firebase"
+      );
+    } else {
+      user.icon = doc.data().icon;
+      user.cover = doc.data().cover;
+      user.type = doc.data().type;
+    }
+  }
 };
 
 const checkDemo = (context) => {

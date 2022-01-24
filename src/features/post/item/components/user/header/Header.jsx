@@ -32,9 +32,13 @@ export const Header = ({ post }) => {
           )}
         </div>
 
-        <h2 className={styles.header_tag}>
-          {post?.profile?.name ? post?.profile?.name : post?.profile?.position}
-        </h2>
+        {(post?.profile?.name || post?.profile?.position) && (
+          <h2 className={styles.header_tag}>
+            {post?.profile?.name
+              ? post?.profile?.name
+              : post?.profile?.position}
+          </h2>
+        )}
       </div>
     </div>
   );

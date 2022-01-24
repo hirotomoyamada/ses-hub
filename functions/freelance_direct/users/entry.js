@@ -17,33 +17,10 @@ exports.addEntry = functions
 
     const timestamp = Date.now();
 
-    await db
+    const doc = await db
       .collection("persons")
       .doc(context.auth.uid)
       .get()
-      .then(async (doc) => {
-        if (doc.exists) {
-          const entries = doc.data().entries;
-
-          await doc.ref
-            .set(
-              {
-                entries: entries
-                  ? entries.indexOf(data) < 0 && [data, ...entries]
-                  : [data],
-                updateAt: timestamp,
-              },
-              { merge: true }
-            )
-            .catch((e) => {
-              throw new functions.https.HttpsError(
-                "data-loss",
-                "エントリーの追加に失敗しました",
-                "firebase"
-              );
-            });
-        }
-      })
       .catch((e) => {
         throw new functions.https.HttpsError(
           "not-found",
@@ -51,6 +28,28 @@ exports.addEntry = functions
           "firebase"
         );
       });
+
+    if (doc.exists) {
+      const entries = doc.data().entries;
+
+      await doc.ref
+        .set(
+          {
+            entries: entries
+              ? entries.indexOf(data) < 0 && [data, ...entries]
+              : [data],
+            updateAt: timestamp,
+          },
+          { merge: true }
+        )
+        .catch((e) => {
+          throw new functions.https.HttpsError(
+            "data-loss",
+            "エントリーの追加に失敗しました",
+            "firebase"
+          );
+        });
+    }
 
     return;
   });

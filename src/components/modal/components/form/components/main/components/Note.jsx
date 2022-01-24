@@ -27,7 +27,10 @@ export const Note = () => {
             },
           })}
         ></textarea>
-        <span className={styles.item_error}>{errors.note?.message}</span>
+
+        {errors.note?.message && (
+          <span className={styles.item_error}>{errors.note?.message}</span>
+        )}
       </div>
     </div>
   );

@@ -49,6 +49,7 @@ export const editPost = (state, action) => {
       post.remote = action.payload.post.remote;
       post.distribution = action.payload.post.distribution;
       post.span = action.payload.post.span;
+      post.approval = action.payload.post.approval;
       post.note = action.payload.post.note;
       post.status = action.payload.post.status;
       post.memo = action.payload.post.memo;
@@ -97,6 +98,7 @@ export const editPost = (state, action) => {
     post.remote = action.payload.post.remote;
     post.distribution = action.payload.post.distribution;
     post.span = action.payload.post.span;
+    post.approval = action.payload.post.approval;
     post.note = action.payload.post.note;
     post.status = action.payload.post.status;
     post.memo = action.payload.post.memo;

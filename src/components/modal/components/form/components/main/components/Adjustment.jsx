@@ -28,7 +28,11 @@ export const Adjustment = () => {
           <option value={"140h 〜 200h"}>140h&nbsp;〜&nbsp;200h</option>
           <option value={"その他"}>その他</option>
         </select>
-        <span className={styles.item_error}>{errors.adjustment?.message}</span>
+        {errors.adjustment?.message && (
+          <span className={styles.item_error}>
+            {errors.adjustment?.message}
+          </span>
+        )}
       </div>
     </div>
   );

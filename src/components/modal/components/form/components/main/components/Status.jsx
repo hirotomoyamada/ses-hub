@@ -31,7 +31,10 @@ export const Status = () => {
             <option value="フォロー中">フォロー中</option>
             <option value="成約">成約</option>
           </select>
-          <span className={styles.item_error}>{errors.status?.message}</span>
+
+          {errors.status?.message && (
+            <span className={styles.item_error}>{errors.status?.message}</span>
+          )}
         </div>
       </div>
     </div>

@@ -75,6 +75,10 @@ $width: responsive-width(pc);
       font-size: 14px;
     }
 
+    &_none {
+      grid-template-columns: 1fr;
+    }
+
     &_cancel {
       color: $acnt_clr;
       line-height: 72px;

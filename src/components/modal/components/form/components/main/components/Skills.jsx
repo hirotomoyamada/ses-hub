@@ -25,7 +25,7 @@ export const Skills = () => {
   return (
     <div className={root.main_col}>
       {skillsFields.map((field, index) => (
-        <div key={field.id} className={styles.item}>
+        <div key={field.id} className={`${styles.item} ${styles.item_field}`}>
           <input
             placeholder="例："
             defaultValue={`skills[${index}].skill`}
@@ -74,9 +74,11 @@ export const Skills = () => {
             )}
           </div>
 
-          <span className={styles.item_error}>
-            {errors.skills?.[index]?.skill.message}
-          </span>
+          {errors.skills?.[index]?.skill.message && (
+            <span className={styles.item_error}>
+              {errors.skills?.[index]?.skill.message}
+            </span>
+          )}
         </div>
       ))}
     </div>

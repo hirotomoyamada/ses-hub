@@ -18,29 +18,25 @@ exports.updateHome = functions
 
     const timestamp = Date.now();
 
-    await db
-      .collection("companys")
-      .doc(context.auth.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          doc.ref
-            .set(
-              {
-                home: data,
-                updateAt: timestamp,
-              },
-              { merge: true }
-            )
-            .catch((e) => {
-              throw new functions.https.HttpsError(
-                "data-loss",
-                "ホームの追加に失敗しました",
-                "firebase"
-              );
-            });
-        }
-      });
+    const doc = await db.collection("companys").doc(context.auth.uid).get();
+
+    if (doc.exists) {
+      await doc.ref
+        .set(
+          {
+            home: data,
+            updateAt: timestamp,
+          },
+          { merge: true }
+        )
+        .catch((e) => {
+          throw new functions.https.HttpsError(
+            "data-loss",
+            "ホームの追加に失敗しました",
+            "firebase"
+          );
+        });
+    }
 
     return;
   });

@@ -1,7 +1,9 @@
 import styles from "./Account.module.scss";
 
 import Loader from "react-loader-spinner";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
@@ -15,6 +17,14 @@ export const Account = ({ user, current, load }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const [email, setEmail] = useState(true);
+  const [copy, setCopy] = useState(false);
+
+  const handleCopy = () => {
+    setCopy(true);
+    setTimeout(() => setCopy(false), 2000);
+  };
+
   const handlePlan = () => {
     history.push("/plan");
   };
@@ -23,7 +33,7 @@ export const Account = ({ user, current, load }) => {
     dispatch(
       rootSlice.handleModal({
         type: "account",
-        meta: { type: "create", email: user?.profile?.email },
+        meta: { type: "create" },
       })
     );
   };
@@ -33,6 +43,24 @@ export const Account = ({ user, current, load }) => {
       rootSlice.handleModal({
         type: "account",
         meta: { type: "delete", email: user?.profile?.email },
+      })
+    );
+  };
+
+  const handleProfile = () => {
+    dispatch(
+      rootSlice.handleModal({
+        type: "profile",
+        meta: { type: "selectUser", selectUser: user },
+      })
+    );
+  };
+
+  const handleEmail = () => {
+    dispatch(
+      rootSlice.handleModal({
+        type: "account",
+        meta: { type: "email", uid: user?.uid, email: user?.profile?.email },
       })
     );
   };
@@ -53,9 +81,29 @@ export const Account = ({ user, current, load }) => {
       )}
 
       <div className={styles.account_container}>
-        <span className={`${!user?.profile?.email && styles.account_txt_none}`}>
-          {user?.profile?.email ? user?.profile?.email : "作成されていません"}
-        </span>
+        <CopyToClipboard
+          text={email ? user?.profile?.email : user?.uid}
+          onCopy={handleCopy}
+        >
+          <button
+            type="button"
+            className={`
+              ${styles.account_txt_email} 
+              ${!email && styles.account_txt_uid} 
+              ${copy && styles.account_txt_copy} 
+              ${
+                (!user?.profile?.email || current) && styles.account_txt_disable
+              }
+              ${!user?.profile?.email && styles.account_txt_disable_none}
+            `}
+          >
+            {user?.profile?.email
+              ? email
+                ? user?.profile?.email
+                : user?.uid
+              : "作成されていません"}
+          </button>
+        </CopyToClipboard>
 
         {current && <Btn type="plan" txt="プランの変更" func={handlePlan} />}
 
@@ -66,7 +114,30 @@ export const Account = ({ user, current, load }) => {
             )}
 
             {user?.profile?.email && (
-              <Btn type="reset" txt="パスワード再設定" func={handleReset} />
+              <Btn
+                type="link"
+                txt="ユーザーページ"
+                src={`/companys/${user?.uid}`}
+              />
+            )}
+
+            {user?.profile?.email && (
+              <Btn
+                type="setting"
+                txt="設定"
+                command={[
+                  email ? "ユーザーID確認" : "メールアドレス確認",
+                  "プロフィール変更",
+                  "メールアドレス変更",
+                  "パスワード再設定",
+                ]}
+                func={[
+                  () => setEmail(!email),
+                  handleProfile,
+                  handleEmail,
+                  handleReset,
+                ]}
+              />
             )}
 
             {user?.profile?.email && (

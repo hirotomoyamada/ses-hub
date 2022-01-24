@@ -35,8 +35,8 @@ export const Pay = () => {
   });
 
   useEffect(() => {
-    dispatch(fetchProducts(""));
-  }, [dispatch]);
+    user?.type !== "child" && dispatch(fetchProducts(""));
+  }, [dispatch, user]);
 
   useEffect(() => {
     Object.keys(products)?.forEach((product) => {
@@ -90,6 +90,13 @@ export const Pay = () => {
               handleCheckout={handleCheckout}
               demo={demo}
             />
+          </div>
+        </>
+      ) : user?.type === "child" ? (
+        <>
+          <Header back goSetting />
+          <div className={`${styles.pay_inner} ${styles.pay_inner_disable}`}>
+            <span>プラン未加入のため、アプリをご利用いただけません</span>
           </div>
         </>
       ) : (

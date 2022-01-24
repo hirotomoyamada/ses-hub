@@ -84,21 +84,37 @@ export const Header = ({
     </div>
   ) : (
     <div
-      className={`${styles.header} ${styles.header_back} ${
-        !ttl && styles.header_none
-      } ${goSetting && styles.header_back_setting}`}
+      className={`${styles.header} 
+      ${styles.header_back} 
+      ${
+        setting &&
+        user?.payment?.status === "canceled" &&
+        user?.type !== "individual" &&
+        styles.header_back_none
+      } 
+      ${!ttl && styles.header_none} ${goSetting && styles.header_back_setting}`}
     >
-      <button
-        type="button"
-        className={styles.header_back_cancel}
-        onClick={
-          !email && !password && !create && !remove && !reset
-            ? handleBack
-            : handleCancel
-        }
-      >
-        {!goSetting || reset ? "もどる" : "アカウント情報 へもどる"}
-      </button>
+      {(!setting ||
+        email ||
+        password ||
+        create ||
+        remove ||
+        reset ||
+        user?.payment?.status !== "canceled" ||
+        user?.type === "individual") && (
+        <button
+          type="button"
+          className={styles.header_back_cancel}
+          onClick={
+            !email && !password && !create && !remove && !reset
+              ? handleBack
+              : handleCancel
+          }
+        >
+          {!goSetting || reset ? "もどる" : "アカウント情報 へもどる"}
+        </button>
+      )}
+
       <span className={styles.header_back_ttl}>
         {!email && !password && !create && !remove && !reset ? ttl : ""}
       </span>

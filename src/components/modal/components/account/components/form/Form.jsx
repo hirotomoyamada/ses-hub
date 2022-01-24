@@ -2,7 +2,7 @@ import styles from "./Form.module.scss";
 
 import { useFormContext } from "react-hook-form";
 
-export const Form = ({ create }) => {
+export const Form = ({ type }) => {
   const {
     register,
     watch,
@@ -17,16 +17,28 @@ export const Form = ({ create }) => {
     <div className={styles.form}>
       <div className={styles.form_head}>
         <p className={styles.form_head_ttl}>
-          {create ? "新しいアカウントの作成" : "アカウントを削除"}
+          {type === "create"
+            ? "新しいアカウントの作成"
+            : type === "email"
+            ? "メールアドレスの変更"
+            : "アカウントを削除"}
         </p>
-        {!create && (
+        {type === "email" && (
           <p className={styles.form_head_desc}>
-            削除するには、このアカウントのパスワードを入力してください
+            変更するには、新しいメールアドレスと
+            <br />
+            変更したいアカウントのパスワードを入力してください
+          </p>
+        )}
+
+        {type === "delete" && (
+          <p className={styles.form_head_desc}>
+            削除するには、削除したいアカウントのパスワードを入力してください
             <br />
             <br />
-            アカウントを削除すると、これまでのデータはすべて削除され
+            アカウントを削除すると、これまでのデータ(投稿やプロフィールなど)は
             <br />
-            アカウント同士のリンクも解除されます
+            すべて削除され、アカウント同士のリンクも解除されます
             <br />
             <br />
             また、復元することもできませんのでご注意ください
@@ -35,14 +47,16 @@ export const Form = ({ create }) => {
         )}
       </div>
 
-      {create && (
+      {type !== "delete" && (
         <div>
           <input
             type="text"
             className={`${styles.form_input} ${
               errors.email && styles.form_input_error
             }`}
-            placeholder="メールアドレス"
+            placeholder={
+              type === "create" ? "メールアドレス" : "新しいメールアドレス"
+            }
             {...register("email", {
               required: {
                 value: true,
@@ -69,7 +83,7 @@ export const Form = ({ create }) => {
             errors.verifiedPassword && styles.form_input_error
           }`}
           placeholder="パスワード"
-          {...register(create ? "verifiedPassword" : "password", {
+          {...register(type === "create" ? "verifiedPassword" : "password", {
             required: {
               value: true,
               message: "パスワードを入力してください",
@@ -81,17 +95,17 @@ export const Form = ({ create }) => {
           })}
         />
 
-        {((create && errors.verifiedPassword?.message) ||
-          (!create && errors.password?.message)) && (
+        {((type === "create" && errors.verifiedPassword?.message) ||
+          (type === "delete" && errors.password?.message)) && (
           <span className={styles.form_error}>
-            {create
+            {type === "create"
               ? errors.verifiedPassword?.message
               : errors.password?.message}
           </span>
         )}
       </div>
 
-      {create && (
+      {type === "create" && (
         <div>
           <input
             type="password"
@@ -128,15 +142,22 @@ export const Form = ({ create }) => {
 
       <button
         type="submit"
-        className={`${styles.form_btn} ${!create && styles.form_btn_delete} ${
-          ((create && (!email || !password || !verifiedPassword)) ||
-            (!create && !password)) &&
+        className={`${styles.form_btn} ${
+          type === "delete" && styles.form_btn_delete
+        } ${
+          ((type === "create" && (!email || !password || !verifiedPassword)) ||
+            (type === "email" && (!email || !password)) ||
+            (type === "delete" && !password)) &&
           styles.form_btn_disable
         }`}
       >
-        {create
+        {type === "create"
           ? email && password && verifiedPassword
             ? "作成する"
+            : "メールアドレスとパスワードを入力してください"
+          : type === "email"
+          ? email && password
+            ? "変更する"
             : "メールアドレスとパスワードを入力してください"
           : password
           ? "アカウントを削除"

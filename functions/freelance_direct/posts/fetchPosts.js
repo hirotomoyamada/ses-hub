@@ -33,7 +33,7 @@ const fetchAlgolia = async (data, status, demo) => {
     currentPage: data.page ? data.page : 0,
   };
 
-  const posts = await index
+  const result = await index
     .search(
       data.value,
       data.index === "matters"
@@ -46,18 +46,6 @@ const fetchAlgolia = async (data, status, demo) => {
             page: hit.currentPage,
           }
     )
-    .then((result) => {
-      hit.posts = result.nbHits;
-      hit.pages = result.nbPages;
-      return result.hits.map((hit) =>
-        data.index === "matters" && status
-          ? fetch.matters({ hit: hit })
-          : data.index === "companys" &&
-            hit.person &&
-            status &&
-            fetch.companys({ hit: hit, demo: demo })
-      );
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -66,56 +54,68 @@ const fetchAlgolia = async (data, status, demo) => {
       );
     });
 
+  hit.posts = result?.nbHits;
+  hit.pages = result?.nbPages;
+
+  const posts = result?.hits?.map((hit) =>
+    data.index === "matters" && status
+      ? fetch.matters({ hit: hit })
+      : data.index === "companys" &&
+        hit.person &&
+        status &&
+        fetch.companys({ hit: hit, demo: demo })
+  );
+
   return { posts, hit };
 };
 
 const fetchFirestore = async (data, posts) => {
   for (let i = 0; i < posts.length; i++) {
-    posts[i] &&
-      (await db
+    if (posts[i]) {
+      const doc = await db
         .collection("companys")
         .doc(posts[i].uid)
         .get()
-        .then((doc) => {
-          if (doc.exists) {
-            if (
-              data.index === "matters" &&
-              (doc.data().payment.status === "canceled" ||
-                !doc.data().payment.option?.freelanceDirect)
-            ) {
-              posts[i].costs.display = "private";
-              posts[i].costs.type = "応談";
-              posts[i].costs.min = 0;
-              posts[i].costs.max = 0;
-            }
-
-            if (data.index === "companys") {
-              if (
-                doc.data().payment.status === "canceled" ||
-                !doc.data().payment.option?.freelanceDirect
-              ) {
-                posts[i].icon = "none";
-                posts[i].status = "none";
-                posts[i].type = "individual";
-                posts[i].profile = {
-                  name: null,
-                  person: "存在しないユーザー",
-                  body: null,
-                };
-              } else {
-                posts[i].icon = doc.data().icon;
-                posts[i].type = doc.data().type;
-              }
-            }
-          }
-        })
         .catch((e) => {
           throw new functions.https.HttpsError(
             "not-found",
             "ユーザーの取得に失敗しました",
             "firebase"
           );
-        }));
+        });
+
+      if (doc.exists) {
+        if (
+          data.index === "matters" &&
+          (doc.data().payment.status === "canceled" ||
+            !doc.data().payment.option?.freelanceDirect)
+        ) {
+          posts[i].costs.display = "private";
+          posts[i].costs.type = "応談";
+          posts[i].costs.min = 0;
+          posts[i].costs.max = 0;
+        }
+
+        if (data.index === "companys") {
+          if (
+            doc.data().payment.status === "canceled" ||
+            !doc.data().payment.option?.freelanceDirect
+          ) {
+            posts[i].icon = "none";
+            posts[i].status = "none";
+            posts[i].type = "individual";
+            posts[i].profile = {
+              name: null,
+              person: "存在しないユーザー",
+              body: null,
+            };
+          } else {
+            posts[i].icon = doc.data().icon;
+            posts[i].type = doc.data().type;
+          }
+        }
+      }
+    }
   }
 
   return;

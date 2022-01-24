@@ -87,9 +87,16 @@ export const Plan = ({
             <span>プランの上限より多いため購入することができません。</span>
           </p>
         )}
+        {type === "parent" &&
+          (priceId === price?.id || user?.payment?.price === price?.id) && (
+            <span>
+              ※&nbsp;{price?.account}アカウント&nbsp;までご利用いただけます
+            </span>
+          )}
       </div>
 
-      {user?.payment?.children?.length + 1 > price?.account ? (
+      {type === "parent" &&
+      user?.payment?.children?.length + 1 > price?.account ? (
         <div className={`${styles.item_btn} ${styles.item_btn_account}`}>
           管理
         </div>

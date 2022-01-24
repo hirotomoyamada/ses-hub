@@ -10,6 +10,7 @@ export const load = (builder) => {
       if (action.type !== "post/createPost/pending") {
         if (
           action.type !== "user/createChild/pending" &&
+          action.type !== "user/changeEmailChild/pending" &&
           action.type !== "user/deleteChild/pending"
         ) {
           state.load.list = true;
@@ -23,7 +24,12 @@ export const load = (builder) => {
   builder.addMatcher(
     (action) => action.type.endsWith("/rejected"),
     (state) => {
-      state.notFound = true;
+      if (
+        state.verified.payment !== "canceled" ||
+        (state.page !== "post" && state.page !== "user")
+      ) {
+        state.notFound = true;
+      }
 
       state.load.fetch = false;
       state.load.list = false;
@@ -39,8 +45,6 @@ export const load = (builder) => {
       state.load.fetch = false;
       state.load.list = false;
       state.load.create = false;
-
-      
     }
   );
 };

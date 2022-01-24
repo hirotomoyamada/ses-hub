@@ -27,7 +27,10 @@ export const Sex = () => {
           <option value={"女性"}>女性</option>
           <option value={"その他"}>その他</option>
         </select>
-        <span className={styles.item_error}>{errors.sex?.message}</span>
+
+        {errors.sex?.message && (
+          <span className={styles.item_error}>{errors.sex?.message}</span>
+        )}
       </div>
     </div>
   );

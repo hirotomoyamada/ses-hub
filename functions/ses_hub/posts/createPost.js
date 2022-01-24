@@ -47,31 +47,10 @@ const createAlgolia = async (context, data) => {
 };
 
 const createFirestore = async (context, data, object) => {
-  await db
+  const doc = await db
     .collection("companys")
     .doc(context.auth.uid)
     .get()
-    .then((doc) => {
-      if (doc.exists) {
-        const posts = doc.data().posts?.[data.index];
-        doc.ref
-          .set(
-            posts
-              ? {
-                  posts: { [data.index]: [object.objectID, ...posts] },
-                }
-              : { posts: { [data.index]: [object.objectID] } },
-            { merge: true }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "unavailable",
-              "プロフィールの更新に失敗しました",
-              "disable"
-            );
-          });
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -79,4 +58,24 @@ const createFirestore = async (context, data, object) => {
         "profile"
       );
     });
+
+  if (doc.exists) {
+    const posts = doc.data().posts?.[data.index];
+    doc.ref
+      .set(
+        posts
+          ? {
+              posts: { [data.index]: [object.objectID, ...posts] },
+            }
+          : { posts: { [data.index]: [object.objectID] } },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "unavailable",
+          "プロフィールの更新に失敗しました",
+          "disable"
+        );
+      });
+  }
 };

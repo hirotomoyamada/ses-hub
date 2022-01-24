@@ -42,7 +42,9 @@ export const Age = () => {
       <span className={root.main_tag}>年齢</span>
       <div className={`${styles.item} ${styles.item_select}`}>
         <Option />
-        <span className={styles.item_error}>{errors.age?.message}</span>
+        {errors.age?.message && (
+          <span className={styles.item_error}>{errors.age?.message}</span>
+        )}
       </div>
     </div>
   );

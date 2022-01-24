@@ -31,52 +31,10 @@ exports.removeOutput = functions
 const updateFirestore = async ({ context, data, add }) => {
   const timestamp = Date.now();
 
-  await db
+  const doc = await db
     .collection("companys")
     .doc(context.auth.uid)
     .get()
-    .then(async (doc) => {
-      if (doc.exists) {
-        const outputs = add
-          ? doc.data().outputs?.[data.index]
-          : !data.objectIDs
-          ? doc
-              .data()
-              .outputs[data.index].filter(
-                (objectID) => objectID !== data.objectID
-              )
-          : doc
-              .data()
-              .outputs[data.index].filter(
-                (objectID) => data.objectIDs.indexOf(objectID) === -1
-              );
-
-        await doc.ref
-          .set(
-            {
-              outputs: {
-                [data.index]: add
-                  ? outputs
-                    ? outputs.indexOf(data.objectID) < 0 && [
-                        data.objectID,
-                        ...outputs,
-                      ]
-                    : [data.objectID]
-                  : [...outputs],
-              },
-              updateAt: timestamp,
-            },
-            { merge: true }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              add ? "出力の追加に失敗しました" : "出力の削除に失敗しました",
-              "firebase"
-            );
-          });
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -84,6 +42,45 @@ const updateFirestore = async ({ context, data, add }) => {
         "firebase"
       );
     });
+
+  if (doc.exists) {
+    const outputs = add
+      ? doc.data().outputs?.[data.index]
+      : !data.objectIDs
+      ? doc
+          .data()
+          .outputs[data.index].filter((objectID) => objectID !== data.objectID)
+      : doc
+          .data()
+          .outputs[data.index].filter(
+            (objectID) => data.objectIDs.indexOf(objectID) === -1
+          );
+
+    await doc.ref
+      .set(
+        {
+          outputs: {
+            [data.index]: add
+              ? outputs
+                ? outputs.indexOf(data.objectID) < 0 && [
+                    data.objectID,
+                    ...outputs,
+                  ]
+                : [data.objectID]
+              : [...outputs],
+          },
+          updateAt: timestamp,
+        },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          add ? "出力の追加に失敗しました" : "出力の削除に失敗しました",
+          "firebase"
+        );
+      });
+  }
 
   return;
 };

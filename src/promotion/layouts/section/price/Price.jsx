@@ -16,10 +16,10 @@ export const Price = () => {
   };
 
   const corporate = {
-    five: { n: "5", p: Math.round(45000 * tax) },
-    ten: { n: "10", p: Math.round(90000 * tax) },
-    fifteen: { n: "15", p: Math.round(135000 * tax) },
-    twenty: { n: "20", p: Math.round(180000 * tax) },
+    five: { n: "5", p: Math.round(75000 * tax) },
+    ten: { n: "10", p: Math.round(150000 * tax) },
+    fifteen: { n: "15", p: Math.round(225000 * tax) },
+    twenty: { n: "20", p: Math.round(300000 * tax) },
   };
 
   const totalPrice = (i, n) => {

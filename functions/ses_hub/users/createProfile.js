@@ -25,30 +25,10 @@ const fetchStripe = async (context) => {
 };
 
 const createFirestore = async (context, data, customer) => {
-  await db
+  const doc = await db
     .collection("companys")
     .doc(context.auth.uid)
     .get()
-    .then(async (doc) => {
-      !doc.exists &&
-        (await doc.ref
-          .set(
-            user.companys({
-              context: context,
-              data: data,
-              customer: customer,
-              create: true,
-              doc: true,
-            })
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              "プロフィールの作成に失敗しました",
-              "firebase"
-            );
-          }));
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -56,6 +36,25 @@ const createFirestore = async (context, data, customer) => {
         "firebase"
       );
     });
+
+  !doc.exists &&
+    (await doc.ref
+      .set(
+        user.companys({
+          context: context,
+          data: data,
+          customer: customer,
+          create: true,
+          doc: true,
+        })
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "プロフィールの作成に失敗しました",
+          "firebase"
+        );
+      }));
 };
 
 const createAlgolia = async (context, data) => {

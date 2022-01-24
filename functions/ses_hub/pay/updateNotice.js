@@ -8,31 +8,11 @@ exports.updateNotice = functions
   .runWith(runtime)
   .pubsub.schedule("0 0 * * *")
   .onRun(async () => {
-    await db
+    const querySnapshot = await db
       .collection("companys")
       .where("type", "!=", "child")
       .where("payment.status", "==", "canceled")
       .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          doc.ref
-            .set(
-              {
-                payment: {
-                  notice: true,
-                },
-              },
-              { merge: true }
-            )
-            .catch((e) => {
-              throw new functions.https.HttpsError(
-                "data-loss",
-                "プロフィールの更新に失敗しました",
-                "firebase"
-              );
-            });
-        });
-      })
       .catch((e) => {
         throw new functions.https.HttpsError(
           "not-found",
@@ -40,6 +20,25 @@ exports.updateNotice = functions
           "firebase"
         );
       });
+
+    querySnapshot?.forEach(async (doc) => {
+      await doc.ref
+        .set(
+          {
+            payment: {
+              notice: true,
+            },
+          },
+          { merge: true }
+        )
+        .catch((e) => {
+          throw new functions.https.HttpsError(
+            "data-loss",
+            "プロフィールの更新に失敗しました",
+            "firebase"
+          );
+        });
+    });
 
     return;
   });

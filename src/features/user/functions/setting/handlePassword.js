@@ -6,18 +6,19 @@ import * as rootSlice from "../../../root/rootSlice";
 export const handlePassword = async ({
   dispatch,
   methods,
+  user,
   setPassword,
   setNext,
   data,
   demo,
 }) => {
-  const user = auth.currentUser;
+  const currentUser = auth.currentUser;
   const credential = firebase.auth.EmailAuthProvider.credential(
-    user.email,
+    currentUser.email,
     data.currentPassword
   );
   if (!data.newPassword) {
-    await user
+    await currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
         setNext(true);
@@ -35,10 +36,19 @@ export const handlePassword = async ({
   }
 
   if (data.newPassword && !demo) {
-    await user
+    if (user?.type === "child") {
+      throw new dispatch(
+        rootSlice.handleAnnounce({
+          type: "error",
+          text: "このアカウントでは変更できません",
+        })
+      );
+    }
+
+    await currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
-        user
+        currentUser
           .updatePassword(data.newPassword)
           .then(() => {
             setPassword(false);

@@ -26,6 +26,7 @@ exports.disableUser = require("./users/disableUser").disableUser;
 exports.declineUser = require("./users/declineUser").declineUser;
 exports.returnUser = require("./users/returnUser").returnUser;
 exports.deleteUser = require("./users/deleteUser").deleteUser;
+exports.verificationUser = require("./users/verificationUser").verificationUser;
 
 exports.createProfile = require("./users/createProfile").createProfile;
 exports.createChild = require("./users/createChild").createChild;

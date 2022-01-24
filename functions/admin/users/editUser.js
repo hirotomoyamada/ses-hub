@@ -9,46 +9,33 @@ const userAuthenticated =
 
 const edit = require("../edit/edit");
 
-/**********************************
- * 営業・エンジニア を編集
- **********************************/
-
 exports.editUser = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    // 有効なアカウントかどうかを判定
     await userAuthenticated(context);
 
-    // indexに応じてオブジェクトを整形
-    const user =
-      data.index === "companys"
-        ? edit.companys({ data: data })
-        : data.index === "persons" && edit.persons({ data: data });
+    await editFirestore(data);
+    await editAlgolia(data);
 
-    // Firestore 上書き保存
-    await updateFirestore(data, user);
-
-    // Algolia 上書き保存
-    await updateAlgolia(data, user);
+    return;
   });
 
-/**********************************
- * Algolia 上書き保存
- **********************************/
-
-const updateAlgolia = async (data, user) => {
+const editAlgolia = async (data) => {
   const index = algolia.initIndex(data.index);
+
+  const user =
+    data.index === "companys"
+      ? edit.companys({ data: data })
+      : data.index === "persons" && edit.persons({ data: data });
 
   await index
     .partialUpdateObject(
-      // indexに応じてオブジェクトを整形
       data.index === "companys"
         ? edit.companys({ user: user })
         : data.index === "persons" && edit.persons({ user: user }),
-      // オブジェクトがなければ処理中止
       {
-        createIfNotExists: false,
+        createIfNotExists: true,
       }
     )
     .catch((e) => {
@@ -58,53 +45,20 @@ const updateAlgolia = async (data, user) => {
         "algolia"
       );
     });
+
+  return;
 };
 
-/**********************************
- * Firestore 上書き保存
- **********************************/
+const editFirestore = async (data) => {
+  const user =
+    data.index === "companys"
+      ? edit.companys({ data: data })
+      : data.index === "persons" && edit.persons({ data: data });
 
-const updateFirestore = async (data, user) => {
-  // ドキュメントを取得
-  await db
+  const doc = await db
     .collection(data.index)
     .doc(data.user.uid)
     .get()
-    .then(async (doc) => {
-      // ドキュメントがあるかどうか判定
-      doc.exists &&
-        // ドキュメントに上書き保存
-        (await doc.ref
-          .set(
-            // 営業であれば
-            data.index === "companys"
-              ? {
-                  type: user.type,
-                  icon: user.icon,
-                  cover: user.cover,
-                  status: user.status,
-                  profile: user.profile,
-                  updateAt: user.updateAt,
-                }
-              : // エンジニアであれば
-                {
-                  icon: user.icon,
-                  cover: user.cover,
-                  status: user.status,
-                  profile: user.profile,
-                  updateAt: user.updateAt,
-                },
-            // 上書きを許可するかどうか
-            { merge: true }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              "ユーザーの編集に失敗しました",
-              "firebase"
-            );
-          }));
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -112,4 +66,35 @@ const updateFirestore = async (data, user) => {
         "firebase"
       );
     });
+
+  doc.exists &&
+    (await doc.ref
+      .set(
+        data.index === "companys"
+          ? {
+              type: user.type,
+              icon: user.icon,
+              cover: user.cover,
+              status: user.status,
+              profile: user.profile,
+              updateAt: user.updateAt,
+            }
+          : {
+              icon: user.icon,
+              cover: user.cover,
+              status: user.status,
+              profile: user.profile,
+              updateAt: user.updateAt,
+            },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "ユーザーの編集に失敗しました",
+          "firebase"
+        );
+      }));
+
+  return;
 };

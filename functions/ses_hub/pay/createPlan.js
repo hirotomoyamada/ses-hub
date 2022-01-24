@@ -46,15 +46,10 @@ exports.createPlan = functions
   });
 
 const fetchChildren = async (context) => {
-  const children = await db
+  const doc = await db
     .collection("companys")
     .doc(context.params.uid)
     .get()
-    .then(async (doc) => {
-      if (doc.exists && doc.data().payment?.children) {
-        return doc.data().payment.children;
-      }
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -63,7 +58,9 @@ const fetchChildren = async (context) => {
       );
     });
 
-  return children;
+  if (doc.exists && doc.data().payment?.children) {
+    return doc.data().payment.children;
+  }
 };
 
 const updateAlgolia = async (context, children) => {
@@ -114,7 +111,7 @@ const updateFirestore = async (
   start,
   end
 ) => {
-  await set({
+  await updateDoc({
     uid: context.params.uid,
     status: status,
     price: price,
@@ -126,7 +123,7 @@ const updateFirestore = async (
 
   if (children?.length) {
     for await (const uid of children) {
-      await set({
+      await updateDoc({
         uid: uid,
         status: status,
         price: price,
@@ -142,7 +139,7 @@ const updateFirestore = async (
   return;
 };
 
-const set = async ({
+const updateDoc = async ({
   uid,
   status,
   price,
@@ -152,55 +149,10 @@ const set = async ({
   start,
   end,
 }) => {
-  await db
+  const doc = await db
     .collection("companys")
     .doc(uid)
     .get()
-    .then(async (doc) => {
-      const children =
-        parent && !child && doc.data().payment?.children
-          ? doc.data().payment.children
-          : [];
-
-      doc.exists &&
-        (await doc.ref
-          .set(
-            {
-              payment:
-                !parent || child
-                  ? {
-                      status: status,
-                      price: price,
-                      start: start,
-                      end: end,
-                      trial: false,
-                      cancel: false,
-                      notice: false,
-                      load: false,
-                    }
-                  : {
-                      status: status,
-                      price: price,
-                      account: Number(account),
-                      children: children,
-                      start: start,
-                      end: end,
-                      trial: false,
-                      cancel: false,
-                      notice: false,
-                      load: false,
-                    },
-            },
-            { merge: true }
-          )
-          .catch((e) => {
-            throw new functions.https.HttpsError(
-              "data-loss",
-              "プロフィールの更新に失敗しました",
-              "firebase"
-            );
-          }));
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -208,6 +160,51 @@ const set = async ({
         "firebase"
       );
     });
+
+  if (doc.exists) {
+    const children =
+      parent && !child && doc.data().payment?.children
+        ? doc.data().payment.children
+        : [];
+
+    await doc.ref
+      .set(
+        {
+          payment:
+            !parent || child
+              ? {
+                  status: status,
+                  price: price,
+                  start: start,
+                  end: end,
+                  trial: false,
+                  cancel: false,
+                  notice: false,
+                  load: false,
+                }
+              : {
+                  status: status,
+                  price: price,
+                  account: Number(account),
+                  children: children,
+                  start: start,
+                  end: end,
+                  trial: false,
+                  cancel: false,
+                  notice: false,
+                  load: false,
+                },
+        },
+        { merge: true }
+      )
+      .catch((e) => {
+        throw new functions.https.HttpsError(
+          "data-loss",
+          "プロフィールの更新に失敗しました",
+          "firebase"
+        );
+      });
+  }
 
   return;
 };

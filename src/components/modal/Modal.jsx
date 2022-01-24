@@ -67,16 +67,23 @@ export const Modal = () => {
           />
         );
       case "profile":
-        return <Profile user={user} handleClose={handleClose} />;
+        return (
+          <Profile
+            user={
+              modal?.meta?.type !== "selectUser" ? user : modal?.meta?.selectUser
+            }
+            handleClose={handleClose}
+          />
+        );
       case "account":
         return (
           <Account
-            uid={user.uid}
+            uid={{ user: user.uid, selectUser: modal.meta.uid }}
             email={{
               user: user.profile.email,
               selectUser: modal.meta.email,
             }}
-            create={modal.meta.type === "create"}
+            type={modal.meta.type}
             handleClose={handleClose}
           />
         );

@@ -22,8 +22,8 @@ export const Verified = ({
 
   useEffect(() => {
     email &&
-      auth.currentUser
-        .sendEmailVerification({
+      auth?.currentUser
+        ?.sendEmailVerification({
           url: `${process.env.REACT_APP_SES_HUB}/login`,
         })
         .catch((e) => {

@@ -11,15 +11,10 @@ exports.promotionPosts = functions
   .https.onCall(async (data) => {
     const index = algolia.initIndex("matters");
 
-    const posts = await index
+    const result = await index
       .search(data, {
         filters: "display:public",
         hitsPerPage: 8,
-      })
-      .then((result) => {
-        return result.hits.map((hit) =>
-          fetch.matters({ hit: hit, promotion: true })
-        );
       })
       .catch((e) => {
         throw new functions.https.HttpsError(
@@ -28,6 +23,10 @@ exports.promotionPosts = functions
           "algolia"
         );
       });
+
+    const posts = result?.hits.map((hit) =>
+      fetch.matters({ hit: hit, promotion: true })
+    );
 
     return posts;
   });

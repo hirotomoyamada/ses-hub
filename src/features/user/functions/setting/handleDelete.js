@@ -38,6 +38,15 @@ export const handleDelete = async ({
         );
       });
   } else if (password && !demo) {
+    if (user?.type === "child") {
+      throw new dispatch(
+        rootSlice.handleAnnounce({
+          type: "error",
+          text: "このアカウントでは削除できません",
+        })
+      );
+    }
+
     await currentUser
       .reauthenticateWithCredential(credential)
       .then(() => {
@@ -73,6 +82,15 @@ export const handleDelete = async ({
         dispatch(rootSlice.handleModal());
       });
   } else if (!demo) {
+    if (user?.type === "child") {
+      throw new dispatch(
+        rootSlice.handleAnnounce({
+          type: "error",
+          text: "このアカウントでは削除できません",
+        })
+      );
+    }
+
     currentUser
       .delete()
       .then(() => {

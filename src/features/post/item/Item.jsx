@@ -1,9 +1,12 @@
 import styles from "./Item.module.scss";
 
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+// import { useDispatch } from "react-redux";
+import {
+  // useHistory,
+  Link,
+} from "react-router-dom";
 
-import * as rootSlice from "../../root/rootSlice";
+// import * as rootSlice from "../../root/rootSlice";
 
 import { Post } from "./components/post/Post";
 import { User } from "./components/user/User";
@@ -24,17 +27,17 @@ export const Item = ({
   select,
   selectUser,
 }) => {
-  const dispatch = useDispatch();
-  const history = useHistory();
+  // const dispatch = useDispatch();
+  // const history = useHistory();
 
-  const handleOpen = () => {
-    dispatch(rootSlice.handleSearch({ control: true }));
-    history.push(
-      `/${index}/${
-        index === "matters" || index === "resources" ? post.objectID : post.uid
-      }`
-    );
-  };
+  // const handleOpen = () => {
+  //   dispatch(rootSlice.handleSearch({ control: true }));
+  //   history.push(
+  //     `/${index}/${
+  //       index === "matters" || index === "resources" ? post.objectID : post.uid
+  //     }`
+  //   );
+  // };
 
   return !outputs?.length ? (
     <div className={styles.item_outer}>
@@ -52,7 +55,11 @@ export const Item = ({
       )}
 
       {index === "matters" || index === "resources" ? (
-        <button type="button" onClick={handleOpen} className={styles.item_btn}>
+        <Link
+          to={`/${index}/${post.objectID}`}
+          target="_blank"
+          className={styles.item_btn}
+        >
           <article className={styles.item}>
             <Post
               index={index}
@@ -62,17 +69,19 @@ export const Item = ({
               display={display}
             />
           </article>
-        </button>
+        </Link>
       ) : (
-        <button
-          type="button"
-          onClick={handleOpen}
-          className={`${styles.item_btn} ${select && styles.item_btn_disable}`}
+        <Link
+          to={`/${index}/${post.uid}`}
+          target="_blank"
+          className={`${styles.item_btn} ${
+            (select || post?.status === "none") && styles.item_btn_disable
+          }`}
         >
           <article className={`${styles.item} ${select && styles.item_select}`}>
             <User index={index} post={post} />
           </article>
-        </button>
+        </Link>
       )}
     </div>
   ) : (

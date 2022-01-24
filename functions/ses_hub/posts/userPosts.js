@@ -34,7 +34,7 @@ const fetchPosts = async (context, data, status) => {
     currentPage: data.page ? data.page : 0,
   };
 
-  const posts = await index
+  const result = await index
     .search(data.uid, {
       filters:
         data.uid !== context.auth.uid
@@ -48,21 +48,6 @@ const fetchPosts = async (context, data, status) => {
           : "",
       page: hit.currentPage,
     })
-    .then((result) => {
-      hit.posts = result.nbHits;
-      hit.pages = result.nbPages;
-      return result.hits.map((hit) =>
-        data.index === "matters" && hit.uid === context.auth.uid
-          ? fetch.matters({ hit: hit, auth: true })
-          : data.index === "matters" && status
-          ? fetch.matters({ hit: hit })
-          : data.index === "resources" && hit.uid === context.auth.uid
-          ? fetch.resources({ hit: hit, auth: true })
-          : data.index === "resources" &&
-            status &&
-            fetch.resources({ hit: hit })
-      );
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -70,6 +55,19 @@ const fetchPosts = async (context, data, status) => {
         "algolia"
       );
     });
+
+  hit.posts = result?.nbHits;
+  hit.pages = result?.nbPages;
+
+  const posts = result?.hits?.map((hit) =>
+    data.index === "matters" && hit.uid === context.auth.uid
+      ? fetch.matters({ hit: hit, auth: true })
+      : data.index === "matters" && status
+      ? fetch.matters({ hit: hit })
+      : data.index === "resources" && hit.uid === context.auth.uid
+      ? fetch.resources({ hit: hit, auth: true })
+      : data.index === "resources" && status && fetch.resources({ hit: hit })
+  );
 
   return { posts, hit };
 };
@@ -85,22 +83,13 @@ const fetchFollows = async (data, status, demo) => {
     currentPage: data.page ? data.page : 0,
   };
 
-  const posts = await index
+  const { results } = await index
     .getObjects(
       data.uids.slice(
         hit.currentPage * hitsPerPage,
         hitsPerPage * (hit.currentPage + 1)
       )
     )
-    .then(({ results }) => {
-      return results.map(
-        (hit) =>
-          hit &&
-          hit.status === "enable" &&
-          status &&
-          fetch.companys({ hit: hit, demo: demo })
-      );
-    })
     .catch((e) => {
       throw new functions.https.HttpsError(
         "not-found",
@@ -109,29 +98,53 @@ const fetchFollows = async (data, status, demo) => {
       );
     });
 
+  const posts = results
+    ?.map(
+      (hit) =>
+        hit &&
+        hit.status === "enable" &&
+        status &&
+        fetch.companys({ hit: hit, demo: demo })
+    )
+    ?.filter((post) => post);
+
   return { posts, hit };
 };
 
 const fetchFirestore = async (data, posts) => {
   for (let i = 0; i < posts.length; i++) {
-    posts[i] &&
-      (await db
+    if (posts[i]) {
+      const doc = await db
         .collection(data.index)
         .doc(posts[i].uid)
         .get()
-        .then((doc) => {
-          if (doc.exists) {
-            posts[i].icon = doc.data().icon;
-            posts[i].type = doc.data().type;
-          }
-        })
         .catch((e) => {
           throw new functions.https.HttpsError(
             "not-found",
             "ユーザーの取得に失敗しました",
             "firebase"
           );
-        }));
+        });
+
+      if (doc.exists) {
+        if (
+          doc.data().type !== "individual" &&
+          doc.data().payment.status === "canceled"
+        ) {
+          posts[i].icon = "none";
+          posts[i].status = "none";
+          posts[i].type = "individual";
+          posts[i].profile = {
+            name: null,
+            person: "存在しないユーザー",
+            body: null,
+          };
+        } else {
+          posts[i].icon = doc.data().icon;
+          posts[i].type = doc.data().type;
+        }
+      }
+    }
   }
 };
 

@@ -25,6 +25,7 @@ export const matters = (data) => {
     remote: data.remote,
     distribution: data.distribution,
     span: data.span,
+    approval: data.approval,
     note: data.note,
     status: data.status,
     memo: data.memo,
