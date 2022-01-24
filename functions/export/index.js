@@ -1,11 +1,5 @@
-/**********************************
- * Firestore に関する処理
- **********************************/
-
+// Firestore
 exports.users = require("./users/index");
 
-/**********************************
- * Algolia に関する処理
- **********************************/
-
+// Algolia
 exports.posts = require("./posts/index");
