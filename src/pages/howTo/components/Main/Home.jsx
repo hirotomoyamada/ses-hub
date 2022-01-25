@@ -33,12 +33,12 @@ export const Home = () => {
           <br />
           <br />
           <span className={styles.howto_container_acnt}>
-            ※ 最大15名まで、フォローしているメンバーの投稿が反映されます。
+            ※&nbsp;最大15名まで、フォローしているメンバーの投稿が反映されます。
           </span>
           <br />
+          <br />
           <span className={styles.howto_container_acnt}>
-            ※
-            フォローを15名以上している場合、ホームの設定から表示したいメンバーをいつでも設定・変更できます。
+            ※&nbsp;フォローを15名以上している場合、ホームの設定から表示したいメンバーをいつでも設定・変更できます。
           </span>
         </p>
       </div>
