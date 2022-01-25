@@ -88,9 +88,11 @@ export const List = (props) => {
   }, [dispatch, list]);
 
   useEffect(() => {
-    (props.match.params.list === "likes" ||
-      props.match.params.list === "outputs" ||
-      props.match.params.list === "entries") &&
+    ((props.match.params.list === "likes" && index !== "companys") ||
+      (props.match.params.list === "outputs" &&
+        index !== "companys" &&
+        index !== "persons") ||
+      (props.match.params.list === "entries" && index !== "companys")) &&
       !posts.length &&
       dispatch(
         extractPosts({
