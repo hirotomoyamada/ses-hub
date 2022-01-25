@@ -2,12 +2,12 @@ import styles from "../List.module.scss";
 
 import Loader from "react-loader-spinner";
 
-export const Load = ({ load, page, hit, bests }) => {
+export const Load = ({ load, page, hit, disable }) => {
   return (
     <div
       ref={load}
       className={`${styles.list_load} ${
-        (page === hit?.pages || bests) && styles.list_load_none
+        (page === hit?.pages || disable) && styles.list_load_none
       }`}
     >
       {page < hit?.pages && (

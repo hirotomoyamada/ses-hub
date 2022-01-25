@@ -30,7 +30,7 @@ $width: responsive-width(pc);
     overflow-y: scroll;
   }
 
-  &_companys {
+  &_side {
     width: auto;
     padding-left: auto-clamp(48px, 56px);
     grid-template-columns: repeat(2, 1fr);
@@ -64,7 +64,7 @@ $width: responsive-width(pc);
     }
   }
 
-  &_bests {
+  &_disable {
     width: auto;
     padding: 0;
     grid-template-columns: repeat(1, 1fr);
@@ -89,15 +89,26 @@ $width: responsive-width(pc);
       }
     }
 
+    &_sort {
+      height: calc(var(--vh, 1vh) * 100 - 130px);
+
+      @media (max-width: responsive-width(tb)) {
+        height: 160px;
+        padding: 24px 0;
+      }
+    }
+
     &_type {
-      height: calc(var(--vh, 1vh) * 100 - 48px);
+      height: calc(var(--vh, 1vh) * 100 - 50px);
 
       @media (max-width: responsive-width(sp)) {
         height: calc(var(--vh, 1vh) * 100 - 32px);
       }
     }
 
-    &_user {
+    &_side {
+      height: calc(var(--vh, 1vh) * 100 - 50px);
+
       @media (max-width: responsive-width(tb)) {
         height: 160px;
         padding: 24px 0;
@@ -108,15 +119,15 @@ $width: responsive-width(pc);
       height: 100%;
     }
 
-    &_bests {
-      height: calc(var(--vh, 1vh) * 100 - 472px);
+    &_disable {
+      height: calc(var(--vh, 1vh) * 100 - 474px);
 
       @media (max-width: responsive-width(tb)) {
-        height: 64px;
-        padding-top: 12px;
+        height: 160px;
+        padding: 24px 0;
       }
 
-      &_companys {
+      &_side {
         height: calc(var(--vh, 1vh) * 100 - 59px);
 
         @media (max-width: responsive-width(tb)) {

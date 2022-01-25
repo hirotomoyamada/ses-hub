@@ -10,11 +10,11 @@ export const useFetch = (
   user,
   home,
   search,
-  companys,
+  side,
   sort,
   type,
   select,
-  bests
+  disable
 ) => {
   const dispatch = useDispatch();
 
@@ -25,14 +25,14 @@ export const useFetch = (
   const [intersecting, setIntersecting] = useState(false);
 
   useEffect(() => {
-    !bests && setPage(hit?.currentPage);
-    !bests && setIntersecting(false);
-  }, [bests, hit?.currentPage, hit?.pages]);
+    !disable && setPage(hit?.currentPage);
+    !disable && setIntersecting(false);
+  }, [disable, hit?.currentPage, hit?.pages]);
 
   useEffect(() => {
     const observer = createObserver(
       list,
-      bests,
+      disable,
       hit,
       page,
       setPage,
@@ -50,7 +50,7 @@ export const useFetch = (
   }, [hit?.pages, intersecting, page]);
 
   useEffect(() => {
-    !bests &&
+    !disable &&
       intersecting &&
       hit.pages &&
       page !== hit.pages &&
@@ -60,7 +60,7 @@ export const useFetch = (
         user,
         home,
         search,
-        companys,
+        side,
         sort,
         type,
         select,

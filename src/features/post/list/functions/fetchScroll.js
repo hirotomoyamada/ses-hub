@@ -9,7 +9,7 @@ export const fetchScroll = async (
   user,
   home,
   search,
-  companys,
+  side,
   sort,
   type,
   select,
@@ -30,7 +30,7 @@ export const fetchScroll = async (
           follows: [user.uid, ...user.home],
           page: page,
         })
-      : companys || select
+      : side || select
       ? userPosts({
           index: !select ? index : "companys",
           uid: user?.uid,

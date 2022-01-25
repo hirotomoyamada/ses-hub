@@ -39,7 +39,7 @@ export const Side = ({ index, post, posts, user }) => {
           </span>
 
           {user?.payment?.status !== "canceled" ? (
-            <List index={index} user={user} posts={posts} bests={true} />
+            <List index={index} user={user} posts={posts} disable={true} />
           ) : (
             <Advertise user={user} />
           )}

@@ -13,15 +13,15 @@ export const List = ({
   selectUser,
   home,
   search,
-  companys,
+  side,
   sort,
   type,
   outputs,
   select,
+  disable,
+  open,
   handleSelect,
   handleCancel,
-  bests,
-  open,
 }) => {
   const [list, load, page] = useFetch(
     index,
@@ -29,16 +29,16 @@ export const List = ({
     user,
     home,
     search,
-    companys,
+    side,
     sort,
     type,
     select,
-    bests
+    disable
   );
 
   return (
     <div className={select && styles.list_scroll}>
-      {companys && index === "persons" && (
+      {side && index === "persons" && (
         <span className={styles.list_tag}>こんなフリーランスもオススメ</span>
       )}
 
@@ -51,9 +51,9 @@ export const List = ({
           selectUser={selectUser}
           open={open}
           type={type}
-          companys={companys}
+          side={side}
           outputs={outputs}
-          bests={bests}
+          disable={disable}
           handleSelect={handleSelect}
           handleCancel={handleCancel}
         />
@@ -62,15 +62,15 @@ export const List = ({
           index={index}
           list={list}
           type={type}
-          bests={bests}
-          companys={companys}
+          sort={sort}
+          side={side}
           select={select}
+          disable={disable}
         />
       )}
 
       {hit?.pages && page < hit?.pages - 1 ? (
-
-        <Load load={load} page={page} hit={hit} bests={bests} />
+        <Load load={load} page={page} hit={hit} disable={disable} />
       ) : (
         <></>
       )}

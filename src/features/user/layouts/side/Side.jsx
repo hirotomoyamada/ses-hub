@@ -48,10 +48,15 @@ export const Side = ({
           user={user}
           posts={posts}
           hit={hit}
-          sort={sort}
+          sort={
+            currentUser?.uid === uid &&
+            index !== "companys" &&
+            index !== "persons" &&
+            sort
+          }
           open={open}
-          bests={index === "persons" && true}
-          companys
+          disable={index === "persons"}
+          side
         />
       </div>
     </div>
