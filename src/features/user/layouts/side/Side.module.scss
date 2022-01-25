@@ -7,7 +7,7 @@ $width: responsive-width(pc);
 
 .side {
   overflow-y: scroll;
-  height: calc(var(--vh, 1vh) * 100 - 44px);
+  height: calc(var(--vh, 1vh) * 100 - 50px);
   position: relative;
 
   @media (max-width: responsive-width(tb)) {

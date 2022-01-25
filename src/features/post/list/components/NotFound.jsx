@@ -9,9 +9,10 @@ export const NotFound = ({
   index,
   list,
   type,
+  sort,
   select,
-  bests,
-  companys,
+  disable,
+  side,
 }) => {
   const load = useSelector(rootSlice.load).list;
 
@@ -19,11 +20,12 @@ export const NotFound = ({
     <div
       className={`
       ${styles.list_none} 
-      ${(type || companys) && !bests && styles.list_none_type} 
-      ${companys && styles.list_none_user} 
+      ${type && styles.list_none_type} 
+      ${sort && styles.list_none_sort} 
+      ${!sort && side && styles.list_none_side} 
       ${select && styles.list_none_select} 
-      ${bests && styles.list_none_bests} 
-      ${bests && companys && styles.list_none_bests_companys}`}
+      ${disable && styles.list_none_disable} 
+      ${disable && side && styles.list_none_bests_companys}`}
       ref={list}
     >
       {load ? (

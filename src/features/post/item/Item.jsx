@@ -1,12 +1,6 @@
 import styles from "./Item.module.scss";
 
-// import { useDispatch } from "react-redux";
-import {
-  // useHistory,
-  Link,
-} from "react-router-dom";
-
-// import * as rootSlice from "../../root/rootSlice";
+import { Link } from "react-router-dom";
 
 import { Post } from "./components/post/Post";
 import { User } from "./components/user/User";
@@ -27,18 +21,6 @@ export const Item = ({
   select,
   selectUser,
 }) => {
-  // const dispatch = useDispatch();
-  // const history = useHistory();
-
-  // const handleOpen = () => {
-  //   dispatch(rootSlice.handleSearch({ control: true }));
-  //   history.push(
-  //     `/${index}/${
-  //       index === "matters" || index === "resources" ? post.objectID : post.uid
-  //     }`
-  //   );
-  // };
-
   return !outputs?.length ? (
     <div className={styles.item_outer}>
       {index !== "companys" && !select ? (

@@ -12,9 +12,9 @@ export const Posts = ({
   select,
   selectUser,
   open,
-  companys,
+  side,
   outputs,
-  bests,
+  disable,
   handleSelect,
   handleCancel,
 }) => {
@@ -24,11 +24,11 @@ export const Posts = ({
     <div
       className={`
       ${styles.list} 
-      ${companys && styles.list_companys} 
-      ${open && styles.list_companys_open} 
-      ${select && styles.list_select} 
-      ${bests && !companys && styles.list_bests} 
-      ${bests && companys && styles.list_bests_companys}
+      ${side && styles.list_side} 
+      ${open && styles.list_side_open} 
+      ${select && styles.list_select}
+      ${disable && !side && styles.list_disable} 
+      ${disable && side && styles.list_disable_side}
       `}
       ref={list}
     >
@@ -45,6 +45,8 @@ export const Posts = ({
               outputs={outputs}
               handleSelect={handleSelect}
               handleCancel={handleCancel}
+              status={side}
+              display={side}
             />
           )
       )}
