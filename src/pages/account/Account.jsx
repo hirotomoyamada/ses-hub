@@ -1,8 +1,11 @@
 import styles from "./Account.module.scss";
 
+import Loader from "react-loader-spinner";
+
 import { useDevice } from "./hook/useDevice";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 
 import * as rootSlice from "../../features/root/rootSlice";
@@ -15,8 +18,9 @@ import { Auth } from "./components/auth/Auth";
 
 import * as functions from "../../features/user/functions/functions";
 
-export const Account = () => {
+export const Account = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [device] = useDevice();
 
@@ -28,13 +32,22 @@ export const Account = () => {
   useEffect(() => {
     dispatch(rootSlice.handlePage("account"));
 
+    props?.history?.location?.state?.password &&
+      functions.account.handleAuth({
+        dispatch,
+        history,
+        methods,
+        setAuth,
+        data: { password: props?.history?.location?.state?.password },
+      });
+
     return () => {
       dispatch(userSlice.updateToken());
     };
-  }, [dispatch]);
+  }, [dispatch, history, methods, props?.history?.location?.state?.password]);
 
-  const handleAuth = (data) => {
-    functions.account.handleAuth({
+  const handleAuth = async (data) => {
+    await functions.account.handleAuth({
       dispatch,
       methods,
       setAuth,
@@ -42,10 +55,10 @@ export const Account = () => {
     });
   };
 
-  const handleReset = (data) => {
+  const handleReset = async (data) => {
     const email = data.email;
 
-    functions.account.handleReset({
+    await functions.account.handleReset({
       dispatch,
       methods,
       setReset,
@@ -58,7 +71,7 @@ export const Account = () => {
     methods.reset();
   };
 
-  return (
+  return !props?.history?.location?.state?.password || !auth ? (
     <FormProvider {...methods}>
       <form
         id="form"
@@ -82,5 +95,9 @@ export const Account = () => {
         )}
       </form>
     </FormProvider>
+  ) : (
+    <div className={styles.account_load}>
+      <Loader type="Oval" color="#49b757" height={56} width={56} />
+    </div>
   );
 };
