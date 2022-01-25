@@ -62,14 +62,39 @@ export const Account = ({ type }) => {
             <br />
             <br />
             <span className={styles.howto_container_acnt}>
-              ※
-              一度削除したアカウントは、復元することができませんのでご注意ください。
+              ※&nbsp;一度削除したアカウントは、復元することができませんのでご注意ください。
             </span>
           </p>
         ) : (
           <p>
             この<span className={styles.howto_container_tag}>アカウント</span>
             では、削除することができません。
+            <br />
+            <br />
+            このアカウントを作成した
+            <span className={styles.howto_container_tag}>親アカウント</span>
+            から行う必要があります。
+          </p>
+        )}
+      </div>
+
+      <div className={styles.howto_container}>
+        <Tag tag="メールアドレスを変更する" paid />
+        {type !== "child" ? (
+          <p>
+            <span className={styles.howto_container_tag}>アカウント情報</span>の
+            <span className={styles.howto_container_tag}>
+              グループアカウント
+            </span>
+            <span className={styles.howto_container_tag}>
+              メールアドレス変更
+            </span>
+            から行えます。
+          </p>
+        ) : (
+          <p>
+            この<span className={styles.howto_container_tag}>アカウント</span>
+            では、メールアドレスの変更を行うことができません。
             <br />
             <br />
             このアカウントを作成した
@@ -88,7 +113,7 @@ export const Account = ({ type }) => {
               グループアカウント
             </span>
             <span className={styles.howto_container_tag}>
-              パスワードを再設定
+              パスワード再設定
             </span>
             から行えます。
           </p>
@@ -126,11 +151,10 @@ export const Account = ({ type }) => {
             <br />
             <br />
             <span className={styles.howto_container_acnt}>
-              ※
-              再度、プランを契約する場合は、保持しているグループアカウント数以上のプランを契約する必要があります。
+              ※&nbsp;再度、プランを契約する場合は、保持しているグループアカウント数以上のプランを契約する必要があります。
               <br />
-              <br />※
-              グループアカウント数以下のプランを契約されたい場合は、契約されたいプランの上限までグループアカウントを削除する必要があります。
+              <br />
+              ※&nbsp;グループアカウント数以下のプランを契約されたい場合は、契約されたいプランの上限までグループアカウントを削除する必要があります。
             </span>
           </p>
         </div>
