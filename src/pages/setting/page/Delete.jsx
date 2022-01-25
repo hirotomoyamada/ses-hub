@@ -3,6 +3,7 @@ import root from "../Setting.module.scss";
 
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import { useScrollController } from "../../../hook/useScrollController";
 
@@ -12,10 +13,15 @@ export const Delete = ({ next, user, setReset, setNext }) => {
   useScrollController();
 
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const {
     register,
+    watch,
     formState: { errors },
   } = useFormContext();
+
+  const password = watch("password");
 
   const handleVerification = () => {
     dispatch(
@@ -55,7 +61,7 @@ export const Delete = ({ next, user, setReset, setNext }) => {
             },
           })}
         />
-        
+
         {errors.password?.message && (
           <span className={styles.error}>{errors.password?.message}</span>
         )}
@@ -76,18 +82,40 @@ export const Delete = ({ next, user, setReset, setNext }) => {
   ) : (
     <div className={root.setting_inner}>
       <div className={styles.head}>
-        <p className={styles.head_ttl}>アカウントを削除</p>
+        <p
+          className={`${styles.head_ttl} ${
+            user?.payment?.children?.length && styles.head_ttl_disable
+          }`}
+        >
+          {!user?.payment?.children?.length
+            ? "アカウントを削除"
+            : "アカウントを削除できません"}
+        </p>
         <p className={styles.head_desc}>
-          アカウントを削除すると、これまでのデータはすべて削除されます
+          {!user?.payment?.children?.length
+            ? "アカウントを削除すると、これまでのデータはすべて削除されます"
+            : "このアカウントを削除するには、グループアカウントをすべて削除する必要があります"}
         </p>
       </div>
 
       <button
         type="button"
-        onClick={handleVerification}
-        className={`${root.setting_btn} ${root.setting_btn_delete}`}
+        onClick={
+          !user?.payment?.children?.length
+            ? handleVerification
+            : () =>
+                history.push({
+                  pathname: "/account",
+                  state: { password: password },
+                })
+        }
+        className={`${root.setting_btn} ${
+          !user?.payment?.children?.length && root.setting_btn_delete
+        }`}
       >
-        　アカウント削除
+        {!user?.payment?.children?.length
+          ? "アカウントを削除"
+          : "グループアカウントへ移動する"}
       </button>
     </div>
   );

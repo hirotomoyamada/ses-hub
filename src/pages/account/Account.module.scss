@@ -20,6 +20,17 @@ $width: responsive-width(pc);
     grid-template-rows: 48px 1fr;
   }
 
+  &_load {
+    color: $main_clr;
+    background: $base_clr;
+    width: 100vw;
+    min-height: $innerHeight;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &_inner {
     width: 720px;
     overflow-y: scroll;

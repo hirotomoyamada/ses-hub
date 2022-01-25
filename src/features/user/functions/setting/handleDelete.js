@@ -42,7 +42,16 @@ export const handleDelete = async ({
       throw new dispatch(
         rootSlice.handleAnnounce({
           type: "error",
-          text: "このアカウントでは削除できません",
+          text: "このアカウントは削除できません",
+        })
+      );
+    }
+
+    if (user?.payment?.children?.length) {
+      throw new dispatch(
+        rootSlice.handleAnnounce({
+          type: "error",
+          text: "このアカウントは削除できません",
         })
       );
     }

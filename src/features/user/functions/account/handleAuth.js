@@ -4,7 +4,13 @@ import { auth } from "../../../../firebase";
 import * as userSlice from "../../userSlice";
 import * as rootSlice from "../../../root/rootSlice";
 
-export const handleAuth = async ({ dispatch, methods, setAuth, data }) => {
+export const handleAuth = async ({
+  dispatch,
+  methods,
+  history,
+  setAuth,
+  data,
+}) => {
   const user = auth.currentUser;
   const credential = firebase.auth.EmailAuthProvider.credential(
     user.email,
@@ -20,6 +26,7 @@ export const handleAuth = async ({ dispatch, methods, setAuth, data }) => {
     })
     .catch((e) => {
       methods.reset();
+      history?.replace();
 
       dispatch(
         rootSlice.handleAnnounce({

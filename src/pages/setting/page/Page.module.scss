@@ -20,6 +20,10 @@ $width: responsive-width(pc);
     font-size: 32px;
     text-align: center;
 
+    &_disable {
+      color: $acnt_clr;
+    }
+
     @media (max-width: responsive-width(sp)) {
       font-size: 20px;
     }
