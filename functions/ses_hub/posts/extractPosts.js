@@ -54,23 +54,28 @@ const fetchAlgolia = async (context, data, status, demo) => {
       );
     });
 
-  const posts = results?.map((hit) =>
-    hit && data.index === "matters" && hit.uid === context.auth.uid
-      ? fetch.matters({ hit: hit, auth: true })
-      : hit && data.index === "matters" && hit.display === "public" && status
-      ? fetch.matters({ hit: hit })
-      : hit && data.index === "resources" && hit.uid === context.auth.uid
-      ? fetch.resources({ hit: hit, auth: true })
-      : hit && data.index === "resources" && hit.display === "public" && status
-      ? fetch.resources({ hit: hit })
-      : hit && data.index === "companys" && hit.status === "enable" && status
-      ? fetch.companys({ hit: hit, demo: demo })
-      : hit &&
-        data.index === "persons" &&
-        hit.status === "enable" &&
-        status &&
-        fetch.persons({ hit: hit })?.filter((post) => post)
-  );
+  const posts = results
+    ?.map((hit) =>
+      hit && data.index === "matters" && hit.uid === context.auth.uid
+        ? fetch.matters({ hit: hit, auth: true })
+        : hit && data.index === "matters" && hit.display === "public" && status
+        ? fetch.matters({ hit: hit })
+        : hit && data.index === "resources" && hit.uid === context.auth.uid
+        ? fetch.resources({ hit: hit, auth: true })
+        : hit &&
+          data.index === "resources" &&
+          hit.display === "public" &&
+          status
+        ? fetch.resources({ hit: hit })
+        : hit && data.index === "companys" && hit.status === "enable" && status
+        ? fetch.companys({ hit: hit, demo: demo })
+        : hit &&
+          data.index === "persons" &&
+          hit.status === "enable" &&
+          status &&
+          fetch.persons({ hit: hit })
+    )
+    ?.filter((post) => post);
 
   return { posts, hit };
 };
