@@ -45,7 +45,7 @@ export const Plan = ({ type }) => {
             <br />
             <br />
             <span className={styles.howto_container_acnt}>
-              オプションを契約するには、プランを契約している必要があります。
+              ※&nbsp;オプションを契約するには、プランを契約している必要があります。
             </span>
           </p>
         ) : (
@@ -131,7 +131,7 @@ export const Plan = ({ type }) => {
             <br />
             <br />
             <span className={styles.howto_container_acnt}>
-              キャンセルをしても、現在のプランが満了するまで他のプランへは変更できません。
+              ※&nbsp;キャンセルをしても、現在のプランが満了するまで他のプランへは変更できません。
             </span>
           </p>
         ) : (

@@ -24,10 +24,10 @@ export const Posts = () => {
           <span className={styles.howto_container_tag}>リミテッド会員</span>
           <span className={styles.howto_container_tag}>レギュラー会員</span>
           ともにすべてのメンバーに公開されます。
+          <br />
+          <br />
           <span className={styles.howto_container_acnt}>
-            <br />
-            <br />
-            ※ レギュラー会員はリミテッド会員の公開された投稿を見ることができますので、リミテッド会員にたいして問い合わせることが可能です。
+            ※&nbsp;レギュラー会員はリミテッド会員の公開された投稿を見ることができますので、リミテッド会員にたいして問い合わせることが可能です。
           </span>
         </p>
       </div>
@@ -49,7 +49,8 @@ export const Posts = () => {
           <span className={styles.howto_container_tag}>非公開</span>
           の設定が可能です。
           <br />
-          <br />※ 全体に反映されるまで5分ほど処理がかかる場合があります。
+          <br />
+          ※&nbsp;全体に反映されるまで5分ほど処理がかかる場合があります。
         </p>
       </div>
       <div className={styles.howto_container}>
@@ -66,7 +67,7 @@ export const Posts = () => {
           <br />
           <br />
           <span className={styles.howto_container_acnt}>
-            ※ 他のメンバーにステータスは表示されません。
+            ※&nbsp;他のメンバーにステータスは表示されません。
           </span>
         </p>
       </div>
