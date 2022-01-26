@@ -78,8 +78,8 @@ const createFirestore = async (context, data, file) => {
       );
     });
 
-  if (doc.exists) {
-    await doc.ref
+  !doc.exists &&
+    (await doc.ref
       .set(
         user.persons({
           context: context,
@@ -95,8 +95,7 @@ const createFirestore = async (context, data, file) => {
           "プロフィールの作成に失敗しました",
           "firebase"
         );
-      });
-  }
+      }));
 };
 
 const createAlgolia = async (context, data) => {
