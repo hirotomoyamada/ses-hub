@@ -49,30 +49,30 @@ exports.companys = ({ context, data, customer, create, child, doc }) => {
               // 削除予定
               option: { freelanceDirect: true },
             }
-          : data.payment.option
+          : data.payment?.option
           ? {
-              option: data.payment.option,
+              option: data.payment?.option,
 
-              status: data.payment.status,
-              cancel: data.payment.cancel,
-              trial: data.payment.trial,
-              load: data.payment.load,
-              parent: data.uid,
-              start: data.payment.start,
-              end: data.payment.end,
-              price: data.payment.price,
-              notice: data.payment.notice,
+              status: data.payment?.status,
+              cancel: data.payment?.cancel,
+              trial: data.payment?.trial,
+              load: data.payment?.load,
+              parent: data?.uid,
+              start: data.payment?.start,
+              end: data.payment?.end,
+              price: data.payment?.price,
+              notice: data.payment?.notice,
             }
           : {
-              status: data.payment.status,
-              cancel: data.payment.cancel,
-              trial: data.payment.trial,
-              load: data.payment.load,
-              parent: data.uid,
-              start: data.payment.start,
-              end: data.payment.end,
-              price: data.payment.price,
-              notice: data.payment.notice,
+              status: data.payment?.status,
+              cancel: data.payment?.cancel,
+              trial: data.payment?.trial,
+              load: data.payment?.load,
+              parent: data?.uid,
+              start: data.payment?.start,
+              end: data.payment?.end,
+              price: data.payment?.price,
+              notice: data.payment?.notice,
             },
         provider: !child ? [data.provider] : ["password"],
 
