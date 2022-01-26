@@ -51,12 +51,18 @@ const updateFirestore = async (user, child) => {
         ? {
             status: user?.status,
           }
+        : !children
+        ? {
+            status: user?.status,
+            account: !user?.account ? 0 : user?.account,
+            children: [],
+          }
         : {
             status: user?.status,
             account: !user?.account ? 0 : user?.account,
           },
     };
-    
+
     const option = {
       payment: !parent
         ? {
@@ -64,6 +70,15 @@ const updateFirestore = async (user, child) => {
             option: {
               freelanceDirect: user?.option === "enable" ? true : false,
             },
+          }
+        : !children
+        ? {
+            status: user?.status,
+            option: {
+              freelanceDirect: user?.option === "enable" ? true : false,
+            },
+            account: !user?.account ? 0 : user?.account,
+            children: [],
           }
         : {
             status: user?.status,
