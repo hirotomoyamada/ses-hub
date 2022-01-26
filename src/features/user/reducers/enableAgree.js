@@ -4,5 +4,9 @@ export const enableAgree = (state) => {
   state.agree = "enalble";
 
   const enableAgree = functions.httpsCallable("sh-enableAgree");
-  enableAgree().catch((e) => {});
+  enableAgree()
+    .then(() => {
+      window.location.reload();
+    })
+    .catch((e) => {});
 };
