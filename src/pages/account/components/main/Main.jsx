@@ -19,9 +19,14 @@ export const Main = () => {
         children={children}
         load={load}
       />
-      <span className={root.account_desc}>
-        すべてのアカウントはログイン可能です
-      </span>
+
+      {user?.payment?.children?.length ? (
+        <span className={root.account_desc}>
+          すべてのアカウントはログイン可能です
+        </span>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
