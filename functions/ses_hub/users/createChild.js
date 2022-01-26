@@ -42,8 +42,8 @@ const fetchParent = async (context, uid) => {
     });
 
   if (doc.exists) {
-    const children = [...doc.data().payment.children, context.auth.uid];
-    const account = doc.data().payment.account;
+    const children = [...doc.data().payment?.children, context.auth.uid];
+    const account = doc.data().payment?.account;
 
     if (!account || doc.data().type !== "parent") {
       throw new functions.https.HttpsError(
