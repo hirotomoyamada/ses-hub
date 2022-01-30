@@ -26,6 +26,8 @@ export const userSlice = createSlice({
     addProvider: (state, action) => reducers.addProvider(state, action),
     changeEmail: (state, action) => reducers.changeEmail(state, action),
 
+    applicationType: (state) => reducers.applicationType(state),
+
     addLike: (state, action) => reducers.addLike(state, action),
     removeLike: (state, action) => reducers.removeLike(state, action),
     addOutput: (state, action) => reducers.addOutput(state, action),
@@ -52,6 +54,7 @@ export const {
   updatePayment,
   addProvider,
   changeEmail,
+  applicationType,
 
   addLike,
   removeLike,

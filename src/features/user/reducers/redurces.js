@@ -16,6 +16,7 @@ import { addOutput, removeOutput } from "./output";
 import { addEntry } from "./entry";
 import { addFollow, removeFollow } from "./follow";
 import { addRequest } from "./request";
+import { applicationType } from "./application";
 import { updateHome } from "./home";
 
 import { createPost, deletePost } from "./post";
@@ -33,6 +34,7 @@ export {
   updatePayment,
   addProvider,
   changeEmail,
+  applicationType,
   addLike,
   removeLike,
   addOutput,
