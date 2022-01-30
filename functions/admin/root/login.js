@@ -20,8 +20,13 @@ exports.login = functions
 const fetchCollection = async (context) => {
   const auth = {
     uid: context.auth.uid,
-    seshub: {},
-    freelanceDirect: {},
+    seshub: {
+      application: false,
+      hold: false,
+    },
+    freelanceDirect: {
+      hold: false,
+    },
   };
 
   for await (const index of Object.keys(auth)) {
@@ -29,7 +34,23 @@ const fetchCollection = async (context) => {
       await db
         .collection(index)
         .get()
-        .then((docs) => {
+        .then(async (docs) => {
+          for await (const key of Object.keys(auth[index])) {
+            const collection = await db
+              .collection(index === "seshub" ? "companys" : "persons")
+              .where(
+                key === "application" ? key : "status",
+                "==",
+                key === "application" ? true : key
+              )
+              .orderBy("lastLogin", "desc")
+              .get();
+
+            if (collection?.docs?.length) {
+              auth[index][key] = true;
+            }
+          }
+
           docs.forEach((doc) => {
             auth[index][doc.id] = doc.data();
           });
