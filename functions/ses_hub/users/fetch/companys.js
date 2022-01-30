@@ -12,6 +12,7 @@ exports.companys = ({ context, doc, data, hit, demo }) => {
       profile: doc.data().profile,
 
       type: doc.data().type,
+      application: doc.data()?.application,
 
       agree: doc.data().agree,
       payment: doc.data().payment,

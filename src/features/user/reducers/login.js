@@ -6,6 +6,7 @@ export const login = (state, action) => {
     state.user.provider = action.payload.user.provider;
     state.user.profile = action.payload.user.profile;
     state.user.type = action.payload.user.type;
+    state.user.application = action.payload.user.application;
     state.user.agree = action.payload.user.agree;
     state.user.payment = action.payload.user.payment;
     state.user.createAt = action.payload.user.createAt;

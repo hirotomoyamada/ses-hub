@@ -18,6 +18,7 @@ import { Delete } from "./components/delete/Delete";
 import { Advertise } from "./components/advertise/Advertise";
 import { Request } from "./components/request/Request";
 import { Account } from "./components/account/Account";
+import { Application } from "./components/application/Application";
 
 export const Modal = () => {
   const dispatch = useDispatch();
@@ -70,11 +71,15 @@ export const Modal = () => {
         return (
           <Profile
             user={
-              modal?.meta?.type !== "selectUser" ? user : modal?.meta?.selectUser
+              modal?.meta?.type !== "selectUser"
+                ? user
+                : modal?.meta?.selectUser
             }
             handleClose={handleClose}
           />
         );
+      case "application":
+        return <Application user={user} handleClose={handleClose} />;
       case "account":
         return (
           <Account
