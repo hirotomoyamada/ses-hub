@@ -15,8 +15,7 @@ exports.companys = ({ doc, index, lists, parent, posts, hit }) => {
       more: hit.more,
       region: hit.region,
     };
-  }
-  else if (!posts) {
+  } else if (!posts) {
     return {
       index: index,
       uid: doc.id,
@@ -27,6 +26,7 @@ exports.companys = ({ doc, index, lists, parent, posts, hit }) => {
       type: doc.data().type,
       agree: doc.data().agree,
       provider: doc.data().provider,
+      application: doc.data()?.application,
       createAt: doc.data().createAt,
       updateAt: doc.data().updateAt,
       lastLogin: doc.data().lastLogin,
@@ -52,11 +52,11 @@ exports.companys = ({ doc, index, lists, parent, posts, hit }) => {
 
       parent: parent ? parent : null,
     };
-  }
-  else {
+  } else {
     posts[index].icon = doc.data().icon;
     posts[index].cover = doc.data().cover;
     posts[index].status = doc.data().status;
+    posts[index].application = doc.data()?.application;
     posts[index].provider = doc.data().provider;
     posts[index].type = doc.data().type;
     posts[index].agree = doc.data().agree;

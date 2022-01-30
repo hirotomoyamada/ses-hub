@@ -14,12 +14,35 @@ exports.fetchPosts = functions
   .https.onCall(async (data, context) => {
     await userAuthenticated(context);
 
-    const { posts, hit } = await fetchAlgolia(data);
+    if (data.filter === "application") {
+      const { posts } = await fetchApplication(data);
 
-    await fetchFirestore(data, posts);
+      return { index: data.index, posts: posts };
+    } else {
+      const { posts, hit } = await fetchAlgolia(data);
 
-    return { index: data.index, posts: posts, hit: hit };
+      await fetchFirestore(data, posts);
+
+      return { index: data.index, posts: posts, hit: hit };
+    }
   });
+
+const fetchApplication = async (data) => {
+  const collection = await db
+    .collection(data.index)
+    .where("application", "==", true)
+    .orderBy("lastLogin", "desc")
+    .get();
+
+  const posts = collection?.docs?.map((doc) =>
+    fetch.companys({
+      index: data.index,
+      doc: doc,
+    })
+  );
+
+  return { posts };
+};
 
 const fetchFirestore = async (data, posts) => {
   if (posts.length) {
