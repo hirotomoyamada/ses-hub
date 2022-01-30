@@ -22,8 +22,7 @@ exports.companys = ({ data, user }) => {
       },
       updateAt: timestamp,
     };
-  }
-  else {
+  } else {
     return {
       objectID: user.uid,
       status: user.status,
