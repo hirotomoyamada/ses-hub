@@ -5,7 +5,7 @@ const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
 const send = require("../../sendgrid").send;
-const body = require("../mail/application/type");
+const body = require("../mail/body/application/type");
 
 const userAuthenticated =
   require("../functions/userAuthenticated").userAuthenticated;
