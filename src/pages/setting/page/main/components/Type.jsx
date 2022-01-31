@@ -26,28 +26,41 @@ export const Type = ({ user }) => {
             : "エキストラ"}
         </span>
 
-        {user?.application && (
+        {/* ver 2.0.1 */}
+        {/* {user?.application && (
           <span className={styles.main_desc}>
             申請が承認されるまで翌３営業日程掛かる場合がございます
           </span>
-        )}
-
-        {(user?.type !== "individual" ||
+        )} */}
+        {/* {(user?.type !== "individual" ||
           (!user?.payment?.price && user?.payment?.status !== "canceled")) && (
           <span className={styles.main_desc}>変更することはできません</span>
-        )}
+        )} */}
+
+        <span className={styles.main_desc}>変更することはできません</span>
       </div>
-      <button
+
+      {/* ver 2.0.1 */}
+      {/* <button
         className={`${styles.main_btn} ${
           (user?.type !== "individual" ||
             user?.application ||
             (!user?.payment?.price && user?.payment?.status !== "canceled")) &&
           styles.main_btn_disabled
-        }`}
+        }
+        `}
         type="button"
         onClick={handleOpen}
       >
         {user?.application ? "申請済み" : "変更"}
+      </button> */}
+
+      <button
+        className={`${styles.main_btn} ${styles.main_btn_disabled}`}
+        type="button"
+        onClick={handleOpen}
+      >
+        変更
       </button>
     </div>
   );
