@@ -1,7 +1,13 @@
 // functions
 ├── admin // 管理画面
+│   ├── mail // 作成・編集する際の整形
+│   │   └── body // メール本文を整形
+│   │   　   └── application // 法人アカウントの申請の承認
 │   ├── edit // 作成・編集する際の整形
 │   ├── fetch // 取得する際の整形
+│   ├── functions 
+│   │   ├── userAuthenticated
+│   │   └── dataOrganize.js // ユーザー取得時に削除されている投稿などを削除
 │   ├── posts // 投稿に関する処理
 │   │   ├── deletePost.js // 投稿を削除
 │   │   ├── editPost.js // 投稿を編集
@@ -19,9 +25,7 @@
 │       ├── editUser.js // プロフィールを編集
 │       ├── extractPosts.js // ユーザーの投稿やフォロー・グループアカウント一覧を取得
 │       ├── fetchUser.js // ユーザーを取得
-│       └── functions
-│       　   └── organize.js // ユーザー取得時に削除されている投稿などを削除
-│       
+│  
 ├── export // バックアップ
 │   ├── posts // Algoliaに関する処理
 │   │   ├── companys.js // メンバー
@@ -146,6 +150,7 @@
 │  　    │   ├── loginAuthenticated.js
 │  　    │   └── userAuthenticated.js
 │  　    ├── addProvider.js // ソーシャルログインを追加
+│  　    ├── application.js // 申請(法人アカウントの変更など)
 │  　    ├── agree.js // 利用規約に同意
 │  　    ├── changeEmail.js // メールアドレスを変更
 │  　    ├── createChild.js // 子アカウントを作成
@@ -209,10 +214,12 @@
 │   │   │   ├── login.js // ログイン
 │   │   │   ├── sendMail.js // メールを配信
 │   │   │   └── updateUser.js // アカウントを編集
+│   │   │   └── updateNotice.js // ユーザーの申請・承認待ちなどの状況を取得
 │   │   └── reducers
 │   │  　    ├── editData.js // 全般を更新
 │   │  　    ├── login.js // ログイン
 │   │  　    ├── sendMail.js // メールを更新
+│   │  　    ├── updateNotice.js // ユーザーの申請・承認待ちの状況を更新
 │   │  　    └── updateUser.js // アカウントを更新
 │   │
 │   └── user // ユーザーに関する処理
@@ -264,6 +271,7 @@
 │   ├── menu // メニュー(右下)
 │   ├── modal // モーダル
 │   │   └── components
+│   │       ├── application // 法人アカウントの変更の申請
 │   │       ├── account // グループアカウント
 │   │       ├── advertise // 広告
 │   │       ├── agree // 利用規約
@@ -383,6 +391,7 @@
 │       │   └── side // ユーザーが保有している投稿の一覧
 │       └── reducers
 │  　        ├── addProvider.js // ソーシャルアカウントを反映
+│  　        ├── application.js // 申請(法人アカウントの変更など)を反映
 │  　        ├── changeEmail.js // メールアドレスを更新
 │  　        ├── child.js // 子アカウントを更新
 │  　        ├── editProfile.js // 編集したプロフィールを一覧に反映
