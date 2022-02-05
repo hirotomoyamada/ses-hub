@@ -16,6 +16,7 @@ exports.createOption = require("./pay/createOption").createOption;
 exports.updateOption = require("./pay/updateOption").updateOption;
 exports.disableNotice = require("./pay/disableNotice").disableNotice;
 exports.updateNotice = require("./pay/updateNotice").updateNotice;
+exports.updateLimit = require("./pay/updateLimit").updateLimit;
 
 // ユーザー
 exports.login = require("./users/login").login;
