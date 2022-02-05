@@ -14,7 +14,10 @@ exports.homePosts = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    const status = await userAuthenticated({ context: context });
+    const status = await userAuthenticated({
+      context: context,
+      canceled: true,
+    });
 
     const demo = checkDemo(context);
 

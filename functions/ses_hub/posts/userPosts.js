@@ -12,13 +12,13 @@ exports.userPosts = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    const status = await userAuthenticated({ context: context });
+    await userAuthenticated({ context: context });
 
     const demo = checkDemo(context);
 
     const { posts, hit } = !data.uids
-      ? await fetchPosts(context, data, status)
-      : await fetchFollows(data, status, demo);
+      ? await fetchPosts(context, data)
+      : await fetchFollows(data, demo);
 
     posts.length &&
       data.index === "companys" &&
@@ -27,7 +27,7 @@ exports.userPosts = functions
     return { index: data.index, posts: posts, hit: hit };
   });
 
-const fetchPosts = async (context, data, status) => {
+const fetchPosts = async (context, data) => {
   const index = algolia.initIndex(data.index);
 
   const hit = {
@@ -62,17 +62,17 @@ const fetchPosts = async (context, data, status) => {
   const posts = result?.hits?.map((hit) =>
     data.index === "matters" && hit.uid === context.auth.uid
       ? fetch.matters({ hit: hit, auth: true })
-      : data.index === "matters" && status
+      : data.index === "matters"
       ? fetch.matters({ hit: hit })
       : data.index === "resources" && hit.uid === context.auth.uid
       ? fetch.resources({ hit: hit, auth: true })
-      : data.index === "resources" && status && fetch.resources({ hit: hit })
+      : data.index === "resources" && fetch.resources({ hit: hit })
   );
 
   return { posts, hit };
 };
 
-const fetchFollows = async (data, status, demo) => {
+const fetchFollows = async (data, demo) => {
   const index = algolia.initIndex(data.index);
 
   const hitsPerPage = 50;
@@ -103,7 +103,6 @@ const fetchFollows = async (data, status, demo) => {
       (hit) =>
         hit &&
         hit.status === "enable" &&
-        status &&
         fetch.companys({ hit: hit, demo: demo })
     )
     ?.filter((post) => post);
