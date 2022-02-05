@@ -8,8 +8,8 @@ import * as rootSlice from "../../features/root/rootSlice";
 export const Maintenance = () => {
   useScrollController();
 
-  // const maintenance = useSelector(rootSlice.data).maintenance?.status;
-  const maintenance = "enable";
+  const maintenance = useSelector(rootSlice.data).maintenance?.status;
+  // const maintenance = "enable";
 
   return (
     maintenance === "enable" && (
