@@ -44,7 +44,7 @@ export const User = ({ index, uid }) => {
     sort?.display,
   ]);
 
-  return (
+  return Object.keys(user)?.length ? (
     <div className={styles.user}>
       <Meta index={index.user} user={user} />
 
@@ -71,5 +71,7 @@ export const User = ({ index, uid }) => {
         setOpen={setOpen}
       />
     </div>
+  ) : (
+    <></>
   );
 };
