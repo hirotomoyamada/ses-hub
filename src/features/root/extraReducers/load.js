@@ -37,6 +37,14 @@ export const load = (builder) => {
     (state, action) => {
       if (action.payload?.error === "notFound") {
         state.notFound = true;
+        state.announce.error =
+          action.type === "post/fetchPost/fulfilled"
+            ? action.payload.index === "matters"
+              ? "案件情報が削除されたか、非公開になったため取得できません"
+              : action.payload.index === "resources" &&
+                "人材情報が削除されたか、非公開になったため取得できません"
+            : action.type === "user/fetchUser/fulfilled" &&
+              "ユーザーが存在しません";
       }
       if (action.payload?.error === "limit") {
         state.limit = true;
