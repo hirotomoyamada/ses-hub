@@ -44,6 +44,7 @@ exports.companys = ({ context, data, customer, create, child, doc }) => {
               link: customer.stripeLink,
               status: "canceled",
               trial: data.type !== "parent" ? true : false,
+              limit: 10,
               notice: true,
               // ver 2.X.X
               // 削除予定
@@ -61,6 +62,7 @@ exports.companys = ({ context, data, customer, create, child, doc }) => {
               start: data.payment?.start ? data.payment?.start : null,
               end: data.payment?.end ? data.payment?.end : null,
               price: data.payment?.price ? data.payment?.price : null,
+              limit: 10,
               notice: data.payment?.notice,
             }
           : {
@@ -72,6 +74,7 @@ exports.companys = ({ context, data, customer, create, child, doc }) => {
               start: data.payment?.start ? data.payment?.start : null,
               end: data.payment?.end ? data.payment?.end : null,
               price: data.payment?.price ? data.payment?.price : null,
+              limit: 10,
               notice: data.payment?.notice,
             },
         provider: !child ? [data.provider] : ["password"],
