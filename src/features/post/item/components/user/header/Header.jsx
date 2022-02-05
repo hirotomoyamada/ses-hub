@@ -16,15 +16,33 @@ export const Header = ({ post }) => {
               ? post?.profile?.person
               : post?.profile?.nickName}
           </h1>
+
+          {post?.status && (
+            <span
+              className={`${styles.header_category} ${
+                post?.status === "active"
+                  ? styles.header_category_active
+                  : post?.status === "trialing" &&
+                    styles.header_category_trialing
+              }`}
+            >
+              {post?.status === "active"
+                ? "レギュラー"
+                : post?.status === "trialing"
+                ? "フリートライアル"
+                : "リミテッド"}
+            </span>
+          )}
+
           {post?.profile?.state && (
             <span
-              className={`${styles.header_state} ${
+              className={`${styles.header_category} ${
                 (post?.profile?.state === "確定" ||
                   post?.profile?.state === "商談中" ||
                   post?.profile?.state === "情報収集中") &&
-                styles.header_state_disable
+                styles.header_category_disable
               } ${
-                post?.profile?.state === "至急" && styles.header_state_hurry
+                post?.profile?.state === "至急" && styles.header_category_hurry
               }`}
             >
               {post?.profile?.state}

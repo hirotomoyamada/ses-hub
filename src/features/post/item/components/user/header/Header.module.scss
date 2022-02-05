@@ -51,19 +51,27 @@ $width: responsive-width(pc);
     }
   }
 
-  &_state {
+  &_category {
     display: inline-block;
     padding: 0 8px;
     border-radius: 8px;
     line-height: 24px;
     font-size: 12px;
-    background: $acnt_ext_clr;
+    background: $promo_clr;
     color: $base_clr;
 
     @media (max-width: responsive-width(sp)) {
       line-height: 20px;
       border-radius: 6px;
       font-size: 10px;
+    }
+
+    &_active {
+      background: $acnt_clr;
+    }
+
+    &_trialing {
+      background: $add_clr;
     }
 
     &_disable {
