@@ -47,13 +47,6 @@ $width: responsive-width(pc);
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
 
-    &_canceled {
-      @media (max-width: responsive-width(sp)) {
-        width: 216px;
-        grid-template-columns: 1fr 1fr 1fr;
-      }
-    }
-
     &_btn {
       height: 64px;
       padding: 0 8px;
