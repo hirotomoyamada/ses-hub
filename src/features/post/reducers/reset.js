@@ -2,7 +2,7 @@ export const resetPost = (state, action) => {
   if (action.type !== "user/fetchUser/pending") {
     if (action.payload) {
       if (action.payload !== "post") {
-        if (Object.keys(state.post).length) {
+        if (Object.keys(state.post)?.length) {
           state.post = {};
           state.bests = [];
         } else {
