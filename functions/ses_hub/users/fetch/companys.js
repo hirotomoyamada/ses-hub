@@ -1,6 +1,6 @@
 const dummy = require("../../../dummy").dummy;
 
-exports.companys = ({ context, doc, data, hit, demo }) => {
+exports.companys = ({ context, doc, data, hit, demo, canceled }) => {
   if (doc) {
     return {
       uid: context.auth.uid,
@@ -26,26 +26,44 @@ exports.companys = ({ context, doc, data, hit, demo }) => {
       updateAt: doc.data().updateAt,
     };
   } else {
-    return {
-      uid: hit.objectID,
-      profile: {
-        name: !demo ? hit.name : dummy("name"),
-        person: !demo
-          ? hit.person
+    if (!canceled) {
+      return {
+        uid: hit.objectID,
+        profile: {
+          name: !demo ? hit.name : dummy("name"),
+          person: !demo
             ? hit.person
-            : "名無しさん"
-          : dummy("person"),
-        body: hit.body,
-        postal: hit.postal,
-        address: hit.address,
-        tel: !demo ? hit.tel : null,
-        email: !demo ? hit.email : null,
-        more: hit.more,
-        region: hit.region,
-        url: !demo ? hit.url : null,
-        social: !demo ? hit.social : {},
-      },
-      createAt: hit.createAt,
-    };
+              ? hit.person
+              : "名無しさん"
+            : dummy("person"),
+          body: hit.body,
+          postal: hit.postal,
+          address: hit.address,
+          tel: !demo ? hit.tel : null,
+          email: !demo ? hit.email : null,
+          more: hit.more,
+          region: hit.region,
+          url: !demo ? hit.url : null,
+          social: !demo ? hit.social : {},
+        },
+        createAt: hit.createAt,
+      };
+    } else {
+      return {
+        uid: hit.objectID,
+        profile: {
+          name: !demo ? hit.name : dummy("name"),
+          person: !demo
+            ? hit.person
+              ? hit.person
+              : "名無しさん"
+            : dummy("person"),
+          body: hit.body,
+          more: hit.more,
+          region: hit.region,
+        },
+        createAt: hit.createAt,
+      };
+    }
   }
 };
