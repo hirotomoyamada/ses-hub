@@ -15,7 +15,7 @@ export const fetchPost = createAsyncThunk("post/fetchPost", async (data) => {
       };
     })
     .catch((e) => {
-      return { error: e.details };
+      return { index: data.index, error: e.details };
     });
 
   return post;
