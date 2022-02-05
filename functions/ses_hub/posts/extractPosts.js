@@ -15,6 +15,8 @@ exports.extractPosts = functions
     const status = await userAuthenticated({
       context: context,
       index: data.index,
+      type: data.type,
+      canceled: true,
     });
 
     const demo = checkDemo(context);
@@ -23,7 +25,7 @@ exports.extractPosts = functions
 
     posts.length && (await fetchFirestore(context, data, posts));
 
-    return { index: data.index, posts: posts, hit: hit };
+    return { index: data.index, type: data.type, posts: posts, hit: hit };
   });
 
 const fetchAlgolia = async (context, data, status, demo) => {
