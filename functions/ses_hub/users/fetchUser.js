@@ -14,28 +14,29 @@ exports.fetchUser = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    await userAuthenticated({
+    const status = await userAuthenticated({
       context: context,
-      canceled: true,
       index: data.index,
+      canceled: true,
+      fetch: true,
     });
 
     const demo = checkDemo(context);
-    const user = await fetchProfile(context, data, demo);
+    const user = await fetchProfile(context, data, demo, status);
     const bests = data.index === "persons" && (await fetchBests(user, data));
 
     return { user: user, bests: bests };
   });
 
-const fetchProfile = async (context, data, demo) => {
-  const user = await fetchAlgolia(data, demo);
+const fetchProfile = async (context, data, demo, status) => {
+  const user = await fetchAlgolia(data, demo, status);
 
   await fetchFirestore(context, data, user);
 
   return user;
 };
 
-const fetchAlgolia = async (data, demo) => {
+const fetchAlgolia = async (data, demo, status) => {
   const index = algolia.initIndex(data.index);
 
   const user = !data.uids
@@ -43,15 +44,18 @@ const fetchAlgolia = async (data, demo) => {
         .getObject(data.uid)
         .then((hit) => {
           return hit && data.index === "companys"
-            ? fetch.companys({ hit: hit, demo: demo })
-            : data.index === "persons" &&
+            ? status
+              ? fetch.companys({ hit: hit, demo: demo })
+              : fetch.companys({ hit: hit, demo: demo, canceled: true })
+            : hit &&
+                data.index === "persons" &&
                 fetch.persons({ hit: hit, demo: demo });
         })
         .catch((e) => {
           throw new functions.https.HttpsError(
             "not-found",
             "プロフィールの取得に失敗しました",
-            "algolia"
+            "notFound"
           );
         })
     : await index
@@ -65,7 +69,7 @@ const fetchAlgolia = async (data, demo) => {
           throw new functions.https.HttpsError(
             "not-found",
             "プロフィールの取得に失敗しました",
-            "algolia"
+            "notFound"
           );
         });
 
@@ -82,10 +86,10 @@ const fetchFirestore = async (context, data, user) => {
         throw new functions.https.HttpsError(
           "not-found",
           "ユーザーの取得に失敗しました",
-          "firebase"
+          "notFound"
         );
       });
-      
+
     if (doc.exists) {
       user.icon = doc.data().icon;
       user.cover = doc.data().cover;
@@ -98,10 +102,10 @@ const fetchFirestore = async (context, data, user) => {
           throw new functions.https.HttpsError(
             "not-found",
             "ユーザーの取得に失敗しました",
-            "firebase"
+            "notFound"
           );
         }
-
+        user.payment = { status: doc.data().payment.status };
         user.type = doc.data().type;
       }
 
