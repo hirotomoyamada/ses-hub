@@ -12,21 +12,21 @@ exports.fetchPosts = functions
   .region(location)
   .runWith(runtime)
   .https.onCall(async (data, context) => {
-    const status = await userAuthenticated({
+    await userAuthenticated({
       context: context,
       index: data.index,
     });
 
     const demo = checkDemo(context);
 
-    const { posts, hit } = await fetchAlgolia(context, data, status, demo);
+    const { posts, hit } = await fetchAlgolia(context, data, demo);
 
     posts.length && (await fetchFirestore(context, data, posts));
 
     return { index: data.index, posts: posts, hit: hit };
   });
 
-const fetchAlgolia = async (context, data, status, demo) => {
+const fetchAlgolia = async (context, data, demo) => {
   const index = algolia.initIndex(
     !data.target || data.target === "createAt"
       ? data.index
@@ -69,15 +69,15 @@ const fetchAlgolia = async (context, data, status, demo) => {
   const posts = result?.hits?.map((hit) =>
     data.index === "matters" && hit.uid === context.auth.uid
       ? fetch.matters({ hit: hit, auth: true })
-      : data.index === "matters" && status
+      : data.index === "matters"
       ? fetch.matters({ hit: hit })
       : data.index === "resources" && hit.uid === context.auth.uid
       ? fetch.resources({ hit: hit, auth: true })
-      : data.index === "resources" && status
+      : data.index === "resources"
       ? fetch.resources({ hit: hit })
-      : data.index === "companys" && hit.person && status
+      : data.index === "companys" && hit.person
       ? fetch.companys({ hit: hit, demo: demo })
-      : data.index === "persons" && status && fetch.persons({ hit: hit })
+      : data.index === "persons" && fetch.persons({ hit: hit })
   );
 
   return { posts, hit };
@@ -116,6 +116,7 @@ const fetchFirestore = async (context, data, posts) => {
           if (data.index === "companys") {
             posts[i].icon = doc.data().icon;
             posts[i].type = doc.data().type;
+            posts[i].status = doc.data().payment.status;
           }
 
           if (data.index === "persons") {
