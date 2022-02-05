@@ -143,5 +143,11 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(sp)) {
       font-size: 10px;
     }
+
+    &_desc {
+      color: $add_clr;
+      font-weight: bold;
+      border-bottom: 1px solid $add_clr;
+    }
   }
 }
