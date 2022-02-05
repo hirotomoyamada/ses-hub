@@ -55,7 +55,7 @@ $width: responsive-width(pc);
     position: relative;
 
     @media (max-width: responsive-width(sp)) {
-      padding: 12px 12px;
+      padding: 16px 12px;
     }
 
     &_txt {
@@ -63,10 +63,6 @@ $width: responsive-width(pc);
       -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
       overflow: hidden;
-
-      @media (max-width: responsive-width(sp)) {
-        -webkit-line-clamp: 5;
-      }
     }
 
     &:after {
