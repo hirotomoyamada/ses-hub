@@ -7,12 +7,16 @@ export const fetchPost = createAsyncThunk("post/fetchPost", async (data) => {
   const post = await fetchPost({
     index: data.index,
     objectID: data.objectID,
-  }).then(({ data }) => {
-    return {
-      post: data.post,
-      bests: data.bests.filter((post) => post),
-    };
-  });
+  })
+    .then(({ data }) => {
+      return {
+        post: data.post,
+        bests: data.bests.filter((post) => post),
+      };
+    })
+    .catch((e) => {
+      return { error: e.details };
+    });
 
   return post;
 });
