@@ -6,6 +6,7 @@ import { modal } from "./modal";
 import { announce } from "./announce";
 import { verified } from "./verified";
 import { notFound } from "./notFound";
+import { limit } from "./limit";
 
 export {
   index,
@@ -16,4 +17,5 @@ export {
   announce,
   verified,
   notFound,
+  limit,
 };
