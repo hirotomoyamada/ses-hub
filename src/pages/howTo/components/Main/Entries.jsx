@@ -9,7 +9,7 @@ export const Entries = () => {
         他のメンバーの投稿にたいして、問い合わせをする
       </p>
       <div className={styles.howto_container}>
-        <Tag tag="問い合わせする" paid />
+        <Tag tag="問い合わせする" free paid />
         <p>
           他のメンバーが投稿した
           <span className={styles.howto_container_tag}>案件</span>
@@ -20,7 +20,7 @@ export const Entries = () => {
         </p>
       </div>
       <div className={styles.howto_container}>
-        <Tag tag="問い合わせしたリスト" paid />
+        <Tag tag="問い合わせしたリスト" free paid />
         <p>
           一度問い合わせた投稿は、
           <span className={styles.howto_container_tag}>案件</span>

@@ -24,11 +24,6 @@ export const Posts = () => {
           <span className={styles.howto_container_tag}>リミテッド会員</span>
           <span className={styles.howto_container_tag}>レギュラー会員</span>
           ともにすべてのメンバーに公開されます。
-          <br />
-          <br />
-          <span className={styles.howto_container_acnt}>
-            ※&nbsp;レギュラー会員はリミテッド会員の公開された投稿を見ることができますので、リミテッド会員にたいして問い合わせることが可能です。
-          </span>
         </p>
       </div>
       <div className={styles.howto_container}>
