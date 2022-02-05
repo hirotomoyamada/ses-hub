@@ -13,7 +13,7 @@ export const Main = ({ index, post, user, entry, handleEntry }) => {
 
   return (
     <div className={styles.main}>
-      {!load && post.objectID ? (
+      {!load && post?.objectID ? (
         <>
           {index === "matters" ? (
             <Matters index={index} post={post} user={user} />
