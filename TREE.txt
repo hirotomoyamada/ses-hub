@@ -122,6 +122,7 @@
 │   │   ├── disableNotice.js // 通知を無効
 │   │   ├── fetchProducts.js // プランやオプション一覧を取得
 │   │   ├── updateNotice.js // 通知を更新
+│   │   ├── updateLimit.js // 閲覧回数を更新
 │   │   ├── updateOption.js // オプションを更新
 │   │   ├── updatePlan.js // プランを更新
 │   │   └── updateTaxBehavior.js
@@ -347,6 +348,7 @@
 │   │   　   ├── index.js // インデックスを保持
 │   │   　   ├── modal.js // モーダル情報を保持
 │   │   　   ├── notFound.js // 404
+│   │   　   ├── limit.js // 閲覧回数
 │   │   　   ├── page.js // ページを保持
 │   │   　   ├── reducers.js
 │   │   　   ├── search.js // 検索情報を保持
@@ -419,6 +421,7 @@
 │   ├── list // いいね・出力・エントリー
 │   ├── maintenance // メンテナンス
 │   ├── notFound // 404
+│   ├── limit // 閲覧回数
 │   ├── setting // アカウント情報
 │   ├── success // プランやオプションが正常に完了した際に表示
 │   └── terms // 利用規約
