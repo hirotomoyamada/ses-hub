@@ -31,25 +31,25 @@ import { Promotion } from "./promotion/Promotion";
 import { useApp } from "./hook/useApp";
 
 const App = () => {
-  const [user, access, notFound, limit, browser] = useApp();
+  const [user, access, browser] = useApp();
 
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Meta />
 
-        {notFound ? (
-          <NotFound />
-        ) : limit ? (
-          <Limit user={user} />
-        ) : browser ? (
+        {browser ? (
           <>
             <load.Root />
             <load.Fetch />
 
             <Announce />
-            <Modal />
+
+            <NotFound />
+            <Limit user={user} />
             <Maintenance />
+
+            <Modal />
             <Menu user={user} />
 
             {!user?.uid ? (
