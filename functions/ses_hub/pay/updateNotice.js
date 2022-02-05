@@ -2,11 +2,13 @@ const functions = require("firebase-functions");
 const db = require("../../firebase").db;
 const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
+const timeZone = require("../../firebase").timeZone;
 
 exports.updateNotice = functions
   .region(location)
   .runWith(runtime)
-  .pubsub.schedule("0 0 * * *")
+  .pubsub.schedule("0 0 */3 * *")
+  .timeZone(timeZone)
   .onRun(async () => {
     const querySnapshot = await db
       .collection("companys")
