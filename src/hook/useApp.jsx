@@ -12,8 +12,6 @@ export const useApp = () => {
 
   const user = useSelector(userSlice.user);
   const access = useSelector(rootSlice.verified).access;
-  const notFound = useSelector(rootSlice.notFound);
-  const limit = useSelector(rootSlice.limit);
 
   const [browser, setBrowser] = useState(true);
 
@@ -66,5 +64,5 @@ export const useApp = () => {
     };
   }, []);
 
-  return [user, access, notFound, limit, browser];
+  return [user, access, browser];
 };
