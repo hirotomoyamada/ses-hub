@@ -4,20 +4,19 @@ import { functions } from "../../../firebase";
 export const extractPosts = createAsyncThunk(
   "post/extractPosts",
   async (data) => {
-    const type = data.type;
-
     const extractPosts = functions.httpsCallable("sh-extractPosts");
-    
+
     const posts = await extractPosts({
       index: data.index,
+      type: data.type,
       objectIDs: data.objectIDs,
       page: data.page,
     })
       .then(({ data }) => {
         return {
           index: data.index,
+          type: data.type,
           posts: data.posts.filter((post) => post),
-          type: type,
           hit: data.hit,
         };
       })
