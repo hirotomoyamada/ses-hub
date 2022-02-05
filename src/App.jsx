@@ -22,6 +22,7 @@ import { Asct } from "./pages/asct/Asct";
 import { HowTo } from "./pages/howTo/HowTo";
 import { Success } from "./pages/success/Success";
 import { NotFound } from "./pages/notFound/NotFound";
+import { Limit } from "./pages/limit/Limit";
 import { Maintenance } from "./pages/maintenance/Maintenance";
 import { Contact } from "./pages/contact/Contact";
 
@@ -30,7 +31,7 @@ import { Promotion } from "./promotion/Promotion";
 import { useApp } from "./hook/useApp";
 
 const App = () => {
-  const [user, access, notFound, browser] = useApp();
+  const [user, access, notFound, limit, browser] = useApp();
 
   return (
     <HelmetProvider>
@@ -39,6 +40,8 @@ const App = () => {
 
         {notFound ? (
           <NotFound />
+        ) : limit ? (
+          <Limit user={user} />
         ) : browser ? (
           <>
             <load.Root />
@@ -85,6 +88,7 @@ const App = () => {
                 <Route exact path="/plan" component={Pay} />
                 <Route exact path="/success" component={Success} />
 
+                <Redirect exact path="/" to="/setting" />
                 <Redirect exact path="/:others" to="/plan" />
 
                 <Route component={NotFound} />
