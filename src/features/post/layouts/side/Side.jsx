@@ -4,7 +4,6 @@ import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
 
 import { Item } from "../../item/Item";
-import { Advertise } from "./components/Advertise";
 import { List } from "../../list/List";
 
 export const Side = ({ index, post, posts, user }) => {
@@ -30,19 +29,11 @@ export const Side = ({ index, post, posts, user }) => {
         <>
           <span className={styles.side_tag}>
             {index === "matters"
-              ? user?.payment?.status !== "canceled"
-                ? "こんな案件もオススメ"
-                : "もっと案件をご覧になりますか？"
-              : index === "resources" && user?.payment?.status !== "canceled"
-              ? "こんな人材もオススメ"
-              : "もっと人材をご覧になりますか？"}
+              ? "こんな案件もオススメ"
+              : index === "resources" && "こんな人材もオススメ"}
           </span>
 
-          {user?.payment?.status !== "canceled" ? (
-            <List index={index} user={user} posts={posts} disable={true} />
-          ) : (
-            <Advertise user={user} />
-          )}
+          <List index={index} user={user} posts={posts} disable={true} />
         </>
       )}
     </div>
