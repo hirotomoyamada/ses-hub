@@ -13,7 +13,6 @@ exports.addEntry = functions
     await userAuthenticated({
       context: context,
       demo: true,
-      canceled: true,
     });
 
     const timestamp = Date.now();
