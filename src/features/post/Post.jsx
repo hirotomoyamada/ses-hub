@@ -10,7 +10,7 @@ export const Post = ({ index, objectID }) => {
   const [post, bests, user] = usePost(index, objectID);
   const [entry, handleEntry] = useEntry(index, post, user);
 
-  return (
+  return Object.keys(post)?.length ? (
     <div className={styles.post}>
       <Meta post={post} />
 
@@ -24,5 +24,7 @@ export const Post = ({ index, objectID }) => {
 
       <Side index={index} post={post} posts={bests} user={user} />
     </div>
+  ) : (
+    <></>
   );
 };
