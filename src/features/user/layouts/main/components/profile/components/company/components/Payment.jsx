@@ -14,7 +14,7 @@ export const Payment = ({ user }) => {
         {user?.payment?.status === "active"
           ? "レギュラー"
           : user?.payment?.status === "trialing"
-          ? "レギュラー(フリートライアル)"
+          ? "フリートライアル"
           : "リミテッド"}
       </div>
 
