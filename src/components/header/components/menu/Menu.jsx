@@ -8,7 +8,7 @@ export const Menu = ({ index, uid, user, handleIndex, page, outputs }) => {
           ? user?.payment?.status !== "canceled" &&
             user?.payment?.option?.freelanceDirect
             ? styles.menu_over
-            : user?.payment?.status !== "canceled" && styles.menu_triangle
+            : styles.menu_triangle
           : (page === "likes" || page === "entries") &&
             user?.payment?.status !== "canceled" &&
             user?.payment?.option?.freelanceDirect
@@ -50,7 +50,7 @@ export const Menu = ({ index, uid, user, handleIndex, page, outputs }) => {
           </button>
         )}
 
-      {((page === "search" && user?.payment?.status !== "canceled") ||
+      {(page === "search" ||
         (page === "user" &&
           user?.uid === uid &&
           user?.payment?.status !== "canceled")) && (

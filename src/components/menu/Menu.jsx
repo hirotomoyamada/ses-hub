@@ -84,11 +84,7 @@ export const Menu = ({ user }) => {
     location !== "terms" &&
     location !== "asct" && (
       <div className={styles.menu}>
-        <div
-          className={`${styles.menu_list} ${
-            user?.payment?.status === "canceled" && styles.menu_list_canceled
-          }`}
-        >
+        <div className={styles.menu_list}>
           <button
             onClick={() => handlePage("/home")}
             type="button"
@@ -101,19 +97,17 @@ export const Menu = ({ user }) => {
             />
           </button>
 
-          {user?.payment?.status !== "canceled" && (
-            <button
-              onClick={() => handlePage("/search")}
-              type="button"
-              className={`${styles.menu_list_btn} ${styles.menu_list_btn_seach}`}
-            >
-              <SearchIcon
-                className={`${styles.menu_list_icon} ${
-                  page === "search" && styles.menu_list_icon_search
-                }`}
-              />
-            </button>
-          )}
+          <button
+            onClick={() => handlePage("/search")}
+            type="button"
+            className={`${styles.menu_list_btn} ${styles.menu_list_btn_seach}`}
+          >
+            <SearchIcon
+              className={`${styles.menu_list_icon} ${
+                page === "search" && styles.menu_list_icon_search
+              }`}
+            />
+          </button>
 
           <button
             onClick={() => handlePage("/likes")}
@@ -139,19 +133,17 @@ export const Menu = ({ user }) => {
             />
           </button>
 
-          {user?.payment?.status !== "canceled" && (
-            <button
-              onClick={() => handlePage("/entries")}
-              type="button"
-              className={`${styles.menu_list_btn} ${styles.menu_list_btn_entries}`}
-            >
-              <CheckCircleOutlineIcon
-                className={`${styles.menu_list_icon} ${
-                  page === "entries" && styles.menu_list_icon_entries
-                }`}
-              />
-            </button>
-          )}
+          <button
+            onClick={() => handlePage("/entries")}
+            type="button"
+            className={`${styles.menu_list_btn} ${styles.menu_list_btn_entries}`}
+          >
+            <CheckCircleOutlineIcon
+              className={`${styles.menu_list_icon} ${
+                page === "entries" && styles.menu_list_icon_entries
+              }`}
+            />
+          </button>
         </div>
 
         {page === "home" && (

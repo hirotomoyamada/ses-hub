@@ -20,7 +20,9 @@ export const Follow = ({ user, post, profile, select, selectUser }) => {
     );
   };
 
-  return user?.uid !== post?.uid && !select ? (
+  return user?.payment?.status !== "canceled" &&
+    user?.uid !== post?.uid &&
+    !select ? (
     <button
       type="button"
       onClick={handleFollow}
@@ -30,15 +32,17 @@ export const Follow = ({ user, post, profile, select, selectUser }) => {
     >
       {!follow ? "フォローする" : "フォロー中"}
     </button>
-  ) : (
+  ) : user?.payment?.status !== "canceled" ? (
     <button
       type="button"
       onClick={() => selectUser(post.uid)}
       className={`${styles.follow} ${target && styles.follow_remove} ${
-        !target && select.length >= 15 && styles.follow_disable
+        !target && select?.length >= 15 && styles.follow_disable
       }`}
     >
       {!target ? "未選択" : "解除"}
     </button>
+  ) : (
+    <></>
   );
 };
