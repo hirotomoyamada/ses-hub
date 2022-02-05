@@ -24,6 +24,7 @@ export const NotFound = () => {
           alt=""
           className={styles.not_img}
         />
+        
         <button type="button" onClick={handleHome} className={styles.not_btn}>
           ホーム
         </button>
