@@ -7,6 +7,7 @@ exports.userAuthenticated = async ({
   demo,
   agree,
   canceled,
+  fetch,
   index,
   parent,
 }) => {
@@ -44,11 +45,15 @@ exports.userAuthenticated = async ({
   }
 
   if (doc.data().payment.status === "canceled" && canceled) {
-    throw new functions.https.HttpsError(
-      "cancelled",
-      "リミテッドユーザーのため、処理中止",
-      "firebase"
-    );
+    if (!fetch) {
+      throw new functions.https.HttpsError(
+        "cancelled",
+        "リミテッドユーザーのため、処理中止",
+        "firebase"
+      );
+    } else {
+      return false;
+    }
   }
 
   if (
@@ -62,4 +67,6 @@ exports.userAuthenticated = async ({
       "firebase"
     );
   }
+
+  return true;
 };
