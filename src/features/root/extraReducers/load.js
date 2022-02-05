@@ -24,13 +24,6 @@ export const load = (builder) => {
   builder.addMatcher(
     (action) => action.type.endsWith("/rejected"),
     (state) => {
-      if (
-        state.verified.payment !== "canceled" ||
-        (state.page !== "post" && state.page !== "user")
-      ) {
-        state.notFound = true;
-      }
-
       state.load.fetch = false;
       state.load.list = false;
       state.load.create = false;
@@ -41,7 +34,14 @@ export const load = (builder) => {
     (action) =>
       action.type.endsWith("/fulfilled") &&
       action.type !== "user/login/fulfilled",
-    (state) => {
+    (state, action) => {
+      if (action.payload?.error === "notFound") {
+        state.notFound = true;
+      }
+      if (action.payload?.error === "limit") {
+        state.limit = true;
+      }
+
       state.load.fetch = false;
       state.load.list = false;
       state.load.create = false;

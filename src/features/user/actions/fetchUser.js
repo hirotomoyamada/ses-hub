@@ -8,12 +8,16 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async (data) => {
     index: data.index,
     uid: data.uid,
     uids: data.uids,
-  }).then(({ data }) => {
-    return {
-      user: data.user,
-      bests: data.bests.length && data.bests.filter((user) => user),
-    };
-  });
+  })
+    .then(({ data }) => {
+      return {
+        user: data.user,
+        bests: data.bests.length && data.bests.filter((user) => user),
+      };
+    })
+    .catch((e) => {
+      return { error: e.details };
+    });
 
   return user;
 });
