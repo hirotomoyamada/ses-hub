@@ -17,6 +17,7 @@ export const rootSlice = createSlice({
     handleModal: (state, action) => reducers.modal(state, action),
     handleAnnounce: (state, action) => reducers.announce(state, action),
     handleNotFound: (state, action) => reducers.notFound(state, action),
+    handleLimit: (state, action) => reducers.limit(state, action),
     handleVerified: (state, action) => reducers.verified(state, action),
   },
 
@@ -31,6 +32,7 @@ export const {
   handleModal,
   handleAnnounce,
   handleNotFound,
+  handleLimit,
   handleVerified,
 } = rootSlice.actions;
 
@@ -41,6 +43,7 @@ export const search = (state) => state.root.search;
 export const modal = (state) => state.root.modal;
 export const announce = (state) => state.root.announce;
 export const notFound = (state) => state.root.notFound;
+export const limit = (state) => state.root.limit;
 export const data = (state) => state.root.data;
 export const verified = (state) => state.root.verified;
 export const load = (state) => state.root.load;
