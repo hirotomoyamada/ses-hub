@@ -16,7 +16,7 @@ export const Company = ({ user, demo }) => {
     <div className={styles.profile}>
       <Head user={user} />
 
-      {user?.payment && <Payment user={user} />}
+      <Payment user={user} />
 
       <Body user={user} />
 
