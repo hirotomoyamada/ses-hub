@@ -1,7 +1,12 @@
 const functions = require("firebase-functions");
 const db = require("../../../firebase").db;
 
-exports.userAuthenticated = async ({ context, index }) => {
+exports.userAuthenticated = async ({
+  context,
+  index,
+  type,
+  canceled,
+}) => {
   const doc = await db.collection("companys").doc(context.auth.uid).get();
 
   if (doc.data().status !== "enable") {
@@ -32,7 +37,11 @@ exports.userAuthenticated = async ({ context, index }) => {
     );
   }
 
-  if (doc.data().payment.status === "canceled") {
+  if (
+    canceled &&
+    type !== "entries" &&
+    doc.data().payment.status === "canceled"
+  ) {
     return false;
   }
 
