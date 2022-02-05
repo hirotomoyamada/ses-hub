@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import * as userSlice from "../../../user/userSlice";
 
 import { Item } from "../../item/Item";
+import { Advertise } from "../../advertise/Advertise";
 
 export const Posts = ({
   index,
@@ -20,6 +21,35 @@ export const Posts = ({
 }) => {
   const user = useSelector(userSlice.user);
 
+  const createPosts = () => {
+    const array = posts?.map(
+      (post) =>
+        post && (
+          <Item
+            key={post.objectID ? post.objectID : post.uid}
+            index={index}
+            post={post}
+            user={user}
+            select={select}
+            selectUser={selectUser}
+            outputs={outputs}
+            handleSelect={handleSelect}
+            handleCancel={handleCancel}
+            status={side}
+            display={side}
+          />
+        )
+    );
+
+    if (user?.payment?.status === "canceled" && index !== "companys") {
+      for (let i = 0; i < Math.floor(array?.length / 10) + 1; i++) {
+        array.splice(i * 11, 0, <Advertise user={user} key={i * 11} />);
+      }
+    }
+
+    return array;
+  };
+
   return (
     <div
       className={`
@@ -32,24 +62,7 @@ export const Posts = ({
       `}
       ref={list}
     >
-      {posts.map(
-        (post) =>
-          post && (
-            <Item
-              key={post.objectID ? post.objectID : post.uid}
-              index={index}
-              post={post}
-              user={user}
-              select={select}
-              selectUser={selectUser}
-              outputs={outputs}
-              handleSelect={handleSelect}
-              handleCancel={handleCancel}
-              status={side}
-              display={side}
-            />
-          )
-      )}
+      {createPosts()}
     </div>
   );
 };
