@@ -7,7 +7,7 @@ import { faInstagramSquare } from "@fortawesome/free-brands-svg-icons";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 export const Social = ({ user, demo }) => {
-  return (
+  return user?.profile?.social ? (
     <div className={styles.profile_sns}>
       <a
         className={
@@ -94,5 +94,7 @@ export const Social = ({ user, demo }) => {
         />
       </a>
     </div>
+  ) : (
+    <></>
   );
 };

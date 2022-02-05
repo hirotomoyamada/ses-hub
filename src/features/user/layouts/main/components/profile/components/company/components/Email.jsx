@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
 export const Email = ({ user, demo }) => {
-  return (
+  return user?.profile?.email ? (
     <div className={styles.profile_field}>
       <FontAwesomeIcon icon={faEnvelope} className={styles.profile_icon} />
       <a
@@ -14,5 +14,7 @@ export const Email = ({ user, demo }) => {
         {!demo ? user?.profile?.email : "demo@ses-hub.app"}
       </a>
     </div>
+  ) : (
+    <></>
   );
 };
