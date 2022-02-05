@@ -9,7 +9,7 @@ $width: responsive-width(pc);
   position: fixed;
   bottom: 32px;
   right: 32px;
-  z-index: 998;
+  z-index: 9999;
 
   @media (max-width: responsive-width(sp)) {
     bottom: 24px;

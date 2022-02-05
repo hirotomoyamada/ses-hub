@@ -23,6 +23,8 @@ export const Menu = ({ user }) => {
   const modal = useSelector(rootSlice.modal);
   const index = useSelector(rootSlice.index);
   const status = useSelector(rootSlice.verified).status;
+  const notFound = useSelector(rootSlice.notFound);
+  const limit = useSelector(rootSlice.limit);
   const page = useSelector(rootSlice.page);
   const open = modal.open;
 
@@ -45,10 +47,15 @@ export const Menu = ({ user }) => {
   const handlePage = (page) => {
     window.scrollTo(0, 0);
     history.push(page);
+
+    notFound && dispatch(rootSlice.handleNotFound(false));
+    limit && dispatch(rootSlice.handleLimit(false));
   };
 
   const Btn = () => {
     if (
+      !limit &&
+      !notFound &&
       index !== "companys" &&
       index !== "persons" &&
       (page === "search" ||
@@ -62,9 +69,22 @@ export const Menu = ({ user }) => {
           <EditIcon className={styles.menu_main_icon} />
         </button>
       );
-    } else {
+    } else if (
+      (page === "user" &&
+        user.uid !==
+          location.substring(location.indexOf("/") + 1, location.length)) ||
+      page === "post"
+    ) {
       return (
         <button className={styles.menu_main} onClick={handleClose}>
+          <ArrowBackIosIcon
+            className={`${styles.menu_main_icon} ${styles.menu_main_icon_back}`}
+          />
+        </button>
+      );
+    } else {
+      return (
+        <button className={styles.menu_main} onClick={() => history.goBack()}>
           <ArrowBackIosIcon
             className={`${styles.menu_main_icon} ${styles.menu_main_icon_back}`}
           />
@@ -92,7 +112,10 @@ export const Menu = ({ user }) => {
           >
             <HomeIcon
               className={`${styles.menu_list_icon} ${
-                page === "home" && styles.menu_list_icon_search
+                !limit &&
+                !notFound &&
+                page === "home" &&
+                styles.menu_list_icon_search
               }`}
             />
           </button>
@@ -146,7 +169,7 @@ export const Menu = ({ user }) => {
           </button>
         </div>
 
-        {page === "home" && (
+        {!limit && !notFound && page === "home" && (
           <button
             onClick={handleSetting}
             type="button"
