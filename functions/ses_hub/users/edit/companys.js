@@ -1,4 +1,4 @@
-exports.companys = ({ context, data, customer, create, child, doc }) => {
+module.exports = ({ context, data, customer, create, child, doc }) => {
   const timestamp = create ? context.auth.token.auth_time * 1000 : Date.now();
 
   const profile = create
