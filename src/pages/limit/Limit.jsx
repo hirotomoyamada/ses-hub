@@ -7,9 +7,9 @@ import * as rootSlice from "../../features/root/rootSlice";
 export const Limit = ({ user }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [resize, inner] = useResize();
 
   const limit = useSelector(rootSlice.limit);
+  const [resize, inner] = useResize(limit);
 
   const handlePlan = () => {
     dispatch(rootSlice.handleLimit(false));
