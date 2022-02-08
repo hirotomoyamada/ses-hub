@@ -18,7 +18,7 @@ export const Name = () => {
         会社名
         {type === "individual" && (
           <span className={styles.create_tag_desc}>
-            &nbsp;※&nbsp;所属が無い場合は、個人と入力してください
+            &nbsp;※&nbsp;所属が無い場合は、営業フリーランスと入力してください
           </span>
         )}
       </span>
