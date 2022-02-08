@@ -60,12 +60,14 @@ export const List = ({
       ) : (
         <NotFound
           index={index}
+          user={user}
           list={list}
           type={type}
           sort={sort}
-          side={side}
           select={select}
           disable={disable}
+          home={home}
+          side={side}
         />
       )}
 

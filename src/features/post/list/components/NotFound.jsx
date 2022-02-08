@@ -7,11 +7,13 @@ import * as rootSlice from "../../../root/rootSlice";
 
 export const NotFound = ({
   index,
+  user,
   list,
   type,
   sort,
   select,
   disable,
+  home,
   side,
 }) => {
   const load = useSelector(rootSlice.load).list;
@@ -33,13 +35,21 @@ export const NotFound = ({
       ) : (
         <span className={styles.list_none_message}>
           {index === "matters"
-            ? "案件情報がありません"
+            ? !home && !sort
+              ? "案件情報がありません"
+              : "あなたの登録した案件情報はありません"
             : select
-            ? "フォローしているユーザーがいません"
+            ? user?.payment?.status !== "canceled"
+              ? "フォローしているユーザーがいません"
+              : "現在のプランでは、ユーザーをフォローできません"
             : index === "resources"
-            ? "人材情報がありません"
+            ? !home && !sort
+              ? "人材情報がありません"
+              : "あなたの登録した人材情報はありません"
             : index === "companys"
-            ? "メンバー情報がありません"
+            ? !side
+              ? "メンバー情報がありません"
+              : "フォローしているユーザーがいません"
             : index === "persons" && "フリーランス情報がありません"}
         </span>
       )}
