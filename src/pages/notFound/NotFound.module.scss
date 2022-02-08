@@ -9,6 +9,8 @@ $width: responsive-width(pc);
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 9998;
   width: 100vw;
   height: $innerHeight;
@@ -22,6 +24,13 @@ $width: responsive-width(pc);
   animation-duration: 0.4s;
   animation-fill-mode: forwards;
   animation-timing-function: ease-out;
+
+  &_resize {
+    display: block;
+    height: auto;
+    overflow-y: scroll;
+    padding-bottom: 120px;
+  }
 
   @keyframes fadeIn {
     0% {
