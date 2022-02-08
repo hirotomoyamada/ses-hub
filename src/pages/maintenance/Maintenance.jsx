@@ -6,9 +6,8 @@ import { useResize } from "../../hook/useResize";
 import * as rootSlice from "../../features/root/rootSlice";
 
 export const Maintenance = () => {
-  const [resize, inner] = useResize();
-
   const maintenance = useSelector(rootSlice.data).maintenance?.status;
+  const [resize, inner] = useResize(maintenance);
   // const maintenance = "enable";
 
   return (

@@ -8,9 +8,8 @@ import * as rootSlice from "../../features/root/rootSlice";
 export const NotFound = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [resize, inner] = useResize();
-
   const notFound = useSelector(rootSlice.notFound);
+  const [resize, inner] = useResize(notFound);
 
   const handleHome = () => {
     dispatch(rootSlice.handleNotFound(false));
@@ -20,10 +19,7 @@ export const NotFound = () => {
   return (
     notFound && (
       <div className={`${styles.not} ${resize && styles.not_resize}`}>
-        <div
-          className={styles.not_inner}
-          ref={inner}
-        >
+        <div className={styles.not_inner} ref={inner}>
           <img
             src={`${process.env.PUBLIC_URL}/img/app/404.svg`}
             alt=""
