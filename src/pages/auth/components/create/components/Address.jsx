@@ -15,6 +15,7 @@ export const Address = () => {
   } = useFormContext();
 
   const postal = watch("postal");
+  const type = watch("type");
 
   useEffect(() => {
     setPostalCode(postal);
@@ -22,7 +23,14 @@ export const Address = () => {
 
   return (
     <div className={root.auth_col}>
-      <span className={styles.create_tag}>住所</span>
+      <span className={styles.create_tag}>
+        住所
+        {type === "individual" && (
+          <span className={styles.create_tag_desc}>
+            &nbsp;※&nbsp;オフィスが無い場合は、自宅の住所を入力してください
+          </span>
+        )}
+      </span>
 
       <div>
         <input

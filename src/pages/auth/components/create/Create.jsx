@@ -1,3 +1,4 @@
+import styles from "./Create.module.scss";
 import root from "../../Auth.module.scss";
 
 import { Person } from "./components/Person";
@@ -21,6 +22,11 @@ export const Create = ({ inner, handleLogout, setTerms, resize }) => {
       >
         ログイン画面に戻る
       </button>
+
+      <span className={styles.create_announce}>
+        登録情報が不足している場合、サービスをご利用いただけません
+      </span>
+
       <Type />
       <Name />
       <Person />

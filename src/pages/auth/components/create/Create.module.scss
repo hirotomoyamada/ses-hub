@@ -6,6 +6,27 @@
 $width: responsive-width(pc);
 
 .create {
+  &_announce {
+    display: block;
+    background: $bg_clr;
+    height: 48px;
+    border: 1px solid $remove_clr;
+    border-radius: 8px;
+    padding: 8px 16px;
+
+    font-size: 14px;
+    color: $remove_clr;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: responsive-width(sp)) {
+      height: 40px;
+      padding: 4px 12px;
+    }
+  }
+
   &_tag {
     font-size: 16px;
     color: $icn_clr;
@@ -59,6 +80,7 @@ $width: responsive-width(pc);
       right: 16px;
       transform: translateY(-50%);
       font-size: 18px;
+      color: $link_clr;
 
       @media (max-width: responsive-width(sp)) {
         right: 8px;
@@ -143,6 +165,10 @@ $width: responsive-width(pc);
 
   input[type="radio"]:checked + &_btn {
     background: $acnt_clr;
+    color: $base_clr;
+  }
+
+  input[type="radio"]:checked + &_btn > &_btn_icon {
     color: $base_clr;
   }
 }
