@@ -1,15 +1,14 @@
 import styles from "./Limit.module.scss";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useScrollController } from "../../hook/useScrollController";
-
+import { useResize } from "../../hook/useResize";
 import * as rootSlice from "../../features/root/rootSlice";
 
 export const Limit = ({ user }) => {
-  useScrollController();
   const dispatch = useDispatch();
   const history = useHistory();
-  
+  const [resize, inner] = useResize();
+
   const limit = useSelector(rootSlice.limit);
 
   const handlePlan = () => {
@@ -19,8 +18,8 @@ export const Limit = ({ user }) => {
 
   return (
     limit && (
-      <div className={styles.limit}>
-        <div className={styles.limit_inner}>
+      <div className={`${styles.limit} ${resize && styles.limit_resize}`}>
+        <div className={styles.limit_inner} ref={inner}>
           <div className={styles.limit_header}>
             <span>
               閲覧回数の&nbsp;<span className={styles.limit_acnt}>上限</span>
