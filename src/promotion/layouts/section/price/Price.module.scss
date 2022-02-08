@@ -13,12 +13,31 @@ $width: responsive-width(pc);
     padding-bottom: 72px;
   }
 
+  &_campaign {
+    color: $remove_clr;
+    font-size: 20px;
+    font-weight: bold;
+
+    display: block;
+    text-align: center;
+    margin-bottom: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+  }
+
   &_ttl {
     margin-bottom: 16px;
   }
 
   &_desc {
     margin-bottom: 64px;
+
+    @media (max-width: responsive-width(sp)) {
+      margin-bottom: 32px;
+    }
   }
 
   &_announce {

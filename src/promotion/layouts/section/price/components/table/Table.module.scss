@@ -80,6 +80,7 @@ $width: responsive-width(pc);
     display: block;
 
     font-size: 24px;
+    color: $remove_clr;
 
     @media (max-width: responsive-width(sp)) {
       font-size: 20px;
