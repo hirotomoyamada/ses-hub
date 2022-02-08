@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useResize } from "./hook/useResize";
+import { useResize } from "../../hook/useResize";
 import { useVerification } from "./hook/useVerification";
 
 import * as rootSlice from "../../features/root/rootSlice";
@@ -28,7 +28,7 @@ export const Auth = () => {
   const [reset, setReset] = useState(false);
   const [help, setHelp] = useState(false);
   const [terms, setTerms] = useState(false);
-  const [resize, form, inner] = useResize(verified);
+  const [resize, inner] = useResize(verified);
   const [
     sign,
     setSign,
@@ -103,7 +103,6 @@ export const Auth = () => {
             ? methods.handleSubmit(handleSignUp)
             : methods.handleSubmit(handleSignIn)
         }
-        ref={form}
       >
         {terms ? (
           <Terms create setTerms={setTerms} />
