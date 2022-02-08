@@ -11,7 +11,7 @@ export const Search = () => {
         </h2>
 
         <p className={styles.can_cnt_desc}>
-          CRMとしての機能は直感的なシンプルUIで
+          SFAとしての機能は直感的なシンプルUIで
           <span>使いやすさを大切にしています。</span>
           <br />
           <br />
