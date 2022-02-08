@@ -193,7 +193,7 @@ export const Feature = () => {
         </span>
         <br />
         <span className={styles.feature_announce}>
-          ※2&nbsp;無料プランは、新着投稿の通知を受け取ることが出来ても、ご自身の投稿は他のユーザーに通知されることはありません。
+          ※2&nbsp;無料プランは、新着投稿の通知を受け取ることが出来ても、ご自身の投稿は他のユーザーに通知されません。
         </span>
         <br />
         <span className={styles.feature_announce}>
@@ -208,11 +208,11 @@ export const Feature = () => {
         </span>
         <br />
         <span className={styles.feature_announce}>
-          ※5&nbsp;複数のアカウントを登録・管理するには法人契約が必要です。
+          ※5&nbsp;複数のアカウントを登録・管理するには法人契約へのお申し込みが必要です。
         </span>
         <br />
         <span className={styles.feature_announce}>
-          ※&nbsp;今後のアップデートにより機能は変更になる場合がございます。
+          ※&nbsp;アップデートにより機能は予告なく変更になる場合がございます。
         </span>
       </div>
     </section>
