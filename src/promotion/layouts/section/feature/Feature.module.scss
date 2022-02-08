@@ -84,6 +84,7 @@ $width: responsive-width(pc);
       }
 
       td {
+        position: relative;
         vertical-align: middle;
 
         &:not(:last-child) {
@@ -96,6 +97,21 @@ $width: responsive-width(pc);
   &_none {
     @media (max-width: responsive-width(sp)) {
       display: none;
+    }
+  }
+
+  &_tag {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+
+    font-size: 14px;
+    color: $acnt_clr;
+
+    &_acnt {
+      color: $acnt_sub_clr;
     }
   }
 
