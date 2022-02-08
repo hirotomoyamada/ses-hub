@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 
-export const useResize = (verified) => {
+export const useResize = (observe) => {
   const inner = useRef();
 
   const [resize, setResize] = useState(false);
@@ -22,13 +22,14 @@ export const useResize = (verified) => {
     window.addEventListener("resize", () => {
       resizeObserver();
     });
+
     ref && observer?.observe(ref);
 
     return () => {
       window.removeEventListener("resize", resizeObserver);
       ref && observer.disconnect(ref);
     };
-  }, [inner, resize, verified]);
+  }, [inner, resize, observe]);
 
   return [resize, inner];
 };
