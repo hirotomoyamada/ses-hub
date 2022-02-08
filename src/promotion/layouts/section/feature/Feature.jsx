@@ -46,7 +46,14 @@ export const Feature = () => {
             </tr>
 
             <tr>
-              <td>情報を検索</td>
+              <td>
+                <span
+                  className={`${styles.feature_tag} ${styles.feature_tag_acnt}`}
+                >
+                  \&nbsp;Renewal&nbsp;/
+                </span>
+                情報を検索
+              </td>
 
               <td>
                 <RadioButtonUncheckedIcon
@@ -61,7 +68,14 @@ export const Feature = () => {
             </tr>
 
             <tr>
-              <td>案件・人材を閲覧</td>
+              <td>
+                <span
+                  className={`${styles.feature_tag} ${styles.feature_tag_acnt}`}
+                >
+                  \&nbsp;Renewal&nbsp;/
+                </span>
+                案件・人材を閲覧
+              </td>
 
               <td>
                 <RadioButtonUncheckedIcon
@@ -92,7 +106,10 @@ export const Feature = () => {
             </tr>
 
             <tr>
-              <td>新着投稿の通知</td>
+              <td>
+                <span className={styles.feature_tag}>\&nbsp;New&nbsp;/</span>
+                新着投稿の通知
+              </td>
 
               <td>
                 <ChangeHistoryIcon
@@ -140,7 +157,10 @@ export const Feature = () => {
             </tr>
 
             <tr>
-              <td>フリーランスへアプローチ</td>
+              <td>
+                <span className={styles.feature_tag}>\&nbsp;New&nbsp;/</span>
+                フリーランスへアプローチ
+              </td>
 
               <td>
                 <CloseIcon
@@ -171,7 +191,10 @@ export const Feature = () => {
             </tr>
 
             <tr>
-              <td>グループアカウント</td>
+              <td>
+                <span className={styles.feature_tag}>\&nbsp;New&nbsp;/</span>
+                グループアカウント
+              </td>
 
               <td>
                 <CloseIcon
