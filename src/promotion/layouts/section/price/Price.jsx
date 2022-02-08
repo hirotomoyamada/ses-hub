@@ -31,6 +31,7 @@ export const Price = () => {
   return (
     <section className={`${styles.price} ${root.section}`}>
       <div className={`${root.section_inner} ${root.section_inner_content}`}>
+        <span className={styles.price_campaign}>\&nbsp;リリースキャンペーン中&nbsp;/</span>
         <h1 className={`${styles.price_ttl} ${root.section_ttl}`}>料金</h1>
 
         <Index index={index} setIndex={setIndex} />
@@ -56,7 +57,7 @@ export const Price = () => {
           </>
         )}
         <span className={styles.price_announce}>
-          ※ 決済方法やプランは変更になる場合がございます。
+          ※ 決済方法やプラン(価格)は変更になる場合がございます。
         </span>
       </div>
     </section>

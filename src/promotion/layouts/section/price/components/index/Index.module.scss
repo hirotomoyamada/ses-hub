@@ -20,7 +20,7 @@ $width: responsive-width(pc);
   font-size: 14px;
 
   @media (max-width: responsive-width(sp)) {
-    margin-bottom: 48px;
+    margin-bottom: 24px;
     width: 160px;
     height: 34px;
     padding: 3px;
