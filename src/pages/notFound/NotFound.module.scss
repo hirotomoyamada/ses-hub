@@ -1,6 +1,7 @@
 // サイト共有の初期設定
 @import "../../styles/config";
 @import "../../styles/function";
+@import "../../styles/animation";
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -11,7 +12,7 @@ $width: responsive-width(pc);
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 9998;
+  z-index: 9995;
   width: 100vw;
   height: $innerHeight;
   background: $base_clr;
@@ -30,16 +31,6 @@ $width: responsive-width(pc);
     height: auto;
     overflow-y: scroll;
     padding-bottom: 120px;
-  }
-
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 1;
-    }
   }
 
   &_inner {

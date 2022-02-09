@@ -1,6 +1,7 @@
 // サイト共有の初期設定
 @import "../../styles/config";
 @import "../../styles/function";
+@import "../../styles/animation";
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -9,12 +10,17 @@ $width: responsive-width(pc);
   position: fixed;
   bottom: 32px;
   right: 32px;
-  z-index: 9999;
+  z-index: 9996;
 
   @media (max-width: responsive-width(sp)) {
     bottom: 24px;
     right: 12px;
   }
+
+  animation-name: slideInRight;
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
 
   &_list {
     position: absolute;

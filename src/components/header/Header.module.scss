@@ -1,6 +1,7 @@
 // サイト共有の初期設定
 @import "../../styles/config";
 @import "../../styles/function";
+@import "../../styles/animation";
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -30,9 +31,16 @@ $width: responsive-width(pc);
     align-items: center;
     gap: 32px;
 
+    animation-name: fadeHeader;
+    animation-duration: 0.7s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+
     @media (max-width: responsive-width(sp)) {
       padding: 16px 12px 0;
       gap: 12px;
+
+      animation-name: fadeHeaderSp;
     }
 
     &_none {
@@ -63,6 +71,8 @@ $width: responsive-width(pc);
     grid-template-columns: 72px 1fr 72px;
     height: 72px;
     border: none;
+
+    animation: none;
 
     @media (max-width: responsive-width(tb)) {
       width: 100vw;

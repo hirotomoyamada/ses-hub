@@ -40,9 +40,11 @@ export const Item = ({
         <Link
           to={`/${index}/${post.objectID}`}
           target="_blank"
-          className={styles.item_btn}
+          className={`${styles.item_btn}`}
         >
-          <article className={styles.item}>
+          <article
+            className={`${styles.item} ${!outputs?.length && styles.item_none}`}
+          >
             <Post
               index={index}
               post={post}

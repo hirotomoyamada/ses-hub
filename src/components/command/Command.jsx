@@ -23,7 +23,11 @@ export const Command = ({ index, post, user, back, postItem, person }) => {
   const history = useHistory();
 
   const [open, setOpen] = useState(false);
+
+  const [clickLike, setClickLike] = useState(false);
   const [like, setLike] = useState(false);
+
+  const [clickOutput, setClickOutput] = useState(false);
   const [output, setOutput] = useState(false);
   const [entry, setEntry] = useState(false);
 
@@ -82,8 +86,12 @@ export const Command = ({ index, post, user, back, postItem, person }) => {
   const handleLike = () => {
     if (!like) {
       dispatch(userSlice.addLike({ index: index, post: post }));
+
+      setClickLike(true);
     } else {
       dispatch(userSlice.removeLike({ index: index, post: post }));
+
+      setClickLike(false);
     }
 
     setLike(!like);
@@ -92,8 +100,12 @@ export const Command = ({ index, post, user, back, postItem, person }) => {
   const handleOutput = () => {
     if (!output) {
       dispatch(userSlice.addOutput({ index: index, post: post }));
+
+      setClickOutput(true);
     } else {
       dispatch(userSlice.removeOutput({ index: index, post: post }));
+
+      setClickOutput(false);
     }
 
     setOutput(!output);
@@ -110,7 +122,9 @@ export const Command = ({ index, post, user, back, postItem, person }) => {
           <button onClick={handleLike}>
             {like ? (
               <FavoriteIcon
-                className={`${styles.command_icon} ${styles.command_icon_like}`}
+                className={`${styles.command_icon} ${
+                  styles.command_icon_like
+                } ${clickLike && styles.command_icon_like_click}`}
               />
             ) : (
               <FavoriteBorderIcon className={styles.command_icon} />
@@ -124,7 +138,8 @@ export const Command = ({ index, post, user, back, postItem, person }) => {
               <LaunchIcon
                 className={`${styles.command_icon} ${
                   output && styles.command_icon_output
-                }`}
+                }
+                ${clickOutput && styles.command_icon_output_click}`}
               />
             </button>
           )}
