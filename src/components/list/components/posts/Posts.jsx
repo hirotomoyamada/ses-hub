@@ -1,10 +1,10 @@
-import styles from "../List.module.scss";
+import styles from "./Posts.module.scss";
 
 import { useSelector } from "react-redux";
-import * as userSlice from "../../../features/user/userSlice";
+import * as userSlice from "../../../../features/user/userSlice";
 
-import { Item } from "../../item/Item";
-import { Advertise } from "./advertise/Advertise";
+import { Item } from "../../../../components/item/Item";
+import { Advertise } from "../advertise/Advertise";
 
 export const Posts = ({
   index,
@@ -53,12 +53,12 @@ export const Posts = ({
   return (
     <div
       className={`
-      ${styles.list} 
-      ${side && styles.list_side} 
-      ${open && styles.list_side_open} 
-      ${select && styles.list_select}
-      ${disable && !side && styles.list_disable} 
-      ${disable && side && styles.list_disable_side}
+      ${styles.posts} 
+      ${side && styles.posts_side} 
+      ${open && styles.posts_side_open} 
+      ${select && styles.posts_select}
+      ${disable && !side && styles.posts_disable} 
+      ${disable && side && styles.posts_disable_side}
       `}
       ref={list}
     >

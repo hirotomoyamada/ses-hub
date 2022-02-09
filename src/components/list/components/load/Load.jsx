@@ -1,4 +1,4 @@
-import styles from "../List.module.scss";
+import styles from "./Load.module.scss";
 
 import Loader from "react-loader-spinner";
 
@@ -6,8 +6,8 @@ export const Load = ({ load, page, hit, disable }) => {
   return (
     <div
       ref={load}
-      className={`${styles.list_load} ${
-        (page === hit?.pages || disable) && styles.list_load_none
+      className={`${styles.load} ${
+        (page === hit?.pages || disable) && styles.load_none
       }`}
     >
       {page < hit?.pages && (
