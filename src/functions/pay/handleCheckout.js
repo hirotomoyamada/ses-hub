@@ -1,6 +1,6 @@
-import { functions, db } from "../../../firebase";
+import { functions, db } from "../../firebase";
 
-import * as rootSlice from "../../root/rootSlice";
+import * as rootSlice from "../../features/root/rootSlice";
 
 const createCheckout = functions.httpsCallable("sh-createCheckout");
 

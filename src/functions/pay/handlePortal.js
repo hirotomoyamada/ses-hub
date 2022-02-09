@@ -1,4 +1,4 @@
-import { functions } from "../../../firebase";
+import { functions } from "../../firebase";
 
 const createPortal = functions.httpsCallable(
   "ext-firestore-stripe-subscriptions-createPortalLink"
