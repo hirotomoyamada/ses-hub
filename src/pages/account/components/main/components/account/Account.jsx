@@ -11,7 +11,7 @@ import * as rootSlice from "../../../../../../features/root/rootSlice";
 
 import { Btn } from "../btn/Btn";
 
-import * as functions from "../../../../../../features/user/functions/functions";
+import * as functions from "../../../../../../functions/functions";
 
 export const Account = ({ user, current, load }) => {
   const dispatch = useDispatch();

@@ -9,7 +9,7 @@ import { useResize } from "../../hook/useResize";
 import { useVerification } from "./hook/useVerification";
 
 import * as rootSlice from "../../features/root/rootSlice";
-import * as functions from "../../features/user/functions/functions";
+import * as functions from "../../functions/functions";
 
 import { Sign } from "./components/Sign";
 import { Reset } from "./components/Reset";

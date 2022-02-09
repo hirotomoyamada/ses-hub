@@ -8,8 +8,8 @@ import * as postSlice from "../../../../features/post/postSlice";
 import * as userSlice from "../../../../features/user/userSlice";
 
 import { Header } from "./components/header/Header";
-import { List } from "../../../../features/post/list/List";
 import { Select } from "./components/select/Select";
+import { List } from "../../../list/List";
 
 export const Home = ({ user, handleClose }) => {
   const dispatch = useDispatch();

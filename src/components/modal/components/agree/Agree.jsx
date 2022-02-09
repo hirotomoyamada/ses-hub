@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as rootSlice from "../../../../features/root/rootSlice";
 import * as userSlice from "../../../../features/user/userSlice";
 
-import { timestamp } from "../../../../functions/timestamp";
+import * as functions from "../../../../functions/functions";
 
 export const Agree = ({ user }) => {
   const dispatch = useDispatch();
@@ -18,7 +18,9 @@ export const Agree = ({ user }) => {
 
   return (
     <div className={styles.agree}>
-      <span className={styles.agree_time}>{timestamp(agree?.updateAt)}</span>
+      <span className={styles.agree_time}>
+        {functions.root.timestamp(agree?.updateAt)}
+      </span>
 
       <span className={styles.agree_title}>{agree?.title}</span>
 

@@ -7,14 +7,13 @@ import { Announce } from "./components/announce/Announce";
 import { Modal } from "./components/modal/Modal";
 import { Menu } from "./components/menu/Menu";
 
-import { Home } from "./Home";
-import { Search } from "./Search";
 import { Page } from "./Page";
 
-import { Pay } from "./features/pay/Pay";
-
+import { Home } from "./pages/home/Home";
+import { Search } from "./pages/search/Search";
 import { Auth } from "./pages/auth/Auth";
 import { List } from "./pages/list/List";
+import { Pay } from "./pages/pay/Pay";
 import { Setting } from "./pages/setting/Setting";
 import { Account } from "./pages/account/Account";
 import { Terms } from "./pages/terms/Terms";

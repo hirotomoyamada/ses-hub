@@ -1,54 +1,169 @@
 import styles from "./Command.module.scss";
 
-export const Command = ({
-  post,
-  sort,
-  open,
-  handleSortChange,
-  handleEdit,
-  handleVerification,
-  handleOpen,
-}) => {
-  open && window.addEventListener("scroll", handleOpen);
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import LaunchIcon from "@material-ui/icons/Launch";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import AutorenewIcon from "@material-ui/icons/Autorenew";
+
+import { useEffect, useState } from "react";
+
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+import * as rootSlice from "../../features/root/rootSlice";
+import * as postSlice from "../../features/post/postSlice";
+import * as userSlice from "../../features/user/userSlice";
+
+import { Operation } from "../operation/Operation";
+
+export const Command = ({ index, post, user, back, postItem, person }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const [open, setOpen] = useState(false);
+  const [like, setLike] = useState(false);
+  const [output, setOutput] = useState(false);
+  const [entry, setEntry] = useState(false);
+
+  useEffect(() => {
+    setLike(
+      user.likes?.[index]?.indexOf(
+        index !== "persons" ? post?.objectID : post?.uid
+      ) >= 0
+        ? true
+        : false
+    );
+    setOutput(
+      user.outputs?.[index]?.indexOf(post?.objectID) >= 0 ? true : false
+    );
+    setEntry(
+      user.entries?.[index]?.indexOf(post?.objectID) >= 0 ? true : false
+    );
+  }, [
+    index,
+    post?.objectID,
+    post?.uid,
+    user.entries,
+    user.likes,
+    user.outputs,
+  ]);
+
+  const handleOpen = () => {
+    setOpen(!open);
+    window.removeEventListener("scroll", handleOpen);
+  };
+
+  const handleVerification = () => {
+    dispatch(
+      rootSlice.handleModal({
+        type: "delete",
+        text: "投稿",
+        delete: () => handleDelete(post),
+      })
+    );
+    setOpen(!open);
+  };
+
+  const handleEdit = () => {
+    dispatch(rootSlice.handleModal({ type: "edit" }));
+    dispatch(postSlice.selectPost(post));
+    setOpen(!open);
+  };
+
+  const handleDelete = (post) => {
+    dispatch(postSlice.deletePost({ index: index, post: post }));
+    dispatch(rootSlice.handleModal());
+
+    back && history.goBack();
+  };
+
+  const handleLike = () => {
+    if (!like) {
+      dispatch(userSlice.addLike({ index: index, post: post }));
+    } else {
+      dispatch(userSlice.removeLike({ index: index, post: post }));
+    }
+
+    setLike(!like);
+  };
+
+  const handleOutput = () => {
+    if (!output) {
+      dispatch(userSlice.addOutput({ index: index, post: post }));
+    } else {
+      dispatch(userSlice.removeOutput({ index: index, post: post }));
+    }
+
+    setOutput(!output);
+  };
 
   return (
-    <div>
-      {sort && (
-        <div className={`${styles.command} ${styles.command_sort}`}>
-          <button
-            onClick={() =>
-              handleSortChange({ target: "createAt", type: "desc" })
-            }
-            className={styles.command_btn}
-          >
-            新着順
+    <>
+      <div
+        className={`${styles.menu} ${postItem && styles.menu_postItem} ${
+          person && styles.menu_person
+        }`}
+      >
+        {(user?.payment?.status !== "canceled" || post?.uid === user.uid) && (
+          <button onClick={handleLike}>
+            {like ? (
+              <FavoriteIcon
+                className={`${styles.menu_icon} ${styles.menu_icon_like}`}
+              />
+            ) : (
+              <FavoriteBorderIcon className={styles.menu_icon} />
+            )}
           </button>
-          <button
-            onClick={() =>
-              handleSortChange({ target: "updateAt", type: "desc" })
-            }
-            className={styles.command_btn}
-          >
-            更新順
-          </button>
-        </div>
-      )}
-      {post && (
-        <div className={styles.command}>
-          <button onClick={handleEdit} className={styles.command_btn}>
-            編集
-          </button>
-          <button
-            onClick={handleVerification}
-            className={`${styles.command_btn} ${styles.command_btn_remove}`}
-          >
-            削除
-          </button>
-        </div>
-      )}
-      {open && (
-        <div onClick={handleOpen} className={styles.command_overlay}></div>
-      )}
-    </div>
+        )}
+
+        {index !== "persons" &&
+          (user?.payment?.status !== "canceled" || post?.uid === user.uid) && (
+            <button onClick={handleOutput}>
+              <LaunchIcon
+                className={`${styles.menu_icon} ${
+                  output && styles.menu_icon_output
+                }`}
+              />
+            </button>
+          )}
+
+        {post.request === "hold" ? (
+          <AutorenewIcon
+            className={`${styles.menu_icon} ${styles.menu_icon_hold}`}
+          />
+        ) : (
+          post.request === "enable" && (
+            <CheckCircleOutlineIcon
+              className={`${styles.menu_icon} ${styles.menu_icon_enable}`}
+            />
+          )
+        )}
+
+        {entry && (
+          <CheckCircleOutlineIcon
+            className={`${styles.menu_icon} ${styles.menu_icon_entry}`}
+          />
+        )}
+
+        {post?.uid === user.uid && (
+          <div className={styles.menu_cmd}>
+            <button onClick={handleOpen}>
+              <MoreHorizIcon className={styles.menu_icon} />
+            </button>
+            {open && (
+              <Operation
+                post
+                open={open}
+                handleVerification={handleVerification}
+                handleEdit={handleEdit}
+                handleOpen={handleOpen}
+              />
+            )}
+          </div>
+        )}
+      </div>
+    </>
   );
 };

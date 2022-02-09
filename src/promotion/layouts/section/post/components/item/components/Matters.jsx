@@ -6,7 +6,7 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import HowToVoteIcon from "@material-ui/icons/HowToVote";
 import BusinessIcon from "@material-ui/icons/Business";
 
-import { timestamp } from "../../../../../../../functions/timestamp";
+import * as functions from "../../../../../../../functions/functions";
 import { Handles } from "./Handles";
 
 export const Matters = ({ post }) => {
@@ -80,7 +80,7 @@ export const Matters = ({ post }) => {
       </div>
 
       <div className={styles.item_time}>
-        <span>{timestamp(post?.createAt)}</span>
+        <span>{functions.root.timestamp(post?.createAt)}</span>
       </div>
     </div>
   );

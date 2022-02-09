@@ -8,9 +8,9 @@ import * as userSlice from "../../features/user/userSlice";
 
 import { Header } from "../../components/header/Header";
 
+import { List as Main } from "../../components/list/List";
 import { Outputs } from "./components/outputs/Outputs";
 import { Select } from "./components/select/Select";
-import { List as Main } from "../../features/post/list/List";
 
 export const List = (props) => {
   const dispatch = useDispatch();

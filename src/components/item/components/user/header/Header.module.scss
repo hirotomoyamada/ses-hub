@@ -1,0 +1,96 @@
+// サイト共有の初期設定
+@import "../../../../../styles/config";
+@import "../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  @media (max-width: responsive-width(sp)) {
+    gap: 12px;
+  }
+
+  &_icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+
+    @media (max-width: responsive-width(sp)) {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  &_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &_wrap {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &_ttl {
+    font-size: auto-clamp(20px, 24px);
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 16px;
+      max-width: auto-max(144px);
+    }
+  }
+
+  &_category {
+    display: inline-block;
+    padding: 0 8px;
+    border-radius: 8px;
+    line-height: 24px;
+    font-size: 12px;
+    background: $promo_clr;
+    color: $base_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      line-height: 20px;
+      border-radius: 6px;
+      font-size: 10px;
+    }
+
+    &_active {
+      background: $acnt_clr;
+    }
+
+    &_trialing {
+      background: $add_clr;
+    }
+
+    &_disable {
+      background: $sub_clr;
+    }
+
+    &_hurry {
+      background: $remove_clr;
+    }
+  }
+
+  &_tag {
+    color: $sub_clr;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @media (max-width: responsive-width(sp)) {
+      width: auto-max(180px);
+    }
+  }
+}

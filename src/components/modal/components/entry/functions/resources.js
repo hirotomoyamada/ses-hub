@@ -1,11 +1,11 @@
-import { timestamp } from "../../../../../functions/timestamp";
+import * as functions from "../../../../../functions/functions";
 
 export const resources = ({ post }) => {
   const skills = post?.skills?.map((skill) => skill && `・${skill}`);
   const skillsArray = skills && skills.join("\n");
 
   const value = {
-    createAt: `作成：${timestamp(post?.createAt)}\n`,
+    createAt: `作成：${functions.root.timestamp(post?.createAt)}\n`,
     roman: `■ ${
       post?.roman
         ? `${post?.roman?.firstName.substring(
