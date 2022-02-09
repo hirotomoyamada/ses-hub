@@ -1,0 +1,87 @@
+// サイト共有の初期設定
+@import "../../../../styles/config";
+@import "../../../../styles/function";
+@import "../../../../styles/animation";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.none {
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100 - 129px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: responsive-width(sp)) {
+    height: calc(var(--vh, 1vh) * 100 - 89px);
+  }
+
+  &_message {
+    color: $sub_clr;
+
+    animation-name: fadeIn;
+    animation-duration: 0.4s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+    }
+  }
+
+  &_sort {
+    height: calc(var(--vh, 1vh) * 100 - 130px);
+
+    @media (max-width: responsive-width(tb)) {
+      height: 160px;
+      padding: 24px 0;
+    }
+  }
+
+  &_type {
+    height: calc(var(--vh, 1vh) * 100 - 50px);
+
+    @media (max-width: responsive-width(sp)) {
+      height: calc(var(--vh, 1vh) * 100 - 32px);
+    }
+  }
+
+  &_side {
+    height: calc(var(--vh, 1vh) * 100 - 50px);
+
+    @media (max-width: responsive-width(tb)) {
+      height: 160px;
+      padding: 24px 0;
+    }
+  }
+
+  &_select {
+    height: 100%;
+  }
+
+  &_disable {
+    height: calc(var(--vh, 1vh) * 100 - 474px);
+
+    @media (max-width: responsive-width(tb)) {
+      height: 160px;
+      padding: 24px 0;
+    }
+
+    &_side {
+      height: calc(var(--vh, 1vh) * 100 - 59px);
+
+      @media (max-width: responsive-width(tb)) {
+        height: 160px;
+        padding: 24px 0;
+      }
+    }
+  }
+
+  &_companys {
+    @media (max-width: responsive-width(tb)) {
+      height: 320px;
+      padding-bottom: 104px;
+    }
+  }
+}

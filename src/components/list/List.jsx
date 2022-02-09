@@ -1,8 +1,8 @@
 import styles from "./List.module.scss";
 
-import { Posts } from "./components/Posts";
-import { NotFound } from "./components/NotFound";
-import { Load } from "./components/Load";
+import { Posts } from "./components/posts/Posts";
+import { NotFound } from "./components/notFound/NotFound";
+import { Load } from "./components/load/Load";
 import { useFetch } from "./hook/useFetch";
 
 export const List = ({
@@ -37,7 +37,7 @@ export const List = ({
   );
 
   return (
-    <div className={select && styles.list_scroll}>
+    <div className={select && styles.list}>
       {side && index === "persons" && (
         <span className={styles.list_tag}>こんなフリーランスもオススメ</span>
       )}

@@ -1,9 +1,9 @@
-import styles from "../List.module.scss";
+import styles from "./NotFound.module.scss";
 
 import Loader from "react-loader-spinner";
 
 import { useSelector } from "react-redux";
-import * as rootSlice from "../../../features/root/rootSlice";
+import * as rootSlice from "../../../../features/root/rootSlice";
 
 export const NotFound = ({
   index,
@@ -21,19 +21,19 @@ export const NotFound = ({
   return (
     <div
       className={`
-      ${styles.list_none} 
-      ${type && styles.list_none_type} 
-      ${sort && styles.list_none_sort} 
-      ${!sort && side && styles.list_none_side} 
-      ${select && styles.list_none_select} 
-      ${disable && styles.list_none_disable} 
-      ${disable && side && styles.list_none_bests_companys}`}
+      ${styles.none} 
+      ${type && styles.none_type} 
+      ${sort && styles.none_sort} 
+      ${!sort && side && styles.none_side} 
+      ${select && styles.none_select} 
+      ${disable && styles.none_disable} 
+      ${disable && side && styles.none_bests_companys}`}
       ref={list}
     >
       {load ? (
         <Loader type="Oval" color="#49b757" height={56} width={56} />
       ) : (
-        <span className={styles.list_none_message}>
+        <span className={styles.none_message}>
           {index === "matters"
             ? !home && !sort
               ? "案件情報がありません"
