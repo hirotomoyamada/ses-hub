@@ -37,7 +37,7 @@ export const Outputs = ({
       )}
 
       <article
-        className={`${styles.item} ${outputs
+        className={`${styles.item} ${styles.item_none} ${outputs
           .map(
             (output) => output.objectID === post.objectID && styles.item_outputs
           )

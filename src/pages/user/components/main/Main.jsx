@@ -13,9 +13,11 @@ export const Main = ({ uid, user, currentUser, index, main }) => {
     <div className={styles.main} ref={main}>
       {user.uid ? (
         <>
-          <Header user={user} uid={uid} />
+          <Header user={user} />
 
-          <div className={styles.main_inner}>
+          <div
+            className={styles.main_inner}
+          >
             {currentUser.uid === uid ? (
               <Editor />
             ) : index === "companys" ? (

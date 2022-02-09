@@ -1,6 +1,7 @@
 // サイト共有の初期設定
 @import "../../styles/config";
 @import "../../styles/function";
+@import "../../styles/animation";
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -15,6 +16,11 @@ $width: responsive-width(pc);
   color: $main_clr;
   font-size: 14px;
 
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+
   @media (max-width: responsive-width(sp)) {
     padding: 16px 12px;
     font-size: 11px;
@@ -23,6 +29,10 @@ $width: responsive-width(pc);
   &_select {
     background: none;
     border-radius: 0;
+  }
+
+  &_none {
+    animation: none;
   }
 
   &_btn {
@@ -37,6 +47,8 @@ $width: responsive-width(pc);
   }
 
   &_outputs {
+    animation: none;
+
     &:before {
       content: "";
       display: block;
@@ -52,6 +64,11 @@ $width: responsive-width(pc);
       @media (max-width: responsive-width(sp)) {
         border: 2px solid $add_clr;
       }
+
+      animation-name: fadeIn;
+      animation-duration: 0.4s;
+      animation-fill-mode: forwards;
+      animation-timing-function: ease-out;
     }
 
     &_icon {
@@ -62,6 +79,11 @@ $width: responsive-width(pc);
 
       color: $add_clr;
       font-size: 40px !important;
+
+      animation-name: fadeIn;
+      animation-duration: 0.4s;
+      animation-fill-mode: forwards;
+      animation-timing-function: ease-out;
 
       @media (max-width: responsive-width(sp)) {
         top: 8px;

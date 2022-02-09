@@ -3,8 +3,9 @@ import styles from "./Pay.module.scss";
 import Loader from "react-loader-spinner";
 
 import { useEffect, useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
+import { useResize } from "../../hook/useResize";
+
 import { fetchProducts } from "../../features/pay/actions/fetchProducts";
 import * as rootSlice from "../../features/root/rootSlice";
 import * as userSlice from "../../features/user/userSlice";
@@ -28,6 +29,7 @@ export const Pay = () => {
 
   const [priceId, setPriceId] = useState("");
   const [productId, setProductId] = useState("");
+  const [resize, inner] = useResize(products);
   const [load, setLoad] = useState({
     checkout: false,
     portal: false,
@@ -62,11 +64,11 @@ export const Pay = () => {
   }, [products, user]);
 
   return (
-    <div className={styles.pay}>
+    <div className={`${styles.pay} ${resize && styles.pay_resize}`}>
       {Object.keys(products).length ? (
         <>
           <Header back goSetting />
-          <div className={styles.pay_inner}>
+          <div className={styles.pay_inner} ref={inner}>
             <FreeTrial user={user} />
             <Container
               products={products}

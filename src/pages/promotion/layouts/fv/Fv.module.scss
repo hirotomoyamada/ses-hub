@@ -1,6 +1,7 @@
 // サイト共有の初期設定
 @import "../../../../styles/config";
 @import "../../../../styles/function";
+@import "../../../../styles/animation";
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -106,21 +107,9 @@ $width: responsive-width(pc);
       width: auto-clamp(1040px, 1280px);
       height: auto;
 
-      animation-name: fadeOut;
-      animation-duration: 0.7s;
+      animation-name: slideFadeInTop;
+      animation-duration: 0.8s;
       animation-timing-function: ease-out;
-
-      @keyframes fadeIn {
-        0% {
-          transform: translateY(100%);
-          opacity: 0;
-        }
-
-        100% {
-          transform: translateY(0);
-          opacity: 1;
-        }
-      }
 
       @media (max-width: responsive-width(sp)) {
         width: 720px;

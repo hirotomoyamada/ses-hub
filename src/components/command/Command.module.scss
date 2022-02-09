@@ -1,6 +1,7 @@
 // サイト共有の初期設定
 @import "../../styles/config";
 @import "../../styles/function";
+@import "../../styles/animation";
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -13,6 +14,11 @@ $width: responsive-width(pc);
 
   display: flex;
   gap: 16px;
+
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
 
   @media (max-width: responsive-width(sp)) {
     gap: 8px;
@@ -51,10 +57,24 @@ $width: responsive-width(pc);
 
     &_like {
       color: $like_clr;
+
+      &_click {
+        animation-name: addLike;
+        animation-duration: 0.7s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-out;
+      }
     }
 
     &_output {
       color: $add_clr;
+
+      &_click {
+        animation-name: addOutput;
+        animation-duration: 0.7s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-out;
+      }
     }
 
     &_entry {
