@@ -7,5 +7,7 @@ export const timestamp = (t, d) => {
   const minutes = ("0" + unix.getMinutes()).slice(-2);
   return !d
     ? `${year}年${month}月${date}日 ${hours}時${minutes}分`
-    : `${year}年${month}月${date}日`;
+    : d !== "month"
+    ? `${year}年${month}月${date}日`
+    : `${year}年${month}月`;
 };
