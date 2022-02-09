@@ -102,18 +102,18 @@ export const Command = ({ index, post, user, back, postItem, person }) => {
   return (
     <>
       <div
-        className={`${styles.menu} ${postItem && styles.menu_postItem} ${
-          person && styles.menu_person
+        className={`${styles.command} ${postItem && styles.command_postItem} ${
+          person && styles.command_person
         }`}
       >
         {(user?.payment?.status !== "canceled" || post?.uid === user.uid) && (
           <button onClick={handleLike}>
             {like ? (
               <FavoriteIcon
-                className={`${styles.menu_icon} ${styles.menu_icon_like}`}
+                className={`${styles.command_icon} ${styles.command_icon_like}`}
               />
             ) : (
-              <FavoriteBorderIcon className={styles.menu_icon} />
+              <FavoriteBorderIcon className={styles.command_icon} />
             )}
           </button>
         )}
@@ -122,8 +122,8 @@ export const Command = ({ index, post, user, back, postItem, person }) => {
           (user?.payment?.status !== "canceled" || post?.uid === user.uid) && (
             <button onClick={handleOutput}>
               <LaunchIcon
-                className={`${styles.menu_icon} ${
-                  output && styles.menu_icon_output
+                className={`${styles.command_icon} ${
+                  output && styles.command_icon_output
                 }`}
               />
             </button>
@@ -131,26 +131,26 @@ export const Command = ({ index, post, user, back, postItem, person }) => {
 
         {post.request === "hold" ? (
           <AutorenewIcon
-            className={`${styles.menu_icon} ${styles.menu_icon_hold}`}
+            className={`${styles.command_icon} ${styles.command_icon_hold}`}
           />
         ) : (
           post.request === "enable" && (
             <CheckCircleOutlineIcon
-              className={`${styles.menu_icon} ${styles.menu_icon_enable}`}
+              className={`${styles.command_icon} ${styles.command_icon_enable}`}
             />
           )
         )}
 
         {entry && (
           <CheckCircleOutlineIcon
-            className={`${styles.menu_icon} ${styles.menu_icon_entry}`}
+            className={`${styles.command_icon} ${styles.command_icon_entry}`}
           />
         )}
 
         {post?.uid === user.uid && (
-          <div className={styles.menu_cmd}>
+          <div className={styles.command_cmd}>
             <button onClick={handleOpen}>
-              <MoreHorizIcon className={styles.menu_icon} />
+              <MoreHorizIcon className={styles.command_icon} />
             </button>
             {open && (
               <Operation

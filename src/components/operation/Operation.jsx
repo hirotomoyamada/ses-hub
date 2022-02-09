@@ -14,12 +14,12 @@ export const Operation = ({
   return (
     <div>
       {sort && (
-        <div className={`${styles.command} ${styles.command_sort}`}>
+        <div className={`${styles.operation} ${styles.operation_sort}`}>
           <button
             onClick={() =>
               handleSortChange({ target: "createAt", type: "desc" })
             }
-            className={styles.command_btn}
+            className={styles.operation_btn}
           >
             新着順
           </button>
@@ -27,27 +27,27 @@ export const Operation = ({
             onClick={() =>
               handleSortChange({ target: "updateAt", type: "desc" })
             }
-            className={styles.command_btn}
+            className={styles.operation_btn}
           >
             更新順
           </button>
         </div>
       )}
       {post && (
-        <div className={styles.command}>
-          <button onClick={handleEdit} className={styles.command_btn}>
+        <div className={styles.operation}>
+          <button onClick={handleEdit} className={styles.operation_btn}>
             編集
           </button>
           <button
             onClick={handleVerification}
-            className={`${styles.command_btn} ${styles.command_btn_remove}`}
+            className={`${styles.operation_btn} ${styles.operation_btn_remove}`}
           >
             削除
           </button>
         </div>
       )}
       {open && (
-        <div onClick={handleOpen} className={styles.command_overlay}></div>
+        <div onClick={handleOpen} className={styles.operation_overlay}></div>
       )}
     </div>
   );

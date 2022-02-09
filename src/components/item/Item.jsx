@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { Post } from "./components/post/Post";
 import { User } from "./components/user/User";
-import { Menu } from "../menu/Menu";
+import { Command } from "../command/Command";
 
 import { Follow } from "../follow/Follow";
 import { Outputs } from "./components/Outputs";
@@ -24,7 +24,7 @@ export const Item = ({
   return !outputs?.length ? (
     <div className={styles.item_outer}>
       {index !== "companys" && !select ? (
-        <Menu index={index} post={post} user={user} postItem />
+        <Command index={index} post={post} user={user} postItem />
       ) : (
         post.uid !== user.uid && (
           <Follow
