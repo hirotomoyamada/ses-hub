@@ -1,0 +1,40 @@
+// サイト共有の初期設定
+@import "../../../../styles/config";
+@import "../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.footer {
+  padding: 16px 0;
+  background: $bg_clr;
+  color: $sub_clr;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  &_nav {
+    color: $main_clr;
+    font-size: 14px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 10px;
+    }
+
+    ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+
+      li {
+        transition: all 0.4s;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+@import "../../../../../styles/config";
+@import "../../../../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.what {
+  &_ttl {
+    margin-bottom: 48px;
+  }
+
+  &_container {
+    position: relative;
+
+    &_main {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      right: 0;
+
+      &_txt {
+        text-align: center;
+        line-height: 1.6;
+      }
+    }
+
+    &_visual {
+      position: absolute;
+      top: auto-clamp(-16px, -48px);
+      left: 50%;
+      transform: translateX(-50%);
+
+      @media (max-width: responsive-width(sp)) {
+        top: 72px;
+      }
+
+      &_img {
+        width: 720px;
+        height: auto;
+
+        @media (max-width: responsive-width(sp)) {
+          width: 400px;
+        }
+      }
+    }
+  }
+
+  &:after {
+    display: block;
+    content: "";
+    width: 100vw;
+    height: 800px;
+    background: $bg_clr;
+    z-index: -2;
+
+    @media (max-width: responsive-width(sp)) {
+      height: 560px;
+    }
+  }
+}
