@@ -5,67 +5,68 @@
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
 
-.command {
+.menu {
   position: absolute;
-  top: 32px;
+  top: 0;
   right: 0;
-  z-index: 999;
+  z-index: 9;
 
-  background: $base_clr;
-  border-radius: 8px;
-  border: 1px solid $bdr_clr;
-  box-shadow: 1px 0 10px $shdw_clr;
-
-  width: auto-clamp(144px, 240px);
-
-  padding: 12px 16px;
+  display: flex;
+  gap: 16px;
 
   @media (max-width: responsive-width(sp)) {
-    top: 29px;
-    font-size: 12px;
-    padding: 12px 12px;
+    gap: 8px;
   }
 
-  &_sort {
-    background: $bg_clr;
-    top: 56px;
+  &_postItem {
+    top: 26px;
+    right: 32px;
 
     @media (max-width: responsive-width(sp)) {
-      top: 40px;
+      top: 16px;
+      right: 12px;
     }
   }
 
-  &_btn {
+  button {
     display: flex;
-    flex-direction: column;
-    width: 100%;
+  }
+
+  &_person {
+    position: static;
+    margin-right: 2px;
+    margin-left: auto;
+  }
+
+  &_cmd {
+    position: relative;
+  }
+
+  &_icon {
     color: $icn_clr;
 
-    &_remove {
-      color: $remove_clr;
+    @media (max-width: responsive-width(sp)) {
+      font-size: 20px !important;
     }
 
-    &:not(:first-child) {
-      &::before {
-        content: "";
-        display: block;
-        border-bottom: 1px solid $bdr_clr;
-        width: 100%;
-        margin: 8px 0;
-      }
+    &_like {
+      color: $like_clr;
     }
 
-    &:hover {
-      opacity: 0.8;
+    &_output {
+      color: $add_clr;
     }
-  }
 
-  &_overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 99;
-    width: 100%;
-    height: 100%;
+    &_entry {
+      color: $acnt_clr;
+    }
+
+    &_hold {
+      color: $promo_clr;
+    }
+
+    &_enable {
+      color: $add_clr;
+    }
   }
 }

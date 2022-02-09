@@ -16,7 +16,7 @@ import { Main } from "./components/main/Main";
 import { Restrict } from "./components/restrict/Restrict";
 import { Auth } from "./components/auth/Auth";
 
-import * as functions from "../../features/user/functions/functions";
+import * as functions from "../../functions/functions";
 
 export const Account = (props) => {
   const dispatch = useDispatch();

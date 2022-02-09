@@ -1,9 +1,9 @@
-import { timestamp } from "../../../../../functions/timestamp";
+import * as functions from "../../../../../functions/functions";
 import { fields } from "./fields";
 
 export const resources = ({ posts }) => {
   const values = posts.map((outputs) => ({
-    createAt: `作成：${timestamp(outputs?.createAt)}`,
+    createAt: `作成：${functions.root.timestamp(outputs?.createAt)}`,
     roman: `■ ${
       outputs?.roman
         ? `${outputs?.roman?.firstName.substring(
@@ -47,11 +47,9 @@ export const resources = ({ posts }) => {
     (output, index) =>
       `${output.createAt}\n\n${output.roman}\n${
         output.handles !== undefined ? `${output.handles}\n` : "\n"
-      }${output.positon}\n\n${
-        output.sex
-      }\n${output.age}\n${output.period}\n${output.station}\n${output.costs}\n${
-        output.parallel
-      }\n${output.belong}\n${
+      }${output.positon}\n\n${output.sex}\n${output.age}\n${output.period}\n${
+        output.station
+      }\n${output.costs}\n${output.parallel}\n${output.belong}\n${
         output.tools !== undefined ? `\n${output.tools}\n` : ""
       }\n${output.skills}\n\n${output.body}\n\n${output.note}${
         values.length !== index + 1

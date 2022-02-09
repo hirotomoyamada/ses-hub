@@ -1,5 +1,5 @@
 import styles from "../Main.module.scss";
-import { timestamp } from "../../../../../functions/timestamp";
+import * as functions from "../../../../../functions/functions";
 
 export const Plan = ({ user, history }) => {
   return (
@@ -18,7 +18,7 @@ export const Plan = ({ user, history }) => {
           {user?.payment?.end && (
             <span className={styles.main_value_time}>
               期限：
-              {timestamp(user?.payment?.end, "day")}
+              {functions.root.timestamp(user?.payment?.end, "day")}
             </span>
           )}
         </span>

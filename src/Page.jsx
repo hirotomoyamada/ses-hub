@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import * as rootSlice from "./features/root/rootSlice";
 
-import { Post } from "./features/post/Post";
-import { User } from "./features/user/User";
+import { Post } from "./pages/post/Post";
+import { User } from "./pages/user/User";
 
 export const Page = (props) => {
   const dispatch = useDispatch();

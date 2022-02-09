@@ -18,7 +18,7 @@ import { Reset } from "./page/Reset";
 import { Delete } from "./page/Delete";
 import { Main } from "./page/main/Main";
 
-import * as functions from "../../features/user/functions/functions";
+import * as functions from "../../functions/functions";
 
 export const Setting = () => {
   const dispatch = useDispatch();
