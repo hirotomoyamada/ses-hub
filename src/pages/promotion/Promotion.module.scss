@@ -1,0 +1,25 @@
+// サイト共有の初期設定
+@import "../../styles/config";
+@import "../../styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.promotion {
+  overflow-x: hidden;
+
+  color: $base_clr;
+
+  &_main {
+    position: sticky;
+    color: $main_clr;
+  }
+
+  @media (max-width: responsive-width(sp)) {
+    font-size: 12px;
+  }
+}
+
+span {
+  display: inline-block;
+}

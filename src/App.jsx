@@ -1,33 +1,37 @@
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 
+import { useApp } from "./hook/useApp";
+
 import { Meta } from "./Meta";
 import * as load from "./components/load/Load";
+
 import { Announce } from "./components/announce/Announce";
 import { Modal } from "./components/modal/Modal";
 import { Menu } from "./components/menu/Menu";
 
 import { Page } from "./Page";
 
+import { Auth } from "./pages/auth/Auth";
 import { Home } from "./pages/home/Home";
 import { Search } from "./pages/search/Search";
-import { Auth } from "./pages/auth/Auth";
 import { List } from "./pages/list/List";
-import { Pay } from "./pages/pay/Pay";
+
 import { Setting } from "./pages/setting/Setting";
+import { Pay } from "./pages/pay/Pay";
 import { Account } from "./pages/account/Account";
+import { HowTo } from "./pages/howTo/HowTo";
+
 import { Terms } from "./pages/terms/Terms";
 import { Asct } from "./pages/asct/Asct";
-import { HowTo } from "./pages/howTo/HowTo";
-import { Success } from "./pages/success/Success";
+
 import { NotFound } from "./pages/notFound/NotFound";
 import { Limit } from "./pages/limit/Limit";
+import { Success } from "./pages/success/Success";
 import { Maintenance } from "./pages/maintenance/Maintenance";
+
+import { Promotion } from "./pages/promotion/Promotion";
 import { Contact } from "./pages/contact/Contact";
-
-import { Promotion } from "./promotion/Promotion";
-
-import { useApp } from "./hook/useApp";
 
 const App = () => {
   const [user, access, browser] = useApp();
