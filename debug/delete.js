@@ -3,7 +3,7 @@ const db = require("./firebase");
 
 const data = {
   index: "companys",
-  value: "test",
+  value: "",
 };
 
 (async function del() {
