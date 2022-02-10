@@ -5,7 +5,7 @@ const data = {
   index: "companys",
   firestore: true,
   algolia: false,
-  value: { test: "test" },
+  value: {},
 };
 
 (async function insert() {
