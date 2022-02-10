@@ -21,10 +21,10 @@ export const Limit = ({ user }) => {
       <div className={`${styles.limit} ${resize && styles.limit_resize}`}>
         <div className={styles.limit_inner} ref={inner}>
           <div className={styles.limit_header}>
-            <span>
-              閲覧回数の&nbsp;<span className={styles.limit_acnt}>上限</span>
-              &nbsp;に達しました
+            <span className={styles.limit_acnt}>
+              今月の閲覧回数が&nbsp;上限&nbsp;に達しました
             </span>
+
             <span>
               この投稿を閲覧するには&nbsp;
               <span className={styles.limit_plan}>プラン</span>
