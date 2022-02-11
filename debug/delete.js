@@ -3,7 +3,7 @@ const db = require("./firebase");
 
 const data = {
   index: "companys",
-  value: "",
+  value: [""],
 };
 
 (async function del() {
@@ -18,9 +18,17 @@ const data = {
 
   for (const doc of docs) {
     await doc.ref
-      .update({
-        [data.value]: admin.firestore.FieldValue.delete(),
-      })
+      .update(
+        data.value.length <= 1
+          ? {
+              [data.value]: admin.firestore.FieldValue.delete(),
+            }
+          : {
+              [data.value[0]]: {
+                [data.value[1]]: admin.firestore.FieldValue.delete(),
+              },
+            }
+      )
       .then(() => {
         score.success++;
         console.log(doc.id, "is Successed", "firestore");

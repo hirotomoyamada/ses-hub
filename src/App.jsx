@@ -36,6 +36,8 @@ import { Contact } from "./pages/contact/Contact";
 const App = () => {
   const [user, access, browser] = useApp();
 
+
+
   return (
     <HelmetProvider>
       <BrowserRouter>
