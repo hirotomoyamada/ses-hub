@@ -10,7 +10,7 @@ export const CreateAt = ({ user }) => {
     <div className={styles.profile_createAt}>
       <FontAwesomeIcon icon={faCalendarAlt} className={styles.profile_icon} />
       <span>
-        {functions.root.timestamp(user?.createAt)}
+        {functions.root.timestamp(user?.createAt, "month")}
         からFreelance Directを利用しています
       </span>
     </div>
