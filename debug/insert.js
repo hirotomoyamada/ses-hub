@@ -4,8 +4,8 @@ const algolia = require("./algolia");
 const data = {
   index: "companys",
   firestore: true,
-  algolia: false,
-  value: {},
+  algolia: true,
+  value: { profile: { tel: "0120-123-456" } },
 };
 
 (async function insert() {
@@ -25,8 +25,9 @@ const data = {
             console.log(e.message);
           })
       : (data.index === "matters" || data.index === "resources") &&
-        (
-          await index.search().then(async ({ nbPages }) => {
+        (await index
+          .search()
+          .then(async ({ nbPages }) => {
             let docs = [];
 
             for (let page = 0; page < nbPages; page++) {
@@ -37,9 +38,9 @@ const data = {
 
             return { docs };
           })
-        ).catch((e) => {
-          console.log(e.message);
-        });
+          .catch((e) => {
+            console.log(e.message);
+          }));
 
   for (const doc of docs) {
     if (
@@ -60,16 +61,25 @@ const data = {
     }
 
     if (data.algolia) {
+      const objectID = {
+        objectID:
+          data.index === "companys" || data.index === "persons"
+            ? doc.id
+            : (data.index === "matters" || data.index === "resources") &&
+              doc.objectID,
+      };
+
       await index
         .partialUpdateObject(
-          {
-            objectID:
-              data.index === "companys" || data.index === "persons"
-                ? doc.id
-                : (data.index === "matters" || data.index === "resources") &&
-                  doc.objectID,
-            ...data.value,
-          },
+          Object.keys(data.value).indexOf("profile") >= 0
+            ? {
+                ...objectID,
+                ...data.value.profile,
+              }
+            : {
+                ...objectID,
+                ...data.value,
+              },
           {
             createIfNotExists: false,
           }
