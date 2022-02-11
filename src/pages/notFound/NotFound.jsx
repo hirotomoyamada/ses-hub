@@ -5,7 +5,7 @@ import { useResize } from "../../hook/useResize";
 
 import * as rootSlice from "../../features/root/rootSlice";
 
-export const NotFound = () => {
+export const NotFound = ({ display }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const notFound = useSelector(rootSlice.notFound);
@@ -16,21 +16,21 @@ export const NotFound = () => {
     history.push("/");
   };
 
-  return (
-    notFound && (
-      <div className={`${styles.not} ${resize && styles.not_resize}`}>
-        <div className={styles.not_inner} ref={inner}>
-          <img
-            src={`${process.env.PUBLIC_URL}/img/app/404.svg`}
-            alt=""
-            className={styles.not_img}
-          />
+  return notFound || display ? (
+    <div className={`${styles.not} ${resize && styles.not_resize}`}>
+      <div className={styles.not_inner} ref={inner}>
+        <img
+          src={`${process.env.PUBLIC_URL}/img/app/404.svg`}
+          alt=""
+          className={styles.not_img}
+        />
 
-          <button type="button" onClick={handleHome} className={styles.not_btn}>
-            ホーム
-          </button>
-        </div>
+        <button type="button" onClick={handleHome} className={styles.not_btn}>
+          ホーム
+        </button>
       </div>
-    )
+    </div>
+  ) : (
+    <></>
   );
 };

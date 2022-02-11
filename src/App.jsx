@@ -10,12 +10,13 @@ import { Announce } from "./components/announce/Announce";
 import { Modal } from "./components/modal/Modal";
 import { Menu } from "./components/menu/Menu";
 
-import { Page } from "./Page";
-
 import { Auth } from "./pages/auth/Auth";
 import { Home } from "./pages/home/Home";
 import { Search } from "./pages/search/Search";
 import { List } from "./pages/list/List";
+
+import { Post } from "./pages/post/Post";
+import { User } from "./pages/user/User";
 
 import { Setting } from "./pages/setting/Setting";
 import { Pay } from "./pages/pay/Pay";
@@ -34,9 +35,7 @@ import { Promotion } from "./pages/promotion/Promotion";
 import { Contact } from "./pages/contact/Contact";
 
 const App = () => {
-  const [user, access, browser] = useApp();
-
-
+  const [index, user, access, browser] = useApp();
 
   return (
     <HelmetProvider>
@@ -118,7 +117,33 @@ const App = () => {
 
                 <Route exact path="/:list" component={List} />
 
-                <Route exact path="/:index/:id" component={Page} />
+                <Route
+                  exact
+                  path={`/:index/:id`}
+                  component={(props) => {
+                    switch (props.match.params.index) {
+                      case "matters" || "resources":
+                        return (
+                          <Post
+                            index={props.match.params.index}
+                            objectID={props.match.params.id}
+                          />
+                        );
+                      case "companys" || "persons":
+                        return (
+                          <User
+                            index={{
+                              user: props.match.params.index,
+                              post: index,
+                            }}
+                            uid={props.match.params.id}
+                          />
+                        );
+                      default:
+                        return <NotFound display />;
+                    }
+                  }}
+                />
 
                 <Route component={NotFound} />
               </Switch>
