@@ -37,8 +37,8 @@
   "scripts": {
     "start": "dotenv -e .env.dev react-scripts start",
     "start-prod": "dotenv -e .env react-scripts start",
-    "build": "dotenv -e .env.dev react-scripts build",
-    "build-prod": "dotenv -e .env react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false dotenv -e .env.dev react-scripts build",
+    "build-prod": "GENERATE_SOURCEMAP=false dotenv -e .env react-scripts build",
     "debug": "dotenv -e .env.dev node",
     "debug-prod": "dotenv -e .env node",
     "test": "react-scripts test",
