@@ -1,7 +1,7 @@
 import styles from "./Maintenance.module.scss";
 
 import { useSelector } from "react-redux";
-import { useResize } from "../../hook/useResize";
+import { useResize } from "../../hooks/useResize";
 
 import * as rootSlice from "../../features/root/rootSlice";
 

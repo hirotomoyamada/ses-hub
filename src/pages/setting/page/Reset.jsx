@@ -2,7 +2,7 @@ import styles from "./Page.module.scss";
 import root from "../Setting.module.scss";
 
 import { useFormContext } from "react-hook-form";
-import { useScrollController } from "../../../hook/useScrollController";
+import { useScrollController } from "../../../hooks/useScrollController";
 
 export const Reset = () => {
   useScrollController();

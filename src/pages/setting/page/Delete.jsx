@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
-import { useScrollController } from "../../../hook/useScrollController";
+import { useScrollController } from "../../../hooks/useScrollController";
 
 import * as rootSlice from "../../../features/root/rootSlice.js";
 

@@ -4,7 +4,7 @@ import Loader from "react-loader-spinner";
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useResize } from "../../hook/useResize";
+import { useResize } from "../../hooks/useResize";
 
 import { fetchProducts } from "../../features/pay/actions/fetchProducts";
 import * as rootSlice from "../../features/root/rootSlice";

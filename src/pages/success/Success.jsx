@@ -5,7 +5,7 @@ import { db } from "../../firebase";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { useScrollController } from "../../hook/useScrollController";
+import { useScrollController } from "../../hooks/useScrollController";
 
 import * as userSlice from "../../features/user/userSlice";
 

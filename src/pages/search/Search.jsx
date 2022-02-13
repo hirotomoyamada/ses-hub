@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { usePosts } from "../../hook/usePosts";
+import { usePosts } from "../../hooks/usePosts";
 
 import { fetchPosts } from "../../features/post/actions/fetchPosts";
 import * as rootSlice from "../../features/root/rootSlice";

@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 
-import { useApp } from "./hook/useApp";
+import { useApp } from "./hooks/useApp";
 
 import { Meta } from "./Meta";
 import * as load from "./components/load/Load";
