@@ -1,7 +1,7 @@
 import styles from "./Limit.module.scss";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useResize } from "../../hook/useResize";
+import { useResize } from "../../hooks/useResize";
 import * as rootSlice from "../../features/root/rootSlice";
 
 export const Limit = ({ user }) => {

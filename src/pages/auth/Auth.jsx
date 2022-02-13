@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useResize } from "../../hook/useResize";
+import { useResize } from "../../hooks/useResize";
 import { useVerification } from "./hook/useVerification";
 
 import * as rootSlice from "../../features/root/rootSlice";
