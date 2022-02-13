@@ -97,6 +97,10 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(sp)) {
       font-size: 12px;
     }
+
+    &_none {
+      color: $sub_clr;
+    }
   }
 
   &_address {
