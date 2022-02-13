@@ -33,7 +33,7 @@
         enable: 有効
         disable: 無効
         ****************/
-        
+
         "application": false, // 法人アカウントの変更を申請
 
         "createAt": 0, // 作成日時
@@ -43,6 +43,7 @@
         "payment": {
           "status": "active",
           "start": 0, // サブスクリプション開始日時
+          "limit": 10, // 閲覧回数制限 ※無料会員
           "end": 0, // サブスクリプション終了日時
           "cancel": false, // キャンセル
           "load": false, // 決済処理時、ページ遷移用

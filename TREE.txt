@@ -261,15 +261,46 @@
     └── auth // ログイン画面
 
 // ses_hub
+├── functions
+│   ├── root
+│   ├── account // グループアカウントに関する処理
+│   │   ├── functions.js
+｜   │   ├── handleAuth.js // アカウントの有効性
+│   │   └── handleReset.js //　パスワードの再設定
+│   ├── pay // Stripeに関する処理
+│   │   ├── functions.js
+｜   │   ├── handleCheckout.js // チェックアウトを作成
+│   │   └── handlePortal.js // ポータルを作成
+│   ├── auth // ログインに関する処理
+│   │   ├── functions.js
+│   │   ├── getRedirect.js // ソーシャルログイン後リダイレクトされた際アカウントの取得
+│   │   ├── handleCreate.js // プロフィールの作成
+│   │   ├── handleProvider.js // ソーシャルログイン
+│   │   ├── handleResend.js // メールアドレスの確認
+│   │   ├── handleReset.js // パスワードの再設定
+│   │   ├── handleSignIn.js // ログイン
+│   │   └── handleSignUp.js // 新規作成
+│   └── setting // アカウント情報に関する処理
+｜       ├── functions.js
+｜       ├── getRedirect.js // ソーシャルアカウントを追加後リダイレクトされた際アカウントの取得
+｜       ├── handleCreate.js // メールアカウントの作成
+｜       ├── handleDelete.js // アカウントの削除
+｜       ├── handleEmail.js // メールアドレスの変更
+｜       ├── handlePassword.js // パスワードの変更
+｜       ├── handleProvider.js // ソーシャルアカウントの追加
+｜       └── handleReset.js // パスワードの再設定
 ├── components
 │   ├── announce // アナウンス(画面上に表示される通知)
-│   ├── command // コマンド(ボタンを押した際、表示されるモーダル)
+│   ├── operation // 三点リーダー(ボタンを押した際、表示されるモーダル)
+│   ├── command // 投稿カード or 投稿詳細 or ユーザーページ に表示されるいいね・出力・エントリーボタン
 │   ├── cover // カバー
 │   ├── follow // フォロー(ボタン)
 │   ├── header // ヘッダー(ページごとに切替)
 │   ├── icon // アイコン
 │   ├── load // ローディング
 │   ├── menu // メニュー(右下)
+│   ├── item // ユーザー情報や投稿情報の一部抜粋したカード
+│   ├── list // 投稿一覧
 │   ├── modal // モーダル
 │   │   └── components
 │   │       ├── application // 法人アカウントの変更の申請
@@ -288,11 +319,8 @@
 │
 ├── features
 │   ├── pay // Stripeに関する処理
-│   │   ├── actions
-│   │   │   └── fetchProducts.js // プランやオプション一覧を取得
-│   │   └── functions
-│   │  　    ├── handleCheckout.js // チェックアウトを作成
-│   │  　    └── handlePortal.js // ポータルを作成
+│   │   └── actions
+│   │   　   └── fetchProducts.js // プランやオプション一覧を取得
 │   │
 │   ├── post // 投稿に関する処理
 │   │   ├── actions
@@ -309,12 +337,6 @@
 │   │   │   ├── post.js
 │   │   │   ├── root.js
 │   │   │   └── user.js
-│   │   ├── item // ユーザー情報や投稿情報の一部抜粋したカード
-│   │   ├── layouts // 投稿を表示するページ
-│   │   │   ├── main // 投稿の情報
-│   │   │   └── side // 投稿したユーザー・こんな案件もオススメ
-│   │   ├── list // 投稿一覧
-│   │   ├── menu // いいね・出力など(ボタン・アイコン)
 │   │   └── reducers
 │   │  　    ├── createPost.js // 作成した投稿を一覧に追加
 │   │  　    ├── deletePost.js // 削除した投稿を一覧から削除
@@ -365,32 +387,6 @@
 │       │   └── login.js // ログイン
 │       ├── extraReducers
 │       │   └── extraReducers.js
-│       ├── functions
-│       │   ├── account // グループアカウントに関する処理
-│       │   │   ├── functions.js
-│       │   │   ├── handleAuth.js // アカウントの有効性
-│       │   │   └── handleReset.js //　パスワードの再設定
-│       │   ├── auth // ログインに関する処理
-│       │   │   ├── functions.js
-│       │   │   ├── getRedirect.js // ソーシャルログイン後リダイレクトされた際アカウントの取得
-│       │   │   ├── handleCreate.js // プロフィールの作成
-│       │   │   ├── handleProvider.js // ソーシャルログイン
-│       │   │   ├── handleResend.js // メールアドレスの確認
-│       │   │   ├── handleReset.js // パスワードの再設定
-│       │   │   ├── handleSignIn.js // ログイン
-│       │   │   └── handleSignUp.js // 新規作成
-│       │   └── setting // アカウント情報に関する処理
-│       │       ├── functions.js
-│       │       ├── getRedirect.js // ソーシャルアカウントを追加後リダイレクトされた際アカウントの取得
-│       │       ├── handleCreate.js // メールアカウントの作成
-│       │       ├── handleDelete.js // アカウントの削除
-│       │       ├── handleEmail.js // メールアドレスの変更
-│       │       ├── handlePassword.js // パスワードの変更
-│       │       ├── handleProvider.js // ソーシャルアカウントの追加
-│       │       └── handleReset.js // パスワードの再設定
-│       ├── layouts // ユーザーを表示するページ
-│       │   ├── main // ユーザーの情報
-│       │   └── side // ユーザーが保有している投稿の一覧
 │       └── reducers
 │  　        ├── addProvider.js // ソーシャルアカウントを反映
 │  　        ├── application.js // 申請(法人アカウントの変更など)を反映
@@ -412,43 +408,69 @@
 │  　        ├── token.js // パスワードを一時的に保持
 │  　        └── updatePayment.js // プランやオプションに変更があった場合、情報を反映
 │
-├── pages // ページ
-│   ├── account // グループアカウント
-│   ├── asct // 特定商取引法に基づく表示
-│   ├── auth // 新規登録・ログイン
-│   ├── contact // 問い合わせ
-│   ├── howTo // How to App
-│   ├── list // いいね・出力・エントリー
-│   ├── maintenance // メンテナンス
-│   ├── notFound // 404
-│   ├── limit // 閲覧回数
-│   ├── setting // アカウント情報
-│   ├── success // プランやオプションが正常に完了した際に表示
-│   └── terms // 利用規約
-│
-└── promotion // LP
-    └── layouts
-        ├── footer
-        ├── fv
-        ├── header
-        └── section
-            ├── can // できること
-            ├── feature // 機能
-            ├── lets // さぁ、はじめよう
-            ├── option // オプション
-            ├── post // みつけよう
-            ├── price // 料金
-            └── what // What's SES_HUB?
+└── pages // ページ
+　   ├── account // グループアカウント
+　   ├── asct // 特定商取引法に基づく表示
+　   ├── auth // 新規登録・ログイン
+　   ├── contact // 問い合わせ
+　   ├── howTo // How to App
+　   ├── list // いいね・出力・エントリー
+　   ├── maintenance // メンテナンス
+　   ├── notFound // 404
+　   ├── limit // 閲覧回数
+　   ├── setting // アカウント情報
+　   ├── user // ユーザーページ
+　   ├── post // 投稿詳細ページ
+　   ├── pay // プラン
+　   ├── success // プランやオプションが正常に完了した際に表示
+　   ├── terms // 利用規約
+　   └── promotion // LP
+        └── layouts
+            ├── footer
+            ├── fv
+            ├── header
+            └── section
+                ├── can // できること
+                ├── feature // 機能
+                ├── lets // さぁ、はじめよう
+                ├── option // オプション
+                ├── post // みつけよう
+                ├── price // 料金
+                └── what // What's SES_HUB?
+
 
 // freelance_direct
+├── functions
+│   ├── root
+│   ├── auth // ログインに関する処理
+│   │   ├── functions.js
+│   │   ├── getRedirect.js // ソーシャルログイン後リダイレクトされた際アカウントの取得
+│   │   ├── handleCreate.js // プロフィールの作成
+│   │   ├── handleProvider.js // ソーシャルログイン
+│   │   ├── handleResend.js // メールアドレスの確認
+│   │   ├── handleReset.js // パスワードの再設定
+│   │   ├── handleSignIn.js // ログイン
+│   │   └── handleSignUp.js // 新規作成
+│   └── setting // アカウント情報に関する処理
+│  　    ├── functions.js
+│  　    ├── getRedirect.js // ソーシャルアカウントを追加後リダイレクトされた際アカウントの取得
+│  　    ├── handleCreate.js // メールアカウントの作成
+│  　    ├── handleDelete.js // アカウントの削除
+│  　    ├── handleEmail.js // メールアドレスの変更
+│  　    ├── handlePassword.js // パスワードの変更
+│  　    ├── handleProvider.js // ソーシャルアカウントの追加
+│  　    └── handleReset.js // パスワードの再設定
 ├── components
 │   ├── announce // アナウンス(画面上に表示される通知)
-│   ├── command // コマンド(ボタンを押した際、表示されるモーダル)
+│   ├── operation // 三点リーダー(ボタンを押した際、表示されるモーダル)
+│   ├── command // 投稿カード or 投稿詳細 or ユーザーページ に表示されるいいね・出力・エントリーボタン
 │   ├── cover // カバー
 │   ├── follow // フォロー(ボタン)
 │   ├── header // ヘッダー(ページごとに切替)
 │   ├── icon // アイコン
 │   ├── load // ローディング
+│   ├── item // ユーザー情報や投稿情報の一部抜粋したカード
+│   ├── list // 投稿一覧
 │   ├── menu // メニュー(左)
 │   ├── modal // モダール
 │   │   └── components
@@ -476,12 +498,6 @@
 │   │   │   ├── post.js
 │   │   │   ├── root.js
 │   │   │   └── user.js
-│   │   ├── item // ユーザー情報や投稿情報の一部抜粋したカード
-│   │   ├── layouts // 投稿を表示するページ
-│   │   │   ├── footer // 投稿したユーザー・こんな案件もオススメ
-│   │   │   └── main // 投稿の情報
-│   │   ├── list // 投稿一覧
-│   │   ├── menu // いいねなど(ボタン・アイコン)
 │   │   └── reducers
 │   │  　    ├── entry.js // エントリーしたものを一覧に反映
 │   │  　    ├── extractPosts.js //  
@@ -544,9 +560,6 @@
 │       │  　    ├── handlePassword.js // パスワードの変更
 │       │  　    ├── handleProvider.js // ソーシャルアカウントの追加
 │       │  　    └── handleReset.js // パスワードの再設定
-│       ├── layouts // ユーザーを表示するページ
-│       │   ├── header // カバー・アイコン
-│       │   └── profile // ユーザーの情報
 │       └── reducers
 │         　 ├── addProvider.js // ソーシャルアカウントを反映
 │        　  ├── change.js
@@ -564,25 +577,26 @@
 │       　   ├── request.js // リクエストを承認・ブロックする
 │       　   └── resume.js // 職務経歴書を更新・削除する
 │
-├── pages
-│   ├── auth // 新規登録・ログイン
-│   ├── contact // 問い合わせ
-│   ├── howTo // How to App
-│   ├── list // いいね・・エントリー・リクエスト・閲覧履歴
-│   ├── maintenance // メンテナンス
-│   ├── notFound // 404
-│   ├── setting // アカウント情報
-│   └── terms // 利用規約
-│
-└── promotion //LP
-    └── layouts
-        ├── header
-        ├── footer
-        ├── fv
-        └── section
-            ├── can // できること
-            ├── feature // 機能
-            ├── lets // もっと、探しませんか？
-            ├── search // 探してみよう
-            ├── target // ご利用いただける方
-            └── what // フリーランスダイレクトって
+└──pages
+　   ├── auth // 新規登録・ログイン
+　   ├── contact // 問い合わせ
+　   ├── howTo // How to App
+　   ├── list // いいね・・エントリー・リクエスト・閲覧履歴
+　   ├── maintenance // メンテナンス
+　   ├── notFound // 404
+　   ├── user // ユーザーページ
+　   ├── post // 投稿詳細ページ
+　   ├── setting // アカウント情報
+　   ├── terms // 利用規約
+　   └── promotion //LP
+　       └── layouts
+　           ├── header
+　           ├── footer
+　           ├── fv
+　           └── section
+　               ├── can // できること
+　               ├── feature // 機能
+　               ├── lets // もっと、探しませんか？
+　               ├── search // 探してみよう
+　               ├── target // ご利用いただける方
+　               └── what // フリーランスダイレクトって
