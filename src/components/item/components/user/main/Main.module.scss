@@ -83,13 +83,17 @@ $width: responsive-width(pc);
         padding: 0 12px;
       }
     }
+  }
+  
+  &_companys {
+    &_body {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
 
-    &_companys {
-      &_body {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+      &_none {
+        color: $sub_clr;
       }
     }
   }
