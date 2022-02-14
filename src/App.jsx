@@ -122,14 +122,16 @@ const App = () => {
                   path={`/:index/:id`}
                   component={(props) => {
                     switch (props.match.params.index) {
-                      case "matters" || "resources":
+                      case "matters":
+                      case "resources":
                         return (
                           <Post
                             index={props.match.params.index}
                             objectID={props.match.params.id}
                           />
                         );
-                      case "companys" || "persons":
+                      case "companys":
+                      case "persons":
                         return (
                           <User
                             index={{
