@@ -10,7 +10,6 @@ import * as userSlice from "../features/user/userSlice";
 export const useApp = () => {
   const dispatch = useDispatch();
 
-  const index = useSelector(rootSlice.index);
   const user = useSelector(userSlice.user);
   const access = useSelector(rootSlice.verified).access;
 
@@ -65,5 +64,5 @@ export const useApp = () => {
     };
   }, []);
 
-  return [index, user, access, browser];
+  return [user, access, browser];
 };

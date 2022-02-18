@@ -15,8 +15,7 @@ import { Home } from "./pages/home/Home";
 import { Search } from "./pages/search/Search";
 import { List } from "./pages/list/List";
 
-import { Post } from "./pages/post/Post";
-import { User } from "./pages/user/User";
+import { Page } from "./Page";
 
 import { Setting } from "./pages/setting/Setting";
 import { Pay } from "./pages/pay/Pay";
@@ -35,7 +34,7 @@ import { Promotion } from "./pages/promotion/Promotion";
 import { Contact } from "./pages/contact/Contact";
 
 const App = () => {
-  const [index, user, access, browser] = useApp();
+  const [user, access, browser] = useApp();
 
   return (
     <HelmetProvider>
@@ -117,35 +116,7 @@ const App = () => {
 
                 <Route exact path="/:list" component={List} />
 
-                <Route
-                  exact
-                  path={`/:index/:id`}
-                  component={(props) => {
-                    switch (props.match.params.index) {
-                      case "matters":
-                      case "resources":
-                        return (
-                          <Post
-                            index={props.match.params.index}
-                            objectID={props.match.params.id}
-                          />
-                        );
-                      case "companys":
-                      case "persons":
-                        return (
-                          <User
-                            index={{
-                              user: props.match.params.index,
-                              post: index,
-                            }}
-                            uid={props.match.params.id}
-                          />
-                        );
-                      default:
-                        return <NotFound display />;
-                    }
-                  }}
-                />
+                <Route exact path={`/:index/:id`} component={Page} />
 
                 <Route component={NotFound} />
               </Switch>
