@@ -36,8 +36,8 @@ export const User = ({ index, uid }) => {
   }, [
     dispatch,
     index,
-    posts?.length,
     uid,
+    posts?.length,
     user?.follows,
     sort?.control,
     sort?.status,
