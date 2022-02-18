@@ -28,8 +28,6 @@ export const Skills = () => {
         <div key={field.id} className={`${styles.item} ${styles.item_field}`}>
           <input
             placeholder="例："
-            defaultValue={`skills[${index}].skill`}
-            name={`skills[${index}].skill`}
             className={`${styles.item_input} ${
               errors.skills?.[index]?.skill && styles.item_input_error
             }`}
