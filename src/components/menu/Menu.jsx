@@ -169,15 +169,18 @@ export const Menu = ({ user }) => {
           </button>
         </div>
 
-        {!limit && !notFound && page === "home" && (
-          <button
-            onClick={handleSetting}
-            type="button"
-            className={styles.menu_setting}
-          >
-            <SettingsIcon className={styles.menu_setting_icon} />
-          </button>
-        )}
+        {!limit &&
+          !notFound &&
+          page === "home" &&
+          user?.payment?.status !== "canceled" && (
+            <button
+              onClick={handleSetting}
+              type="button"
+              className={styles.menu_setting}
+            >
+              <SettingsIcon className={styles.menu_setting_icon} />
+            </button>
+          )}
 
         <Btn />
       </div>
