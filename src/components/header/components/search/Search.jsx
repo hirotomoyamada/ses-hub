@@ -10,9 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as rootSlice from "../../../../features/root/rootSlice";
 
-import { Command } from "../../../command/Command";
+import { Operation } from "../../../operation/Operation";
 
-export const Search = ({ index, posts }) => {
+export const Search = ({ index }) => {
   const dispatch = useDispatch();
 
   const search = useSelector(rootSlice.search);
@@ -93,7 +93,7 @@ export const Search = ({ index, posts }) => {
       </button>
 
       {index === "matters" && (
-        <div className={styles.search_cmd}>
+        <div>
           <button
             type="button"
             onClick={handleOpen}
@@ -101,8 +101,9 @@ export const Search = ({ index, posts }) => {
           >
             <FilterListIcon className={styles.search_icon} />
           </button>
+
           {open && (
-            <Command
+            <Operation
               sort
               open={open}
               handleSortChange={handleSortChange}
