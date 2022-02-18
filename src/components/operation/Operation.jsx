@@ -33,6 +33,7 @@ export const Operation = ({
           </button>
         </div>
       )}
+
       {post && (
         <div className={styles.operation}>
           <button onClick={handleEdit} className={styles.operation_btn}>
@@ -46,6 +47,7 @@ export const Operation = ({
           </button>
         </div>
       )}
+      
       {open && (
         <div onClick={handleOpen} className={styles.operation_overlay}></div>
       )}
