@@ -21,7 +21,7 @@ export const Posts = ({
 }) => {
   const user = useSelector(userSlice.user);
 
-  const createPosts = () => {
+  const createPosts = (() => {
     const array = posts?.map(
       (post) =>
         post && (
@@ -41,14 +41,18 @@ export const Posts = ({
         )
     );
 
-    if (user?.payment?.status === "canceled" && index !== "companys") {
+    if (
+      user?.payment?.status === "canceled" &&
+      index !== "companys" &&
+      !select
+    ) {
       for (let i = 0; i < Math.floor(array?.length / 10) + 1; i++) {
         array.splice(i * 11, 0, <Advertise user={user} key={i * 11} />);
       }
     }
 
     return array;
-  };
+  })();
 
   return (
     <div
@@ -62,7 +66,7 @@ export const Posts = ({
       `}
       ref={list}
     >
-      {createPosts()}
+      {createPosts}
     </div>
   );
 };
