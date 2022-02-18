@@ -28,8 +28,6 @@ export const Perfers = () => {
         <div key={field.id} className={`${styles.item} ${styles.item_field}`}>
           <input
             placeholder=""
-            defaultValue={`prefers[${index}].prefer`}
-            name={`prefers[${index}].prefer`}
             className={`${styles.item_input} ${
               errors.prefers?.[index]?.prefer && styles.item_input_error
             }`}
