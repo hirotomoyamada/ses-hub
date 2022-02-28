@@ -1,17 +1,26 @@
 const functions = require("firebase-functions");
-const Twitter = require("twitter");
+const Twitter = require("twitter-api-v2");
 
-const twitter = new Twitter({
-  consumer_key: functions.config().twitter.consumer_key,
-  consumer_secret: functions.config().twitter.consumer_secret,
-  access_token_key: functions.config().twitter.access_token_key,
-  access_token_secret: functions.config().twitter.access_token_secret,
+const seshub = new Twitter({
+  appKey: functions.config().twitter.ses_hub.consumer_key,
+  appSecret: functions.config().twitter.ses_hub.consumer_secret,
+  accessToken: functions.config().twitter.ses_hub.access_token_key,
+  accessSecret: functions.config().twitter.ses_hub.access_token_secret,
 });
 
-exports.tweet = (data) => {
-  twitter.post("statuses/update", { status: data }, (error) => {
-    if (error) {
-      throw new functions.https.HttpsError("data-loss", error);
-    }
-  });
+// const freelanceDirect = new Twitter({
+//   appKey: functions.config().twitter.freelance_direct.consumer_key,
+//   appSecret: functions.config().twitter.freelance_direct.consumer_secret,
+//   accessToken: functions.config().twitter.freelance_direct.access_token_key,
+//   accessSecret: functions.config().twitter.freelance_direct.access_token_secret,
+// });
+
+export const tweet = {
+  seshub: async (data) => {
+    await seshub.v1.tweet(data);
+  },
+
+  freelanceDirect: async (data) => {
+    // await freelanceDirect.v1.tweet(data);
+  },
 };
