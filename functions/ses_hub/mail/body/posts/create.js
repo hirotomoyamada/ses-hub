@@ -41,8 +41,7 @@ exports.matters = (post, user, url) => {
     ? `面談：${post.interviews.type} ${post.interviews.count}`
     : ``;
 
-  return `
-${title}
+  return `${title}
 ${handles()}
 
 ${position}
@@ -101,8 +100,7 @@ exports.resources = (post, user, url) => {
     return skills?.[0] ? `スキル：\n${skills.join("\n")}` : ``;
   };
 
-  return `
-${title}
+  return `${title}
 ${position}
 
 ${belong}
