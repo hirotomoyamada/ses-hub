@@ -5,6 +5,7 @@ const runtime = require("../../firebase").runtime;
 
 const send = require("../../sendgrid").send;
 const tweet = require("../../twitter").tweet;
+const shortUrl = require("../../bitly").shortUrl;
 
 const postAuthenticated =
   require("./functions/postAuthenticated").postAuthenticated;
@@ -79,10 +80,11 @@ const sendMail = async (index, data, post) => {
 };
 
 const sendTweet = async (index, data, post) => {
-  const url =
+  const url = await shortUrl(
     index === "companys"
       ? `${functions.config().app.ses_hub.url}/${data.index}/${post.objectID}`
-      : `${functions.config().app.freelance_direct.url}/post/${post.objectID}`;
+      : `${functions.config().app.freelance_direct.url}/post/${post.objectID}`
+  );
 
   const txt =
     data.index === "matters"
