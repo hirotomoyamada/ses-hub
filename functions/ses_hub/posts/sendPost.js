@@ -31,7 +31,7 @@ exports.sendPost = functions
     }
 
     const user = await fetchUser(post);
-    const to = await fetchTo(post);
+    const to = await fetchTo(index, post);
     const mail = createMail(index, post, user, to);
 
     // await tweet(mail.text);
@@ -74,22 +74,31 @@ const fetchUser = async (post) => {
   };
 };
 
-const fetchTo = async (post) => {
-  const querySnapshot = await db
-    .collection("companys")
-    .where("status", "==", "enable")
-    .get()
-    .catch((e) => {
-      throw new functions.https.HttpsError(
-        "not-found",
-        "ユーザーの取得に失敗しました",
-        "firebase"
-      );
-    });
+const fetchTo = async (index, post) => {
+  const to = {
+    companys: [],
+    persons: [],
+  };
 
-  return querySnapshot?.docs
-    ?.map((doc) => verified(doc, post) && doc.data().profile.email)
-    ?.filter((email) => email);
+  for await (const collection of Object.keys(to)) {
+    if (collection === "persons" && index === "resources") {
+      break;
+    }
+
+    const querySnapshot = await db
+      .collection(collection)
+      .where("status", "==", "enable")
+      .get()
+      .catch((e) => {});
+
+    const emails = querySnapshot?.docs
+      ?.map((doc) => verified(doc, post) && doc.data().profile.email)
+      ?.filter((email) => email);
+
+    Object.assign(to, { [collection]: [...emails] });
+  }
+
+  return [...to.companys, ...to.persons];
 };
 
 const verified = (doc, post) => {
@@ -100,7 +109,9 @@ const verified = (doc, post) => {
   return (
     post.uid !== id &&
     config.admin.ses_hub !== email &&
+    config.admin.freelance_direct !== email &&
     config.demo.ses_hub.email !== email &&
+    config.demo.freelance_direct.email !== email &&
     true
   );
 };
