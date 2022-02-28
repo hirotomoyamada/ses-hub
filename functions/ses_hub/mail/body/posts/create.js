@@ -1,11 +1,11 @@
 exports.matters = (post, user, url) => {
   const title = post?.title ? `■ ${post.title}` : ``;
 
-  const handles = () => {
+  const handles = (() => {
     const handles = post?.handles?.map((handle) => handle && `【${handle}】`);
 
-    return handles?.[0] ? `${handles.join("")}` : ``;
-  };
+    return handles?.[0] ? `${handles.join("")}\n` : ``;
+  })();
 
   const position = post?.position ? post.position : ``;
 
@@ -41,25 +41,7 @@ exports.matters = (post, user, url) => {
     ? `面談：${post.interviews.type} ${post.interviews.count}`
     : ``;
 
-  return `${title}
-${handles()}
-
-${position}
-
-${period}
-${location}
-${remote}
-
-${times}
-${adjustment}
-
-${costs}
-
-${distribution}
-${interviews}
-
-URL：${url}
-担当：${user.name} ${user.person}`;
+  return `${title}\n${handles}\n${position}\n\n${period}\n${location}\n${remote}\n\n${times}\n${adjustment}\n\n${costs}\n\n${distribution}\n${interviews}\n\nURL：${url}\n担当：${user.name} ${user.person}`;
 };
 
 exports.resources = (post, user, url) => {
@@ -94,26 +76,11 @@ exports.resources = (post, user, url) => {
       }`
     : ``;
 
-  const skills = () => {
+  const skills = (() => {
     const skills = post?.skills?.map((skill) => skill && `・${skill}`);
 
-    return skills?.[0] ? `スキル：\n${skills.join("\n")}` : ``;
-  };
+    return skills?.[0] ? `スキル：\n${skills.join("\n")}\n\n` : ``;
+  })();
 
-  return `${title}
-${position}
-
-${belong}
-${sex}
-${age}
-
-${period}
-${station}
-
-${costs}
-
-${skills()}
-
-URL：${url}
-担当：${user.name} ${user.person}`;
+  return `${title}\n${position}\n\n${belong}\n${sex}\n${age}\n\n${period}\n${station}\n\n${costs}\n\n${skills}URL：${url}\n担当：${user.name} ${user.person}`;
 };
