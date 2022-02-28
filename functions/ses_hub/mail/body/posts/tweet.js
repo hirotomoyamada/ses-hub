@@ -1,10 +1,16 @@
 exports.matters = (post, url) => {
-  const title = post?.title ? `■ ${post.title}` : ``;
+  const title = post?.title
+    ? `■ ${post.title.substring(0, 18)}${post.title.length > 18 ? ` …` : ``}`
+    : ``;
 
   const handles = (() => {
-    const handles = post?.handles?.map((handle) => handle && `【${handle}】`);
+    const handles = post?.handles
+      ?.slice(0, 3)
+      ?.map((handle) => handle && `【${handle}】`);
 
-    return handles?.[0] ? `${handles.join("")}\n` : ``;
+    return handles?.[0]
+      ? `${handles.join("")}${post?.handles?.length > 3 ? ` …` : ``}\n`
+      : ``;
   })();
 
   const position = post?.position ? post.position : ``;
@@ -77,7 +83,12 @@ exports.resources = (post, url) => {
     : ``;
 
   const skills = (() => {
-    const skills = post?.skills?.map((skill) => skill && `・${skill}`);
+    const skills = post?.skills
+      ?.slice(0, 3)
+      ?.map(
+        (skill) =>
+          skill && `・${skill.substring(0, 18)}${skill.length > 18 ? ` …` : ``}`
+      );
 
     return skills?.[0] ? `スキル：\n${skills.join("\n")}\n\n` : ``;
   })();
