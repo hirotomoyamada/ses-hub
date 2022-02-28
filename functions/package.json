@@ -16,6 +16,7 @@
     "@google-cloud/firestore": "^4.15.1",
     "@sendgrid/mail": "^7.4.7",
     "algoliasearch": "^4.10.3",
+    "bitly": "^7.1.2",
     "firebase": "^8.10.0",
     "firebase-admin": "^9.8.0",
     "firebase-functions": "^3.16.0",
