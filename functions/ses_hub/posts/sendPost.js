@@ -4,11 +4,12 @@ const location = require("../../firebase").location;
 const runtime = require("../../firebase").runtime;
 
 const send = require("../../sendgrid").send;
-// const tweet = require("../../twitter").tweet;
+const tweet = require("../../twitter").tweet;
 
 const postAuthenticated =
   require("./functions/postAuthenticated").postAuthenticated;
 const body = require("../mail/body/posts/create");
+const tweetStatus = require("../mail/body/posts/tweet");
 
 exports.sendPost = functions
   .region(location)
@@ -19,7 +20,6 @@ exports.sendPost = functions
       canceled: true,
     });
 
-    const index = data.index;
     const post = data.post;
 
     if (post.display === "private") {
@@ -30,39 +30,68 @@ exports.sendPost = functions
       );
     }
 
-    const user = await fetchUser(post);
-    const to = await fetchTo(index, post);
-    const mail = createMail(index, post, user, to);
+    for await (const index of ["companys", "persons"]) {
+      if (index === "persons" && data.index === "resources") {
+        continue;
+      }
 
-    // await tweet(mail.text);
-    await send(mail);
+      await sendMail(index, data, post);
+      await sendTweet(index, data, post);
+    }
 
     return;
   });
 
-const createMail = (index, post, user, to) => {
-  const url = `${functions.config().app.ses_hub.url}/${index}/${post.objectID}`;
+const sendMail = async (index, data, post) => {
+  const to = await fetchTo(index, post);
+
+  const user = await fetchUser(post);
+
+  const url =
+    index === "companys"
+      ? `${functions.config().app.ses_hub.url}/${data.index}/${post.objectID}`
+      : `${functions.config().app.freelance_direct.url}/post/${post.objectID}`;
 
   const subject =
-    index === "matters"
+    data.index === "matters"
       ? `【新着案件】 ${post.title}`
-      : index === "resources" &&
-        `【新着人材】 ${post.roman.firstName.substring(
+      : `【新着人材】 ${post.roman.firstName.substring(
           0,
           1
         )} . ${post.roman.lastName.substring(0, 1)}`;
 
   const text =
-    index === "matters"
+    data.index === "matters"
       ? body.matters(post, user, url)
-      : index === "resources" && body.resources(post, user, url);
+      : body.resources(post, user, url);
 
-  return {
+  const mail = {
     to: to,
-    from: `SES_HUB <${functions.config().admin.ses_hub}>`,
+    from:
+      index === "companys"
+        ? `SES_HUB <${functions.config().admin.ses_hub}>`
+        : `Freelance Direct <${functions.config().admin.freelance_direct}>`,
     subject: subject,
     text: text,
   };
+
+  await send(mail);
+};
+
+const sendTweet = async (index, data, post) => {
+  const url =
+    index === "companys"
+      ? `${functions.config().app.ses_hub.url}/${data.index}/${post.objectID}`
+      : `${functions.config().app.freelance_direct.url}/post/${post.objectID}`;
+
+  const txt =
+    data.index === "matters"
+      ? tweetStatus.matters(post, url)
+      : tweetStatus.resources(post, url);
+
+  index === "companys"
+    ? await tweet.seshub(txt)
+    : await tweet.freelanceDirect(txt);
 };
 
 const fetchUser = async (post) => {
@@ -75,30 +104,23 @@ const fetchUser = async (post) => {
 };
 
 const fetchTo = async (index, post) => {
-  const to = {
-    companys: [],
-    persons: [],
-  };
+  const querySnapshot = await db
+    .collection(index)
+    .where("status", "==", "enable")
+    .get()
+    .catch(() => {
+      throw new functions.https.HttpsError(
+        "not-found",
+        "ユーザーの取得に失敗しました",
+        "firebase"
+      );
+    });
 
-  for await (const collection of Object.keys(to)) {
-    if (collection === "persons" && index === "resources") {
-      break;
-    }
+  const to = querySnapshot?.docs
+    ?.map((doc) => verified(doc, post) && doc.data().profile.email)
+    ?.filter((email) => email);
 
-    const querySnapshot = await db
-      .collection(collection)
-      .where("status", "==", "enable")
-      .get()
-      .catch((e) => {});
-
-    const emails = querySnapshot?.docs
-      ?.map((doc) => verified(doc, post) && doc.data().profile.email)
-      ?.filter((email) => email);
-
-    Object.assign(to, { [collection]: [...emails] });
-  }
-
-  return [...to.companys, ...to.persons];
+  return to;
 };
 
 const verified = (doc, post) => {
