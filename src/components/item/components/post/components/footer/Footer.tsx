@@ -18,9 +18,11 @@ export const Footer: React.FC<PropType> = ({ post, user }) => {
       </span>
       {post?.user && user?.payment?.status !== "canceled" && (
         <div className={styles.footer_user}>
-          <p className={styles.footer_user_name}>{post?.user?.name}</p>
+          <p className={styles.footer_user_name}>{post?.user?.profile?.name}</p>
 
-          <p className={styles.footer_user_person}>{post?.user?.person}</p>
+          <p className={styles.footer_user_person}>
+            {post?.user?.profile?.person}
+          </p>
         </div>
       )}
     </div>
