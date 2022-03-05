@@ -10,7 +10,7 @@ interface PropType {
 }
 
 export const Social: React.FC<PropType> = ({ user, handleEntry }) => {
-  return (
+  return user?.profile?.social ? (
     <div className={styles.entry_sns}>
       <div className={styles.entry_sns_wrap}>
         <Btn user={user} type="line" handleEntry={handleEntry} />
@@ -23,5 +23,7 @@ export const Social: React.FC<PropType> = ({ user, handleEntry }) => {
         こちらのユーザーが登録しているSNS
       </span>
     </div>
+  ) : (
+    <></>
   );
 };
