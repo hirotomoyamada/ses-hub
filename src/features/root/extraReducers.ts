@@ -35,6 +35,9 @@ export const extraReducers = (
       }>
     ) => {
       if (action.type.includes("/login/")) {
+        if (state.page !== "account") {
+          state.load.root = true;
+        }
         return;
       }
 
