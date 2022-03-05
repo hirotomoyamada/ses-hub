@@ -28,6 +28,14 @@ service cloud.firestore {
       }
     }
 
+    match /seshub/{id} {
+      allow read: if true;
+    }
+
+    match /freelanceDirect/{id} {
+      allow read: if true;
+    }
+
     match /products/{id} {
       allow read: if true;
 
