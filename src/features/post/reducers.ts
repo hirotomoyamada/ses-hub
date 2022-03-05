@@ -34,7 +34,7 @@ export const createPost = (
         ...state.user[action.payload.index].posts,
       ] as Matter[] | Resource[];
     }
-  } else {
+  } else if (action.payload.post.display === "public") {
     if (state[action.payload.page][action.payload.index].posts.length) {
       state[action.payload.page][action.payload.index].posts = [
         action.payload.post,
@@ -147,6 +147,8 @@ export const resetControl = (state: State): void => {
 };
 
 export const editPost = (state: State, action: PayloadAction<Post>): void => {
+  console.log(action.payload);
+
   const timestamp: number = Date.now();
 
   if (action.payload.post.display === "private") {
@@ -538,19 +540,19 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
 export const removeLike = (state: State, action: PayloadAction<Like>): void => {
   if (action.payload.index === "matters") {
     state.likes.matters.posts = state.likes.matters.posts.filter(
-      (post) => post.objectID !== (action.payload.post as Matter).objectID
+      (post) => post.objectID !== (action.payload?.post as Matter).objectID
     );
   }
 
   if (action.payload.index === "resources") {
     state.likes.resources.posts = state.likes.resources.posts.filter(
-      (post) => post.objectID !== (action.payload.post as Resource).objectID
+      (post) => post.objectID !== (action.payload?.post as Resource).objectID
     );
   }
 
   if (action.payload.index === "persons") {
     state.likes.persons.posts = state.likes.persons.posts.filter(
-      (post) => post.uid !== (action.payload.post as Person).uid
+      (post) => post.uid !== (action.payload?.post as Person).uid
     );
   }
 };
@@ -561,7 +563,7 @@ export const addOutput = (
 ): void => {
   if (state.outputs[action.payload.index].posts.length) {
     state.outputs[action.payload.index].posts = [
-      action.payload.post,
+      action.payload?.post,
       ...state.outputs[action.payload.index].posts,
     ] as Matter[] | Resource[];
   }

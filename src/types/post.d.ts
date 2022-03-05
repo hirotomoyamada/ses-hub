@@ -14,9 +14,9 @@ export interface Matter {
   costs: {
     display: "public" | "private";
     type: string;
-    min?: number;
-    max?: number;
-    contract?: number;
+    min?: number | null;
+    max?: number | null;
+    contract?: number | null;
   };
   adjustment: string;
   times: {
@@ -79,9 +79,9 @@ export interface Resource {
   costs: {
     display: "public" | "private";
     type: string;
-    min?: number;
-    max?: number;
-    contract?: number;
+    min?: number | null;
+    max?: number | null;
+    contract?: number | null;
   };
   handles: string[];
   tools: string[];

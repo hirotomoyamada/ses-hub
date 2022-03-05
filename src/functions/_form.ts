@@ -10,9 +10,9 @@ export type Data = {
     costs: {
       display: "public" | "private";
       type: string;
-      min: number;
-      max: number;
-      contract?: number;
+      min: number | null;
+      max: number | null;
+      contract?: number | null;
     };
     handles: { handle: string }[];
     tools: { tool: string }[];
@@ -41,9 +41,9 @@ export type Data = {
     costs: {
       display: "public" | "private";
       type: string;
-      min: number;
-      max: number;
-      contract?: number;
+      min: number | null;
+      max: number | null;
+      contract?: number | null;
     };
     handles: { handle: string }[];
     tools: { tool: string }[];
@@ -153,7 +153,8 @@ export const defaultValues = (
         costs: {
           min: edit && post.costs.min ? post.costs.min : undefined,
           max: edit && post.costs.max ? post.costs.max : undefined,
-          contract: edit ? post.costs.contract : undefined,
+          contract:
+            edit && post.costs.contract ? post.costs.contract : undefined,
           display: edit ? post.costs.display : "public",
           type: edit ? post.costs.type : "スキル見合",
         },
@@ -225,7 +226,8 @@ export const defaultValues = (
         costs: {
           min: edit && post.costs.min ? post.costs.min : undefined,
           max: edit && post.costs.max ? post.costs.max : undefined,
-          contract: edit ? post.costs.contract : undefined,
+          contract:
+            edit && post.costs.contract ? post.costs.contract : undefined,
           display: edit ? post.costs.display : "public",
           type: edit ? post.costs.type : "スキル見合",
         },
@@ -288,9 +290,9 @@ export const matters = (
   costs: {
     display: "public" | "private";
     type: string;
-    min?: number;
-    max?: number;
-    contract?: number;
+    min?: number | null;
+    max?: number | null;
+    contract?: number | null;
   };
   adjustment: string;
   times: { start: string; end: string };
@@ -318,9 +320,9 @@ export const matters = (
       month: Number(data.period.month),
     },
     costs: {
-      min: Number(data.costs.min),
-      max: Number(data.costs.max),
-      contract: Number(data.costs.contract),
+      min: data.costs.min ? Number(data.costs.min) : null,
+      max: data.costs.max ? Number(data.costs.max) : null,
+      contract: data.costs.contract ? Number(data.costs.contract) : null,
       display: data.costs.display,
       type: data.costs.type,
     },
@@ -367,9 +369,9 @@ export const resources = (
   costs: {
     display: "public" | "private";
     type: string;
-    min?: number;
-    max?: number;
-    contract?: number;
+    min?: number | null;
+    max?: number | null;
+    contract?: number | null;
   };
   position: string;
   handles: string[];
@@ -393,9 +395,9 @@ export const resources = (
       month: Number(data.period.month),
     },
     costs: {
-      min: Number(data.costs.min),
-      max: Number(data.costs.max),
-      contract: Number(data.costs.contract),
+      min: data.costs.min ? Number(data.costs.min) : null,
+      max: data.costs.max ? Number(data.costs.max) : null,
+      contract: data.costs.contract ? Number(data.costs.contract) : null,
       display: data.costs.display,
       type: data.costs.type,
     },
