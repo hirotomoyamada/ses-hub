@@ -3,10 +3,10 @@
 ├── libs # コンパイル先
 ├── src # コンパイル元
 │   ├── admin # 管理画面
-│   │   ├── \_dataOrganize.ts # ユーザー取得時に削除されている投稿などを削除
-│   │   ├── \_fetch.ts # 取得する際の整形
-│   │   ├── \_format.ts # 作成・編集する際の整形
-│   │   ├── \_userAuthenticated.ts
+│   │   ├── _dataOrganize.ts # ユーザー取得時に削除されている投稿などを削除
+│   │   ├── _fetch.ts # 取得する際の整形
+│   │   ├── _format.ts # 作成・編集する際の整形
+│   │   ├── _userAuthenticated.ts
 │   │   ├── account.ts # アカウントを編集
 │   │   ├── data.ts # 全般を編集
 │   │   ├── extract.ts # ユーザーの投稿やフォロー・グループアカウント一覧を取得
@@ -14,7 +14,7 @@
 │   │   ├── index.ts
 │   │   ├── login.ts # ログイン
 │   │   ├── mail # メール本文
-│   │   │   ├── \_type.ts # 法人アカウントの申請の承認
+│   │   │   ├── _type.ts # 法人アカウントの申請の承認
 │   │   │   └── index.ts
 │   │   ├── post.ts # 投稿を編集・削除
 │   │   ├── resume.ts # 職務経歴書を更新・削除
@@ -22,26 +22,26 @@
 │   │   └── user.ts # ユーザーを編集
 │   │
 │   ├── backup # バックアップ
-│   │   ├── \_algolia.ts # Algolia
-│   │   ├── \_firestore.ts # Firestore
+│   │   ├── _algolia.ts # Algolia
+│   │   ├── _firestore.ts # Firestore
 │   │   └── index.ts
 │   │
 │   ├── freelance_direct
 │   │   ├── index.ts
 │   │   ├── mail # 問い合わせ / メール本文
-│   │   │   ├── \_create.ts # ユーザーの作成
-│   │   │   ├── \_decline.ts # ユーザーの謝絶(無効)
-│   │   │   ├── \_disable.ts # ユーザーの無効
-│   │   │   ├── \_enable.ts # ユーザーの有効
-│   │   │   ├── \_goBack.ts # ユーザーの復活
-│   │   │   ├── \_promotion.ts # LP の問い合わせ
-│   │   │   ├── \_request.ts # リクエスト
+│   │   │   ├── _create.ts # ユーザーの作成
+│   │   │   ├── _decline.ts # ユーザーの謝絶(無効)
+│   │   │   ├── _disable.ts # ユーザーの無効
+│   │   │   ├── _enable.ts # ユーザーの有効
+│   │   │   ├── _goBack.ts # ユーザーの復活
+│   │   │   ├── _promotion.ts # LP の問い合わせ
+│   │   │   ├── _request.ts # リクエスト
 │   │   │   ├── contact.ts # 問い合わせ
 │   │   │   └── index.ts
 │   │   │
 │   │   ├── post
-│   │   │   ├── \_fetch.ts # 取得する際の整形
-│   │   │   ├── \_userAuthenticated.ts #
+│   │   │   ├── _fetch.ts # 取得する際の整形
+│   │   │   ├── _userAuthenticated.ts #
 │   │   │   ├── extract.ts # ユーザーが登録している(いいねやリクエストなど)一覧を取得
 │   │   │   ├── fetch.ts # 投稿・投稿一覧を取得
 │   │   │   ├── home.ts # ホームを取得
@@ -49,10 +49,10 @@
 │   │   │   └── user.ts # ユーザーが保有する投稿一覧を取得
 │   │   │
 │   │   └── user
-│   │   ├── \_fetch.ts # 取得する際の整形
-│   │   ├── \_format.ts # 作成・編集する際の整形
-│   │   ├── \_loginAuthenticated.ts #
-│   │   ├── \_userAuthenticated.ts #
+│   │   ├── _fetch.ts # 取得する際の整形
+│   │   ├── _format.ts # 作成・編集する際の整形
+│   │   ├── _loginAuthenticated.ts #
+│   │   ├── _userAuthenticated.ts #
 │   │   ├── agree.ts # 利用規約を同意
 │   │   ├── automation.ts #
 │   │   ├── email.ts # メールアドレスを変更
@@ -70,22 +70,22 @@
 │   ├── ses_hub
 │   │   ├── index.ts
 │   │   ├── mail # 問い合わせ/ メール本文
-│   │   │   ├── \_create.ts # ユーザーの作成
-│   │   │   ├── \_decline.ts # ユーザーの謝絶(無効)
-│   │   │   ├── \_disable.ts # ユーザーの無効
-│   │   │   ├── \_enable.ts # ユーザーの有効
-│   │   │   ├── \_goBack.ts # ユーザーの復活
-│   │   │   ├── \_post.ts # 投稿
-│   │   │   ├── \_promotion.ts # LP の問い合わせ
-│   │   │   ├── \_request.ts # リクエスト
-│   │   │   ├── \_tweet.ts # ツイート
-│   │   │   ├── \_type.ts # 法人アカウントの申請の承認
+│   │   │   ├── _create.ts # ユーザーの作成
+│   │   │   ├── _decline.ts # ユーザーの謝絶(無効)
+│   │   │   ├── _disable.ts # ユーザーの無効
+│   │   │   ├── _enable.ts # ユーザーの有効
+│   │   │   ├── _goBack.ts # ユーザーの復活
+│   │   │   ├── _post.ts # 投稿
+│   │   │   ├── _promotion.ts # LP の問い合わせ
+│   │   │   ├── _request.ts # リクエスト
+│   │   │   ├── _tweet.ts # ツイート
+│   │   │   ├── _type.ts # 法人アカウントの申請の承認
 │   │   │   ├── contact.ts # 問い合わせ
 │   │   │   └── index.ts
 │   │   │
 │   │   ├── pay
 │   │   │   ├── TaxBehavior.ts
-│   │   │   ├── \_userAuthenticated.ts
+│   │   │   ├── _userAuthenticated.ts
 │   │   │   ├── checkout.ts # チェックアウトを作成
 │   │   │   ├── create.ts # プラン・オプションを追加
 │   │   │   ├── fetch.ts # プラン・オプション一覧を取得
@@ -94,10 +94,10 @@
 │   │   │   └── update.ts # プラン・オプションを追加
 │   │   │
 │   │   ├── post
-│   │   │   ├── \_fetch.ts # 取得する際の整形
-│   │   │   ├── \_format.ts # 作成・編集する際の整形
-│   │   │   ├── \_postAuthenticated.ts
-│   │   │   ├── \_userAuthenticated.ts
+│   │   │   ├── _fetch.ts # 取得する際の整形
+│   │   │   ├── _format.ts # 作成・編集する際の整形
+│   │   │   ├── _postAuthenticated.ts
+│   │   │   ├── _userAuthenticated.ts
 │   │   │   ├── extract.ts # ユーザーが登録している(いいねやリクエストなど)一覧を取得
 │   │   │   ├── fetch.ts # 投稿・投稿一覧を取得
 │   │   │   ├── home.ts # フォローしているユーザーの投稿一覧などを取得
@@ -106,10 +106,10 @@
 │   │   │   └── user.ts # ユーザーが保有する投稿一覧を取得
 │   │   │
 │   │   └── user
-│   │   ├── \_fetch.ts # 取得する際の整形
-│   │   ├── \_format.ts # 作成・編集する際の整形
-│   │   ├── \_loginAuthenticated.ts
-│   │   ├── \_userAuthenticated.ts
+│   │   ├── _fetch.ts # 取得する際の整形
+│   │   ├── _format.ts # 作成・編集する際の整形
+│   │   ├── _loginAuthenticated.ts
+│   │   ├── _userAuthenticated.ts
 │   │   ├── agree.ts # 利用規約に同意
 │   │   ├── application.ts # 申請(法人アカウントの変更など)
 │   │   ├── automation.ts
