@@ -15,16 +15,44 @@
       ]
     },
     {
-      "collectionGroup": "prices",
+      "collectionGroup": "companys",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "active",
+          "fieldPath": "status",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "unit_amount",
+          "fieldPath": "lastLogin",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "companys",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "application",
           "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastLogin",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "persons",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastLogin",
+          "order": "DESCENDING"
         }
       ]
     }
