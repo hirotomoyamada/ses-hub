@@ -22,7 +22,7 @@ interface PropType {
 export const Resources: React.FC<PropType> = ({ index, post, user }) => {
   return (
     <div className={styles.main_inner}>
-      <Command index={index} post={post} user={user} />
+      <Command index={index} post={post} user={user} back />
 
       <Header post={post} user={user} />
 
