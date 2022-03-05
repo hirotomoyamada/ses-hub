@@ -17,14 +17,10 @@
 ### ディレクトリ
 
 ```
-ses_hub
-│
 ├── build [ses-hub, ses-hub-dev-ed356]
 ├── functions
-│   ├─ ses_hub
-│   ├─ admin
-│   ├─ freelance_direct
-│   └─ export
+│   ├─ libs # Built/transpiled JavaScript code
+│   └─ src # Directory containing TypeScript source
 │
 ├── admin
 │   └─ build [ses-hub-admin-2e26u5, ses-hub-admin-2c308]
