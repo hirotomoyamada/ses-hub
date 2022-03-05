@@ -1,5 +1,5 @@
 # functions
-
+```
 ├── libs # コンパイル先
 ├── src # コンパイル元
 │   ├── admin # 管理画面
@@ -145,9 +145,10 @@
 ├── package.json
 ├── tsconfig.json
 └── yarn.lock
+```
 
 # admin
-
+```
 ├── hooks
 ├── functions # コード整形・無限スクロールなど
 ├── libs # API
@@ -180,9 +181,10 @@
 ├── setting # 全般を更新するページ
 ├── mail # メールを配信するページ
 └── auth # ログイン画面
+```
 
 # ses_hub
-
+```
 ├── hooks
 ├── functions # アカウント・設定・支払い関連・コード整形・無限スクロールなど
 ├── libs # API
@@ -251,9 +253,10 @@
 ├── post # みつけよう
 ├── price # 料金
 └── what # What's SES_HUB?
+```
 
 # freelance_direct
-
+```
 ├── hooks
 ├── functions # アカウント・設定・支払い関連・コード整形・無限スクロールなど
 ├── libs # API
@@ -311,3 +314,4 @@
 　    ├── search # 探してみよう
 　    ├── target # ご利用いただける方
 　    └── what # フリーランスダイレクトって
+```
