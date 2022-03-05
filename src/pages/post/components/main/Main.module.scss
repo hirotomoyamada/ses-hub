@@ -1,7 +1,7 @@
 // サイト共有の初期設定
-@import "../../../../styles/config";
-@import "../../../../styles/function";
-@import "../../../../styles/animation";
+@import "styles/config";
+@import "styles/function";
+@import "styles/animation";
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);

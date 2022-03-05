@@ -1,6 +1,6 @@
 // サイト共有の初期設定
-@import "../../../../../../styles/config";
-@import "../../../../../../styles/function";
+@import "styles/config";
+@import "styles/function";
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -123,7 +123,7 @@ $width: responsive-width(pc);
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
-    
+
     &_tag {
       background: $acnt_clr;
       color: $base_clr;
