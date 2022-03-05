@@ -1,5 +1,5 @@
-const db = require("./firebase");
-const algolia = require("./algolia");
+const db = require("./libs/firebase");
+const algolia = require("./libs/algolia");
 
 const data = {
   index: "companys",
@@ -8,7 +8,7 @@ const data = {
   value: { profile: { tel: "0120-123-456" } },
 };
 
-(async function insert() {
+(async () => {
   const index = algolia.initIndex(data.index);
 
   const score = {
@@ -16,7 +16,7 @@ const data = {
     algolia: { success: 0, error: 0 },
   };
 
-  const { docs } =
+  const querySnapshot =
     data.index === "companys" || data.index === "persons"
       ? await db
           .collection(data.index)
@@ -24,12 +24,10 @@ const data = {
           .catch((e) => {
             console.log(e.message);
           })
-      : (data.index === "matters" || data.index === "resources") &&
-        (await index
+      : await index
           .search()
           .then(async ({ nbPages }) => {
-            let docs = [];
-
+            const docs = [];
             for (let page = 0; page < nbPages; page++) {
               await index.search("", { page: page }).then(({ hits }) => {
                 docs.push(...hits);
@@ -40,9 +38,13 @@ const data = {
           })
           .catch((e) => {
             console.log(e.message);
-          }));
+          });
 
-  for (const doc of docs) {
+  if (!querySnapshot) {
+    throw Error();
+  }
+
+  for (const doc of querySnapshot.docs) {
     if (
       data.firestore &&
       data.index !== "matters" &&
@@ -65,13 +67,12 @@ const data = {
         objectID:
           data.index === "companys" || data.index === "persons"
             ? doc.id
-            : (data.index === "matters" || data.index === "resources") &&
-              doc.objectID,
+            : doc.objectID,
       };
 
       await index
         .partialUpdateObject(
-          Object.keys(data.value).indexOf("profile") >= 0
+          "profile" in data.value && typeof data.value.profile === "object"
             ? {
                 ...objectID,
                 ...data.value.profile,
@@ -86,11 +87,20 @@ const data = {
         )
         .then(() => {
           score.algolia.success++;
-          console.log(doc.id, "is Successed", "algolia");
+          console.log(
+            "id" in doc ? doc.id : doc.objectID,
+            "is Successed",
+            "algolia"
+          );
         })
         .catch((e) => {
           score.algolia.error++;
-          console.log(doc.id, "is Error :", e.message, "algolia");
+          console.log(
+            "id" in doc ? doc.id : doc.objectID,
+            "is Error :",
+            e.message,
+            "algolia"
+          );
         });
     }
   }
