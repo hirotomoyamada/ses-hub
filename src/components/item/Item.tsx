@@ -44,8 +44,13 @@ export const Item: React.FC<PropType> = ({
 }) => {
   return !outputs?.length ? (
     <div className={styles.item_outer}>
-      {index !== "companys" && !select && post && "objectID" in post ? (
-        <Command index={index} post={post} user={user} item />
+      {index !== "companys" && !select && post ? (
+        <Command
+          index={index}
+          post={post as Matter | Resource | Person}
+          user={user}
+          item
+        />
       ) : (
         post?.uid !== user.uid && (
           <Follow
