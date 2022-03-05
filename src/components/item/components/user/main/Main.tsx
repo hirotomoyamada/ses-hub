@@ -17,7 +17,11 @@ interface PropType {
 export const Main: React.FC<PropType> = ({ index, post }) => {
   return index !== "persons" ? (
     <div className={styles.main_companys}>
-      <p className={styles.main_companys_body}>
+      <p
+        className={`${styles.main_companys_body} ${
+          !post?.profile?.body && styles.main_companys_body_none
+        }`}
+      >
         {post?.profile?.body
           ? post?.profile?.body
           : "さぁ、あなたのプロフィールを充実させていきましょう。SNSアカウントを登録して他のメンバーと情報連携していきましょう!"}
