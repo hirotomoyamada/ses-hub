@@ -1,25 +1,29 @@
 const admin = require("firebase-admin");
-const db = require("./firebase");
+const db = require("./libs/firebase");
 
 const data = {
   index: "companys",
   value: [""],
 };
 
-(async function del() {
+(async () => {
   const score = { success: 0, error: 0 };
 
-  const { docs } = await db
+  const querySnapshot = await db
     .collection(data.index)
     .get()
     .catch((e) => {
       console.log(e.message);
     });
 
-  for (const doc of docs) {
+  if (!querySnapshot) {
+    throw Error();
+  }
+
+  for (const doc of querySnapshot.docs) {
     await doc.ref
       .update(
-        data.value.length <= 1
+        typeof data.value === "string"
           ? {
               [data.value]: admin.firestore.FieldValue.delete(),
             }
@@ -43,9 +47,9 @@ const data = {
     "Finished!",
     "firestore (",
     "success :",
-    score.firestore.success,
+    score.success,
     "error :",
-    score.firestore.error,
+    score.error,
     ")"
   );
 })();
