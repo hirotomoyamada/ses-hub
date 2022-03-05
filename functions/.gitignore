@@ -1,4 +1,8 @@
-.DS_Store
-.runtimeconfig.json
+# Compiled JavaScript files
+libs/
 
-/node_modules
+# TypeScript v1 declaration files
+typings/
+
+# Node.js dependency directory
+node_modules/
