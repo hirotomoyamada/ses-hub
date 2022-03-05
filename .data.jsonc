@@ -142,6 +142,7 @@
         "profile": {
           "name": null, // 名前 ※必須
           "nickName": null, //　ニックネーム ※必須
+          "state": "案件探し", //　現在の状態 ※必須
           "body": null, // 自己紹介
           "sex": "男性", // 性別 ※必須
           "email": null, // メールアドレス ※必須
