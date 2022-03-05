@@ -44,10 +44,11 @@ export interface Matter {
   approval?: string;
   user?: {
     uid: string;
-    name: string;
-    person: string;
+    type: string;
     status: string;
     profile: {
+      name: string;
+      person: string;
       email: string;
       social: {
         line: string;
@@ -99,10 +100,11 @@ export interface Resource {
   };
   user?: {
     uid: string;
-    name: string;
-    person: string;
+    type: string;
     status: string;
     profile: {
+      name: string;
+      person: string;
       email: string;
       social: {
         line: string;
