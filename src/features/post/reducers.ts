@@ -147,8 +147,6 @@ export const resetControl = (state: State): void => {
 };
 
 export const editPost = (state: State, action: PayloadAction<Post>): void => {
-  console.log(action.payload);
-
   const timestamp: number = Date.now();
 
   if (action.payload.post.display === "private") {
