@@ -137,7 +137,17 @@ $width: responsive-width(pc);
     }
   }
 
+  &_txt {
+    display: block;
+    width: 100%;
+    word-wrap: break-word;
+    white-space: pre-line;
+  }
+
   &_txtarea {
+    display: block;
+    width: 100%;
+    word-wrap: break-word;
     white-space: pre-line;
   }
 

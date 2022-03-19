@@ -6,21 +6,23 @@
 $width: responsive-width(pc);
 
 .header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 48px 1.5fr 1fr;
   align-items: center;
   gap: 16px;
 
   @media (max-width: responsive-width(sp)) {
+    grid-template-columns: 40px 1.5fr 1fr;
     gap: 12px;
   }
 
   &_icon {
-    width: 48px;
+    min-width: 48px;
     height: 48px;
     border-radius: 50%;
 
     @media (max-width: responsive-width(sp)) {
-      width: 40px;
+      min-width: 40px;
       height: 40px;
     }
   }
@@ -32,18 +34,23 @@ $width: responsive-width(pc);
   }
 
   &_wrap {
+    width: 100%;
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+
     gap: 8px;
   }
 
   &_ttl {
+    max-width: auto-max(120px);
     font-size: auto-clamp(20px, 24px);
     font-weight: bold;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    word-wrap: break-word;
 
     @media (max-width: responsive-width(sp)) {
       font-size: 16px;
@@ -59,6 +66,7 @@ $width: responsive-width(pc);
     font-size: 12px;
     background: $promo_clr;
     color: $base_clr;
+    white-space: nowrap;
 
     @media (max-width: responsive-width(sp)) {
       line-height: 20px;
@@ -85,9 +93,11 @@ $width: responsive-width(pc);
 
   &_tag {
     color: $sub_clr;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 
     @media (max-width: responsive-width(sp)) {
       width: auto-max(180px);

@@ -71,6 +71,23 @@ $width: responsive-width(pc);
     }
   }
 
+  &_new {
+    display: inline-block;
+    background: $add_clr;
+    color: $base_clr;
+    padding: 0 12px;
+    border-radius: 8px;
+    line-height: 32px;
+    font-size: 14px;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 0 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      line-height: 20px;
+    }
+  }
+
   &_status {
     display: inline-block;
     background: $add_clr;
@@ -129,8 +146,8 @@ $width: responsive-width(pc);
     font-size: 24px;
     font-weight: bold;
 
-    display: flex;
-    align-items: center;
+    word-wrap: break-word;
+    white-space: wrap;
 
     @media (max-width: responsive-width(sp)) {
       margin-top: 12px;
@@ -141,10 +158,11 @@ $width: responsive-width(pc);
     }
 
     &_new {
+      display: inline-block;
       color: $base_clr;
       background: $add_clr;
-      height: 20px;
-      line-height: 20px;
+      height: 100%;
+      line-height: 24px;
       padding: 0 8px;
       border-radius: 10px;
       font-size: 10px;

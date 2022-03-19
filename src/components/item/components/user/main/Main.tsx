@@ -16,10 +16,10 @@ interface PropType {
 
 export const Main: React.FC<PropType> = ({ index, post }) => {
   return index !== "persons" ? (
-    <div className={styles.main_companys}>
+    <div className={styles.main_body_company}>
       <p
-        className={`${styles.main_companys_body} ${
-          !post?.profile?.body && styles.main_companys_body_none
+        className={`${styles.main_body_txt_company} ${
+          !post?.profile?.body && styles.main_body_txt_none_company
         }`}
       >
         {post?.profile?.body

@@ -16,6 +16,8 @@ interface PropType {
 }
 
 export const Header: React.FC<PropType> = ({ post, user }) => {
+  const newPost = post?.createAt > Date.now() - 60 * 60 * 24 * 3 * 1000;
+
   return (
     <div className={styles.header}>
       <At post={post} />
@@ -29,6 +31,12 @@ export const Header: React.FC<PropType> = ({ post, user }) => {
         )}
 
         <Position post={post} />
+
+        {newPost && (
+          <div className={styles.header_new}>
+            <span>NEW</span>
+          </div>
+        )}
       </div>
 
       <Title post={post} />
