@@ -94,6 +94,15 @@ $width: responsive-width(pc);
   }
 
   &_body {
+    display: grid;
+
+    &_txt {
+      display: -webkit-box;
+      overflow: hidden;
+      word-wrap: break-word;
+      -webkit-box-orient: vertical;
+    }
+
     @media (max-width: responsive-width(sp)) {
       font-size: 12px;
     }

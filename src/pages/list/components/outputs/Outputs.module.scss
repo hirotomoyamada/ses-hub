@@ -41,6 +41,7 @@ $width: responsive-width(pc);
 
   &_txt {
     color: $main_clr;
+    word-wrap: break-word;
     white-space: pre-line;
   }
 }

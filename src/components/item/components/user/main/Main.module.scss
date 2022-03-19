@@ -48,14 +48,27 @@ $width: responsive-width(pc);
       padding: 12px 12px;
     }
 
+    &_company {
+      display: grid;
+    }
+
     &_txt {
       display: -webkit-box;
       -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
+      word-wrap: break-word;
       overflow: hidden;
 
       @media (max-width: responsive-width(sp)) {
         -webkit-line-clamp: 5;
+      }
+
+      &_company {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        word-wrap: break-word;
       }
 
       &_none {
@@ -64,6 +77,10 @@ $width: responsive-width(pc);
         align-items: center;
 
         color: $sub_clr;
+
+        &_company {
+          color: $sub_clr;
+        }
       }
     }
 
@@ -81,19 +98,6 @@ $width: responsive-width(pc);
         top: -7px;
         left: 12px;
         padding: 0 12px;
-      }
-    }
-  }
-  
-  &_companys {
-    &_body {
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-
-      &_none {
-        color: $sub_clr;
       }
     }
   }

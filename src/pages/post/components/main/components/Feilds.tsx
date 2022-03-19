@@ -15,9 +15,9 @@ export const Feilds: React.FC<PropType> = ({ acnt, tag, array }) => {
         {array.map(
           (value, index) =>
             value && (
-              <div key={index}>
-                <h3>{value}</h3>
-              </div>
+              <h3 className={styles.main_txt} key={index}>
+                {value}
+              </h3>
             )
         )}
       </div>
