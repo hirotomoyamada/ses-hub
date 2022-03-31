@@ -383,6 +383,7 @@ export const addOutput = (
     const addOutput: HttpsCallable<
       {
         index: Output["index"];
+        uid: string;
         objectID: string;
       },
       unknown
@@ -390,6 +391,7 @@ export const addOutput = (
 
     void addOutput({
       index: action.payload.index,
+      uid: action.payload.post.uid,
       objectID: action.payload.post.objectID,
     });
   }
@@ -423,6 +425,7 @@ export const removeOutput = (
     const removeOutput: HttpsCallable<
       {
         index: Output["index"];
+        uid?: string;
         objectID?: string;
         objectIDs?: string[];
       },
@@ -431,6 +434,7 @@ export const removeOutput = (
 
     void removeOutput({
       index: action.payload.index,
+      uid: action.payload.post?.uid,
       objectID: action.payload.post?.objectID,
       objectIDs: action.payload.objectIDs,
     });
@@ -444,12 +448,13 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
   ];
 
   const addEntry: HttpsCallable<
-    { index: Entry["index"]; objectID: string },
+    { index: Entry["index"]; uid: string; objectID: string },
     unknown
   > = httpsCallable(functions, "sh-addEntry");
 
   void addEntry({
     index: action.payload.index,
+    uid: action.payload.post.uid,
     objectID: action.payload.post.objectID,
   });
 };
