@@ -157,7 +157,8 @@ export const editPost = (state: State, action: PayloadAction<Post>): void => {
             state[posts][action.payload.index].posts = state[posts][
               action.payload.index
             ].posts.filter(
-              (post: Matter) => post.objectID !== action.payload.post.objectID
+              (post: Matter) =>
+                post && post?.objectID !== action.payload.post.objectID
             );
           }
 
@@ -165,7 +166,8 @@ export const editPost = (state: State, action: PayloadAction<Post>): void => {
             state[posts][action.payload.index].posts = state[posts][
               action.payload.index
             ].posts.filter(
-              (post: Resource) => post.objectID !== action.payload.post.objectID
+              (post: Resource) =>
+                post && post?.objectID !== action.payload.post.objectID
             );
           }
         }
@@ -538,19 +540,21 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
 export const removeLike = (state: State, action: PayloadAction<Like>): void => {
   if (action.payload.index === "matters") {
     state.likes.matters.posts = state.likes.matters.posts.filter(
-      (post) => post.objectID !== (action.payload?.post as Matter).objectID
+      (post) =>
+        post && post.objectID !== (action.payload?.post as Matter).objectID
     );
   }
 
   if (action.payload.index === "resources") {
     state.likes.resources.posts = state.likes.resources.posts.filter(
-      (post) => post.objectID !== (action.payload?.post as Resource).objectID
+      (post) =>
+        post && post.objectID !== (action.payload?.post as Resource).objectID
     );
   }
 
   if (action.payload.index === "persons") {
     state.likes.persons.posts = state.likes.persons.posts.filter(
-      (post) => post.uid !== (action.payload?.post as Person).uid
+      (post) => post && post.uid !== (action.payload?.post as Person).uid
     );
   }
 };
@@ -574,19 +578,22 @@ export const removeOutput = (
   if (!action.payload.objectIDs) {
     if (action.payload.index === "matters") {
       state.outputs.matters.posts = state.outputs.matters.posts.filter(
-        (post) => post.objectID !== (action.payload.post as Matter).objectID
+        (post) =>
+          post && post.objectID !== (action.payload.post as Matter).objectID
       );
     }
 
     if (action.payload.index === "resources") {
       state.outputs.resources.posts = state.outputs.resources.posts.filter(
-        (post) => post.objectID !== (action.payload.post as Resource).objectID
+        (post) =>
+          post && post.objectID !== (action.payload.post as Resource).objectID
       );
     }
   } else {
     if (action.payload.index === "matters") {
       state.outputs.matters.posts = state.outputs.matters.posts.filter(
         (post) =>
+          post &&
           action.payload.objectIDs &&
           action.payload.objectIDs.indexOf(post.objectID) < 0
       );
@@ -595,6 +602,7 @@ export const removeOutput = (
     if (action.payload.index === "resources") {
       state.outputs.resources.posts = state.outputs.resources.posts.filter(
         (post) =>
+          post &&
           action.payload.objectIDs &&
           action.payload.objectIDs.indexOf(post.objectID) < 0
       );
@@ -627,19 +635,19 @@ export const removeFollow = (
   action: PayloadAction<Company>
 ): void => {
   state.user.companys.posts = state.user.companys.posts.filter(
-    (post) => post.uid !== action.payload.uid
+    (post) => post && post.uid !== action.payload.uid
   );
 
   Object.keys(state.home).forEach((index) => {
     if (index === "matters") {
       state.home[index].posts = state.home[index].posts.filter(
-        (post) => post.uid !== action.payload.uid
+        (post) => post && post.uid !== action.payload.uid
       );
     }
 
     if (index === "resources") {
       state.home[index].posts = state.home[index].posts.filter(
-        (post) => post.uid !== action.payload.uid
+        (post) => post && post.uid !== action.payload.uid
       );
     }
   });
