@@ -114,7 +114,7 @@ export const Command: React.FC<PropType> = ({
       dispatch(rootSlice.handleModal());
     }
 
-    back && history.push("/");
+    back && history.push("/search");
   };
 
   const handleLike = () => {
