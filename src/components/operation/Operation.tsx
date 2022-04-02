@@ -13,6 +13,7 @@ interface PropType {
     type: string;
   }) => void;
   handleVerification?: () => void;
+  handleActivity?: () => void;
   handleEdit?: () => void;
   post?: boolean;
   sort?: boolean;
@@ -24,6 +25,7 @@ export const Operation: React.FC<PropType> = ({
   open,
   handleSortChange,
   handleEdit,
+  handleActivity,
   handleVerification,
   handleOpen,
 }) => {
@@ -57,6 +59,9 @@ export const Operation: React.FC<PropType> = ({
         <div className={styles.operation}>
           <button onClick={handleEdit} className={styles.operation_btn}>
             編集
+          </button>
+          <button onClick={handleActivity} className={styles.operation_btn}>
+            アクティビティ
           </button>
           <button
             onClick={handleVerification}
