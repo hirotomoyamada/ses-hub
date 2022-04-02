@@ -19,6 +19,7 @@ import { Advertise } from "./components/advertise/Advertise";
 import { Request } from "./components/request/Request";
 import { Account } from "./components/account/Account";
 import { Application } from "./components/application/Application";
+import { Activity } from "./components/activity/Activity";
 
 import { Matter, Resource, Company } from "types/post";
 import { User } from "types/user";
@@ -27,7 +28,7 @@ export const Modal: React.FC = () => {
   const dispatch = useDispatch();
   const index = useSelector(rootSlice.index);
   const user = useSelector(userSlice.user);
-  const post = useSelector(postSlice.post);
+  const post = useSelector(postSlice.post) as Matter | Resource;
   const modal = useSelector(rootSlice.modal);
 
   const location = useLocation();
@@ -66,7 +67,7 @@ export const Modal: React.FC = () => {
           <Entry
             index={index as "matters" | "resources"}
             user={user}
-            post={post as Matter | Resource}
+            post={post}
             handleClose={handleClose}
           />
         );
@@ -81,6 +82,8 @@ export const Modal: React.FC = () => {
             handleClose={handleClose}
           />
         );
+      case "activity":
+        return <Activity index={index} post={post} handleClose={handleClose} />;
       case "application":
         return <Application user={user} handleClose={handleClose} />;
       case "account":
