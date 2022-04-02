@@ -117,6 +117,11 @@ export const Command: React.FC<PropType> = ({
     back && history.push("/search");
   };
 
+  const handleActivity = () => {
+    dispatch(postSlice.selectPost(post as Matter | Resource));
+    dispatch(rootSlice.handleModal({ type: "activity" }));
+  };
+
   const handleLike = () => {
     if (!like && index) {
       dispatch(userSlice.addLike({ index: index, post: post }));
@@ -216,6 +221,7 @@ export const Command: React.FC<PropType> = ({
                 open={open}
                 handleVerification={handleVerification}
                 handleEdit={handleEdit}
+                handleActivity={handleActivity}
                 handleOpen={handleOpen}
               />
             )}
