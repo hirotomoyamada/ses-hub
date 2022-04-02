@@ -17,7 +17,7 @@ $width: responsive-width(pc);
   border: 1px solid $bdr_clr;
   box-shadow: 1px 0 10px $shdw_clr;
 
-  width: auto-clamp(144px, 240px);
+  width: 160px;
 
   padding: 12px 16px;
 
@@ -28,6 +28,7 @@ $width: responsive-width(pc);
 
   @media (max-width: responsive-width(sp)) {
     top: 29px;
+    width: 120px;
     font-size: 12px;
     padding: 12px 12px;
   }
