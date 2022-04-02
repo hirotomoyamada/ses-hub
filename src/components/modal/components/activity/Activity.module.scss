@@ -1,0 +1,76 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.activity {
+  width: 560px;
+  height: 62.5vh;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+
+  color: $main_clr;
+  background: $base_clr;
+  border-radius: 16px;
+  display: grid;
+  grid-template-rows: 72px 1fr;
+  color: $main_clr;
+
+  @media (max-width: responsive-width(sp)) {
+    width: calc(100vw - 24px);
+    height: 72vh;
+    min-height: 520px;
+    font-size: 14px;
+    grid-template-rows: 48px 1fr;
+  }
+
+  &_inner {
+    overflow-y: scroll;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 16px 32px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 12px;
+      padding: 0 12px 12px;
+    }
+  }
+
+  &_head {
+    height: 72px;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: 48px 1fr 48px;
+    align-items: center;
+
+    @media (max-width: responsive-width(sp)) {
+      height: 48px;
+      padding: 0 12px;
+    }
+
+    &_cancel {
+      color: $acnt_clr;
+      line-height: 72px;
+
+      @media (max-width: responsive-width(sp)) {
+        line-height: 48px;
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &_ttl {
+      color: $icn_clr;
+      text-align: center;
+    }
+  }
+}
