@@ -120,6 +120,7 @@ export const Command: React.FC<PropType> = ({
   const handleActivity = () => {
     dispatch(postSlice.selectPost(post as Matter | Resource));
     dispatch(rootSlice.handleModal({ type: "activity" }));
+    setOpen(!open);
   };
 
   const handleLike = () => {
