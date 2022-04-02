@@ -108,9 +108,24 @@ export const Modal: React.FC = () => {
           />
         );
       case "edit":
-        return <Form handleClose={handleClose} edit />;
+        return (
+          <Form
+            index={index}
+            user={user}
+            post={post}
+            handleClose={handleClose}
+            edit
+          />
+        );
       case "new":
-        return <Form handleClose={handleClose} />;
+        return (
+          <Form
+            index={index}
+            user={user}
+            post={post}
+            handleClose={handleClose}
+          />
+        );
       default:
         return <></>;
     }
