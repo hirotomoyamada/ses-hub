@@ -7,7 +7,6 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { createPost } from "features/post/actions";
 import * as rootSlice from "features/root/rootSlice";
 import * as postSlice from "features/post/postSlice";
-import * as userSlice from "features/user/userSlice";
 
 import { Header } from "./components/header/Header";
 import { Main } from "./components/main/Main";
@@ -15,17 +14,25 @@ import { Main } from "./components/main/Main";
 import * as functions from "functions";
 
 import { Matter, Resource } from "types/post";
+import { User } from "types/user";
 
 interface PropType {
+  index: "matters" | "resources" | "companys" | "persons";
+  user: User;
+  post: Matter | Resource;
   handleClose: () => void;
   edit?: boolean;
 }
 
-export const Form: React.FC<PropType> = ({ handleClose, edit }) => {
+export const Form: React.FC<PropType> = ({
+  index,
+  user,
+  post,
+  handleClose,
+  edit,
+}) => {
   const dispatch = useDispatch();
-  const post = useSelector(postSlice.post) as Matter | Resource;
-  const user = useSelector(userSlice.user);
-  const index = useSelector(rootSlice.index);
+
   const page = useSelector(rootSlice.page);
   const demo = useSelector(rootSlice.verified)?.demo;
 
