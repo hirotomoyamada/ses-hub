@@ -8,7 +8,7 @@ import { Delete } from "./Delete";
 import { Main } from "./main/Main";
 
 import { User } from "types/user";
-import { History } from "history";
+import { NavigateFunction } from "react-router-dom";
 
 interface PropType {
   user: User;
@@ -26,7 +26,7 @@ interface PropType {
   setReset: React.Dispatch<React.SetStateAction<boolean>>;
   handleProvider: (provider: "google" | "twitter" | "github") => void;
   handleLogout: () => void;
-  history: History;
+  navigate: NavigateFunction;
 }
 
 export const Page: React.FC<PropType> = ({
@@ -45,7 +45,7 @@ export const Page: React.FC<PropType> = ({
   setReset,
   handleProvider,
   handleLogout,
-  history,
+  navigate,
 }) => {
   return reset ? (
     <Reset />
@@ -68,7 +68,7 @@ export const Page: React.FC<PropType> = ({
       setRemove={setRemove}
       handleProvider={handleProvider}
       handleLogout={handleLogout}
-      history={history}
+      navigate={navigate}
     />
   );
 };

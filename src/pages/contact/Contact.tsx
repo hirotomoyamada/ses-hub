@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Contact.module.scss";
 
-import Loader from "react-loader-spinner";
+import { Oval } from "react-loader-spinner";
 
 import { useForm } from "hooks/useForm";
 import { useContact } from "hooks/useContact";
@@ -77,7 +77,7 @@ export const Contact: React.FC = () => {
 
       {load && (
         <div className={styles.contact_load}>
-          <Loader type="Oval" color="#ff9900" height={56} width={56} />
+          <Oval color="#ff9900" height={56} width={56} />
         </div>
       )}
     </div>

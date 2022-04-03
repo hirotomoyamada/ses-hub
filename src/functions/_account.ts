@@ -8,7 +8,7 @@ import {
 import * as userSlice from "features/user/userSlice";
 import * as rootSlice from "features/root/rootSlice";
 
-import { History } from "history";
+import { NavigateFunction } from "react-router-dom";
 import { OwnDispatch } from "@reduxjs/toolkit";
 import { UseFormReturn } from "react-hook-form";
 import { Data } from "pages/account/Account";
@@ -18,13 +18,13 @@ type HandleAuth = {
   methods: UseFormReturn<Data>;
   setAuth: React.Dispatch<React.SetStateAction<boolean>>;
   data: Data | { password: string };
-  history?: History;
+  navigate?: NavigateFunction;
 };
 
 export const handleAuth = async ({
   dispatch,
   methods,
-  history,
+  navigate,
   setAuth,
   data,
 }: HandleAuth): Promise<void> => {
@@ -44,7 +44,7 @@ export const handleAuth = async ({
       })
       .catch(() => {
         methods.reset();
-        history?.replace("/account");
+        navigate && navigate("/account", { replace: true });
 
         dispatch(
           rootSlice.handleAnnounce({

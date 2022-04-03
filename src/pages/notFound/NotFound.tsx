@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./NotFound.module.scss";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useResize } from "hooks/useResize";
 
@@ -12,13 +12,13 @@ interface PropType {
 
 export const NotFound: React.FC<PropType> = ({ display }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const notFound = useSelector(rootSlice.notFound);
   const [resize, inner] = useResize(notFound);
 
   const handleHome = () => {
     dispatch(rootSlice.handleNotFound(false));
-    history.push("/");
+    navigate("/");
   };
 
   return notFound || display ? (

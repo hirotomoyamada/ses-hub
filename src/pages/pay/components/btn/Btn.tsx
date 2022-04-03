@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Btn.module.scss";
-import Loader from "react-loader-spinner";
+import { Oval } from "react-loader-spinner";
 
 import { User } from "types/user";
 import { OwnDispatch } from "@reduxjs/toolkit";
@@ -66,13 +66,7 @@ export const Btn: React.FC<PropType> = ({
         ? "購入"
         : "処理中..."}
       {load.checkout && (
-        <Loader
-          type="Oval"
-          color="#FFF"
-          height={32}
-          width={32}
-          className={styles.btn_icon}
-        />
+        <Oval color="#FFF" height={32} width={32} className={styles.btn_icon} />
       )}
     </button>
   );

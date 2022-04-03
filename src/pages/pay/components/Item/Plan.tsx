@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Item.module.scss";
 
-import { useHistory } from "react-router";
-import Loader from "react-loader-spinner";
+import { useNavigate } from "react-router";
+import { Oval } from "react-loader-spinner";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 import { User } from "types/user";
@@ -43,7 +43,7 @@ export const Plan: React.FC<PropType> = ({
   handlePortal,
   demo,
 }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <button
@@ -53,7 +53,7 @@ export const Plan: React.FC<PropType> = ({
         user?.payment?.children &&
         price?.account &&
         user.payment.children.length + 1 > price.account
-          ? history.push("/account")
+          ? navigate("/account")
           : price?.id !== user?.payment?.price
           ? setPriceId(price?.id)
           : handlePortal({ setLoad, demo })
@@ -147,7 +147,7 @@ export const Plan: React.FC<PropType> = ({
         !load ? (
           <div className={styles.item_btn}>更新する</div>
         ) : (
-          <Loader type="Oval" color="#FFF" height={32} width={32} />
+          <Oval color="#FFF" height={32} width={32} />
         )
       ) : (
         priceId === price?.id && (

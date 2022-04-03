@@ -1,7 +1,7 @@
 import styles from "./Header.module.scss";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import * as rootSlice from "../../features/root/rootSlice";
 
@@ -50,7 +50,7 @@ export const Header: React.FC<PropType> = ({
   goSetting,
 }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const page = useSelector(rootSlice.page);
 
   const handleIndex = (i: "matters" | "resources" | "companys" | "persons") => {
@@ -77,10 +77,10 @@ export const Header: React.FC<PropType> = ({
 
   const handleBack = () => {
     !setting && !goSetting
-      ? history.goBack()
+      ? navigate(-1)
       : setting
-      ? history.push(`/companys/${user?.uid}`)
-      : goSetting && history.push("/setting");
+      ? navigate(`/companys/${user?.uid}`)
+      : goSetting && navigate("/setting");
   };
 
   return !back ? (

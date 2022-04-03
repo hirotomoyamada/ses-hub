@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../Auth.module.scss";
 
 import { useFormContext } from "react-hook-form";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
@@ -32,7 +32,7 @@ export const Sign: React.FC<PropType> = ({
   handleProvider,
   resize,
 }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -52,7 +52,7 @@ export const Sign: React.FC<PropType> = ({
       <button
         className={`${styles.auth_btn_back}`}
         type="button"
-        onClick={() => history.push("/")}
+        onClick={() => navigate("/")}
       >
         トップページにもどる
       </button>

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Load.module.scss";
 
-import Loader from "react-loader-spinner";
+import { Oval } from "react-loader-spinner";
 
 interface PropType {
   type: string;
@@ -23,9 +23,8 @@ export const Load: React.FC<PropType> = ({ type }) => {
             : "アカウント削除中"}
         </span>
 
-        <Loader
+        <Oval
           className={styles.load_ttl_icon}
-          type="Oval"
           color={type !== "delete" ? "#49b757" : "#e94235db"}
           height={26}
           width={26}

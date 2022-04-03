@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "app/store";
-import { RouteComponentProps } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { extractPosts } from "features/post/actions";
 import * as rootSlice from "features/root/rootSlice";
@@ -16,19 +16,13 @@ import { Select } from "./components/select/Select";
 
 import { Matter, Resource } from "types/post";
 
-export const List: React.FC<
-  RouteComponentProps<{ list: "likes" | "outputs" | "entries" }>
-> = (props) => {
+export const List: React.FC = () => {
   const dispatch = useDispatch();
-
+  const { l } = useParams<{ l: "likes" | "outputs" | "entries" }>();
   const index = useSelector(rootSlice.index);
   const user = useSelector(userSlice.user);
   const list =
-    props.match.params.list === "likes" ||
-    props.match.params.list === "outputs" ||
-    props.match.params.list === "entries"
-      ? props.match.params.list
-      : "likes";
+    l === "likes" || l === "outputs" || l === "entries" ? l : "likes";
 
   const posts = useSelector((state: RootState) =>
     postSlice.posts({
@@ -77,11 +71,7 @@ export const List: React.FC<
   }, [list]);
 
   useEffect(() => {
-    if (
-      props.match.params.list !== "likes" &&
-      props.match.params.list !== "outputs" &&
-      props.match.params.list !== "entries"
-    ) {
+    if (l !== "likes" && l !== "outputs" && l !== "entries") {
       dispatch(rootSlice.handleNotFound(true));
     } else {
       dispatch(rootSlice.handlePage(list));
@@ -92,13 +82,10 @@ export const List: React.FC<
   }, [dispatch, list]);
 
   useEffect(() => {
-    const likes = props.match.params.list === "likes" && index !== "companys";
+    const likes = l === "likes" && index !== "companys";
     const outputs =
-      props.match.params.list === "outputs" &&
-      index !== "companys" &&
-      index !== "persons";
-    const entries =
-      props.match.params.list === "entries" && index !== "companys";
+      l === "outputs" && index !== "companys" && index !== "persons";
+    const entries = l === "entries" && index !== "companys";
 
     (likes || outputs || entries) &&
       !posts?.length &&

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Main.module.scss";
 
-import Loader from "react-loader-spinner";
+import { Oval } from "react-loader-spinner";
 
 import { Follow } from "components/follow/Follow";
 import { Request } from "components/request/Request";
@@ -47,7 +47,7 @@ export const Main: React.FC<PropType> = ({
         </>
       ) : (
         <div className={styles.main_load}>
-          <Loader type="Oval" color="#49b757" height={56} width={56} />
+          <Oval color="#49b757" height={56} width={56} />
         </div>
       )}
     </div>

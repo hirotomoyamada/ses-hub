@@ -3,14 +3,14 @@ import styles from "./Page.module.scss";
 import root from "../Setting.module.scss";
 
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import { useScrollController } from "hooks/useScrollController";
 
 import * as rootSlice from "features/root/rootSlice";
 
 import { User } from "types/user";
-import { Data } from "../Setting";    
+import { Data } from "../Setting";
 
 interface PropType {
   user: User;
@@ -28,7 +28,7 @@ export const Delete: React.FC<PropType> = ({
   useScrollController();
 
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -118,11 +118,7 @@ export const Delete: React.FC<PropType> = ({
         onClick={
           !user?.payment?.children?.length
             ? handleVerification
-            : () =>
-                history.push({
-                  pathname: "/account",
-                  state: { password: password },
-                })
+            : () => navigate("/account", { state: { password: password } })
         }
         className={`${root.setting_btn} ${
           !user?.payment?.children?.length && root.setting_btn_delete

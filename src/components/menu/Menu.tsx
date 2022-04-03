@@ -10,7 +10,7 @@ import LaunchIcon from "@material-ui/icons/Launch";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import SettingsIcon from "@material-ui/icons/Settings";
 
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as rootSlice from "features/root/rootSlice";
@@ -24,7 +24,7 @@ interface PropType {
 
 export const Menu: React.FC<PropType> = ({ user }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation().pathname.replace("/", "");
 
   const modal = useSelector(rootSlice.modal);
@@ -53,7 +53,7 @@ export const Menu: React.FC<PropType> = ({ user }) => {
 
   const handlePage = (page: string) => {
     window.scrollTo(0, 0);
-    history.push(page);
+    navigate(page);
 
     notFound && dispatch(rootSlice.handleNotFound(false));
     limit && dispatch(rootSlice.handleLimit(false));
@@ -91,7 +91,7 @@ export const Menu: React.FC<PropType> = ({ user }) => {
       );
     } else {
       return (
-        <button className={styles.menu_main} onClick={() => history.goBack()}>
+        <button className={styles.menu_main} onClick={() => navigate(-1)}>
           <ArrowBackIosIcon
             className={`${styles.menu_main_icon} ${styles.menu_main_icon_back}`}
           />

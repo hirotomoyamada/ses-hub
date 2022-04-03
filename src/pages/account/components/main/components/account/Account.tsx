@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styles from "./Account.module.scss";
 
-import Loader from "react-loader-spinner";
+import { Oval } from "react-loader-spinner";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 
 import * as rootSlice from "features/root/rootSlice";
 
@@ -30,7 +30,7 @@ export const Account: React.FC<PropType> = ({
   load,
 }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState(true);
   const [copy, setCopy] = useState(false);
@@ -41,7 +41,7 @@ export const Account: React.FC<PropType> = ({
   };
 
   const handlePlan = (): void => {
-    history.push("/plan");
+    navigate("/plan");
   };
 
   const handleCreate = (): void => {
@@ -176,9 +176,8 @@ export const Account: React.FC<PropType> = ({
     </div>
   ) : (
     <div className={`${styles.account} ${styles.account_load}`}>
-      <Loader
+      <Oval
         className={styles.load_ttl_icon}
-        type="Oval"
         color="#49b757"
         height={32}
         width={32}
