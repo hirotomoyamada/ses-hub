@@ -71,7 +71,7 @@ export const Header: React.FC<PropType> = ({
       dispatch(rootSlice.handleIndex(i));
     } else {
       window.scrollTo(0, 0);
-      dispatch(rootSlice.handleIndex(i));
+      navigate(`/${page}/${i}`);
     }
   };
 

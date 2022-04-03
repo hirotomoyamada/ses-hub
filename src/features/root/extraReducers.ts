@@ -48,6 +48,10 @@ export const extraReducers = (
             : "matters";
       }
 
+      if (action.type.includes("/fetchPosts/")) {
+        state.search.control = true;
+      }
+
       if (action.type.includes("/fetchPost/") && action.meta.arg.index) {
         state.index = action.meta.arg.index;
       }
@@ -202,12 +206,8 @@ export const extraReducers = (
         state.verified.status = "hold";
       }
 
-      if (action.type.includes("/fetchPosts/")) {
-        state.search.control = true;
-      }
-
       if (action.type.includes("/userPosts/")) {
-        state.sort.control = true;
+        state.sort.control = false;
       }
 
       state.load.fetch = false;

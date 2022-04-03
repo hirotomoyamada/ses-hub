@@ -112,7 +112,13 @@ export const Menu: React.FC<PropType> = ({ user }) => {
     <div className={styles.menu}>
       <div className={styles.menu_list}>
         <button
-          onClick={() => handlePage("/home")}
+          onClick={() =>
+            handlePage(
+              `/home/${
+                index !== "companys" && index !== "persons" ? index : "matters"
+              }`
+            )
+          }
           type="button"
           className={`${styles.menu_list_btn} ${styles.menu_list_btn_home}`}
         >
@@ -127,7 +133,7 @@ export const Menu: React.FC<PropType> = ({ user }) => {
         </button>
 
         <button
-          onClick={() => handlePage("/search")}
+          onClick={() => handlePage(`/search/${index}`)}
           type="button"
           className={`${styles.menu_list_btn} ${styles.menu_list_btn_seach}`}
         >
@@ -139,7 +145,9 @@ export const Menu: React.FC<PropType> = ({ user }) => {
         </button>
 
         <button
-          onClick={() => handlePage("/likes")}
+          onClick={() =>
+            handlePage(`/likes/${index !== "companys" ? index : "matters"}`)
+          }
           type="button"
           className={`${styles.menu_list_btn} ${styles.menu_list_btn_likes}`}
         >
@@ -151,7 +159,13 @@ export const Menu: React.FC<PropType> = ({ user }) => {
         </button>
 
         <button
-          onClick={() => handlePage("/outputs")}
+          onClick={() =>
+            handlePage(
+              `/outputs/${
+                index !== "companys" && index !== "persons" ? index : "matters"
+              }`
+            )
+          }
           type="button"
           className={`${styles.menu_list_btn} ${styles.menu_list_btn_outputs}`}
         >
@@ -163,7 +177,9 @@ export const Menu: React.FC<PropType> = ({ user }) => {
         </button>
 
         <button
-          onClick={() => handlePage("/entries")}
+          onClick={() =>
+            handlePage(`/entries/${index !== "companys" ? index : "matters"}`)
+          }
           type="button"
           className={`${styles.menu_list_btn} ${styles.menu_list_btn_entries}`}
         >

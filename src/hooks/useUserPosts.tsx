@@ -10,9 +10,9 @@ import { Company, Person } from "types/post";
 export const useUserPosts = (
   index: {
     user: "companys" | "persons";
-    post: "matters" | "resources" | "companys" | "persons";
+    post?: "matters" | "resources" | "companys" | "persons";
   },
-  uid: string
+  uid?: string
 ): [
   posts: Matter[] | Resource[] | Company[] | Person[] | undefined,
   hit:
@@ -39,7 +39,7 @@ export const useUserPosts = (
             ? "user"
             : "selectUser"
           : "bests",
-      index: index.post,
+      index: index.post ? index.post : "matters",
     })
   );
 
@@ -48,7 +48,7 @@ export const useUserPosts = (
       state: state,
       page:
         index.user === "companys" && user?.uid === uid ? "user" : "selectUser",
-      index: index.post,
+      index: index.post ? index.post : "matters",
     })
   );
 

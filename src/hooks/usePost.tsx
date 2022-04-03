@@ -12,7 +12,7 @@ import { User } from "types/user";
 
 export const usePost = (
   index: "matters" | "resources",
-  objectID: string
+  objectID?: string
 ): [post: Matter | Resource, bests: Matter[] | Resource[], user: User] => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
@@ -27,7 +27,7 @@ export const usePost = (
   }, [dispatch, index, pathname]);
 
   useEffect(() => {
-    dispatch(fetchPost({ index: index, objectID: objectID }));
+    objectID && dispatch(fetchPost({ index: index, objectID: objectID }));
   }, [dispatch, index, objectID, user.uid]);
 
   return [post, bests, user];
