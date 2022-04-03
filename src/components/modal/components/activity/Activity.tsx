@@ -1,13 +1,11 @@
 import React from "react";
 import styles from "./Activity.module.scss";
 
-import { Command } from "./components/command/Command";
-import { Post } from "./components/post/Post";
-import { View } from "./components/view/View";
-import { Today } from "./components/today/Today";
-
 import { Matter, Resource } from "types/post";
-import { Log } from "./components/log/Log";
+
+import { Header } from "./components/header/Header";
+import { Post } from "./components/post/Post";
+import { User } from "./components/user/User";
 
 interface PropType {
   index: "matters" | "resources" | "companys" | "persons";
@@ -124,21 +122,14 @@ export const Activity: React.FC<PropType> = ({ index, post, handleClose }) => {
   };
 
   return (
-    <div className={styles.activity}>
-      <div className={styles.activity_head}>
-        <button onClick={handleClose} className={styles.activity_head_cancel}>
-          もどる
-        </button>
-        <p className={styles.activity_head_ttl}>アクティビティ</p>
-      </div>
+    <div className={`${styles.activity} ${post && styles.activity_post}`}>
+      <Header post={post} handleClose={handleClose} />
 
-      <div className={styles.activity_inner}>
-        <Post index={index} post={post} />
-        <Command total={activity.total} />
-        <View total={activity.total} />
-        <Today today={activity.today} />
-        <Log log={activity.log} />
-      </div>
+      {post ? (
+        <Post index={index} post={post} activity={activity} />
+      ) : (
+        <User activity={activity} />
+      )}
     </div>
   );
 };
