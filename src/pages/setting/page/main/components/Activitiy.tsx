@@ -28,7 +28,11 @@ export const Activity: React.FC<PropType> = ({ user }) => {
           user?.payment?.status === "canceled" && styles.main_btn_disabled
         }`}
         type="button"
-        onClick={() => dispatch(rootSlice.handleModal({ type: "activity" }))}
+        onClick={() =>
+          dispatch(
+            rootSlice.handleModal({ type: "activity", meta: { type: "post" } })
+          )
+        }
       >
         表示
       </button>

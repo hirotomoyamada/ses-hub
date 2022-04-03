@@ -83,7 +83,15 @@ export const Modal: React.FC = () => {
           />
         );
       case "activity":
-        return <Activity index={index} post={post} handleClose={handleClose} />;
+        return (
+          <Activity
+            index={index}
+            user={user}
+            post={post}
+            type={modal.meta?.type}
+            handleClose={handleClose}
+          />
+        );
       case "application":
         return <Application user={user} handleClose={handleClose} />;
       case "account":
