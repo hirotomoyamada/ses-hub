@@ -9,7 +9,7 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import * as rootSlice from "features/root/rootSlice";
 import * as postSlice from "features/post/postSlice";
@@ -38,7 +38,7 @@ export const Command: React.FC<PropType> = ({
   person,
 }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
 
@@ -114,7 +114,7 @@ export const Command: React.FC<PropType> = ({
       dispatch(rootSlice.handleModal());
     }
 
-    back && history.push("/search");
+    back && navigate("/search");
   };
 
   const handleActivity = () => {

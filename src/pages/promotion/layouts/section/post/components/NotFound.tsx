@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../Post.module.scss";
 
-import Loader from "react-loader-spinner";
+import { Oval } from "react-loader-spinner";
 
 interface PropType {
   index: "matters" | "resources";
@@ -12,7 +12,7 @@ export const NotFound: React.FC<PropType> = ({ index, load }) => {
   return (
     <div className={styles.post_list_none}>
       {load ? (
-        <Loader type="Oval" color="#ff9900" height={56} width={56} />
+        <Oval color="#ff9900" height={56} width={56} />
       ) : (
         <span className={styles.post_list_none_message}>
           {index === "matters"

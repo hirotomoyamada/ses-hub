@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Load.module.scss";
 
-import Loader from "react-loader-spinner";
+import { Oval } from "react-loader-spinner";
 
 interface PropType {
   load: React.RefObject<HTMLDivElement>;
@@ -22,9 +22,7 @@ export const Load: React.FC<PropType> = ({ load, page, hit, disable }) => {
         (page === hit?.pages || disable) && styles.load_none
       }`}
     >
-      {page < hit?.pages && (
-        <Loader type="Oval" color="#49b757" height={32} width={32} />
-      )}
+      {page < hit?.pages && <Oval color="#49b757" height={32} width={32} />}
     </div>
   );
 };

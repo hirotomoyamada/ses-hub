@@ -4,7 +4,7 @@ import styles from "./Success.module.scss";
 import { converter, db } from "libs/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useScrollController } from "../../hooks/useScrollController";
 
@@ -20,7 +20,7 @@ export const Success: React.FC = () => {
   useScrollController();
 
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const user = useSelector(userSlice.user);
   const [load, setLoad] = useState<boolean | undefined>(true);
 
@@ -39,7 +39,7 @@ export const Success: React.FC = () => {
   }, [dispatch, user.uid]);
 
   const handleRedirect = (page: string): void => {
-    history.replace(page);
+    navigate(page, { replace: true });
   };
 
   return (

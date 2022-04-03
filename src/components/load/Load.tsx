@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Load.module.scss";
 
-import Loader from "react-loader-spinner";
+import { Oval } from "react-loader-spinner";
 
 import { useSelector } from "react-redux";
 
@@ -28,7 +28,7 @@ export const Root: React.FC = () => {
       ${!none && styles.load_none}
       `}
     >
-      <Loader type="Oval" color="#49b757" height={56} width={56} />
+      <Oval color="#49b757" height={56} width={56} />
     </div>
   );
 };
@@ -64,7 +64,7 @@ export const Fetch: React.FC = () => {
       ${!none && styles.load_none}
       `}
     >
-      <Loader type="Oval" color="#49b757" height={56} width={56} />
+      <Oval color="#49b757" height={56} width={56} />
     </div>
   );
 };

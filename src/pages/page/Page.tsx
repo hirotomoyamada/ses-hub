@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 import * as rootSlice from "features/root/rootSlice";
@@ -8,29 +8,27 @@ import { Post } from "pages/post/Post";
 import { User } from "pages/user/User";
 import { NotFound } from "pages/notFound/NotFound";
 
-export const Page: React.FC<
-  RouteComponentProps<{ index: string; id: string }>
-> = (props) => {
+export const Page: React.FC = () => {
   const index = useSelector(rootSlice.index);
+  const { i, id } = useParams<{ i: string; id: string }>();
 
-  switch (props.match.params.index) {
+  if (!i || !id) {
+    return <NotFound display />;
+  }
+
+  switch (i) {
     case "matters":
     case "resources":
-      return (
-        <Post
-          index={props.match.params.index}
-          objectID={props.match.params.id}
-        />
-      );
+      return <Post index={i} objectID={id} />;
     case "companys":
     case "persons":
       return (
         <User
           index={{
-            user: props.match.params.index,
+            user: i,
             post: index,
           }}
-          uid={props.match.params.id}
+          uid={id}
         />
       );
     default:

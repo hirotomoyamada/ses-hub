@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Advertise.module.scss";
 
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import * as userSlice from "features/user/userSlice";
 
 import { User } from "types/user";
@@ -21,10 +21,10 @@ export const Advertise: React.FC<PropType> = ({
   handleClose,
 }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleOpen = (): void => {
-    history.push("/plan");
+    navigate("/plan");
     dispatch(userSlice.updateNotice());
   };
 

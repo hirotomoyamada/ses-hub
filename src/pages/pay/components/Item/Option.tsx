@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Item.module.scss";
 
-import Loader from "react-loader-spinner";
+import { Oval } from "react-loader-spinner";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 import { User } from "types/user";
@@ -99,7 +99,7 @@ export const Option: React.FC<PropType> = ({
         !load ? (
           <div className={styles.item_btn}>更新する</div>
         ) : (
-          <Loader type="Oval" color="#FFF" height={32} width={32} />
+          <Oval color="#FFF" height={32} width={32} />
         )
       ) : (
         priceId === price?.id && (

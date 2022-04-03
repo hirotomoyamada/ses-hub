@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 
 import { useApp } from "hooks/useApp";
@@ -55,71 +55,59 @@ const App: React.FC = () => {
             <Menu user={user} />
 
             {!user?.uid ? (
-              <Switch>
-                <Route exact path="/" component={Promotion} />
-                <Route exact path="/login" component={Auth} />
-                <Route exact path="/signup" component={Auth} />
+              <Routes>
+                <Route index element={<Promotion />} />
+                <Route path="/login" element={<Auth />} />
+                <Route path="/signup" element={<Auth />} />
 
-                <Route exact path="/contact" component={Contact} />
-                <Route exact path="/terms" component={Terms} />
-                <Route exact path="/asct" component={Asct} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/asct" element={<Asct />} />
 
                 {!access && (
-                  <>
-                    <Redirect path="/home" to="/login" />
-                    <Redirect path="/search" to="/login" />
-                    <Redirect path="/post" to="/login" />
-                    <Redirect path="/user" to="/login" />
-                    <Redirect path="/setting" to="/login" />
-                    <Redirect path="/plan" to="/login" />
-                    <Redirect path="/success" to="/login" />
-                    <Redirect path="/howto" to="/login" />
-                    <Route component={NotFound} />
-                  </>
+                  <Route path="*" element={<Navigate to="/login" replace />} />
                 )}
-              </Switch>
+              </Routes>
             ) : user?.type !== "individual" &&
               user?.payment?.status === "canceled" ? (
-              <Switch>
-                <Route exact path="/setting" component={Setting} />
+              <Routes>
+                <Route index element={<Navigate to="/setting" replace />} />
+                <Route path="/setting" element={<Setting />} />
 
-                <Route exact path="/terms" component={Terms} />
-                <Route exact path="/asct" component={Asct} />
-                <Route exact path="/howto" component={HowTo} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/asct" element={<Asct />} />
+                <Route path="/howto" element={<HowTo />} />
 
-                <Route exact path="/plan" component={Pay} />
-                <Route exact path="/account" component={Account} />
-                <Route exact path="/success" component={Success} />
+                <Route path="/plan" element={<Pay />} />
+                <Route path="/account" element={<Account />} />
+                <Route path="/success" element={<Success />} />
 
-                <Redirect exact path="/" to="/setting" />
-                <Redirect exact path="/:others" to="/plan" />
-
-                <Route component={NotFound} />
-              </Switch>
+                <Route path="*" element={<Navigate to="/plan" replace />} />
+              </Routes>
             ) : (
-              <Switch>
-                <Redirect exact path="/login" to="/" />
-                <Redirect exact path="/signup" to="/" />
+              <Routes>
+                <Route path="/login" element={<Navigate to="/" replace />} />
+                <Route path="/signup" element={<Navigate to="/" replace />} />
 
-                <Route exact path={["/", "/home"]} component={Home} />
-                <Route exact path="/home" component={Home} />
-                <Route exact path="/search" component={Search} />
-                <Route exact path="/setting" component={Setting} />
-                <Route exact path="/account" component={Account} />
+                <Route index element={<Home />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/setting" element={<Setting />} />
+                <Route path="/account" element={<Account />} />
 
-                <Route exact path="/terms" component={Terms} />
-                <Route exact path="/asct" component={Asct} />
-                <Route exact path="/howto" component={HowTo} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/asct" element={<Asct />} />
+                <Route path="/howto" element={<HowTo />} />
 
-                <Route exact path="/plan" component={Pay} />
-                <Route exact path="/success" component={Success} />
+                <Route path="/plan" element={<Pay />} />
+                <Route path="/success" element={<Success />} />
 
-                <Route exact path="/:list" component={List} />
+                <Route path="/:l" element={<List />} />
 
-                <Route exact path={`/:index/:id`} component={Page} />
+                <Route path={`/:i/:id`} element={<Page />} />
 
-                <Route component={NotFound} />
-              </Switch>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
             )}
           </BrowserRouter>
         </HelmetProvider>

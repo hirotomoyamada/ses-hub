@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Limit.module.scss";
 
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useResize } from "hooks/useResize";
 
@@ -15,14 +15,14 @@ interface PropType {
 
 export const Limit: React.FC<PropType> = ({ user }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const limit = useSelector(rootSlice.limit);
   const [resize, inner] = useResize(limit);
 
   const handlePlan = () => {
     dispatch(rootSlice.handleLimit(false));
-    history.push("/plan");
+    navigate("/plan");
   };
 
   return limit ? (

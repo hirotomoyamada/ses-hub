@@ -2,14 +2,14 @@ import React from "react";
 import styles from "../Main.module.scss";
 
 import { User } from "types/user";
-import { History } from "history";
+import { NavigateFunction } from "react-router-dom";
 
 interface PropType {
   user: User;
-  history: History;
+  navigate: NavigateFunction;
 }
 
-export const Account: React.FC<PropType> = ({ user, history }) => {
+export const Account: React.FC<PropType> = ({ user, navigate }) => {
   return user.type === "parent" ? (
     <div className={styles.main_row}>
       <div className={styles.main_col}>
@@ -47,7 +47,7 @@ export const Account: React.FC<PropType> = ({ user, history }) => {
           styles.main_btn_disabled
         }`}
         type="button"
-        onClick={() => history.push("/account")}
+        onClick={() => navigate("/account")}
       >
         管理
       </button>

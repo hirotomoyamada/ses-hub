@@ -5,7 +5,7 @@ import { auth } from "libs/firebase";
 import { signOut } from "firebase/auth";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 
 import * as rootSlice from "features/root/rootSlice";
@@ -27,7 +27,7 @@ export type Data = {
 
 export const Setting: React.FC = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const user = useSelector(userSlice.user);
   const demo = useSelector(rootSlice.verified).demo;
 
@@ -209,7 +209,7 @@ export const Setting: React.FC = () => {
           setReset={setReset}
           handleProvider={handleProvider}
           handleLogout={handleLogout}
-          history={history}
+          navigate={navigate}
         />
       </form>
     </FormProvider>

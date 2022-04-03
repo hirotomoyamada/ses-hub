@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "../Create.module.scss";
 import root from "../../../Auth.module.scss";
 
@@ -8,8 +8,6 @@ import { usePostalJp } from "use-postal-jp";
 import { Data } from "../../../Auth";
 
 export const Address: React.FC = () => {
-  const { address, pending, setPostalCode } = usePostalJp();
-
   const {
     register,
     watch,
@@ -19,9 +17,7 @@ export const Address: React.FC = () => {
   const postal = watch("postal");
   const type = watch("type");
 
-  useEffect(() => {
-    setPostalCode(postal);
-  }, [setPostalCode, postal]);
+  const [address, loading] = usePostalJp(postal, postal.length >= 7);
 
   return (
     <div className={root.auth_col}>
@@ -64,12 +60,12 @@ export const Address: React.FC = () => {
           }`}
           placeholder="東京都新宿区新宿4-3-15 レイフラット新宿B 3F THE HUB"
           defaultValue={
-            !pending
-              ? `${address.prefecture ? address.prefecture : ""}${
-                  address.address1 ? address.address1 : ""
-                }${address.address2 ? address.address2 : ""}${
-                  address.address3 ? address.address3 : ""
-                }${address.address4 ? address.address4 : ""}`
+            !loading
+              ? `${address?.prefecture ? address.prefecture : ""}${
+                  address?.address1 ? address.address1 : ""
+                }${address?.address2 ? address.address2 : ""}${
+                  address?.address3 ? address.address3 : ""
+                }${address?.address4 ? address.address4 : ""}`
               : "検索中"
           }
           {...register("address", {

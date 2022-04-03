@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Account.module.scss";
 
-import Loader from "react-loader-spinner";
+import { Oval } from "react-loader-spinner";
 
 import { useDevice } from "hooks/useDevice";
 import { useDispatch } from "react-redux";
-import { useHistory, RouteComponentProps } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 
 import * as rootSlice from "features/root/rootSlice";
@@ -24,15 +24,11 @@ export type Data = {
   password: string;
 };
 
-export const Account: React.FC<
-  RouteComponentProps<
-    Record<string, never>,
-    Record<string, never>,
-    { password: string }
-  >
-> = (props) => {
+export const Account: React.FC = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { password } = location.state as { password: string };
 
   const [device] = useDevice();
 
@@ -44,19 +40,19 @@ export const Account: React.FC<
   useEffect(() => {
     dispatch(rootSlice.handlePage("account"));
 
-    props?.location?.state?.password &&
+    password &&
       functions.account.handleAuth({
         dispatch,
-        history,
+        navigate,
         methods,
         setAuth,
-        data: { password: props?.location?.state?.password },
+        data: { password: password },
       });
 
     return () => {
       dispatch(userSlice.updateToken());
     };
-  }, [dispatch, history, methods, props?.location?.state?.password]);
+  }, [dispatch, navigate, methods, password]);
 
   const handleAuth: SubmitHandler<Data> = async (data) => {
     await functions.account.handleAuth({
@@ -83,7 +79,7 @@ export const Account: React.FC<
     methods.reset();
   };
 
-  return !props?.location?.state?.password || !auth ? (
+  return !password || !auth ? (
     <FormProvider {...methods}>
       <form
         id="form"
@@ -107,7 +103,7 @@ export const Account: React.FC<
     </FormProvider>
   ) : (
     <div className={styles.account_load}>
-      <Loader type="Oval" color="#49b757" height={56} width={56} />
+      <Oval color="#49b757" height={56} width={56} />
     </div>
   );
 };

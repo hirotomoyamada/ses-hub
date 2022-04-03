@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Side.module.scss";
-import Loader from "react-loader-spinner";
+import { Oval } from "react-loader-spinner";
 
 import { Link } from "react-router-dom";
 
@@ -26,7 +26,7 @@ export const Side: React.FC<PropType> = ({ index, post, posts, user }) => {
         <Item index={"companys"} user={user} post={post.user} />
       ) : (
         <div className={styles.side_load}>
-          <Loader type="Oval" color="#49b757" height={56} width={56} />
+          <Oval color="#49b757" height={56} width={56} />
         </div>
       )}
 

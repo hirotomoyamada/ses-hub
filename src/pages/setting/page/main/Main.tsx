@@ -3,7 +3,7 @@ import styles from "./Main.module.scss";
 import root from "../../Setting.module.scss";
 
 import { Link } from "react-router-dom";
-import { History } from "history";
+import { NavigateFunction } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 import * as rootSlice from "features/root/rootSlice";
@@ -30,7 +30,7 @@ interface PropType {
   setRemove: React.Dispatch<React.SetStateAction<boolean>>;
   handleProvider: (provider: "google" | "twitter" | "github") => void;
   handleLogout: () => void;
-  history: History;
+  navigate: NavigateFunction;
 }
 
 export const Main: React.FC<PropType> = ({
@@ -43,7 +43,7 @@ export const Main: React.FC<PropType> = ({
   setRemove,
   handleProvider,
   handleLogout,
-  history,
+  navigate,
 }) => {
   const ver = useSelector(rootSlice.ver);
 
@@ -57,11 +57,11 @@ export const Main: React.FC<PropType> = ({
 
       <Password user={user} password={password} setPassword={setPassword} />
 
-      <Plan user={user} history={history} />
+      <Plan user={user} navigate={navigate} />
 
       <Option user={user} />
 
-      <Account user={user} history={history} />
+      <Account user={user} navigate={navigate} />
 
       <At user={user} />
 

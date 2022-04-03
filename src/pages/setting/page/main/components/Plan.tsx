@@ -3,14 +3,14 @@ import styles from "../Main.module.scss";
 import * as functions from "functions";
 
 import { User } from "types/user";
-import { History } from "history";
+import { NavigateFunction } from "react-router-dom";
 
 interface PropType {
   user: User;
-  history: History;
+  navigate: NavigateFunction;
 }
 
-export const Plan: React.FC<PropType> = ({ user, history }) => {
+export const Plan: React.FC<PropType> = ({ user, navigate }) => {
   return (
     <div className={styles.main_row}>
       <div className={styles.main_col}>
@@ -46,7 +46,7 @@ export const Plan: React.FC<PropType> = ({ user, history }) => {
           styles.main_btn_disabled
         }`}
         type="button"
-        onClick={() => history.push("/plan")}
+        onClick={() => navigate("/plan")}
       >
         変更
       </button>
