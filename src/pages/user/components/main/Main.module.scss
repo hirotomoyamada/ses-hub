@@ -102,10 +102,68 @@ $width: responsive-width(pc);
         border-color: $sub_clr;
 
         &:hover {
-          background: none;
-          color: $sub_clr;
-          opacity: 0.7;
+          border-color: $acnt_clr;
         }
+      }
+
+      &_activity {
+        width: 40px;
+        padding: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 18px;
+        color: $sub_clr;
+        border-color: $sub_clr;
+
+        &:hover {
+          border-color: $acnt_clr;
+        }
+
+        @media (max-width: responsive-width(sp)) {
+          width: 32px;
+          font-size: 14px;
+        }
+
+        &_disabled {
+          color: $sub_clr;
+          border-color: $sub_clr;
+          pointer-events: none;
+        }
+      }
+    }
+
+    &_outer {
+      &::before {
+        content: "アクティビティ";
+        position: absolute;
+        top: -36px;
+        left: -45px;
+        opacity: 0;
+
+        background: $acnt_clr;
+        padding: 4px 12px;
+        border-radius: 8px;
+        font-size: 16px;
+        color: $base_clr;
+        white-space: nowrap;
+
+        transition: all 0.4s;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      @media (max-width: responsive-width(sp)) {
+        &:before {
+          display: none;
+        }
+      }
+
+      &:hover:before {
+        opacity: 1;
+        visibility: visible;
       }
     }
   }

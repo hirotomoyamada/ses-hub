@@ -35,7 +35,7 @@ export const Main: React.FC<PropType> = ({
 
           <div className={styles.main_inner}>
             {currentUser.uid === uid ? (
-              <Editor />
+              <Editor user={user as User} />
             ) : index === "companys" ? (
               <Follow user={currentUser} post={user as Company} profile />
             ) : (
