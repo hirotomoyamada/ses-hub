@@ -103,6 +103,7 @@ $width: responsive-width(pc);
     border-radius: 16px;
     padding: 0px 16px;
     height: 32px;
+    transition: all 0.4s;
 
     font-size: 14px;
     color: $acnt_clr;
@@ -118,8 +119,14 @@ $width: responsive-width(pc);
       color: $remove_clr;
       font-size: 14px;
 
+      transition: all 0.4s;
+
       @media (max-width: responsive-width(sp)) {
         font-size: 12px;
+      }
+
+      &:hover {
+        opacity: 0.7;
       }
     }
 
@@ -128,14 +135,24 @@ $width: responsive-width(pc);
       border-color: $sub_clr;
       pointer-events: none;
     }
+
+    &:hover {
+      opacity: 0.7;
+    }
   }
 
   &_link {
     color: $sub_clr;
     font-size: 14px;
 
+    transition: all 0.4s;
+
     @media (max-width: responsive-width(sp)) {
       font-size: 12px;
+    }
+
+    &:hover {
+      opacity: 0.7;
     }
   }
 }
