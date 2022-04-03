@@ -120,7 +120,9 @@ export const Command: React.FC<PropType> = ({
   const handleActivity = () => {
     if (user?.payment?.status !== "canceled") {
       dispatch(postSlice.selectPost(post as Matter | Resource));
-      dispatch(rootSlice.handleModal({ type: "activity" }));
+      dispatch(
+        rootSlice.handleModal({ type: "activity", meta: { type: "post" } })
+      );
     } else {
       dispatch(
         rootSlice.handleAnnounce({ error: "プランを選択する必要があります" })
