@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "app/store";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { extractPosts } from "features/post/actions";
 import * as rootSlice from "features/root/rootSlice";
@@ -18,11 +18,20 @@ import { Matter, Resource } from "types/post";
 
 export const List: React.FC = () => {
   const dispatch = useDispatch();
-  const { l } = useParams<{ l: "likes" | "outputs" | "entries" }>();
-  const index = useSelector(rootSlice.index);
+  const navigate = useNavigate();
+  const params = useParams<{
+    list: "likes" | "outputs" | "entries";
+    index: "matters" | "persons" | "companys";
+  }>();
+  const rootIndex = useSelector(rootSlice.index);
+  const index = params.index ? params.index : rootIndex;
   const user = useSelector(userSlice.user);
   const list =
-    l === "likes" || l === "outputs" || l === "entries" ? l : "likes";
+    params.list === "likes" ||
+    params.list === "outputs" ||
+    params.list === "entries"
+      ? params.list
+      : "likes";
 
   const posts = useSelector((state: RootState) =>
     postSlice.posts({
@@ -66,12 +75,18 @@ export const List: React.FC = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    (index === "companys" || (list === "outputs" && index === "persons")) &&
+    if (index === "companys" || (list === "outputs" && index === "persons")) {
       dispatch(rootSlice.handleIndex("matters"));
-  }, [list]);
+      navigate(`/${list}/matters`, { replace: true });
+    } else if (params.index) {
+      dispatch(rootSlice.handleIndex(params.index));
+    }
 
-  useEffect(() => {
-    if (l !== "likes" && l !== "outputs" && l !== "entries") {
+    if (
+      params.list !== "likes" &&
+      params.list !== "outputs" &&
+      params.list !== "entries"
+    ) {
       dispatch(rootSlice.handleNotFound(true));
     } else {
       dispatch(rootSlice.handlePage(list));
@@ -79,13 +94,13 @@ export const List: React.FC = () => {
         handleClose();
       }
     }
-  }, [dispatch, list]);
+  }, [dispatch, list, index]);
 
   useEffect(() => {
-    const likes = l === "likes" && index !== "companys";
+    const likes = params.list === "likes" && index !== "companys";
     const outputs =
-      l === "outputs" && index !== "companys" && index !== "persons";
-    const entries = l === "entries" && index !== "companys";
+      params.list === "outputs" && index !== "companys" && index !== "persons";
+    const entries = params.list === "entries" && index !== "companys";
 
     (likes || outputs || entries) &&
       !posts?.length &&

@@ -12,9 +12,9 @@ import { User } from "types/user";
 export const useUser = (
   index: {
     user: "companys" | "persons";
-    post: "matters" | "resources" | "companys" | "persons";
+    post?: "matters" | "resources" | "companys" | "persons";
   },
-  uid: string
+  uid?: string
 ): [currentUser: User, user: Company | Person] => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
