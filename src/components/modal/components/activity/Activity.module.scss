@@ -29,6 +29,17 @@ $width: responsive-width(pc);
     grid-template-rows: 48px 1fr;
   }
 
+  &_user {
+    width: auto-clamp(632px, 1440px);
+    height: 80vh;
+
+    @media (max-width: responsive-width(tb)) {
+      width: 100vw;
+      height: $innerHeight;
+      border-radius: 0px;
+    }
+  }
+
   &_inner {
     overflow-y: scroll;
 
