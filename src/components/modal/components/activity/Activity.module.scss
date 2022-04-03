@@ -42,35 +42,4 @@ $width: responsive-width(pc);
       padding: 0 12px 12px;
     }
   }
-
-  &_head {
-    height: 72px;
-    padding: 0 32px;
-    display: grid;
-    grid-template-columns: 48px 1fr 48px;
-    align-items: center;
-
-    @media (max-width: responsive-width(sp)) {
-      height: 48px;
-      padding: 0 12px;
-    }
-
-    &_cancel {
-      color: $acnt_clr;
-      line-height: 72px;
-
-      @media (max-width: responsive-width(sp)) {
-        line-height: 48px;
-      }
-
-      &:hover {
-        opacity: 0.8;
-      }
-    }
-
-    &_ttl {
-      color: $icn_clr;
-      text-align: center;
-    }
-  }
 }
