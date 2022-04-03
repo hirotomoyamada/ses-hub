@@ -47,6 +47,7 @@ $width: responsive-width(pc);
     flex-direction: column;
     width: 100%;
     color: $icn_clr;
+    transition: all 0.4s;
 
     &_remove {
       color: $remove_clr;
