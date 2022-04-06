@@ -2,7 +2,7 @@ import { ActionReducerMapBuilder, PayloadAction } from "@reduxjs/toolkit";
 import { State } from "features/user/initialState";
 import { Post } from "features/post/postSlice";
 import { CreatePost } from "features/post/actions";
-import { User } from "types/user";
+import { Setting, User } from "types/user";
 
 import * as actions from "features/user/actions";
 import * as reducers from "features/user/reducers";
@@ -48,5 +48,13 @@ export const extraReducers = (
     (state) => {
       (state.user as User).agree = "enalble";
     }
+  );
+
+  builder.addMatcher(
+    (action: PayloadAction) => action.type.endsWith("/handleSetting"),
+    (
+      state,
+      action: PayloadAction<Setting["activity"] & { type: "activity" }>
+    ) => reducers.updateActivity(state, action)
   );
 };
