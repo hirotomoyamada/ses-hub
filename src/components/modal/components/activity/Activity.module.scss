@@ -6,6 +6,7 @@
 $width: responsive-width(pc);
 
 .activity {
+  position: relative;
   width: 560px;
   height: 62.5vh;
   position: fixed;
@@ -51,6 +52,14 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(sp)) {
       gap: 12px;
       padding: 0 12px 12px;
+    }
+
+    &_user {
+      gap: 32px;
+
+      @media (max-width: responsive-width(sp)) {
+        gap: 24px;
+      }
     }
   }
 }
