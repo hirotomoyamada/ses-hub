@@ -1,0 +1,111 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+@import "styles/animation";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.setting {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+
+  @media (max-width: responsive-width(tb)) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  @media (max-width: responsive-width(sp)) {
+    gap: 12px;
+  }
+
+  &_container {
+    background: $bg_clr;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    width: 100%;
+    border: 1px solid $bdr_clr;
+    border-radius: 8px;
+    padding: 16px;
+
+    transition: all 0.4s;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 12px;
+      gap: 12px;
+    }
+
+    &_ttl {
+      color: $icn_clr;
+    }
+  }
+}
+
+.radio {
+  display: none;
+
+  &_label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 36px;
+    border-radius: 6px;
+
+    font-size: 14px;
+    color: $sub_clr;
+
+    transition: all 0.4s;
+
+    @media (max-width: responsive-width(sp)) {
+      height: 32px;
+      font-size: 12px;
+    }
+  }
+
+  &:checked + &_label {
+    background: $acnt_clr;
+    color: $base_clr;
+  }
+}
+
+.toggle {
+  display: none;
+
+  &_label {
+    position: relative;
+    display: grid;
+    width: 38px;
+    height: 24px;
+    border-radius: 80px;
+    background: $sub_clr;
+    border: 1px solid $bdr_clr;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      border-radius: 100%;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+
+      transition: 0.2s ease;
+    }
+  }
+
+  &:checked + &_label {
+    background: $acnt_clr;
+  }
+
+  &:checked + &_label:before {
+    left: 17px;
+  }
+}
