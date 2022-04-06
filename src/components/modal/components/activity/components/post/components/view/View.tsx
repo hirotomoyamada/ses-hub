@@ -3,8 +3,10 @@ import styles from "./View.module.scss";
 
 import CountUp from "react-countup";
 
+import { Activity } from "features/post/initialState";
+
 interface PropType {
-  total: Record<string, number>;
+  total: Activity["total"];
 }
 
 export const View: React.FC<PropType> = ({ total }) => {

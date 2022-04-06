@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Activity.module.scss";
 
 import { Matter, Resource } from "types/post";
@@ -6,129 +6,51 @@ import { Matter, Resource } from "types/post";
 import { Header } from "./components/header/Header";
 import { Post } from "./components/post/Post";
 import { User } from "./components/user/User";
+import { User as UserType } from "types/user";
 
 interface PropType {
   index: "matters" | "resources" | "companys" | "persons";
+  user: UserType;
   post: Matter | Resource;
+  type?: "user" | "post";
   handleClose: () => void;
 }
 
-export const Activity: React.FC<PropType> = ({ index, post, handleClose }) => {
-  const activity: {
-    total: Record<string, number>;
-    today: Record<string, number>;
-    log: Record<string, string | number>[];
-  } = {
-    total: { views: 999999999, likes: 458392, outputs: 86758, entries: 3654 },
-    today: { views: 3535133, likes: 32422, outputs: 4242, entries: 856 },
-    log: [
-      {
-        index: "companys",
-        uid: "lEFmAu7DyWSoTYHqCPLYiP7RJf62",
-        icon: "icon2",
-        display: "テスト大好きテスト大好きテスト大好き",
-        type: "likes",
-        createAt: 1648926491236,
-      },
-      {
-        index: "companys",
-        uid: "lEFmAu7DyWSoTYHqCPLYiP7RJf62",
-        icon: "icon7",
-        display: "テスト大好き",
-        type: "outputs",
-        createAt: 1648926491236,
-      },
-      {
-        index: "companys",
-        uid: "lEFmAu7DyWSoTYHqCPLYiP7RJf62",
-        icon: "icon4",
-        display: "テスト大好き",
-        type: "entries",
-        createAt: 1648926491236,
-      },
-      {
-        index: "companys",
-        uid: "lEFmAu7DyWSoTYHqCPLYiP7RJf62",
-        icon: "icon10",
-        display: "テスト大好き",
-        type: "outputs",
-        createAt: 1648926491236,
-      },
-      {
-        index: "companys",
-        uid: "lEFmAu7DyWSoTYHqCPLYiP7RJf62",
-        icon: "icon28",
-        display: "テスト大好き",
-        type: "likes",
-        createAt: 1648926491236,
-      },
-      {
-        index: "companys",
-        uid: "lEFmAu7DyWSoTYHqCPLYiP7RJf62",
-        icon: "icon16",
-        display: "テスト大好き",
-        type: "entries",
-        createAt: 1648926491236,
-      },
-      {
-        index: "companys",
-        uid: "lEFmAu7DyWSoTYHqCPLYiP7RJf62",
-        icon: "icon2",
-        display: "テスト大好き",
-        type: "likes",
-        createAt: 1648926491236,
-      },
-      {
-        index: "companys",
-        uid: "lEFmAu7DyWSoTYHqCPLYiP7RJf62",
-        icon: "icon7",
-        display: "テスト大好き",
-        type: "outputs",
-        createAt: 1648926491236,
-      },
-      {
-        index: "companys",
-        uid: "lEFmAu7DyWSoTYHqCPLYiP7RJf62",
-        icon: "icon4",
-        display: "テスト大好き",
-        type: "entries",
-        createAt: 1648926491236,
-      },
-      {
-        index: "companys",
-        uid: "lEFmAu7DyWSoTYHqCPLYiP7RJf62",
-        icon: "icon10",
-        display: "テスト大好き",
-        type: "outputs",
-        createAt: 1648926491236,
-      },
-      {
-        index: "companys",
-        uid: "lEFmAu7DyWSoTYHqCPLYiP7RJf62",
-        icon: "icon28",
-        display: "テスト大好き",
-        type: "likes",
-        createAt: 1648926491236,
-      },
-      {
-        index: "companys",
-        uid: "lEFmAu7DyWSoTYHqCPLYiP7RJf62",
-        icon: "icon16",
-        display: "テスト大好き",
-        type: "entries",
-        createAt: 1648926491236,
-      },
-    ],
-  };
+export type Span = "total" | "day" | "week" | "month";
+
+export type Sort = {
+  self: boolean;
+  others: boolean;
+};
+export const Activity: React.FC<PropType> = ({
+  index,
+  user,
+  post,
+  type,
+  handleClose,
+}) => {
+  const [span, setSpan] = useState<Span>("total");
+  const [sort, setSort] = useState<Sort>({ self: true, others: true });
 
   return (
-    <div className={`${styles.activity} ${post && styles.activity_post}`}>
-      <Header post={post} handleClose={handleClose} />
+    <div
+      className={`${styles.activity} ${
+        type === "user" && styles.activity_user
+      }`}
+    >
+      <Header
+        type={type}
+        span={span}
+        sort={sort}
+        setSpan={setSpan}
+        setSort={setSort}
+        handleClose={handleClose}
+      />
 
-      {post ? (
-        <Post index={index} post={post} activity={activity} />
+      {type === "user" ? (
+        <User user={user} span={span} sort={sort} />
       ) : (
-        <User activity={activity} />
+        <Post index={index} post={post} />
       )}
     </div>
   );

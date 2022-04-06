@@ -1,13 +1,15 @@
 import React from "react";
 import styles from "./Log.module.scss";
 
+import { Link } from "react-router-dom";
 import { Icon } from "components/icon/Icon";
 
 import * as functions from "functions";
-import { Link } from "react-router-dom";
+
+import { Activity } from "features/post/initialState";
 
 interface PropType {
-  log: Record<string, string | number>[];
+  log: Activity["log"];
 }
 
 export const Log: React.FC<PropType> = ({ log }) => {
@@ -20,7 +22,7 @@ export const Log: React.FC<PropType> = ({ log }) => {
           key={i}
           className={styles.log_container}
         >
-          <Icon src={user.icon as string} />
+          <Icon src={user.icon} />
 
           <div className={styles.log_wrap}>
             <p className={styles.log_message}>
@@ -40,7 +42,7 @@ export const Log: React.FC<PropType> = ({ log }) => {
             </p>
 
             <span className={styles.log_time}>
-              {functions.root.timestamp(user.createAt as number)}
+              {functions.root.timestamp(user.createAt)}
             </span>
           </div>
         </Link>
