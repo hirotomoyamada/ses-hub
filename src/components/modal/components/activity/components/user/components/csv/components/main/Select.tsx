@@ -9,7 +9,7 @@ interface PropType {
   handleAll: () => void;
 }
 
-export const Label: React.FC<PropType> = ({ all, handleAll }) => {
+export const Select: React.FC<PropType> = ({ all, handleAll }) => {
   const {
     register,
     formState: { errors },
@@ -21,7 +21,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
           ${styles.main_container} 
           ${styles.main_container_name} 
           ${
-            (errors.label as FieldError | undefined) &&
+            (errors.select as FieldError | undefined) &&
             styles.main_container_error
           }
         `}
@@ -37,7 +37,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
       <input
         type="checkbox"
         id="posts"
-        {...register("label", {
+        {...register("select", {
           required: {
             value: true,
             message: "選択してください",
@@ -50,7 +50,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
         className={`
           ${styles.main_input_label}
           ${
-            (errors.label as FieldError | undefined) &&
+            (errors.select as FieldError | undefined) &&
             styles.main_input_label_error
           }
         `}
@@ -62,7 +62,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
       <input
         type="checkbox"
         id="histories"
-        {...register("label", {
+        {...register("select", {
           required: {
             value: true,
             message: "選択してください",
@@ -75,7 +75,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
         className={`
           ${styles.main_input_label}
           ${
-            (errors.label as FieldError | undefined) &&
+            (errors.select as FieldError | undefined) &&
             styles.main_input_label_error
           }
         `}
@@ -87,7 +87,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
       <input
         type="checkbox"
         id="likes"
-        {...register("label", {
+        {...register("select", {
           required: {
             value: true,
             message: "選択してください",
@@ -100,7 +100,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
         className={`
           ${styles.main_input_label}
           ${
-            (errors.label as FieldError | undefined) &&
+            (errors.select as FieldError | undefined) &&
             styles.main_input_label_error
           }
         `}
@@ -112,7 +112,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
       <input
         type="checkbox"
         id="outputs"
-        {...register("label", {
+        {...register("select", {
           required: {
             value: true,
             message: "選択してください",
@@ -125,7 +125,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
         className={`
           ${styles.main_input_label}
           ${
-            (errors.label as FieldError | undefined) &&
+            (errors.select as FieldError | undefined) &&
             styles.main_input_label_error
           }
         `}
@@ -137,7 +137,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
       <input
         type="checkbox"
         id="entries"
-        {...register("label", {
+        {...register("select", {
           required: {
             value: true,
             message: "選択してください",
@@ -150,7 +150,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
         className={`
           ${styles.main_input_label}
           ${
-            (errors.label as FieldError | undefined) &&
+            (errors.select as FieldError | undefined) &&
             styles.main_input_label_error
           }
         `}
@@ -162,7 +162,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
       <input
         type="checkbox"
         id="follows"
-        {...register("label", {
+        {...register("select", {
           required: {
             value: true,
             message: "選択してください",
@@ -175,7 +175,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
         className={`
           ${styles.main_input_label}
           ${
-            (errors.label as FieldError | undefined) &&
+            (errors.select as FieldError | undefined) &&
             styles.main_input_label_error
           }
         `}
@@ -187,7 +187,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
       <input
         type="checkbox"
         id="distributions"
-        {...register("label", {
+        {...register("select", {
           required: {
             value: true,
             message: "選択してください",
@@ -200,7 +200,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
         className={`
           ${styles.main_input_label}
           ${
-            (errors.label as FieldError | undefined) &&
+            (errors.select as FieldError | undefined) &&
             styles.main_input_label_error
           }
         `}
@@ -212,7 +212,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
       <input
         type="checkbox"
         id="approval"
-        {...register("label", {
+        {...register("select", {
           required: {
             value: true,
             message: "選択してください",
@@ -225,7 +225,7 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
         className={`
           ${styles.main_input_label}
           ${
-            (errors.label as FieldError | undefined) &&
+            (errors.select as FieldError | undefined) &&
             styles.main_input_label_error
           }
         `}
@@ -236,9 +236,9 @@ export const Label: React.FC<PropType> = ({ all, handleAll }) => {
 
       <span className={styles.main_desc}>※&nbsp;複数選択できます</span>
 
-      {(errors.label as FieldError | undefined)?.message && (
+      {(errors.select as FieldError | undefined)?.message && (
         <span className={styles.main_error}>
-          {(errors.label as FieldError | undefined)?.message}
+          {(errors.select as FieldError | undefined)?.message}
         </span>
       )}
     </div>
