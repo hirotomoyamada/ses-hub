@@ -3,9 +3,9 @@ import { auth, functions } from "libs/firebase";
 import { updateProfile, updateEmail } from "firebase/auth";
 import { httpsCallable, HttpsCallable } from "firebase/functions";
 
-import { initialState, State } from "features/user/initialState";
+import { Activity, initialState, State } from "features/user/initialState";
 import { Matter, Resource, Company, Person } from "types/post";
-import { User } from "types/user";
+import { Setting, User } from "types/user";
 import { Login, Child, FetchUser } from "features/user/actions";
 import {
   Profile,
@@ -551,4 +551,20 @@ export const fetchUser = (
 
 export const resetUser = (state: State): void => {
   state.selectUser = initialState.selectUser;
+};
+
+export const updateActivity = (
+  state: State,
+  action: PayloadAction<Setting["activity"] & { type: "activity" }>
+): void => {
+  if (action.payload.type !== "activity") return;
+
+  state.activity = action.payload.order
+    .map((key) => state.activity.find((current) => current.key === key))
+    .map((current) =>
+      current?.key && action.payload.active.indexOf(current?.key) >= 0
+        ? { ...current, active: true }
+        : { ...current, active: false }
+    )
+    .filter((data): data is Activity[number] => data !== undefined);
 };
