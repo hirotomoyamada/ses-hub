@@ -30,7 +30,11 @@ export const Header: React.FC<PropType> = ({
 }) => {
   return (
     <div
-      className={`${styles.header} ${type === "user" && styles.header_user}`}
+      className={`
+        ${styles.header} 
+        ${type === "user" && styles.header_user} 
+        ${setting && styles.header_setting}
+      `}
     >
       <button
         onClick={!setting ? handleClose : () => setSetting(false)}
@@ -39,7 +43,13 @@ export const Header: React.FC<PropType> = ({
         {!setting ? "とじる" : "もどる"}
       </button>
 
-      <p className={styles.header_ttl}>アクティビティ</p>
+      <p
+        className={`${styles.header_ttl} ${
+          setting && styles.header_ttl_setting
+        }`}
+      >
+        {!setting ? "アクティビティ" : "設定"}
+      </p>
 
       {type === "user" && !setting && (
         <div className={styles.header_command}>
