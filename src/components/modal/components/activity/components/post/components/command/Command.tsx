@@ -7,8 +7,10 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import LaunchIcon from "@material-ui/icons/Launch";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
+import { Activity } from "features/post/initialState";
+
 interface PropType {
-  total: Record<string, number>;
+  total: Activity["total"];
 }
 
 export const Command: React.FC<PropType> = ({ total }) => {

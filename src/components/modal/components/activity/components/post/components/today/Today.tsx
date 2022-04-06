@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "./Today.module.scss";
+
 import CountUp from "react-countup";
 
+import { Activity } from "features/post/initialState";
+
 interface PropType {
-  today: Record<string, number>;
+  today: Activity["today"];
 }
 
 export const Today: React.FC<PropType> = ({ today }) => {
