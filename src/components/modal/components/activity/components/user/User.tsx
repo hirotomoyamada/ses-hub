@@ -11,6 +11,7 @@ import { Btn } from "./components/btn/Btn";
 import * as userSlice from "features/user/userSlice";
 
 import { User as UserType } from "types/user";
+import { Setting } from "./components/setting/Setting";
 
 interface PropType {
   user: UserType;
@@ -37,6 +38,7 @@ export const User: React.FC<PropType> = ({
     </div>
   ) : (
     <div className={styles.activity_inner}>
+      <Setting activity={activity} />
       <Btn setting={setting} setSetting={setSetting} />
     </div>
   );
