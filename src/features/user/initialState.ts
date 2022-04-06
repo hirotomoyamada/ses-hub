@@ -3,7 +3,7 @@ import { Company, Person } from "types/post";
 
 export type Activity = {
   active: boolean;
-  name:
+  key:
     | "posts"
     | "histories"
     | "likes"
@@ -32,7 +32,7 @@ export const initialState: State = {
   activity: [
     {
       active: true,
-      name: "posts",
+      key: "posts",
       label: "投稿",
       self: Math.floor(Math.random() * (999999 - 100000) + 100000),
       log: [
@@ -68,7 +68,7 @@ export const initialState: State = {
     },
     {
       active: true,
-      name: "histories",
+      key: "histories",
       label: "閲覧",
       self: Math.floor(Math.random() * (999999 - 100000) + 100000),
       others: Math.floor(Math.random() * (999999 - 100000) + 100000),
@@ -112,7 +112,7 @@ export const initialState: State = {
     },
     {
       active: true,
-      name: "likes",
+      key: "likes",
       label: "いいね",
       self: Math.floor(Math.random() * (999999 - 100000) + 100000),
       others: Math.floor(Math.random() * (999999 - 100000) + 100000),
@@ -156,7 +156,7 @@ export const initialState: State = {
     },
     {
       active: true,
-      name: "outputs",
+      key: "outputs",
       label: "出力",
       self: Math.floor(Math.random() * (999999 - 100000) + 100000),
       others: Math.floor(Math.random() * (999999 - 100000) + 100000),
@@ -200,7 +200,7 @@ export const initialState: State = {
     },
     {
       active: true,
-      name: "entries",
+      key: "entries",
       label: "お問い合わせ",
       self: Math.floor(Math.random() * (999999 - 100000) + 100000),
       others: Math.floor(Math.random() * (999999 - 100000) + 100000),
@@ -244,7 +244,7 @@ export const initialState: State = {
     },
     {
       active: true,
-      name: "follows",
+      key: "follows",
       label: "フォロー",
       self: Math.floor(Math.random() * (999999 - 100000) + 100000),
       others: Math.floor(Math.random() * (999999 - 100000) + 100000),
@@ -288,7 +288,7 @@ export const initialState: State = {
     },
     {
       active: true,
-      name: "distributions",
+      key: "distributions",
       label: "商流",
       log: [
         {
@@ -315,7 +315,7 @@ export const initialState: State = {
     },
     {
       active: true,
-      name: "approval",
+      key: "approval",
       label: "稟議速度",
       log: [
         {
