@@ -133,5 +133,7 @@ export const control = ({
 
 export const post = (state: RootState): State["post"] => state.post.post;
 export const bests = (state: RootState): State["bests"] => state.post.bests;
+export const activity = (state: RootState): State["activity"] =>
+  state.post.activity;
 
 export default postSlice.reducer;
