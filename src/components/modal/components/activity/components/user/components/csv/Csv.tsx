@@ -14,7 +14,7 @@ interface PropType {
 }
 
 export type Data = {
-  name: string[];
+  label: string[];
   sort: string[];
   span: string;
   extension: string;
@@ -25,18 +25,18 @@ export const Csv: React.FC<PropType> = ({ span, sort }) => {
 
   const methods = useForm<Data>({
     defaultValues: {
-      name: [],
+      label: [],
       sort: ["self", "others"],
       span: span,
       extension: "csv",
     },
   });
 
-  const name = methods.watch("name")?.length;
+  const label = methods.watch("label")?.length;
 
   useEffect(() => {
-    setAll(name ? true : false);
-  }, [name, all]);
+    setAll(label ? true : false);
+  }, [label, all]);
 
   useEffect(() => {
     methods.reset({
@@ -47,13 +47,13 @@ export const Csv: React.FC<PropType> = ({ span, sort }) => {
 
   const handleAll = (): void => {
     if (all) {
-      methods.setValue("name", []);
-      methods.setError("name", {
+      methods.setValue("label", []);
+      methods.setError("label", {
         type: "required",
         message: "選択してください",
       });
     } else {
-      methods.setValue("name", [
+      methods.setValue("label", [
         "posts",
         "histories",
         "likes",
@@ -63,7 +63,7 @@ export const Csv: React.FC<PropType> = ({ span, sort }) => {
         "distributions",
         "approval",
       ]);
-      methods.clearErrors("name");
+      methods.clearErrors("label");
     }
   };
 
