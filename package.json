@@ -30,6 +30,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
     "react-to-print": "^2.13.0",
+    "recharts": "^2.1.9",
     "use-postal-jp": "^2.0.2"
   },
   "devDependencies": {
