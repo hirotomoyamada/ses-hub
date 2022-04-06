@@ -1,6 +1,7 @@
 // サイト共有の初期設定
 @import "styles/config";
 @import "styles/function";
+@import "styles/animation";
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -17,6 +18,11 @@ $width: responsive-width(pc);
   text-align: center;
 
   transition: all 0.4s;
+
+  animation-name: fadeIn;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
 
   @media (max-width: responsive-width(sp)) {
     width: 72px;
