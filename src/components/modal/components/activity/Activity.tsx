@@ -31,6 +31,7 @@ export const Activity: React.FC<PropType> = ({
 }) => {
   const [span, setSpan] = useState<Span>("total");
   const [sort, setSort] = useState<Sort>({ self: true, others: true });
+  const [setting, setSetting] = useState<boolean>(false);
 
   return (
     <div
@@ -48,7 +49,13 @@ export const Activity: React.FC<PropType> = ({
       />
 
       {type === "user" ? (
-        <User user={user} span={span} sort={sort} />
+        <User
+          user={user}
+          span={span}
+          sort={sort}
+          setting={setting}
+          setSetting={setSetting}
+        />
       ) : (
         <Post index={index} post={post} />
       )}
