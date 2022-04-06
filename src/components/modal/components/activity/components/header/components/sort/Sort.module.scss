@@ -1,0 +1,50 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.sort {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background: $bg_clr;
+  width: 160px;
+  height: 40px;
+  border: 1px solid $bdr_clr;
+  border-radius: 20px;
+  padding: 4px;
+
+  font-size: 14px;
+
+  @media (max-width: responsive-width(sp)) {
+    width: 120px;
+    height: 32px;
+    font-size: 10px;
+    padding: 2px;
+  }
+
+  &_btn {
+    cursor: pointer;
+    color: $sub_clr;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &_self {
+      border-radius: 20px 0 0 20px;
+      background: $acnt_clr;
+      color: $base_clr;
+    }
+
+    &_others {
+      border-radius: 0 20px 20px 0;
+      background: $promo_clr;
+      color: $base_clr;
+    }
+
+    &_disabled {
+      pointer-events: none;
+    }
+  }
+}
