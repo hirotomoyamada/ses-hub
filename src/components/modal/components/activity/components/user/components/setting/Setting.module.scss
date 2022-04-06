@@ -41,6 +41,17 @@ $width: responsive-width(pc);
       color: $icn_clr;
     }
   }
+
+  &_error {
+    white-space: pre;
+    text-align: center;
+    color: $remove_clr;
+    font-size: 12px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 10px;
+    }
+  }
 }
 
 .radio {
@@ -103,6 +114,10 @@ $width: responsive-width(pc);
 
   &:checked + &_label {
     background: $acnt_clr;
+  }
+
+  &:checked + &_disabled {
+    pointer-events: none;
   }
 
   &:checked + &_label:before {
