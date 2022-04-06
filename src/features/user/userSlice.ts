@@ -30,21 +30,6 @@ export interface Profile {
   uid?: string;
 }
 
-export interface Payment {
-  status: string;
-  limit: number;
-  option?: { freelanceDirect?: boolean };
-  price: string | null;
-  trial: boolean;
-  notice: boolean;
-  load: boolean;
-  account?: number | null;
-  children?: string[];
-  start?: number | null;
-  end?: number | null;
-  cancel?: boolean;
-}
-
 export interface Provider {
   provider: string;
   email?: string;
@@ -83,7 +68,7 @@ export const userSlice = createSlice({
     editProfile: (state, action: PayloadAction<Profile>) =>
       reducers.editProfile(state, action),
     updateNotice: (state) => reducers.updateNotice(state),
-    updatePayment: (state, action: PayloadAction<Payment>) =>
+    updatePayment: (state, action: PayloadAction<User["payment"]>) =>
       reducers.updatePayment(state, action),
     addProvider: (state, action: PayloadAction<Provider>) =>
       reducers.addProvider(state, action),

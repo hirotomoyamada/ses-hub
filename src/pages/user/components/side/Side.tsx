@@ -9,6 +9,7 @@ import { Sort } from "./components/Sort";
 
 import { User } from "types/user";
 import { Matter, Resource, Company, Person } from "types/post";
+import { Sort as SortType } from "features/root/initialState";
 
 interface PropType {
   index: "matters" | "resources" | "companys" | "persons";
@@ -23,11 +24,7 @@ interface PropType {
         currentPage: number;
       }
     | undefined;
-  sort: {
-    status: string | null;
-    display: string | null;
-    control: boolean;
-  };
+  sort: SortType;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }

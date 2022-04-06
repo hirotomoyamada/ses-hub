@@ -1,42 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "app/store";
 
-import { initialState, State } from "features/root/initialState";
-import { Company } from "types/post";
+import {
+  initialState,
+  State,
+  Search,
+  Sort,
+  Modal,
+  Announce,
+} from "features/root/initialState";
 import { User } from "types/user";
 
 import * as reducers from "./reducers";
 import { extraReducers } from "./extraReducers";
-
-export interface Search {
-  target?: string;
-  type?: string;
-  value?: string;
-  control?: boolean;
-}
-
-export interface Sort {
-  status?: string;
-  display?: string;
-}
-
-export interface Announce {
-  success?: string;
-  error?: string;
-}
-
-export interface Modal {
-  type: string;
-  text?: string;
-  meta?: {
-    uid?: string;
-    selectUser?: User | Company;
-    email?: string;
-    type?: string;
-  };
-  delete?: () => void;
-  close?: () => void;
-}
 
 export const rootSlice = createSlice({
   name: "root",
@@ -49,8 +25,10 @@ export const rootSlice = createSlice({
     ) => reducers.index(state, action),
     handleSearch: (state, action: PayloadAction<Search | undefined>) =>
       reducers.search(state, action),
-    handleSort: (state, action: PayloadAction<Sort>) =>
-      reducers.sort(state, action),
+    handleSort: (
+      state,
+      action: PayloadAction<Pick<Sort, "status" | "display">>
+    ) => reducers.sort(state, action),
     handlePage: (state, action: PayloadAction<string>) =>
       reducers.page(state, action),
     handleModal: (state, action: PayloadAction<Modal | undefined>) =>

@@ -9,7 +9,6 @@ import { User } from "types/user";
 import { Login, Child, FetchUser } from "features/user/actions";
 import {
   Profile,
-  Payment,
   Provider,
   Like,
   Output,
@@ -103,7 +102,7 @@ export const updateToken = (
   if (action.payload) {
     state.token = window.btoa(action.payload);
   } else {
-    state.token = null;
+    state.token = undefined;
   }
 };
 
@@ -122,7 +121,7 @@ export const updateNotice = (state: State): void => {
 
 export const updatePayment = (
   state: State,
-  action: PayloadAction<Payment>
+  action: PayloadAction<User["payment"]>
 ): void => {
   (state.user as User).payment = {
     status: action.payload.status,

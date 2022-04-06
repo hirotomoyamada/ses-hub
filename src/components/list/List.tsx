@@ -9,6 +9,7 @@ import { Load } from "./components/load/Load";
 
 import { Matter, Resource, Company, Person } from "types/post";
 import { User } from "types/user";
+import { Search, Sort } from "features/root/initialState";
 
 interface PropType {
   user: User;
@@ -20,17 +21,8 @@ interface PropType {
     currentPage: number;
   };
   type?: "likes" | "outputs" | "entries";
-  search?: {
-    value: string | null;
-    target: string | null;
-    type: string | null;
-    control: boolean;
-  };
-  sort?: {
-    status: string | null;
-    display: string | null;
-    control: boolean;
-  };
+  search?: Search;
+  sort?: Sort;
   home?: boolean;
   side?: boolean;
   open?: boolean;

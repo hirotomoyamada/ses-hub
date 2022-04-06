@@ -23,8 +23,8 @@ export const useUserPosts = (
       }
     | undefined,
   sort: {
-    status: string | null;
-    display: string | null;
+    status?: string;
+    display?: string;
     control: boolean;
   }
 ] => {
