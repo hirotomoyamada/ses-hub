@@ -1,24 +1,27 @@
-import { Sort } from "components/modal/components/activity/Activity";
-import { Activity } from "features/user/initialState";
 import React from "react";
 
 import { LineChart as LC, Line, XAxis, Tooltip } from "recharts";
 
+import { Activity } from "features/user/initialState";
+import { Sort } from "components/modal/components/activity/Activity";
+
 interface PropType {
   width: number;
   height: number;
-  data: Activity[number];
-  sort: Sort;
+  sample?: boolean;
+  data?: Activity[number];
+  sort?: Sort;
 }
 
 export const LineChart: React.FC<PropType> = ({
   width,
   height,
+  sample,
   data,
   sort,
 }) => {
   return (
-    <LC width={width} height={height} data={data.log}>
+    <LC width={width} height={height} data={data?.log}>
       <XAxis dataKey="label" hide />
 
       <Tooltip
@@ -45,7 +48,7 @@ export const LineChart: React.FC<PropType> = ({
         ]}
       />
 
-      {(sort.self || data.name === "posts") && (
+      {(sample || sort?.self || data?.name === "posts") && (
         <Line
           type="linear"
           dataKey="self"
@@ -54,7 +57,7 @@ export const LineChart: React.FC<PropType> = ({
         />
       )}
 
-      {sort.others && data.others && (
+      {(sample || (sort?.others && data?.others)) && (
         <Line
           type="linear"
           dataKey="others"
