@@ -65,6 +65,8 @@ $width: responsive-width(pc);
       display: flex;
       justify-content: center;
       align-items: center;
+
+      transition: all 0.4s;
     }
 
     input:checked + &_btn {
@@ -80,6 +82,8 @@ $width: responsive-width(pc);
     color: $base_clr;
     border-radius: 20px;
     text-align: center;
+
+    transition: all 0.4s;
 
     @media (max-width: responsive-width(sp)) {
       width: 80px;

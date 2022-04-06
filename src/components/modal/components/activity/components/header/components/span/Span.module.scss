@@ -25,6 +25,7 @@ $width: responsive-width(pc);
     font-size: 14px;
 
     @media (max-width: responsive-width(sp)) {
+      width: 72px;
       height: 32px;
       font-size: 10px;
     }
