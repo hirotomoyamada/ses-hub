@@ -2,11 +2,14 @@ import React from "react";
 import styles from "./Charts.module.scss";
 
 import CountUp from "react-countup";
+
 import { Span, Sort } from "components/modal/components/activity/Activity";
 import { Activity } from "features/user/initialState";
+import { Setting } from "types/user";
+import { NestedPartial } from "types/utils";
 
 interface PropType {
-  layout: "line" | "number" | "none";
+  setting?: NestedPartial<Setting>;
   sample?: boolean;
   span?: Span;
   sort?: Sort;
@@ -14,7 +17,7 @@ interface PropType {
 }
 
 export const Header: React.FC<PropType> = ({
-  layout,
+  setting,
   sample,
   sort,
   span,
@@ -25,10 +28,10 @@ export const Header: React.FC<PropType> = ({
       className={`
         ${`${styles.chart_container} ${styles.chart_container_header}`}
         ${
-          (data?.name === "distributions" || data?.name === "approval") &&
+          (data?.key === "distributions" || data?.key === "approval") &&
           styles.chart_container_bar
         }
-        ${layout === "none" && styles.chart_container_none}
+        ${setting?.activity?.layout === "none" && styles.chart_container_none}
       `}
     >
       <p className={styles.chart_ttl}>{data?.label}</p>

@@ -48,7 +48,7 @@ export const LineChart: React.FC<PropType> = ({
         ]}
       />
 
-      {(sample || sort?.self || data?.name === "posts") && (
+      {(sample || sort?.self || data?.key === "posts") && (
         <Line
           type="linear"
           dataKey="self"
