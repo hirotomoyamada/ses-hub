@@ -43,8 +43,10 @@ export const Activity: React.FC<PropType> = ({
         type={type}
         span={span}
         sort={sort}
+        setting={setting}
         setSpan={setSpan}
         setSort={setSort}
+        setSetting={setSetting}
         handleClose={handleClose}
       />
 
