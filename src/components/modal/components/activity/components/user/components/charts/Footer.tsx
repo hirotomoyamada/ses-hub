@@ -1,17 +1,21 @@
-import { Span } from "components/modal/components/activity/Activity";
-import { Activity } from "features/user/initialState";
 import React from "react";
 import styles from "./Charts.module.scss";
 
+import { Span } from "components/modal/components/activity/Activity";
+import { Activity } from "features/user/initialState";
+import { Setting } from "types/user";
+import { NestedPartial } from "types/utils";
+
 interface PropType {
-  layout: "line" | "number" | "none";
+  setting?: NestedPartial<Setting>;
   span?: Span;
   data?: Activity[number];
 }
 
-export const Footer: React.FC<PropType> = ({ layout, span, data }) => {
-  return layout !== "number" && layout !== "none" ? (
-    data?.name !== "distributions" && data?.name !== "approval" ? (
+export const Footer: React.FC<PropType> = ({ setting, span, data }) => {
+  return setting?.activity?.layout !== "number" &&
+    setting?.activity?.layout !== "none" ? (
+    data?.key !== "distributions" && data?.key !== "approval" ? (
       <div
         className={`
           ${styles.chart_container} 
