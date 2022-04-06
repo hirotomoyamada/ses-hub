@@ -1,23 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Setting.module.scss";
 
+import { useDispatch, useSelector } from "react-redux";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-import { Label } from "./components/Label/Label";
+
+import * as rootSlice from "features/root/rootSlice";
+
+import { Active } from "./components/active/Active";
 import { Layout } from "./components/Layout/Layout";
 
 import { Activity } from "features/user/initialState";
+import { Setting as SettingType } from "types/user";
 
-export type Data = {
-  label: string[];
-  order: string[];
-  layout: "line" | "number" | "none";
-};
+export type Data = SettingType["activity"];
 
 interface PropType {
   activity: Activity;
 }
 
 export const Setting: React.FC<PropType> = ({ activity }) => {
+  const dispatch = useDispatch();
+  const setting = useSelector(rootSlice.setting);
   const ref = useRef<HTMLDivElement>(null);
   const [offsetWidth, setOffsetWidth] = useState<number>(0);
 
@@ -41,14 +44,28 @@ export const Setting: React.FC<PropType> = ({ activity }) => {
 
   const methods = useForm<Data>({
     defaultValues: {
-      label: [],
-      order: [],
-      layout: "line",
+      active: setting?.activity.active || [
+        "posts",
+        "histories",
+        "likes",
+        "outputs",
+        "entries",
+        "follows",
+        "distributions",
+        "approval",
+      ],
+      order: setting?.activity.order,
+      layout: setting?.activity.layout || "line",
     },
   });
 
-  const handleUpdate: SubmitHandler<Data> = (data) => {
-    console.log(data);
+  const handleSetting: SubmitHandler<Data> = (data) => {
+    if (!data.active) {
+      data.active = [];
+    }
+
+    dispatch(rootSlice.handleSetting({ type: "activity", ...data }));
+    dispatch(rootSlice.handleAnnounce({ success: "保存しました" }));
   };
 
   return (
@@ -56,10 +73,10 @@ export const Setting: React.FC<PropType> = ({ activity }) => {
       <FormProvider {...methods}>
         <form
           className={styles.setting}
-          onSubmit={methods.handleSubmit(handleUpdate)}
+          onSubmit={methods.handleSubmit(handleSetting)}
           id="setting"
         >
-          <Label activity={activity} />
+          <Active setting={setting} activity={activity} />
           <Layout offsetWidth={offsetWidth} activity={activity} />
         </form>
       </FormProvider>
