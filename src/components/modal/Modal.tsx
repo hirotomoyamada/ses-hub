@@ -88,7 +88,7 @@ export const Modal: React.FC = () => {
             index={index}
             user={user}
             post={post}
-            type={modal.meta?.type}
+            type={modal.meta?.type as "user" | "post"}
             handleClose={handleClose}
           />
         );
