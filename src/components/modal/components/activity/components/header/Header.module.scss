@@ -25,6 +25,10 @@ $width: responsive-width(pc);
     }
   }
 
+  &_setting {
+    grid-template-columns: 1fr auto 1fr;
+  }
+
   &_cancel {
     color: $acnt_clr;
     line-height: 72px;
@@ -44,6 +48,10 @@ $width: responsive-width(pc);
 
     @media (max-width: responsive-width(tb)) {
       display: none;
+    }
+
+    &_setting {
+      display: block;
     }
   }
 
