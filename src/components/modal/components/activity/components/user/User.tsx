@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../../Activity.module.scss";
 
 import { useSelector } from "react-redux";
@@ -16,11 +16,17 @@ interface PropType {
   user: UserType;
   span: Span;
   sort: Sort;
+  setting: boolean;
+  setSetting: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const User: React.FC<PropType> = ({ user, span, sort }) => {
-  const [setting, setSetting] = useState<boolean>(false);
-
+export const User: React.FC<PropType> = ({
+  user,
+  span,
+  sort,
+  setting,
+  setSetting,
+}) => {
   const activity = useSelector(userSlice.activity);
 
   return !setting ? (
