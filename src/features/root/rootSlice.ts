@@ -9,7 +9,7 @@ import {
   Modal,
   Announce,
 } from "features/root/initialState";
-import { User } from "types/user";
+import { Setting, User } from "types/user";
 
 import * as reducers from "./reducers";
 import { extraReducers } from "./extraReducers";
@@ -42,6 +42,10 @@ export const rootSlice = createSlice({
     handleVerified: (state) => reducers.verified(state),
     handleAgree: (state, action: PayloadAction<User>) =>
       reducers.agree(state, action),
+    handleSetting: (
+      state,
+      action: PayloadAction<Setting["activity"] & { type: "activity" }>
+    ) => reducers.setting(state, action),
   },
 
   extraReducers: (builder) => extraReducers(builder),
@@ -58,6 +62,7 @@ export const {
   handleLimit,
   handleVerified,
   handleAgree,
+  handleSetting,
 } = rootSlice.actions;
 
 export const index = (state: RootState): State["index"] => state.root.index;
@@ -73,6 +78,8 @@ export const limit = (state: RootState): State["limit"] => state.root.limit;
 export const data = (state: RootState): State["data"] => state.root.data;
 export const verified = (state: RootState): State["verified"] =>
   state.root.verified;
+export const setting = (state: RootState): State["setting"] =>
+  state.root.setting;
 export const load = (state: RootState): State["load"] => state.root.load;
 export const ver = (state: RootState): State["ver"] => state.root.ver;
 

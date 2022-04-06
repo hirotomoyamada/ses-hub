@@ -62,6 +62,14 @@ export interface User {
   application?: boolean;
 }
 
+export interface Setting {
+  activity: {
+    active: string[];
+    order: string[];
+    layout: "line" | "number" | "none";
+  };
+}
+
 export interface Data {
   agree: {
     body: string;
