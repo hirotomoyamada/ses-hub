@@ -10,7 +10,7 @@ import {
   Modal,
 } from "features/root/initialState";
 import { Login } from "features/user/actions";
-import { User } from "types/user";
+import { Setting, User } from "types/user";
 
 export const index = (
   state: State,
@@ -194,5 +194,18 @@ export const modal = (
     state.modal.close = undefined;
     state.modal.delete = undefined;
     state.modal.open = false;
+  }
+};
+
+export const setting = (
+  state: State,
+  action: PayloadAction<Setting["activity"] & { type: "activity" }>
+): void => {
+  const { type, ...payload } = action.payload;
+
+  if (state.setting) {
+    Object.assign(state.setting[type], payload);
+  } else {
+    state.setting = { [type]: payload };
   }
 };

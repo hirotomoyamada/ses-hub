@@ -1,4 +1,4 @@
-import { Data, User } from "types/user";
+import { Data, Setting, User } from "types/user";
 import { Company } from "types/post";
 
 export type Search = {
@@ -61,6 +61,7 @@ export interface State {
   announce: Announce;
   data?: Data;
   verified: Verified;
+  setting?: Setting;
   load: Load;
   notFound: boolean;
   limit: boolean;
@@ -109,6 +110,8 @@ export const initialState: State = {
     error: undefined,
     payment: undefined,
   },
+
+  setting: undefined,
 
   load: {
     root: true,
