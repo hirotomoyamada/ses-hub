@@ -1,0 +1,42 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+@import "styles/animation";
+
+.label {
+  background: $base_clr;
+  user-select: none;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+
+  width: 100%;
+  border: 1px solid $bdr_clr;
+  border-radius: 8px;
+  padding: 16px;
+
+  animation-name: fadeIn;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+
+  @media (max-width: responsive-width(sp)) {
+    padding: 12px;
+  }
+
+  &_ttl {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    &_icon {
+      color: $sub_clr;
+      font-size: 16px;
+    }
+
+    &_txt {
+      color: $icn_clr;
+    }
+  }
+}

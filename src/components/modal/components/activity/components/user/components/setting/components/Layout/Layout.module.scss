@@ -1,0 +1,43 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+@import "styles/animation";
+
+.btn {
+  background: $base_clr;
+  border-radius: 8px;
+  padding: 8px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+
+  @media (max-width: responsive-width(sp)) {
+    padding: 6px;
+    gap: 6px;
+  }
+}
+
+.sample {
+  background: $base_clr;
+  user-select: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  border: 1px solid $bdr_clr;
+  width: 100%;
+  border-radius: 8px;
+  padding: 20px 16px 16px;
+
+  animation-name: fadeIn;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+
+  @media (max-width: responsive-width(sp)) {
+    padding: 24px 12px 12px;
+  }
+}
