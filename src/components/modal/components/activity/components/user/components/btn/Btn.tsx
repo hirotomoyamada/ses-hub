@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Btn.module.scss";
 
 import SettingsIcon from "@material-ui/icons/Settings";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 interface PropType {
   setting: boolean;
@@ -15,7 +16,13 @@ export const Btn: React.FC<PropType> = ({ setting, setSetting }) => {
       type="button"
       className={styles.btn}
     >
-      <SettingsIcon className={styles.btn_icon} />
+      {!setting ? (
+        <SettingsIcon className={styles.btn_icon} />
+      ) : (
+        <ArrowBackIosIcon
+          className={`${styles.btn_icon} ${styles.btn_icon_back}`}
+        />
+      )}
     </button>
   );
 };
