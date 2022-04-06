@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface Arg {
-  name: string;
+  key: string;
 }
 
 interface Position {
@@ -45,6 +45,18 @@ export const useDnD = <T extends Arg | string>(
     hover: true,
     position: { x: 0, y: 0 },
   }).current;
+
+  useEffect(() => {
+    setItems(arg);
+
+    ref.items = arg
+      .map((data) =>
+        ref.items.find(
+          (item) => item.key === (typeof data === "string" ? data : data.key)
+        )
+      )
+      .filter((data): data is Item<T> => data !== undefined);
+  }, [arg]);
 
   const isHover = (ev: MouseEvent, el: HTMLDivElement): boolean => {
     const clientX = ev.clientX;
@@ -177,7 +189,7 @@ export const useDnD = <T extends Arg | string>(
   });
 
   const data = items.map((data: T): Data<T> => {
-    const key = typeof data !== "string" ? data.name : data;
+    const key = typeof data !== "string" ? data.key : data;
 
     ref.keys.set(data, key);
 
