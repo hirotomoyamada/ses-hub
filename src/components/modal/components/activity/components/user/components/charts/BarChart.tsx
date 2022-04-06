@@ -25,7 +25,7 @@ export const BarChart: React.FC<PropType> = ({ width, height, data }) => {
       height={height * 1.3}
       data={data.log}
     >
-      <XAxis type="number" hide />
+      <XAxis type="number" domain={[0, "dataMax"]} hide />
       <YAxis type="category" dataKey="label" hide />
 
       <Tooltip
