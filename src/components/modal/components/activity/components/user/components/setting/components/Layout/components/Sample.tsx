@@ -21,7 +21,7 @@ export const Sample: React.FC<PropType> = ({ offsetWidth, activity }) => {
 
   const layout = watch("layout");
 
-  const data = activity.find(({ name }) => name === "likes");
+  const data = activity.find(({ key }) => key === "likes");
 
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
@@ -72,9 +72,9 @@ export const Sample: React.FC<PropType> = ({ offsetWidth, activity }) => {
 
   return (
     <div className={styles.sample}>
-      <Header layout={layout} sample data={data} />
+      <Header setting={{ activity: { layout: layout } }} sample data={data} />
       <Body />
-      <Footer layout={layout} data={data} />
+      <Footer setting={{ activity: { layout: layout } }} data={data} />
     </div>
   );
 };
