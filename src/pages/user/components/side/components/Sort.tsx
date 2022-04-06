@@ -7,15 +7,12 @@ import { useDispatch } from "react-redux";
 import * as rootSlice from "features/root/rootSlice";
 
 import { User } from "types/user";
+import { Sort as SortType } from "features/root/initialState";
 
 interface PropType {
   index: "matters" | "resources" | "companys" | "persons";
   user: User;
-  sort: {
-    status: string | null;
-    display: string | null;
-    control: boolean;
-  };
+  sort: SortType;
   uid: string;
 }
 

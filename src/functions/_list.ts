@@ -8,6 +8,7 @@ import {
 } from "features/post/actions";
 
 import { User } from "types/user";
+import { Search, Sort } from "features/root/initialState";
 
 export const createObserver = (
   list: React.RefObject<HTMLDivElement>,
@@ -27,7 +28,7 @@ export const createObserver = (
   const listHeight = Number(
     JSON.stringify(list?.current?.getBoundingClientRect().height)
   );
-  
+
   const innerHeight = window.innerHeight + 100;
 
   if (!disable && listHeight > innerHeight) {
@@ -54,22 +55,9 @@ export const fetchScroll = async (
   index: "matters" | "resources" | "companys" | "persons" | undefined,
   user: User,
   home: boolean | undefined,
-  search:
-    | {
-        value: string | null;
-        target: string | null;
-        type: string | null;
-        control: boolean;
-      }
-    | undefined,
+  search: Search | undefined,
   side: boolean | undefined,
-  sort:
-    | {
-        status: string | null;
-        display: string | null;
-        control: boolean;
-      }
-    | undefined,
+  sort: Sort | undefined,
   type: "likes" | "outputs" | "entries" | undefined,
   select: string[] | undefined,
   page: number

@@ -6,17 +6,14 @@ import { useSelector } from "react-redux";
 import * as rootSlice from "features/root/rootSlice";
 
 import { User } from "types/user";
+import { Sort } from "features/root/initialState";
 
 interface PropType {
   user: User;
   list: React.RefObject<HTMLDivElement>;
   index?: "matters" | "resources" | "companys" | "persons";
   type?: "likes" | "outputs" | "entries";
-  sort?: {
-    status: string | null;
-    display: string | null;
-    control: boolean;
-  };
+  sort?: Sort;
   select?: string[];
   disable?: boolean;
   home?: boolean;

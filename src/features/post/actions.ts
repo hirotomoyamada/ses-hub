@@ -129,10 +129,10 @@ export const createPost = createAsyncThunk(
 export interface FetchPosts {
   arg: {
     index: "matters" | "resources" | "companys" | "persons";
-    target?: string | null;
-    value?: string | null;
-    type?: string | null;
-    page?: number | null;
+    target?: string;
+    value?: string;
+    type?: string;
+    page?: number;
     fetch?: boolean;
   };
 
@@ -268,8 +268,8 @@ export interface UserPosts {
     index: "matters" | "resources" | "companys";
     uid: string;
     uids?: string[];
-    display?: string | null;
-    status?: string | null;
+    display?: string;
+    status?: string;
     page?: number;
   };
 

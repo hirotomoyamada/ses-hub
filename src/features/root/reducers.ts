@@ -2,8 +2,13 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { functions } from "libs/firebase";
 import { httpsCallable, HttpsCallable } from "firebase/functions";
 
-import { State } from "features/root/initialState";
-import { Search, Sort, Announce, Modal } from "features/root/rootSlice";
+import {
+  State,
+  Search,
+  Sort,
+  Announce,
+  Modal,
+} from "features/root/initialState";
 import { Login } from "features/user/actions";
 import { User } from "types/user";
 
@@ -71,8 +76,8 @@ export const verified = (
       status: "promo",
       access: false,
       demo: false,
-      error: null,
-      payment: null,
+      error: undefined,
+      payment: undefined,
     };
   }
 
@@ -115,7 +120,7 @@ export const search = (
   action?: PayloadAction<Search | undefined>
 ): void => {
   if (!action?.payload) {
-    state.search.value = null;
+    state.search.value = undefined;
     state.search.control = false;
   }
 
@@ -139,7 +144,10 @@ export const search = (
   }
 };
 
-export const sort = (state: State, action: PayloadAction<Sort>): void => {
+export const sort = (
+  state: State,
+  action: PayloadAction<Pick<Sort, "display" | "status">>
+): void => {
   state.sort.status = action.payload.status
     ? action.payload.status !== "reset"
       ? action.payload.status
@@ -180,7 +188,7 @@ export const modal = (
     state.modal.delete = action.payload.delete;
     state.modal.open = true;
   } else {
-    state.modal.type = null;
+    state.modal.type = undefined;
     state.modal.text = undefined;
     state.modal.meta = undefined;
     state.modal.close = undefined;

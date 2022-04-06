@@ -1,64 +1,67 @@
 import { Data, User } from "types/user";
 import { Company } from "types/post";
 
+export type Search = {
+  target?: string;
+  type?: string;
+  value?: string;
+  control?: boolean;
+};
+
+export type Sort = {
+  status?: string;
+  display?: string;
+  control: boolean;
+};
+
+export interface Announce {
+  success?: string;
+  error?: string;
+}
+
+export interface Modal {
+  type?: string;
+  text?: string;
+  open?: boolean;
+  meta?: {
+    uid?: string;
+    selectUser?: User | Company;
+    email?: string;
+    type?: string;
+  };
+  delete?: () => void;
+  close?: () => void;
+}
+
+export type Verified = {
+  index: boolean;
+  email: boolean;
+  profile: boolean;
+  agree: boolean;
+  status?: string;
+  access: boolean;
+  demo: boolean;
+  error?: string;
+  payment?: string;
+};
+
+export type Load = {
+  root: boolean;
+  list: boolean;
+  fetch: boolean;
+  create: boolean;
+};
+
 export interface State {
   index: "matters" | "resources" | "companys" | "persons";
-
   page: string;
-
-  search: {
-    value: string | null;
-    target: string | null;
-    type: string | null;
-    control: boolean;
-  };
-
-  sort: {
-    status: string | null;
-    display: string | null;
-    control: boolean;
-  };
-
-  modal: {
-    type: string | null;
-    open: boolean;
-    text?: string;
-    meta?: {
-      uid?: string;
-      selectUser?: User | Company;
-      email?: string;
-      type?: string;
-    };
-    close?: () => void;
-    delete?: () => void;
-  };
-
-  announce: {
-    success?: string;
-    error?: string;
-  };
-
-  data: Data | null;
-
-  verified: {
-    index: boolean;
-    email: boolean;
-    profile: boolean;
-    agree: boolean;
-    status: string | null;
-    access: boolean;
-    demo: boolean;
-    error: string | null;
-    payment: string | null;
-  };
-
-  load: {
-    root: boolean;
-    list: boolean;
-    fetch: boolean;
-    create: boolean;
-  };
-
+  search: Search;
+  sort: Sort;
+  modal: Modal;
+  announce: Announce;
+  data?: Data;
+  verified: Verified;
+  load: Load;
   notFound: boolean;
   limit: boolean;
 
@@ -71,20 +74,20 @@ export const initialState: State = {
   page: "home",
 
   search: {
-    value: null,
-    target: null,
-    type: null,
+    value: undefined,
+    target: undefined,
+    type: undefined,
     control: false,
   },
 
   sort: {
-    status: null,
-    display: null,
+    status: undefined,
+    display: undefined,
     control: false,
   },
 
   modal: {
-    type: null,
+    type: undefined,
     open: false,
   },
 
@@ -93,18 +96,18 @@ export const initialState: State = {
     error: undefined,
   },
 
-  data: null,
+  data: undefined,
 
   verified: {
     index: false,
     email: false,
     profile: false,
     agree: false,
-    status: null,
+    status: undefined,
     access: true,
     demo: false,
-    error: null,
-    payment: null,
+    error: undefined,
+    payment: undefined,
   },
 
   load: {

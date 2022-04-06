@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import * as functions from "functions";
 
 import { User } from "types/user";
+import { Search, Sort } from "features/root/initialState";
 
 interface PropType {
   user: User;
@@ -14,17 +15,8 @@ interface PropType {
     currentPage: number;
   };
   type?: "likes" | "outputs" | "entries";
-  search?: {
-    value: string | null;
-    target: string | null;
-    type: string | null;
-    control: boolean;
-  };
-  sort?: {
-    status: string | null;
-    display: string | null;
-    control: boolean;
-  };
+  search?: Search;
+  sort?: Sort;
   select?: string[];
   home?: boolean;
   side?: boolean;

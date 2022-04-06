@@ -20,21 +20,15 @@ export type Activity = {
 
 export interface State {
   user: User | unknown;
-
   selectUser: Company | Person | (Company | Person)[] | unknown;
-
-  token: string | null;
-
+  token?: string;
   activity: Activity;
 }
 
 export const initialState: State = {
   user: {},
-
   selectUser: {},
-
-  token: null,
-
+  token: undefined,
   activity: [
     {
       active: true,
