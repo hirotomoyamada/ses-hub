@@ -1,0 +1,29 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.save {
+  margin-left: auto;
+  margin-right: 0;
+
+  background: $acnt_clr;
+  width: 160px;
+  height: 36px;
+  color: $base_clr;
+  border-radius: 20px;
+  text-align: center;
+
+  transition: all 0.4s;
+
+  @media (max-width: responsive-width(sp)) {
+    width: 72px;
+    height: 32px;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
