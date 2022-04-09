@@ -37,18 +37,6 @@ $width: responsive-width(pc);
     justify-content: center;
     align-items: center;
 
-    &_self {
-      border-radius: 20px 0 0 20px;
-      background: $acnt_clr;
-      color: $base_clr;
-    }
-
-    &_others {
-      border-radius: 0 20px 20px 0;
-      background: $promo_clr;
-      color: $base_clr;
-    }
-
     &_disabled {
       pointer-events: none;
     }

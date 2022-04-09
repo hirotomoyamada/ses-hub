@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "../Layout.module.scss";
 
 import { useFormContext } from "react-hook-form";
@@ -20,6 +20,7 @@ export const Sample: React.FC<PropType> = ({ offsetWidth, activity }) => {
   const { watch } = useFormContext<Data>();
 
   const layout = watch("layout");
+  const color = watch("color");
 
   const data = activity.find(({ key }) => key === "likes");
 
@@ -59,20 +60,41 @@ export const Sample: React.FC<PropType> = ({ offsetWidth, activity }) => {
     }
   }, [offsetWidth]);
 
-  const Body = (): JSX.Element => {
-    switch (layout) {
-      case "line":
-        return <LineChart sample width={width} height={height} data={data} />;
-      case "number":
-        return <Number sample data={data} />;
-      default:
-        return <></>;
-    }
-  };
+  const Body: React.VFC = useMemo<React.VFC>(
+    (): React.VFC => (): JSX.Element => {
+      switch (layout) {
+        case "line":
+          return (
+            <LineChart
+              sample
+              setting={{ activity: { color: color } }}
+              width={width}
+              height={height}
+              data={data}
+            />
+          );
+        case "number":
+          return (
+            <Number
+              sample
+              setting={{ activity: { color: color } }}
+              data={data}
+            />
+          );
+        default:
+          return <></>;
+      }
+    },
+    [layout, color.self, color.others, width, height, data]
+  );
 
   return (
     <div className={styles.sample}>
-      <Header setting={{ activity: { layout: layout } }} sample data={data} />
+      <Header
+        setting={{ activity: { layout: layout, color: color } }}
+        sample
+        data={data}
+      />
       <Body />
       <Footer setting={{ activity: { layout: layout } }} data={data} />
     </div>

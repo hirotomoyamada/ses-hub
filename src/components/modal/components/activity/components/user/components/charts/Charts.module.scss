@@ -105,18 +105,6 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(sp)) {
       font-size: 16px;
     }
-
-    &_self {
-      color: $acnt_clr;
-    }
-
-    &_others {
-      color: $promo_clr;
-    }
-
-    &_none {
-      color: $base_clr;
-    }
   }
 
   &_day {
@@ -160,19 +148,5 @@ $width: responsive-width(pc);
   &_label {
     font-size: 14px;
     color: $sub_clr;
-  }
-
-  &_total {
-    &_self {
-      color: $acnt_clr;
-    }
-
-    &_others {
-      color: $promo_clr;
-    }
-
-    &_none {
-      color: $base_clr;
-    }
   }
 }

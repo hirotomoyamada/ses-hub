@@ -10,14 +10,22 @@ import {
 } from "recharts";
 
 import { Activity } from "features/user/initialState";
+import { Setting } from "types/user";
+import { NestedPartial } from "types/utils";
 
 interface PropType {
   width: number;
   height: number;
+  setting?: NestedPartial<Setting>;
   data?: Activity[number];
 }
 
-export const BarChart: React.FC<PropType> = ({ width, height, data }) => {
+export const BarChart: React.FC<PropType> = ({
+  width,
+  height,
+  setting,
+  data,
+}) => {
   return (
     <BC
       layout="vertical"
@@ -43,7 +51,7 @@ export const BarChart: React.FC<PropType> = ({ width, height, data }) => {
         itemStyle={{
           display: "flex",
           gap: "2px",
-          color: "#49b657",
+          color: setting?.activity?.color?.self || "#49b657",
         }}
         labelStyle={{
           fontWeight: "bold",
@@ -54,7 +62,11 @@ export const BarChart: React.FC<PropType> = ({ width, height, data }) => {
       <Bar
         dataKey="self"
         barSize={32}
-        fill="#dbf0dd"
+        fill={
+          setting?.activity?.color?.self
+            ? `${setting?.activity?.color?.self}3b`
+            : "#49b6573b"
+        }
         animationDuration={1580}
         animationEasing="ease-in-out"
       >

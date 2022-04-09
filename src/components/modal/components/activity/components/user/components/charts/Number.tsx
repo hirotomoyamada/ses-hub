@@ -5,13 +5,16 @@ import CountUp from "react-countup";
 
 import { Activity } from "features/user/initialState";
 import { Sort } from "components/modal/components/activity/Activity";
+import { Setting } from "types/user";
+import { NestedPartial } from "types/utils";
 
 interface PropType {
   sample?: boolean;
+  setting?: NestedPartial<Setting>;
   sort?: Sort;
   data?: Activity[number];
 }
-export const Number: React.FC<PropType> = ({ sample, sort, data }) => {
+export const Number: React.FC<PropType> = ({ sample, setting, sort, data }) => {
   return (
     <div className={styles.number}>
       {data?.log
@@ -22,7 +25,8 @@ export const Number: React.FC<PropType> = ({ sample, sort, data }) => {
             <div className={styles.number_wrap}>
               {(sample || (sort?.self && log?.self)) && (
                 <CountUp
-                  className={`${styles.number_total} ${styles.number_total_self}`}
+                  className={`${styles.number_total}`}
+                  style={{ color: setting?.activity?.color?.self || "#49b657" }}
                   start={0}
                   end={log?.self || 0}
                   separator=","
@@ -33,7 +37,10 @@ export const Number: React.FC<PropType> = ({ sample, sort, data }) => {
 
               {(sample || (sort?.others && log?.others)) && (
                 <CountUp
-                  className={`${styles.number_total} ${styles.number_total_others}`}
+                  className={`${styles.number_total}`}
+                  style={{
+                    color: setting?.activity?.color?.others || "#ff9900",
+                  }}
                   start={0}
                   end={log?.others || 0}
                   separator=","
