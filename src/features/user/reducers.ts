@@ -560,7 +560,9 @@ export const updateActivity = (
   if (action.payload.type !== "activity") return;
 
   state.activity = action.payload.order
-    .map((key) => state.activity.find((current) => current.key === key))
+    .map((key) =>
+      (state.activity as Activity).find((current) => current.key === key)
+    )
     .map((current) =>
       current?.key && action.payload.active.indexOf(current?.key) >= 0
         ? { ...current, active: true }

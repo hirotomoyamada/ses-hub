@@ -17,7 +17,7 @@ export const usePost = (
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
-  const post = useSelector(postSlice.post) as Matter | Resource;
+  const post = useSelector(postSlice.post);
   const bests = useSelector(postSlice.bests) as Matter[] | Resource[];
   const user = useSelector(userSlice.user);
 

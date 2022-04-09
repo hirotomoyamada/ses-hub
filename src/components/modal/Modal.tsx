@@ -21,14 +21,14 @@ import { Account } from "./components/account/Account";
 import { Application } from "./components/application/Application";
 import { Activity } from "./components/activity/Activity";
 
-import { Matter, Resource, Company } from "types/post";
+import { Company } from "types/post";
 import { User } from "types/user";
 
 export const Modal: React.FC = () => {
   const dispatch = useDispatch();
   const index = useSelector(rootSlice.index);
   const user = useSelector(userSlice.user);
-  const post = useSelector(postSlice.post) as Matter | Resource;
+  const post = useSelector(postSlice.post);
   const modal = useSelector(rootSlice.modal);
 
   const location = useLocation();
