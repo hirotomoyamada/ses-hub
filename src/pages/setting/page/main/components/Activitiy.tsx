@@ -30,7 +30,7 @@ export const Activity: React.FC<PropType> = ({ user }) => {
         type="button"
         onClick={() =>
           dispatch(
-            rootSlice.handleModal({ type: "activity", meta: { type: "post" } })
+            rootSlice.handleModal({ type: "activity", meta: { type: "user" } })
           )
         }
       >
