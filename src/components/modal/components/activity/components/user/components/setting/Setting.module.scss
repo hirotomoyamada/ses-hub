@@ -159,6 +159,21 @@ $width: responsive-width(pc);
     opacity: 0.4;
   }
 
+  &_black {
+    background: $main_clr;
+    opacity: 0.6;
+  }
+
+  &_grey {
+    background: $sub_clr;
+    opacity: 0.4;
+  }
+
+  &_navy {
+    background: $icn_clr;
+    opacity: 0.4;
+  }
+
   &:checked + &_label {
     background: $acnt_clr;
     color: $base_clr;
@@ -169,6 +184,9 @@ $width: responsive-width(pc);
   &:checked + &_red,
   &:checked + &_blue,
   &:checked + &_purple,
+  &:checked + &_black,
+  &:checked + &_grey,
+  &:checked + &_navy,
   &:checked + &_brown {
     opacity: 1;
   }

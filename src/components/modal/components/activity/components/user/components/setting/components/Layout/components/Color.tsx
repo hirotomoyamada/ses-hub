@@ -22,6 +22,9 @@ export const Color = () => {
         { name: "blue", code: "#1d9bf0" },
         { name: "purple", code: "#b749a9" },
         { name: "brown", code: "#b78e49" },
+        { name: "black", code: "#303030" },
+        { name: "navy", code: "#515a74" },
+        { name: "grey", code: "#aeaeae" },
       ];
 
       return (
@@ -70,7 +73,7 @@ export const Color = () => {
             style={
               display === "self"
                 ? { background: color?.self || "#49b657", opacity: 1 }
-                : { background: color?.self || "#49b657", opacity: 0.4 }
+                : { background: color?.self || "#49b657", opacity: 0.6 }
             }
             onClick={() => setDisplay("self")}
           >
@@ -83,7 +86,7 @@ export const Color = () => {
             style={
               display === "others"
                 ? { background: color?.others || "#ff9900", opacity: 1 }
-                : { background: color?.others || "#ff9900", opacity: 0.4 }
+                : { background: color?.others || "#ff9900", opacity: 0.6 }
             }
             onClick={() => setDisplay("others")}
           >
