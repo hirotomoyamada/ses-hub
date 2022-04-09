@@ -56,6 +56,10 @@ export const Setting: React.FC<PropType> = ({ activity }) => {
       ],
       order: setting?.activity.order,
       layout: setting?.activity.layout || "line",
+      color: {
+        self: setting?.activity.color.self || "#49b657",
+        others: setting?.activity.color.others || "#ff9900",
+      },
     },
   });
 

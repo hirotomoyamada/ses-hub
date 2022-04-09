@@ -42,6 +42,16 @@ $width: responsive-width(pc);
     }
   }
 
+  &_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 12px;
+    }
+  }
+
   &_error {
     white-space: pre;
     text-align: center;
@@ -51,6 +61,25 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(sp)) {
       font-size: 10px;
     }
+  }
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 36px;
+  border-radius: 6px;
+
+  font-size: 14px;
+  color: $base_clr;
+
+  transition: all 0.4s;
+
+  @media (max-width: responsive-width(sp)) {
+    height: 32px;
+    font-size: 12px;
   }
 }
 
@@ -74,11 +103,74 @@ $width: responsive-width(pc);
       height: 32px;
       font-size: 12px;
     }
+
+    &_color {
+      height: 24px;
+      border-radius: 4px;
+    }
+  }
+
+  &_color {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 24px;
+    border-radius: 4px;
+
+    font-size: 14px;
+    color: $sub_clr;
+
+    transition: all 0.4s;
+
+    @media (max-width: responsive-width(sp)) {
+      height: 32px;
+      font-size: 12px;
+    }
+  }
+
+  &_green {
+    background: $acnt_clr;
+    opacity: 0.4;
+  }
+
+  &_orange {
+    background: $promo_clr;
+    opacity: 0.4;
+  }
+
+  &_red {
+    background: $remove_clr;
+    opacity: 0.4;
+  }
+
+  &_blue {
+    background: $add_clr;
+    opacity: 0.4;
+  }
+
+  &_purple {
+    background: $acnt_sub_clr;
+    opacity: 0.4;
+  }
+
+  &_brown {
+    background: $acnt_ext_clr;
+    opacity: 0.4;
   }
 
   &:checked + &_label {
     background: $acnt_clr;
     color: $base_clr;
+  }
+
+  &:checked + &_green,
+  &:checked + &_orange,
+  &:checked + &_red,
+  &:checked + &_blue,
+  &:checked + &_purple,
+  &:checked + &_brown {
+    opacity: 1;
   }
 }
 
