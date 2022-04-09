@@ -205,7 +205,7 @@ export const setting = (
   const { type, ...payload } = action.payload;
 
   if (state.setting) {
-    Object.assign(state.setting[type], payload);
+    Object.assign(state.setting, { [type]: payload });
   } else {
     state.setting = { [type]: payload };
   }

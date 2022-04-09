@@ -28,7 +28,7 @@ export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
   const setting = useSelector(rootSlice.setting);
 
   useEffect(() => {
-    if (setting?.activity.order) {
+    if (setting?.activity?.order) {
       const newActivity = setting.activity.order
         .map((key) => activity.find((data) => data.key === key))
         .filter((data): data is Activity[number] => data !== undefined);
@@ -44,7 +44,7 @@ export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
         data: Activity[number];
       }> =>
       ({ data }): JSX.Element => {
-        switch (setting?.activity.layout) {
+        switch (setting?.activity?.layout) {
           case "number":
             return <Number sort={sort} data={data} setting={setting} />;
           case "none":
@@ -81,7 +81,7 @@ export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
       {data.map(
         (activity) =>
           activity.data.active &&
-          (setting?.activity.layout !== "none" ||
+          (setting?.activity?.layout !== "none" ||
             (activity.data.key !== "distributions" &&
               activity.data.key !== "approval")) &&
           (sort.self ||

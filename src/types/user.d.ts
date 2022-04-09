@@ -63,7 +63,7 @@ export interface User {
 }
 
 export interface Setting {
-  activity: {
+  activity?: {
     active: string[];
     order: string[];
     layout: "line" | "number" | "none";

@@ -37,7 +37,7 @@ export const Active: React.FC<PropType> = ({ setting, activity }) => {
   }, [order]);
 
   useEffect(() => {
-    if (setting?.activity.order) {
+    if (setting?.activity?.order) {
       const newActivity = setting.activity.order
         .map((key) => activity.find((data) => data.key === key))
         .filter((data): data is Activity[number] => data !== undefined);
