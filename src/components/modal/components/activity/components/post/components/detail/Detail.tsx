@@ -60,7 +60,7 @@ export const Detail: React.FC<PropType> = ({ index, post }) => {
       <Link
         to={`/${index}/${post.objectID}`}
         target="_blank"
-        className={styles.post_link}
+        className={styles.detail_link}
       >
         {index === "matters" ? "この案件を表示" : "この人材を表示"}
       </Link>
