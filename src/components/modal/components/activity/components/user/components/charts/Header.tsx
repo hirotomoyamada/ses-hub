@@ -39,7 +39,8 @@ export const Header: React.FC<PropType> = ({
       <div className={styles.chart_wrap}>
         {(sample || (sort?.self && data?.self)) && (
           <CountUp
-            className={`${styles.chart_total} ${styles.chart_total_self}`}
+            className={`${styles.chart_total}`}
+            style={{ color: setting?.activity?.color?.self || "#49b657" }}
             start={0}
             end={
               span === "day"
@@ -54,7 +55,8 @@ export const Header: React.FC<PropType> = ({
 
         {(sample || (sort?.others && data?.others)) && (
           <CountUp
-            className={`${styles.chart_total} ${styles.chart_total_others}`}
+            className={`${styles.chart_total}`}
+            style={{ color: setting?.activity?.color?.others || "#ff9900" }}
             start={0}
             end={
               span === "day"
