@@ -28,7 +28,8 @@ export const Account: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { password } = location.state as { password: string };
+  const password = (location?.state as { password: string } | undefined)
+    ?.password;
 
   const [device] = useDevice();
 
