@@ -35,43 +35,37 @@ export const extraReducers = (
       }>
     ) => {
       if (action.type.includes("/login/")) {
-        if (state.page !== "account") {
-          state.load.root = true;
-        }
+        if (state.page !== "account") state.load.root = true;
+
         return;
       }
 
-      if (action.type.includes("/fetchUser/") && action.meta.arg.index) {
+      if (action.type.includes("/fetchUser/") && action.meta.arg.index)
         state.index =
           action.meta.arg.index !== "companys"
             ? action.meta.arg.index
             : "matters";
-      }
 
-      if (action.type.includes("/fetchPosts/")) {
-        state.search.control = true;
-      }
+      if (action.type.includes("/fetchPosts/")) state.search.control = true;
 
-      if (action.type.includes("/fetchPost/") && action.meta.arg.index) {
+      if (action.type.includes("/fetchPost/") && action.meta.arg.index)
         state.index = action.meta.arg.index;
-      }
 
-      if (action.meta.arg.fetch || action.type.includes("/createPost/")) {
-        state.load.fetch = true;
+      if (action.meta.arg.fetch) {
+        state.load.pend = true;
 
         return;
       }
 
-      if (!action.type.includes("/createPost")) {
-        if (
-          !action.type.includes("/createChild/") &&
-          !action.type.includes("/changeEmail") &&
-          !action.type.includes("/deleteChild")
-        ) {
-          state.load.list = true;
-        } else {
-          state.load.create = true;
-        }
+      if (
+        action.type.includes("/createPost/") ||
+        action.type.includes("/createChild/") ||
+        action.type.includes("/changeEmail") ||
+        action.type.includes("/deleteChild")
+      ) {
+        state.load.create = true;
+      } else {
+        state.load.fetch = true;
       }
     }
   );
@@ -183,7 +177,7 @@ export const extraReducers = (
       }
 
       state.load.fetch = false;
-      state.load.list = false;
+      state.load.pend = false;
       state.load.create = false;
     }
   );
@@ -211,7 +205,7 @@ export const extraReducers = (
       }
 
       state.load.fetch = false;
-      state.load.list = false;
+      state.load.pend = false;
       state.load.create = false;
     }
   );
