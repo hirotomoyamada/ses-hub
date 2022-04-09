@@ -22,6 +22,7 @@ export type Sort = {
   self: boolean;
   others: boolean;
 };
+
 export const Activity: React.FC<PropType> = ({
   index,
   user,
@@ -32,6 +33,7 @@ export const Activity: React.FC<PropType> = ({
   const [span, setSpan] = useState<Span>("total");
   const [sort, setSort] = useState<Sort>({ self: true, others: true });
   const [setting, setSetting] = useState<boolean>(false);
+  const [verification, setVerification] = useState<boolean>(false);
 
   return (
     <div
@@ -43,6 +45,7 @@ export const Activity: React.FC<PropType> = ({
         type={type}
         span={span}
         sort={sort}
+        verification={verification}
         setting={setting}
         setSpan={setSpan}
         setSort={setSort}
@@ -57,6 +60,7 @@ export const Activity: React.FC<PropType> = ({
           sort={sort}
           setting={setting}
           setSetting={setSetting}
+          setVerification={setVerification}
         />
       ) : (
         <Post index={index} post={post} />
