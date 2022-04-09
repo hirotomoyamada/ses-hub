@@ -23,7 +23,7 @@ interface PropType {
 export const Post: React.FC<PropType> = ({ handleOpen }) => {
   const dispatch = useDispatch();
   const index = useSelector(rootSlice.index);
-  const load = useSelector(rootSlice.load).list;
+  const load = useSelector(rootSlice.load).fetch;
   const status = useSelector(rootSlice.verified).status;
 
   const posts = useSelector((state: RootState) =>

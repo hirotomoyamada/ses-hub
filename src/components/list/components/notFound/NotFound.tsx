@@ -31,7 +31,7 @@ export const NotFound: React.FC<PropType> = ({
   home,
   side,
 }) => {
-  const load = useSelector(rootSlice.load).list;
+  const load = useSelector(rootSlice.load).fetch;
 
   return (
     <div

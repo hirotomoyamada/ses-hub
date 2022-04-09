@@ -33,8 +33,8 @@ export const Root: React.FC = () => {
   );
 };
 
-export const Fetch: React.FC = () => {
-  const load = useSelector(rootSlice.load).fetch;
+export const Pending: React.FC = () => {
+  const load = useSelector(rootSlice.load).pend;
   const page = useSelector(rootSlice.page);
   const user = useSelector(userSlice.user).uid;
 

@@ -29,7 +29,6 @@ export const useAccount = (): [
         fetchUser({
           index: "companys",
           uids: user?.payment?.children,
-          fetch: true,
         })
       );
   }, [children, dispatch, status, user]);
