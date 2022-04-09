@@ -1,10 +1,11 @@
 import React from "react";
 import root from "../../Setting.module.scss";
 
-import { Btn } from "./components/Btn";
+import { Display } from "./components/Display";
 import { Sample } from "./components/Sample";
 
 import { Activity } from "features/user/initialState";
+import { Color } from "./components/Color";
 
 interface PropType {
   offsetWidth?: number;
@@ -19,9 +20,8 @@ export const Layout: React.FC<PropType> = ({ offsetWidth, activity }) => {
         ${root.setting_container_layout}
       `}
     >
-      <p className={root.setting_container_ttl}>レイアウト</p>
-
-      <Btn />
+      <Display />
+      <Color />
 
       <Sample offsetWidth={offsetWidth} activity={activity} />
     </div>
