@@ -26,6 +26,7 @@ export const Load: React.FC<PropType> = ({ type }) => {
         <Oval
           className={styles.load_ttl_icon}
           color={type !== "delete" ? "#49b757" : "#e94235db"}
+          secondaryColor={""}
           height={26}
           width={26}
         />
