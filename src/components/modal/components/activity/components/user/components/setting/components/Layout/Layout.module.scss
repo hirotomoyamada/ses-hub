@@ -11,7 +11,7 @@
   background: $base_clr;
   border-radius: 8px;
   border: 1px solid $bdr_clr;
-  padding: 8px;
+  padding: 8px 16px;
 
   @media (max-width: responsive-width(sp)) {
     padding: 6px;
