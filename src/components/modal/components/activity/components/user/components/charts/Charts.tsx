@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./Charts.module.scss";
 
 import { useChart } from "hooks/useChart";
@@ -37,23 +37,44 @@ export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
     }
   }, [setting?.activity]);
 
-  const Chart: React.VFC<{ data: Activity[number] }> = ({ data }) => {
-    switch (setting?.activity.layout) {
-      case "number":
-        return <Number sort={sort} data={data} />;
-      case "none":
-        return <></>;
-      default: {
-        if (data.key !== "distributions" && data.key !== "approval") {
-          return (
-            <LineChart width={width} height={height} data={data} sort={sort} />
-          );
-        } else {
-          return <BarChart width={width} height={height} data={data} />;
+  const Chart: React.VFC<{
+    data: Activity[number];
+  }> = useMemo<React.VFC<{ data: Activity[number] }>>(
+    (): React.VFC<{
+        data: Activity[number];
+      }> =>
+      ({ data }): JSX.Element => {
+        switch (setting?.activity.layout) {
+          case "number":
+            return <Number sort={sort} data={data} setting={setting} />;
+          case "none":
+            return <></>;
+          default: {
+            if (data.key !== "distributions" && data.key !== "approval") {
+              return (
+                <LineChart
+                  width={width}
+                  height={height}
+                  setting={setting}
+                  data={data}
+                  sort={sort}
+                />
+              );
+            } else {
+              return (
+                <BarChart
+                  width={width}
+                  height={height}
+                  setting={setting}
+                  data={data}
+                />
+              );
+            }
+          }
         }
-      }
-    }
-  };
+      },
+    [updateActivity, setting, width, height]
+  );
 
   return (
     <div className={styles.charts} ref={ref}>
