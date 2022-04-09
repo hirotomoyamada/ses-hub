@@ -3,7 +3,7 @@
 @import "styles/function";
 @import "styles/animation";
 
-.btn {
+.wrap {
   background: $base_clr;
   border-radius: 8px;
   padding: 8px;
@@ -12,9 +12,15 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 
+  border: 1px solid $bdr_clr;
+
   @media (max-width: responsive-width(sp)) {
     padding: 6px;
     gap: 6px;
+  }
+
+  &_display {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
