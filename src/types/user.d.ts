@@ -56,7 +56,7 @@ export interface User {
     end?: number | null;
     price?: string | null;
   };
-  setting: Setting;
+  setting?: Setting;
   createAt: number;
   updateAt?: number;
   application?: boolean;
