@@ -4,7 +4,7 @@ import { RootState } from "app/store";
 import * as reducers from "features/post/reducers";
 import { extraReducers } from "features/post/extraReducers";
 
-import { initialState, State } from "features/post/initialState";
+import { Activity, initialState, State } from "features/post/initialState";
 import { Matter, Resource, Company, Person } from "types/post";
 
 export interface Post {
@@ -131,9 +131,10 @@ export const control = ({
   index: "matters" | "resources";
 }): boolean => state.post.home[index].control;
 
-export const post = (state: RootState): State["post"] => state.post.post;
+export const post = (state: RootState): Matter | Resource =>
+  state.post.post as Matter | Resource;
 export const bests = (state: RootState): State["bests"] => state.post.bests;
-export const activity = (state: RootState): State["activity"] =>
-  state.post.activity;
+export const activity = (state: RootState): Activity =>
+  state.post.activity as Activity;
 
 export default postSlice.reducer;

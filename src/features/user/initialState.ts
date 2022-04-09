@@ -22,7 +22,7 @@ export interface State {
   user: User | unknown;
   selectUser: Company | Person | (Company | Person)[] | unknown;
   token?: string;
-  activity: Activity;
+  activity: Activity | unknown;
 }
 
 export const initialState: State = {
