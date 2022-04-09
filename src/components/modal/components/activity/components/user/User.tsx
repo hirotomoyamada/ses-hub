@@ -19,6 +19,7 @@ interface PropType {
   sort: Sort;
   setting: boolean;
   setSetting: React.Dispatch<React.SetStateAction<boolean>>;
+  setVerification: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const User: React.FC<PropType> = ({
@@ -27,6 +28,7 @@ export const User: React.FC<PropType> = ({
   sort,
   setting,
   setSetting,
+  setVerification,
 }) => {
   const activity = useSelector(userSlice.activity);
 
@@ -38,7 +40,7 @@ export const User: React.FC<PropType> = ({
     </div>
   ) : (
     <div className={styles.activity_inner}>
-      <Setting activity={activity} />
+      <Setting activity={activity} setVerification={setVerification} />
       <Btn setting={setting} setSetting={setSetting} />
     </div>
   );

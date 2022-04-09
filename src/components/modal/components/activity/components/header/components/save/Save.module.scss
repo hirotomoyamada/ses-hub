@@ -32,4 +32,9 @@ $width: responsive-width(pc);
   &:hover {
     opacity: 0.8;
   }
+
+  &_disabled {
+    background: $sub_clr;
+    pointer-events: none;
+  }
 }
