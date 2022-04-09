@@ -24,32 +24,34 @@ export const Color = () => {
         { name: "brown", code: "#b78e49" },
       ];
 
-      const el: (JSX.Element | undefined)[] = types.map((type) => {
-        if (display === type)
-          return (
-            <div key={type} className={styles.wrap}>
-              {colors.map((color, i) => (
-                <div key={i}>
-                  <input
-                    type="radio"
-                    id={`${type}_${color.name}`}
-                    {...register(`color.${type}`)}
-                    value={color.code}
-                    className={`${root.radio}`}
-                  />
-                  <label
-                    className={`${root.radio_color} ${
-                      root[`radio_${color.name}`]
-                    }`}
-                    htmlFor={`${type}_${color.name}`}
-                  ></label>
+      return (
+        <>
+          {types.map((type) => {
+            if (display === type)
+              return (
+                <div key={type} className={styles.wrap}>
+                  {colors.map((color, i) => (
+                    <div key={i}>
+                      <input
+                        type="radio"
+                        id={`${type}_${color.name}`}
+                        {...register(`color.${type}`)}
+                        value={color.code}
+                        className={`${root.radio}`}
+                      />
+                      <label
+                        className={`${root.radio_color} ${
+                          root[`radio_${color.name}`]
+                        }`}
+                        htmlFor={`${type}_${color.name}`}
+                      ></label>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          );
-      });
-
-      return <div>{el}</div>;
+              );
+          })}
+        </>
+      );
     },
     [display]
   );
@@ -58,35 +60,41 @@ export const Color = () => {
     <div className={root.setting_wrap}>
       <p className={root.setting_container_ttl}>カラー</p>
 
-      <div className={`${styles.wrap} ${styles.wrap_display}`}>
-        <button
-          type="button"
-          className={root.btn}
-          style={
-            display === "self"
-              ? { background: color?.self || "#49b657", opacity: 1 }
-              : { background: color?.self || "#49b657", opacity: 0.4 }
-          }
-          onClick={() => setDisplay("self")}
-        >
-          した数
-        </button>
+      <div className={styles.container}>
+        <p className={styles.container_ttl}>現在の色</p>
 
-        <button
-          type="button"
-          className={root.btn}
-          style={
-            display === "others"
-              ? { background: color?.others || "#ff9900", opacity: 1 }
-              : { background: color?.others || "#ff9900", opacity: 0.4 }
-          }
-          onClick={() => setDisplay("others")}
-        >
-          された数
-        </button>
+        <div className={`${styles.wrap} ${styles.wrap_display}`}>
+          <button
+            type="button"
+            className={root.btn}
+            style={
+              display === "self"
+                ? { background: color?.self || "#49b657", opacity: 1 }
+                : { background: color?.self || "#49b657", opacity: 0.4 }
+            }
+            onClick={() => setDisplay("self")}
+          >
+            した数
+          </button>
+
+          <button
+            type="button"
+            className={root.btn}
+            style={
+              display === "others"
+                ? { background: color?.others || "#ff9900", opacity: 1 }
+                : { background: color?.others || "#ff9900", opacity: 0.4 }
+            }
+            onClick={() => setDisplay("others")}
+          >
+            された数
+          </button>
+        </div>
+
+        <p className={styles.container_ttl}>変更する色</p>
+
+        <Palette />
       </div>
-
-      <Palette />
     </div>
   );
 };

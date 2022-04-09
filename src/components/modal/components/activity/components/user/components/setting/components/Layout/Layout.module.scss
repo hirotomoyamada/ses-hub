@@ -3,24 +3,46 @@
 @import "styles/function";
 @import "styles/animation";
 
-.wrap {
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
   background: $base_clr;
   border-radius: 8px;
+  border: 1px solid $bdr_clr;
   padding: 8px;
 
+  @media (max-width: responsive-width(sp)) {
+    padding: 6px;
+  }
+
+  &_ttl {
+    color: $sub_clr;
+    font-size: 14px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+    }
+  }
+}
+
+.wrap {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 
-  border: 1px solid $bdr_clr;
-
   @media (max-width: responsive-width(sp)) {
-    padding: 6px;
     gap: 6px;
   }
 
   &_display {
     grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 8px;
+
+    @media (max-width: responsive-width(sp)) {
+      margin-bottom: 6px;
+    }
   }
 }
 
