@@ -67,6 +67,10 @@ export interface Setting {
     active: string[];
     order: string[];
     layout: "line" | "number" | "none";
+    color: {
+      self: string;
+      others: string;
+    };
   };
 }
 
