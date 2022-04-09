@@ -99,7 +99,7 @@ export const List: React.FC<PropType> = ({
         />
       )}
 
-      {hit?.pages && page < hit?.pages - 1 ? (
+      {hit?.pages && page < hit?.pages ? (
         <Load load={load} page={page} hit={hit} disable={disable} />
       ) : (
         <></>
