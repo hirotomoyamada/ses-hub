@@ -67,6 +67,7 @@ export const verified = (
     }
 
     state.data = action.payload.data;
+    state.setting = action.payload.user.setting;
   } else {
     state.verified = {
       index: false,
@@ -208,4 +209,14 @@ export const setting = (
   } else {
     state.setting = { [type]: payload };
   }
+
+  const updateSetting: HttpsCallable<
+    {
+      type: string;
+      setting: Setting["activity"];
+    },
+    unknown
+  > = httpsCallable(functions, "sh-updateSetting");
+
+  void updateSetting({ type: type, setting: payload });
 };
