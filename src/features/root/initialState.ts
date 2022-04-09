@@ -47,7 +47,7 @@ export type Verified = {
 
 export type Load = {
   root: boolean;
-  list: boolean;
+  pend: boolean;
   fetch: boolean;
   create: boolean;
 };
@@ -115,7 +115,7 @@ export const initialState: State = {
 
   load: {
     root: true,
-    list: false,
+    pend: false,
     fetch: false,
     create: false,
   },
