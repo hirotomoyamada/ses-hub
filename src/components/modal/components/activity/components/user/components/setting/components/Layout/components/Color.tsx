@@ -61,7 +61,7 @@ export const Color = () => {
       <p className={root.setting_container_ttl}>カラー</p>
 
       <div className={styles.container}>
-        <p className={styles.container_ttl}>現在の色</p>
+        <p className={styles.container_ttl}>現在</p>
 
         <div className={`${styles.wrap} ${styles.wrap_display}`}>
           <button
@@ -91,7 +91,7 @@ export const Color = () => {
           </button>
         </div>
 
-        <p className={styles.container_ttl}>変更する色</p>
+        <p className={styles.container_ttl}>変更</p>
 
         <Palette />
       </div>
