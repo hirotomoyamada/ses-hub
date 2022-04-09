@@ -46,7 +46,7 @@ const App: React.FC = () => {
             <Meta />
 
             <load.Root />
-            <load.Fetch />
+            <load.Pending />
             <Announce />
             <NotFound />
             <Limit user={user} />
@@ -63,8 +63,6 @@ const App: React.FC = () => {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/asct" element={<Asct />} />
-
-                <Route path="*" element={<></>} />
 
                 {!access && (
                   <Route path="*" element={<Navigate to="/login" replace />} />
