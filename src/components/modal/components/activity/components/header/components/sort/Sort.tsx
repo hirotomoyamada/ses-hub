@@ -24,7 +24,7 @@ export const Sort: React.FC<PropType> = ({ sort, setSort }) => {
         style={
           sort.self
             ? {
-                background: setting?.activity.color.self || "#49b657",
+                background: setting?.activity?.color.self || "#49b657",
                 borderRadius: "20px 0 0 20px",
                 color: "#FFF",
               }
@@ -43,7 +43,7 @@ export const Sort: React.FC<PropType> = ({ sort, setSort }) => {
         style={
           sort.others
             ? {
-                background: setting?.activity.color.others || "#ff9900",
+                background: setting?.activity?.color.others || "#ff9900",
                 borderRadius: " 0 20px 20px 0",
                 color: "#FFF",
               }

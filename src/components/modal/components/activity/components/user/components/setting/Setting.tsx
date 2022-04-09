@@ -12,7 +12,7 @@ import { Layout } from "./components/layout/Layout";
 import { Activity } from "features/user/initialState";
 import { Setting as SettingType } from "types/user";
 
-export type Data = SettingType["activity"];
+export type Data = Required<SettingType>["activity"];
 
 interface PropType {
   activity: Activity;
@@ -27,7 +27,7 @@ export const Setting: React.FC<PropType> = ({ activity, setVerification }) => {
 
   const methods = useForm<Data>({
     defaultValues: {
-      active: setting?.activity.active || [
+      active: setting?.activity?.active || [
         "posts",
         "histories",
         "likes",
@@ -37,7 +37,7 @@ export const Setting: React.FC<PropType> = ({ activity, setVerification }) => {
         "distributions",
         "approval",
       ],
-      order: setting?.activity.order || [
+      order: setting?.activity?.order || [
         "posts",
         "histories",
         "likes",
@@ -47,10 +47,10 @@ export const Setting: React.FC<PropType> = ({ activity, setVerification }) => {
         "distributions",
         "approval",
       ],
-      layout: setting?.activity.layout || "line",
+      layout: setting?.activity?.layout || "line",
       color: {
-        self: setting?.activity.color.self || "#49b657",
-        others: setting?.activity.color.others || "#ff9900",
+        self: setting?.activity?.color.self || "#49b657",
+        others: setting?.activity?.color.others || "#ff9900",
       },
     },
   });
