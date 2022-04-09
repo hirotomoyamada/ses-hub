@@ -31,7 +31,9 @@ export const Active: React.FC<PropType> = ({ setting, activity }) => {
   const active = watch("active");
 
   useEffect(() => {
-    setValue("order", order);
+    if (order?.length) {
+      setValue("order", order);
+    }
   }, [order]);
 
   useEffect(() => {
