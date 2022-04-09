@@ -85,7 +85,7 @@ export const Sample: React.FC<PropType> = ({ offsetWidth, activity }) => {
           return <></>;
       }
     },
-    [layout, color.self, color.others, width, height, data]
+    [layout, width, height]
   );
 
   return (
