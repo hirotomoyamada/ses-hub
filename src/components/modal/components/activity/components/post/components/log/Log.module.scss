@@ -84,6 +84,10 @@ $width: responsive-width(pc);
     &_display {
       font-weight: bold;
     }
+
+    span {
+      display: inline;
+    }
   }
 
   &_time {
