@@ -9,13 +9,13 @@ import * as functions from "functions";
 import { Activity } from "features/post/initialState";
 
 interface PropType {
-  log: Activity["log"];
+  log?: Activity["log"];
 }
 
 export const Log: React.FC<PropType> = ({ log }) => {
   return (
     <div className={styles.log}>
-      {log.map((user, i) => (
+      {log?.map((user, i) => (
         <Link
           to={`/${user.index}/${user.uid}`}
           target="_blank"
@@ -27,7 +27,8 @@ export const Log: React.FC<PropType> = ({ log }) => {
           <div className={styles.log_wrap}>
             <p className={styles.log_message}>
               <span className={styles.log_message_display}>
-                {user.display}さん&nbsp;
+                {user.display}
+                {user.display !== "自分" ? "さん" : ""}&nbsp;
               </span>
 
               <span>
