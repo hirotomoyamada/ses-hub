@@ -64,8 +64,10 @@ const App: React.FC = () => {
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/asct" element={<Asct />} />
 
-                {!access && (
+                {!access ? (
                   <Route path="*" element={<Navigate to="/login" replace />} />
+                ) : (
+                  <Route path="*" element={<></>} />
                 )}
               </Routes>
             ) : user?.type !== "individual" &&
