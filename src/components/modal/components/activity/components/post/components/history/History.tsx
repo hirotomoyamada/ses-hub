@@ -6,22 +6,28 @@ import CountUp from "react-countup";
 import { Activity } from "features/post/initialState";
 
 interface PropType {
-  total: Activity["total"];
+  total?: Activity["total"];
 }
 
 export const History: React.FC<PropType> = ({ total }) => {
+  const end = !isNaN(Number(total?.histories));
+
   return (
     <div className={styles.history}>
       <p className={styles.history_ttl}>閲覧数</p>
 
-      <CountUp
-        className={styles.history_count}
-        start={0}
-        end={total.histories}
-        separator=","
-        duration={3}
-        useEasing={true}
-      />
+      {end ? (
+        <CountUp
+          className={styles.history_count}
+          start={0}
+          end={total?.histories as number}
+          separator=","
+          duration={3}
+          useEasing={true}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

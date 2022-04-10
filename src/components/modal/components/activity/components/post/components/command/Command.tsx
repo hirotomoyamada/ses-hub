@@ -10,49 +10,40 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { Activity } from "features/post/initialState";
 
 interface PropType {
-  total: Activity["total"];
+  total?: Activity["total"];
 }
 
 export const Command: React.FC<PropType> = ({ total }) => {
+  const Counter = ({ end }: { end: number | undefined }): JSX.Element => {
+    return !isNaN(Number(end)) ? (
+      <CountUp
+        className={styles.command_count}
+        start={0}
+        end={end as number}
+        separator=","
+        duration={3}
+        useEasing={true}
+      />
+    ) : (
+      <></>
+    );
+  };
+
   return (
     <div className={styles.command}>
       <div className={styles.command_wrap}>
         <FavoriteBorderIcon className={styles.command_icon} />
-
-        <CountUp
-          className={styles.command_count}
-          start={0}
-          end={total.likes}
-          separator=","
-          duration={3}
-          useEasing={true}
-        />
+        <Counter end={total?.likes} />
       </div>
 
       <div className={styles.command_wrap}>
         <LaunchIcon className={styles.command_icon} />
-
-        <CountUp
-          className={styles.command_count}
-          start={0}
-          end={total.outputs}
-          separator=","
-          duration={3}
-          useEasing={true}
-        />
+        <Counter end={total?.outputs} />
       </div>
 
       <div className={styles.command_wrap}>
         <CheckCircleOutlineIcon className={styles.command_icon} />
-
-        <CountUp
-          className={styles.command_count}
-          start={0}
-          end={total.entries}
-          separator=","
-          duration={3}
-          useEasing={true}
-        />
+        <Counter end={total?.entries} />
       </div>
     </div>
   );
