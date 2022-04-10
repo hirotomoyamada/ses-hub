@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { functions } from "libs/firebase";
 import { httpsCallable, HttpsCallable } from "firebase/functions";
 import { Matter, Resource, Company, Person } from "types/post";
+import { Activity } from "features/post/initialState";
 
 export interface CreatePost {
   arg: {
@@ -328,6 +329,26 @@ export const promotionPosts = createAsyncThunk(
     > = httpsCallable(functions, "sh-promotionPosts");
 
     const { data } = await promotionPosts(arg);
+
+    return data;
+  }
+);
+
+export interface FetchActivity {
+  arg: { index: "matters" | "resources"; post: Matter | Resource };
+
+  data: Activity;
+}
+
+export const fetchActivity = createAsyncThunk(
+  "post/fetchActivity",
+  async (arg: FetchActivity["arg"]) => {
+    const fetchActivity: HttpsCallable<
+      FetchActivity["arg"],
+      FetchActivity["data"]
+    > = httpsCallable(functions, "sh-fetchPostActivity");
+
+    const { data } = await fetchActivity(arg);
 
     return data;
   }
