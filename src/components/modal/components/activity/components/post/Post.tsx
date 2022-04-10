@@ -35,10 +35,10 @@ export const Post: React.FC<PropType> = ({ index, post }) => {
   return (
     <div className={styles.activity_inner}>
       <Detail index={index} post={post} />
-      <Command total={activity.total} />
-      <History total={activity.total} />
-      <Today today={activity.today} />
-      <Log log={activity.log} />
+      <Command total={activity?.total} />
+      <History total={activity?.total} />
+      <Today today={activity?.today} />
+      <Log log={activity?.log} />
     </div>
   );
 };
