@@ -38,13 +38,13 @@ type Person = {
 
 export type Activity = {
   total: {
-    views: number;
+    histories: number;
     likes: number;
     outputs: number;
     entries: number;
   };
   today: {
-    views: number;
+    histories: number;
     likes: number;
     outputs: number;
     entries: number;
@@ -102,7 +102,7 @@ export interface State {
 
   post: Post.Matter | Post.Resource | unknown;
   bests: Post.Matter[] | Post.Resource[] | Post.Person[];
-  activity: Activity;
+  activity: Activity | unknown;
 }
 
 const posts = {
