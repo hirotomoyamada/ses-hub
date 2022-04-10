@@ -2,10 +2,11 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { auth, functions } from "libs/firebase";
 import { httpsCallable, HttpsCallable } from "firebase/functions";
 
-import { State } from "features/post/initialState";
+import { State, Activity } from "features/post/initialState";
 import { Matter, Resource, Company, Person } from "types/post";
 import { Post } from "features/post/postSlice";
 import { Like, Output, Entry, Request } from "features/user/userSlice";
+
 import {
   CreatePost,
   FetchPost,
@@ -69,6 +70,7 @@ export const resetPost = (
   if (action.type === "post/resetPost" || action.payload === "post") {
     state.post = {};
     state.bests = [];
+    state.activity = {};
 
     return;
   }
@@ -666,4 +668,11 @@ export const addRequest = (
       ...state.entries.persons.posts,
     ];
   }
+};
+
+export const fetchActivity = (
+  state: State,
+  action: PayloadAction<Activity>
+): void => {
+  state.activity = action.payload;
 };

@@ -35,6 +35,9 @@ export const extraReducers = (
   builder.addCase(actions.createPost.fulfilled, (state, action) =>
     reducers.createPost(state, action)
   );
+  builder.addCase(actions.fetchActivity.fulfilled, (state, action) =>
+    reducers.fetchActivity(state, action)
+  );
 
   builder.addMatcher(
     (action: PayloadAction) => action.type.endsWith("/logout"),
