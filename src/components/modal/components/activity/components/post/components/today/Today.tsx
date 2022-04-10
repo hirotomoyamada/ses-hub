@@ -21,7 +21,7 @@ export const Today: React.FC<PropType> = ({ today }) => {
           <CountUp
             className={styles.today_count}
             start={0}
-            end={today.views}
+            end={today.histories}
             separator=","
             duration={3}
             useEasing={true}
