@@ -1,6 +1,7 @@
 // サイト共有の初期設定
 @import "styles/config";
 @import "styles/function";
+@import "styles/animation";
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -49,6 +50,11 @@ $width: responsive-width(pc);
     gap: 16px;
     padding: 0 16px 32px;
 
+    animation-name: fadeIn;
+    animation-duration: 0.7s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+
     @media (max-width: responsive-width(sp)) {
       gap: 12px;
       padding: 0 12px 12px;
@@ -61,5 +67,13 @@ $width: responsive-width(pc);
         gap: 24px;
       }
     }
+  }
+
+  &_fetch {
+    min-height: 100%;
+
+    justify-content: center;
+    align-items: center;
+    padding: 32px 16px;
   }
 }
