@@ -17,7 +17,7 @@ export const Address: React.FC = () => {
   const postal = watch("postal");
   const type = watch("type");
 
-  const [address, loading] = usePostalJp(postal, postal.length >= 7);
+  const [address, loading] = usePostalJp(postal, postal?.length >= 7);
 
   return (
     <div className={root.auth_col}>
