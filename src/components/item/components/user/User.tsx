@@ -1,5 +1,4 @@
 import React from "react";
-import root from "../../Item.module.scss";
 import styles from "./User.module.scss";
 
 import { Handles } from "./handles/Handles";
@@ -11,12 +10,11 @@ import { Company, Person } from "types/post";
 interface PropType {
   post: Company | Person;
   index?: "companys" | "persons";
-  select?: string[];
 }
 
-export const User: React.FC<PropType> = ({ index, post, select }) => {
+export const User: React.FC<PropType> = ({ index, post }) => {
   return (
-    <article className={`${root.item} ${select && root.item_select}`}>
+    <article>
       <div className={styles.user}>
         <Header index={index} post={post} />
         <Handles post={post as Person} />
