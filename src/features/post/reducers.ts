@@ -593,6 +593,38 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
         }
       }
     }
+
+    if (posts === "bests") {
+      if (action.payload.index === "matters") {
+        const post = (state.bests as Matter[]).find(
+          (post: Matter) =>
+            post.objectID === (action.payload.post as Matter).objectID
+        );
+
+        if (post) {
+          if (post.likes) {
+            post.likes += 1;
+          } else {
+            Object.assign(post, { likes: 1 });
+          }
+        }
+      }
+
+      if (action.payload.index === "resources") {
+        const post = (state.bests as Resource[]).find(
+          (post: Resource) =>
+            post.objectID === (action.payload.post as Resource).objectID
+        );
+
+        if (post) {
+          if (post.likes) {
+            post.likes += 1;
+          } else {
+            Object.assign(post, { likes: 1 });
+          }
+        }
+      }
+    }
   });
 };
 
@@ -660,6 +692,30 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
         }
       }
     }
+
+    if (posts === "bests") {
+      if (action.payload.index === "matters") {
+        const post = (state.bests as Matter[]).find(
+          (post: Matter) =>
+            post.objectID === (action.payload.post as Matter).objectID
+        );
+
+        if (post && post.likes) {
+          post.likes -= 1;
+        }
+      }
+
+      if (action.payload.index === "resources") {
+        const post = (state.bests as Resource[]).find(
+          (post: Resource) =>
+            post.objectID === (action.payload.post as Resource).objectID
+        );
+
+        if (post && post.likes) {
+          post.likes -= 1;
+        }
+      }
+    }
   });
 };
 
@@ -700,6 +756,38 @@ export const addOutput = (
 
       if (action.payload.index === "resources") {
         const post = state[posts][action.payload.index].posts.find(
+          (post: Resource) =>
+            post.objectID === (action.payload.post as Resource).objectID
+        );
+
+        if (post) {
+          if (post.outputs) {
+            post.outputs += 1;
+          } else {
+            Object.assign(post, { outputs: 1 });
+          }
+        }
+      }
+    }
+
+    if (posts === "bests") {
+      if (action.payload.index === "matters") {
+        const post = (state.bests as Matter[]).find(
+          (post: Matter) =>
+            post.objectID === (action.payload.post as Matter).objectID
+        );
+
+        if (post) {
+          if (post.outputs) {
+            post.outputs += 1;
+          } else {
+            Object.assign(post, { outputs: 1 });
+          }
+        }
+      }
+
+      if (action.payload.index === "resources") {
+        const post = (state.bests as Resource[]).find(
           (post: Resource) =>
             post.objectID === (action.payload.post as Resource).objectID
         );
@@ -765,6 +853,30 @@ export const removeOutput = (
             (post: Resource) =>
               action.payload.post &&
               post.objectID === action.payload.post.objectID
+          );
+
+          if (post && post.outputs) {
+            post.outputs -= 1;
+          }
+        }
+      }
+
+      if (posts === "bests") {
+        if (action.payload.index === "matters") {
+          const post = (state.bests as Matter[]).find(
+            (post: Matter) =>
+              post.objectID === (action.payload.post as Matter).objectID
+          );
+
+          if (post && post.outputs) {
+            post.outputs -= 1;
+          }
+        }
+
+        if (action.payload.index === "resources") {
+          const post = (state.bests as Resource[]).find(
+            (post: Resource) =>
+              post.objectID === (action.payload.post as Resource).objectID
           );
 
           if (post && post.outputs) {
@@ -861,6 +973,38 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
       if (action.payload.index === "resources") {
         const post = state[posts][action.payload.index].posts.find(
           (post: Resource) => post.objectID === action.payload.post.objectID
+        );
+
+        if (post) {
+          if (post.entries) {
+            post.entries += 1;
+          } else {
+            Object.assign(post, { entries: 1 });
+          }
+        }
+      }
+    }
+
+    if (posts === "bests") {
+      if (action.payload.index === "matters") {
+        const post = (state.bests as Matter[]).find(
+          (post: Matter) =>
+            post.objectID === (action.payload.post as Matter).objectID
+        );
+
+        if (post) {
+          if (post.entries) {
+            post.entries += 1;
+          } else {
+            Object.assign(post, { entries: 1 });
+          }
+        }
+      }
+
+      if (action.payload.index === "resources") {
+        const post = (state.bests as Resource[]).find(
+          (post: Resource) =>
+            post.objectID === (action.payload.post as Resource).objectID
         );
 
         if (post) {
