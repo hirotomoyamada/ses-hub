@@ -8,10 +8,10 @@ import { faTwitterSquare } from "@fortawesome/free-brands-svg-icons";
 import { faInstagramSquare } from "@fortawesome/free-brands-svg-icons";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
-import { Matter, Resource } from "types/post";
+import { Company, Matter, Resource } from "types/post";
 
 interface PropType {
-  user: Matter["user"] | Resource["user"];
+  user: Matter["user"] | Resource["user"] | Company;
   type: "line" | "twitter" | "instagram" | "linkedIn";
   handleEntry: () => void;
 }

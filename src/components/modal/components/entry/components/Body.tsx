@@ -2,10 +2,10 @@ import React from "react";
 import styles from "../Entry.module.scss";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import { Matter, Resource } from "types/post";
+import { Company, Matter, Resource } from "types/post";
 
 interface PropType {
-  user: Matter["user"] | Resource["user"];
+  user: Matter["user"] | Resource["user"] | Company;
   value: string | undefined;
   copy: boolean;
   setValue: React.Dispatch<React.SetStateAction<string | undefined>>;
