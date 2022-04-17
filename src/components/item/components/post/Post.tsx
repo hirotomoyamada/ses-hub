@@ -1,5 +1,3 @@
-import root from "../../Item.module.scss";
-
 import { Header } from "./components/header/Header";
 import { Title } from "./components/title/Title";
 import { Main } from "./components/main/Main";
@@ -24,22 +22,22 @@ export const Post: React.FC<PropType> = ({
   status,
 }) => {
   return (
-    <article className={`${root.item}`}>
+    <article>
       {index === "matters" ? (
-        <div>
+        <>
           <Header post={post} user={user} display={display} status={status} />
           <Title post={post} />
           <Main post={post} />
           <Footer post={post} user={user} />
-        </div>
+        </>
       ) : (
         index === "resources" && (
-          <div>
+          <>
             <Header post={post} user={user} display={display} status={status} />
             <Title post={post} resources />
             <Main post={post} resources />
             <Footer post={post} user={user} />
-          </div>
+          </>
         )
       )}
     </article>
