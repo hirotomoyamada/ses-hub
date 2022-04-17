@@ -102,7 +102,13 @@ export const Operation: React.FC<PropType> = ({
   open && window.addEventListener("scroll", handleOpen);
 
   return (
-    <div className={`${styles.operation} ${item && styles.operation_item}`}>
+    <div
+      className={`
+        ${styles.operation} 
+        ${item && styles.operation_item} 
+        ${sort && styles.operation_sort}
+      `}
+    >
       <button type="button" onClick={handleOpen}>
         {sort ? (
           <FilterListIcon className={styles.operation_filter} />

@@ -6,6 +6,7 @@
 $width: responsive-width(pc);
 
 .entry {
+  margin-top: 32px;
   display: block;
   background: $acnt_clr;
   width: 100%;
@@ -16,6 +17,7 @@ $width: responsive-width(pc);
   text-align: center;
 
   @media (max-width: responsive-width(sp)) {
+    margin-top: 16px;
     line-height: 48px;
     font-size: 12px;
   }

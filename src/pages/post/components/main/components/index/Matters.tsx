@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../../Main.module.scss";
 
-import { Command } from "components/command/Command";
+import { Operation } from "components/operation/Operation";
 
 import { Header } from "../header/Header";
 import { Txt } from "../Txt";
@@ -24,7 +24,7 @@ interface PropType {
 export const Matters: React.FC<PropType> = ({ index, post, user }) => {
   return (
     <div className={styles.main_inner}>
-      <Command index={index} post={post} user={user} back />
+      <Operation index={index} post={post} user={user} back />
 
       <Header post={post} user={user} />
 

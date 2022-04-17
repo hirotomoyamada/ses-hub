@@ -1,23 +1,18 @@
 import React from "react";
 import styles from "../Person.module.scss";
 
-import { Command } from "components/command/Command";
-
 import { Person } from "types/post";
 import { User } from "types/user";
 
 interface PropType {
   user: Person;
-  currentUser: User;
 }
 
-export const Head: React.FC<PropType> = ({ user, currentUser }) => {
+export const Head: React.FC<PropType> = ({ user }) => {
   return (
     <div className={styles.profile_col}>
       <div className={styles.profile_wrap}>
         <h1 className={styles.profile_name}>{user?.profile?.nickName}</h1>
-
-        <Command index="persons" post={user} user={currentUser} person />
       </div>
 
       <div className={styles.profile_wrap}>
