@@ -7,48 +7,44 @@
 $width: responsive-width(pc);
 
 .command {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 9;
-
-  display: flex;
-  gap: 16px;
-
-  animation-name: fadeIn;
-  animation-duration: 0.4s;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-out;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
 
   @media (max-width: responsive-width(sp)) {
-    gap: 8px;
+    gap: 12px;
   }
 
   &_item {
-    top: 26px;
-    right: 32px;
+    margin: 0 24px;
+    padding-bottom: 24px;
 
     @media (max-width: responsive-width(sp)) {
-      top: 16px;
-      right: 12px;
+      margin: 0 12px;
+      padding-bottom: 12px;
     }
   }
 
-  button {
+  &_btn {
     display: flex;
-  }
+    gap: 12px;
+    align-items: center;
 
-  &_person {
-    position: static;
-    margin-right: 2px;
-    margin-left: auto;
+    @media (max-width: responsive-width(sp)) {
+      gap: 8px;
+    }
+
+    &_disabled {
+      pointer-events: none;
+    }
   }
 
   &_icon {
     color: $icn_clr;
+    font-size: 22px !important;
 
     @media (max-width: responsive-width(sp)) {
-      font-size: 20px !important;
+      font-size: 18px !important;
     }
 
     &_like {
@@ -83,6 +79,31 @@ $width: responsive-width(pc);
 
     &_enable {
       color: $add_clr;
+    }
+  }
+
+  &_count {
+    display: block;
+    margin-top: 2px;
+
+    color: $icn_clr;
+    font-size: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      margin-top: 2px;
+      font-size: 12px;
+    }
+
+    &_like {
+      color: $like_clr;
+    }
+
+    &_output {
+      color: $add_clr;
+    }
+
+    &_entry {
+      color: $acnt_clr;
     }
   }
 }
