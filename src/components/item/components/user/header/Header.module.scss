@@ -7,12 +7,12 @@ $width: responsive-width(pc);
 
 .header {
   display: grid;
-  grid-template-columns: 48px 1.5fr 1fr;
+  grid-template-columns: 48px 1fr 120px;
   align-items: center;
   gap: 16px;
 
   @media (max-width: responsive-width(sp)) {
-    grid-template-columns: 40px 1.5fr 1fr;
+    grid-template-columns: 40px 1fr 96px;
     gap: 12px;
   }
 
@@ -42,7 +42,7 @@ $width: responsive-width(pc);
   }
 
   &_ttl {
-    max-width: auto-max(120px);
+    max-width: auto-max(320px);
     font-size: auto-clamp(20px, 24px);
     font-weight: bold;
 
@@ -54,7 +54,7 @@ $width: responsive-width(pc);
 
     @media (max-width: responsive-width(sp)) {
       font-size: 16px;
-      max-width: auto-max(144px);
+      max-width: 144px;
     }
   }
 

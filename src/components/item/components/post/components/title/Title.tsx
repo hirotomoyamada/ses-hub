@@ -12,12 +12,12 @@ export const Title: React.FC<PropType> = ({ post, resources }) => {
   const newPost = post?.createAt > Date.now() - 60 * 60 * 24 * 3 * 1000;
 
   return !resources ? (
-    <div className={styles.title}>
+    <div className={`${styles.title} ${!newPost && styles.title_old}`}>
       <h1 className={styles.title_txt}>{(post as Matter)?.title}</h1>
       {newPost && <span className={styles.title_new}>NEW</span>}
     </div>
   ) : (
-    <div className={styles.title}>
+    <div className={`${styles.title} ${!newPost && styles.title_old}`}>
       <h1 className={styles.title_txt}>
         {(post as Resource)?.roman?.firstName?.substring(0, 1)}&nbsp;.&nbsp;
         {(post as Resource)?.roman?.lastName?.substring(0, 1)}&nbsp;

@@ -7,12 +7,18 @@
 $width: responsive-width(pc);
 
 .operation {
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  &_sort {
+    position: relative;
+  }
 
   &_item {
     position: absolute;
-    top: 34px;
-    right: 32px;
+    top: 26px;
+    right: 24px;
     z-index: 9;
 
     @media (max-width: responsive-width(sp)) {

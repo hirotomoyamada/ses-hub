@@ -10,6 +10,7 @@ import { Entry } from "./components/entry/Entry";
 
 import { Matter, Resource } from "types/post";
 import { User } from "types/user";
+import { Command } from "components/command/Command";
 
 interface PropType {
   index: "matters" | "resources";
@@ -39,6 +40,8 @@ export const Main: React.FC<PropType> = ({
               <Resources index={index} post={post as Resource} user={user} />
             )
           )}
+
+          <Command index={index} user={user} post={post} />
 
           <Entry
             post={post}

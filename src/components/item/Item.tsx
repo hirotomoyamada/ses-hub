@@ -11,6 +11,7 @@ import { Follow } from "components/follow/Follow";
 
 import { Matter, Resource, Company, Person } from "types/post";
 import { User as UserType } from "types/user";
+import { Command } from "components/command/Command";
 
 interface PropType {
   post:
@@ -76,13 +77,13 @@ export const Item: React.FC<PropType> = ({
   return (
     <div
       className={`
-        ${styles.item_outer} 
-        ${!select && styles.item_outer_event} 
+        ${styles.item} 
+        ${select && styles.item_select}
         ${outputs
           ?.map(
             (output) =>
               output.objectID === (post as Matter | Resource).objectID &&
-              styles.item_outer_select
+              styles.item_outputs
           )
           .join(" ")}
       `}
@@ -128,9 +129,18 @@ export const Item: React.FC<PropType> = ({
             />
           </>
         ) : (
-          <User index={index} post={post as Company | Person} select={select} />
+          <User index={index} post={post as Company | Person} />
         )}
       </button>
+
+      {index !== "companys" && !outputs?.[0] && !select && (
+        <Command
+          index={index}
+          post={post as Matter | Resource | Person}
+          user={user}
+          item
+        />
+      )}
     </div>
   );
 };

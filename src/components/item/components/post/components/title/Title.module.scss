@@ -16,6 +16,10 @@ $width: responsive-width(pc);
     margin-bottom: 12px;
   }
 
+  &_old {
+    grid-template-columns: 1fr;
+  }
+
   &_txt {
     overflow: hidden;
     text-overflow: ellipsis;

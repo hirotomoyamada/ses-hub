@@ -38,6 +38,7 @@ $width: responsive-width(pc);
   &_body {
     display: grid;
     grid-template-columns: 1fr;
+    min-height: 100px;
 
     border: 1px solid $bdr_clr;
     padding: 16px;
@@ -54,18 +55,14 @@ $width: responsive-width(pc);
 
     &_txt {
       display: -webkit-box;
-      -webkit-line-clamp: 5;
+      -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
       word-wrap: break-word;
       overflow: hidden;
 
-      @media (max-width: responsive-width(sp)) {
-        -webkit-line-clamp: 5;
-      }
-
       &_company {
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
         overflow: hidden;
         word-wrap: break-word;
