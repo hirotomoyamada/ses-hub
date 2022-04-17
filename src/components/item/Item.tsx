@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "./Item.module.scss";
 
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+
 import { Post } from "./components/post/Post";
 import { User } from "./components/user/User";
-import { Outputs } from "./components/Outputs";
 
-import { Command } from "components/command/Command";
+import { Operation } from "components/operation/Operation";
 import { Follow } from "components/follow/Follow";
 
 import { Matter, Resource, Company, Person } from "types/post";
@@ -42,47 +43,94 @@ export const Item: React.FC<PropType> = ({
   select,
   selectUser,
 }) => {
-  return !outputs?.length ? (
-    <div className={styles.item_outer}>
-      {index !== "companys" && !select && post ? (
-        <Command
-          index={index}
-          post={post as Matter | Resource | Person}
-          user={user}
-          item
-        />
-      ) : (
-        post?.uid !== user.uid && (
-          <Follow
-            user={user}
-            post={post as Company}
-            select={select}
-            selectUser={selectUser}
-          />
-        )
-      )}
+  const handleOpen = () => {
+    if (outputs?.[0]) {
+      outputs.map((output) => {
+        if (output.objectID !== (post as Matter | Resource).objectID) {
+          handleSelect && handleSelect(post as Matter | Resource);
+        } else {
+          handleCancel && handleCancel((post as Matter | Resource).objectID);
+        }
+      });
+    } else {
+      switch (index) {
+        case "matters":
+        case "resources":
+          {
+            const url = `/${index}/${(post as Matter | Resource).objectID}`;
 
-      {index === "matters" || index === "resources" ? (
-        <Post
-          index={index}
-          post={post as Matter | Resource}
-          user={user}
-          status={status}
-          display={display}
-          outputs={outputs}
-        />
-      ) : (
-        <User index={index} post={post as Company | Person} select={select} />
-      )}
+            window.open(url);
+          }
+          break;
+        case "companys":
+        case "persons":
+          {
+            const url = `/${index}/${(post as Company | Person).uid}`;
+            window.open(url);
+          }
+          break;
+      }
+    }
+  };
+
+  return (
+    <div
+      className={`
+        ${styles.item_outer} 
+        ${!select && styles.item_outer_event} 
+        ${outputs
+          ?.map(
+            (output) =>
+              output.objectID === (post as Matter | Resource).objectID &&
+              styles.item_outer_select
+          )
+          .join(" ")}
+      `}
+    >
+      {index !== "companys" && !select
+        ? post?.uid === user.uid &&
+          !outputs?.length && (
+            <Operation
+              index={index as "matters" | "resources"}
+              post={post as Matter | Resource}
+              user={user}
+              item
+            />
+          )
+        : post?.uid !== user.uid && (
+            <Follow
+              user={user}
+              post={post as Company}
+              select={select}
+              selectUser={selectUser}
+            />
+          )}
+
+      <button type="button" className={styles.item_btn} onClick={handleOpen}>
+        {index === "matters" || index === "resources" ? (
+          <>
+            {outputs?.map(
+              (output) =>
+                output.objectID === (post as Matter | Resource).objectID && (
+                  <CheckCircleIcon
+                    key={output.objectID}
+                    className={styles.item_icon}
+                  />
+                )
+            )}
+
+            <Post
+              index={index}
+              post={post as Matter | Resource}
+              user={user}
+              status={status}
+              display={display}
+            />
+          </>
+        ) : (
+          <User index={index} post={post as Company | Person} select={select} />
+        )}
+      </button>
     </div>
-  ) : (
-    <Outputs
-      index={index as "matters" | "resources"}
-      user={user}
-      post={post as Matter | Resource}
-      outputs={outputs}
-      handleSelect={handleSelect}
-      handleCancel={handleCancel}
-    />
   );
 };
