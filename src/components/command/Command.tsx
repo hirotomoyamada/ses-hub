@@ -9,7 +9,9 @@ import AutorenewIcon from "@material-ui/icons/Autorenew";
 
 import { useDispatch } from "react-redux";
 
+import * as rootSlice from "features/root/rootSlice";
 import * as userSlice from "features/user/userSlice";
+import * as postSlice from "features/post/postSlice";
 
 import { Matter, Resource, Person } from "types/post";
 import { User } from "types/user";
@@ -18,15 +20,14 @@ interface PropType {
   post: Matter | Resource | Person;
   user: User;
   index?: "matters" | "resources" | "persons";
-  back?: boolean;
+  item?: boolean;
 }
 
-export const Command: React.FC<PropType> = ({ index, post, user }) => {
+export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
   const dispatch = useDispatch();
 
   const [clickLike, setClickLike] = useState(false);
   const [like, setLike] = useState(false);
-
   const [clickOutput, setClickOutput] = useState(false);
   const [output, setOutput] = useState(false);
   const [entry, setEntry] = useState(false);
@@ -105,73 +106,102 @@ export const Command: React.FC<PropType> = ({ index, post, user }) => {
     }
   };
 
+  const handleEntry = () => {
+    if (user.uid === post.uid) return;
+
+    dispatch(postSlice.selectPost(post as Matter | Resource));
+    dispatch(rootSlice.handleModal({ type: "entry" }));
+  };
+
   return (
-    <>
-      <div className={`${styles.command}`}>
-        {(user?.payment?.status !== "canceled" || post?.uid === user.uid) && (
-          <button onClick={handleLike}>
-            {like ? (
-              <FavoriteIcon
-                className={`${styles.command_icon} ${
-                  styles.command_icon_like
-                } ${clickLike && styles.command_icon_like_click}`}
-              />
-            ) : (
-              <FavoriteBorderIcon className={styles.command_icon} />
-            )}
-
-            {(post as Matter | Resource).likes ? (
-              <span>{(post as Matter | Resource).likes}</span>
-            ) : (
-              <></>
-            )}
-          </button>
-        )}
-
-        {index !== "persons" &&
-          (user?.payment?.status !== "canceled" || post?.uid === user.uid) && (
-            <button onClick={handleOutput}>
-              <LaunchIcon
-                className={`${styles.command_icon} ${
-                  output && styles.command_icon_output
-                }
-                ${clickOutput && styles.command_icon_output_click}`}
-              />
-
-              {(post as Matter | Resource).outputs ? (
-                <span>{(post as Matter | Resource).outputs}</span>
-              ) : (
-                <></>
-              )}
-            </button>
-          )}
-
-        {index !== "persons" ? (
-          <button>
-            <CheckCircleOutlineIcon
-              className={`${styles.command_icon} ${
-                entry && styles.command_icon_entry
+    <div className={`${styles.command} ${item && styles.command_item}`}>
+      {(user?.payment?.status !== "canceled" || post?.uid === user.uid) && (
+        <button onClick={handleLike} className={styles.command_btn}>
+          {like ? (
+            <FavoriteIcon
+              className={`${styles.command_icon} ${styles.command_icon_like} ${
+                clickLike && styles.command_icon_like_click
               }`}
             />
+          ) : (
+            <FavoriteBorderIcon className={styles.command_icon} />
+          )}
 
-            {(post as Matter | Resource).entries ? (
-              <span>{(post as Matter | Resource).entries}</span>
+          {(post as Matter | Resource).likes ? (
+            <span
+              className={`${styles.command_count} ${
+                like && styles.command_count_like
+              }`}
+            >
+              {(post as Matter | Resource).likes}
+            </span>
+          ) : (
+            <></>
+          )}
+        </button>
+      )}
+
+      {index !== "persons" &&
+        (user?.payment?.status !== "canceled" || post?.uid === user.uid) && (
+          <button onClick={handleOutput} className={styles.command_btn}>
+            <LaunchIcon
+              className={`${styles.command_icon} ${
+                output && styles.command_icon_output
+              }
+                ${clickOutput && styles.command_icon_output_click}`}
+            />
+
+            {(post as Matter | Resource).outputs ? (
+              <span
+                className={`${styles.command_count} ${
+                  output && styles.command_count_output
+                }`}
+              >
+                {(post as Matter | Resource).outputs}
+              </span>
             ) : (
               <></>
             )}
           </button>
-        ) : (post as Person).request === "hold" ? (
-          <AutorenewIcon
-            className={`${styles.command_icon} ${styles.command_icon_hold}`}
-          />
-        ) : (
-          (post as Person).request === "enable" && (
-            <CheckCircleOutlineIcon
-              className={`${styles.command_icon} ${styles.command_icon_enable}`}
-            />
-          )
         )}
-      </div>
-    </>
+
+      {index !== "persons" ? (
+        <button
+          onClick={handleEntry}
+          className={`
+            ${styles.command_btn}
+            ${user.uid === post.uid && styles.command_btn_disabled}
+          `}
+        >
+          <CheckCircleOutlineIcon
+            className={`${styles.command_icon} ${
+              entry && styles.command_icon_entry
+            }`}
+          />
+
+          {(post as Matter | Resource).entries ? (
+            <span
+              className={`${styles.command_count} ${
+                entry && styles.command_count_entry
+              }`}
+            >
+              {(post as Matter | Resource).entries}
+            </span>
+          ) : (
+            <></>
+          )}
+        </button>
+      ) : (post as Person).request === "hold" ? (
+        <AutorenewIcon
+          className={`${styles.command_icon} ${styles.command_icon_hold}`}
+        />
+      ) : (
+        (post as Person).request === "enable" && (
+          <CheckCircleOutlineIcon
+            className={`${styles.command_icon} ${styles.command_icon_enable}`}
+          />
+        )
+      )}
+    </div>
   );
 };
