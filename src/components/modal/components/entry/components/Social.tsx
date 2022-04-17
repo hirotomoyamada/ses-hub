@@ -2,10 +2,10 @@ import React from "react";
 import styles from "../Entry.module.scss";
 
 import { Btn } from "./Btn";
-import { Matter, Resource } from "types/post";
+import { Company, Matter, Resource } from "types/post";
 
 interface PropType {
-  user: Matter["user"] | Resource["user"];
+  user: Matter["user"] | Resource["user"] | Company;
   handleEntry: () => void;
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Entry.module.scss";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as userSlice from "features/user/userSlice";
 
 import * as functions from "functions";
@@ -10,7 +10,7 @@ import { Body } from "./components/Body";
 import { Social } from "./components/Social";
 
 import { User } from "types/user";
-import { Matter, Resource } from "types/post";
+import { Matter, Resource, Company } from "types/post";
 
 interface PropType {
   index: "matters" | "resources";
@@ -26,6 +26,7 @@ export const Entry: React.FC<PropType> = ({
   handleClose,
 }) => {
   const dispatch = useDispatch();
+  const selectUser = useSelector(userSlice.selectUser);
   const [value, setValue] = useState<string | undefined>();
   const [copy, setCopy] = useState(false);
 
@@ -73,7 +74,7 @@ export const Entry: React.FC<PropType> = ({
 
       <div className={styles.entry_inner}>
         <Body
-          user={post.user}
+          user={post.user || (selectUser as Company)}
           value={value}
           copy={copy}
           setValue={setValue}
@@ -81,7 +82,10 @@ export const Entry: React.FC<PropType> = ({
           handleEntry={handleEntry}
         />
 
-        <Social user={post.user} handleEntry={handleEntry} />
+        <Social
+          user={post.user || (selectUser as Company)}
+          handleEntry={handleEntry}
+        />
       </div>
     </div>
   );
