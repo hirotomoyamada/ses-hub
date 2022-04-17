@@ -58,6 +58,9 @@ export interface Matter {
       };
     };
   };
+  likes?: number;
+  outputs?: number;
+  entries?: number;
 }
 
 export interface Resource {
@@ -114,6 +117,9 @@ export interface Resource {
       };
     };
   };
+  likes?: number;
+  outputs?: number;
+  entries?: number;
 }
 
 export interface Company {
@@ -179,4 +185,5 @@ export interface Person {
   request?: "enable" | "hold" | "none";
   resume?: string | null;
   status?: string | null;
+  likes?: number;
 }
