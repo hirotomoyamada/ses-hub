@@ -3,19 +3,13 @@ import styles from "./Command.module.scss";
 
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import LaunchIcon from "@material-ui/icons/Launch";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
-import * as rootSlice from "features/root/rootSlice";
-import * as postSlice from "features/post/postSlice";
 import * as userSlice from "features/user/userSlice";
-
-import { Operation } from "components/operation/Operation";
 
 import { Matter, Resource, Person } from "types/post";
 import { User } from "types/user";
@@ -25,22 +19,10 @@ interface PropType {
   user: User;
   index?: "matters" | "resources" | "persons";
   back?: boolean;
-  item?: boolean;
-  person?: boolean;
 }
 
-export const Command: React.FC<PropType> = ({
-  index,
-  post,
-  user,
-  back,
-  item,
-  person,
-}) => {
+export const Command: React.FC<PropType> = ({ index, post, user }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const [open, setOpen] = useState(false);
 
   const [clickLike, setClickLike] = useState(false);
   const [like, setLike] = useState(false);
@@ -86,52 +68,6 @@ export const Command: React.FC<PropType> = ({
     user?.entries,
   ]);
 
-  const handleOpen = () => {
-    setOpen(!open);
-    window.removeEventListener("scroll", handleOpen);
-  };
-
-  const handleVerification = () => {
-    dispatch(
-      rootSlice.handleModal({
-        type: "delete",
-        text: "投稿",
-        delete: () => handleDelete(post as Matter | Resource),
-      })
-    );
-    setOpen(!open);
-  };
-
-  const handleEdit = () => {
-    dispatch(rootSlice.handleModal({ type: "edit" }));
-    dispatch(postSlice.selectPost(post as Matter | Resource));
-    setOpen(!open);
-  };
-
-  const handleDelete = (post: Matter | Resource) => {
-    if (index === "matters" || index === "resources") {
-      dispatch(postSlice.deletePost({ index: index, post: post }));
-      dispatch(rootSlice.handleModal());
-    }
-
-    back && navigate("/search");
-  };
-
-  const handleActivity = () => {
-    if (user?.payment?.status !== "canceled") {
-      dispatch(postSlice.selectPost(post as Matter | Resource));
-      dispatch(
-        rootSlice.handleModal({ type: "activity", meta: { type: "post" } })
-      );
-    } else {
-      dispatch(
-        rootSlice.handleAnnounce({ error: "プランを選択する必要があります" })
-      );
-    }
-
-    setOpen(!open);
-  };
-
   const handleLike = () => {
     if (!like && index) {
       dispatch(userSlice.addLike({ index: index, post: post }));
@@ -171,11 +107,7 @@ export const Command: React.FC<PropType> = ({
 
   return (
     <>
-      <div
-        className={`${styles.command} ${item && styles.command_item} ${
-          person && styles.command_person
-        }`}
-      >
+      <div className={`${styles.command}`}>
         {(user?.payment?.status !== "canceled" || post?.uid === user.uid) && (
           <button onClick={handleLike}>
             {like ? (
@@ -186,6 +118,12 @@ export const Command: React.FC<PropType> = ({
               />
             ) : (
               <FavoriteBorderIcon className={styles.command_icon} />
+            )}
+
+            {(post as Matter | Resource).likes ? (
+              <span>{(post as Matter | Resource).likes}</span>
+            ) : (
+              <></>
             )}
           </button>
         )}
@@ -199,10 +137,30 @@ export const Command: React.FC<PropType> = ({
                 }
                 ${clickOutput && styles.command_icon_output_click}`}
               />
+
+              {(post as Matter | Resource).outputs ? (
+                <span>{(post as Matter | Resource).outputs}</span>
+              ) : (
+                <></>
+              )}
             </button>
           )}
 
-        {(post as Person).request === "hold" ? (
+        {index !== "persons" ? (
+          <button>
+            <CheckCircleOutlineIcon
+              className={`${styles.command_icon} ${
+                entry && styles.command_icon_entry
+              }`}
+            />
+
+            {(post as Matter | Resource).entries ? (
+              <span>{(post as Matter | Resource).entries}</span>
+            ) : (
+              <></>
+            )}
+          </button>
+        ) : (post as Person).request === "hold" ? (
           <AutorenewIcon
             className={`${styles.command_icon} ${styles.command_icon_hold}`}
           />
@@ -212,30 +170,6 @@ export const Command: React.FC<PropType> = ({
               className={`${styles.command_icon} ${styles.command_icon_enable}`}
             />
           )
-        )}
-
-        {entry && (
-          <CheckCircleOutlineIcon
-            className={`${styles.command_icon} ${styles.command_icon_entry}`}
-          />
-        )}
-
-        {post?.uid === user.uid && (
-          <div className={styles.command_cmd}>
-            <button onClick={handleOpen}>
-              <MoreHorizIcon className={styles.command_icon} />
-            </button>
-            {open && (
-              <Operation
-                post
-                open={open}
-                handleVerification={handleVerification}
-                handleEdit={handleEdit}
-                handleActivity={handleActivity}
-                handleOpen={handleOpen}
-              />
-            )}
-          </div>
         )}
       </div>
     </>

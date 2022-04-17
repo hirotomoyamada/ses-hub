@@ -3,7 +3,6 @@ import styles from "./Search.module.scss";
 
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
-import FilterListIcon from "@material-ui/icons/FilterList";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,7 +32,6 @@ export const Search: React.FC<PropType> = ({ index }) => {
 
   const value = watch("value");
 
-  const [open, setOpen] = useState(false);
   const [control, setControl] = useState(false);
 
   useEffect(() => {
@@ -49,23 +47,6 @@ export const Search: React.FC<PropType> = ({ index }) => {
       setControl(false);
     }
   }, [control, value]);
-
-  const handleOpen = (): void => {
-    setOpen(!open);
-    window.removeEventListener("scroll", handleOpen);
-  };
-
-  const handleSortChange = ({
-    target,
-    type,
-  }: {
-    target: string;
-    type: string;
-  }): void => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    dispatch(rootSlice.handleSearch({ target, type }));
-    setOpen(!open);
-  };
 
   const handleSearch: SubmitHandler<Data> = (data): void => {
     if (window.parent.screen.width < 1024) {
@@ -105,25 +86,7 @@ export const Search: React.FC<PropType> = ({ index }) => {
         <CloseIcon className={styles.search_icon} />
       </button>
 
-      {index === "matters" && (
-        <div className={styles.search_cmd}>
-          <button
-            type="button"
-            onClick={handleOpen}
-            className={styles.search_btn}
-          >
-            <FilterListIcon className={styles.search_icon} />
-          </button>
-          {open && (
-            <Operation
-              sort
-              open={open}
-              handleSortChange={handleSortChange}
-              handleOpen={handleOpen}
-            />
-          )}
-        </div>
-      )}
+      {index === "matters" && <Operation sort />}
     </form>
   );
 };
