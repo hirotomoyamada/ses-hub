@@ -25,6 +25,7 @@ $width: responsive-width(pc);
 
   &_icon {
     color: $sub_clr;
+    transition: all 0.4s;
 
     @media (max-width: responsive-width(sp)) {
       font-size: 16px !important;
