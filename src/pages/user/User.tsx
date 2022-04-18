@@ -60,7 +60,6 @@ export const User: React.FC<PropType> = (props) => {
     index.post,
     posts?.length,
     uid,
-    currentUser?.follows,
     sort?.control,
     sort?.status,
     sort?.display,
