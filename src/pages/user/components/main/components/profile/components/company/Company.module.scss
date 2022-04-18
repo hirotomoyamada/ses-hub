@@ -39,6 +39,21 @@ $width: responsive-width(pc);
     gap: 8px;
   }
 
+  &_followed {
+    display: block;
+    padding: 5px 12px;
+    background: $bg_clr;
+    border-radius: 4px;
+
+    color: $icn_clr;
+    font-size: 14px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 10px;
+      padding: 3px 8px;
+    }
+  }
+
   &_icon {
     color: $sub_clr;
     margin-top: 1px;
@@ -80,7 +95,6 @@ $width: responsive-width(pc);
   &_person {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 8px;
 
     @media (max-width: responsive-width(sp)) {
       font-size: 16px;
@@ -88,6 +102,8 @@ $width: responsive-width(pc);
   }
 
   &_name {
+    margin-top: 8px;
+
     @media (max-width: responsive-width(sp)) {
       font-size: 12px;
     }
