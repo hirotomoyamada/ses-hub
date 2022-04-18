@@ -147,7 +147,9 @@ export interface Company {
     };
   };
   createAt: number;
-
+  follows?: number;
+  followers?: number;
+  followed?: number;
   status?: string | null;
 }
 

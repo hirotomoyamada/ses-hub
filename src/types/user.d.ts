@@ -37,13 +37,13 @@ export interface User {
   };
   outputs: { matters: string[]; resources: string[] };
   follows: string[];
+  followers: number;
   home: string[];
   payment: {
     status: string;
     trial: boolean;
     limit: number;
     notice: boolean;
-
     id?: string;
     option?: { freelanceDirect?: boolean };
     link?: string;
