@@ -12,7 +12,11 @@ interface PropType {
 
 export const Header: React.FC<PropType> = ({ index, post }) => {
   return (
-    <div className={styles.header}>
+    <div
+      className={`${styles.header} ${
+        index === "persons" && styles.header_persons
+      }`}
+    >
       <div className={styles.header_icon}>
         <Icon src={post?.icon} />
       </div>

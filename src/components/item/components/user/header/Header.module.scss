@@ -16,6 +16,14 @@ $width: responsive-width(pc);
     gap: 12px;
   }
 
+  &_persons {
+    grid-template-columns: 48px 1fr;
+
+    @media (max-width: responsive-width(sp)) {
+      grid-template-columns: 40px 1fr;
+    }
+  }
+
   &_icon {
     min-width: 48px;
     height: 48px;
@@ -54,7 +62,7 @@ $width: responsive-width(pc);
 
     @media (max-width: responsive-width(sp)) {
       font-size: 16px;
-      max-width: 144px;
+      max-width: 240px;
     }
   }
 
