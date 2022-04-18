@@ -35,6 +35,7 @@ export const login = (
     (state.user as User).createAt = action.payload.user.createAt;
     (state.user as User).updateAt = action.payload.user.updateAt;
     (state.user as User).follows = action.payload.user.follows;
+    (state.user as User).followers = action.payload.user.followers;
     (state.user as User).home = action.payload.user.home;
 
     if (action.payload.user.posts) {
