@@ -13,7 +13,6 @@ import * as userSlice from "../../features/user/userSlice";
 import { Header } from "./components/Header";
 import { Main } from "./components/Main";
 import { Footer } from "./components/Footer";
-import { Company } from "types/post";
 import { User } from "types/user";
 
 export const Success: React.FC = () => {
@@ -25,9 +24,7 @@ export const Success: React.FC = () => {
   const [load, setLoad] = useState<boolean | undefined>(true);
 
   useEffect(() => {
-    const ref = doc(db, "companys", user.uid).withConverter(
-      converter<Company>()
-    );
+    const ref = doc(db, "companys", user.uid).withConverter(converter<User>());
     onSnapshot(ref, (doc) => {
       const { payment } = doc.data() as User;
 

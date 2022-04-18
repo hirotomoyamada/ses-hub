@@ -1,10 +1,11 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { Company, Person } from "types/post";
+import { User } from "types/user";
 
 interface PropType {
   index: "companys" | "persons";
-  user: Company | Person;
+  user: User | Company | Person;
 }
 
 export const Meta: React.FC<PropType> = ({ index, user }) => {
