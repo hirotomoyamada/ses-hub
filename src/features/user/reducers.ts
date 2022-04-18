@@ -475,6 +475,14 @@ export const addFollow = (
     ];
   }
 
+  if ((state.selectUser as Company).uid === action.payload.uid) {
+    if (
+      !isNaN(Number((state.selectUser as Company).followers)) &&
+      (state.selectUser as Company).followers !== null
+    )
+      ((state.selectUser as Company).followers as number) += 1;
+  }
+
   const addFollow: HttpsCallable<string, unknown> = httpsCallable(
     functions,
     "sh-addFollow"
@@ -495,6 +503,14 @@ export const removeFollow = (
     (state.user as User).home = (state.user as User).home.filter(
       (uid) => uid !== action.payload.uid
     );
+  }
+
+  if ((state.selectUser as Company).uid === action.payload.uid) {
+    if (
+      !isNaN(Number((state.selectUser as Company).followers)) &&
+      (state.selectUser as Company).followers !== null
+    )
+      ((state.selectUser as Company).followers as number) -= 1;
   }
 
   const removeFollow: HttpsCallable<string, unknown> = httpsCallable(
