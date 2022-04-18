@@ -11,7 +11,7 @@ import { User } from "types/user";
 
 interface PropType {
   index: "companys" | "persons";
-  user: Post.Company | Post.Person;
+  user: User | Post.Company | Post.Person;
   currentUser: User;
 }
 

@@ -4,9 +4,10 @@ import { Cover } from "components/cover/Cover";
 import { Icon } from "components/icon/Icon";
 
 import { Company, Person } from "types/post";
+import { User } from "types/user";
 
 interface PropType {
-  user: Company | Person;
+  user: User | Company | Person;
 }
 
 export const Header: React.FC<PropType> = ({ user }) => {

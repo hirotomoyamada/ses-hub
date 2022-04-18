@@ -14,7 +14,7 @@ import { User } from "types/user";
 
 interface PropType {
   uid: string;
-  user: Company | Person;
+  user: User | Company | Person;
   currentUser: User;
   index: "companys" | "persons";
   main: React.RefObject<HTMLDivElement>;
@@ -35,7 +35,7 @@ export const Main: React.FC<PropType> = ({
 
           <div className={styles.main_inner}>
             {currentUser.uid === uid ? (
-              <Editor user={user as User} />
+              <Editor user={currentUser} />
             ) : index === "companys" ? (
               <Follow user={currentUser} post={user as Company} profile />
             ) : (

@@ -15,7 +15,7 @@ export const useUser = (
     post?: "matters" | "resources" | "companys" | "persons";
   },
   uid?: string
-): [currentUser: User, user: Company | Person] => {
+): [currentUser: User, user: User | Company | Person] => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
