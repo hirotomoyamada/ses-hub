@@ -14,6 +14,7 @@ import { Payment } from "./components/Payment";
 
 import * as Post from "types/post";
 import { User } from "types/user";
+import { Follow } from "./components/Follow";
 
 interface PropType {
   user: Post.Company;
@@ -45,6 +46,8 @@ export const Company: React.FC<PropType> = ({ user, demo }) => {
         <CreateAt user={user} />
 
         <Social user={user} demo={demo} />
+
+        <Follow user={user as Post.Company | User} />
       </div>
     </div>
   );
