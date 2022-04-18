@@ -167,4 +167,22 @@ $width: responsive-width(pc);
       pointer-events: none;
     }
   }
+
+  &_follow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      margin-top: 8px;
+    }
+
+    &_count {
+      font-weight: bold;
+    }
+
+    &_txt {
+      color: $sub_clr;
+    }
+  }
 }
