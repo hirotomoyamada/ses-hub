@@ -37,6 +37,15 @@ $width: responsive-width(pc);
       height: 160px;
       padding: 24px 0;
     }
+
+    &_disable {
+      height: calc(var(--vh, 1vh) * 100 - 50px);
+
+      @media (max-width: responsive-width(tb)) {
+        height: 160px;
+        padding: 24px 0;
+      }
+    }
   }
 
   &_type {
@@ -44,15 +53,6 @@ $width: responsive-width(pc);
 
     @media (max-width: responsive-width(sp)) {
       height: calc(var(--vh, 1vh) * 100 - 32px);
-    }
-  }
-
-  &_side {
-    height: calc(var(--vh, 1vh) * 100 - 50px);
-
-    @media (max-width: responsive-width(tb)) {
-      height: 160px;
-      padding: 24px 0;
     }
   }
 
@@ -67,21 +67,13 @@ $width: responsive-width(pc);
       height: 160px;
       padding: 24px 0;
     }
-
-    &_side {
-      height: calc(var(--vh, 1vh) * 100 - 59px);
-
-      @media (max-width: responsive-width(tb)) {
-        height: 160px;
-        padding: 24px 0;
-      }
-    }
   }
 
-  &_companys {
+  &_bests {
+    height: calc(var(--vh, 1vh) * 100 - 60px);
+
     @media (max-width: responsive-width(tb)) {
       height: 320px;
-      padding-bottom: 104px;
     }
   }
 }
