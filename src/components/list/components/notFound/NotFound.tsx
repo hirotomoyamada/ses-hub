@@ -33,16 +33,18 @@ export const NotFound: React.FC<PropType> = ({
 }) => {
   const load = useSelector(rootSlice.load).fetch;
 
+  console.log(side, disable);
+
   return (
     <div
       className={`
       ${styles.none} 
       ${type && styles.none_type} 
       ${sort && styles.none_sort} 
-      ${!sort && side && styles.none_side} 
+      ${!sort && side && styles.none_sort_disable} 
       ${select && styles.none_select} 
-      ${disable && styles.none_disable} 
-      ${disable && side && styles.none_bests_companys}`}
+      ${disable && !side && styles.none_disable} 
+      ${disable && side && styles.none_bests}`}
       ref={list}
     >
       {load ? (
