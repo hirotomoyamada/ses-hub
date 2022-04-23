@@ -33,8 +33,6 @@ export const NotFound: React.FC<PropType> = ({
 }) => {
   const load = useSelector(rootSlice.load).fetch;
 
-  console.log(side, disable);
-
   return (
     <div
       className={`
