@@ -6,10 +6,10 @@ import { useFormContext } from "react-hook-form";
 
 import { Data } from "components/modal/components/activity/components/user/components/setting/Setting";
 
-export const Color = () => {
+export const Color: React.FC = () => {
   const [display, setDisplay] = useState("self");
   const { register, watch } = useFormContext<Data>();
-
+  const [open, setOpen] = useState<boolean>(false);
   const color = watch("color");
 
   const Palette: React.VFC = useMemo<React.VFC>(
@@ -61,43 +61,54 @@ export const Color = () => {
 
   return (
     <div className={root.setting_wrap}>
-      <p className={root.setting_container_ttl}>カラー</p>
-
-      <div className={styles.container}>
-        <p className={styles.container_ttl}>現在</p>
-
-        <div className={`${styles.wrap} ${styles.wrap_display}`}>
-          <button
-            type="button"
-            className={root.btn}
-            style={
-              display === "self"
-                ? { background: color?.self || "#49b657", opacity: 1 }
-                : { background: color?.self || "#49b657", opacity: 0.6 }
-            }
-            onClick={() => setDisplay("self")}
-          >
-            した数
-          </button>
-
-          <button
-            type="button"
-            className={root.btn}
-            style={
-              display === "others"
-                ? { background: color?.others || "#ff9900", opacity: 1 }
-                : { background: color?.others || "#ff9900", opacity: 0.6 }
-            }
-            onClick={() => setDisplay("others")}
-          >
-            された数
-          </button>
-        </div>
-
-        <p className={styles.container_ttl}>変更</p>
-
-        <Palette />
+      <div className={styles.header}>
+        <p className={root.setting_container_ttl}>カラー</p>
+        <button
+          type="button"
+          id="color"
+          className={`${root.toggle} ${open && root.toggle_open}`}
+          onClick={() => setOpen(!open)}
+        />
+        <label className={`${root.toggle_label}`} htmlFor="color"></label>
       </div>
+
+      {open && (
+        <div className={styles.container}>
+          <p className={styles.container_ttl}>現在</p>
+
+          <div className={`${styles.wrap} ${styles.wrap_color}`}>
+            <button
+              type="button"
+              className={root.btn}
+              style={
+                display === "self"
+                  ? { background: color?.self || "#49b657", opacity: 1 }
+                  : { background: color?.self || "#49b657", opacity: 0.6 }
+              }
+              onClick={() => setDisplay("self")}
+            >
+              した数
+            </button>
+
+            <button
+              type="button"
+              className={root.btn}
+              style={
+                display === "others"
+                  ? { background: color?.others || "#ff9900", opacity: 1 }
+                  : { background: color?.others || "#ff9900", opacity: 0.6 }
+              }
+              onClick={() => setDisplay("others")}
+            >
+              された数
+            </button>
+          </div>
+
+          <p className={styles.container_ttl}>変更</p>
+
+          <Palette />
+        </div>
+      )}
     </div>
   );
 };

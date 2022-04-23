@@ -211,7 +211,8 @@ $width: responsive-width(pc);
     &:before {
       content: "";
       position: absolute;
-      top: 3px;
+      top: 50%;
+      transform: translateY(-50%);
       left: 3px;
       border-radius: 100%;
       width: 16px;
@@ -222,6 +223,7 @@ $width: responsive-width(pc);
     }
   }
 
+  &_open + &_label,
   &:checked + &_label {
     background: $acnt_clr;
   }
@@ -230,6 +232,7 @@ $width: responsive-width(pc);
     pointer-events: none;
   }
 
+  &_open + &_label:before,
   &:checked + &_label:before {
     left: 17px;
   }
