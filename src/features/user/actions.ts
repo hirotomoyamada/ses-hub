@@ -277,6 +277,11 @@ export const fetchActivity = createAsyncThunk(
 
     const { data } = await fetchActivity(arg);
 
-    return { activity: data, active: arg.active, order: arg.order };
+    return {
+      activity: data,
+      uid: arg.uid,
+      active: arg.active,
+      order: arg.order,
+    };
   }
 );

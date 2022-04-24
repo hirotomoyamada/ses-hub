@@ -125,7 +125,7 @@ export const selectUser = (
   state: RootState
 ): Company | Person | (Company | Person)[] =>
   state.user.selectUser as Company | Person | (Company | Person)[];
-export const activity = (state: RootState): Activity =>
-  state.user.activity as Activity;
+export const activity = (state: RootState): { [key: string]: Activity } =>
+  state.user.activity as { [key: string]: Activity };
 
 export default userSlice.reducer;

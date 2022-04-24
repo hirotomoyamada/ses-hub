@@ -36,6 +36,8 @@ interface Data<T> {
 export const useDnD = <T extends Arg | string>(
   arg: T[]
 ): [data: Data<T>[], map: string[]] => {
+  if (!arg) [];
+
   const [items, setItems] = useState(arg);
 
   const ref = useRef<Ref<T>>({
@@ -188,7 +190,7 @@ export const useDnD = <T extends Arg | string>(
     },
   });
 
-  const data = items.map((data: T): Data<T> => {
+  const data = items?.map((data: T): Data<T> => {
     const key = typeof data !== "string" ? data.key : data;
 
     ref.keys.set(data, key);

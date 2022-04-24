@@ -26,12 +26,12 @@ export interface State {
   user: User | unknown;
   selectUser: Company | Person | (Company | Person)[] | unknown;
   token?: string;
-  activity: Activity | unknown;
+  activity: { [key: string]: Activity | unknown };
 }
 
 export const initialState: State = {
   user: {},
   selectUser: {},
   token: undefined,
-  activity: [],
+  activity: {},
 };
