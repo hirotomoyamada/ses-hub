@@ -15,20 +15,18 @@ interface PropType {
 export const Footer: React.FC<PropType> = ({ setting, span, data }) => {
   return setting?.activity?.layout !== "number" &&
     setting?.activity?.layout !== "none" ? (
-    data?.key !== "distributions" && data?.key !== "approval" ? (
+    data?.key !== "distribution" && data?.key !== "approval" ? (
       <div
         className={`
           ${styles.chart_container} 
           ${styles.chart_container_footer}
         `}
       >
-        <span className={styles.chart_day}>{data?.log[0].label}</span>
         <span className={styles.chart_day}>
-          {span === "total" || span === "day"
-            ? "今日"
-            : span === "week"
-            ? "今週"
-            : "今月"}
+          {data && [...data.log].reverse()[0].label}
+        </span>
+        <span className={styles.chart_day}>
+          {span === "day" ? "今日" : span === "week" ? "今週" : "今月"}
         </span>
       </div>
     ) : (
