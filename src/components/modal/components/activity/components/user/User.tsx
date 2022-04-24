@@ -34,9 +34,9 @@ export const User: React.FC<PropType> = ({
   setSetting,
 }) => {
   const dispatch = useDispatch();
-  const activity = useSelector(userSlice.activity);
-  const fetch = useSelector(rootSlice.load).fetch;
   const [uid, setUid] = useState<string>(user.uid);
+  const activity = useSelector(userSlice.activity)?.[uid];
+  const fetch = useSelector(rootSlice.load).fetch;
   const active = useSelector(rootSlice.setting)?.activity?.active;
   const order = useSelector(rootSlice.setting)?.activity?.order;
 

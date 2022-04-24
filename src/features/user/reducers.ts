@@ -576,33 +576,37 @@ export const updateActivity = (
 ): void => {
   if (action.payload.type !== "activity") return;
 
-  state.activity = action.payload.order
-    .map((key) =>
-      (state.activity as Activity).find((current) => current.key === key)
-    )
-    .map((current) =>
-      current?.key && action.payload.active.indexOf(current?.key) >= 0
-        ? { ...current, active: true }
-        : { ...current, active: false }
-    )
-    .filter((data): data is Activity[number] => data !== undefined);
+  Object.keys(state.activity).forEach((uid) => {
+    state.activity[uid] = action.payload.order
+      .map((key) =>
+        (state.activity[uid] as Activity).find((current) => current.key === key)
+      )
+      .map((current) =>
+        current?.key && action.payload.active.indexOf(current?.key) >= 0
+          ? { ...current, active: true }
+          : { ...current, active: false }
+      )
+      .filter((data): data is Activity[number] => data !== undefined);
+  });
 };
 
 export const fetchActivity = (
   state: State,
   action: PayloadAction<{
     activity: Activity;
+    uid: string;
     active?: string[];
     order?: string[];
   }>
 ): void => {
+  const uid = action.payload.uid;
   const active = action.payload.active;
   const order = action.payload.order;
 
   if (!active || !order) {
-    state.activity = action.payload.activity;
+    state.activity[uid] = action.payload.activity;
   } else {
-    state.activity = order
+    state.activity[uid] = order
       .map((key) =>
         action.payload.activity.find((current) => current.key === key)
       )

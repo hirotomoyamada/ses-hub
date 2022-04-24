@@ -18,19 +18,21 @@ import * as rootSlice from "features/root/rootSlice";
 interface PropType {
   span: Span;
   sort: Sort;
-  activity: Activity;
+  activity?: Activity;
 }
 
 export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
   const [ref, width, height] = useChart();
-  const [updateActivity, setUpdateActivity] = useState<Activity>(activity);
+  const [updateActivity, setUpdateActivity] = useState<Activity>(
+    activity || []
+  );
   const [data] = useDnD<Activity[number]>(updateActivity);
   const setting = useSelector(rootSlice.setting);
 
   useEffect(() => {
     if (setting?.activity?.order) {
       const newActivity = setting.activity.order
-        .map((key) => activity.find((data) => data.key === key))
+        .map((key) => activity?.find((data) => data.key === key))
         .filter((data): data is Activity[number] => data !== undefined);
 
       setUpdateActivity(newActivity);
