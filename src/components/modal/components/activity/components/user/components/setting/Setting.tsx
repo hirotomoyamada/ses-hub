@@ -16,10 +16,9 @@ export type Data = Required<SettingType>["activity"];
 
 interface PropType {
   activity: Activity;
-  setVerification: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Setting: React.FC<PropType> = ({ activity, setVerification }) => {
+export const Setting: React.FC<PropType> = ({ activity }) => {
   const dispatch = useDispatch();
   const setting = useSelector(rootSlice.setting);
   const ref = useRef<HTMLDivElement>(null);
@@ -34,7 +33,7 @@ export const Setting: React.FC<PropType> = ({ activity, setVerification }) => {
         "outputs",
         "entries",
         "follows",
-        "distributions",
+        "distribution",
         "approval",
       ],
       order: setting?.activity?.order || [
@@ -44,7 +43,7 @@ export const Setting: React.FC<PropType> = ({ activity, setVerification }) => {
         "outputs",
         "entries",
         "follows",
-        "distributions",
+        "distribution",
         "approval",
       ],
       layout: setting?.activity?.layout || "line",
@@ -54,33 +53,6 @@ export const Setting: React.FC<PropType> = ({ activity, setVerification }) => {
       },
     },
   });
-
-  const after = methods.getValues();
-
-  useEffect(() => {
-    const before = setting?.activity;
-
-    const differences: { [key: string]: boolean } = {
-      active: before?.active?.length !== after.active.length,
-      order: Boolean(
-        before?.order?.filter((before, i) => after.order[i] !== before).length
-      ),
-      layout: before?.layout !== after.layout,
-      color:
-        before?.color?.self !== after.color.self ||
-        before?.color?.others !== after.color.others,
-    };
-
-    const result = Object.keys(differences).filter(
-      (key) => differences[key]
-    ).length;
-
-    if (result) {
-      setVerification(true);
-    } else {
-      setVerification(false);
-    }
-  }, [after]);
 
   useEffect(() => {
     const current = ref.current;

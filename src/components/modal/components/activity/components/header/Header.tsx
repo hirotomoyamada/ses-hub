@@ -12,7 +12,6 @@ interface PropType {
   span: Activity.Span;
   sort: Activity.Sort;
   setting: boolean;
-  verification: boolean;
   setSpan: React.Dispatch<React.SetStateAction<Activity.Span>>;
   setSort: React.Dispatch<React.SetStateAction<Activity.Sort>>;
   setSetting: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,7 +23,6 @@ export const Header: React.FC<PropType> = ({
   span,
   sort,
   setting,
-  verification,
   setSpan,
   setSort,
   setSetting,
@@ -60,7 +58,7 @@ export const Header: React.FC<PropType> = ({
         </div>
       )}
 
-      {setting && <Save verification={verification} />}
+      {setting && <Save />}
     </div>
   );
 };

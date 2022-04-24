@@ -1,17 +1,9 @@
 import React from "react";
 import styles from "./Save.module.scss";
 
-interface PropType {
-  verification: boolean;
-}
-
-export const Save: React.FC<PropType> = ({ verification }) => {
+export const Save: React.FC = () => {
   return (
-    <button
-      type="submit"
-      className={`${styles.save} ${!verification && styles.save_disabled}`}
-      form="setting"
-    >
+    <button type="submit" className={`${styles.save}`} form="setting">
       保存
     </button>
   );
