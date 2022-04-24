@@ -25,7 +25,11 @@ export const LineChart: React.FC<PropType> = ({
   sort,
 }) => {
   return (
-    <LC width={width} height={height} data={data?.log}>
+    <LC
+      width={width}
+      height={height}
+      data={data ? [...data.log].reverse() : undefined}
+    >
       <XAxis dataKey="label" hide />
 
       <Tooltip
@@ -61,7 +65,7 @@ export const LineChart: React.FC<PropType> = ({
         />
       )}
 
-      {(sample || (sort?.others && data?.others)) && (
+      {(sample || (sort?.others && !isNaN(Number(data?.others)))) && (
         <Line
           type="linear"
           dataKey="others"
