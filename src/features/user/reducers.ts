@@ -587,3 +587,30 @@ export const updateActivity = (
     )
     .filter((data): data is Activity[number] => data !== undefined);
 };
+
+export const fetchActivity = (
+  state: State,
+  action: PayloadAction<{
+    activity: Activity;
+    active?: string[];
+    order?: string[];
+  }>
+): void => {
+  const active = action.payload.active;
+  const order = action.payload.order;
+
+  if (!active || !order) {
+    state.activity = action.payload.activity;
+  } else {
+    state.activity = order
+      .map((key) =>
+        action.payload.activity.find((current) => current.key === key)
+      )
+      .map((current) =>
+        current?.key && active.indexOf(current?.key) >= 0
+          ? { ...current, active: true }
+          : { ...current, active: false }
+      )
+      .filter((data): data is Activity[number] => data !== undefined);
+  }
+};

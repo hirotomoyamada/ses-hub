@@ -12,6 +12,7 @@ import { httpsCallable, HttpsCallable } from "firebase/functions";
 
 import { Company, Person } from "types/post";
 import { User, Data } from "types/user";
+import { Activity } from "features/user/initialState";
 
 export interface Login {
   req: {
@@ -252,5 +253,30 @@ export const fetchUser = createAsyncThunk(
     });
 
     return data;
+  }
+);
+
+export interface FetchActivity {
+  arg: {
+    uid: string;
+    span: "total" | "day" | "week" | "month";
+    active?: string[];
+    order?: string[];
+  };
+
+  data: Activity;
+}
+
+export const fetchActivity = createAsyncThunk(
+  "user/fetchActivity",
+  async (arg: FetchActivity["arg"]) => {
+    const fetchActivity: HttpsCallable<
+      Pick<FetchActivity["arg"], "uid" | "span">,
+      FetchActivity["data"]
+    > = httpsCallable(functions, "sh-fetchUserActivity");
+
+    const { data } = await fetchActivity(arg);
+
+    return { activity: data, active: arg.active, order: arg.order };
   }
 );
