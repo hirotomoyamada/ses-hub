@@ -98,6 +98,7 @@ $width: responsive-width(pc);
   }
 
   &_total {
+    text-align: right;
     font-size: auto-clamp(16px, 24px);
     font-weight: bold;
     letter-spacing: 0.8px;
