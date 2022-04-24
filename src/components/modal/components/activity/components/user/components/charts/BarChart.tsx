@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import styles from "./Charts.module.scss";
 
 import {
   BarChart as BC,
@@ -26,7 +27,17 @@ export const BarChart: React.FC<PropType> = ({
   setting,
   data,
 }) => {
-  return (
+  const [display, setDisplay] = useState<boolean>();
+
+  useEffect(() => {
+    const display = Boolean(data?.log.filter(({ self }) => self).length);
+
+    console.log(display);
+
+    setDisplay(display);
+  }, [data]);
+
+  return display ? (
     <BC
       layout="vertical"
       barGap={8}
@@ -78,5 +89,9 @@ export const BarChart: React.FC<PropType> = ({
         />
       </Bar>
     </BC>
+  ) : (
+    <div style={{ width: width, height: height * 1.3 }} className={styles.none}>
+      <span className={styles.none_txt}>データがありません</span>
+    </div>
   );
 };
