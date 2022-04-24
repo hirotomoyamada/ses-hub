@@ -32,6 +32,10 @@ export const extraReducers = (
     reducers.deleteChild(state, action)
   );
 
+  builder.addCase(actions.fetchActivity.fulfilled, (state, action) =>
+    reducers.fetchActivity(state, action)
+  );
+
   builder.addMatcher(
     (action: PayloadAction) => action.type.endsWith("/createPost/fulfilled"),
     (state, action: PayloadAction<CreatePost["data"]>) =>
