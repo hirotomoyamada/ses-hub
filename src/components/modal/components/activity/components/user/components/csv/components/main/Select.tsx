@@ -186,14 +186,14 @@ export const Select: React.FC<PropType> = ({ all, handleAll }) => {
 
       <input
         type="checkbox"
-        id="distributions"
+        id="distribution"
         {...register("select", {
           required: {
             value: true,
             message: "選択してください",
           },
         })}
-        value="distributions"
+        value="distribution"
         className={`${styles.main_input}`}
       />
       <label
@@ -204,7 +204,7 @@ export const Select: React.FC<PropType> = ({ all, handleAll }) => {
             styles.main_input_label_error
           }
         `}
-        htmlFor="distributions"
+        htmlFor="distribution"
       >
         商流
       </label>

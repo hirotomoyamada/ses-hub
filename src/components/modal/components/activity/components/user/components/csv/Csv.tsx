@@ -60,7 +60,7 @@ export const Csv: React.FC<PropType> = ({ span, sort }) => {
         "outputs",
         "entries",
         "follows",
-        "distributions",
+        "distribution",
         "approval",
       ]);
       methods.clearErrors("select");
