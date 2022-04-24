@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 import { Data } from "components/modal/components/activity/components/user/components/setting/Setting";
 import { Header } from "components/modal/components/activity/components/user/components/charts/Header";
 import { LineChart } from "components/modal/components/activity/components/user/components/charts/LineChart";
-import { Number } from "components/modal/components/activity/components/user/components/charts/Number";
+import { NumberChart } from "components/modal/components/activity/components/user/components/charts/NumberChart";
 import { Footer } from "components/modal/components/activity/components/user/components/charts/Footer";
 
 import { Activity } from "features/user/initialState";
@@ -75,7 +75,7 @@ export const Sample: React.FC<PropType> = ({ offsetWidth, activity }) => {
           );
         case "number":
           return (
-            <Number
+            <NumberChart
               sample
               setting={{ activity: { color: color } }}
               data={data}
