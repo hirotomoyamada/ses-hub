@@ -6,7 +6,7 @@ import { useChart } from "hooks/useChart";
 import { Header } from "./Header";
 import { LineChart } from "./LineChart";
 import { BarChart } from "./BarChart";
-import { Number } from "./Number";
+import { NumberChart } from "./NumberChart";
 import { Footer } from "./Footer";
 
 import { Span, Sort } from "components/modal/components/activity/Activity";
@@ -46,11 +46,11 @@ export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
       ({ data }): JSX.Element => {
         switch (setting?.activity?.layout) {
           case "number":
-            return <Number sort={sort} data={data} setting={setting} />;
+            return <NumberChart sort={sort} data={data} setting={setting} />;
           case "none":
             return <></>;
           default: {
-            if (data.key !== "distributions" && data.key !== "approval") {
+            if (data.key !== "distribution" && data.key !== "approval") {
               return (
                 <LineChart
                   width={width}
@@ -73,7 +73,7 @@ export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
           }
         }
       },
-    [updateActivity, setting, width, height]
+    [updateActivity, setting, width, height, sort]
   );
 
   return (
@@ -82,24 +82,19 @@ export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
         (activity) =>
           activity.data.active &&
           (setting?.activity?.layout !== "none" ||
-            (activity.data.key !== "distributions" &&
+            (activity.data.key !== "distribution" &&
               activity.data.key !== "approval")) &&
           (sort.self ||
             (sort.others &&
               activity.data.key !== "posts" &&
-              activity.data.key !== "distributions" &&
+              activity.data.key !== "distribution" &&
               activity.data.key !== "approval")) && (
             <div
               key={activity.key}
               className={styles.chart}
               {...activity.events}
             >
-              <Header
-                setting={setting}
-                sort={sort}
-                span={span}
-                data={activity.data}
-              />
+              <Header setting={setting} sort={sort} data={activity.data} />
 
               <Chart data={activity.data} />
 
