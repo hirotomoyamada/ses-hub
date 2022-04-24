@@ -151,3 +151,20 @@ $width: responsive-width(pc);
     color: $sub_clr;
   }
 }
+
+.none {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &_txt {
+    color: $sub_clr;
+    font-size: 14px;
+
+    margin-bottom: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      margin-bottom: 12px;
+    }
+  }
+}
