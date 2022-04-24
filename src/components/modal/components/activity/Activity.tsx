@@ -30,7 +30,7 @@ export const Activity: React.FC<PropType> = ({
   type,
   handleClose,
 }) => {
-  const [span, setSpan] = useState<Span>("total");
+  const [span, setSpan] = useState<Span>("day");
   const [sort, setSort] = useState<Sort>({ self: true, others: true });
   const [setting, setSetting] = useState<boolean>(false);
 
