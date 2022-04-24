@@ -32,8 +32,6 @@ export const BarChart: React.FC<PropType> = ({
   useEffect(() => {
     const display = Boolean(data?.log.filter(({ self }) => self).length);
 
-    console.log(display);
-
     setDisplay(display);
   }, [data]);
 
