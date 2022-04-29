@@ -7,10 +7,14 @@ import { Header } from "./components/Header/Header";
 import { Main } from "./components/main/Main";
 import { Footer } from "./components/footer/Footer";
 import { Sort, Span } from "components/modal/components/activity/Activity";
+import { Activity } from "features/user/initialState";
+import { useSelector } from "react-redux";
+import * as rootSlice from "features/root/rootSlice";
 
 interface PropType {
   span: Span;
   sort: Sort;
+  activity?: Activity;
 }
 
 export type Data = {
@@ -20,7 +24,9 @@ export type Data = {
   extension: string;
 };
 
-export const Csv: React.FC<PropType> = ({ span, sort }) => {
+export const Csv: React.FC<PropType> = ({ span, sort, activity }) => {
+  const fetch = useSelector(rootSlice.load).fetch;
+
   const [all, setAll] = useState<boolean>(false);
 
   const methods = useForm<Data>({
@@ -71,7 +77,7 @@ export const Csv: React.FC<PropType> = ({ span, sort }) => {
     console.log(data);
   };
 
-  return (
+  return !fetch && activity?.length ? (
     <FormProvider {...methods}>
       <form
         className={styles.csv}
@@ -82,5 +88,7 @@ export const Csv: React.FC<PropType> = ({ span, sort }) => {
         <Footer />
       </form>
     </FormProvider>
+  ) : (
+    <></>
   );
 };
