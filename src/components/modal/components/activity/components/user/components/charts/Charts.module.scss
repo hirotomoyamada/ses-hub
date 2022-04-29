@@ -10,6 +10,7 @@ $width: responsive-width(pc);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
+  margin-bottom: 32px;
 
   @media (max-width: responsive-width(miniPc)) {
     grid-template-columns: repeat(3, 1fr);
@@ -21,6 +22,21 @@ $width: responsive-width(pc);
   @media (max-width: responsive-width(sp)) {
     grid-template-columns: repeat(1, 1fr);
     gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  &_fetch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    min-height: 480px;
+
+    animation-name: fadeIn;
+    animation-duration: 0.7s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
   }
 }
 

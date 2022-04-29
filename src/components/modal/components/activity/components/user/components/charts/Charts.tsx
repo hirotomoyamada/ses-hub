@@ -8,6 +8,7 @@ import { LineChart } from "./LineChart";
 import { BarChart } from "./BarChart";
 import { NumberChart } from "./NumberChart";
 import { Footer } from "./Footer";
+import { Audio } from "react-loader-spinner";
 
 import { Span, Sort } from "components/modal/components/activity/Activity";
 import { useDnD } from "hooks/useDnd";
@@ -22,6 +23,7 @@ interface PropType {
 }
 
 export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
+  const fetch = useSelector(rootSlice.load).fetch;
   const [ref, width, height] = useChart();
   const [updateActivity, setUpdateActivity] = useState<Activity>(
     activity || []
@@ -37,7 +39,7 @@ export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
 
       setUpdateActivity(newActivity);
     }
-  }, [setting?.activity]);
+  }, [fetch, setting?.activity]);
 
   const Chart: React.VFC<{
     data: Activity[number];
@@ -75,35 +77,44 @@ export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
           }
         }
       },
-    [updateActivity, setting, width, height, sort]
+    [updateActivity, setting, width, height, sort, fetch]
   );
 
-  return (
+  return !fetch ? (
     <div className={styles.charts} ref={ref}>
-      {data.map(
-        (activity) =>
-          activity.data.active &&
-          (setting?.activity?.layout !== "none" ||
-            (activity.data.key !== "distribution" &&
-              activity.data.key !== "approval")) &&
-          (sort.self ||
-            (sort.others &&
-              activity.data.key !== "posts" &&
-              activity.data.key !== "distribution" &&
-              activity.data.key !== "approval")) && (
-            <div
-              key={activity.key}
-              className={styles.chart}
-              {...activity.events}
-            >
-              <Header setting={setting} sort={sort} data={activity.data} />
+      {data.map((activity) => {
+        if (!activity.data.active) return <></>;
 
-              <Chart data={activity.data} />
+        if (
+          setting?.activity?.layout === "none" &&
+          (activity.data.key === "distribution" ||
+            activity.data.key === "approval")
+        )
+          return <></>;
 
-              <Footer setting={setting} span={span} data={activity.data} />
-            </div>
-          )
-      )}
+        if (
+          !sort.self &&
+          sort.others &&
+          (activity.data.key === "posts" ||
+            activity.data.key === "distribution" ||
+            activity.data.key === "approval")
+        )
+          return <></>;
+
+        return (
+          <div key={activity.key} className={styles.chart} {...activity.events}>
+            <Header setting={setting} sort={sort} data={activity.data} />
+
+            <Chart data={activity.data} />
+
+            <Footer setting={setting} span={span} data={activity.data} />
+          </div>
+        );
+      })}
+    </div>
+  ) : (
+    <div className={`${styles.charts_fetch}`}>
+      <Audio color="#49b757" height={48} width={48} />
     </div>
   );
 };
