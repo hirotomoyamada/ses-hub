@@ -61,11 +61,7 @@ $width: responsive-width(pc);
     }
 
     &_user {
-      gap: 32px;
-
-      @media (max-width: responsive-width(sp)) {
-        gap: 24px;
-      }
+      gap: 0;
     }
   }
 
