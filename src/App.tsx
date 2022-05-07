@@ -35,7 +35,7 @@ import { Contact } from "pages/contact/Contact";
 import { User } from "pages/user/User";
 import { Post } from "pages/post/Post";
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   const [user, access, support] = useApp();
 
   switch (support) {
@@ -54,87 +54,112 @@ const App: React.FC = () => {
             <Modal />
             <Menu user={user} />
 
-            {!user?.uid ? (
-              <Routes>
-                <Route index element={<Promotion />} />
-                <Route path="/login" element={<Auth />} />
-                <Route path="/signup" element={<Auth />} />
+            {(() => {
+              switch (true) {
+                case !user?.uid:
+                  return (
+                    <Routes>
+                      <Route index element={<Promotion />} />
+                      <Route path="/login" element={<Auth />} />
+                      <Route path="/signup" element={<Auth />} />
 
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/asct" element={<Asct />} />
+                      <Route path="/contact" element={<Contact />} />
+                      <Route path="/terms" element={<Terms />} />
+                      <Route path="/asct" element={<Asct />} />
 
-                {!access ? (
-                  <Route path="*" element={<Navigate to="/login" replace />} />
-                ) : (
-                  <Route path="*" element={<></>} />
-                )}
-              </Routes>
-            ) : user?.type !== "individual" &&
-              user?.payment?.status === "canceled" ? (
-              <Routes>
-                <Route index element={<Navigate to="/setting" replace />} />
-                <Route path="/setting" element={<Setting />} />
+                      {!access ? (
+                        <Route
+                          path="*"
+                          element={<Navigate to="/login" replace />}
+                        />
+                      ) : (
+                        <Route path="*" element={<></>} />
+                      )}
+                    </Routes>
+                  );
 
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/asct" element={<Asct />} />
-                <Route path="/howto" element={<HowTo />} />
+                case user?.type !== "individual" &&
+                  user?.payment?.status === "canceled":
+                  return (
+                    <Routes>
+                      <Route
+                        index
+                        element={<Navigate to="/setting" replace />}
+                      />
+                      <Route path="/setting" element={<Setting />} />
 
-                <Route path="/plan" element={<Pay />} />
-                <Route path="/account" element={<Account />} />
-                <Route path="/success" element={<Success />} />
+                      <Route path="/terms" element={<Terms />} />
+                      <Route path="/asct" element={<Asct />} />
+                      <Route path="/howto" element={<HowTo />} />
 
-                <Route path="*" element={<Navigate to="/plan" replace />} />
-              </Routes>
-            ) : (
-              <Routes>
-                <Route path="/login" element={<Navigate to="/" replace />} />
-                <Route path="/signup" element={<Navigate to="/" replace />} />
+                      <Route path="/plan" element={<Pay />} />
+                      <Route path="/account" element={<Account />} />
+                      <Route path="/success" element={<Success />} />
 
-                <Route index element={<Home />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/home/:index" element={<Home />} />
-                <Route path="/search" element={<Search />} />
-                <Route path="/search/:index" element={<Search />} />
-                <Route path="/setting" element={<Setting />} />
-                <Route path="/account" element={<Account />} />
+                      <Route
+                        path="*"
+                        element={<Navigate to="/plan" replace />}
+                      />
+                    </Routes>
+                  );
 
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/asct" element={<Asct />} />
-                <Route path="/howto" element={<HowTo />} />
+                default:
+                  return (
+                    <Routes>
+                      <Route
+                        path="/login"
+                        element={<Navigate to="/" replace />}
+                      />
+                      <Route
+                        path="/signup"
+                        element={<Navigate to="/" replace />}
+                      />
 
-                <Route path="/plan" element={<Pay />} />
-                <Route path="/success" element={<Success />} />
+                      <Route index element={<Home />} />
+                      <Route path="/home" element={<Home />} />
+                      <Route path="/home/:index" element={<Home />} />
+                      <Route path="/search" element={<Search />} />
+                      <Route path="/search/:index" element={<Search />} />
+                      <Route path="/setting" element={<Setting />} />
+                      <Route path="/account" element={<Account />} />
 
-                <Route
-                  path="/companys/:uid"
-                  element={<User index="companys" />}
-                />
-                <Route
-                  path="/persons/:uid"
-                  element={<User index="persons" />}
-                />
-                <Route
-                  path="/matters/:objectID"
-                  element={<Post index="matters" />}
-                />
-                <Route
-                  path="/resources/:objectID"
-                  element={<Post index="resources" />}
-                />
+                      <Route path="/terms" element={<Terms />} />
+                      <Route path="/asct" element={<Asct />} />
+                      <Route path="/howto" element={<HowTo />} />
 
-                <Route path="/:list" element={<List />} />
-                <Route path="/:list/:index" element={<List />} />
+                      <Route path="/plan" element={<Pay />} />
+                      <Route path="/success" element={<Success />} />
 
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            )}
+                      <Route
+                        path="/companys/:uid"
+                        element={<User index="companys" />}
+                      />
+                      <Route
+                        path="/persons/:uid"
+                        element={<User index="persons" />}
+                      />
+                      <Route
+                        path="/matters/:objectID"
+                        element={<Post index="matters" />}
+                      />
+                      <Route
+                        path="/resources/:objectID"
+                        element={<Post index="resources" />}
+                      />
+
+                      <Route path="/:list" element={<List />} />
+                      <Route path="/:list/:index" element={<List />} />
+
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  );
+              }
+            })()}
           </BrowserRouter>
         </HelmetProvider>
       );
+
     default:
       return <NotSupported />;
   }
 };
-
-export default App;

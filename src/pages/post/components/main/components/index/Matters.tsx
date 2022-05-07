@@ -47,7 +47,6 @@ export const Matters: React.FC<PropType> = ({ index, post, user }) => {
       <Txt
         tag="場所"
         txt={{ area: post?.location?.area, place: post?.location?.place }}
-        location
       />
 
       <Txt tag="リモート" txt={post?.remote} />

@@ -2,7 +2,6 @@ import React from "react";
 import styles from "../Person.module.scss";
 
 import { Person } from "types/post";
-import { User } from "types/user";
 
 interface PropType {
   user: Person;
