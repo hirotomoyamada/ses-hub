@@ -31,7 +31,7 @@ export const extraReducers = (
       state,
       action: ArgAction<{
         index?: "matters" | "resources" | "companys" | "persons";
-        fetch?: boolean;
+        pend?: boolean;
       }>
     ) => {
       if (action.type.includes("/login/")) {
@@ -51,7 +51,7 @@ export const extraReducers = (
       if (action.type.includes("/fetchPost/") && action.meta.arg.index)
         state.index = action.meta.arg.index;
 
-      if (action.meta.arg.fetch) {
+      if (action.meta.arg.pend) {
         state.load.pend = true;
 
         return;
@@ -64,8 +64,6 @@ export const extraReducers = (
         action.type.includes("/deleteChild")
       ) {
         state.load.create = true;
-      } else {
-        state.load.fetch = true;
       }
     }
   );

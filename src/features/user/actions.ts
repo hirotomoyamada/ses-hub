@@ -57,7 +57,7 @@ export interface CreateProfile {
     tel: string;
     agree: string;
     provider: string;
-    fetch: boolean;
+    pend: boolean;
   };
 
   data: {

@@ -134,7 +134,7 @@ export interface FetchPosts {
     value?: string;
     type?: string;
     page?: number;
-    fetch?: boolean;
+    pend?: boolean;
   };
 
   data: {
@@ -234,7 +234,7 @@ export interface HomePosts {
     index: "matters" | "resources";
     follows: string[];
     page?: number;
-    fetch?: boolean;
+    pend?: boolean;
   };
 
   data: {
