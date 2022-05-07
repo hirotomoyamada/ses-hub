@@ -64,6 +64,8 @@ export const extraReducers = (
         action.type.includes("/deleteChild")
       ) {
         state.load.create = true;
+      } else {
+        state.load.fetch = true;
       }
     }
   );
