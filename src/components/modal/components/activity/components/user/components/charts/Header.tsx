@@ -3,7 +3,7 @@ import styles from "./Charts.module.scss";
 
 import CountUp from "react-countup";
 
-import { Span, Sort } from "components/modal/components/activity/Activity";
+import { Sort } from "components/modal/components/activity/Activity";
 import { Activity } from "features/user/initialState";
 import { Setting } from "types/user";
 import { NestedPartial } from "types/utils";
