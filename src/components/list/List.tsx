@@ -14,7 +14,11 @@ import { Search, Sort } from "features/root/initialState";
 interface PropType {
   user: User;
   index?: "matters" | "resources" | "companys" | "persons";
-  posts?: Matter[] | Resource[] | Company[] | Person[];
+  posts?:
+    | (Matter | undefined)[]
+    | (Resource | undefined)[]
+    | (Company | undefined)[]
+    | (Person | undefined)[];
   hit?: {
     posts: number;
     pages: number;

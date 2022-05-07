@@ -1,7 +1,7 @@
 import * as Post from "types/post";
 
 type Matter = {
-  posts: Post.Matter[];
+  posts: (Post.Matter | undefined)[];
   hit: {
     posts: number;
     pages: number;
@@ -10,7 +10,7 @@ type Matter = {
 };
 
 type Resource = {
-  posts: Post.Resource[];
+  posts: (Post.Resource | undefined)[];
   hit: {
     posts: number;
     pages: number;
@@ -19,7 +19,7 @@ type Resource = {
 };
 
 type Company = {
-  posts: Post.Company[];
+  posts: (Post.Company | undefined)[];
   hit: {
     posts: number;
     pages: number;
@@ -28,7 +28,7 @@ type Company = {
 };
 
 type Person = {
-  posts: Post.Person[];
+  posts: (Post.Person | undefined)[];
   hit: {
     posts: number;
     pages: number;
@@ -101,7 +101,10 @@ export interface State {
   };
 
   post: Post.Matter | Post.Resource | unknown;
-  bests: Post.Matter[] | Post.Resource[] | Post.Person[];
+  bests:
+    | (Post.Matter | undefined)[]
+    | (Post.Resource | undefined)[]
+    | (Post.Person | undefined)[];
   activity: Activity | unknown;
 }
 

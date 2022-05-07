@@ -33,14 +33,14 @@ export const createPost = (
       state.user[action.payload.index].posts = [
         action.payload.post,
         ...state.user[action.payload.index].posts,
-      ] as Matter[] | Resource[];
+      ] as (Matter | undefined)[] | (Resource | undefined)[];
     }
   } else if (action.payload.post.display === "public") {
     if (state[action.payload.page][action.payload.index].posts.length) {
       state[action.payload.page][action.payload.index].posts = [
         action.payload.post,
         ...state[action.payload.page][action.payload.index].posts,
-      ] as Matter[] | Resource[];
+      ] as (Matter | undefined)[] | (Resource | undefined)[];
     }
   }
 };
@@ -159,8 +159,7 @@ export const editPost = (state: State, action: PayloadAction<Post>): void => {
             state[posts][action.payload.index].posts = state[posts][
               action.payload.index
             ].posts.filter(
-              (post: Matter) =>
-                post && post?.objectID !== action.payload.post.objectID
+              (post) => post?.objectID !== action.payload.post.objectID
             );
           }
 
@@ -168,8 +167,7 @@ export const editPost = (state: State, action: PayloadAction<Post>): void => {
             state[posts][action.payload.index].posts = state[posts][
               action.payload.index
             ].posts.filter(
-              (post: Resource) =>
-                post && post?.objectID !== action.payload.post.objectID
+              (post) => post?.objectID !== action.payload.post.objectID
             );
           }
         }
@@ -195,7 +193,7 @@ export const editPost = (state: State, action: PayloadAction<Post>): void => {
     ) {
       if (action.payload.index === "matters") {
         const post = state[posts][action.payload.index].posts.find(
-          (post: Matter) => post.objectID === action.payload.post.objectID
+          (post) => post?.objectID === action.payload.post.objectID
         );
 
         if (post) {
@@ -226,7 +224,7 @@ export const editPost = (state: State, action: PayloadAction<Post>): void => {
 
       if (action.payload.index === "resources") {
         const post = state[posts][action.payload.index].posts.find(
-          (post: Resource) => post.objectID === action.payload.post.objectID
+          (post) => post?.objectID === action.payload.post.objectID
         );
 
         if (post) {
@@ -328,7 +326,7 @@ export const deletePost = (state: State, action: PayloadAction<Post>): void => {
         state[posts][action.payload.index].posts = state[posts][
           action.payload.index
         ].posts.filter(
-          (post: Matter) => post?.objectID !== action.payload.post.objectID
+          (post) => post?.objectID !== action.payload.post.objectID
         );
       }
 
@@ -336,7 +334,7 @@ export const deletePost = (state: State, action: PayloadAction<Post>): void => {
         state[posts][action.payload.index].posts = state[posts][
           action.payload.index
         ].posts.filter(
-          (post: Resource) => post?.objectID !== action.payload.post.objectID
+          (post) => post?.objectID !== action.payload.post.objectID
         );
       }
     }
@@ -364,7 +362,11 @@ export const fetchPosts = (
     state.search[action.payload.index].posts = [
       ...state.search[action.payload.index].posts,
       ...action.payload.posts,
-    ] as Matter[] | Resource[] | Company[] | Person[];
+    ] as
+      | (Matter | undefined)[]
+      | (Resource | undefined)[]
+      | (Company | undefined)[]
+      | (Person | undefined)[];
   } else {
     state.search[action.payload.index].posts = action.payload.posts;
   }
@@ -393,7 +395,10 @@ export const extractPosts = (
       state[action.payload.type][action.payload.index].posts = [
         ...state[action.payload.type][action.payload.index].posts,
         ...action.payload.posts,
-      ] as Matter[] | Resource[] | Person[];
+      ] as
+        | (Matter | undefined)[]
+        | (Resource | undefined)[]
+        | (Person | undefined)[];
     }
 
     if (
@@ -404,7 +409,7 @@ export const extractPosts = (
       state[action.payload.type][action.payload.index].posts = [
         ...state[action.payload.type][action.payload.index].posts,
         ...action.payload.posts,
-      ] as Matter[] | Resource[];
+      ] as (Matter | undefined)[] | (Resource | undefined)[];
     }
   } else {
     if (action.payload.type === "likes" || action.payload.type === "entries") {
@@ -418,7 +423,7 @@ export const extractPosts = (
         action.payload.index === "resources")
     ) {
       state[action.payload.type][action.payload.index].posts = action.payload
-        .posts as Matter[] | Resource[];
+        .posts as (Matter | undefined)[] | (Resource | undefined)[];
     }
   }
 
@@ -450,7 +455,7 @@ export const homePosts = (
     state.home[action.payload.index].posts = [
       ...state.home[action.payload.index].posts,
       ...action.payload.posts,
-    ] as Matter[] | Resource[];
+    ] as (Matter | undefined)[] | (Resource | undefined)[];
   } else {
     state.home[action.payload.index].posts = action.payload.posts;
 
@@ -481,7 +486,10 @@ export const userPosts = (
         state.user[action.payload.index].posts = [
           ...state.user[action.payload.index].posts,
           ...action.payload.posts,
-        ] as Matter[] | Resource[] | Company[];
+        ] as
+          | (Matter | undefined)[]
+          | (Resource | undefined)[]
+          | (Company | undefined)[];
       } else if (
         action.payload.index === "matters" ||
         action.payload.index === "resources"
@@ -489,7 +497,7 @@ export const userPosts = (
         state.selectUser[action.payload.index].posts = [
           ...state.selectUser[action.payload.index].posts,
           ...action.payload.posts,
-        ] as Matter[] | Resource[];
+        ] as (Matter | undefined)[] | (Resource | undefined)[];
       }
     } else {
       if (auth.currentUser.uid === action.payload.uid) {
@@ -499,8 +507,8 @@ export const userPosts = (
         action.payload.index === "resources"
       ) {
         state.selectUser[action.payload.index].posts = action.payload.posts as
-          | Matter[]
-          | Resource[];
+          | (Matter | undefined)[]
+          | (Resource | undefined)[];
       }
     }
 
@@ -535,7 +543,10 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
     state.likes[action.payload.index].posts = [
       action.payload.post,
       ...state.likes[action.payload.index].posts,
-    ] as Matter[] | Resource[] | Person[];
+    ] as
+      | (Matter | undefined)[]
+      | (Resource | undefined)[]
+      | (Person | undefined)[];
   }
 
   Object.keys(state).forEach((posts): void => {
@@ -549,8 +560,7 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
     ) {
       if (action.payload.index === "matters") {
         const post = state[posts][action.payload.index].posts.find(
-          (post: Matter) =>
-            post.objectID === (action.payload.post as Matter).objectID
+          (post) => post?.objectID === (action.payload.post as Matter).objectID
         );
 
         if (post) {
@@ -564,8 +574,8 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
 
       if (action.payload.index === "resources") {
         const post = state[posts][action.payload.index].posts.find(
-          (post: Resource) =>
-            post.objectID === (action.payload.post as Resource).objectID
+          (post) =>
+            post?.objectID === (action.payload.post as Resource).objectID
         );
 
         if (post) {
@@ -580,7 +590,7 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
       if (action.payload.index === "persons") {
         if (posts === "likes" || posts === "entries") {
           const post = state[posts][action.payload.index].posts.find(
-            (post: Person) => post.uid === action.payload.post.uid
+            (post) => post?.uid === action.payload.post.uid
           );
 
           if (post) {
@@ -596,9 +606,8 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
 
     if (posts === "bests") {
       if (action.payload.index === "matters") {
-        const post = (state.bests as Matter[]).find(
-          (post: Matter) =>
-            post.objectID === (action.payload.post as Matter).objectID
+        const post = (state.bests as (Matter | undefined)[]).find(
+          (post) => post?.objectID === (action.payload.post as Matter).objectID
         );
 
         if (post) {
@@ -611,9 +620,9 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
       }
 
       if (action.payload.index === "resources") {
-        const post = (state.bests as Resource[]).find(
-          (post: Resource) =>
-            post.objectID === (action.payload.post as Resource).objectID
+        const post = (state.bests as (Resource | undefined)[]).find(
+          (post) =>
+            post?.objectID === (action.payload.post as Resource).objectID
         );
 
         if (post) {
@@ -631,21 +640,19 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
 export const removeLike = (state: State, action: PayloadAction<Like>): void => {
   if (action.payload.index === "matters") {
     state.likes.matters.posts = state.likes.matters.posts.filter(
-      (post) =>
-        post && post.objectID !== (action.payload?.post as Matter).objectID
+      (post) => post?.objectID !== (action.payload?.post as Matter).objectID
     );
   }
 
   if (action.payload.index === "resources") {
     state.likes.resources.posts = state.likes.resources.posts.filter(
-      (post) =>
-        post && post.objectID !== (action.payload?.post as Resource).objectID
+      (post) => post?.objectID !== (action.payload?.post as Resource).objectID
     );
   }
 
   if (action.payload.index === "persons") {
     state.likes.persons.posts = state.likes.persons.posts.filter(
-      (post) => post && post.uid !== (action.payload?.post as Person).uid
+      (post) => post?.uid !== (action.payload?.post as Person).uid
     );
   }
 
@@ -660,8 +667,7 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
     ) {
       if (action.payload.index === "matters") {
         const post = state[posts][action.payload.index].posts.find(
-          (post: Matter) =>
-            post.objectID === (action.payload.post as Matter).objectID
+          (post) => post?.objectID === (action.payload.post as Matter).objectID
         );
 
         if (post && post.likes) {
@@ -671,8 +677,8 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
 
       if (action.payload.index === "resources") {
         const post = state[posts][action.payload.index].posts.find(
-          (post: Resource) =>
-            post.objectID === (action.payload.post as Resource).objectID
+          (post) =>
+            post?.objectID === (action.payload.post as Resource).objectID
         );
 
         if (post && post.likes) {
@@ -683,7 +689,7 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
       if (action.payload.index === "persons") {
         if (posts === "likes" || posts === "entries") {
           const post = state[posts][action.payload.index].posts.find(
-            (post: Person) => post.uid === action.payload.post.uid
+            (post) => post?.uid === action.payload.post.uid
           );
 
           if (post && post.likes) {
@@ -695,9 +701,8 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
 
     if (posts === "bests") {
       if (action.payload.index === "matters") {
-        const post = (state.bests as Matter[]).find(
-          (post: Matter) =>
-            post.objectID === (action.payload.post as Matter).objectID
+        const post = (state.bests as (Matter | undefined)[]).find(
+          (post) => post?.objectID === (action.payload.post as Matter).objectID
         );
 
         if (post && post.likes) {
@@ -706,9 +711,9 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
       }
 
       if (action.payload.index === "resources") {
-        const post = (state.bests as Resource[]).find(
-          (post: Resource) =>
-            post.objectID === (action.payload.post as Resource).objectID
+        const post = (state.bests as (Resource | undefined)[]).find(
+          (post) =>
+            post?.objectID === (action.payload.post as Resource).objectID
         );
 
         if (post && post.likes) {
@@ -727,7 +732,7 @@ export const addOutput = (
     state.outputs[action.payload.index].posts = [
       action.payload?.post,
       ...state.outputs[action.payload.index].posts,
-    ] as Matter[] | Resource[];
+    ] as (Matter | undefined)[] | (Resource | undefined)[];
   }
 
   Object.keys(state).forEach((posts): void => {
@@ -741,8 +746,7 @@ export const addOutput = (
     ) {
       if (action.payload.index === "matters") {
         const post = state[posts][action.payload.index].posts.find(
-          (post: Matter) =>
-            post.objectID === (action.payload.post as Matter).objectID
+          (post) => post?.objectID === (action.payload.post as Matter).objectID
         );
 
         if (post) {
@@ -756,8 +760,8 @@ export const addOutput = (
 
       if (action.payload.index === "resources") {
         const post = state[posts][action.payload.index].posts.find(
-          (post: Resource) =>
-            post.objectID === (action.payload.post as Resource).objectID
+          (post) =>
+            post?.objectID === (action.payload.post as Resource).objectID
         );
 
         if (post) {
@@ -772,9 +776,8 @@ export const addOutput = (
 
     if (posts === "bests") {
       if (action.payload.index === "matters") {
-        const post = (state.bests as Matter[]).find(
-          (post: Matter) =>
-            post.objectID === (action.payload.post as Matter).objectID
+        const post = (state.bests as (Matter | undefined)[]).find(
+          (post) => post?.objectID === (action.payload.post as Matter).objectID
         );
 
         if (post) {
@@ -787,9 +790,9 @@ export const addOutput = (
       }
 
       if (action.payload.index === "resources") {
-        const post = (state.bests as Resource[]).find(
-          (post: Resource) =>
-            post.objectID === (action.payload.post as Resource).objectID
+        const post = (state.bests as (Resource | undefined)[]).find(
+          (post) =>
+            post?.objectID === (action.payload.post as Resource).objectID
         );
 
         if (post) {
@@ -838,9 +841,9 @@ export const removeOutput = (
       ) {
         if (action.payload.index === "matters") {
           const post = state[posts][action.payload.index].posts.find(
-            (post: Matter) =>
+            (post) =>
               action.payload.post &&
-              post.objectID === action.payload.post.objectID
+              post?.objectID === action.payload.post.objectID
           );
 
           if (post && post.outputs) {
@@ -850,9 +853,9 @@ export const removeOutput = (
 
         if (action.payload.index === "resources") {
           const post = state[posts][action.payload.index].posts.find(
-            (post: Resource) =>
+            (post) =>
               action.payload.post &&
-              post.objectID === action.payload.post.objectID
+              post?.objectID === action.payload.post.objectID
           );
 
           if (post && post.outputs) {
@@ -863,9 +866,9 @@ export const removeOutput = (
 
       if (posts === "bests") {
         if (action.payload.index === "matters") {
-          const post = (state.bests as Matter[]).find(
-            (post: Matter) =>
-              post.objectID === (action.payload.post as Matter).objectID
+          const post = (state.bests as (Matter | undefined)[]).find(
+            (post) =>
+              post?.objectID === (action.payload.post as Matter).objectID
           );
 
           if (post && post.outputs) {
@@ -874,9 +877,9 @@ export const removeOutput = (
         }
 
         if (action.payload.index === "resources") {
-          const post = (state.bests as Resource[]).find(
-            (post: Resource) =>
-              post.objectID === (action.payload.post as Resource).objectID
+          const post = (state.bests as (Resource | undefined)[]).find(
+            (post) =>
+              post?.objectID === (action.payload.post as Resource).objectID
           );
 
           if (post && post.outputs) {
@@ -916,7 +919,7 @@ export const removeOutput = (
         ) {
           if (action.payload.index === "matters") {
             const post = state[posts][action.payload.index].posts.find(
-              (post: Matter) => post.objectID === objectID
+              (post) => post?.objectID === objectID
             );
 
             if (post && post.outputs) {
@@ -926,7 +929,7 @@ export const removeOutput = (
 
           if (action.payload.index === "resources") {
             const post = state[posts][action.payload.index].posts.find(
-              (post: Resource) => post.objectID === objectID
+              (post) => post?.objectID === objectID
             );
 
             if (post && post.outputs) {
@@ -944,7 +947,7 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
     state.entries[action.payload.index].posts = [
       action.payload.post,
       ...state.entries[action.payload.index].posts,
-    ] as Matter[] | Resource[];
+    ] as (Matter | undefined)[] | (Resource | undefined)[];
   }
 
   Object.keys(state).forEach((posts): void => {
@@ -958,7 +961,7 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
     ) {
       if (action.payload.index === "matters") {
         const post = state[posts][action.payload.index].posts.find(
-          (post: Matter) => post.objectID === action.payload.post.objectID
+          (post) => post?.objectID === action.payload.post.objectID
         );
 
         if (post) {
@@ -972,7 +975,7 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
 
       if (action.payload.index === "resources") {
         const post = state[posts][action.payload.index].posts.find(
-          (post: Resource) => post.objectID === action.payload.post.objectID
+          (post) => post?.objectID === action.payload.post.objectID
         );
 
         if (post) {
@@ -987,9 +990,8 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
 
     if (posts === "bests") {
       if (action.payload.index === "matters") {
-        const post = (state.bests as Matter[]).find(
-          (post: Matter) =>
-            post.objectID === (action.payload.post as Matter).objectID
+        const post = (state.bests as (Matter | undefined)[]).find(
+          (post) => post?.objectID === (action.payload.post as Matter).objectID
         );
 
         if (post) {
@@ -1002,9 +1004,9 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
       }
 
       if (action.payload.index === "resources") {
-        const post = (state.bests as Resource[]).find(
-          (post: Resource) =>
-            post.objectID === (action.payload.post as Resource).objectID
+        const post = (state.bests as (Resource | undefined)[]).find(
+          (post) =>
+            post?.objectID === (action.payload.post as Resource).objectID
         );
 
         if (post) {
@@ -1035,19 +1037,19 @@ export const removeFollow = (
   action: PayloadAction<Company>
 ): void => {
   state.user.companys.posts = state.user.companys.posts.filter(
-    (post) => post && post.uid !== action.payload.uid
+    (post) => post?.uid !== action.payload.uid
   );
 
   Object.keys(state.home).forEach((index) => {
     if (index === "matters") {
       state.home[index].posts = state.home[index].posts.filter(
-        (post) => post && post.uid !== action.payload.uid
+        (post) => post?.uid !== action.payload.uid
       );
     }
 
     if (index === "resources") {
       state.home[index].posts = state.home[index].posts.filter(
-        (post) => post && post.uid !== action.payload.uid
+        (post) => post?.uid !== action.payload.uid
       );
     }
   });

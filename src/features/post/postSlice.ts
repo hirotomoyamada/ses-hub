@@ -49,7 +49,12 @@ export const posts = ({
     | "user"
     | "selectUser"
     | "bests";
-}): Matter[] | Resource[] | Company[] | Person[] | undefined => {
+}):
+  | (Matter | undefined)[]
+  | (Resource | undefined)[]
+  | (Company | undefined)[]
+  | (Person | undefined)[]
+  | undefined => {
   if (page) {
     if (page === "search") {
       return state.post.search[index].posts;
