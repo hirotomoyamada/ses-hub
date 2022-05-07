@@ -52,7 +52,7 @@ export const Pending: React.FC = () => {
     <div
       className={`
       ${styles.load} 
-      ${styles.load_fetch} 
+      ${styles.load_pend} 
       ${!user && styles.load_auth} 
       ${page === "user" && styles.load_user} 
       ${

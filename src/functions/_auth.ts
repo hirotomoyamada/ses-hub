@@ -109,7 +109,7 @@ export const handleCreate = async ({
       tel: data.tel,
       agree: data.agree,
       provider: auth.currentUser.providerData[0].providerId,
-      fetch: true,
+      pend: true,
     };
 
     await dispatch(createProfile(profile));

@@ -36,7 +36,7 @@ export const Search: React.FC = () => {
           value: search.value,
           target: search.target,
           type: search.type,
-          fetch: posts?.length ? true : false,
+          pend: posts?.length ? true : false,
         })
       );
   }, [
