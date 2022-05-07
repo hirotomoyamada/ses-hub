@@ -10,7 +10,11 @@ import { Matter, Resource } from "types/post";
 import { Company, Person } from "types/post";
 
 interface PropType {
-  posts: Matter[] | Resource[] | Company[] | Person[];
+  posts:
+    | (Matter | undefined)[]
+    | (Resource | undefined)[]
+    | (Company | undefined)[]
+    | (Person | undefined)[];
   list: React.RefObject<HTMLDivElement>;
   index?: "matters" | "resources" | "companys" | "persons";
   select?: string[];

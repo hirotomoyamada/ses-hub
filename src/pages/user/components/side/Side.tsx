@@ -16,7 +16,12 @@ interface PropType {
   main: React.RefObject<HTMLDivElement>;
   uid: string;
   user: User;
-  posts: Matter[] | Resource[] | Company[] | Person[] | undefined;
+  posts:
+    | (Matter | undefined)[]
+    | (Resource | undefined)[]
+    | (Company | undefined)[]
+    | (Person | undefined)[]
+    | undefined;
   hit:
     | {
         posts: number;
