@@ -1,4 +1,5 @@
 # functions
+
 ```
 ├── libs # コンパイル先
 ├── src # コンパイル元
@@ -41,7 +42,7 @@
 │   │   │
 │   │   ├── post
 │   │   │   ├── _fetch.ts # 取得する際の整形
-│   │   │   ├── _userAuthenticated.ts # 
+│   │   │   ├── _userAuthenticated.ts #
 │   │   │   ├── extract.ts # ユーザーが登録している(いいねやリクエストなど)一覧を取得
 │   │   │   ├── fetch.ts # 投稿・投稿一覧を取得
 │   │   │   ├── home.ts # ホームを取得
@@ -51,10 +52,10 @@
 │   │   └── user
 │   │       ├── _fetch.ts # 取得する際の整形
 │   │       ├── _format.ts # 作成・編集する際の整形
-│   │       ├── _loginAuthenticated.ts # 
-│   │       ├── _userAuthenticated.ts # 
+│   │       ├── _loginAuthenticated.ts #
+│   │       ├── _userAuthenticated.ts #
 │   │       ├── agree.ts # 利用規約を同意
-│   │       ├── automation.ts # 
+│   │       ├── automation.ts #
 │   │       ├── email.ts # メールアドレスを変更
 │   │       ├── entry.ts # エントリー
 │   │       ├── fetch.ts # ユーザーを取得
@@ -102,6 +103,7 @@
 │   │   │   ├── fetch.ts # 投稿・投稿一覧を取得
 │   │   │   ├── home.ts # フォローしているユーザーの投稿一覧などを取得
 │   │   │   ├── post.ts # 投稿を作成・編集・削除・メール配信・ツイート配信
+│   │   │   ├── activity.ts # 投稿のいいね・出力などの統計データ
 │   │   │   ├── promotion.ts # LPに表示する投稿一覧を取得
 │   │   │   └── user.ts # ユーザーが保有する投稿一覧を取得
 │   │   │
@@ -120,6 +122,7 @@
 │   │       ├── follow.ts # フォローする・解除する
 │   │       ├── home.ts # ホームに追加・削除する
 │   │       ├── like.ts # いいねする・解除する
+│   │       ├── activity.ts # ユーザーのいいね・出力などの統計データ
 │   │       ├── login.ts # ログイン
 │   │       ├── output.ts # 出力に登録・解除する
 │   │       ├── profile.ts # プロフィールを作成・編集
@@ -148,6 +151,7 @@
 ```
 
 # admin
+
 ```
 ├── hooks
 ├── functions # コード整形・無限スクロールなど
@@ -184,6 +188,7 @@
 ```
 
 # ses_hub
+
 ```
 ├── hooks
 ├── functions # アカウント・設定・支払い関連・コード整形・無限スクロールなど
@@ -203,6 +208,7 @@
 │   ├── list # 投稿一覧
 │   ├── modal # モーダル
 │   │   └── components
+│   │       ├── activity # ユーザー・投稿のいいね・出力などの統計データ
 │   │       ├── application # 法人アカウントの変更の申請
 │   │       ├── account # グループアカウント
 │   │       ├── advertise # 広告
@@ -256,6 +262,7 @@
 ```
 
 # freelance_direct
+
 ```
 ├── hooks
 ├── functions # アカウント・設定・支払い関連・コード整形・無限スクロールなど
