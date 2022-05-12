@@ -41,7 +41,7 @@ export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
     }
   }, [fetch, setting?.activity]);
 
-  const Chart = useMemo<React.VFC<{ data: Activity[number] }>>(
+  const Chart = useMemo<React.FC<{ data: Activity[number] }>>(
     () =>
       ({ data }): JSX.Element => {
         switch (setting?.activity?.layout) {
