@@ -23,7 +23,7 @@ export const Home: React.FC = () => {
       dispatch(
         homePosts({
           index: index,
-          follows: [user?.uid, ...user?.home],
+          follows: [user.uid, ...user.home],
           fetch: posts?.length ? true : false,
         })
       );
