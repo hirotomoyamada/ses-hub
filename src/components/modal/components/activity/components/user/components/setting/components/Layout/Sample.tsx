@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import styles from "../Layout.module.scss";
+import styles from "./Layout.module.scss";
 
 import { useFormContext } from "react-hook-form";
 
