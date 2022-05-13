@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import root from "../../../Setting.module.scss";
-import styles from "../Layout.module.scss";
+import root from "../../Setting.module.scss";
+import styles from "./Layout.module.scss";
 
 import { useFormContext } from "react-hook-form";
 
