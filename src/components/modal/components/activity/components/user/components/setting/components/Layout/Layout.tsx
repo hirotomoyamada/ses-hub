@@ -1,11 +1,11 @@
 import React from "react";
 import root from "../../Setting.module.scss";
 
-import { Display } from "./components/Display";
-import { Sample } from "./components/Sample";
+import { Display } from "./Display";
+import { Sample } from "./Sample";
+import { Color } from "./Color";
 
 import { Activity } from "features/user/initialState";
-import { Color } from "./components/Color";
 
 interface PropType {
   offsetWidth?: number;

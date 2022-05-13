@@ -12,8 +12,8 @@ export const Color: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const color = watch("color");
 
-  const Palette: React.VFC = useMemo<React.VFC>(
-    (): React.VFC => (): JSX.Element => {
+  const Palette: React.FC = useMemo<React.FC>(
+    () => () => {
       const types: ("self" | "others")[] = ["self", "others"];
       const colors = [
         { name: "green", code: "#49b657" },
