@@ -46,7 +46,7 @@ export const LineChart: React.FC<PropType> = React.memo(
           }}
           formatter={(value: number, name: string) => [
             value,
-            name === "self" ? "した数" : "された数",
+            name === "self" ? "した数　　" : "された数　",
           ]}
         />
 
