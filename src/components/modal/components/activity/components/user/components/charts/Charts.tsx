@@ -38,8 +38,10 @@ export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
         .filter((data): data is Activity[number] => data !== undefined);
 
       setUpdateActivity(newActivity);
+    } else {
+      if (activity) setUpdateActivity(activity);
     }
-  }, [fetch, setting?.activity]);
+  }, [activity, setting?.activity]);
 
   const Chart = useMemo<React.FC<{ data: Activity[number] }>>(
     () =>
@@ -47,8 +49,10 @@ export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
         switch (setting?.activity?.layout) {
           case "number":
             return <NumberChart sort={sort} data={data} setting={setting} />;
+
           case "none":
             return <></>;
+
           default: {
             if (data.key !== "distribution" && data.key !== "approval") {
               return (
@@ -73,7 +77,7 @@ export const Charts: React.FC<PropType> = ({ span, sort, activity }) => {
           }
         }
       },
-    [updateActivity, setting, width, height, sort, fetch]
+    [updateActivity, sort, width, height, setting]
   );
 
   return !fetch ? (
