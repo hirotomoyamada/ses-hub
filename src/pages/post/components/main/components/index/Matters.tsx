@@ -24,7 +24,7 @@ interface PropType {
 export const Matters: React.FC<PropType> = ({ index, post, user }) => {
   return (
     <div className={styles.main_inner}>
-      <Operation index={index} post={post} user={user} back />
+      <Operation index={index} post={post} back />
 
       <Header post={post} user={user} />
 

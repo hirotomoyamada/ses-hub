@@ -11,11 +11,9 @@ import * as rootSlice from "features/root/rootSlice";
 import * as postSlice from "features/post/postSlice";
 
 import { Matter, Resource } from "types/post";
-import { User } from "types/user";
 
 interface PropType {
   index?: "matters" | "resources";
-  user?: User;
   post?: Matter | Resource;
   sort?: boolean;
   back?: boolean;
@@ -24,7 +22,6 @@ interface PropType {
 
 export const Operation: React.FC<PropType> = ({
   index,
-  user,
   post,
   sort,
   back,
@@ -73,16 +70,10 @@ export const Operation: React.FC<PropType> = ({
   const handleActivity = () => {
     if (!post) return;
 
-    if (user?.payment?.status !== "canceled") {
-      dispatch(postSlice.selectPost(post));
-      dispatch(
-        rootSlice.handleModal({ type: "activity", meta: { type: "post" } })
-      );
-    } else {
-      dispatch(
-        rootSlice.handleAnnounce({ error: "プランを選択する必要があります" })
-      );
-    }
+    dispatch(postSlice.selectPost(post));
+    dispatch(
+      rootSlice.handleModal({ type: "activity", meta: { type: "post" } })
+    );
 
     setOpen(!open);
   };

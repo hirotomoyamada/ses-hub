@@ -94,7 +94,6 @@ export const Item: React.FC<PropType> = ({
             <Operation
               index={index as "matters" | "resources"}
               post={post as Matter | Resource}
-              user={user}
               item
             />
           )
