@@ -52,8 +52,6 @@ $width: responsive-width(pc);
       font-size: 18px !important;
     }
 
-    transition: all 0.4s;
-
     &_like {
       color: $like_clr;
 
@@ -76,8 +74,12 @@ $width: responsive-width(pc);
       }
     }
 
-    &_activity:hover {
-      color: $acnt_clr;
+    &_activity {
+      transition: all 0.4s;
+
+      &:hover {
+        color: $acnt_clr;
+      }
     }
 
     &_entry {
