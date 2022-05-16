@@ -10,7 +10,7 @@ $width: responsive-width(pc);
   flex-direction: column;
   gap: 24px;
 
-  margin-bottom: 48px;
+  margin-bottom: 24px;
 
   @media (max-width: responsive-width(sp)) {
     gap: 4px;

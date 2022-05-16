@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../../Main.module.scss";
 
 import { Operation } from "components/operation/Operation";
+import { Command } from "components/command/Command";
 
 import { Header } from "../header/Header";
 import { Txt } from "../Txt";
@@ -25,6 +26,8 @@ export const Resources: React.FC<PropType> = ({ index, post, user }) => {
       <Operation index={index} post={post} back />
 
       <Header post={post} user={user} />
+
+      <Command index={index} user={user} post={post} />
 
       {(post?.handles?.[0] || post?.tools?.[0]) && (
         <div className={styles.main_col}>
