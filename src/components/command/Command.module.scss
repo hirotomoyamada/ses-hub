@@ -24,6 +24,7 @@ $width: responsive-width(pc);
 
   &_item {
     margin: 0 24px;
+    border: none;
 
     @media (max-width: responsive-width(sp)) {
       margin: 0 12px;

@@ -9,7 +9,8 @@ $width: responsive-width(pc);
 .advertise {
   position: relative;
   background: $promo_clr;
-  height: 337.75px;
+  min-height: 240px;
+  height: 100%;
   padding: 48px;
   border-radius: 16px;
 
@@ -29,7 +30,7 @@ $width: responsive-width(pc);
   animation-timing-function: ease-out;
 
   @media (max-width: responsive-width(sp)) {
-    height: 238.89px;
+    min-height: 160px;
     font-size: 10px;
     gap: 16px;
     padding: 24px;
