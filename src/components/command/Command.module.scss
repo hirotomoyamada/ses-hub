@@ -37,6 +37,11 @@ $width: responsive-width(pc);
     &_disabled {
       pointer-events: none;
     }
+
+    &_activity {
+      grid-column: 5 / 6;
+      justify-content: flex-end;
+    }
   }
 
   &_icon {
@@ -46,6 +51,8 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(sp)) {
       font-size: 18px !important;
     }
+
+    transition: all 0.4s;
 
     &_like {
       color: $like_clr;
@@ -67,6 +74,10 @@ $width: responsive-width(pc);
         animation-fill-mode: forwards;
         animation-timing-function: ease-out;
       }
+    }
+
+    &_activity:hover {
+      color: $acnt_clr;
     }
 
     &_entry {

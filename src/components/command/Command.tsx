@@ -6,7 +6,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import LaunchIcon from "@material-ui/icons/Launch";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
-
+import BarChartIcon from "@material-ui/icons/BarChart";
 import { useDispatch } from "react-redux";
 
 import * as rootSlice from "features/root/rootSlice";
@@ -113,6 +113,16 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
     dispatch(rootSlice.handleModal({ type: "entry" }));
   };
 
+  const handleActivity = () => {
+    if (index === "matters" || index === "resources") {
+      dispatch(postSlice.selectPost(post as Matter | Resource));
+
+      dispatch(
+        rootSlice.handleModal({ type: "activity", meta: { type: "post" } })
+      );
+    }
+  };
+
   return (
     <div className={`${styles.command} ${item && styles.command_item}`}>
       {(user?.payment?.status !== "canceled" || post?.uid === user.uid) && (
@@ -201,6 +211,17 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
             className={`${styles.command_icon} ${styles.command_icon_enable}`}
           />
         )
+      )}
+
+      {post?.uid === user.uid && (
+        <button
+          onClick={handleActivity}
+          className={`${styles.command_btn} ${styles.command_btn_activity}`}
+        >
+          <BarChartIcon
+            className={`${styles.command_icon} ${styles.command_icon_activity}`}
+          />
+        </button>
       )}
     </div>
   );
