@@ -21,7 +21,7 @@ export const Txt: React.FC<PropType> = ({ tag, txt, none, end, txtarea }) => {
             ? txt
             : `${txt.area} ${txt.place}`
         }
-        ${end && txt !== "その他" && end}`}
+        ${end && txt !== "その他" ? end : ""}`}
       </p>
     </div>
   ) : (
