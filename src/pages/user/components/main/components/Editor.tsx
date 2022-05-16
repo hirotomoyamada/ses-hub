@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faChartSimple } from "@fortawesome/free-solid-svg-icons";
+import { faRobot } from "@fortawesome/free-solid-svg-icons";
 
 import * as rootSlice from "features/root/rootSlice";
 import { User } from "types/user";
@@ -45,7 +45,7 @@ export const Editor: React.FC<PropType> = ({ user }) => {
           className={`${styles.main_edit_btn} ${styles.main_edit_btn_activity} ${styles.main_edit_btn_activity}`}
         >
           <FontAwesomeIcon
-            icon={faChartSimple as IconProp}
+            icon={faRobot as IconProp}
             className={styles.profile_icon}
           />
         </button>
