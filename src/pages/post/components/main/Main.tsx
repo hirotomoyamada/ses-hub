@@ -1,9 +1,6 @@
 import styles from "./Main.module.scss";
 import { Oval } from "react-loader-spinner";
 
-import { useSelector } from "react-redux";
-import * as rootSlice from "../../../../features/root/rootSlice";
-
 import { Matters } from "./components/index/Matters";
 import { Resources } from "./components/index/Resources";
 import { Entry } from "./components/entry/Entry";
@@ -26,11 +23,9 @@ export const Main: React.FC<PropType> = ({
   entry,
   handleEntry,
 }) => {
-  const load = useSelector(rootSlice.load).fetch;
-
   return (
     <div className={styles.main}>
-      {!load && post?.objectID ? (
+      {post?.objectID ? (
         <>
           {index === "matters" ? (
             <Matters index={index} post={post as Matter} user={user} />
