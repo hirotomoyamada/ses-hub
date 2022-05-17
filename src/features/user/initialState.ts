@@ -1,7 +1,7 @@
 import { User } from "types/user";
 import { Company, Person } from "types/post";
 
-export type Activity = {
+export type Analytics = {
   active: boolean;
   key:
     | "posts"
@@ -26,12 +26,12 @@ export interface State {
   user: User | unknown;
   selectUser: Company | Person | (Company | Person)[] | unknown;
   token?: string;
-  activity: { [key: string]: Activity | unknown };
+  analytics: { [key: string]: Analytics | unknown };
 }
 
 export const initialState: State = {
   user: {},
   selectUser: {},
   token: undefined,
-  activity: {},
+  analytics: {},
 };

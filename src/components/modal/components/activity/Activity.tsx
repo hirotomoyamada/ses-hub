@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./Activity.module.scss";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import * as postSlice from "features/post/postSlice";
+import * as rootSlice from "features/root/rootSlice";
+
+import { fetchActivity } from "features/post/actions";
+
+import { Audio } from "react-loader-spinner";
+import { Command } from "./components/command/Command";
+import { Detail } from "./components/detail/Detail";
+import { History } from "./components/history/History";
+import { Today } from "./components/today/Today";
+import { Log } from "./components/log/Log";
 
 import { Matter, Resource } from "types/post";
 
 import { Header } from "./components/header/Header";
-import { Post } from "./components/post/Post";
-import { User } from "./components/user/User";
-import { User as UserType } from "types/user";
 
 interface PropType {
   index: "matters" | "resources" | "companys" | "persons";
-  user: UserType;
   post: Matter | Resource;
-  type?: "user" | "post";
   handleClose: () => void;
 }
 
@@ -23,44 +32,32 @@ export type Sort = {
   others: boolean;
 };
 
-export const Activity: React.FC<PropType> = ({
-  index,
-  user,
-  post,
-  type,
-  handleClose,
-}) => {
-  const [span, setSpan] = useState<Span>("day");
-  const [sort, setSort] = useState<Sort>({ self: true, others: true });
-  const [setting, setSetting] = useState<boolean>(false);
+export const Activity: React.FC<PropType> = ({ index, post, handleClose }) => {
+  const dispatch = useDispatch();
+  const activity = useSelector(postSlice.activity);
+  const fetch = useSelector(rootSlice.load).fetch;
+
+  useEffect(() => {
+    if (post.objectID && (index === "matters" || index === "resources"))
+      dispatch(fetchActivity({ index: index, post: post }));
+  }, [dispatch, index, post]);
 
   return (
-    <div
-      className={`${styles.activity} ${
-        type === "user" && styles.activity_user
-      }`}
-    >
-      <Header
-        type={type}
-        span={span}
-        sort={sort}
-        setting={setting}
-        setSpan={setSpan}
-        setSort={setSort}
-        setSetting={setSetting}
-        handleClose={handleClose}
-      />
+    <div className={`${styles.activity}`}>
+      <Header handleClose={handleClose} />
 
-      {type === "user" ? (
-        <User
-          user={user}
-          span={span}
-          sort={sort}
-          setting={setting}
-          setSetting={setSetting}
-        />
+      {!fetch ? (
+        <div className={styles.activity_inner}>
+          <Detail index={index} post={post} />
+          <Command total={activity?.total} />
+          <History total={activity?.total} />
+          <Today today={activity?.today} />
+          <Log log={activity?.log} />
+        </div>
       ) : (
-        <Post index={index} post={post} />
+        <div className={`${styles.activity_inner} ${styles.activity_fetch}`}>
+          <Audio color="#49b757" height={48} width={48} />
+        </div>
       )}
     </div>
   );

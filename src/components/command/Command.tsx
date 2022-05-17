@@ -117,9 +117,7 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
     if (index === "matters" || index === "resources") {
       dispatch(postSlice.selectPost(post as Matter | Resource));
 
-      dispatch(
-        rootSlice.handleModal({ type: "activity", meta: { type: "post" } })
-      );
+      dispatch(rootSlice.handleModal({ type: "activity" }));
     }
   };
 

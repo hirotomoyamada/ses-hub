@@ -200,7 +200,7 @@ export const modal = (
 
 export const setting = (
   state: State,
-  action: PayloadAction<Setting["activity"] & { type: "activity" }>
+  action: PayloadAction<Setting["analytics"] & { type: "analytics" }>
 ): void => {
   const { type, ...payload } = action.payload;
 
@@ -213,7 +213,7 @@ export const setting = (
   const updateSetting: HttpsCallable<
     {
       type: string;
-      setting: Setting["activity"];
+      setting: Setting["analytics"];
     },
     unknown
   > = httpsCallable(functions, "sh-updateSetting");

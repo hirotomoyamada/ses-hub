@@ -3,7 +3,7 @@ import { auth, functions } from "libs/firebase";
 import { updateProfile, updateEmail } from "firebase/auth";
 import { httpsCallable, HttpsCallable } from "firebase/functions";
 
-import { Activity, initialState, State } from "features/user/initialState";
+import { Analytics, initialState, State } from "features/user/initialState";
 import { Matter, Resource, Company, Person } from "types/post";
 import { Setting, User } from "types/user";
 import { Login, Child, FetchUser } from "features/user/actions";
@@ -570,30 +570,32 @@ export const resetUser = (state: State): void => {
   state.selectUser = initialState.selectUser;
 };
 
-export const updateActivity = (
+export const updateAnalytics = (
   state: State,
-  action: PayloadAction<Setting["activity"] & { type: "activity" }>
+  action: PayloadAction<Setting["analytics"] & { type: "analytics" }>
 ): void => {
-  if (action.payload.type !== "activity") return;
+  if (action.payload.type !== "analytics") return;
 
-  Object.keys(state.activity).forEach((uid) => {
-    state.activity[uid] = action.payload.order
+  Object.keys(state.analytics).forEach((uid) => {
+    state.analytics[uid] = action.payload.order
       .map((key) =>
-        (state.activity[uid] as Activity).find((current) => current.key === key)
+        (state.analytics[uid] as Analytics).find(
+          (current) => current.key === key
+        )
       )
       .map((current) =>
         current?.key && action.payload.active.indexOf(current?.key) >= 0
           ? { ...current, active: true }
           : { ...current, active: false }
       )
-      .filter((data): data is Activity[number] => data !== undefined);
+      .filter((data): data is Analytics[number] => data !== undefined);
   });
 };
 
-export const fetchActivity = (
+export const fetchAnalytics = (
   state: State,
   action: PayloadAction<{
-    activity: Activity;
+    analytics: Analytics;
     uid: string;
     active?: string[];
     order?: string[];
@@ -604,17 +606,17 @@ export const fetchActivity = (
   const order = action.payload.order;
 
   if (!active || !order) {
-    state.activity[uid] = action.payload.activity;
+    state.analytics[uid] = action.payload.analytics;
   } else {
-    state.activity[uid] = order
+    state.analytics[uid] = order
       .map((key) =>
-        action.payload.activity.find((current) => current.key === key)
+        action.payload.analytics.find((current) => current.key === key)
       )
       .map((current) =>
         current?.key && active.indexOf(current?.key) >= 0
           ? { ...current, active: true }
           : { ...current, active: false }
       )
-      .filter((data): data is Activity[number] => data !== undefined);
+      .filter((data): data is Analytics[number] => data !== undefined);
   }
 };

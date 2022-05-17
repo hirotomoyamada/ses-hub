@@ -346,7 +346,7 @@ export const fetchActivity = createAsyncThunk(
     const fetchActivity: HttpsCallable<
       FetchActivity["arg"],
       FetchActivity["data"]
-    > = httpsCallable(functions, "sh-fetchPostActivity");
+    > = httpsCallable(functions, "sh-fetchActivity");
 
     const { data } = await fetchActivity(arg);
 

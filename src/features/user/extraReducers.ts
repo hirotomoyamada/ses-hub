@@ -32,8 +32,8 @@ export const extraReducers = (
     reducers.deleteChild(state, action)
   );
 
-  builder.addCase(actions.fetchActivity.fulfilled, (state, action) =>
-    reducers.fetchActivity(state, action)
+  builder.addCase(actions.fetchAnalytics.fulfilled, (state, action) =>
+    reducers.fetchAnalytics(state, action)
   );
 
   builder.addMatcher(
@@ -58,7 +58,7 @@ export const extraReducers = (
     (action: PayloadAction) => action.type.endsWith("/handleSetting"),
     (
       state,
-      action: PayloadAction<Setting["activity"] & { type: "activity" }>
-    ) => reducers.updateActivity(state, action)
+      action: PayloadAction<Setting["analytics"] & { type: "analytics" }>
+    ) => reducers.updateAnalytics(state, action)
   );
 };

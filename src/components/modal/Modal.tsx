@@ -23,6 +23,7 @@ import { Activity } from "./components/activity/Activity";
 
 import { Company } from "types/post";
 import { User } from "types/user";
+import { Analytics } from "./components/analytics/Analytics";
 
 export const Modal: React.FC = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ export const Modal: React.FC = () => {
     switch (modal.type) {
       case "agree":
         return <Agree user={user} />;
+
       case "advertise":
         return (
           <Advertise
@@ -54,14 +56,19 @@ export const Modal: React.FC = () => {
             handleClose={handleClose}
           />
         );
+
       case "demo":
         return <Demo handleClose={handleClose} />;
+
       case "info":
         return <Information handleClose={handleClose} />;
+
       case "home":
         return <Home user={user} handleClose={handleClose} />;
+
       case "request":
         return <Request handleClose={handleClose} />;
+
       case "entry":
         return (
           <Entry
@@ -71,6 +78,7 @@ export const Modal: React.FC = () => {
             handleClose={handleClose}
           />
         );
+
       case "profile":
         return (
           <Profile
@@ -82,18 +90,16 @@ export const Modal: React.FC = () => {
             handleClose={handleClose}
           />
         );
+
       case "activity":
-        return (
-          <Activity
-            index={index}
-            user={user}
-            post={post}
-            type={modal.meta?.type as "user" | "post"}
-            handleClose={handleClose}
-          />
-        );
+        return <Activity index={index} post={post} handleClose={handleClose} />;
+
+      case "analytics":
+        return <Analytics user={user} handleClose={handleClose} />;
+
       case "application":
         return <Application user={user} handleClose={handleClose} />;
+
       case "account":
         return (
           <Account
@@ -106,6 +112,7 @@ export const Modal: React.FC = () => {
             handleClose={handleClose}
           />
         );
+
       case "delete":
         return (
           <Delete
@@ -115,6 +122,7 @@ export const Modal: React.FC = () => {
             handleDelete={modal.delete}
           />
         );
+
       case "edit":
         return (
           <Form
@@ -125,6 +133,7 @@ export const Modal: React.FC = () => {
             edit
           />
         );
+
       case "new":
         return (
           <Form
@@ -134,6 +143,7 @@ export const Modal: React.FC = () => {
             handleClose={handleClose}
           />
         );
+
       default:
         return <></>;
     }
