@@ -19,7 +19,7 @@ import { At } from "./components/At";
 import { Provider } from "./components/provider/Provider";
 
 import { User } from "types/user";
-import { Activity } from "./components/Activitiy";
+import { Analytics } from "./components/Analytics";
 
 interface PropType {
   user: User;
@@ -52,7 +52,7 @@ export const Main: React.FC<PropType> = ({
     <div className={`${root.setting_inner} ${styles.main}`}>
       <Uid user={user} />
 
-      <Activity user={user} />
+      <Analytics user={user} />
 
       <Type user={user} />
 

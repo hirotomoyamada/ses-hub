@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "app/store";
 
-import { initialState, State, Activity } from "features/user/initialState";
+import { initialState, State, Analytics } from "features/user/initialState";
 
 import * as reducers from "features/user/reducers";
 import { extraReducers } from "features/user/extraReducers";
@@ -125,7 +125,7 @@ export const selectUser = (
   state: RootState
 ): Company | Person | (Company | Person)[] =>
   state.user.selectUser as Company | Person | (Company | Person)[];
-export const activity = (state: RootState): { [key: string]: Activity } =>
-  state.user.activity as { [key: string]: Activity };
+export const analytics = (state: RootState): { [key: string]: Analytics } =>
+  state.user.analytics as { [key: string]: Analytics };
 
 export default userSlice.reducer;

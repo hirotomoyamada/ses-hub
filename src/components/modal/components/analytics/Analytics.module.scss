@@ -6,10 +6,10 @@
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
 
-.activity {
+.analytics {
   position: relative;
-  width: 560px;
-  height: 62.5vh;
+  width: auto-clamp(632px, 1440px);
+  height: 80vh;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -24,8 +24,9 @@ $width: responsive-width(pc);
   color: $main_clr;
 
   @media (max-width: responsive-width(sp)) {
-    width: calc(100vw - 24px);
-    height: 72vh;
+    width: 100vw;
+    height: $innerHeight;
+    border-radius: 0px;
     min-height: 520px;
     font-size: 14px;
     grid-template-rows: 48px 1fr;
@@ -36,7 +37,6 @@ $width: responsive-width(pc);
 
     display: flex;
     flex-direction: column;
-    gap: 16px;
     padding: 0 16px 32px;
 
     animation-name: fadeIn;
@@ -45,7 +45,6 @@ $width: responsive-width(pc);
     animation-timing-function: ease-out;
 
     @media (max-width: responsive-width(sp)) {
-      gap: 12px;
       padding: 0 12px 12px;
     }
   }

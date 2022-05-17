@@ -32,8 +32,7 @@ export const Editor: React.FC<PropType> = ({ user }) => {
             user?.payment?.status !== "canceled"
               ? dispatch(
                   rootSlice.handleModal({
-                    type: "activity",
-                    meta: { type: "user" },
+                    type: "analytics",
                   })
                 )
               : dispatch(

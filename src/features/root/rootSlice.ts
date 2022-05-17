@@ -44,7 +44,7 @@ export const rootSlice = createSlice({
       reducers.agree(state, action),
     handleSetting: (
       state,
-      action: PayloadAction<Setting["activity"] & { type: "activity" }>
+      action: PayloadAction<Setting["analytics"] & { type: "analytics" }>
     ) => reducers.setting(state, action),
   },
 

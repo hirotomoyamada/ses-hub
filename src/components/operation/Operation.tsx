@@ -71,9 +71,7 @@ export const Operation: React.FC<PropType> = ({
     if (!post) return;
 
     dispatch(postSlice.selectPost(post));
-    dispatch(
-      rootSlice.handleModal({ type: "activity", meta: { type: "post" } })
-    );
+    dispatch(rootSlice.handleModal({ type: "activity" }));
 
     setOpen(!open);
   };
