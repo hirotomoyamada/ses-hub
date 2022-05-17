@@ -29,10 +29,6 @@ export const Post: React.FC<PropType> = ({ index, post }) => {
   useEffect(() => {
     if (post.objectID && (index === "matters" || index === "resources"))
       dispatch(fetchActivity({ index: index, post: post }));
-
-    return () => {
-      dispatch(postSlice.resetPost());
-    };
   }, [dispatch, index, post]);
 
   return !fetch ? (
