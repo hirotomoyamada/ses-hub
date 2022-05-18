@@ -93,7 +93,14 @@ export const Modal: React.FC = () => {
         );
 
       case "activity":
-        return <Activity index={index} post={post} handleClose={handleClose} />;
+        return (
+          <Activity
+            index={index}
+            user={user}
+            post={post}
+            handleClose={handleClose}
+          />
+        );
 
       case "analytics":
         return <Analytics user={user} handleClose={handleClose} />;

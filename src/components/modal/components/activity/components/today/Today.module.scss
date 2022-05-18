@@ -68,4 +68,14 @@ $width: responsive-width(pc);
       font-size: 20px;
     }
   }
+
+  &_none {
+    color: $sub_clr;
+    font-size: auto-clamp(24px, 32px);
+    font-weight: bold;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 20px;
+    }
+  }
 }
