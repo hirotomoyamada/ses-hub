@@ -27,7 +27,6 @@ export const Menu: React.FC<PropType> = ({ user }) => {
   const navigate = useNavigate();
   const location = useLocation().pathname.replace("/", "");
 
-  const modal = useSelector(rootSlice.modal);
   const index = useSelector(rootSlice.index);
   const status = useSelector(rootSlice.verified).status;
   const notFound = useSelector(rootSlice.notFound);
