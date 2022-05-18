@@ -119,7 +119,8 @@ $width: responsive-width(pc);
         border-color: $sub_clr;
 
         &:hover {
-          border-color: $acnt_clr;
+          background: $acnt_sub_clr;
+          border-color: $acnt_sub_clr;
         }
 
         @media (max-width: responsive-width(sp)) {
@@ -143,7 +144,7 @@ $width: responsive-width(pc);
         left: -45px;
         opacity: 0;
 
-        background: $acnt_clr;
+        background: $acnt_sub_clr;
         padding: 4px 12px;
         border-radius: 8px;
         font-size: 16px;
