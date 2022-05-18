@@ -18,10 +18,13 @@ import { Log } from "./components/log/Log";
 import { Matter, Resource } from "types/post";
 
 import { Header } from "./components/header/Header";
+import { User } from "types/user";
+import { Advertise } from "./components/advertise/Advertise";
 
 interface PropType {
   index: "matters" | "resources" | "companys" | "persons";
   post: Matter | Resource;
+  user: User;
   handleClose: () => void;
 }
 
@@ -32,7 +35,14 @@ export type Sort = {
   others: boolean;
 };
 
-export const Activity: React.FC<PropType> = ({ index, post, handleClose }) => {
+export const Activity: React.FC<PropType> = ({
+  index,
+  post,
+  user,
+  handleClose,
+}) => {
+  const canceled = user.payment.status === "canceled";
+
   const dispatch = useDispatch();
   const activity = useSelector(postSlice.activity);
   const fetch = useSelector(rootSlice.load).fetch;
@@ -48,11 +58,12 @@ export const Activity: React.FC<PropType> = ({ index, post, handleClose }) => {
 
       {!fetch ? (
         <div className={styles.activity_inner}>
+          {canceled && <Advertise user={user} />}
           <Detail index={index} post={post} />
-          <Command total={activity?.total} />
+          <Command total={activity?.total} user={user} />
           <History total={activity?.total} />
-          <Today today={activity?.today} />
-          <Log log={activity?.log} />
+          <Today today={activity?.today} user={user} />
+          <Log log={activity?.log} user={user} />
         </div>
       ) : (
         <div className={`${styles.activity_inner} ${styles.activity_fetch}`}>

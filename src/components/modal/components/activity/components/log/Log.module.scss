@@ -22,6 +22,33 @@ $width: responsive-width(pc);
     gap: 12px;
   }
 
+  &_none {
+    min-height: 160px;
+
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+
+    @media (max-width: responsive-width(sp)) {
+      min-height: 80px;
+    }
+
+    & > span {
+      color: $sub_clr;
+      font-size: 14px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 12px;
+      }
+    }
+
+    &_question {
+      letter-spacing: 2.4px;
+      font-weight: bold;
+      font-size: 16px !important;
+    }
+  }
+
   &:after {
     content: "ログ";
     display: block;
