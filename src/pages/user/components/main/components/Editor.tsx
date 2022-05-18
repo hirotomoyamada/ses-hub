@@ -29,15 +29,17 @@ export const Editor: React.FC<PropType> = ({ user }) => {
         <button
           type="button"
           onClick={() =>
-            user?.payment?.status !== "canceled"
+            user.payment.status !== "canceled" &&
+            (user.type !== "individual" || user.payment.option?.analytics)
               ? dispatch(
                   rootSlice.handleModal({
                     type: "analytics",
                   })
                 )
               : dispatch(
-                  rootSlice.handleAnnounce({
-                    error: "プランを選択する必要があります",
+                  rootSlice.handleModal({
+                    type: "advertise",
+                    meta: { type: "analytics" },
                   })
                 )
           }
