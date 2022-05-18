@@ -33,7 +33,6 @@ export const Menu: React.FC<PropType> = ({ user }) => {
   const notFound = useSelector(rootSlice.notFound);
   const limit = useSelector(rootSlice.limit);
   const page = useSelector(rootSlice.page);
-  const open = modal.open;
 
   const handleOpen = () => {
     dispatch(postSlice.resetPost());
@@ -100,8 +99,7 @@ export const Menu: React.FC<PropType> = ({ user }) => {
     }
   };
 
-  return !open &&
-    status === "enable" &&
+  return status === "enable" &&
     location !== "setting" &&
     location !== "account" &&
     location !== "plan" &&
