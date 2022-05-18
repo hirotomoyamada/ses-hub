@@ -45,7 +45,7 @@ export const Header: React.FC<PropType> = ({
           setting && styles.header_ttl_setting
         }`}
       >
-        {!setting ? "アクティビティ" : "設定"}
+        {!setting ? "アナリティクス" : "設定"}
       </p>
 
       {!setting && (
