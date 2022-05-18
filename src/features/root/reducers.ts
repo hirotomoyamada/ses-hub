@@ -50,6 +50,7 @@ export const verified = (
         action.payload.user.payment.notice
       ) {
         state.modal.type = "advertise";
+        state.modal.meta = { type: "active" };
         state.modal.open = true;
       }
 
