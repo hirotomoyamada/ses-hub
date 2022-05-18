@@ -273,7 +273,7 @@ export const fetchAnalytics = createAsyncThunk(
     const fetchAnalytics: HttpsCallable<
       Pick<FetchAnalytics["arg"], "uid" | "span">,
       FetchAnalytics["data"]
-    > = httpsCallable(functions, "sh-fetchUserActivity");
+    > = httpsCallable(functions, "sh-fetchAnalytics");
 
     const { data } = await fetchAnalytics(arg);
 
