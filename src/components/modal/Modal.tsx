@@ -52,6 +52,7 @@ export const Modal: React.FC = () => {
           <Advertise
             user={user}
             text={modal.text}
+            type={modal.meta?.type}
             close={modal.close}
             handleClose={handleClose}
           />
@@ -170,6 +171,7 @@ export const Modal: React.FC = () => {
           modal.type !== "home" &&
           modal.type !== "delete" &&
           modal.type !== "account" &&
+          modal.type !== "advertise" &&
           styles.modal_sp
         }`}
       >
