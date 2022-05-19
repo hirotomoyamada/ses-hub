@@ -8,6 +8,8 @@ import { Posts } from "./Posts";
 import { Requests } from "./Requests";
 import { Account } from "./Account";
 import { Plan } from "./Plan";
+import { Activity } from "./Activity";
+import { Analytics } from "./Analytics";
 
 interface PropType {
   page: string;
@@ -32,6 +34,10 @@ export const Main: React.FC<PropType> = ({ page, type }) => {
       return <Plan type={type} />;
     case "requests":
       return <Requests />;
+    case "activity":
+      return <Activity />;
+    case "analytics":
+      return <Analytics type={type} />;
     case "account":
       return <Account type={type} />;
   }
