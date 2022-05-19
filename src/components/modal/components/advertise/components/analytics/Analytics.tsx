@@ -37,11 +37,21 @@ export const Analytics: React.FC<PropType> = ({ user, handleClose, close }) => {
 
       <button
         type="button"
-        className={styles.analytics_btn}
+        className={`${styles.analytics_btn} ${
+          user.type !== "parent" && styles.analytics_btn_disabled
+        }`}
         onClick={handleOpen}
       >
-        {user.payment.status !== "canceled" ? "プラン" : "オプション"}を見る
+        {/* ver 2.2.X */}
+        {/* {user.payment.status !== "canceled" ? "オプション" : "プラン"}を見る */}
+        {user.type !== "individual" ? "プランを見る" : "近日公開"}
       </button>
+
+      {user.type === "child" && (
+        <span className={styles.analytics_none}>
+          このアカウントではプランを選択できません
+        </span>
+      )}
 
       <img
         src={`${process.env.PUBLIC_URL}/img/app/analytics.svg`}
