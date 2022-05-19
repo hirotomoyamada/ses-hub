@@ -107,10 +107,7 @@ export const Feature: React.FC = () => {
             </tr>
 
             <tr>
-              <td>
-                <span className={styles.feature_tag}>\&nbsp;New&nbsp;/</span>
-                新着投稿の通知
-              </td>
+              <td>新着投稿の通知</td>
 
               <td>
                 <ChangeHistoryIcon
@@ -143,6 +140,44 @@ export const Feature: React.FC = () => {
             </tr>
 
             <tr>
+              <td>
+                <span className={styles.feature_tag}>\&nbsp;New&nbsp;/</span>
+                アクティビティ
+              </td>
+
+              <td>
+                <ChangeHistoryIcon
+                  className={`${styles.feature_icon} ${styles.feature_icon_limited}`}
+                />
+                <span className={styles.feature_icon_desc}>※4</span>
+              </td>
+              <td>
+                <RadioButtonUncheckedIcon
+                  className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
+                />
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span className={styles.feature_tag}>\&nbsp;New&nbsp;/</span>
+                アナリティクス
+              </td>
+
+              <td>
+                <CloseIcon
+                  className={`${styles.feature_icon} ${styles.feature_icon_disable}`}
+                />
+              </td>
+              <td>
+                <RadioButtonUncheckedIcon
+                  className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
+                />
+                <span className={styles.feature_icon_desc}>※5</span>
+              </td>
+            </tr>
+
+            <tr>
               <td>フォロー</td>
 
               <td>
@@ -158,10 +193,7 @@ export const Feature: React.FC = () => {
             </tr>
 
             <tr>
-              <td>
-                <span className={styles.feature_tag}>\&nbsp;New&nbsp;/</span>
-                フリーランスへアプローチ
-              </td>
+              <td>フリーランスへアプローチ</td>
 
               <td>
                 <CloseIcon
@@ -172,7 +204,7 @@ export const Feature: React.FC = () => {
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
-                <span className={styles.feature_icon_desc}>※4</span>
+                <span className={styles.feature_icon_desc}>※6</span>
               </td>
             </tr>
 
@@ -192,10 +224,7 @@ export const Feature: React.FC = () => {
             </tr>
 
             <tr>
-              <td>
-                <span className={styles.feature_tag}>\&nbsp;New&nbsp;/</span>
-                グループアカウント
-              </td>
+              <td>グループアカウント</td>
 
               <td>
                 <CloseIcon
@@ -206,7 +235,7 @@ export const Feature: React.FC = () => {
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
-                <span className={styles.feature_icon_desc}>※5</span>
+                <span className={styles.feature_icon_desc}>※7</span>
               </td>
             </tr>
           </tbody>
@@ -225,14 +254,25 @@ export const Feature: React.FC = () => {
         </span>
         <br />
         <span className={styles.feature_announce}>
-          ※4&nbsp;別途オプションの加入が必要です。
+          ※4&nbsp;投稿の閲覧数のみ表示されます。
+        </span>
+        <br />
+        <span className={styles.feature_announce}>
+          ※5&nbsp;別途オプションの加入が必要です。
+          <span className={styles.feature_announce_desc}>
+            法人契約なら、こちらのオプションは標準でご利用いただけます！
+          </span>
+        </span>
+        <br />
+        <span className={styles.feature_announce}>
+          ※6&nbsp;別途オプションの加入が必要です。
           <span className={styles.feature_announce_desc}>
             今なら無料体験中 !
           </span>
         </span>
         <br />
         <span className={styles.feature_announce}>
-          ※5&nbsp;複数のアカウントを登録・管理するには法人契約へのお申し込みが必要です。
+          ※7&nbsp;複数のアカウントを登録・管理するには法人契約へのお申し込みが必要です。
         </span>
         <br />
         <span className={styles.feature_announce}>
