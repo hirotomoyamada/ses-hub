@@ -16,19 +16,40 @@ export const Analytics: React.FC<PropType> = ({ user }) => {
     <div className={styles.main_row}>
       <div className={styles.main_col}>
         <span className={styles.main_tag}>アナリティクス</span>
-        {user?.payment?.status === "canceled" && (
+        {user.type === "individual" && !user.payment.option?.analytics && (
           <span className={styles.main_desc}>
-            プランとオプションを選択する必要があります
+            {user?.payment?.status !== "canceled"
+              ? "オプション"
+              : "プランとオプション"}
+            を選択する必要があります
+          </span>
+        )}
+
+        {user.type !== "individual" && user?.payment?.status === "canceled" && (
+          <span className={styles.main_desc}>
+            プランを選択する必要があります
           </span>
         )}
       </div>
 
       <button
-        className={`${styles.main_btn} ${
-          user?.payment?.status === "canceled" && styles.main_btn_disabled
-        }`}
+        className={`${styles.main_btn}`}
         type="button"
-        onClick={() => dispatch(rootSlice.handleModal({ type: "Analytics" }))}
+        onClick={() =>
+          user.payment.status !== "canceled" &&
+          (user.type !== "individual" || user.payment.option?.analytics)
+            ? dispatch(
+                rootSlice.handleModal({
+                  type: "analytics",
+                })
+              )
+            : dispatch(
+                rootSlice.handleModal({
+                  type: "advertise",
+                  meta: { type: "analytics" },
+                })
+              )
+        }
       >
         表示
       </button>
