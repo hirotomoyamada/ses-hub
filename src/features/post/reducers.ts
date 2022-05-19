@@ -588,7 +588,7 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
       }
 
       if (action.payload.index === "persons") {
-        if (posts === "likes" || posts === "entries") {
+        if (posts === "search" || posts === "likes" || posts === "entries") {
           const post = state[posts][action.payload.index].posts.find(
             (post) => post?.uid === action.payload.post.uid
           );
@@ -623,6 +623,20 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
         const post = (state.bests as (Resource | undefined)[]).find(
           (post) =>
             post?.objectID === (action.payload.post as Resource).objectID
+        );
+
+        if (post) {
+          if (post.likes) {
+            post.likes += 1;
+          } else {
+            Object.assign(post, { likes: 1 });
+          }
+        }
+      }
+
+      if (action.payload.index === "persons") {
+        const post = (state.bests as (Person | undefined)[]).find(
+          (post) => post?.uid === (action.payload.post as Person).uid
         );
 
         if (post) {
@@ -687,7 +701,7 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
       }
 
       if (action.payload.index === "persons") {
-        if (posts === "likes" || posts === "entries") {
+        if (posts === "search" || posts === "likes" || posts === "entries") {
           const post = state[posts][action.payload.index].posts.find(
             (post) => post?.uid === action.payload.post.uid
           );
@@ -714,6 +728,16 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
         const post = (state.bests as (Resource | undefined)[]).find(
           (post) =>
             post?.objectID === (action.payload.post as Resource).objectID
+        );
+
+        if (post && post.likes) {
+          post.likes -= 1;
+        }
+      }
+
+      if (action.payload.index === "persons") {
+        const post = (state.bests as (Person | undefined)[]).find(
+          (post) => post?.uid === (action.payload.post as Person).uid
         );
 
         if (post && post.likes) {
