@@ -135,13 +135,16 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
             <FavoriteBorderIcon className={styles.command_icon} />
           )}
 
-          {(post as Matter | Resource).likes ? (
+          {user.payment.status === "canceled" ||
+          (post as Matter | Resource).likes ? (
             <span
               className={`${styles.command_count} ${
                 like && styles.command_count_like
               }`}
             >
-              {(post as Matter | Resource).likes}
+              {user.payment.status !== "canceled"
+                ? (post as Matter | Resource).likes
+                : "?"}
             </span>
           ) : (
             <></>
@@ -159,13 +162,16 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
                 ${clickOutput && styles.command_icon_output_click}`}
             />
 
-            {(post as Matter | Resource).outputs ? (
+            {user.payment.status === "canceled" ||
+            (post as Matter | Resource).outputs ? (
               <span
                 className={`${styles.command_count} ${
                   output && styles.command_count_output
                 }`}
               >
-                {(post as Matter | Resource).outputs}
+                {user.payment.status !== "canceled"
+                  ? (post as Matter | Resource).outputs
+                  : "?"}
               </span>
             ) : (
               <></>
@@ -187,13 +193,16 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
             }`}
           />
 
-          {(post as Matter | Resource).entries ? (
+          {user.payment.status === "canceled" ||
+          (post as Matter | Resource).entries ? (
             <span
               className={`${styles.command_count} ${
                 entry && styles.command_count_entry
               }`}
             >
-              {(post as Matter | Resource).entries}
+              {user.payment.status !== "canceled"
+                ? (post as Matter | Resource).entries
+                : "?"}
             </span>
           ) : (
             <></>
