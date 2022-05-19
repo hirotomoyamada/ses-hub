@@ -17,6 +17,8 @@ export const Menu: React.FC<PropType> = ({ page, setPage, type }) => {
     { page: "posts", name: "投稿" },
     { page: "plan", name: "プラン" },
     { page: "requests", name: "リクエスト" },
+    { page: "activity", name: "アクティビティ" },
+    { page: "analytics", name: "アナリティクス" },
     type !== "individual" && { page: "account", name: "グループアカウント" },
   ];
 
