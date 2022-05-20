@@ -129,6 +129,9 @@ export const extraReducers = (
 
       if (
         (action.type.includes("/createPost/") ||
+          action.type.includes("/editPost/") ||
+          action.type.includes("/deletePost/") ||
+          action.type.includes("/editProfile/") ||
           action.type.includes("/fetchPosts/") ||
           action.type.includes("/extractPosts/") ||
           action.type.includes("/homePosts/") ||
@@ -139,6 +142,7 @@ export const extraReducers = (
           state.modal.type === "home" ||
           state.modal.type === "account" ||
           state.modal.type === "edit" ||
+          state.modal.type === "profile" ||
           state.modal.type === "new") &&
         !action.error.code?.includes("ok")
       ) {

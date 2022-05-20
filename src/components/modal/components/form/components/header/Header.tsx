@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Header.module.scss";
 
 import { useFormContext } from "react-hook-form";
-import { Oval } from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 
 interface PropType {
   handleClose: () => void;
@@ -50,7 +50,7 @@ export const Header: React.FC<PropType> = ({ edit, fetch, handleClose }) => {
 
         <button className={styles.header_submit} type="submit">
           {fetch ? (
-            <Oval color="#FFF" secondaryColor="#FFF" height={24} width={24} />
+            <ThreeDots color="#FFF" height={24} width={24} />
           ) : edit ? (
             "編集"
           ) : (
