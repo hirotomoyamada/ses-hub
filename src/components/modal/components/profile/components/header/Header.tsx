@@ -4,7 +4,7 @@ import styles from "./Header.module.scss";
 
 import { Company as SelectUser } from "types/post";
 import { User } from "types/user";
-import { Oval } from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 
 interface PropType {
   user: User | SelectUser;
@@ -42,11 +42,7 @@ export const Header: React.FC<PropType> = ({
       </button>
       {!cover && !icon && !line && (
         <button className={styles.header_submit} type="submit">
-          {fetch ? (
-            <Oval color="#FFF" secondaryColor="#FFF" height={24} width={24} />
-          ) : (
-            "保存"
-          )}
+          {fetch ? <ThreeDots color="#FFF" height={24} width={24} /> : "保存"}
         </button>
       )}
     </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Delete.module.scss";
-import { Oval } from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import * as rootSlice from "features/root/rootSlice";
 
@@ -45,7 +45,7 @@ export const Delete: React.FC<PropType> = ({
           onClick={handleDelete ? handleDelete : undefined}
         >
           {fetch ? (
-            <Oval color="#FFF" secondaryColor="#FFF" height={24} width={24} />
+            <ThreeDots color="#FFF" height={24} width={24} />
           ) : text !== "出力" ? (
             "削除"
           ) : (
