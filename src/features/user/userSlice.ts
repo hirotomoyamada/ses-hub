@@ -65,8 +65,6 @@ export const userSlice = createSlice({
     resetUser: (state) => reducers.resetUser(state),
     updateToken: (state, action: PayloadAction<string | undefined>) =>
       reducers.updateToken(state, action),
-    editProfile: (state, action: PayloadAction<Profile>) =>
-      reducers.editProfile(state, action),
     updateNotice: (state) => reducers.updateNotice(state),
     updatePayment: (state, action: PayloadAction<User["payment"]>) =>
       reducers.updatePayment(state, action),
@@ -102,7 +100,6 @@ export const {
   logout,
   updateToken,
   resetUser,
-  editProfile,
   updateNotice,
   updatePayment,
   addProvider,

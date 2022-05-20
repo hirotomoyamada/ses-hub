@@ -1,6 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { auth, functions } from "libs/firebase";
-import { httpsCallable, HttpsCallable } from "firebase/functions";
+import { auth } from "libs/firebase";
 
 import { State, Activity } from "features/post/initialState";
 import { Matter, Resource, Company, Person } from "types/post";
@@ -300,19 +299,12 @@ export const editPost = (state: State, action: PayloadAction<Post>): void => {
     post.memo = (action.payload.post as Resource).memo;
     post.updateAt = timestamp;
   }
-
-  const editPost: HttpsCallable<
-    { index: Post["index"]; post: Matter | Resource },
-    unknown
-  > = httpsCallable(functions, "sh-editPost");
-
-  void editPost({
-    index: action.payload.index,
-    post: action.payload.post,
-  });
 };
 
-export const deletePost = (state: State, action: PayloadAction<Post>): void => {
+export const deletePost = (
+  state: State,
+  action: PayloadAction<Post & { back?: boolean }>
+): void => {
   Object.keys(state).forEach((posts): void => {
     if (
       posts === "search" ||
@@ -338,19 +330,6 @@ export const deletePost = (state: State, action: PayloadAction<Post>): void => {
         );
       }
     }
-  });
-
-  const deletePost: HttpsCallable<
-    {
-      index: Post["index"];
-      post: Matter | Resource;
-    },
-    unknown
-  > = httpsCallable(functions, "sh-deletePost");
-
-  void deletePost({
-    index: action.payload.index,
-    post: action.payload.post,
   });
 };
 

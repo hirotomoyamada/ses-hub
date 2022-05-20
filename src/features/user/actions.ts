@@ -13,6 +13,7 @@ import { httpsCallable, HttpsCallable } from "firebase/functions";
 import { Company, Person } from "types/post";
 import { User, Data } from "types/user";
 import { Analytics } from "features/user/initialState";
+import { Profile } from "features/user/userSlice";
 
 export interface Login {
   req: {
@@ -80,6 +81,20 @@ export const createProfile = createAsyncThunk(
         });
       }
     });
+  }
+);
+
+export const editProfile = createAsyncThunk(
+  "user/editProfile",
+  async (arg: Profile): Promise<Profile> => {
+    const editProfile: HttpsCallable<Profile, unknown> = httpsCallable(
+      functions,
+      "sh-editProfile"
+    );
+
+    await editProfile(arg);
+
+    return arg;
   }
 );
 

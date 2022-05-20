@@ -5,12 +5,12 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import FilterListIcon from "@material-ui/icons/FilterList";
 
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 import * as rootSlice from "features/root/rootSlice";
 import * as postSlice from "features/post/postSlice";
 
 import { Matter, Resource } from "types/post";
+import { deletePost } from "features/post/actions";
 
 interface PropType {
   index?: "matters" | "resources";
@@ -28,7 +28,6 @@ export const Operation: React.FC<PropType> = ({
   item,
 }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
 
@@ -61,10 +60,7 @@ export const Operation: React.FC<PropType> = ({
   const handleDelete = (post: Matter | Resource) => {
     if (!index) return;
 
-    dispatch(postSlice.deletePost({ index: index, post: post }));
-    dispatch(rootSlice.handleModal());
-
-    back && navigate("/search");
+    dispatch(deletePost({ index: index, post: post, back }));
   };
 
   const handleActivity = () => {

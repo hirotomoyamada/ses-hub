@@ -58,7 +58,6 @@ export const extraReducers = (
       }
 
       if (
-        action.type.includes("/createPost/") ||
         action.type.includes("/createChild/") ||
         action.type.includes("/changeEmail") ||
         action.type.includes("/deleteChild")
@@ -212,16 +211,21 @@ export const extraReducers = (
 
   builder.addMatcher(
     (action: PayloadAction) =>
-      action.type.endsWith("/createPost") ||
-      action.type.endsWith("/editPost") ||
-      action.type.endsWith("/editProfile") ||
       action.type.endsWith("/addRequest") ||
       action.type.endsWith("/updateNotice") ||
       action.type.endsWith("/updateHome") ||
+      action.type.endsWith("/createPost/fulfilled") ||
+      action.type.endsWith("/editPost/fulfilled") ||
+      action.type.endsWith("/deletePost/fulfilled") ||
+      action.type.endsWith("/editProfile/fulfilled") ||
       action.type.endsWith("/createChild/fulfilled") ||
       action.type.endsWith("/changeEmailChild/fulfilled") ||
       action.type.endsWith("/deleteChild/fulfilled"),
-    (state) => reducers.modal(state)
+    (state, action: PayloadAction<{ back?: boolean }>) => {
+      reducers.modal(state);
+
+      if (action.payload.back) window.location.href = "/search";
+    }
   );
 
   builder.addMatcher(

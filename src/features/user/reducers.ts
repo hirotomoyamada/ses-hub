@@ -290,13 +290,6 @@ export const editProfile = (
       }
     }
   }
-
-  const editProfile: HttpsCallable<Profile, unknown> = httpsCallable(
-    functions,
-    "sh-editProfile"
-  );
-
-  void editProfile(action.payload);
 };
 
 export const createPost = (

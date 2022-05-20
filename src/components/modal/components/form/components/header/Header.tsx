@@ -2,13 +2,15 @@ import React from "react";
 import styles from "./Header.module.scss";
 
 import { useFormContext } from "react-hook-form";
+import { Oval } from "react-loader-spinner";
 
 interface PropType {
   handleClose: () => void;
   edit?: boolean;
+  fetch?: boolean;
 }
 
-export const Header: React.FC<PropType> = ({ edit, handleClose }) => {
+export const Header: React.FC<PropType> = ({ edit, fetch, handleClose }) => {
   const { register } = useFormContext();
 
   return (
@@ -47,7 +49,13 @@ export const Header: React.FC<PropType> = ({ edit, handleClose }) => {
         </div>
 
         <button className={styles.header_submit} type="submit">
-          {edit ? "編集" : "登録"}
+          {fetch ? (
+            <Oval color="#FFF" secondaryColor="#FFF" height={24} width={24} />
+          ) : edit ? (
+            "編集"
+          ) : (
+            "登録"
+          )}
         </button>
       </div>
     </div>
