@@ -1,10 +1,8 @@
 import styles from "./Profile.module.scss";
 
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-
-import * as userSlice from "features/user/userSlice";
 
 import { Header } from "./components/header/Header";
 import { Cover } from "./components/cover/Cover";
@@ -14,6 +12,9 @@ import { Line } from "./components/line/Line";
 
 import { Company as SelectUser } from "types/post";
 import { User } from "types/user";
+import { editProfile } from "features/user/actions";
+import { Oval } from "react-loader-spinner";
+import * as rootSlice from "features/root/rootSlice";
 
 interface PropType {
   user: User | SelectUser;
@@ -43,6 +44,7 @@ export type Data = {
 
 export const Profile: React.FC<PropType> = ({ user, handleClose }) => {
   const dispatch = useDispatch();
+  const fetch = useSelector(rootSlice.load).fetch;
   const [cover, setCover] = useState(false);
   const [icon, setIcon] = useState(false);
   const [line, setLine] = useState(false);
@@ -76,7 +78,7 @@ export const Profile: React.FC<PropType> = ({ user, handleClose }) => {
   const handleEdit: SubmitHandler<Data> = (data) => {
     data.uid = user.uid;
 
-    dispatch(userSlice.editProfile(data));
+    dispatch(editProfile(data));
   };
 
   return (
@@ -87,27 +89,41 @@ export const Profile: React.FC<PropType> = ({ user, handleClose }) => {
       >
         <Header
           user={user}
+          fetch={fetch}
           handleClose={handleClose}
           handleBack={handleBack}
           cover={cover}
           icon={icon}
           line={line}
         />
+        {(() => {
+          switch (true) {
+            case line:
+              return <Line />;
 
-        {line ? (
-          <Line />
-        ) : cover ? (
-          <Cover />
-        ) : icon ? (
-          <Icon />
-        ) : (
-          <Form
-            cover={cover}
-            icon={icon}
-            setCover={setCover}
-            setIcon={setIcon}
-            setLine={setLine}
-          />
+            case cover:
+              return <Cover />;
+
+            case icon:
+              return <Icon />;
+
+            default:
+              return (
+                <Form
+                  cover={cover}
+                  icon={icon}
+                  setCover={setCover}
+                  setIcon={setIcon}
+                  setLine={setLine}
+                />
+              );
+          }
+        })()}
+
+        {fetch && (
+          <div className={styles.profile_fetch}>
+            <Oval color="#49b757" height={56} width={56} />
+          </div>
         )}
       </form>
     </FormProvider>

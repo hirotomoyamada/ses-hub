@@ -16,6 +16,10 @@ export const extraReducers = (
     }
   });
 
+  builder.addCase(actions.editProfile.fulfilled, (state, action) =>
+    reducers.editProfile(state, action)
+  );
+
   builder.addCase(actions.fetchUser.fulfilled, (state, action) =>
     reducers.fetchUser(state, action)
   );

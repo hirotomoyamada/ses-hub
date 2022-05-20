@@ -4,6 +4,7 @@ import styles from "./Header.module.scss";
 
 import { Company as SelectUser } from "types/post";
 import { User } from "types/user";
+import { Oval } from "react-loader-spinner";
 
 interface PropType {
   user: User | SelectUser;
@@ -12,10 +13,12 @@ interface PropType {
   cover: boolean;
   icon: boolean;
   line: boolean;
+  fetch?: boolean;
 }
 
 export const Header: React.FC<PropType> = ({
   user,
+  fetch,
   handleClose,
   handleBack,
   cover,
@@ -39,7 +42,11 @@ export const Header: React.FC<PropType> = ({
       </button>
       {!cover && !icon && !line && (
         <button className={styles.header_submit} type="submit">
-          保存
+          {fetch ? (
+            <Oval color="#FFF" secondaryColor="#FFF" height={24} width={24} />
+          ) : (
+            "保存"
+          )}
         </button>
       )}
     </div>

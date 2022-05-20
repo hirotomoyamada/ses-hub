@@ -3,6 +3,7 @@ import { functions } from "libs/firebase";
 import { httpsCallable, HttpsCallable } from "firebase/functions";
 import { Matter, Resource, Company, Person } from "types/post";
 import { Activity } from "features/post/initialState";
+import { Post } from "features/post/postSlice";
 
 export interface CreatePost {
   arg: {
@@ -124,6 +125,42 @@ export const createPost = createAsyncThunk(
     }
 
     return { page: arg.page, ...data };
+  }
+);
+
+export const editPost = createAsyncThunk(
+  "post/editPost",
+  async (arg: Post): Promise<Post> => {
+    const editPost: HttpsCallable<Post, unknown> = httpsCallable(
+      functions,
+      "sh-editPost"
+    );
+
+    await editPost({
+      index: arg.index,
+      post: arg.post,
+    });
+
+    return arg;
+  }
+);
+
+export const deletePost = createAsyncThunk(
+  "post/deletePost",
+  async (
+    arg: Post & { back?: boolean }
+  ): Promise<Post & { back?: boolean }> => {
+    const deletePost: HttpsCallable<Post, unknown> = httpsCallable(
+      functions,
+      "sh-deletePost"
+    );
+
+    await deletePost({
+      index: arg.index,
+      post: arg.post,
+    });
+
+    return arg;
   }
 );
 

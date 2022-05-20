@@ -6,6 +6,7 @@
 $width: responsive-width(pc);
 
 .form {
+  position: relative;
   color: $main_clr;
   background: $base_clr;
   position: relative;
@@ -22,5 +23,12 @@ $width: responsive-width(pc);
 
   @media (max-width: responsive-width(sp)) {
     font-size: 12px;
+  }
+
+  &_fetch {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }

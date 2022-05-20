@@ -19,10 +19,6 @@ export const postSlice = createSlice({
   reducers: {
     selectPost: (state, action: PayloadAction<Post["post"]>) =>
       reducers.selectPost(state, action),
-    editPost: (state, action: PayloadAction<Post>) =>
-      reducers.editPost(state, action),
-    deletePost: (state, action: PayloadAction<Post>) =>
-      reducers.deletePost(state, action),
     resetPost: (state, action: PayloadAction) =>
       reducers.resetPost(state, action),
   },
@@ -30,8 +26,7 @@ export const postSlice = createSlice({
   extraReducers: (builder) => extraReducers(builder),
 });
 
-export const { selectPost, editPost, deletePost, resetPost } =
-  postSlice.actions;
+export const { selectPost, resetPost } = postSlice.actions;
 
 export const posts = ({
   state,
