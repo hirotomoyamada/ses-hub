@@ -23,10 +23,17 @@ interface PropType {
 
 export const BarChart: React.FC<PropType> = React.memo(
   ({ width, height, setting, data }) => {
-    const [display, setDisplay] = useState<boolean>();
+    const [display, setDisplay] = useState<boolean>(false);
 
     useEffect(() => {
-      const display = Boolean(data?.log.filter(({ self }) => self).length);
+      if (!data) return;
+
+      const log = data.log[0];
+
+      const display = Boolean(
+        Object.keys(log).filter((label) => label !== "label" && log[label])
+          .length
+      );
 
       setDisplay(display);
     }, [data]);
@@ -37,7 +44,32 @@ export const BarChart: React.FC<PropType> = React.memo(
         barGap={8}
         width={width}
         height={height * 1.3}
-        data={data?.log}
+        data={(() => {
+          if (!data) return [];
+
+          switch (data.key) {
+            case "distribution":
+            case "approval": {
+              const log = Object.keys(data.log[0])
+                .map((label) => {
+                  if (label === "label") return;
+
+                  const self = data.log[0][label] || 0;
+
+                  return { label, self };
+                })
+                .filter(
+                  (data): data is { label: string; self: number } =>
+                    data !== undefined
+                );
+
+              return log;
+            }
+
+            default:
+              return data.log;
+          }
+        })()}
       >
         <XAxis type="number" domain={[0, "dataMax"]} hide />
         <YAxis type="category" dataKey="label" hide />

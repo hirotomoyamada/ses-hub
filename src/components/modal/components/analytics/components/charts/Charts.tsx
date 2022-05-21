@@ -83,14 +83,14 @@ export const Charts: React.FC<PropType> = ({ span, sort, analytics }) => {
   return !fetch ? (
     <div className={styles.charts} ref={ref}>
       {data.map((analytics) => {
-        if (!analytics.data.active) return <></>;
+        if (!analytics.data.active) return;
 
         if (
           setting?.analytics?.layout === "none" &&
           (analytics.data.key === "distribution" ||
             analytics.data.key === "approval")
         )
-          return <></>;
+          return;
 
         if (
           !sort.self &&
@@ -99,7 +99,7 @@ export const Charts: React.FC<PropType> = ({ span, sort, analytics }) => {
             analytics.data.key === "distribution" ||
             analytics.data.key === "approval")
         )
-          return <></>;
+          return;
 
         return (
           <div
