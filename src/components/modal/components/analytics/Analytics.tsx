@@ -81,7 +81,7 @@ export const Analytics: React.FC<PropType> = ({ user, handleClose }) => {
             setUid={setUid}
           />
           <Charts span={span} sort={sort} analytics={analytics} />
-          <Export span={span} sort={sort} analytics={analytics} />
+          <Export uid={uid} span={span} sort={sort} analytics={analytics} />
           <Btn
             setting={setting}
             setSetting={setSetting}
