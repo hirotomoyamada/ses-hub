@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Csv.module.scss";
-
+import styles from "./Export.module.scss";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-
+import { downloadFileFromArrayBuffer, ConvertOptions } from "libs/fileHelper";
 import { Header } from "./components/Header/Header";
 import { Main } from "./components/main/Main";
 import { Footer } from "./components/footer/Footer";
@@ -10,6 +9,7 @@ import { Sort, Span } from "components/modal/components/analytics/Analytics";
 import { Analytics } from "features/user/initialState";
 import { useSelector } from "react-redux";
 import * as rootSlice from "features/root/rootSlice";
+import { createExcelSheet } from "libs/excel";
 
 interface PropType {
   span: Span;
@@ -24,7 +24,7 @@ export type Data = {
   extension: string;
 };
 
-export const Csv: React.FC<PropType> = ({ span, sort, analytics }) => {
+export const Export: React.FC<PropType> = ({ span, sort, analytics }) => {
   const fetch = useSelector(rootSlice.load).fetch;
 
   const [all, setAll] = useState<boolean>(false);
@@ -34,7 +34,7 @@ export const Csv: React.FC<PropType> = ({ span, sort, analytics }) => {
       select: [],
       sort: ["self", "others"],
       span: span,
-      extension: "csv",
+      extension: "utf8",
     },
   });
 
@@ -45,19 +45,16 @@ export const Csv: React.FC<PropType> = ({ span, sort, analytics }) => {
   }, [select, all]);
 
   useEffect(() => {
-    methods.reset({
-      sort: [sort.self ? "self" : "", sort.others ? "others" : ""],
-      span: span,
-    });
+    methods.setValue("sort", [
+      sort.self ? "self" : "",
+      sort.others ? "others" : "",
+    ]);
+    methods.setValue("span", span);
   }, [span, sort]);
 
   const handleAll = (): void => {
     if (all) {
       methods.setValue("select", []);
-      methods.setError("select", {
-        type: "required",
-        message: "選択してください",
-      });
     } else {
       methods.setValue("select", [
         "posts",
@@ -73,8 +70,59 @@ export const Csv: React.FC<PropType> = ({ span, sort, analytics }) => {
     }
   };
 
-  const handleDownload: SubmitHandler<Data> = (data) => {
-    console.log(data);
+  const handleDownload: SubmitHandler<Data> = async (data) => {
+    const { select, sort, span, extension } = data;
+    const format: "xlsx" | "csv" = extension === "xlsx" ? "xlsx" : "csv";
+
+    const sheetName = "sheet1";
+
+    const columns = [
+      { header: "ID", key: "id" },
+      { header: "作成日時", key: "createdAt" },
+      { header: "名前", key: "name" },
+    ];
+
+    const rows = [
+      {
+        id: "f001",
+        createdAt: 1629902208,
+        name: "りんご",
+      },
+      {
+        id: "f002",
+        createdAt: 1629902245,
+        name: "ぶどう",
+      },
+      {
+        id: "f003",
+        createdAt: 1629902265,
+        name: "ばなな",
+      },
+    ];
+
+    const utf8Array = await createExcelSheet({
+      sheetName,
+      columns,
+      rows,
+      format,
+    });
+
+    const type = "application/octet-binary";
+    const fileName = `sample.${format}`;
+    const option: ConvertOptions = (() => {
+      switch (extension) {
+        case "sjis":
+          return {
+            from: "UTF8",
+            to: "SJIS",
+          };
+
+        default:
+          return;
+      }
+    })();
+
+    downloadFileFromArrayBuffer({ utf8Array, type, fileName, option });
   };
 
   return !fetch && analytics?.length ? (

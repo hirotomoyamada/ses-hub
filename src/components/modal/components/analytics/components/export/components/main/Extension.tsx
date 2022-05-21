@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Main.module.scss";
 
 import { useFormContext } from "react-hook-form";
-import { Data } from "components/modal/components/analytics/components/csv/Csv";
+import { Data } from "components/modal/components/analytics/components/export/Export";
 
 export const Extension = () => {
   const { register } = useFormContext<Data>();
@@ -16,13 +16,26 @@ export const Extension = () => {
     >
       <input
         type="radio"
-        id="csv"
+        id="utf8"
         {...register("extension")}
-        value="csv"
+        value="utf8"
         className={`${styles.main_input}`}
       />
-      <label className={`${styles.main_input_label}`} htmlFor="csv">
-        .csv
+      <label className={`${styles.main_input_label}`} htmlFor="utf8">
+        <span>.csv</span>
+        <span className={styles.main_desc}>(UTF-8)</span>
+      </label>
+
+      <input
+        type="radio"
+        id="sjis"
+        {...register("extension")}
+        value="sjis"
+        className={`${styles.main_input}`}
+      />
+      <label className={`${styles.main_input_label}`} htmlFor="sjis">
+        <span>.csv</span>
+        <span className={styles.main_desc}>(SJIS)</span>
       </label>
 
       <input
