@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Charts.module.scss";
 
 import CountUp from "react-countup";
@@ -16,9 +16,41 @@ interface PropType {
 }
 export const NumberChart: React.FC<PropType> = React.memo(
   ({ sample, setting, sort, data }) => {
+    const [log, setLog] = useState<Analytics[number]["log"]>([]);
+
+    useEffect(() => {
+      if (!data) return;
+
+      switch (data.key) {
+        case "distribution":
+        case "approval": {
+          const log = Object.keys(data.log[0])
+            .map((label) => {
+              if (label === "label") return;
+
+              const self = data.log[0][label] || 0;
+
+              return { label, self };
+            })
+            .filter(
+              (data): data is { label: string; self: number } =>
+                data !== undefined
+            );
+
+          return setLog(log);
+        }
+
+        default: {
+          const { log } = data;
+
+          return setLog(log);
+        }
+      }
+    }, [data]);
+
     return (
       <div className={styles.number}>
-        {data?.log.map((log, i) => (
+        {log?.map((log, i) => (
           <div key={i} className={styles.number_container}>
             <p className={styles.number_label}>{log.label}</p>
 

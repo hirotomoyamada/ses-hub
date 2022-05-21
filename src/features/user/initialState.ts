@@ -19,6 +19,7 @@ export type Analytics = {
     label: string;
     self: number;
     others?: number;
+    [key: string]: string | number | undefined;
   }[];
 }[];
 
