@@ -21,8 +21,10 @@ $width: responsive-width(pc);
     transition: all 0.4s;
 
     color: $base_clr;
-    text-align: center;
-    line-height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     @media (max-width: responsive-width(sp)) {
       height: 40px;
