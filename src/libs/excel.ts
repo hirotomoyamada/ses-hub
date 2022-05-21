@@ -1,14 +1,20 @@
 import ExcelJS from "exceljs";
 
+export type Columns = Partial<ExcelJS.Column>[];
+
+export type Rows = {
+  [key: string | number]: string | number | boolean | null;
+}[];
+
 export interface CreateExcelSheet {
-  sheetName: string;
-  columns: Partial<ExcelJS.Column>[];
-  rows: { [key: string | number]: string | number | boolean | null }[];
+  sheetName?: string;
+  columns: Columns;
+  rows: Rows;
   format: "xlsx" | "csv";
 }
 
 export const createExcelSheet = async ({
-  sheetName,
+  sheetName = "sheet1",
   columns,
   rows,
   format,
