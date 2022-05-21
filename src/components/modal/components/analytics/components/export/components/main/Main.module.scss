@@ -128,7 +128,6 @@ $width: responsive-width(pc);
       position: relative;
       display: flex;
       align-items: center;
-      gap: 16px;
       cursor: pointer;
 
       &:before {
@@ -139,6 +138,8 @@ $width: responsive-width(pc);
         border: 1px solid $sign_clr;
         border-radius: 100%;
         opacity: 0.6;
+
+        margin-right: 16px;
 
         transition: all 0.12s, border-color 0.08s;
 
@@ -191,6 +192,7 @@ $width: responsive-width(pc);
       font-size: 10px;
     }
   }
+
   &_desc {
     white-space: pre;
     color: $sub_clr;

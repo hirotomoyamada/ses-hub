@@ -12,7 +12,7 @@ import { Header } from "./components/header/Header";
 import { Setting } from "./components/setting/Setting";
 import { Account } from "./components/account/Account";
 import { Charts } from "./components/charts/Charts";
-import { Csv } from "./components/csv/Csv";
+import { Export } from "./components/export/Export";
 import { Btn } from "./components/btn/Btn";
 
 import { User } from "types/user";
@@ -81,7 +81,7 @@ export const Analytics: React.FC<PropType> = ({ user, handleClose }) => {
             setUid={setUid}
           />
           <Charts span={span} sort={sort} analytics={analytics} />
-          <Csv span={span} sort={sort} analytics={analytics} />
+          <Export span={span} sort={sort} analytics={analytics} />
           <Btn
             setting={setting}
             setSetting={setSetting}

@@ -3,7 +3,7 @@ import styles from "./Main.module.scss";
 
 import { useFormContext, FieldError } from "react-hook-form";
 
-import { Data } from "components/modal/components/analytics/components/csv/Csv";
+import { Data } from "components/modal/components/analytics/components/export/Export";
 
 export const Sort = () => {
   const {
