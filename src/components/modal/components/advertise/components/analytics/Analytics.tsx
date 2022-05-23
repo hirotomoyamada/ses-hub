@@ -32,7 +32,7 @@ export const Analytics: React.FC<PropType> = ({ user, handleClose, close }) => {
       <div className={`${styles.analytics_header}`}>
         <span className={styles.analytics_desc}>\ アナリティクス /</span>
 
-        <p className={styles.analytics_ttl}>データ分析で差をつける</p>
+        <p className={styles.analytics_ttl}>データ分析でわかりやすい</p>
       </div>
 
       <button

@@ -34,7 +34,11 @@ export const Analytics: React.FC<PropType> = ({ type }) => {
       )}
 
       <div className={styles.howto_container}>
-        <Tag tag="した数" paid option={type === "individual"} />
+        <Tag
+          tag="した数"
+          paid={type !== "individual"}
+          option={type === "individual"}
+        />
 
         <p>
           あなたが投稿やユーザーに対して
@@ -46,7 +50,11 @@ export const Analytics: React.FC<PropType> = ({ type }) => {
       </div>
 
       <div className={styles.howto_container}>
-        <Tag tag="された数" paid option={type === "individual"} />
+        <Tag
+          tag="された数"
+          paid={type !== "individual"}
+          option={type === "individual"}
+        />
 
         <p>
           あなたやあなたの投稿に対して
@@ -58,7 +66,11 @@ export const Analytics: React.FC<PropType> = ({ type }) => {
       </div>
 
       <div className={styles.howto_container}>
-        <Tag tag="絞り込む" paid option={type === "individual"} />
+        <Tag
+          tag="絞り込む"
+          paid={type !== "individual"}
+          option={type === "individual"}
+        />
 
         <p>
           <span className={styles.howto_container_tag}>今日</span>
@@ -85,7 +97,11 @@ export const Analytics: React.FC<PropType> = ({ type }) => {
       </div>
 
       <div className={styles.howto_container}>
-        <Tag tag="データを出力する" paid />
+        <Tag
+          tag="データを出力する"
+          paid={type !== "individual"}
+          option={type === "individual"}
+        />
 
         <p>
           あなたがデータで出力したい項目を
@@ -100,7 +116,7 @@ export const Analytics: React.FC<PropType> = ({ type }) => {
             ※&nbsp;<span className={styles.howto_container_tag}>拡張子</span>の
             <span className={styles.howto_container_tag}>.csv</span>や
             <span className={styles.howto_container_tag}>.xlsx</span>
-            は、あなたのデバイスやOSによっては文字が正しく表示されない場合があります。その場合は、
+            は、デバイスやOSによっては文字が正しく表示されない場合があります。その場合は、
             <span className={styles.howto_container_tag}>文字コード</span>
             をデバイス内のアプリなどで変換してください。
           </span>
@@ -108,7 +124,11 @@ export const Analytics: React.FC<PropType> = ({ type }) => {
       </div>
 
       <div className={styles.howto_container}>
-        <Tag tag="設定" paid option={type === "individual"} />
+        <Tag
+          tag="設定"
+          paid={type !== "individual"}
+          option={type === "individual"}
+        />
 
         <p>
           あなたが好む
@@ -134,7 +154,7 @@ export const Analytics: React.FC<PropType> = ({ type }) => {
 
         <p>
           <span className={styles.howto_container_acnt}>
-            あなたのデバイスのスペックによって
+            デバイスのスペックによって
             <span className={styles.howto_container_tag}>グラフ</span>
             が崩れる・正しく表示されない場合があります。
             <br />
