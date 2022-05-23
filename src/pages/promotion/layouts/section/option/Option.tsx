@@ -7,8 +7,8 @@ import styles from "./Option.module.scss";
 export const Option: React.FC = () => {
   return (
     <article className={`${styles.option} ${root.article}`}>
-      <FreelanceDirect />
       <Analytics />
+      <FreelanceDirect />
     </article>
   );
 };

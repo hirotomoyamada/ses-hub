@@ -22,7 +22,7 @@ export const Activity: React.FC = () => {
           <br />
           <br />
           <span className={styles.howto_container_acnt}>
-            ※&nbsp;あなたの閲覧した数はカウントされません
+            ※&nbsp;あなたの閲覧した数はカウントされません。
           </span>
         </p>
       </div>
