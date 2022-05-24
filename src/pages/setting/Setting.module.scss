@@ -66,13 +66,14 @@ $width: responsive-width(pc);
     transition: all 0.4s;
 
     color: $base_clr;
-    text-align: center;
-    line-height: 48px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: responsive-width(sp)) {
       margin-top: 16px;
       height: 40px;
-      line-height: 40px;
     }
 
     &_logout {
