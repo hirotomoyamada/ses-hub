@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Page.module.scss";
 import root from "../Setting.module.scss";
 
@@ -11,6 +11,7 @@ import * as rootSlice from "features/root/rootSlice";
 
 import { User } from "types/user";
 import { Data } from "../Setting";
+import { ThreeDots } from "react-loader-spinner";
 
 interface PropType {
   user: User;
@@ -25,6 +26,8 @@ export const Delete: React.FC<PropType> = ({
   setReset,
   setNext,
 }) => {
+  const [load, setLoad] = useState<boolean>(false);
+
   useScrollController();
 
   const dispatch = useDispatch();
@@ -115,18 +118,26 @@ export const Delete: React.FC<PropType> = ({
 
       <button
         type="button"
-        onClick={
-          !user?.payment?.children?.length
-            ? handleVerification
-            : () => navigate("/account", { state: { password: password } })
-        }
+        onClick={() => {
+          setLoad(true);
+
+          if (!user?.payment?.children?.length) {
+            handleVerification();
+          } else {
+            navigate("/account", { state: { password: password } });
+          }
+        }}
         className={`${root.setting_btn} ${
           !user?.payment?.children?.length && root.setting_btn_delete
         }`}
       >
-        {!user?.payment?.children?.length
-          ? "アカウントを削除"
-          : "グループアカウントへ移動する"}
+        {load ? (
+          <ThreeDots color="#FFF" height={24} width={24} />
+        ) : !user?.payment?.children?.length ? (
+          "アカウントを削除"
+        ) : (
+          "グループアカウントへ移動する"
+        )}
       </button>
     </div>
   );
