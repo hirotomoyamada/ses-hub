@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Delete.module.scss";
 import { ThreeDots } from "react-loader-spinner";
-import { useSelector } from "react-redux";
-import * as rootSlice from "features/root/rootSlice";
 
 interface PropType {
   handleClose: () => void;
@@ -17,7 +15,7 @@ export const Delete: React.FC<PropType> = ({
   close,
   handleDelete,
 }) => {
-  const fetch = useSelector(rootSlice.load).fetch;
+  const [load, setLoad] = useState<boolean>(false);
 
   return (
     <div className={styles.delete}>
@@ -42,9 +40,13 @@ export const Delete: React.FC<PropType> = ({
           form="form"
           type={handleDelete ? "button" : "submit"}
           className={styles.delete_menu_submit}
-          onClick={handleDelete ? handleDelete : undefined}
+          onClick={() => {
+            setLoad(true);
+
+            if (handleDelete) handleDelete();
+          }}
         >
-          {fetch ? (
+          {load ? (
             <ThreeDots color="#FFF" height={24} width={24} />
           ) : text !== "出力" ? (
             "削除"
