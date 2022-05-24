@@ -42,43 +42,6 @@ export const Posts: React.FC<PropType> = ({
 }) => {
   const user = useSelector(userSlice.user);
 
-  const createPosts = (() => {
-    const array = posts?.map(
-      (post) =>
-        post && (
-          <Item
-            key={
-              (post as Matter | Resource).objectID
-                ? (post as Matter | Resource).objectID
-                : post.uid
-            }
-            index={index}
-            post={post}
-            user={user}
-            select={select}
-            selectUser={selectUser}
-            outputs={outputs}
-            handleSelect={handleSelect}
-            handleCancel={handleCancel}
-            status={side}
-            display={side}
-          />
-        )
-    );
-
-    if (
-      user?.payment?.status &&
-      user.payment.status === "canceled" &&
-      index !== "companys"
-    ) {
-      for (let i = 0; i < Math.floor(array?.length / 10) + 1; i++) {
-        array.splice(i * 11, 0, <Advertise user={user} key={i * 11} />);
-      }
-    }
-
-    return array;
-  })();
-
   return (
     <div
       className={`
@@ -91,7 +54,39 @@ export const Posts: React.FC<PropType> = ({
       `}
       ref={list}
     >
-      {createPosts}
+      {(() => {
+        const array = posts?.map((post) => {
+          if (post)
+            return (
+              <Item
+                key={
+                  (post as Matter | Resource).objectID
+                    ? (post as Matter | Resource).objectID
+                    : post.uid
+                }
+                index={index}
+                post={post}
+                user={user}
+                select={select}
+                selectUser={selectUser}
+                outputs={outputs}
+                handleSelect={handleSelect}
+                handleCancel={handleCancel}
+                status={side}
+                display={side}
+              />
+            );
+        });
+
+        if (index !== "companys")
+          if (user?.payment?.status === "canceled") {
+            for (let i = 0; i < Math.floor(array?.length / 11) + 1; i++) {
+              array.splice(i * 11, 0, <Advertise user={user} key={i * 11} />);
+            }
+          }
+
+        return array;
+      })()}
     </div>
   );
 };
