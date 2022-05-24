@@ -225,10 +225,10 @@ export const extraReducers = (
       action.type.endsWith("/createChild/fulfilled") ||
       action.type.endsWith("/changeEmailChild/fulfilled") ||
       action.type.endsWith("/deleteChild/fulfilled"),
-    (state, action: PayloadAction<{ back?: boolean }>) => {
+    (state, action: PayloadAction<{ back?: boolean } | undefined>) => {
       reducers.modal(state);
 
-      if (action.payload.back) window.location.href = "/search";
+      if (action.payload?.back) window.location.href = "/search";
     }
   );
 
