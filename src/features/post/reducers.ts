@@ -28,19 +28,15 @@ export const createPost = (
     action.payload.post.display === "private" &&
     action.payload.page === "user"
   ) {
-    if (state.user[action.payload.index].posts.length) {
-      state.user[action.payload.index].posts = [
-        action.payload.post,
-        ...state.user[action.payload.index].posts,
-      ] as (Matter | undefined)[] | (Resource | undefined)[];
-    }
+    state.user[action.payload.index].posts = [
+      action.payload.post,
+      ...state.user[action.payload.index].posts,
+    ] as (Matter | undefined)[] | (Resource | undefined)[];
   } else if (action.payload.post.display === "public") {
-    if (state[action.payload.page][action.payload.index].posts.length) {
-      state[action.payload.page][action.payload.index].posts = [
-        action.payload.post,
-        ...state[action.payload.page][action.payload.index].posts,
-      ] as (Matter | undefined)[] | (Resource | undefined)[];
-    }
+    state[action.payload.page][action.payload.index].posts = [
+      action.payload.post,
+      ...state[action.payload.page][action.payload.index].posts,
+    ] as (Matter | undefined)[] | (Resource | undefined)[];
   }
 };
 
