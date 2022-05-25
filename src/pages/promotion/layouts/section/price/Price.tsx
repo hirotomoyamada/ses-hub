@@ -44,7 +44,7 @@ export const Price: React.FC = () => {
         <p className={`${styles.price_desc} ${root.section_desc}`}>
           {index === "individual"
             ? "期間に応じて、お得な料金システム"
-            : "利用人数に応じて、お得な料金システム"}
+            : "チームの人数に応じて、お得な料金システム"}
         </p>
 
         <Table
