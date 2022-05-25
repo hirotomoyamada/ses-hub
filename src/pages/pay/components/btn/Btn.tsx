@@ -65,8 +65,11 @@ export const Btn: React.FC<PropType> = ({
         : !load.checkout
         ? "購入"
         : "処理中..."}
+
       {load.checkout && (
-        <Oval color="#FFF" height={32} width={32} className={styles.btn_icon} />
+        <div className={styles.btn_icon}>
+          <Oval color="#FFF" secondaryColor="#FFF" height={32} width={32} />
+        </div>
       )}
     </button>
   );
