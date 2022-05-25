@@ -9,25 +9,27 @@ interface PropType {
 }
 
 export const Payment: React.FC<PropType> = ({ user }) => {
+  const status = "payment" in user ? user.payment.status : user.status;
+
   return (
     <div className={styles.profile_wrap}>
       <div
         className={`${styles.profile_payment} ${
-          user?.payment?.status === "active"
+          status === "active"
             ? styles.profile_payment_active
-            : user?.payment?.status === "trialing" &&
-              styles.profile_payment_trialing
+            : status === "trialing" && styles.profile_payment_trialing
         }`}
       >
-        {user?.payment?.status === "active"
+        {status === "active"
           ? "レギュラー"
-          : user?.payment?.status === "trialing"
+          : status === "trialing"
           ? "フリートライアル"
           : "リミテッド"}
       </div>
 
-      {user?.payment?.status !== "canceled" &&
-        (user as User)?.payment?.option?.freelanceDirect && (
+      {status !== "canceled" &&
+        "payment" in user &&
+        user?.payment?.option?.freelanceDirect && (
           <div
             className={`${styles.profile_payment} ${styles.profile_payment_option}`}
           >
