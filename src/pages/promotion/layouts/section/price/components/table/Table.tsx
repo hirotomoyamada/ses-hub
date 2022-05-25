@@ -21,6 +21,7 @@ export const Table: React.FC<PropType> = ({
     tr.push(
       <tr key={i}>
         <td>
+          {index !== "individual" && "〜"}
           {price[i].n}
           {index === "individual" ? "ヶ月" : "人"}プラン
         </td>
