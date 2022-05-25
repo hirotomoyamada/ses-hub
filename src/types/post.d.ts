@@ -127,7 +127,6 @@ export interface Company {
   icon: string;
   cover: string;
   type: string;
-  payment: { status: string };
   profile: {
     name: string;
     person: string | null;
