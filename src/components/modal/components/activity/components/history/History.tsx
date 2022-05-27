@@ -14,7 +14,7 @@ export const History: React.FC<PropType> = ({ total }) => {
 
   return (
     <div className={styles.history}>
-      <p className={styles.history_ttl}>閲覧数</p>
+      <p className={styles.history_ttl}>すべての閲覧数</p>
 
       {end ? (
         <CountUp
