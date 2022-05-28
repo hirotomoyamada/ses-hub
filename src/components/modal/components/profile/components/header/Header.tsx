@@ -30,11 +30,13 @@ export const Header: React.FC<PropType> = ({
       <button
         type="button"
         className={`${styles.header_cancel} ${
-          (!user?.profile?.person || user?.profile?.person === "名無しさん") &&
-          !cover &&
-          !icon &&
-          !line &&
-          styles.header_cancel_disable
+          (fetch ||
+            ((!user?.profile?.person ||
+              user?.profile?.person === "名無しさん") &&
+              !cover &&
+              !icon &&
+              !line)) &&
+          styles.header_cancel_disabled
         }`}
         onClick={!cover && !icon && !line ? handleClose : handleBack}
       >
