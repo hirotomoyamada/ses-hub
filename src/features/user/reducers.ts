@@ -316,6 +316,10 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
     ...(state.user as User).likes[action.payload.index],
   ];
 
+  if ("likes" in (state.selectUser as Person)) {
+    ((state.selectUser as Person).likes as number) += 1;
+  }
+
   const addLike: HttpsCallable<
     {
       index: Like["index"];
@@ -342,6 +346,10 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
         ? (action.payload.post as Matter | Resource).objectID
         : (action.payload.post as Person).uid)
   );
+
+  if ("likes" in (state.selectUser as Person)) {
+    ((state.selectUser as Person).likes as number) -= 1;
+  }
 
   const removeLike: HttpsCallable<
     {
