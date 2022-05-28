@@ -123,5 +123,5 @@ export const initialState: State = {
   notFound: false,
   limit: false,
 
-  ver: "2.1.1",
+  ver: "2.2.0",
 };
