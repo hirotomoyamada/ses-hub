@@ -30,7 +30,9 @@ export const Delete: React.FC<PropType> = ({
       <div className={styles.delete_menu}>
         <button
           type="button"
-          className={styles.delete_menu_cancel}
+          className={`${styles.delete_menu_cancel} ${
+            load && styles.delete_menu_cancel_disabled
+          }`}
           onClick={close ? close : handleClose}
         >
           {text !== "出力" ? "キャンセル" : "削除しない"}

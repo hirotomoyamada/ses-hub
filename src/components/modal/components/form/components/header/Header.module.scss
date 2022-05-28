@@ -21,12 +21,19 @@ $width: responsive-width(pc);
     color: $acnt_clr;
     line-height: 72px;
 
+    transition: all 0.4s;
+
     @media (max-width: responsive-width(sp)) {
       line-height: 48px;
     }
 
     &:hover {
       opacity: 0.8;
+    }
+
+    &_disabled {
+      color: $sub_clr;
+      pointer-events: none;
     }
   }
 

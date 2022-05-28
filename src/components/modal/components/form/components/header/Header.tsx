@@ -17,7 +17,9 @@ export const Header: React.FC<PropType> = ({ edit, fetch, handleClose }) => {
     <div className={styles.header}>
       <button
         type="button"
-        className={styles.header_cancel}
+        className={`${styles.header_cancel} ${
+          fetch && styles.header_cancel_disabled
+        }`}
         onClick={handleClose}
       >
         キャンセル
