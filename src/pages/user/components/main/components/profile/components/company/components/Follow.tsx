@@ -12,11 +12,17 @@ export const Follow: React.FC<PropType> = ({ user }) => {
   const follows = user.follows;
   const followers = user.followers;
 
+  console.log(user);
+
   return (
     <div className={styles.profile_follow}>
       <div className={styles.profile_wrap}>
         {follows instanceof Array ? (
-          <span className={styles.profile_follow_count}>{follows.length}</span>
+          <span className={styles.profile_follow_count}>
+            {"payment" in user && user.payment.status !== "canceled"
+              ? follows.length
+              : 0}
+          </span>
         ) : (
           <span className={styles.profile_follow_count}>{follows}</span>
         )}
