@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../Main.module.scss";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,12 +10,14 @@ import { faRobot } from "@fortawesome/free-solid-svg-icons";
 
 import * as rootSlice from "features/root/rootSlice";
 import { User } from "types/user";
+import { ThreeDots } from "react-loader-spinner";
 
 interface PropType {
   user: User;
 }
 
 export const Editor: React.FC<PropType> = ({ user }) => {
+  const fetch = useSelector(rootSlice.load).fetch;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,12 +45,18 @@ export const Editor: React.FC<PropType> = ({ user }) => {
                   })
                 )
           }
-          className={`${styles.main_edit_btn} ${styles.main_edit_btn_activity} ${styles.main_edit_btn_activity}`}
+          className={`${styles.main_edit_btn} ${
+            styles.main_edit_btn_analytics
+          } ${fetch && styles.main_edit_btn_disabled}`}
         >
-          <FontAwesomeIcon
-            icon={faRobot as IconProp}
-            className={styles.profile_icon}
-          />
+          {fetch ? (
+            <ThreeDots color="#aeaeae" height={16} width={16} />
+          ) : (
+            <FontAwesomeIcon
+              icon={faRobot as IconProp}
+              className={styles.profile_icon}
+            />
+          )}
         </button>
       </div>
 

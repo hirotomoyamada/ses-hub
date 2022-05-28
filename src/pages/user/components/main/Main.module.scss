@@ -84,6 +84,7 @@ $width: responsive-width(pc);
       border-radius: 20px;
       height: 40px;
       font-size: 14px;
+
       transition: all 0.4s;
 
       @media (max-width: responsive-width(sp)) {
@@ -106,7 +107,7 @@ $width: responsive-width(pc);
         }
       }
 
-      &_activity {
+      &_analytics {
         width: 40px;
         padding: 0;
 
@@ -127,12 +128,12 @@ $width: responsive-width(pc);
           width: 32px;
           font-size: 14px;
         }
+      }
 
-        &_disabled {
-          color: $sub_clr;
-          border-color: $sub_clr;
-          pointer-events: none;
-        }
+      &_disabled {
+        color: $sub_clr;
+        border-color: $sub_clr;
+        pointer-events: none;
       }
     }
 
