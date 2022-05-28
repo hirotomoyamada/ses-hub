@@ -10,7 +10,6 @@ import { faRobot } from "@fortawesome/free-solid-svg-icons";
 
 import * as rootSlice from "features/root/rootSlice";
 import { User } from "types/user";
-import { ThreeDots } from "react-loader-spinner";
 
 interface PropType {
   user: User;
@@ -27,7 +26,11 @@ export const Editor: React.FC<PropType> = ({ user }) => {
 
   return (
     <div className={styles.main_edit}>
-      <div className={styles.main_edit_outer}>
+      <div
+        className={`${styles.main_edit_outer} ${
+          fetch && styles.main_edit_outer_fetch
+        }`}
+      >
         <button
           type="button"
           onClick={() =>
@@ -49,14 +52,10 @@ export const Editor: React.FC<PropType> = ({ user }) => {
             styles.main_edit_btn_analytics
           } ${fetch && styles.main_edit_btn_disabled}`}
         >
-          {fetch ? (
-            <ThreeDots color="#aeaeae" height={16} width={16} />
-          ) : (
-            <FontAwesomeIcon
-              icon={faRobot as IconProp}
-              className={styles.profile_icon}
-            />
-          )}
+          <FontAwesomeIcon
+            icon={faRobot as IconProp}
+            className={styles.profile_icon}
+          />
         </button>
       </div>
 
