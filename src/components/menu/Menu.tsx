@@ -188,7 +188,7 @@ export const Menu: React.FC<PropType> = ({ user }) => {
         </button>
       </div>
 
-      {!limit && !notFound && page === "home" && (
+      {user.payment.status !== "canceled" && !notFound && page === "home" && (
         <button
           onClick={handleSetting}
           type="button"
