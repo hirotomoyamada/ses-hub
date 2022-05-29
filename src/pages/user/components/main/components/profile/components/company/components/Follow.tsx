@@ -12,8 +12,6 @@ export const Follow: React.FC<PropType> = ({ user }) => {
   const follows = user.follows;
   const followers = user.followers;
 
-  console.log(user);
-
   return (
     <div className={styles.profile_follow}>
       <div className={styles.profile_wrap}>
