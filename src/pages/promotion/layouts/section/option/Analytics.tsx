@@ -1,10 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import root from "../Section.module.scss";
 import styles from "./Option.module.scss";
+import * as rootSlice from "features/root/rootSlice";
 
 export const Analytics: React.FC = () => {
   // ver 2.2.X
   // const tax = 1.1;
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -39,12 +42,20 @@ export const Analytics: React.FC = () => {
             <span className={styles.option_type}>近日公開</span>
           </div>
 
-          <a
-            href={`${process.env.REACT_APP_FREELANCE_DIRECT}/option`}
+          <button
+            type="button"
             className={`${styles.option_btn} ${styles.option_btn_analytics}`}
+            onClick={() =>
+              dispatch(
+                rootSlice.handleModal({
+                  type: "analytics",
+                  meta: { type: "demo" },
+                })
+              )
+            }
           >
             デモを見る
-          </a>
+          </button>
         </div>
 
         <img

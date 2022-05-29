@@ -60,8 +60,8 @@ export const Sample: React.FC<PropType> = ({ offsetWidth, analytics }) => {
     }
   }, [offsetWidth]);
 
-  const Body: React.VFC = useMemo<React.VFC>(
-    (): React.VFC => (): JSX.Element => {
+  const Body: React.FC = useMemo<React.FC>(
+    (): React.FC => (): JSX.Element => {
       switch (layout) {
         case "line":
           return (
@@ -73,6 +73,7 @@ export const Sample: React.FC<PropType> = ({ offsetWidth, analytics }) => {
               data={data}
             />
           );
+
         case "number":
           return (
             <NumberChart
@@ -81,6 +82,7 @@ export const Sample: React.FC<PropType> = ({ offsetWidth, analytics }) => {
               data={data}
             />
           );
+
         default:
           return <></>;
       }

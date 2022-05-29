@@ -277,6 +277,7 @@ export interface FetchAnalytics {
     span: "total" | "day" | "week" | "month";
     active?: string[];
     order?: string[];
+    demo: boolean;
   };
 
   data: Analytics;

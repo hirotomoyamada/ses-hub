@@ -103,7 +103,13 @@ export const Modal: React.FC = () => {
         );
 
       case "analytics":
-        return <Analytics user={user} handleClose={handleClose} />;
+        return (
+          <Analytics
+            user={user}
+            demo={modal.meta?.type === "demo"}
+            handleClose={handleClose}
+          />
+        );
 
       case "application":
         return <Application user={user} handleClose={handleClose} />;
