@@ -184,7 +184,7 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
           onClick={handleEntry}
           className={`
             ${styles.command_btn}
-            ${user.uid === post.uid && styles.command_btn_disabled}
+            ${styles.command_btn_disabled}
           `}
         >
           <CheckCircleOutlineIcon
