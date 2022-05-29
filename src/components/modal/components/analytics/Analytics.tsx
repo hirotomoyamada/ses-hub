@@ -20,6 +20,7 @@ import { Company } from "types/post";
 
 interface PropType {
   user: User;
+  demo: boolean;
   handleClose: () => void;
 }
 
@@ -30,21 +31,31 @@ export type Sort = {
   others: boolean;
 };
 
-export const Analytics: React.FC<PropType> = ({ user, handleClose }) => {
+export type Collection =
+  | "posts"
+  | "histories"
+  | "likes"
+  | "outputs"
+  | "entries"
+  | "follows"
+  | "distribution"
+  | "approval";
+
+export const Analytics: React.FC<PropType> = ({ user, demo, handleClose }) => {
   const dispatch = useDispatch();
   const [span, setSpan] = useState<Span>("day");
   const [sort, setSort] = useState<Sort>({ self: true, others: true });
   const [setting, setSetting] = useState<boolean>(false);
   const [uid, setUid] = useState<string>(user.uid);
   const selectUser = useSelector(userSlice.selectUser) as Company[];
-  const analytics = useSelector(userSlice.analytics)?.[uid];
+  const analytics = useSelector(userSlice.analytics)?.[uid || "demo"];
   const active = useSelector(rootSlice.setting)?.analytics?.active;
   const order = useSelector(rootSlice.setting)?.analytics?.order;
   const status = user?.payment?.status !== "canceled";
   const children = user?.payment?.children;
 
   useEffect(() => {
-    dispatch(fetchAnalytics({ uid, span, active, order }));
+    dispatch(fetchAnalytics({ uid: uid || "demo", span, active, order, demo }));
   }, [dispatch, uid, span]);
 
   useEffect(() => {
@@ -63,6 +74,7 @@ export const Analytics: React.FC<PropType> = ({ user, handleClose }) => {
   return (
     <div className={`${styles.analytics}`}>
       <Header
+        demo={demo}
         span={span}
         sort={sort}
         setting={setting}

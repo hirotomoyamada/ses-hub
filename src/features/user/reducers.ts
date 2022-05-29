@@ -573,24 +573,32 @@ export const resetUser = (state: State): void => {
 
 export const updateAnalytics = (
   state: State,
-  action: PayloadAction<Setting["analytics"] & { type: "analytics" }>
+  action: PayloadAction<
+    (Setting["analytics"] & { type: "analytics" }) | undefined
+  >
 ): void => {
-  if (action.payload.type !== "analytics") return;
+  if (action.payload) {
+    if (action.payload.type !== "analytics") return;
 
-  Object.keys(state.analytics).forEach((uid) => {
-    state.analytics[uid] = action.payload.order
-      .map((key) =>
-        (state.analytics[uid] as Analytics).find(
-          (current) => current.key === key
+    Object.keys(state.analytics).forEach((uid) => {
+      state.analytics[uid] = action.payload?.order
+        .map((key) =>
+          (state.analytics[uid] as Analytics).find(
+            (current) => current.key === key
+          )
         )
-      )
-      .map((current) =>
-        current?.key && action.payload.active.indexOf(current?.key) >= 0
-          ? { ...current, active: true }
-          : { ...current, active: false }
-      )
-      .filter((data): data is Analytics[number] => data !== undefined);
-  });
+        .map((current) =>
+          current?.key &&
+          action.payload?.active &&
+          action.payload.active.includes(current?.key)
+            ? { ...current, active: true }
+            : { ...current, active: false }
+        )
+        .filter((data): data is Analytics[number] => data !== undefined);
+    });
+  } else {
+    state.analytics = {};
+  }
 };
 
 export const fetchAnalytics = (

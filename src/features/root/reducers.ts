@@ -201,23 +201,29 @@ export const modal = (
 
 export const setting = (
   state: State,
-  action: PayloadAction<Setting["analytics"] & { type: "analytics" }>
+  action: PayloadAction<
+    (Setting["analytics"] & { type: "analytics" }) | undefined
+  >
 ): void => {
-  const { type, ...payload } = action.payload;
+  if (action.payload) {
+    const { type, ...payload } = action.payload;
 
-  if (state.setting) {
-    Object.assign(state.setting, { [type]: payload });
+    if (state.setting) {
+      Object.assign(state.setting, { [type]: payload });
+    } else {
+      state.setting = { [type]: payload };
+    }
+
+    const updateSetting: HttpsCallable<
+      {
+        type: string;
+        setting: Setting["analytics"];
+      },
+      unknown
+    > = httpsCallable(functions, "sh-updateSetting");
+
+    void updateSetting({ type: type, setting: payload });
   } else {
-    state.setting = { [type]: payload };
+    state.setting = undefined;
   }
-
-  const updateSetting: HttpsCallable<
-    {
-      type: string;
-      setting: Setting["analytics"];
-    },
-    unknown
-  > = httpsCallable(functions, "sh-updateSetting");
-
-  void updateSetting({ type: type, setting: payload });
 };
