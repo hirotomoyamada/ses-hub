@@ -207,7 +207,7 @@ export const Export: React.FC<PropType> = ({ uid, span, sort, analytics }) => {
       });
 
       const type = "application/octet-binary";
-      const fileName = `${uid}_${timestamp}.${format}`;
+      const fileName = `${uid || "demo"}_${timestamp}.${format}`;
       const option: ConvertOptions = (() => {
         switch (extension) {
           case "sjis":
