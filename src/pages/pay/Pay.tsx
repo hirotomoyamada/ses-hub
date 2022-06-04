@@ -19,8 +19,6 @@ import { Btn } from "./components/btn/Btn";
 
 import * as functions from "functions";
 
-import { Products } from "types/pay";
-
 export const Pay: React.FC = () => {
   const dispatch = useDispatch();
 
@@ -30,8 +28,8 @@ export const Pay: React.FC = () => {
   const products = useSelector(paySlice.products);
   const tax = useSelector(paySlice.tax);
 
-  const [priceId, setPriceId] = useState<string | undefined>();
-  const [productId, setProductId] = useState<string | undefined>();
+  const [priceId, setPriceId] = useState<string | undefined>(undefined);
+  const [productId, setProductId] = useState<string | undefined>(undefined);
   const [load, setLoad] = useState<{ checkout?: boolean; portal?: boolean }>({
     checkout: false,
     portal: false,
@@ -39,35 +37,48 @@ export const Pay: React.FC = () => {
   const [resize, inner] = useResize(products);
 
   useEffect(() => {
-    user?.type !== "child" && dispatch(fetchProducts(user));
+    user.type !== "child" && dispatch(fetchProducts(user));
   }, [dispatch, user]);
 
   useEffect(() => {
-    Object.keys(products)?.forEach((product) => {
-      const price = products?.[product as keyof Products]?.prices?.find(
-        (price) => price.id === priceId
-      );
+    Object.keys(products)?.forEach((type) => {
+      const price = products[type].prices.find((price) => price.id === priceId);
 
       if (price) {
-        setProductId(products?.[product as keyof Products]?.id);
+        setProductId(products[type].id);
       }
     });
   }, [priceId, products]);
 
   useEffect(() => {
-    setPriceId(
-      user?.payment?.price
-        ? undefined
-        : products?.plan?.type === "individual" ||
-          !user?.payment?.children?.length
-        ? products?.plan?.prices?.[0]?.id
-        : products?.plan?.prices?.find(
-            (price) =>
-              user?.payment?.children?.length &&
-              price?.account &&
-              user?.payment?.children?.length < price.account
-          )?.id
-    );
+    if (!Object.keys(products).length) return;
+
+    const plan = products[user.type];
+
+    switch (true) {
+      case Boolean(user.payment.price):
+        break;
+
+      case user.type === "individual" || !user.payment.children?.length:
+        setPriceId(plan.prices[0].id);
+        break;
+
+      case user.type === "parent": {
+        const price = plan.prices.find(
+          (price) =>
+            user.payment.children?.length &&
+            price.account &&
+            user.payment.children.length < price.account
+        );
+
+        setPriceId(price?.id);
+
+        break;
+      }
+
+      default:
+        return;
+    }
   }, [products, user]);
 
   return (
@@ -83,8 +94,6 @@ export const Pay: React.FC = () => {
               products={products}
               user={user}
               tax={tax}
-              load={load}
-              setLoad={setLoad}
               priceId={priceId}
               setPriceId={setPriceId}
               handlePortal={functions.pay.handlePortal}

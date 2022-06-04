@@ -15,16 +15,6 @@ interface PropType {
   products: Products;
   user: User;
   tax: number;
-  load: {
-    checkout?: boolean;
-    portal?: boolean;
-  };
-  setLoad: React.Dispatch<
-    React.SetStateAction<{
-      checkout?: boolean;
-      portal?: boolean;
-    }>
-  >;
   priceId: string | undefined;
   setPriceId: React.Dispatch<React.SetStateAction<string | undefined>>;
   handlePortal: ({
@@ -38,8 +28,6 @@ export const Container: React.FC<PropType> = ({
   products,
   user,
   tax,
-  load,
-  setLoad,
   priceId,
   setPriceId,
   handlePortal,
@@ -48,32 +36,27 @@ export const Container: React.FC<PropType> = ({
   return products ? (
     <>
       {Object.keys(products).map(
-        (product) =>
-          // ver 2.X.X
-          // 削除予定
-          product !== "option" &&
-          products?.[product as keyof Products]?.prices?.length && (
-            <div key={product} className={styles.container}>
-              <Header products={products} product={product as keyof Products} />
+        (type, i) =>
+          products[type].prices.length && (
+            <div key={i} className={styles.container}>
+              <Header products={products} type={type} i={i} />
 
               <List
                 products={products}
-                product={product as keyof Products}
+                type={type}
                 user={user}
                 tax={tax}
-                load={load}
-                setLoad={setLoad}
                 priceId={priceId}
                 setPriceId={setPriceId}
                 handlePortal={handlePortal}
                 demo={demo}
               />
 
-              <Footer
-                products={products}
-                product={product as keyof Products}
-                user={user}
-              />
+              {(products[type].type === "individual" ||
+                products[type].type === "parent" ||
+                i + 1 === Object.keys(products).length) && (
+                <Footer type={type} user={user} />
+              )}
             </div>
           )
       )}
