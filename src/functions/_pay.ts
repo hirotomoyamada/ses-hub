@@ -93,12 +93,7 @@ export const handleCheckout = async ({
 };
 
 export type HandlePortal = {
-  setLoad: React.Dispatch<
-    React.SetStateAction<{
-      checkout?: boolean;
-      portal?: boolean;
-    }>
-  >;
+  setLoad: React.Dispatch<React.SetStateAction<boolean>>;
   demo: boolean;
 };
 
@@ -116,7 +111,7 @@ export const handlePortal = async ({
       "ext-firestore-stripe-subscriptions-createPortalLink"
     );
 
-  setLoad({ portal: true });
+  setLoad(true);
 
   await createPortal({ returnUrl: window.location.href }).then(({ data }) => {
     window.location.assign(data.url);

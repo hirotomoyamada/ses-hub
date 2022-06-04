@@ -5,14 +5,18 @@ import { Products } from "types/pay";
 
 interface PropType {
   products: Products;
-  product: keyof Products;
+  type: string;
+  i: number;
 }
 
-export const Header: React.FC<PropType> = ({ products, product }) => {
+export const Header: React.FC<PropType> = ({ products, type, i }) => {
   return (
     <div className={styles.header}>
-      <h1 className={styles.header_ttl}>{products?.[product]?.name}</h1>
-      <p>{products?.[product]?.desc}</p>
+      {i + 1 < Object.keys(products).length && (
+        <h1 className={styles.header_ttl}>{products[type].name}</h1>
+      )}
+
+      <p>{products[type].desc}</p>
     </div>
   );
 };
