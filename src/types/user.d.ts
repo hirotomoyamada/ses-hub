@@ -45,7 +45,7 @@ export interface User {
     limit: number;
     notice: boolean;
     id?: string;
-    option?: { freelanceDirect?: boolean; analytics?: boolean };
+    option?: { [key: string]: boolean };
     link?: string;
     cancel?: boolean;
     load?: boolean;
