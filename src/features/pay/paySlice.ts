@@ -12,8 +12,8 @@ export const paySlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(actions.fetchProducts.fulfilled, (state, action) => {
-      (state.products as Products).plan = action.payload.products.plan;
-      (state.products as Products).option = action.payload.products.option;
+      state.products = action.payload.products;
+
       state.tax = action.payload.tax;
     });
   },
