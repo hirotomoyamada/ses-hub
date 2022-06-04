@@ -42,9 +42,7 @@ export const Analytics: React.FC<PropType> = ({ user, handleClose, close }) => {
         }`}
         onClick={handleOpen}
       >
-        {/* ver 2.2.X */}
-        {/* {user.payment.status !== "canceled" ? "オプション" : "プラン"}を見る */}
-        {user.type !== "individual" ? "プランを見る" : "近日公開"}
+        {user.payment.status !== "canceled" ? "オプション" : "プラン"}を見る
       </button>
 
       {user.type === "child" && (
