@@ -1,8 +1,7 @@
 import { Timestamp } from "firebase/firestore";
 
 export interface Products {
-  plan: Plan | null;
-  option: Option | null;
+  [key: string]: Plan | Option;
 }
 
 export interface Price {
