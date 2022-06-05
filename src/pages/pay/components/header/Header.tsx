@@ -6,15 +6,13 @@ import { Products } from "types/pay";
 interface PropType {
   products: Products;
   type: string;
-  i: number;
+  hidden?: boolean;
 }
 
-export const Header: React.FC<PropType> = ({ products, type, i }) => {
+export const Header: React.FC<PropType> = ({ products, type, hidden }) => {
   return (
     <div className={styles.header}>
-      {i + 1 < Object.keys(products).length && (
-        <h1 className={styles.header_ttl}>{products[type].name}</h1>
-      )}
+      {!hidden && <h1 className={styles.header_ttl}>{products[type].name}</h1>}
 
       <p>{products[type].desc}</p>
     </div>

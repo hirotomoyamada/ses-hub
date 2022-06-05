@@ -35,8 +35,8 @@ export const Footer: React.FC<PropType> = ({ type, user }) => {
 
     default: {
       if (
-        !user.payment.option ||
-        !Object.keys(user.payment.option).every(
+        !Object.keys(user.payment.option || {}).length ||
+        !Object.keys(user.payment.option || {}).every(
           (type) => user.payment.option?.[type]
         )
       ) {

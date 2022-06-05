@@ -48,6 +48,7 @@ $width: responsive-width(pc);
   }
 
   &_select {
+    pointer-events: all;
     background: $acnt_clr;
     color: $base_clr;
     border: 1px solid $acnt_clr;

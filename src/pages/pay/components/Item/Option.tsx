@@ -95,19 +95,19 @@ export const Option: React.FC<PropType> = ({
 
       {(() => {
         switch (true) {
-          case !user?.payment?.price:
-            return (
-              <span className={styles.item_disable_desc}>
-                選択することができません
-              </span>
-            );
-
           case user.payment.option?.[type]:
             if (!load) {
               return <div className={styles.item_btn}>更新する</div>;
             } else {
               return <Oval color="#FFF" height={32} width={32} />;
             }
+
+          case !user?.payment?.price:
+            return (
+              <span className={styles.item_disable_desc}>
+                選択することができません
+              </span>
+            );
 
           case priceId === price.id:
             return <CheckCircleIcon className={styles.item_icon} />;
