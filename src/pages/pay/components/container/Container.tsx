@@ -35,31 +35,52 @@ export const Container: React.FC<PropType> = ({
 }) => {
   return products ? (
     <>
-      {Object.keys(products).map(
-        (type, i) =>
-          products[type].prices.length && (
-            <div key={i} className={styles.container}>
-              <Header products={products} type={type} i={i} />
+      {Object.keys(products).map((type, i) => {
+        // ver 2.X.X
+        if (type === "freelanceDirect")
+          return <React.Fragment key={i}></React.Fragment>;
 
-              <List
-                products={products}
-                type={type}
-                user={user}
-                tax={tax}
-                priceId={priceId}
-                setPriceId={setPriceId}
-                handlePortal={handlePortal}
-                demo={demo}
-              />
+        if (!products[type].prices.length)
+          return <React.Fragment key={i}></React.Fragment>;
 
-              {(products[type].type === "individual" ||
-                products[type].type === "parent" ||
-                i + 1 === Object.keys(products).length) && (
-                <Footer type={type} user={user} />
-              )}
-            </div>
-          )
-      )}
+        const option = Object.keys(products).filter(
+          (type) =>
+            type !== "individual" &&
+            type !== "parent" &&
+            // ver 2.X.X
+            type !== "freelanceDirect"
+        );
+
+        return (
+          <div key={i} className={styles.container}>
+            <Header
+              products={products}
+              type={type}
+              hidden={
+                type !== "individual" &&
+                type !== "parent" &&
+                option.findIndex((optionType) => type === optionType) !== 0
+              }
+            />
+
+            <List
+              products={products}
+              type={type}
+              user={user}
+              tax={tax}
+              priceId={priceId}
+              setPriceId={setPriceId}
+              handlePortal={handlePortal}
+              demo={demo}
+            />
+
+            {(type === "individual" ||
+              type === "parent" ||
+              option.findIndex((optionType) => type === optionType) ===
+                option.length - 1) && <Footer type={type} user={user} />}
+          </div>
+        );
+      })}
     </>
   ) : (
     <></>
