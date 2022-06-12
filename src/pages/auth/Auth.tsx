@@ -60,6 +60,8 @@ export const Auth: React.FC = () => {
   ] = useVerification(verified);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     functions.auth.getRedirect({ dispatch });
   }, [dispatch]);
 
