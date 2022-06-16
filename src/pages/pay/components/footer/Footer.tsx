@@ -34,12 +34,7 @@ export const Footer: React.FC<PropType> = ({ type, user }) => {
     }
 
     default: {
-      if (
-        !Object.keys(user.payment.option || {}).length ||
-        !Object.keys(user.payment.option || {}).every(
-          (type) => user.payment.option?.[type]
-        )
-      ) {
+      if (!Object.keys(user.payment.option || {}).includes(type)) {
         return (
           <ul className={styles.footer}>
             <li>オプションの契約には、プランを契約する必要があります。</li>
