@@ -61,7 +61,7 @@ export const Btn: React.FC<PropType> = ({
       }
     >
       {!priceId
-        ? "購入するものがありません"
+        ? "購入するものが選択されていません"
         : !load.checkout
         ? "購入"
         : "処理中..."}

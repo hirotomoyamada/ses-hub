@@ -10,20 +10,10 @@ import * as functions from "functions";
 
 interface PropType {
   products: Products;
-  product: keyof Products;
+  type: string;
   user: User;
   priceId: string | undefined;
   setPriceId: React.Dispatch<React.SetStateAction<string | undefined>>;
-  load: {
-    checkout?: boolean;
-    portal?: boolean;
-  };
-  setLoad: React.Dispatch<
-    React.SetStateAction<{
-      checkout?: boolean;
-      portal?: boolean;
-    }>
-  >;
   tax: number;
   handlePortal: ({
     setLoad,
@@ -34,39 +24,29 @@ interface PropType {
 
 export const List: React.FC<PropType> = ({
   products,
-  product,
+  type,
   user,
   priceId,
   setPriceId,
-  load,
-  setLoad,
   tax,
   handlePortal,
   demo,
 }) => {
   return (
     <div className={styles.list}>
-      {products?.[product]?.prices.map(
-        (price) =>
-          price && (
-            <Item
-              key={price.id}
-              user={user}
-              product={product}
-              price={price}
-              type={
-                products?.[product]?.type as keyof User["payment"]["option"]
-              }
-              tax={tax}
-              load={load.portal}
-              setLoad={setLoad}
-              priceId={priceId}
-              setPriceId={setPriceId}
-              handlePortal={handlePortal}
-              demo={demo}
-            />
-          )
-      )}
+      {products[type].prices.map((price) => (
+        <Item
+          key={price.id}
+          user={user}
+          type={type}
+          price={price}
+          tax={tax}
+          priceId={priceId}
+          setPriceId={setPriceId}
+          handlePortal={handlePortal}
+          demo={demo}
+        />
+      ))}
     </div>
   );
 };

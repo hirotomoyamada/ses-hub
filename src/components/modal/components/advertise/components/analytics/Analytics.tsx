@@ -15,7 +15,11 @@ export const Analytics: React.FC<PropType> = ({ user, handleClose, close }) => {
   const navigate = useNavigate();
 
   const handleOpen = (): void => {
-    navigate("/plan");
+    navigate("/plan", {
+      state: {
+        scroll: user.payment.status !== "canceled" ? "option" : undefined,
+      },
+    });
     !close ? handleClose() : close();
   };
 
@@ -42,9 +46,7 @@ export const Analytics: React.FC<PropType> = ({ user, handleClose, close }) => {
         }`}
         onClick={handleOpen}
       >
-        {/* ver 2.2.X */}
-        {/* {user.payment.status !== "canceled" ? "オプション" : "プラン"}を見る */}
-        {user.type !== "individual" ? "プランを見る" : "近日公開"}
+        {user.payment.status !== "canceled" ? "オプション" : "プラン"}を見る
       </button>
 
       {user.type === "child" && (
