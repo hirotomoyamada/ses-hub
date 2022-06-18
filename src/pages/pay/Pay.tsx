@@ -38,11 +38,7 @@ export const Pay: React.FC = () => {
   const ref = useRef<React.RefObject<HTMLDivElement>[]>([]);
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo(0, 0);
 
     if (!Object.keys(products).length) return;
     if (!scroll || !ref.current.length) return;
@@ -70,11 +66,7 @@ export const Pay: React.FC = () => {
 
     const offsetTop = target?.current?.offsetTop || 0;
 
-    window.scrollTo({
-      top: offsetTop,
-      left: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo(0, offsetTop);
   }, [products, ref.current, scroll]);
 
   useEffect(() => {
