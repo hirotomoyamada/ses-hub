@@ -89,11 +89,6 @@ $width: responsive-width(pc);
 
     transition: all 0.4s;
 
-    // ver 2.2.X
-    &_disabled {
-      pointer-events: none;
-    }
-
     &:hover {
       background: $base_clr;
       color: $acnt_sub_clr;

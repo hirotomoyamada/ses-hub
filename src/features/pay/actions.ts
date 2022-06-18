@@ -6,8 +6,7 @@ import { Plan, Option } from "types/pay";
 
 interface FetchProducts {
   products: {
-    plan: Plan | null;
-    option: Option | null;
+    [key: string]: Plan | Option;
   };
   tax: number;
 }

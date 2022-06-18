@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import styles from "./Container.module.scss";
 
 import { Header } from "../header/Header";
@@ -15,16 +15,6 @@ interface PropType {
   products: Products;
   user: User;
   tax: number;
-  load: {
-    checkout?: boolean;
-    portal?: boolean;
-  };
-  setLoad: React.Dispatch<
-    React.SetStateAction<{
-      checkout?: boolean;
-      portal?: boolean;
-    }>
-  >;
   priceId: string | undefined;
   setPriceId: React.Dispatch<React.SetStateAction<string | undefined>>;
   handlePortal: ({
@@ -34,51 +24,72 @@ interface PropType {
   demo: boolean;
 }
 
-export const Container: React.FC<PropType> = ({
-  products,
-  user,
-  tax,
-  load,
-  setLoad,
-  priceId,
-  setPriceId,
-  handlePortal,
-  demo,
-}) => {
+export const Container = React.forwardRef<
+  React.RefObject<HTMLDivElement>[],
+  PropType
+>(({ products, user, tax, priceId, setPriceId, handlePortal, demo }, ref) => {
   return products ? (
     <>
-      {Object.keys(products).map(
-        (product) =>
-          // ver 2.X.X
-          // 削除予定
-          product !== "option" &&
-          products?.[product as keyof Products]?.prices?.length && (
-            <div key={product} className={styles.container}>
-              <Header products={products} product={product as keyof Products} />
+      {Object.keys(products).map((type, i) => {
+        // ver 2.X.X
+        if (type === "freelanceDirect")
+          return <React.Fragment key={i}></React.Fragment>;
 
-              <List
-                products={products}
-                product={product as keyof Products}
-                user={user}
-                tax={tax}
-                load={load}
-                setLoad={setLoad}
-                priceId={priceId}
-                setPriceId={setPriceId}
-                handlePortal={handlePortal}
-                demo={demo}
-              />
+        if (!products[type].prices.length)
+          return <React.Fragment key={i}></React.Fragment>;
 
-              <Footer
-                products={products}
-                product={product as keyof Products}
-                user={user}
-              />
-            </div>
-          )
-      )}
+        const option = Object.keys(products).filter(
+          (type) =>
+            type !== "individual" &&
+            type !== "parent" &&
+            // ver 2.X.X
+            type !== "freelanceDirect"
+        );
+
+        if (ref && "current" in ref && ref.current)
+          ref.current[i] = createRef<HTMLDivElement>();
+
+        return (
+          <div
+            key={i}
+            id={type}
+            className={styles.container}
+            ref={
+              ref && "current" in ref && ref.current
+                ? ref.current[i]
+                : undefined
+            }
+          >
+            <Header
+              products={products}
+              type={type}
+              hidden={
+                type !== "individual" &&
+                type !== "parent" &&
+                option.findIndex((optionType) => type === optionType) !== 0
+              }
+            />
+
+            <List
+              products={products}
+              type={type}
+              user={user}
+              tax={tax}
+              priceId={priceId}
+              setPriceId={setPriceId}
+              handlePortal={handlePortal}
+              demo={demo}
+            />
+
+            {(type === "individual" ||
+              type === "parent" ||
+              option.findIndex((optionType) => type === optionType) ===
+                option.length - 1) && <Footer type={type} user={user} />}
+          </div>
+        );
+      })}
     </>
   ) : (
     <></>
   );
-};
+});
