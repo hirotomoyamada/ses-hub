@@ -15,7 +15,11 @@ export const Analytics: React.FC<PropType> = ({ user, handleClose, close }) => {
   const navigate = useNavigate();
 
   const handleOpen = (): void => {
-    navigate("/plan");
+    navigate("/plan", {
+      state: {
+        scroll: user.payment.status !== "canceled" ? "option" : undefined,
+      },
+    });
     !close ? handleClose() : close();
   };
 
