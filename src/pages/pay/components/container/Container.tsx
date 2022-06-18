@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import styles from "./Container.module.scss";
 
 import { Header } from "../header/Header";
@@ -24,15 +24,10 @@ interface PropType {
   demo: boolean;
 }
 
-export const Container: React.FC<PropType> = ({
-  products,
-  user,
-  tax,
-  priceId,
-  setPriceId,
-  handlePortal,
-  demo,
-}) => {
+export const Container = React.forwardRef<
+  React.RefObject<HTMLDivElement>[],
+  PropType
+>(({ products, user, tax, priceId, setPriceId, handlePortal, demo }, ref) => {
   return products ? (
     <>
       {Object.keys(products).map((type, i) => {
@@ -51,8 +46,20 @@ export const Container: React.FC<PropType> = ({
             type !== "freelanceDirect"
         );
 
+        if (ref && "current" in ref && ref.current)
+          ref.current[i] = createRef<HTMLDivElement>();
+
         return (
-          <div key={i} className={styles.container}>
+          <div
+            key={i}
+            id={type}
+            className={styles.container}
+            ref={
+              ref && "current" in ref && ref.current
+                ? ref.current[i]
+                : undefined
+            }
+          >
             <Header
               products={products}
               type={type}
@@ -85,4 +92,4 @@ export const Container: React.FC<PropType> = ({
   ) : (
     <></>
   );
-};
+});

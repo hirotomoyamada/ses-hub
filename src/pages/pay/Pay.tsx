@@ -2,7 +2,7 @@ import styles from "./Pay.module.scss";
 
 import { Oval } from "react-loader-spinner";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useResize } from "hooks/useResize";
 
@@ -18,16 +18,14 @@ import { Container } from "./components/container/Container";
 import { Btn } from "./components/btn/Btn";
 
 import * as functions from "functions";
+import { useLocation } from "react-router-dom";
 
 export const Pay: React.FC = () => {
   const dispatch = useDispatch();
-
   const user = useSelector(userSlice.user);
   const demo = useSelector(rootSlice.verified).demo;
-
   const products = useSelector(paySlice.products);
   const tax = useSelector(paySlice.tax);
-
   const [priceId, setPriceId] = useState<string | undefined>(undefined);
   const [productId, setProductId] = useState<string | undefined>(undefined);
   const [load, setLoad] = useState<{ checkout?: boolean; portal?: boolean }>({
@@ -35,6 +33,49 @@ export const Pay: React.FC = () => {
     portal: false,
   });
   const [resize, inner] = useResize(products);
+  const location = useLocation();
+  const scroll = (location?.state as { scroll: string } | undefined)?.scroll;
+  const ref = useRef<React.RefObject<HTMLDivElement>[]>([]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+
+    if (!Object.keys(products).length) return;
+    if (!scroll || !ref.current.length) return;
+
+    const MutableRefObject = ref.current;
+
+    const target = MutableRefObject.find(({ current }) => {
+      const type = (() => {
+        switch (current?.id) {
+          case "individual":
+          case "parent":
+            return "plan";
+
+          case "freelanceDirect":
+          case "analytics":
+            return "option";
+
+          default:
+            return;
+        }
+      })();
+
+      return type === scroll;
+    });
+
+    const offsetTop = target?.current?.offsetTop || 0;
+
+    window.scrollTo({
+      top: offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, [products, ref.current, scroll]);
 
   useEffect(() => {
     user.type !== "child" && dispatch(fetchProducts(user));
@@ -91,6 +132,7 @@ export const Pay: React.FC = () => {
             <FreeTrial user={user} />
 
             <Container
+              ref={ref}
               products={products}
               user={user}
               tax={tax}
