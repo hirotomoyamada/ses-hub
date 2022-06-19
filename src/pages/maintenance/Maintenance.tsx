@@ -9,7 +9,8 @@ import * as rootSlice from "features/root/rootSlice";
 export const Maintenance: React.FC = () => {
   const maintenance = useSelector(rootSlice.data)?.maintenance?.status;
   const [resize, inner] = useResize(maintenance);
-  // const maintenance = "enable";
+
+  // return (<></>)
 
   return maintenance === "enable" ? (
     <div
