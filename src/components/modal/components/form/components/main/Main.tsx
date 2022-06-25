@@ -74,7 +74,7 @@ export const Main: React.FC<PropType> = ({ index }) => {
 
           <Interviews />
 
-          <Costs />
+          <Costs index={index} />
 
           <div className={styles.main_grid}>
             <Adjustment />
@@ -111,7 +111,8 @@ export const Main: React.FC<PropType> = ({ index }) => {
           <div className={styles.main_grid}>
             <Period index={index} />
           </div>
-          <Costs />
+
+          <Costs index={index} />
 
           <div className={`${styles.main_col} ${styles.main_col_none}`}>
             <span className={styles.main_tag}>開発環境</span>

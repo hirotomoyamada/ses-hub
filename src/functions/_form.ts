@@ -229,7 +229,7 @@ export const defaultValues = (
           contract:
             edit && post.costs.contract ? post.costs.contract : undefined,
           display: edit ? post.costs.display : "public",
-          type: edit ? post.costs.type : "スキル見合",
+          type: edit ? post.costs.type : "応談",
         },
         handles:
           edit && post.handles?.[0]
