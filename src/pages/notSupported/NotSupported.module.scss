@@ -1,0 +1,17 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+@import "styles/animation";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.root {
+  width: 100vw;
+  height: $innerHeight;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: $sub_clr;
+}

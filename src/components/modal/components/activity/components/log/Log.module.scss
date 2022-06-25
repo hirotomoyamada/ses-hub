@@ -1,0 +1,128 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.log {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+
+  border: 1px solid $bdr_clr;
+  width: 100%;
+  border-radius: 8px;
+  padding: 24px 16px 16px;
+
+  @media (max-width: responsive-width(sp)) {
+    padding: 16px 12px 12px;
+    gap: 12px;
+  }
+
+  &_none {
+    min-height: 160px;
+
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+
+    @media (max-width: responsive-width(sp)) {
+      min-height: 80px;
+    }
+
+    & > span {
+      color: $sub_clr;
+      font-size: 14px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 12px;
+      }
+    }
+
+    &_question {
+      letter-spacing: 2.4px;
+      font-weight: bold;
+      font-size: 16px !important;
+    }
+  }
+
+  &:after {
+    content: "ログ";
+    display: block;
+    position: absolute;
+    top: -8px;
+    padding: 0 16px;
+    color: $icn_clr;
+    left: 16px;
+    background: $base_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      top: -7px;
+      left: 12px;
+      padding: 0 12px;
+    }
+  }
+
+  &_container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    align-items: center;
+    gap: 16px;
+
+    transition: all 0.4s;
+
+    @media (max-width: responsive-width(sp)) {
+      grid-template-columns: 32px 1fr;
+      gap: 12px;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &_wrap {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 4px;
+    }
+  }
+
+  &_message {
+    color: $icn_clr;
+    font-size: 14px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+    }
+
+    &_display {
+      font-weight: bold;
+    }
+
+    span {
+      display: inline;
+    }
+  }
+
+  &_time {
+    font-size: 12px;
+    color: $sub_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 10px;
+    }
+  }
+}
