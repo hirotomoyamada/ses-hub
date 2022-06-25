@@ -1,0 +1,159 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.main {
+  padding: 0 32px 32px;
+  overflow-y: scroll;
+
+  @media (max-width: responsive-width(sp)) {
+    padding: 0 12px 24px;
+  }
+
+  &_tag {
+    display: block;
+
+    font-size: 16px;
+    color: $icn_clr;
+    white-space: nowrap;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+    }
+
+    input {
+      display: none;
+    }
+
+    &_display {
+      color: $add_clr;
+      font-size: 12px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 10px;
+      }
+    }
+  }
+
+  &_mark {
+    text-align: center;
+    line-height: 48px;
+
+    @media (max-width: responsive-width(sp)) {
+      line-height: 32px;
+    }
+  }
+
+  &_col {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    margin-bottom: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      margin-bottom: 12px;
+    }
+
+    &_none {
+      margin-bottom: 0px;
+    }
+  }
+
+  &_row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 8px;
+    }
+  }
+
+  &_grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    row-gap: 0px;
+    column-gap: 16px;
+
+    @media (max-width: responsive-width(miniPc)) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width: responsive-width(tb)) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    &_mid {
+      @media (max-width: responsive-width(miniPc)) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @media (max-width: responsive-width(tb)) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media (max-width: responsive-width(sp)) {
+      }
+    }
+
+    &_period {
+      grid-template-columns: 1.5fr 1fr;
+    }
+
+    &_interviews {
+      grid-template-columns: 1.5fr 1fr;
+    }
+
+    &_times {
+      grid-template-columns: 5fr 1fr 5fr;
+    }
+
+    &_costs {
+      grid-template-columns: 5fr 1fr 5fr;
+    }
+
+    &_half {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &_memo {
+    padding: 16px 16px 0;
+    border-radius: 8px;
+    border: 1px solid $bdr_clr;
+
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 12px 12px 0;
+      font-size: 12px;
+      gap: 16px;
+    }
+
+    &_body {
+      padding-bottom: 16px;
+      gap: 16px;
+
+      @media (max-width: responsive-width(sp)) {
+        gap: 12px;
+      }
+    }
+
+    &_tag {
+      color: $sub_clr;
+    }
+  }
+}

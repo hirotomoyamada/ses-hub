@@ -1,0 +1,58 @@
+@import "styles/config";
+@import "styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.post {
+  background: $bg_clr;
+  padding-bottom: 120px;
+
+  @media (max-width: responsive-width(sp)) {
+    padding-bottom: 72px;
+  }
+
+  &_ttl {
+    margin-bottom: 16px;
+  }
+
+  &_list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+
+    margin-bottom: 48px;
+
+    @media (max-width: responsive-width(tb)) {
+      grid-template-columns: repeat(1, 1fr);
+
+      button:nth-child(n + 6) {
+        display: none;
+      }
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      margin-bottom: 32px;
+    }
+
+    &_none {
+      width: 100%;
+      height: 240px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &_message {
+        text-align: center;
+        color: $sub_clr;
+      }
+    }
+  }
+
+  &_more {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

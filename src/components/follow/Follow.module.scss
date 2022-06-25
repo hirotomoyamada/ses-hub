@@ -1,0 +1,66 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+@import "styles/animation";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.follow {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 9;
+
+  width: 120px;
+  height: 40px;
+  text-align: center;
+  background: $acnt_clr;
+  color: $base_clr;
+  border-radius: 20px;
+  font-size: 14px;
+
+  transition: opacity 0.4s;
+
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  @media (max-width: responsive-width(sp)) {
+    width: 96px;
+    font-size: 10px;
+    height: 32px;
+
+    top: 12px;
+    right: 12px;
+  }
+
+  &_profile {
+    top: auto-clamp(16px, 24px);
+
+    @media (max-width: responsive-width(sp)) {
+      top: 12px;
+      right: 12px;
+    }
+  }
+
+  &_followed {
+    background: $base_clr;
+    color: $acnt_clr;
+    border: 1px solid $acnt_clr;
+  }
+
+  &_remove {
+    background: $remove_clr;
+  }
+
+  &_disable {
+    background: $sub_clr;
+    pointer-events: none;
+  }
+}
