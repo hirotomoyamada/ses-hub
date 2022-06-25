@@ -1,4 +1,9 @@
 /build
+
+/admin
+/functions
+/freelance_direct
+
 /node_modules
 /test
 
