@@ -1,0 +1,81 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.today {
+  padding: 0 16px 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+
+  @media (max-width: responsive-width(sp)) {
+    padding: 0 12px 16px;
+    gap: 24px;
+  }
+
+  &_container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    row-gap: 32px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 12px;
+      row-gap: 24px;
+    }
+  }
+
+  &_wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 6px;
+    }
+  }
+
+  &_ttl {
+    display: block;
+    width: 100%;
+    padding-bottom: 8px;
+    border-bottom: 1px solid $bdr_clr;
+
+    color: $icn_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      padding-bottom: 6px;
+    }
+  }
+
+  &_txt {
+    color: $icn_clr;
+  }
+
+  &_count {
+    font-size: auto-clamp(24px, 32px);
+    font-weight: bold;
+    letter-spacing: 0.8px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 20px;
+    }
+  }
+
+  &_none {
+    color: $sub_clr;
+    font-size: auto-clamp(24px, 32px);
+    font-weight: bold;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 20px;
+    }
+  }
+}

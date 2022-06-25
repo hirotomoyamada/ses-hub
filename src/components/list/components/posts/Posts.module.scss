@@ -1,0 +1,69 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+@import "styles/animation";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.posts {
+  width: 100vw;
+  padding: 32px;
+
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+
+  @media (max-width: responsive-width(miniPc)) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: responsive-width(tb)) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @media (max-width: responsive-width(sp)) {
+    padding: 12px 12px 104px;
+    gap: 12px;
+  }
+
+  &_side {
+    width: auto;
+    padding-left: auto-clamp(48px, 56px);
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (max-width: responsive-width(miniPc)) {
+      grid-template-columns: repeat(1, 1fr);
+      padding-left: 32px;
+
+      &_open {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: responsive-width(sp)) {
+      padding: 12px 12px 104px;
+      gap: 12px;
+    }
+
+    &_open {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &_select {
+    width: auto;
+    padding: 0;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0;
+
+    & > div:not(:last-child) {
+      border-bottom: 1px solid $bdr_clr;
+    }
+  }
+
+  &_disable {
+    width: auto;
+    padding: 0;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

@@ -1,0 +1,129 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+@import "styles/animation";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.command {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+
+  border-bottom: 1px solid $bdr_clr;
+
+  @media (max-width: responsive-width(sp)) {
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+  }
+
+  &_item {
+    margin: 0 24px;
+    border: none;
+
+    @media (max-width: responsive-width(sp)) {
+      margin: 0 12px;
+      padding-bottom: 12px;
+    }
+  }
+
+  &_btn {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 8px;
+    }
+
+    &_disabled {
+      pointer-events: none;
+    }
+
+    &_activity {
+      grid-column: 5 / 6;
+      justify-content: flex-end;
+    }
+  }
+
+  &_icon {
+    color: $icn_clr;
+    font-size: 22px !important;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 18px !important;
+    }
+
+    &_like {
+      color: $like_clr;
+
+      &_click {
+        animation-name: addLike;
+        animation-duration: 0.7s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-out;
+      }
+    }
+
+    &_output {
+      color: $add_clr;
+
+      &_click {
+        animation-name: addOutput;
+        animation-duration: 0.7s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-out;
+      }
+    }
+
+    &_activity {
+      transition: all 0.4s;
+
+      &:hover {
+        color: $acnt_clr;
+      }
+    }
+
+    &_entry {
+      color: $acnt_clr;
+    }
+
+    &_hold {
+      color: $promo_clr;
+    }
+
+    &_enable {
+      color: $add_clr;
+    }
+  }
+
+  &_count {
+    display: block;
+    margin-top: 2px;
+
+    color: $icn_clr;
+    font-size: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      margin-top: 2px;
+      font-size: 12px;
+    }
+
+    &_like {
+      color: $like_clr;
+    }
+
+    &_output {
+      color: $add_clr;
+    }
+
+    &_entry {
+      color: $acnt_clr;
+    }
+  }
+}

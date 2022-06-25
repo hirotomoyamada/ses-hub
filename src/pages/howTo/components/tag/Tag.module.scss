@@ -1,0 +1,63 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.tag {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: $icn_clr;
+
+  &_name {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 18px;
+
+    white-space: nowrap;
+
+    &::before {
+      content: "";
+      display: block;
+      width: 8px;
+      height: 8px;
+      background: $acnt_clr;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+    }
+  }
+
+  &_type {
+    font-size: 12px;
+    color: $base_clr;
+    border-radius: 4px;
+    padding: 0 8px;
+
+    white-space: nowrap;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &_free {
+      background: $acnt_clr;
+    }
+
+    &_paid {
+      background: $promo_clr;
+    }
+
+    &_option {
+      background: $add_clr;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 10px;
+    }
+  }
+}

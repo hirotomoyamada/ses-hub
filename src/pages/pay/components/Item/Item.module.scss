@@ -1,0 +1,182 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.item {
+  background: $base_clr;
+  border: 1px solid $bdr_clr;
+  height: 96px;
+  padding: 0 32px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  transition: all 0.4s;
+
+  @media (max-width: responsive-width(sp)) {
+    padding: 0 18px;
+  }
+
+  &_other {
+    background: $sub_clr;
+    color: $base_clr;
+    pointer-events: none;
+  }
+
+  &_none {
+    background: $sub_clr;
+    color: $base_clr;
+  }
+
+  &_disable {
+    background: $sub_clr;
+    color: $base_clr;
+    border: none;
+    pointer-events: none;
+
+    &_desc {
+      font-size: 14px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 10px;
+      }
+    }
+  }
+
+  &_select {
+    pointer-events: all;
+    background: $acnt_clr;
+    color: $base_clr;
+    border: 1px solid $acnt_clr;
+  }
+
+  &_container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 12px;
+    }
+  }
+
+  &_wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    font-size: 20px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 16px;
+      gap: 8px;
+    }
+  }
+
+  &_ttl {
+    font-weight: bold;
+  }
+
+  &_amount {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+
+    &_tax {
+      font-size: 14px;
+      color: $sub_clr;
+      transition: all 0.6s;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 10px;
+      }
+
+      &_select {
+        color: $base_clr;
+      }
+
+      &_disable {
+        color: $base_clr;
+      }
+    }
+  }
+
+  &_desc {
+    display: flex;
+    gap: 8px;
+    color: $sub_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 14px;
+    }
+
+    &_acnt {
+      color: $acnt_clr;
+
+      &_tax {
+        font-size: 14px;
+
+        @media (max-width: responsive-width(sp)) {
+          font-size: 10px;
+        }
+      }
+    }
+
+    &_error {
+      font-size: 12px;
+      color: $base_clr;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 10px;
+      }
+    }
+  }
+
+  &_icon {
+    color: $base_clr;
+    font-size: 40px !important;
+  }
+
+  &_btn {
+    white-space: nowrap;
+    background: $base_clr;
+    border-radius: 16px;
+    padding: 0px 16px;
+    height: 32px;
+    line-height: 30px;
+    cursor: pointer;
+    border: 1px solid $base_clr;
+
+    font-size: 14px;
+    color: $acnt_clr;
+
+    transition: all 0.4s;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 0px 8px;
+      height: 24px;
+      line-height: 22px;
+
+      font-size: 10px;
+    }
+
+    &:hover {
+      background: $acnt_clr;
+      color: $base_clr;
+    }
+
+    &_account {
+      color: $remove_clr;
+
+      &:hover {
+        background: $remove_clr;
+        border: 1px solid $remove_clr;
+        color: $base_clr;
+      }
+    }
+  }
+}

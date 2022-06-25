@@ -1,0 +1,59 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+@import "styles/animation";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.analytics {
+  position: relative;
+  width: auto-clamp(632px, 1440px);
+  height: 80vh;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+
+  color: $main_clr;
+  background: $base_clr;
+  border-radius: 16px;
+  display: grid;
+  grid-template-rows: 72px 1fr;
+  color: $main_clr;
+
+  @media (max-width: responsive-width(sp)) {
+    width: 100vw;
+    height: $innerHeight;
+    border-radius: 0px;
+    min-height: 520px;
+    font-size: 14px;
+    grid-template-rows: 48px 1fr;
+  }
+
+  &_inner {
+    overflow-y: scroll;
+
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px 32px;
+
+    animation-name: fadeIn;
+    animation-duration: 0.7s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 0 12px 12px;
+    }
+  }
+
+  &_fetch {
+    min-height: 100%;
+
+    justify-content: center;
+    align-items: center;
+    padding: 32px 16px;
+  }
+}
