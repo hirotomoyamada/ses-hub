@@ -5,7 +5,11 @@ import { useFormContext } from "react-hook-form";
 
 import { Data } from "functions/_form";
 
-export const Costs: React.FC = () => {
+interface PropType {
+  index: "matters" | "resources";
+}
+
+export const Costs: React.FC<PropType> = ({ index }) => {
   const {
     register,
     watch,
@@ -134,8 +138,10 @@ export const Costs: React.FC = () => {
                 },
               })}
             >
-              <option value={"スキル見合"}>スキル見合</option>
-              <option value={"上振れ"}>上振れ</option>
+              {index === "matters" && (
+                <option value={"スキル見合"}>スキル見合</option>
+              )}
+              {index === "matters" && <option value={"上振れ"}>上振れ</option>}
               <option value={"応談"}>応談</option>
             </select>
 
