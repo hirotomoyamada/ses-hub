@@ -1,0 +1,64 @@
+// サイト共有の初期設定
+@import "styles/config";
+@import "styles/function";
+@import "styles/animation";
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.menu {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  &_triangle {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &_over {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &_btn {
+    color: $sub_clr;
+    line-height: 44px;
+    text-align: center;
+    border-bottom: 4px solid $bdr_clr;
+
+    @media (max-width: responsive-width(sp)) {
+      line-height: 29px;
+      font-size: 12px;
+      border-bottom: 3px solid $bdr_clr;
+    }
+
+    &_active {
+      color: $acnt_clr;
+      border-bottom: 4px solid $acnt_clr;
+
+      @media (max-width: responsive-width(sp)) {
+        border-bottom: 3px solid $acnt_clr;
+      }
+    }
+  }
+
+  &_outputs {
+    height: 48px;
+    grid-template-columns: repeat(1, 1fr);
+
+    @media (max-width: responsive-width(sp)) {
+      height: 32px;
+    }
+
+    &_txt {
+      background: $add_clr;
+      color: $base_clr;
+      text-align: center;
+      line-height: 44px;
+
+      @media (max-width: responsive-width(sp)) {
+        line-height: 29px;
+        font-size: 12px;
+      }
+    }
+  }
+}

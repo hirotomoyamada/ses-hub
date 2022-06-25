@@ -1,0 +1,54 @@
+// サイト共有の初期設定
+@import "./config";
+@import "./function";
+@import "./animation";
+
+body {
+  font-family: sans-serif;
+  background: $bg_clr;
+  overflow-x: hidden;
+}
+
+.fadeIn {
+  &:after {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+
+    background: $bg_clr;
+    width: 100vw;
+    height: $innerHeight;
+
+    animation-name: fadeIn;
+    animation-duration: 0.4s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
+}
+
+.fadeOut {
+  &:after {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+
+    background: $bg_clr;
+    width: 100vw;
+    height: $innerHeight;
+
+    animation-name: fadeOut;
+    animation-duration: 0.4s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
+}
+
+.lock {
+  overflow-y: hidden;
+}
