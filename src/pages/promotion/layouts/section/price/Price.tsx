@@ -25,7 +25,7 @@ export const Price: React.FC = () => {
     twenty: { n: 20, p: 300000 },
   };
 
-  const totalPrice = (n: number, p: number): string => {
+  const totalPrice = (p: number, n: number): string => {
     return (Math.round(p * tax) * n).toLocaleString();
   };
 
