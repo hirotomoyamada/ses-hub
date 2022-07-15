@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { auth } from "libs/firebase";
+import { auth, converter, db, functions } from "libs/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
+import { doc, onSnapshot } from "firebase/firestore";
+import { httpsCallable, HttpsCallable } from "firebase/functions";
+import { UserAgent } from "types/user";
 
 import { login } from "features/user/actions";
 import * as rootSlice from "features/root/rootSlice";
@@ -17,6 +20,10 @@ export const useApp = (): [user: User, access: boolean, support: boolean] => {
   const access = useSelector(rootSlice.verified).access;
 
   const [support, setSupport] = useState(true);
+
+  useEffect(() => {
+    void ipObserver();
+  }, [dispatch, user.uid]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -65,6 +72,29 @@ export const useApp = (): [user: User, access: boolean, support: boolean] => {
       resize(false);
     };
   }, []);
+
+  const ipObserver = async () => {
+    if (!user.uid) return;
+
+    const ref = doc(db, "companys", user.uid).withConverter(converter<User>());
+
+    const getUserAgent: HttpsCallable<unknown, UserAgent> = httpsCallable(
+      functions,
+      "sh-getUserAgent"
+    );
+
+    const {
+      data: { ip: currentIp },
+    } = await getUserAgent();
+
+    onSnapshot(ref, async (doc) => {
+      const { ip } = doc.data() as User;
+
+      if (!ip) return;
+
+      if (ip !== currentIp) await signOut(auth);
+    });
+  };
 
   return [user, access, support];
 };
