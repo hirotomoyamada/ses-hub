@@ -1,5 +1,6 @@
 export interface User {
   uid: string;
+  ip: string | string[] | undefined;
   type: string;
   icon: string;
   cover: string;
@@ -100,4 +101,9 @@ export interface Data {
     status: string;
     updateAt: number;
   };
+}
+
+export interface UserAgent {
+  agent: string | undefined;
+  ip: string | string[] | undefined;
 }
