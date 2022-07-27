@@ -65,13 +65,7 @@
     "start": "dotenv -e .env.dev react-scripts start",
     "start-prod": "dotenv -e .env react-scripts start",
     "build": "GENERATE_SOURCEMAP=false dotenv -e .env.dev react-scripts build",
-    "build-prod": "GENERATE_SOURCEMAP=false dotenv -e .env react-scripts build",
-    "createUser": "dotenv -e .env.dev node ./debug/create.test.js",
-    "insertFieldValue": "dotenv -e .env.dev node ./debug/insert.test.js",
-    "deleteFieldValue": "dotenv -e .env.dev node ./debug/delete.test.js",
-    "createUser-prod": "dotenv -e .env node ./debug/create.test.js",
-    "insertFieldValue-prod": "dotenv -e .env.dev node ./debug/insert.test.js",
-    "deleteFieldValue-prod": "dotenv -e .env.dev node ./debug/delete.test.js"
+    "build-prod": "GENERATE_SOURCEMAP=false dotenv -e .env react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
