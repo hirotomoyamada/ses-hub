@@ -1,6 +1,6 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
+@import 'styles/config';
+@import 'styles/function';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -99,6 +99,12 @@ $width: responsive-width(pc);
       width: 66%;
       padding: 12px;
       font-size: 12px;
+    }
+
+    &_disabled {
+      pointer-events: none;
+      background: $sub_clr;
+      border-color: $sub_clr;
     }
   }
 

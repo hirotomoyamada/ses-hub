@@ -1,24 +1,24 @@
-import styles from "./Pay.module.scss";
+import styles from './Pay.module.scss';
 
-import { Oval } from "react-loader-spinner";
+import { Oval } from 'react-loader-spinner';
 
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useResize } from "hooks/useResize";
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useResize } from 'hooks/useResize';
 
-import { fetchProducts } from "features/pay/actions";
-import * as rootSlice from "features/root/rootSlice";
-import * as userSlice from "features/user/userSlice";
-import * as paySlice from "features/pay/paySlice";
+import { fetchProducts } from 'features/pay/actions';
+import * as rootSlice from 'features/root/rootSlice';
+import * as userSlice from 'features/user/userSlice';
+import * as paySlice from 'features/pay/paySlice';
 
-import { Header } from "components/header/Header";
+import { Header } from 'components/header/Header';
 
-import { FreeTrial } from "./components/freetrial/FreeTrial";
-import { Container } from "./components/container/Container";
-import { Btn } from "./components/btn/Btn";
+import { FreeTrial } from './components/freetrial/FreeTrial';
+import { Container } from './components/container/Container';
+import { Btn } from './components/btn/Btn';
 
-import * as functions from "functions";
-import { useLocation } from "react-router-dom";
+import * as functions from 'functions';
+import { useLocation } from 'react-router-dom';
 
 export const Pay: React.FC = () => {
   const dispatch = useDispatch();
@@ -41,20 +41,22 @@ export const Pay: React.FC = () => {
     window.scrollTo(0, 0);
 
     if (!Object.keys(products).length) return;
-    if (!scroll || !ref.current.length) return;
+    if (!scroll || !ref?.current.length) return;
 
-    const MutableRefObject = ref.current;
+    const MutableRefObject = ref?.current;
+
+    if (MutableRefObject?.length) return;
 
     const target = MutableRefObject.find(({ current }) => {
       const type = (() => {
         switch (current?.id) {
-          case "individual":
-          case "parent":
-            return "plan";
+          case 'individual':
+          case 'parent':
+            return 'plan';
 
-          case "freelanceDirect":
-          case "analytics":
-            return "option";
+          case 'freelanceDirect':
+          case 'analytics':
+            return 'option';
 
           default:
             return;
@@ -70,7 +72,7 @@ export const Pay: React.FC = () => {
   }, [products, ref.current, scroll]);
 
   useEffect(() => {
-    user.type !== "child" && dispatch(fetchProducts(user));
+    user.type !== 'child' && dispatch(fetchProducts(user));
   }, [dispatch, user]);
 
   useEffect(() => {
@@ -92,16 +94,16 @@ export const Pay: React.FC = () => {
       case Boolean(user.payment.price):
         break;
 
-      case user.type === "individual" || !user.payment.children?.length:
+      case user.type === 'individual' || !user.payment.children?.length:
         setPriceId(plan.prices[0].id);
         break;
 
-      case user.type === "parent": {
+      case user.type === 'parent': {
         const price = plan.prices.find(
           (price) =>
             user.payment.children?.length &&
             price.account &&
-            user.payment.children.length < price.account
+            user.payment.children.length < price.account,
         );
 
         setPriceId(price?.id);
@@ -146,7 +148,7 @@ export const Pay: React.FC = () => {
             />
           </div>
         </>
-      ) : user?.type === "child" ? (
+      ) : user?.type === 'child' ? (
         <>
           <Header back goSetting />
 

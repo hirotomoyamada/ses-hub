@@ -1,9 +1,9 @@
-import React from "react";
-import styles from "./Analytics.module.scss";
+import React from 'react';
+import styles from './Analytics.module.scss';
 
-import { useNavigate } from "react-router";
+import { useNavigate } from 'react-router';
 
-import { User } from "types/user";
+import { User } from 'types/user';
 
 interface PropType {
   user: User;
@@ -15,9 +15,9 @@ export const Analytics: React.FC<PropType> = ({ user, handleClose, close }) => {
   const navigate = useNavigate();
 
   const handleOpen = (): void => {
-    navigate("/plan", {
+    navigate('/plan', {
       state: {
-        scroll: user.payment.status !== "canceled" ? "option" : undefined,
+        scroll: user.payment.status !== 'canceled' ? 'option' : undefined,
       },
     });
     !close ? handleClose() : close();
@@ -42,14 +42,16 @@ export const Analytics: React.FC<PropType> = ({ user, handleClose, close }) => {
       <button
         type="button"
         className={`${styles.analytics_btn} ${
-          user.type !== "parent" && styles.analytics_btn_disabled
+          user?.payment?.status !== 'canceled' &&
+          !user?.payment?.price &&
+          styles.analytics_btn_disabled
         }`}
         onClick={handleOpen}
       >
-        {user.payment.status !== "canceled" ? "オプション" : "プラン"}を見る
+        {user.payment.status !== 'canceled' ? 'オプション' : 'プラン'}を見る
       </button>
 
-      {user.type === "child" && (
+      {user?.payment?.status !== 'canceled' && !user?.payment?.price && (
         <span className={styles.analytics_none}>
           このアカウントではプランを選択できません
         </span>
