@@ -6,6 +6,7 @@
 .firebase
 .env*
 .DS_Store
+.vscode
 
 *.log
 npm-debug.log*
