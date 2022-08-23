@@ -1,5 +1,5 @@
-import { Data, Setting, User } from "types/user";
-import { Company } from "types/post";
+import { Data, Setting, User } from 'types/user';
+import { Company } from 'types/post';
 
 export type Search = {
   target?: string;
@@ -53,7 +53,7 @@ export type Load = {
 };
 
 export interface State {
-  index: "matters" | "resources" | "companys" | "persons";
+  index: 'matters' | 'resources' | 'companys' | 'persons';
   page: string;
   search: Search;
   sort: Sort;
@@ -70,9 +70,9 @@ export interface State {
 }
 
 export const initialState: State = {
-  index: "matters",
+  index: 'matters',
 
-  page: "home",
+  page: 'home',
 
   search: {
     value: undefined,
@@ -123,5 +123,5 @@ export const initialState: State = {
   notFound: false,
   limit: false,
 
-  ver: "2.2.1",
+  ver: '2.2.2',
 };
