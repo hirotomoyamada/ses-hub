@@ -1,6 +1,6 @@
-import React from "react";
-import { LinkBtn, Btn } from "../../components/btn/Btn";
-import styles from "./Fv.module.scss";
+import React from 'react';
+import { LinkBtn, Btn } from '../../components/btn/Btn';
+import styles from './Fv.module.scss';
 
 interface PropType {
   handleOpen: () => void;
@@ -20,13 +20,15 @@ export const Fv: React.FC<PropType> = ({ handleOpen, fv }) => {
           </div>
 
           <p className={styles.fv_head_txt}>
-            SES営業マンのためのコミュニケーションプラットフォーム
+            {/* SES営業マンのためのコミュニケーションプラットフォーム */}
+            {/* ver 2.2.X */}
+            SES業務に特化したSaaS型の営業支援ツールです
             <br />
           </p>
 
           <div className={styles.fv_head_btn}>
-            <LinkBtn txt={"お問い合わせ"} src={"contact"} acnt square />
-            <Btn txt={"スタートアップ"} func={handleOpen} square />
+            <LinkBtn txt={'お問い合わせ'} src={'contact'} acnt square />
+            <Btn txt={'スタートアップ'} func={handleOpen} square />
           </div>
         </div>
 

@@ -1,10 +1,10 @@
-import React from "react";
-import root from "../Section.module.scss";
-import styles from "./Feature.module.scss";
+import React from 'react';
+import root from '../Section.module.scss';
+import styles from './Feature.module.scss';
 
-import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
-import CloseIcon from "@material-ui/icons/Close";
-import ChangeHistoryIcon from "@material-ui/icons/ChangeHistory";
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import CloseIcon from '@material-ui/icons/Close';
+import ChangeHistoryIcon from '@material-ui/icons/ChangeHistory';
 
 export const Feature: React.FC = () => {
   return (
@@ -88,6 +88,8 @@ export const Feature: React.FC = () => {
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
+                {/* ver 2.2.X */}
+                <span className={styles.feature_icon_desc}>※8</span>
               </td>
             </tr>
 
@@ -103,6 +105,8 @@ export const Feature: React.FC = () => {
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
+                {/* ver 2.2.X */}
+                <span className={styles.feature_icon_desc}>※8</span>
               </td>
             </tr>
 
@@ -273,6 +277,11 @@ export const Feature: React.FC = () => {
         <br />
         <span className={styles.feature_announce}>
           ※7&nbsp;複数のアカウントを登録・管理するには法人契約へのお申し込みが必要です。
+        </span>
+        {/* ver 2.2.X */}
+        <br />
+        <span className={styles.feature_announce}>
+          ※8&nbsp;人材マッチング機能による他社案件/要因の詳細閲覧や問い合わせサービスは別途有料プランの加入が必要です。詳細はお問い合わせ下さい。
         </span>
         <br />
         <span className={styles.feature_announce}>

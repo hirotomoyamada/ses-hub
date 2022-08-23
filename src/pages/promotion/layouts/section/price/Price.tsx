@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import root from "../Section.module.scss";
-import styles from "./Price.module.scss";
+import React, { useState } from 'react';
+import root from '../Section.module.scss';
+import styles from './Price.module.scss';
 
-import { Index } from "./components/index/Index";
-import { Table } from "./components/table/Table";
+import { Index } from './components/index/Index';
+import { Table } from './components/table/Table';
 
 export interface PriceType {
   [key: string]: { n: number; p: number };
@@ -29,7 +29,7 @@ export const Price: React.FC = () => {
     return (Math.round(p * tax) * n).toLocaleString();
   };
 
-  const [index, setIndex] = useState<"individual" | "corporate">("individual");
+  const [index, setIndex] = useState<'individual' | 'corporate'>('individual');
 
   return (
     <section className={`${styles.price} ${root.section}`}>
@@ -42,19 +42,19 @@ export const Price: React.FC = () => {
         <Index index={index} setIndex={setIndex} />
 
         <p className={`${styles.price_desc} ${root.section_desc}`}>
-          {index === "individual"
-            ? "期間に応じて、お得な料金システム"
-            : "チームの人数に応じて、お得な料金システム"}
+          {index === 'individual'
+            ? '期間に応じて、お得な料金システム'
+            : 'チームの人数に応じて、お得な料金システム'}
         </p>
 
         <Table
           index={index}
-          price={index === "individual" ? individual : corporate}
+          price={index === 'individual' ? individual : corporate}
           tax={tax}
           totalPrice={totalPrice}
         />
 
-        {index === "corporate" && (
+        {index === 'corporate' && (
           <>
             <span className={styles.price_announce}>
               ※ 法人契約は、すべて3ヶ月単位の利用料金になっております。
@@ -64,6 +64,13 @@ export const Price: React.FC = () => {
         )}
         <span className={styles.price_announce}>
           ※ 決済方法やプラン(価格)は変更になる場合がございます。
+        </span>
+        {/* ver 2.2.X */}
+        <br />
+        <span className={styles.price_announce}>
+          ※
+          人材マッチング機能による他社案件/要因の詳細閲覧や問い合わせサービスは
+          別途有料プランの加入が必要です。詳細はお問い合わせ下さい。
         </span>
       </div>
     </section>
