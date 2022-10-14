@@ -59,13 +59,16 @@
     "node-sass": "^7.0.1",
     "postcss-normalize": "^10.0.1",
     "prettier": "^2.5.1",
-    "typescript": "^4.5.5"
+    "typescript": "^4.8.3"
   },
   "scripts": {
     "start": "dotenv -e .env.dev react-scripts start",
     "start-prod": "dotenv -e .env react-scripts start",
     "build": "GENERATE_SOURCEMAP=false dotenv -e .env.dev react-scripts build",
-    "build-prod": "GENERATE_SOURCEMAP=false dotenv -e .env react-scripts build"
+    "build-prod": "GENERATE_SOURCEMAP=false dotenv -e .env react-scripts build",
+    "admin": "yarn --cwd ./admin",
+    "fd": "yarn --cwd ./freelance_direct",
+    "functions": "yarn --cwd ./functions"
   },
   "eslintConfig": {
     "extends": "react-app"
