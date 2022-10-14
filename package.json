@@ -66,6 +66,8 @@
     "start-prod": "dotenv -e .env react-scripts start",
     "build": "GENERATE_SOURCEMAP=false dotenv -e .env.dev react-scripts build",
     "build-prod": "GENERATE_SOURCEMAP=false dotenv -e .env react-scripts build",
+    "deploy": "firebase use dev && firebase deploy --only",
+    "deploy-prod": "firebase use prod && firebase deploy --only",
     "admin": "yarn --cwd ./admin",
     "fd": "yarn --cwd ./freelance_direct",
     "functions": "yarn --cwd ./functions"
