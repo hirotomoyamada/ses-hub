@@ -1,14 +1,14 @@
-import { Matter, Resource } from "types/post";
+import { Matter, Resource } from 'types/post';
 
 export type Data = {
   matter: {
-    display: "public" | "private";
+    display: 'public' | 'private';
     status: string;
     position: string;
     body: string;
     period: { year: number; month: number };
     costs: {
-      display: "public" | "private";
+      display: 'public' | 'private';
       type: string;
       min: number | null;
       max: number | null;
@@ -33,13 +33,13 @@ export type Data = {
   };
 
   resource: {
-    display: "public" | "private";
+    display: 'public' | 'private';
     status: string;
     position: string;
     body: string;
     period: { year: number; month: number };
     costs: {
-      display: "public" | "private";
+      display: 'public' | 'private';
       type: string;
       min: number | null;
       max: number | null;
@@ -61,12 +61,12 @@ export type Data = {
 };
 
 export const defaultValues = (
-  index: "matters" | "resources",
+  index: 'matters' | 'resources',
   post: Matter | Resource,
-  edit: boolean | undefined
+  edit: boolean | undefined,
 ):
   | {
-      display: "public" | "private" | undefined;
+      display: 'public' | 'private' | undefined;
       status: string | undefined;
       title: string | undefined;
       position: string | undefined;
@@ -77,7 +77,7 @@ export const defaultValues = (
         min: number | undefined;
         max: number | undefined;
         contract: number | undefined;
-        display: "public" | "private" | undefined;
+        display: 'public' | 'private' | undefined;
         type: string | undefined;
       };
       handles: { handle: string | undefined }[];
@@ -105,7 +105,7 @@ export const defaultValues = (
         | undefined;
     }
   | {
-      display: "public" | "private";
+      display: 'public' | 'private';
       status: string | undefined;
       roman: {
         firstName: string | undefined;
@@ -122,7 +122,7 @@ export const defaultValues = (
         month: number | undefined;
       };
       costs: {
-        display: "public" | "private";
+        display: 'public' | 'private';
         type: string | undefined;
         min: number | undefined;
         max: number | undefined;
@@ -143,11 +143,11 @@ export const defaultValues = (
         | undefined;
     } => {
   switch (index) {
-    case "matters":
+    case 'matters':
       return {
-        display: edit ? (post.display as "public" | "private") : "public",
-        status: edit ? post.status : "新規",
-        position: edit ? post.position : "フロントエンドエンジニア",
+        display: edit ? (post.display as 'public' | 'private') : 'public',
+        status: edit ? post.status : '新規',
+        position: edit ? post.position : undefined,
         body: edit ? post.body : undefined,
         period: edit ? post.period : { year: undefined, month: undefined },
         costs: {
@@ -155,8 +155,8 @@ export const defaultValues = (
           max: edit && post.costs.max ? post.costs.max : undefined,
           contract:
             edit && post.costs.contract ? post.costs.contract : undefined,
-          display: edit ? post.costs.display : "public",
-          type: edit ? post.costs.type : "スキル見合",
+          display: edit ? post.costs.display : 'public',
+          type: edit ? post.costs.type : 'スキル見合',
         },
         handles:
           edit && post.handles?.[0]
@@ -202,25 +202,25 @@ export const defaultValues = (
                 { prefer: undefined },
                 { prefer: undefined },
               ],
-        adjustment: edit ? (post as Matter).adjustment : "140h 〜 180h",
+        adjustment: edit ? (post as Matter).adjustment : '140h 〜 180h',
         interviews: edit
           ? (post as Matter).interviews
           : { type: undefined, count: undefined },
-        times: edit ? (post as Matter).times : { start: "10:00", end: "19:00" },
-        remote: edit ? (post as Matter).remote : "あり",
-        distribution: edit ? (post as Matter).distribution : "プライム",
-        span: edit ? (post as Matter).span : "30",
+        times: edit ? (post as Matter).times : { start: '10:00', end: '19:00' },
+        remote: edit ? (post as Matter).remote : 'あり',
+        distribution: edit ? (post as Matter).distribution : 'プライム',
+        span: edit ? (post as Matter).span : '30',
         approval: edit
           ? (post as Matter).approval
             ? (post as Matter).approval
-            : "不明"
-          : "不明",
+            : '不明'
+          : '不明',
       };
-    case "resources":
+    case 'resources':
       return {
-        display: edit ? (post.display as "public" | "private") : "public",
-        status: edit ? post.status : "新規",
-        position: edit ? post.position : "フロントエンドエンジニア",
+        display: edit ? (post.display as 'public' | 'private') : 'public',
+        status: edit ? post.status : '新規',
+        position: edit ? post.position : undefined,
         body: edit ? post.body : undefined,
         period: edit ? post.period : { year: undefined, month: undefined },
         costs: {
@@ -228,8 +228,8 @@ export const defaultValues = (
           max: edit && post.costs.max ? post.costs.max : undefined,
           contract:
             edit && post.costs.contract ? post.costs.contract : undefined,
-          display: edit ? post.costs.display : "public",
-          type: edit ? post.costs.type : "応談",
+          display: edit ? post.costs.display : 'public',
+          type: edit ? post.costs.type : '応談',
         },
         handles:
           edit && post.handles?.[0]
@@ -253,7 +253,7 @@ export const defaultValues = (
         roman: edit
           ? (post as Resource).roman
           : { firstName: undefined, lastName: undefined },
-        sex: edit ? (post as Resource).sex : "男性",
+        sex: edit ? (post as Resource).sex : '男性',
         age: edit ? (post as Resource).age : 18,
         belong: edit ? (post as Resource).belong : undefined,
         station: edit ? (post as Resource).station : undefined,
@@ -267,15 +267,15 @@ export const defaultValues = (
                 { skill: undefined },
                 { skill: undefined },
               ],
-        parallel: edit ? (post as Resource).parallel : "なし",
+        parallel: edit ? (post as Resource).parallel : 'なし',
       };
   }
 };
 
 export const matters = (
-  data: Data["matter"]
+  data: Data['matter'],
 ): {
-  display: "public" | "private";
+  display: 'public' | 'private';
   title: string;
   position: string;
   body: string;
@@ -288,7 +288,7 @@ export const matters = (
     month: number;
   };
   costs: {
-    display: "public" | "private";
+    display: 'public' | 'private';
     type: string;
     min?: number | null;
     max?: number | null;
@@ -350,9 +350,9 @@ export const matters = (
 };
 
 export const resources = (
-  data: Data["resource"]
+  data: Data['resource'],
 ): {
-  display: "public" | "private";
+  display: 'public' | 'private';
   roman: {
     firstName: string;
     lastName: string;
@@ -367,7 +367,7 @@ export const resources = (
     month: number;
   };
   costs: {
-    display: "public" | "private";
+    display: 'public' | 'private';
     type: string;
     min?: number | null;
     max?: number | null;

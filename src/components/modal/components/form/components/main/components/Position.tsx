@@ -1,15 +1,15 @@
-import React from "react";
-import styles from "./Item.module.scss";
-import root from "../Main.module.scss";
-import { useFormContext } from "react-hook-form";
+import React from 'react';
+import styles from './Item.module.scss';
+import root from '../Main.module.scss';
+import { useFormContext } from 'react-hook-form';
 
-import { Data } from "functions/_form";
+import { Data } from 'functions/_form';
 
 export const Position: React.FC = () => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<Data["matter"] & Data["resource"]>();
+  } = useFormContext<Data['matter'] & Data['resource']>();
 
   return (
     <div className={`${root.main_grid} ${root.main_grid_mid}`}>
@@ -20,13 +20,16 @@ export const Position: React.FC = () => {
             className={`${styles.item_input} ${
               errors.position && styles.item_input_error
             }`}
-            {...register("position", {
+            {...register('position', {
               required: {
                 value: true,
-                message: "ポジションを選択してください",
+                message: 'ポジションを選択してください',
               },
             })}
           >
+            <option hidden value="">
+              -
+            </option>
             <option value="フロントエンドエンジニア">
               フロントエンドエンジニア
             </option>
