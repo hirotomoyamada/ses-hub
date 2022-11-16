@@ -246,7 +246,7 @@ export const Feature: React.FC = () => {
         </table>
 
         <span className={styles.feature_announce}>
-          ※1&nbsp;無料プランは、月&nbsp;10&nbsp;回まで閲覧可能です。
+          ※1&nbsp;無料プランは、月&nbsp;5&nbsp;回まで閲覧可能です。
         </span>
         <br />
         <span className={styles.feature_announce}>

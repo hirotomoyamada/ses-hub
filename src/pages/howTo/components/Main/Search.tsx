@@ -1,6 +1,6 @@
-import React from "react";
-import styles from "../../HowTo.module.scss";
-import { Tag } from "../tag/Tag";
+import React from 'react';
+import styles from '../../HowTo.module.scss';
+import { Tag } from '../tag/Tag';
 
 export const Search: React.FC = () => {
   return (
@@ -41,7 +41,7 @@ export const Search: React.FC = () => {
           <br />
           <br />
           <span className={styles.howto_container_acnt}>
-            ※&nbsp;リミテッド会員は、月&nbsp;10&nbsp;回まで閲覧可能です。
+            ※&nbsp;リミテッド会員は、月&nbsp;5&nbsp;回まで閲覧可能です。
           </span>
           <br />
           <span className={styles.howto_container_acnt}>
@@ -70,7 +70,7 @@ export const Search: React.FC = () => {
 
       <div className={styles.howto_container}>
         <Tag tag="フィルターをかける" free paid />
-        
+
         <p>
           検索には必須のフィルター機能。新着順から更新順まで幅広いフィルターで検索をサポートします。
         </p>
