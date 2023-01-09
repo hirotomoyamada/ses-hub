@@ -98,7 +98,10 @@ export const Main: React.FC<PropType> = ({ index }) => {
         <div className={styles.main}>
           <Status />
           <Roman />
-          <Position />
+
+          <div className={`${styles.main_grid} ${styles.main_grid_mid}`}>
+            <Position />
+          </div>
 
           <div className={`${styles.main_grid} ${styles.main_grid_mid}`}>
             <div className={`${styles.main_grid} ${styles.main_grid_half}`}>

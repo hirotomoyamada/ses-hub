@@ -61,6 +61,57 @@ export type Data = {
   };
 };
 
+const positions = [
+  'フロントエンドエンジニア',
+  'バックエンドエンジニア',
+  'サーバーエンジニア',
+  'ブロックチェーンエンジニア',
+  'インフラエンジニア',
+  'データベースエンジニア',
+  'クラウドエジニア',
+  'ネットワークエンジニア',
+  'セキュリティエンジニア',
+  'リードエンジニア',
+  'システムエンジニア',
+  '社内SE',
+  'アプリエンジニア',
+  'iOSエンジニア',
+  'Androidエンジニア',
+  '機械学習エンジニア',
+  'AIエンジニア(人工知能)',
+  '汎用機エンジニア',
+  'マークアップエンジニア',
+  'テストエンジニア',
+  'テスター・デバッガー・QA',
+  '組み込み・制御',
+  'データサイエンティスト',
+  'PdM',
+  'PM/PL',
+  'PMO',
+  'VPoE',
+  'CRE',
+  'SRE',
+  'エンジニアリングマネージャー',
+  'SAP',
+  'プロデューサー',
+  'コンサルタント',
+  'マーケター',
+  'Webディレクター',
+  'Webプランナー',
+  'Webデザイナー',
+  'UI・UXデザイナー',
+  'グラフィックデザイナー',
+  '3Dデザイナー',
+  '2Dデザイナー',
+  'キャラクターデザイナー',
+  'イラストレーター',
+  'アートディレクター',
+  'ゲームプランナー',
+  'ゲームデザイナー',
+  'サポート',
+  'その他',
+];
+
 export const defaultValues = (
   index: 'matters' | 'resources',
   post: Matter | Resource,
@@ -153,7 +204,8 @@ export const defaultValues = (
       return {
         display: edit ? (post.display as 'public' | 'private') : 'public',
         status: edit ? post.status : '新規',
-        position: edit ? post.position : undefined,
+        position:
+          edit && positions.includes(post.position) ? post.position : undefined,
         body: edit ? post.body : undefined,
         period: edit ? post.period : { year: undefined, month: undefined },
         costs: {
@@ -227,7 +279,8 @@ export const defaultValues = (
       return {
         display: edit ? (post.display as 'public' | 'private') : 'public',
         status: edit ? post.status : '新規',
-        position: edit ? post.position : undefined,
+        position:
+          edit && positions.includes(post.position) ? post.position : undefined,
         body: edit ? post.body : undefined,
         period: edit ? post.period : { year: undefined, month: undefined },
         costs: {
