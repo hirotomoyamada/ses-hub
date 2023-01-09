@@ -1,7 +1,7 @@
-import React from "react";
-import styles from "../Form.module.scss";
-import { useFormContext } from "react-hook-form";
-import { Data } from "../../../Profile";
+import React from 'react';
+import styles from '../Form.module.scss';
+import { useFormContext } from 'react-hook-form';
+import { Data } from '../../../Profile';
 
 export const Name: React.FC = () => {
   const {
@@ -18,22 +18,25 @@ export const Name: React.FC = () => {
             errors.name && styles.form_input_error
           }`}
           placeholder="株式会社Hitmeup"
-          {...register("name", {
+          {...register('name', {
             required: {
               value: true,
-              message: "会社名を入力してください",
+              message: '会社名を入力してください',
             },
             pattern: {
               value: /^\S+/,
-              message: "先頭にスペースは使えません",
+              message: '先頭にスペースは使えません',
             },
             maxLength: {
               value: 32,
-              message: "32文字以内で入力してください",
+              message: '32文字以内で入力してください',
             },
           })}
         />
-        <span className={styles.form_error}>{errors.name?.message}</span>
+
+        {errors.name?.message ? (
+          <span className={styles.form_error}>{errors.name.message}</span>
+        ) : null}
       </div>
     </div>
   );

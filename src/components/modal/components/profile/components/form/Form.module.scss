@@ -1,6 +1,6 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
+@import 'styles/config';
+@import 'styles/function';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -70,6 +70,33 @@ $width: responsive-width(pc);
     &_center {
       justify-content: center;
       gap: 8px;
+    }
+  }
+
+  &_select {
+    position: relative;
+
+    select {
+      cursor: pointer;
+    }
+
+    &:after {
+      pointer-events: none;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid $acnt_clr;
+      content: '';
+      position: absolute;
+      right: 12px;
+      top: 20px;
+      width: 0;
+
+      @media (max-width: responsive-width(sp)) {
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 5px solid $acnt_clr;
+        top: 14px;
+      }
     }
   }
 
@@ -149,7 +176,7 @@ $width: responsive-width(pc);
         cursor: pointer;
 
         &:before {
-          content: "";
+          content: '';
           display: block;
           width: 19px;
           height: 19px;
@@ -264,6 +291,7 @@ $width: responsive-width(pc);
     &_open {
       color: $sub_clr;
       font-size: 17.5px;
+      transition: all 0.4s;
       transform: rotate(90deg);
 
       @media (max-width: responsive-width(sp)) {
@@ -273,6 +301,7 @@ $width: responsive-width(pc);
 
     &_close {
       color: $sub_clr;
+      transition: all 0.4s;
       transform: rotate(-90deg);
     }
 

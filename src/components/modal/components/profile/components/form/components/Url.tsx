@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import styles from "../Form.module.scss";
-import { useFormContext } from "react-hook-form";
+import React, { useState } from 'react';
+import styles from '../Form.module.scss';
+import { useFormContext } from 'react-hook-form';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-import { Data } from "../../../Profile";
+import { Data } from '../../../Profile';
 
 export const Url: React.FC = () => {
   const {
@@ -38,18 +38,21 @@ export const Url: React.FC = () => {
               errors.url && styles.form_input_error
             }`}
             placeholder="https://"
-            {...register("url", {
+            {...register('url', {
               pattern: {
                 value: /^\S+/,
-                message: "先頭にスペースは使えません",
+                message: '先頭にスペースは使えません',
               },
               maxLength: {
                 value: 144,
-                message: "144文字以内で入力してください",
+                message: '144文字以内で入力してください',
               },
             })}
           />
-          <span className={styles.form_error}>{errors.url?.message}</span>
+
+          {errors.url?.message ? (
+            <span className={styles.form_error}>{errors.url.message}</span>
+          ) : null}
         </div>
       )}
     </div>
