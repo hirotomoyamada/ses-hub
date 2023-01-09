@@ -6,9 +6,9 @@ export const matters = (posts: Matter[]): string[] => {
   const values = posts.map((outputs) => ({
     createAt: `作成：${functions.root.timestamp(outputs?.createAt)}`,
     title: `■ ${outputs.title ? outputs.title : '不明な案件'}`,
-    industry: `${outputs?.industry ?? ''}`,
     position: `${outputs?.position}`,
     body: `詳細：\n${outputs?.body}`,
+    industry: `業界：${outputs?.industry ?? '不明'}`,
     period: `開始：${
       outputs?.period &&
       `${outputs?.period?.year}年 ${outputs?.period?.month}月`
@@ -58,13 +58,13 @@ export const matters = (posts: Matter[]): string[] => {
     (output, index) =>
       `${output.createAt}\n\n${output.title}\n${
         output.handles !== undefined ? `${output.handles}\n` : '\n'
-      }${output.industry ? `\n${output.industry}` : ``}\n${
-        output.position
-      }\n\n${output.period}\n${output.location}\n${output.times}\n${
-        output.remote
-      }\n${output.adjustment}\n${output.costs}\n${output.distribution}\n${
-        output.interviews
-      }\n${output.approval}\n${output.span}\n\n${output.body}\n${
+      }\n${output.position}\n\n${output.industry}\n${output.period}\n${
+        output.location
+      }\n${output.times}\n${output.remote}\n${output.adjustment}\n${
+        output.costs
+      }\n${output.distribution}\n${output.interviews}\n${output.approval}\n${
+        output.span
+      }\n\n${output.body}\n${
         output.tools !== undefined ? `\n${output.tools}\n` : ''
       }\n${output.requires}\n${
         output.prefers !== undefined ? `\n${output.prefers}\n` : ''
