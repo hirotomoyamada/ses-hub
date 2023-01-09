@@ -11,6 +11,7 @@ export interface User {
     name: string;
     person: string | null;
     body: string | null;
+    invoice: { type: string; no: string | undefined } | null;
     postal: string | null;
     address: string | null;
     email: string;
@@ -67,7 +68,7 @@ export interface Setting {
   analytics?: {
     active: string[];
     order: string[];
-    layout: "line" | "number" | "none";
+    layout: 'line' | 'number' | 'none';
     color: {
       self: string;
       others: string;

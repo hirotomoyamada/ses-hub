@@ -1,12 +1,12 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { auth, functions } from "libs/firebase";
-import { updateProfile, updateEmail } from "firebase/auth";
-import { httpsCallable, HttpsCallable } from "firebase/functions";
+import { PayloadAction } from '@reduxjs/toolkit';
+import { auth, functions } from 'libs/firebase';
+import { updateProfile, updateEmail } from 'firebase/auth';
+import { httpsCallable, HttpsCallable } from 'firebase/functions';
 
-import { Analytics, initialState, State } from "features/user/initialState";
-import { Matter, Resource, Company, Person } from "types/post";
-import { Setting, User } from "types/user";
-import { Login, Child, FetchUser } from "features/user/actions";
+import { Analytics, initialState, State } from 'features/user/initialState';
+import { Matter, Resource, Company, Person } from 'types/post';
+import { Setting, User } from 'types/user';
+import { Login, Child, FetchUser } from 'features/user/actions';
 import {
   Profile,
   Provider,
@@ -14,13 +14,13 @@ import {
   Output,
   Entry,
   Request,
-} from "features/user/userSlice";
-import { CreatePost } from "features/post/actions";
-import { Post } from "features/post/postSlice";
+} from 'features/user/userSlice';
+import { CreatePost } from 'features/post/actions';
+import { Post } from 'features/post/postSlice';
 
 export const login = (
   state: State,
-  action: PayloadAction<Login["data"]>
+  action: PayloadAction<Login['data']>,
 ): void => {
   if (action.payload?.user) {
     (state.user as User).uid = action.payload.user.uid;
@@ -98,7 +98,7 @@ export const logout = (state: State): State | void => {
 
 export const updateToken = (
   state: State,
-  action: PayloadAction<string | undefined>
+  action: PayloadAction<string | undefined>,
 ): void => {
   if (action.payload) {
     state.token = window.btoa(action.payload);
@@ -114,7 +114,7 @@ export const updateNotice = (state: State): void => {
 
   const disableNotice: HttpsCallable<unknown, unknown> = httpsCallable(
     functions,
-    "sh-disableNotice"
+    'sh-disableNotice',
   );
 
   void disableNotice();
@@ -122,7 +122,7 @@ export const updateNotice = (state: State): void => {
 
 export const updatePayment = (
   state: State,
-  action: PayloadAction<User["payment"]>
+  action: PayloadAction<User['payment']>,
 ): void => {
   (state.user as User).payment = {
     status: action.payload.status,
@@ -142,7 +142,7 @@ export const updatePayment = (
 
 export const addProvider = (
   state: State,
-  action: PayloadAction<Provider>
+  action: PayloadAction<Provider>,
 ): void => {
   (state.user as User).provider = [
     action.payload.provider,
@@ -156,7 +156,7 @@ export const addProvider = (
   const addProvider: HttpsCallable<
     { provider: string; email?: string },
     unknown
-  > = httpsCallable(functions, "sh-addProvider");
+  > = httpsCallable(functions, 'sh-addProvider');
 
   void addProvider({
     provider: action.payload.provider,
@@ -169,7 +169,7 @@ export const applicationType = (state: State): void => {
 
   const applicationType: HttpsCallable<unknown, unknown> = httpsCallable(
     functions,
-    "sh-applicationType"
+    'sh-applicationType',
   );
 
   void applicationType();
@@ -177,13 +177,13 @@ export const applicationType = (state: State): void => {
 
 export const changeEmail = (
   state: State,
-  action: PayloadAction<string>
+  action: PayloadAction<string>,
 ): void => {
   (state.user as User).profile.email = action.payload;
 
   const changeEmail: HttpsCallable<{ email: string }, unknown> = httpsCallable(
     functions,
-    "sh-changeEmail"
+    'sh-changeEmail',
   );
 
   void changeEmail({ email: action.payload }).then((): void => {
@@ -195,7 +195,7 @@ export const changeEmail = (
 
 export const createChild = (
   state: State,
-  action: PayloadAction<Child["data"] | void>
+  action: PayloadAction<Child['data'] | void>,
 ): void => {
   if (action.payload) {
     if ((state.user as User).payment && (state.user as User).payment.children) {
@@ -215,11 +215,11 @@ export const createChild = (
 
 export const changeEmailChild = (
   state: State,
-  action: PayloadAction<{ uid: string; email: string } | void>
+  action: PayloadAction<{ uid: string; email: string } | void>,
 ): void => {
   if (action.payload && Array.isArray(state.selectUser)) {
     const selectUser = (state.selectUser as Company[]).find(
-      (user) => action.payload && user.uid === action.payload.uid
+      (user) => action.payload && user.uid === action.payload.uid,
     );
 
     if (selectUser) {
@@ -230,7 +230,7 @@ export const changeEmailChild = (
 
 export const deleteChild = (
   state: State,
-  action: PayloadAction<string | void>
+  action: PayloadAction<string | void>,
 ): void => {
   if ((state.user as User).payment && (state.user as User).payment.children) {
     (state.user as User).payment.children = (
@@ -239,7 +239,7 @@ export const deleteChild = (
 
     if (Array.isArray(state.selectUser)) {
       state.selectUser = (state.selectUser as Company[]).filter(
-        (user) => user.uid !== action.payload
+        (user) => user.uid !== action.payload,
       );
     }
   }
@@ -247,13 +247,14 @@ export const deleteChild = (
 
 export const editProfile = (
   state: State,
-  action: PayloadAction<Profile>
+  action: PayloadAction<Profile>,
 ): void => {
   if ((state.user as User).uid === action.payload.uid) {
     (state.user as User).icon = action.payload.icon;
     (state.user as User).cover = action.payload.cover;
     (state.user as User).profile.name = action.payload.name;
     (state.user as User).profile.person = action.payload.person;
+    (state.user as User).profile.invoice = action.payload.invoice;
     (state.user as User).profile.body = action.payload.body;
     (state.user as User).profile.more = action.payload.more;
     (state.user as User).profile.region = action.payload.region;
@@ -271,7 +272,7 @@ export const editProfile = (
   } else {
     if (Array.isArray(state.selectUser)) {
       const selectUser = (state.selectUser as Company[]).find(
-        (user) => user.uid === action.payload.uid
+        (user) => user.uid === action.payload.uid,
       );
 
       if (selectUser) {
@@ -279,6 +280,7 @@ export const editProfile = (
         selectUser.cover = action.payload.cover;
         selectUser.profile.name = action.payload.name;
         selectUser.profile.person = action.payload.person;
+        selectUser.profile.invoice = action.payload.invoice;
         selectUser.profile.body = action.payload.body;
         selectUser.profile.more = action.payload.more;
         selectUser.profile.region = action.payload.region;
@@ -294,7 +296,7 @@ export const editProfile = (
 
 export const createPost = (
   state: State,
-  action: PayloadAction<CreatePost["data"]>
+  action: PayloadAction<CreatePost['data']>,
 ): void => {
   (state.user as User).posts[action.payload.index] = [
     action.payload.post.objectID,
@@ -310,24 +312,24 @@ export const deletePost = (state: State, action: PayloadAction<Post>): void => {
 
 export const addLike = (state: State, action: PayloadAction<Like>): void => {
   (state.user as User).likes[action.payload.index] = [
-    action.payload.index !== "persons"
+    action.payload.index !== 'persons'
       ? (action.payload.post as Matter | Resource).objectID
       : (action.payload.post as Person).uid,
     ...(state.user as User).likes[action.payload.index],
   ];
 
-  if ("likes" in (state.selectUser as Person)) {
+  if ('likes' in (state.selectUser as Person)) {
     ((state.selectUser as Person).likes as number) += 1;
   }
 
   const addLike: HttpsCallable<
     {
-      index: Like["index"];
+      index: Like['index'];
       uid: string;
       objectID?: string;
     },
     unknown
-  > = httpsCallable(functions, "sh-addLike");
+  > = httpsCallable(functions, 'sh-addLike');
 
   void addLike({
     index: action.payload.index,
@@ -342,23 +344,23 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
   ].filter(
     (id) =>
       id !==
-      (action.payload.index !== "persons"
+      (action.payload.index !== 'persons'
         ? (action.payload.post as Matter | Resource).objectID
-        : (action.payload.post as Person).uid)
+        : (action.payload.post as Person).uid),
   );
 
-  if ("likes" in (state.selectUser as Person)) {
+  if ('likes' in (state.selectUser as Person)) {
     ((state.selectUser as Person).likes as number) -= 1;
   }
 
   const removeLike: HttpsCallable<
     {
-      index: Like["index"];
+      index: Like['index'];
       uid: string;
       objectID?: string;
     },
     unknown
-  > = httpsCallable(functions, "sh-removeLike");
+  > = httpsCallable(functions, 'sh-removeLike');
 
   void removeLike({
     index: action.payload.index,
@@ -369,11 +371,11 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
 
 export const addOutput = (
   state: State,
-  action: PayloadAction<Output>
+  action: PayloadAction<Output>,
 ): void => {
   if (
-    (action.payload.index === "matters" ||
-      action.payload.index === "resources") &&
+    (action.payload.index === 'matters' ||
+      action.payload.index === 'resources') &&
     action.payload.post
   ) {
     (state.user as User).outputs[action.payload.index] = [
@@ -383,12 +385,12 @@ export const addOutput = (
 
     const addOutput: HttpsCallable<
       {
-        index: Output["index"];
+        index: Output['index'];
         uid: string;
         objectID: string;
       },
       unknown
-    > = httpsCallable(functions, "sh-addOutput");
+    > = httpsCallable(functions, 'sh-addOutput');
 
     void addOutput({
       index: action.payload.index,
@@ -400,18 +402,18 @@ export const addOutput = (
 
 export const removeOutput = (
   state: State,
-  action: PayloadAction<Output>
+  action: PayloadAction<Output>,
 ): void => {
   if (
-    action.payload.index === "matters" ||
-    action.payload.index === "resources"
+    action.payload.index === 'matters' ||
+    action.payload.index === 'resources'
   ) {
     if (!action.payload.objectIDs) {
       (state.user as User).outputs[action.payload.index] = (
         state.user as User
       ).outputs[action.payload.index].filter(
         (objectID) =>
-          action.payload.post && objectID !== action.payload.post.objectID
+          action.payload.post && objectID !== action.payload.post.objectID,
       );
     } else {
       (state.user as User).outputs[action.payload.index] = (
@@ -419,19 +421,19 @@ export const removeOutput = (
       ).outputs[action.payload.index].filter(
         (objectID) =>
           action.payload.objectIDs &&
-          action.payload.objectIDs.indexOf(objectID) < 0
+          action.payload.objectIDs.indexOf(objectID) < 0,
       );
     }
 
     const removeOutput: HttpsCallable<
       {
-        index: Output["index"];
+        index: Output['index'];
         uid?: string;
         objectID?: string;
         objectIDs?: string[];
       },
       unknown
-    > = httpsCallable(functions, "sh-removeOutput");
+    > = httpsCallable(functions, 'sh-removeOutput');
 
     void removeOutput({
       index: action.payload.index,
@@ -449,9 +451,9 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
   ];
 
   const addEntry: HttpsCallable<
-    { index: Entry["index"]; uid: string; objectID: string },
+    { index: Entry['index']; uid: string; objectID: string },
     unknown
-  > = httpsCallable(functions, "sh-addEntry");
+  > = httpsCallable(functions, 'sh-addEntry');
 
   void addEntry({
     index: action.payload.index,
@@ -462,7 +464,7 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
 
 export const addFollow = (
   state: State,
-  action: PayloadAction<Company>
+  action: PayloadAction<Company>,
 ): void => {
   (state.user as User).follows = [
     action.payload.uid,
@@ -486,7 +488,7 @@ export const addFollow = (
 
   const addFollow: HttpsCallable<string, unknown> = httpsCallable(
     functions,
-    "sh-addFollow"
+    'sh-addFollow',
   );
 
   void addFollow(action.payload.uid);
@@ -494,15 +496,15 @@ export const addFollow = (
 
 export const removeFollow = (
   state: State,
-  action: PayloadAction<Company>
+  action: PayloadAction<Company>,
 ): void => {
   (state.user as User).follows = (state.user as User).follows.filter(
-    (uid) => uid !== action.payload.uid
+    (uid) => uid !== action.payload.uid,
   );
 
   if ((state.user as User).home.length <= 15) {
     (state.user as User).home = (state.user as User).home.filter(
-      (uid) => uid !== action.payload.uid
+      (uid) => uid !== action.payload.uid,
     );
   }
 
@@ -516,7 +518,7 @@ export const removeFollow = (
 
   const removeFollow: HttpsCallable<string, unknown> = httpsCallable(
     functions,
-    "sh-removeFollow"
+    'sh-removeFollow',
   );
 
   void removeFollow(action.payload.uid);
@@ -524,9 +526,9 @@ export const removeFollow = (
 
 export const addRequest = (
   state: State,
-  action: PayloadAction<Request>
+  action: PayloadAction<Request>,
 ): void => {
-  (state.selectUser as Person).request = "hold";
+  (state.selectUser as Person).request = 'hold';
 
   (state.user as User).entries.persons = [
     action.payload.user.uid,
@@ -534,7 +536,7 @@ export const addRequest = (
   ];
 
   const addRequest: HttpsCallable<{ uid: string; body: string }, unknown> =
-    httpsCallable(functions, "sh-addRequest");
+    httpsCallable(functions, 'sh-addRequest');
 
   void addRequest({
     uid: action.payload.user.uid,
@@ -544,13 +546,13 @@ export const addRequest = (
 
 export const updateHome = (
   state: State,
-  action: PayloadAction<string[]>
+  action: PayloadAction<string[]>,
 ): void => {
   (state.user as User).home = action.payload;
 
   const updateHome: HttpsCallable<string[], unknown> = httpsCallable(
     functions,
-    "sh-updateHome"
+    'sh-updateHome',
   );
 
   void updateHome(action.payload);
@@ -558,12 +560,12 @@ export const updateHome = (
 
 export const fetchUser = (
   state: State,
-  action: PayloadAction<FetchUser["data"] | void>
+  action: PayloadAction<FetchUser['data'] | void>,
 ): void => {
   if (action.payload) {
     state.selectUser = action.payload.user;
   } else {
-    state.selectUser = initialState["selectUser"];
+    state.selectUser = initialState['selectUser'];
   }
 };
 
@@ -574,25 +576,25 @@ export const resetUser = (state: State): void => {
 export const updateAnalytics = (
   state: State,
   action: PayloadAction<
-    (Setting["analytics"] & { type: "analytics" }) | undefined
-  >
+    (Setting['analytics'] & { type: 'analytics' }) | undefined
+  >,
 ): void => {
   if (action.payload) {
-    if (action.payload.type !== "analytics") return;
+    if (action.payload.type !== 'analytics') return;
 
     Object.keys(state.analytics).forEach((uid) => {
       state.analytics[uid] = action.payload?.order
         .map((key) =>
           (state.analytics[uid] as Analytics).find(
-            (current) => current.key === key
-          )
+            (current) => current.key === key,
+          ),
         )
         .map((current) =>
           current?.key &&
           action.payload?.active &&
           action.payload.active.includes(current?.key)
             ? { ...current, active: true }
-            : { ...current, active: false }
+            : { ...current, active: false },
         )
         .filter((data): data is Analytics[number] => data !== undefined);
     });
@@ -608,7 +610,7 @@ export const fetchAnalytics = (
     uid: string;
     active?: string[];
     order?: string[];
-  }>
+  }>,
 ): void => {
   const uid = action.payload.uid;
   const active = action.payload.active;
@@ -619,12 +621,12 @@ export const fetchAnalytics = (
   } else {
     state.analytics[uid] = order
       .map((key) =>
-        action.payload.analytics.find((current) => current.key === key)
+        action.payload.analytics.find((current) => current.key === key),
       )
       .map((current) =>
         current?.key && active.indexOf(current?.key) >= 0
           ? { ...current, active: true }
-          : { ...current, active: false }
+          : { ...current, active: false },
       )
       .filter((data): data is Analytics[number] => data !== undefined);
   }

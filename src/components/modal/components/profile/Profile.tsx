@@ -60,6 +60,7 @@ export const Profile: React.FC<PropType> = ({ user, handleClose }) => {
       icon: user?.icon,
       cover: user?.cover,
       body: user?.profile?.body,
+      invoice: user?.profile?.invoice ?? { type: undefined, no: undefined },
       more: user?.profile?.more,
       region: user?.profile?.region,
       postal: user?.profile?.postal,
@@ -78,6 +79,24 @@ export const Profile: React.FC<PropType> = ({ user, handleClose }) => {
 
   const handleEdit: SubmitHandler<Data> = (data) => {
     data.uid = user.uid;
+
+    if (!data.invoice.type) {
+      methods.setError('invoice.type', {
+        type: 'required',
+        message: '適格請求書発行事業者を選択してください',
+      });
+
+      return;
+    }
+
+    if (!data.invoice.no) {
+      methods.setError('invoice.no', {
+        type: 'required',
+        message: '適格請求書発行事業者の登録番号を入力してください',
+      });
+
+      return;
+    }
 
     dispatch(editProfile(data));
   };

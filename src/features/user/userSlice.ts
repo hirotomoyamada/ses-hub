@@ -1,19 +1,20 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "app/store";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from 'app/store';
 
-import { initialState, State, Analytics } from "features/user/initialState";
+import { initialState, State, Analytics } from 'features/user/initialState';
 
-import * as reducers from "features/user/reducers";
-import { extraReducers } from "features/user/extraReducers";
+import * as reducers from 'features/user/reducers';
+import { extraReducers } from 'features/user/extraReducers';
 
-import { User } from "types/user";
-import { Matter, Resource, Company, Person } from "types/post";
+import { User } from 'types/user';
+import { Matter, Resource, Company, Person } from 'types/post';
 
 export interface Profile {
   icon: string;
   cover: string;
   name: string;
   person: string;
+  invoice: { type: string; no: string | undefined } | null;
   body: string | null;
   more: string[];
   region: string[];
@@ -36,18 +37,18 @@ export interface Provider {
 }
 
 export interface Like {
-  index: "matters" | "resources" | "persons";
+  index: 'matters' | 'resources' | 'persons';
   post: Matter | Resource | Person;
 }
 
 export interface Output {
-  index: "matters" | "resources";
+  index: 'matters' | 'resources';
   post?: Matter | Resource;
   objectIDs?: string[];
 }
 
 export interface Entry {
-  index: "matters" | "resources";
+  index: 'matters' | 'resources';
   post: Matter | Resource;
 }
 
@@ -57,7 +58,7 @@ export interface Request {
 }
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
 
   reducers: {
@@ -66,7 +67,7 @@ export const userSlice = createSlice({
     updateToken: (state, action: PayloadAction<string | undefined>) =>
       reducers.updateToken(state, action),
     updateNotice: (state) => reducers.updateNotice(state),
-    updatePayment: (state, action: PayloadAction<User["payment"]>) =>
+    updatePayment: (state, action: PayloadAction<User['payment']>) =>
       reducers.updatePayment(state, action),
     addProvider: (state, action: PayloadAction<Provider>) =>
       reducers.addProvider(state, action),
@@ -117,9 +118,9 @@ export const {
 } = userSlice.actions;
 
 export const user = (state: RootState): User => state.user.user as User;
-export const token = (state: RootState): State["token"] => state.user.token;
+export const token = (state: RootState): State['token'] => state.user.token;
 export const selectUser = (
-  state: RootState
+  state: RootState,
 ): Company | Person | (Company | Person)[] =>
   state.user.selectUser as Company | Person | (Company | Person)[];
 export const analytics = (state: RootState): { [key: string]: Analytics } =>
