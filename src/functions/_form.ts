@@ -24,7 +24,7 @@ export type Data = {
     requires: { require: string }[];
     prefers: { prefer: string }[];
     adjustment: string;
-    interviews: { type: string; count: string };
+    interviews: { type: string; count: string; setting: string };
     times: { start: string; end: string };
     remote: string;
     distribution: string;
@@ -89,7 +89,11 @@ export const defaultValues = (
         start: string | undefined;
         end: string | undefined;
       };
-      interviews: { type: string | undefined; count: string | undefined };
+      interviews: {
+        type: string | undefined;
+        count: string | undefined;
+        setting: string | undefined;
+      };
       remote: string | undefined;
       distribution: string | undefined;
       span: string | undefined;
@@ -205,7 +209,7 @@ export const defaultValues = (
         adjustment: edit ? (post as Matter).adjustment : '140h 〜 180h',
         interviews: edit
           ? (post as Matter).interviews
-          : { type: undefined, count: undefined },
+          : { type: undefined, count: undefined, setting: undefined },
         times: edit ? (post as Matter).times : { start: '10:00', end: '19:00' },
         remote: edit ? (post as Matter).remote : 'あり',
         distribution: edit ? (post as Matter).distribution : 'プライム',
@@ -300,7 +304,7 @@ export const matters = (
   tools: string[];
   requires: string[];
   prefers: string[];
-  interviews: { type: string; count: string };
+  interviews: { type: string; count: string; setting: string };
   remote: string;
   distribution: string;
   span: string;
