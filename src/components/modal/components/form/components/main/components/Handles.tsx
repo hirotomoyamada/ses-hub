@@ -1,16 +1,16 @@
-import React from "react";
-import styles from "./Item.module.scss";
-import root from "../Main.module.scss";
+import React from 'react';
+import styles from './Item.module.scss';
+import root from '../Main.module.scss';
 
-import AddIcon from "@material-ui/icons/Add";
-import RemoveIcon from "@material-ui/icons/Remove";
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
-import { useFormContext, useFieldArray } from "react-hook-form";
+import { useFormContext, useFieldArray } from 'react-hook-form';
 
-import { Data } from "functions/_form";
+import { Data } from 'functions/_form';
 
 interface PropType {
-  index: "matters" | "resources";
+  index: 'matters' | 'resources';
 }
 
 export const Handles: React.FC<PropType> = ({ index }) => {
@@ -18,7 +18,7 @@ export const Handles: React.FC<PropType> = ({ index }) => {
     register,
     control,
     formState: { errors },
-  } = useFormContext<Data["matter"] & Data["resource"]>();
+  } = useFormContext<Data['matter'] & Data['resource']>();
 
   const {
     fields: handlesFields,
@@ -26,7 +26,7 @@ export const Handles: React.FC<PropType> = ({ index }) => {
     remove: handlesRemove,
   } = useFieldArray({
     control,
-    name: "handles",
+    name: 'handles',
   });
 
   return (
@@ -35,26 +35,26 @@ export const Handles: React.FC<PropType> = ({ index }) => {
         {handlesFields.map((field, i) => (
           <div key={field.id} className={styles.item}>
             <input
-              placeholder="言語"
+              placeholder="言語・フレームワーク"
               className={`${styles.item_input} ${
                 errors.handles?.[i]?.handle && styles.item_input_error
               }`}
               {...register(`handles.${i}.handle` as const, {
                 required: i === 0 && {
                   value: true,
-                  message: "項目を入力してください",
+                  message: '項目を入力してください',
                 },
                 pattern: {
                   value: /^\S+/,
-                  message: "先頭にスペースは使えません",
+                  message: '先頭にスペースは使えません',
                 },
                 minLength: {
                   value: 2,
-                  message: "2文字以上で入力してください",
+                  message: '2文字以上で入力してください',
                 },
                 maxLength: {
                   value: 16,
-                  message: "16文字以内で入力してください",
+                  message: '16文字以内で入力してください',
                 },
               })}
             />
@@ -64,30 +64,27 @@ export const Handles: React.FC<PropType> = ({ index }) => {
                 <button
                   type="button"
                   className={styles.item_btn_remove}
-                  onClick={() => handlesRemove(i)}
-                >
+                  onClick={() => handlesRemove(i)}>
                   <RemoveIcon className={styles.item_btn_icon} />
                 </button>
               )}
-              
-              {index === "matters" && i === handlesFields.length - 1 && i < 4 && (
+
+              {index === 'matters' && i === handlesFields.length - 1 && i < 4 && (
                 <button
                   type="button"
                   className={styles.item_btn_add}
-                  onClick={() => handlesAppend({ handle: "" })}
-                >
+                  onClick={() => handlesAppend({ handle: '' })}>
                   <AddIcon className={styles.item_btn_icon} />
                 </button>
               )}
 
-              {index === "resources" &&
+              {index === 'resources' &&
                 i === handlesFields.length - 1 &&
                 i < 9 && (
                   <button
                     type="button"
                     className={styles.item_btn_add}
-                    onClick={() => handlesAppend({ handle: "" })}
-                  >
+                    onClick={() => handlesAppend({ handle: '' })}>
                     <AddIcon className={styles.item_btn_icon} />
                   </button>
                 )}
