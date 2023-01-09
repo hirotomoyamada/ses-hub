@@ -1,13 +1,14 @@
-import React from "react";
-import styles from "./Header.module.scss";
+import React from 'react';
+import styles from './Header.module.scss';
 
-import { Display } from "./components/Display";
-import { Position } from "./components/Position";
-import { Status } from "./components/Status";
-import { Handles } from "./components/Handles";
+import { Display } from './components/Display';
+import { Position } from './components/Position';
+import { Status } from './components/Status';
+import { Handles } from './components/Handles';
+import { Industry } from './components/Industry';
 
-import { Matter, Resource } from "types/post";
-import { User } from "types/user";
+import { Matter, Resource } from 'types/post';
+import { User } from 'types/user';
 
 interface PropType {
   post: Matter | Resource;
@@ -27,7 +28,10 @@ export const Header: React.FC<PropType> = ({ post, user, display, status }) => {
           </div>
         )}
 
-        <Position post={post} />
+        <div className={styles.header_wrap}>
+          {'industry' in post ? <Industry post={post} /> : null}
+          <Position post={post} />
+        </div>
       </div>
 
       <Handles post={post} />

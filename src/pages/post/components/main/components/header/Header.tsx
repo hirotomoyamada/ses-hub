@@ -1,14 +1,15 @@
-import React from "react";
-import styles from "./Header.module.scss";
+import React from 'react';
+import styles from './Header.module.scss';
 
-import { At } from "./components/At";
-import { Display } from "./components/Display";
-import { Status } from "./components/Status";
-import { Position } from "./components/Position";
-import { Title } from "./components/Title";
+import { At } from './components/At';
+import { Display } from './components/Display';
+import { Status } from './components/Status';
+import { Position } from './components/Position';
+import { Title } from './components/Title';
+import { Industry } from './components/Industry';
 
-import { Matter, Resource } from "types/post";
-import { User } from "types/user";
+import { Matter, Resource } from 'types/post';
+import { User } from 'types/user';
 
 interface PropType {
   post: Matter | Resource;
@@ -30,6 +31,7 @@ export const Header: React.FC<PropType> = ({ post, user }) => {
           </div>
         )}
 
+        {'industry' in post ? <Industry post={post} /> : null}
         <Position post={post} />
 
         {newPost && (
