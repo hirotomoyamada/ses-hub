@@ -1,6 +1,7 @@
 export interface Matter {
   objectID: string;
   title: string;
+  industry: string;
   position: string;
   body: string;
   location: {

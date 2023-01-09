@@ -1,46 +1,52 @@
-import React from "react";
-import styles from "./Main.module.scss";
+import React from 'react';
+import styles from './Main.module.scss';
 
-import { Title } from "./components/Title";
-import { Body } from "./components/Body";
-import { Belong } from "./components/Belong";
-import { AreaLocation, PlaceLocation } from "./components/Location";
-import { Station } from "./components/Station";
-import { Period } from "./components/Period";
-import { Times } from "./components/Times";
-import { Position } from "./components/Position";
-import { Handles } from "./components/Handles";
-import { Tools } from "./components/Tools";
-import { Requires } from "./components/Requires";
-import { Perfers } from "./components/Perfers";
-import { Skills } from "./components/Skills";
-import { Interviews } from "./components/Interviews";
-import { Adjustment } from "./components/Adjustment";
-import { Costs } from "./components/Costs";
-import { Distribution } from "./components/Distribution";
-import { Span } from "./components/Span";
-import { Parallel } from "./components/Parallel";
-import { Note } from "./components/Note";
-import { Status } from "./components/Status";
-import { Remote } from "./components/Remote";
-import { Age } from "./components/Age";
-import { Sex } from "./components/Sex";
-import { Roman } from "./components/Roman";
-import { Memo } from "./components/Memo";
-import { Approval } from "./components/Approval";
+import { Title } from './components/Title';
+import { Body } from './components/Body';
+import { Belong } from './components/Belong';
+import { AreaLocation, PlaceLocation } from './components/Location';
+import { Station } from './components/Station';
+import { Period } from './components/Period';
+import { Times } from './components/Times';
+import { Position } from './components/Position';
+import { Handles } from './components/Handles';
+import { Tools } from './components/Tools';
+import { Requires } from './components/Requires';
+import { Perfers } from './components/Perfers';
+import { Skills } from './components/Skills';
+import { Interviews } from './components/Interviews';
+import { Adjustment } from './components/Adjustment';
+import { Costs } from './components/Costs';
+import { Distribution } from './components/Distribution';
+import { Span } from './components/Span';
+import { Parallel } from './components/Parallel';
+import { Note } from './components/Note';
+import { Status } from './components/Status';
+import { Remote } from './components/Remote';
+import { Age } from './components/Age';
+import { Sex } from './components/Sex';
+import { Roman } from './components/Roman';
+import { Memo } from './components/Memo';
+import { Approval } from './components/Approval';
+import { Industry } from './components/Industry';
 
 interface PropType {
-  index: "matters" | "resources";
+  index: 'matters' | 'resources';
 }
 
 export const Main: React.FC<PropType> = ({ index }) => {
   switch (index) {
-    case "matters":
+    case 'matters':
       return (
         <div className={styles.main}>
           <Status />
           <Title />
-          <Position />
+
+          <div className={`${styles.main_grid} ${styles.main_grid_mid}`}>
+            <Industry />
+            <Position />
+          </div>
+
           <Body index={index} />
 
           <div className={styles.main_grid}>
@@ -87,7 +93,7 @@ export const Main: React.FC<PropType> = ({ index }) => {
           <Memo index={index} />
         </div>
       );
-    case "resources":
+    case 'resources':
       return (
         <div className={styles.main}>
           <Status />

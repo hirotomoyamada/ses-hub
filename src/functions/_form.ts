@@ -4,6 +4,7 @@ export type Data = {
   matter: {
     display: 'public' | 'private';
     status: string;
+    industry: string;
     position: string;
     body: string;
     period: { year: number; month: number };
@@ -69,6 +70,7 @@ export const defaultValues = (
       display: 'public' | 'private' | undefined;
       status: string | undefined;
       title: string | undefined;
+      industry: string | undefined;
       position: string | undefined;
       body: string | undefined;
       location: { area: string | undefined; place: string | undefined };
@@ -182,6 +184,7 @@ export const defaultValues = (
         memo: edit ? post.memo : undefined,
 
         // matters
+        industry: edit ? (post as Matter).industry : undefined,
         title: edit ? (post as Matter).title : undefined,
         location: edit
           ? (post as Matter).location
@@ -281,6 +284,7 @@ export const matters = (
 ): {
   display: 'public' | 'private';
   title: string;
+  industry: string;
   position: string;
   body: string;
   location: {
@@ -316,6 +320,7 @@ export const matters = (
   return {
     display: data.display,
     title: data.title,
+    industry: data.industry,
     position: data.position,
     body: data.body,
     location: data.location,
