@@ -1,6 +1,6 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
+@import 'styles/config';
+@import 'styles/function';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -78,8 +78,7 @@ $width: responsive-width(pc);
     width: 100%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    row-gap: 0px;
-    column-gap: 16px;
+    gap: 16px;
 
     @media (max-width: responsive-width(miniPc)) {
       grid-template-columns: repeat(4, 1fr);
