@@ -38,7 +38,7 @@ export const Position: React.FC = () => {
           </option>
           <option value="インフラエンジニア">インフラエンジニア</option>
           <option value="データベースエンジニア">データベースエンジニア</option>
-          <option value="クラウドエジニア">クラウドエジニア</option>
+          <option value="クラウドエンジニア">クラウドエンジニア</option>
           <option value="ネットワークエンジニア">ネットワークエンジニア</option>
           <option value="セキュリティエンジニア">セキュリティエンジニア</option>
           <option value="リードエンジニア">リードエンジニア</option>

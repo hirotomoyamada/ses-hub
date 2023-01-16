@@ -46,8 +46,6 @@ export const Form: React.FC<PropType> = ({
     ),
   });
 
-  console.log(methods.watch('handles'));
-
   const handleCreate: SubmitHandler<
     functions.form.Data['matter'] & functions.form.Data['resource']
   > = (data) => {
