@@ -11,21 +11,6 @@ import {
 } from 'react';
 import styles from './Item.module.scss';
 
-type Option = { label: string; value: string };
-
-export type AutocompleteProps = Omit<
-  DOMAttributes<HTMLInputElement>,
-  'onChange'
-> & {
-  name?: string;
-  value?: string;
-  placeholder?: string;
-  error?: boolean;
-  options: Option[];
-  onChange?: (value: string) => void;
-  onComplete?: (value: string) => void;
-};
-
 type ReactRef<T> = Ref<T> | MutableRefObject<T>;
 
 const assignRef = <T extends any = any>(
@@ -172,8 +157,35 @@ const halfToFullWidth = (value: string) => {
     .replace(/ﾟ/g, '゜');
 };
 
+type Option = { label: string; value: string };
+
+export type AutocompleteProps = Omit<
+  DOMAttributes<HTMLInputElement>,
+  'onChange'
+> & {
+  name?: string;
+  value?: string;
+  placeholder?: string;
+  error?: boolean;
+  options: Option[];
+  noOptionsMessage?: string;
+  onChange?: (value: string) => void;
+  onComplete?: (value: string) => void;
+};
+
 export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
-  ({ value, options, error, onChange, onComplete, ...rest }, ref) => {
+  (
+    {
+      value,
+      options,
+      noOptionsMessage = '該当がありません',
+      error,
+      onChange,
+      onComplete,
+      ...rest
+    },
+    ref,
+  ) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [computedValue, setComputedValue] = useState<string>(value ?? '');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -245,14 +257,20 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
 
         {isOpen ? (
           <ul className={styles.autocomplete_menu}>
-            {computedOptions.map(({ label, value }, i) => (
-              <li
-                key={i}
-                className={styles.autocomplete_item}
-                onClick={() => onClick(label, value)}>
-                {label}
+            {computedOptions.length ? (
+              computedOptions.map(({ label, value }, i) => (
+                <li
+                  key={i}
+                  className={styles.autocomplete_item}
+                  onClick={() => onClick(label, value)}>
+                  {label}
+                </li>
+              ))
+            ) : (
+              <li className={styles.autocomplete_not_found}>
+                {noOptionsMessage}
               </li>
-            ))}
+            )}
           </ul>
         ) : null}
       </div>

@@ -222,4 +222,13 @@ $width: responsive-width(pc);
       padding: 4px 12px;
     }
   }
+
+  &_not_found {
+    color: $sub_clr;
+    padding: 8px 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 4px 12px;
+    }
+  }
 }
