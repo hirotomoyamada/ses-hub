@@ -25,7 +25,7 @@ export const Head: React.FC<PropType> = ({ user }) => {
           <span className={styles.profile_invoice}>
             適格請求書発行事業者：
             {user.profile.invoice.type === '登録済み'
-              ? user.profile.invoice.no
+              ? `T${user.profile.invoice.no}`
               : user.profile.invoice.type}
           </span>
         ) : null}
