@@ -5,10 +5,9 @@ import { Matter } from 'types/post';
 
 interface PropType {
   interviews: Matter['interviews'];
-  none?: boolean;
 }
 
-export const Interviews: React.FC<PropType> = ({ interviews, none }) => {
+export const Interviews: React.FC<PropType> = ({ interviews }) => {
   return (
     <>
       <div className={styles.main_col}>
@@ -18,7 +17,7 @@ export const Interviews: React.FC<PropType> = ({ interviews, none }) => {
         </p>
       </div>
 
-      <div className={`${styles.main_col} ${none && styles.main_col_none}`}>
+      <div className={`${styles.main_col}`}>
         <span className={styles.main_tag}>面談設定</span>
         <p>{interviews?.setting ?? '-'}</p>
       </div>
