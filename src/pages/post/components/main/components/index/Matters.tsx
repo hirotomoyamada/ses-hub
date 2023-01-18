@@ -43,7 +43,7 @@ export const Matters: React.FC<PropType> = ({ index, post, user }) => {
 
       <Feilds tag="必須" array={post?.requires} />
 
-      <Feilds tag="尚可" array={post?.prefers} />
+      <Feilds tag="歓迎" array={post?.prefers} />
 
       <Period period={post?.period} matters />
 

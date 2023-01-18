@@ -51,7 +51,7 @@ export const matters = (posts: Matter[]): string[] => {
       fields({ tag: '必須：', array: outputs?.requires }),
     prefers:
       outputs?.prefers?.[0] &&
-      fields({ tag: '尚可：', array: outputs?.prefers }),
+      fields({ tag: '歓迎：', array: outputs?.prefers }),
   }));
 
   return values.map(

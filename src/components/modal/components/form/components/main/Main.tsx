@@ -74,7 +74,7 @@ export const Main: React.FC<PropType> = ({ index }) => {
           </div>
 
           <div className={`${styles.main_col} ${styles.main_col_none}`}>
-            <span className={styles.main_tag}>尚可</span>
+            <span className={styles.main_tag}>歓迎</span>
             <Perfers />
           </div>
 
