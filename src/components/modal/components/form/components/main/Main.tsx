@@ -65,6 +65,9 @@ export const Main: React.FC<PropType> = ({ index }) => {
             <div>
               <Handles index={index} />
               <Tools index={index} />
+              <span className={styles.main_desc}>
+                &nbsp;※&nbsp;言語・フレームワーク・ツールが該当しない場合は、下記&nbsp;備考&nbsp;欄にご記載ください
+              </span>
             </div>
           </div>
 
@@ -125,8 +128,13 @@ export const Main: React.FC<PropType> = ({ index }) => {
 
           <div className={`${styles.main_col} ${styles.main_col_none}`}>
             <span className={styles.main_tag}>開発環境</span>
-            <Handles index={index} />
-            <Tools index={index} />
+            <div>
+              <Handles index={index} />
+              <Tools index={index} />
+              <span className={styles.main_desc}>
+                &nbsp;※&nbsp;言語・フレームワーク・ツールが該当しない場合は、下記&nbsp;備考&nbsp;欄にご記載ください
+              </span>
+            </div>
           </div>
 
           <div className={`${styles.main_col} ${styles.main_col_none}`}>

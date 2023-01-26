@@ -47,6 +47,18 @@ $width: responsive-width(pc);
     }
   }
 
+  &_desc {
+    white-space: nowrap;
+    color: $sub_clr;
+    font-size: 12px;
+    margin-bottom: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 10px;
+      margin-bottom: 12px;
+    }
+  }
+
   &_col {
     display: flex;
     gap: 8px;
