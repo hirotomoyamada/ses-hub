@@ -1,14 +1,15 @@
-import React from "react";
-import styles from "./Create.module.scss";
-import root from "../../Auth.module.scss";
+import React from 'react';
+import styles from './Create.module.scss';
+import root from '../../Auth.module.scss';
 
-import { Person } from "./components/Person";
-import { Name } from "./components/Name";
-import { Position } from "./components/Position";
-import { Address } from "./components/Address";
-import { Tel } from "./components/Tel";
-import { Agree } from "./components/Agree";
-import { Type } from "./components/Type";
+import { Person } from './components/Person';
+import { Name } from './components/Name';
+import { Position } from './components/Position';
+import { Address } from './components/Address';
+import { Tel } from './components/Tel';
+import { Agree } from './components/Agree';
+import { Type } from './components/Type';
+import { Invoice } from './components/Invoice';
 
 interface PropType {
   inner: React.RefObject<HTMLDivElement>;
@@ -26,13 +27,11 @@ export const Create: React.FC<PropType> = ({
   return (
     <div
       className={`${root.auth_inner} ${resize && root.auth_inner_resize}`}
-      ref={inner}
-    >
+      ref={inner}>
       <button
         type="button"
         className={`${root.auth_desc} ${root.auth_desc_logout}`}
-        onClick={handleLogout}
-      >
+        onClick={handleLogout}>
         ログイン画面に戻る
       </button>
 
@@ -46,6 +45,7 @@ export const Create: React.FC<PropType> = ({
       <Position />
       <Address />
       <Tel />
+      <Invoice />
       <Agree setTerms={setTerms} />
 
       <button type="submit" className={root.auth_btn}>

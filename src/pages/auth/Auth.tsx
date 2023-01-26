@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
-import styles from "./Auth.module.scss";
+import React, { useState, useEffect } from 'react';
+import styles from './Auth.module.scss';
 
-import { auth } from "libs/firebase";
-import { signOut } from "firebase/auth";
-import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { auth } from 'libs/firebase';
+import { signOut } from 'firebase/auth';
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { useResize } from "hooks/useResize";
-import { useVerification } from "hooks/useVerification";
+import { useResize } from 'hooks/useResize';
+import { useVerification } from 'hooks/useVerification';
 
-import * as rootSlice from "features/root/rootSlice";
-import * as functions from "functions";
+import * as rootSlice from 'features/root/rootSlice';
+import * as functions from 'functions';
 
-import { Sign } from "./components/Sign";
-import { Reset } from "./components/Reset";
-import { Create } from "./components/create/Create";
-import { Verified } from "./components/Verified";
-import { Help, StartGuide } from "./components/help/Help";
-import { Terms } from "../terms/Terms";
+import { Sign } from './components/Sign';
+import { Reset } from './components/Reset';
+import { Create } from './components/create/Create';
+import { Verified } from './components/Verified';
+import { Help, StartGuide } from './components/help/Help';
+import { Terms } from '../terms/Terms';
 
 export type Data = {
-  type: "individual" | "parent";
+  type: 'individual' | 'parent';
   reset: string;
   email: string;
   password: string;
@@ -32,13 +32,14 @@ export type Data = {
   postal: string;
   address: string;
   tel: string;
-  agree: "enable";
+  invoice: { type: string; no: string };
+  agree: 'enable';
 };
 
 export const Auth: React.FC = () => {
   const dispatch = useDispatch();
 
-  const methods = useForm<Data>({ defaultValues: { type: "individual" } });
+  const methods = useForm<Data>({ defaultValues: { type: 'individual' } });
 
   const verified = useSelector(rootSlice.verified);
 
@@ -80,7 +81,7 @@ export const Auth: React.FC = () => {
   };
 
   const handleProvider = async (
-    provider: "google" | "twitter" | "github"
+    provider: 'google' | 'twitter' | 'github',
   ): Promise<void> => {
     await functions.auth.handleProvider(provider);
   };
@@ -124,13 +125,12 @@ export const Auth: React.FC = () => {
             : sign
             ? methods.handleSubmit(handleSignUp)
             : methods.handleSubmit(handleSignIn)
-        }
-      >
+        }>
         {terms ? (
           <Terms create setTerms={setTerms} />
         ) : email ||
-          verified.status === "hold" ||
-          verified.status === "disable" ? (
+          verified.status === 'hold' ||
+          verified.status === 'disable' ? (
           <Verified
             inner={inner}
             handleLogout={handleLogout}
@@ -166,8 +166,8 @@ export const Auth: React.FC = () => {
           />
         )}
         {!account &&
-          ((sign && !create) || verified.email || verified.status === "hold") &&
-          verified.status !== "disable" && (
+          ((sign && !create) || verified.email || verified.status === 'hold') &&
+          verified.status !== 'disable' && (
             <StartGuide help={help} setHelp={setHelp} resize={resize} />
           )}
       </form>
