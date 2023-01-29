@@ -1,23 +1,23 @@
-import React from "react";
-import styles from "./Form.module.scss";
+import React from 'react';
+import styles from './Form.module.scss';
 
-import { useDispatch, useSelector } from "react-redux";
-import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 
-import { createPost, editPost } from "features/post/actions";
-import * as rootSlice from "features/root/rootSlice";
+import { createPost, editPost } from 'features/post/actions';
+import * as rootSlice from 'features/root/rootSlice';
 
-import { Header } from "./components/header/Header";
-import { Main } from "./components/main/Main";
+import { Header } from './components/header/Header';
+import { Main } from './components/main/Main';
 
-import * as functions from "functions";
+import * as functions from 'functions';
 
-import { Matter, Resource } from "types/post";
-import { User } from "types/user";
-import { Oval } from "react-loader-spinner";
+import { Matter, Resource } from 'types/post';
+import { User } from 'types/user';
+import { Oval } from 'react-loader-spinner';
 
 interface PropType {
-  index: "matters" | "resources" | "companys" | "persons";
+  index: 'matters' | 'resources' | 'companys' | 'persons';
   user: User;
   post: Matter | Resource;
   handleClose: () => void;
@@ -37,21 +37,21 @@ export const Form: React.FC<PropType> = ({
   const demo = useSelector(rootSlice.verified)?.demo;
 
   const methods = useForm<
-    functions.form.Data["matter"] & functions.form.Data["resource"]
+    functions.form.Data['matter'] & functions.form.Data['resource']
   >({
     defaultValues: functions.form.defaultValues(
-      index as "matters" | "resources",
+      index as 'matters' | 'resources',
       post,
-      edit
+      edit,
     ),
   });
 
   const handleCreate: SubmitHandler<
-    functions.form.Data["matter"] & functions.form.Data["resource"]
+    functions.form.Data['matter'] & functions.form.Data['resource']
   > = (data) => {
-    if (index !== "matters" && index !== "resources") return;
+    if (index !== 'matters' && index !== 'resources') return;
 
-    if (page !== "home" && page !== "search" && page !== "user") return;
+    if (page !== 'home' && page !== 'search' && page !== 'user') return;
 
     if (demo) {
       handleClose();
@@ -61,14 +61,14 @@ export const Form: React.FC<PropType> = ({
 
     const create = (() => {
       switch (index) {
-        case "matters":
+        case 'matters':
           return functions.form.matters(
-            data as unknown as functions.form.Data["matter"]
+            data as unknown as functions.form.Data['matter'],
           );
 
-        case "resources":
+        case 'resources':
           return functions.form.resources(
-            data as unknown as functions.form.Data["resource"]
+            data as unknown as functions.form.Data['resource'],
           );
 
         default:
@@ -80,9 +80,9 @@ export const Form: React.FC<PropType> = ({
   };
 
   const handleEdit: SubmitHandler<
-    functions.form.Data["matter"] & functions.form.Data["resource"]
+    functions.form.Data['matter'] & functions.form.Data['resource']
   > = (data) => {
-    if (index !== "matters" && index !== "resources") return;
+    if (index !== 'matters' && index !== 'resources') return;
 
     if (user.uid !== post.uid) {
       handleClose();
@@ -92,19 +92,19 @@ export const Form: React.FC<PropType> = ({
 
     const edit = (() => {
       switch (index) {
-        case "matters":
+        case 'matters':
           return {
             ...post,
             ...functions.form.matters(
-              data as unknown as functions.form.Data["matter"]
+              data as unknown as functions.form.Data['matter'],
             ),
           };
 
-        case "resources":
+        case 'resources':
           return {
             ...post,
             ...functions.form.resources(
-              data as unknown as functions.form.Data["resource"]
+              data as unknown as functions.form.Data['resource'],
             ),
           };
 
@@ -124,10 +124,9 @@ export const Form: React.FC<PropType> = ({
           edit
             ? methods.handleSubmit(handleEdit)
             : methods.handleSubmit(handleCreate)
-        }
-      >
+        }>
         <Header edit={edit} fetch={fetch} handleClose={handleClose} />
-        <Main index={index as "matters" | "resources"} />
+        <Main index={index as 'matters' | 'resources'} />
 
         {fetch && (
           <div className={styles.form_fetch}>

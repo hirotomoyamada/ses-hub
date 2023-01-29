@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import {
   auth,
   providerGithub,
   providerGoogle,
   providerTwitter,
   functions,
-} from "libs/firebase";
+} from 'libs/firebase';
 import {
   getRedirectResult,
   sendEmailVerification,
@@ -13,17 +13,17 @@ import {
   signInWithEmailAndPassword,
   signInWithRedirect,
   sendPasswordResetEmail,
-} from "firebase/auth";
-import { httpsCallable, HttpsCallable } from "firebase/functions";
-import { FirebaseError } from "firebase/app";
-import { UseFormReturn } from "react-hook-form";
-import { OwnDispatch } from "@reduxjs/toolkit";
+} from 'firebase/auth';
+import { httpsCallable, HttpsCallable } from 'firebase/functions';
+import { FirebaseError } from 'firebase/app';
+import { UseFormReturn } from 'react-hook-form';
+import { OwnDispatch } from '@reduxjs/toolkit';
 
-import { createProfile } from "features/user/actions";
+import { createProfile } from 'features/user/actions';
 
-import * as rootSlice from "features/root/rootSlice";
+import * as rootSlice from 'features/root/rootSlice';
 
-import { Data } from "pages/auth/Auth";
+import { Data } from 'pages/auth/Auth';
 
 type GetRedirect = {
   dispatch: OwnDispatch;
@@ -36,8 +36,8 @@ export const getRedirect = ({ dispatch }: GetRedirect): void => {
         if (result.user.isAnonymous && result.user.emailVerified) {
           dispatch(
             rootSlice.handleAnnounce({
-              success: "認証されました",
-            })
+              success: '認証されました',
+            }),
           );
         }
 
@@ -50,8 +50,8 @@ export const getRedirect = ({ dispatch }: GetRedirect): void => {
             }).catch(() => {
               dispatch(
                 rootSlice.handleAnnounce({
-                  error: "再度時間をおいてください",
-                })
+                  error: '再度時間をおいてください',
+                }),
               );
             });
           }
@@ -63,10 +63,10 @@ export const getRedirect = ({ dispatch }: GetRedirect): void => {
         dispatch(
           rootSlice.handleAnnounce({
             error:
-              e.code === "auth/account-exists-with-different-credential"
-                ? "同じメールアドレスのアカウントがすでに存在しています"
+              e.code === 'auth/account-exists-with-different-credential'
+                ? '同じメールアドレスのアカウントがすでに存在しています'
                 : undefined,
-          })
+          }),
         );
       }
     });
@@ -85,14 +85,16 @@ export const handleCreate = async ({
     !data.type ||
     !data.name ||
     !data.person ||
-    (data.type === "individual" && !data.position) ||
+    (data.type === 'individual' && !data.position) ||
     !data.tel ||
-    !data.agree
+    !data.agree ||
+    !data.invoice.type ||
+    (data.invoice.type === '登録済み' && !data.invoice.no)
   ) {
     dispatch(
       rootSlice.handleAnnounce({
-        error: "登録に失敗しました ページを更新してください",
-      })
+        error: '登録に失敗しました ページを更新してください',
+      }),
     );
 
     return;
@@ -103,11 +105,12 @@ export const handleCreate = async ({
       type: data.type,
       name: data.name,
       person: data.person,
-      position: data.type === "individual" ? data.position : "",
+      position: data.type === 'individual' ? data.position : '',
       postal: data.postal,
       address: data.address,
       tel: data.tel,
       agree: data.agree,
+      invoice: data.invoice,
       provider: auth.currentUser.providerData[0].providerId,
       pend: true,
     };
@@ -142,8 +145,8 @@ export const handleSignUp = async ({
     .catch(() => {
       dispatch(
         rootSlice.handleAnnounce({
-          error: "アカウントの作成に失敗しました",
-        })
+          error: 'アカウントの作成に失敗しました',
+        }),
       );
 
       methods.reset({
@@ -174,8 +177,8 @@ export const handleSignIn = async ({
     .catch(() => {
       dispatch(
         rootSlice.handleAnnounce({
-          error: "メールアドレスかパスワードが間違っています",
-        })
+          error: 'メールアドレスかパスワードが間違っています',
+        }),
       );
 
       methods.reset({
@@ -187,14 +190,14 @@ export const handleSignIn = async ({
 };
 
 export const handleProvider = async (
-  data: "google" | "twitter" | "github"
+  data: 'google' | 'twitter' | 'github',
 ): Promise<void> => {
   const provider =
-    data === "google"
+    data === 'google'
       ? providerGoogle
-      : data === "twitter"
+      : data === 'twitter'
       ? providerTwitter
-      : data === "github" && providerGithub;
+      : data === 'github' && providerGithub;
 
   if (provider) {
     await signInWithRedirect(auth, provider);
@@ -217,15 +220,15 @@ export const handleResend = async ({
       .then(() => {
         dispatch(
           rootSlice.handleAnnounce({
-            success: "登録しているメールアドレスに再送信しました",
-          })
+            success: '登録しているメールアドレスに再送信しました',
+          }),
         );
       })
       .catch(() => {
         dispatch(
           rootSlice.handleAnnounce({
-            error: "再度時間をおいてください",
-          })
+            error: '再度時間をおいてください',
+          }),
         );
       });
   }
@@ -247,13 +250,13 @@ export const handleReset = async ({
   const verificationUser: HttpsCallable<
     { type: string; email: string },
     unknown
-  > = httpsCallable(functions, "sh-verificationUser");
+  > = httpsCallable(functions, 'sh-verificationUser');
 
-  await verificationUser({ type: "child", email: data.reset }).catch(() => {
+  await verificationUser({ type: 'child', email: data.reset }).catch(() => {
     throw dispatch(
       rootSlice.handleAnnounce({
-        error: "登録しているメールアドレスではパスワードの再設定は行えません",
-      })
+        error: '登録しているメールアドレスではパスワードの再設定は行えません',
+      }),
     );
   });
 
@@ -263,15 +266,15 @@ export const handleReset = async ({
 
       dispatch(
         rootSlice.handleAnnounce({
-          success: "登録しているメールアドレスに再送信しました",
-        })
+          success: '登録しているメールアドレスに再送信しました',
+        }),
       );
     })
     .catch(() => {
       dispatch(
         rootSlice.handleAnnounce({
-          error: "メールアドレスが存在しません",
-        })
+          error: 'メールアドレスが存在しません',
+        }),
       );
     });
 };

@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import styles from "../Form.module.scss";
-import { useFormContext } from "react-hook-form";
+import React, { useState } from 'react';
+import styles from '../Form.module.scss';
+import { useFormContext } from 'react-hook-form';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { faLine } from "@fortawesome/free-brands-svg-icons";
-import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faLine } from '@fortawesome/free-brands-svg-icons';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 
-import { Data } from "../../../Profile";
+import { Data } from '../../../Profile';
 
 interface PropType {
   setLine: React.Dispatch<React.SetStateAction<boolean>>;
@@ -41,8 +41,7 @@ export const Social: React.FC<PropType> = ({ setLine }) => {
         <button
           onClick={() => setLine(true)}
           type="button"
-          className={styles.form_link}
-        >
+          className={styles.form_link}>
           ※ LINEのURL 取得する方法
         </button>
       </div>
@@ -62,20 +61,23 @@ export const Social: React.FC<PropType> = ({ setLine }) => {
               className={`${styles.form_social_input} ${
                 errors?.social?.line && styles.form_input_error
               }`}
-              {...register("social.line", {
+              {...register('social.line', {
                 pattern: {
                   value: /^\S+/,
-                  message: "先頭にスペースは使えません",
+                  message: '先頭にスペースは使えません',
                 },
                 maxLength: {
                   value: 144,
-                  message: "144文字以内で入力してください",
+                  message: '144文字以内で入力してください',
                 },
               })}
             />
-            <span className={styles.form_error}>
-              {errors?.social?.line?.message}
-            </span>
+
+            {errors?.social?.line?.message ? (
+              <span className={styles.form_error}>
+                {errors?.social.line.message}
+              </span>
+            ) : null}
           </div>
 
           <div className={styles.form_social}>
@@ -89,20 +91,23 @@ export const Social: React.FC<PropType> = ({ setLine }) => {
               className={`${styles.form_social_input} ${
                 errors?.social?.twitter && styles.form_input_error
               }`}
-              {...register("social.twitter", {
+              {...register('social.twitter', {
                 pattern: {
                   value: /^\S+/,
-                  message: "先頭にスペースは使えません",
+                  message: '先頭にスペースは使えません',
                 },
                 maxLength: {
                   value: 144,
-                  message: "144文字以内で入力してください",
+                  message: '144文字以内で入力してください',
                 },
               })}
             />
-            <span className={styles.form_error}>
-              {errors?.social?.twitter?.message}
-            </span>
+
+            {errors?.social?.twitter?.message ? (
+              <span className={styles.form_error}>
+                {errors?.social.twitter.message}
+              </span>
+            ) : null}
           </div>
 
           <div className={styles.form_social}>
@@ -118,20 +123,23 @@ export const Social: React.FC<PropType> = ({ setLine }) => {
               className={`${styles.form_social_input} ${
                 styles.form_social_input_other
               }  ${errors?.social?.instagram && styles.form_input_error}`}
-              {...register("social.instagram", {
+              {...register('social.instagram', {
                 pattern: {
                   value: /^\S+/,
-                  message: "先頭にスペースは使えません",
+                  message: '先頭にスペースは使えません',
                 },
                 maxLength: {
                   value: 144,
-                  message: "144文字以内で入力してください",
+                  message: '144文字以内で入力してください',
                 },
               })}
             />
-            <span className={styles.form_error}>
-              {errors?.social?.instagram?.message}
-            </span>
+
+            {errors.social?.instagram?.message ? (
+              <span className={styles.form_error}>
+                {errors?.social.instagram.message}
+              </span>
+            ) : null}
           </div>
 
           <div className={styles.form_social}>
@@ -147,20 +155,23 @@ export const Social: React.FC<PropType> = ({ setLine }) => {
               className={`${styles.form_social_input} ${
                 styles.form_social_input_other
               }  ${errors?.social?.linkedIn && styles.form_input_error}`}
-              {...register("social.linkedIn", {
+              {...register('social.linkedIn', {
                 pattern: {
                   value: /^\S+/,
-                  message: "先頭にスペースは使えません",
+                  message: '先頭にスペースは使えません',
                 },
                 maxLength: {
                   value: 144,
-                  message: "144文字以内で入力してください",
+                  message: '144文字以内で入力してください',
                 },
               })}
             />
-            <span className={styles.form_error}>
-              {errors?.social?.linkedIn?.message}
-            </span>
+
+            {errors.social?.linkedIn?.message ? (
+              <span className={styles.form_error}>
+                {errors?.social?.linkedIn?.message}
+              </span>
+            ) : null}
           </div>
         </>
       )}

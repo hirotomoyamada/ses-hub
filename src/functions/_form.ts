@@ -4,6 +4,7 @@ export type Data = {
   matter: {
     display: 'public' | 'private';
     status: string;
+    industry: string;
     position: string;
     body: string;
     period: { year: number; month: number };
@@ -24,7 +25,7 @@ export type Data = {
     requires: { require: string }[];
     prefers: { prefer: string }[];
     adjustment: string;
-    interviews: { type: string; count: string };
+    interviews: { type: string; count: string; setting: string };
     times: { start: string; end: string };
     remote: string;
     distribution: string;
@@ -60,6 +61,57 @@ export type Data = {
   };
 };
 
+const positions = [
+  'フロントエンドエンジニア',
+  'バックエンドエンジニア',
+  'サーバーエンジニア',
+  'ブロックチェーンエンジニア',
+  'インフラエンジニア',
+  'データベースエンジニア',
+  'クラウドエンジニア',
+  'ネットワークエンジニア',
+  'セキュリティエンジニア',
+  'リードエンジニア',
+  'システムエンジニア',
+  '社内SE',
+  'アプリエンジニア',
+  'iOSエンジニア',
+  'Androidエンジニア',
+  '機械学習エンジニア',
+  'AIエンジニア(人工知能)',
+  '汎用機エンジニア',
+  'マークアップエンジニア',
+  'テストエンジニア',
+  'テスター・デバッガー・QA',
+  '組み込み・制御',
+  'データサイエンティスト',
+  'PdM',
+  'PM/PL',
+  'PMO',
+  'VPoE',
+  'CRE',
+  'SRE',
+  'エンジニアリングマネージャー',
+  'SAP',
+  'プロデューサー',
+  'コンサルタント',
+  'マーケター',
+  'Webディレクター',
+  'Webプランナー',
+  'Webデザイナー',
+  'UI・UXデザイナー',
+  'グラフィックデザイナー',
+  '3Dデザイナー',
+  '2Dデザイナー',
+  'キャラクターデザイナー',
+  'イラストレーター',
+  'アートディレクター',
+  'ゲームプランナー',
+  'ゲームデザイナー',
+  'サポート',
+  'その他',
+];
+
 export const defaultValues = (
   index: 'matters' | 'resources',
   post: Matter | Resource,
@@ -69,6 +121,7 @@ export const defaultValues = (
       display: 'public' | 'private' | undefined;
       status: string | undefined;
       title: string | undefined;
+      industry: string | undefined;
       position: string | undefined;
       body: string | undefined;
       location: { area: string | undefined; place: string | undefined };
@@ -89,7 +142,11 @@ export const defaultValues = (
         start: string | undefined;
         end: string | undefined;
       };
-      interviews: { type: string | undefined; count: string | undefined };
+      interviews: {
+        type: string | undefined;
+        count: string | undefined;
+        setting: string | undefined;
+      };
       remote: string | undefined;
       distribution: string | undefined;
       span: string | undefined;
@@ -147,7 +204,8 @@ export const defaultValues = (
       return {
         display: edit ? (post.display as 'public' | 'private') : 'public',
         status: edit ? post.status : '新規',
-        position: edit ? post.position : undefined,
+        position:
+          edit && positions.includes(post.position) ? post.position : undefined,
         body: edit ? post.body : undefined,
         period: edit ? post.period : { year: undefined, month: undefined },
         costs: {
@@ -178,6 +236,7 @@ export const defaultValues = (
         memo: edit ? post.memo : undefined,
 
         // matters
+        industry: edit ? (post as Matter).industry : undefined,
         title: edit ? (post as Matter).title : undefined,
         location: edit
           ? (post as Matter).location
@@ -205,7 +264,7 @@ export const defaultValues = (
         adjustment: edit ? (post as Matter).adjustment : '140h 〜 180h',
         interviews: edit
           ? (post as Matter).interviews
-          : { type: undefined, count: undefined },
+          : { type: undefined, count: undefined, setting: undefined },
         times: edit ? (post as Matter).times : { start: '10:00', end: '19:00' },
         remote: edit ? (post as Matter).remote : 'あり',
         distribution: edit ? (post as Matter).distribution : 'プライム',
@@ -220,7 +279,8 @@ export const defaultValues = (
       return {
         display: edit ? (post.display as 'public' | 'private') : 'public',
         status: edit ? post.status : '新規',
-        position: edit ? post.position : undefined,
+        position:
+          edit && positions.includes(post.position) ? post.position : undefined,
         body: edit ? post.body : undefined,
         period: edit ? post.period : { year: undefined, month: undefined },
         costs: {
@@ -277,6 +337,7 @@ export const matters = (
 ): {
   display: 'public' | 'private';
   title: string;
+  industry: string;
   position: string;
   body: string;
   location: {
@@ -300,7 +361,7 @@ export const matters = (
   tools: string[];
   requires: string[];
   prefers: string[];
-  interviews: { type: string; count: string };
+  interviews: { type: string; count: string; setting: string };
   remote: string;
   distribution: string;
   span: string;
@@ -312,6 +373,7 @@ export const matters = (
   return {
     display: data.display,
     title: data.title,
+    industry: data.industry,
     position: data.position,
     body: data.body,
     location: data.location,

@@ -1,7 +1,7 @@
-import React from "react";
-import styles from "../Form.module.scss";
-import { useFormContext } from "react-hook-form";
-import { Data } from "../../../Profile";
+import React from 'react';
+import styles from '../Form.module.scss';
+import { useFormContext } from 'react-hook-form';
+import { Data } from '../../../Profile';
 
 export const Person: React.FC = () => {
   const {
@@ -23,26 +23,29 @@ export const Person: React.FC = () => {
             errors.person && styles.form_input_error
           }`}
           placeholder="山田太郎"
-          {...register("person", {
+          {...register('person', {
             required: {
               value: true,
-              message: "ユーザー名を入力してください",
+              message: 'ユーザー名を入力してください',
             },
             pattern: {
               value: /^\S+/,
-              message: "先頭にスペースは使えません",
+              message: '先頭にスペースは使えません',
             },
             minLength: {
               value: 2,
-              message: "2文字以上で入力してください",
+              message: '2文字以上で入力してください',
             },
             maxLength: {
               value: 24,
-              message: "24文字以内で入力してください",
+              message: '24文字以内で入力してください',
             },
           })}
         />
-        <span className={styles.form_error}>{errors.person?.message}</span>
+
+        {errors.person?.message ? (
+          <span className={styles.form_error}>{errors.person.message}</span>
+        ) : null}
       </div>
     </div>
   );

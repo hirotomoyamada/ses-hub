@@ -1,20 +1,20 @@
-import styles from "./Profile.module.scss";
+import styles from './Profile.module.scss';
 
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 
-import { Header } from "./components/header/Header";
-import { Cover } from "./components/cover/Cover";
-import { Icon } from "./components/icon/Icon";
-import { Form } from "./components/form/Form";
-import { Line } from "./components/line/Line";
+import { Header } from './components/header/Header';
+import { Cover } from './components/cover/Cover';
+import { Icon } from './components/icon/Icon';
+import { Form } from './components/form/Form';
+import { Line } from './components/line/Line';
 
-import { Company as SelectUser } from "types/post";
-import { User } from "types/user";
-import { editProfile } from "features/user/actions";
-import { Oval } from "react-loader-spinner";
-import * as rootSlice from "features/root/rootSlice";
+import { Company as SelectUser } from 'types/post';
+import { User } from 'types/user';
+import { editProfile } from 'features/user/actions';
+import { Oval } from 'react-loader-spinner';
+import * as rootSlice from 'features/root/rootSlice';
 
 interface PropType {
   user: User | SelectUser;
@@ -27,6 +27,7 @@ export type Data = {
   icon: string;
   cover: string;
   body: string | null;
+  invoice: { type: string; no: string };
   more: string[];
   region: string[];
   postal: string | null;
@@ -53,12 +54,13 @@ export const Profile: React.FC<PropType> = ({ user, handleClose }) => {
     defaultValues: {
       name: user?.profile?.name,
       person:
-        user?.profile?.person !== "名無しさん" && user?.profile?.person
+        user?.profile?.person !== '名無しさん' && user?.profile?.person
           ? user.profile.person
           : undefined,
       icon: user?.icon,
       cover: user?.cover,
       body: user?.profile?.body,
+      invoice: user?.profile?.invoice ?? { type: undefined, no: undefined },
       more: user?.profile?.more,
       region: user?.profile?.region,
       postal: user?.profile?.postal,
@@ -78,6 +80,24 @@ export const Profile: React.FC<PropType> = ({ user, handleClose }) => {
   const handleEdit: SubmitHandler<Data> = (data) => {
     data.uid = user.uid;
 
+    if (!data.invoice.type) {
+      methods.setError('invoice.type', {
+        type: 'required',
+        message: '適格請求書発行事業者を選択してください',
+      });
+
+      return;
+    }
+
+    if (!data.invoice.no) {
+      methods.setError('invoice.no', {
+        type: 'required',
+        message: '適格請求書発行事業者の登録番号を入力してください',
+      });
+
+      return;
+    }
+
     dispatch(editProfile(data));
   };
 
@@ -85,8 +105,7 @@ export const Profile: React.FC<PropType> = ({ user, handleClose }) => {
     <FormProvider {...methods}>
       <form
         className={styles.profile}
-        onSubmit={methods.handleSubmit(handleEdit)}
-      >
+        onSubmit={methods.handleSubmit(handleEdit)}>
         <Header
           user={user}
           fetch={fetch}

@@ -514,7 +514,7 @@
       "handles": [], // 使用言語 ※必須
       "tools": [], // 使用ツール
       "requires": [], // 必須スキル ※必須
-      "prefers": [], // 尚可スキル
+      "prefers": [], // 歓迎スキル
 
       "interviews": {
         "type": null, // 種類

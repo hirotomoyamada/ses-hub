@@ -1,6 +1,6 @@
 {
   "name": "ses_hub",
-  "version": "2.2.4",
+  "version": "2.4.0",
   "private": true,
   "engines": {
     "node": "16"
@@ -64,7 +64,6 @@
   "scripts": {
     "start": "dotenv -e .env.dev react-scripts start",
     "start:prod": "dotenv -e .env react-scripts start",
-    "update": "git submodule foreach git pull origin",
     "build": "GENERATE_SOURCEMAP=false dotenv -e .env.dev react-scripts build && yarn admin build && yarn fd build",
     "build:prod": "GENERATE_SOURCEMAP=false dotenv -e .env react-scripts build && yarn admin build-prod && yarn fd build-prod",
     "deploy": "firebase use dev && firebase deploy --only",

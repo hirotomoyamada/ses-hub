@@ -1,15 +1,16 @@
-import React from "react";
-import styles from "./Form.module.scss";
+import React from 'react';
+import styles from './Form.module.scss';
 
-import { Header } from "./components/header/Header";
-import { Name } from "./components/Name";
-import { Person } from "./components/Person";
-import { Address } from "./components/Address";
-import { Tel } from "./components/Tel";
-import { Body } from "./components/Body";
-import { Url } from "./components/Url";
-import { Social } from "./components/Social";
-import { More } from "./components/More";
+import { Header } from './components/header/Header';
+import { Name } from './components/Name';
+import { Person } from './components/Person';
+import { Address } from './components/Address';
+import { Tel } from './components/Tel';
+import { Body } from './components/Body';
+import { Url } from './components/Url';
+import { Social } from './components/Social';
+import { More } from './components/More';
+import { Invoice } from './components/Invoice';
 
 interface PropType {
   cover: boolean;
@@ -34,6 +35,7 @@ export const Form: React.FC<PropType> = ({
         <Name />
         <Person />
         <Body />
+        <Invoice />
         <More />
         <Address />
         <Tel />
