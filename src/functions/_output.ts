@@ -36,8 +36,10 @@ export const matters = (posts: Matter[]): string[] => {
       outputs?.interviews &&
       `${outputs?.interviews?.type} ${outputs?.interviews?.count}`
     }`,
+    type: outputs?.interviews?.setting
+      ? `設定：${`${outputs?.interviews?.setting}`}\n`
+      : ``,
     note: `備考：\n${outputs?.note && `${outputs?.note}\n`}`,
-
     handles:
       outputs?.handles?.[0] &&
       fields({
@@ -62,10 +64,10 @@ export const matters = (posts: Matter[]): string[] => {
         output.location
       }\n${output.times}\n${output.remote}\n${output.adjustment}\n${
         output.costs
-      }\n${output.distribution}\n${output.interviews}\n${output.approval}\n${
-        output.span
-      }\n\n${output.body}\n${
-        output.tools !== undefined ? `\n${output.tools}\n` : ''
+      }\n${output.distribution}\n${output.interviews}\n${output.type}${
+        output.approval
+      }\n${output.span}\n\n${output.body}\n${
+        output.tools !== undefined ? `${output.tools}\n` : ''
       }\n${output.requires}\n${
         output.prefers !== undefined ? `\n${output.prefers}\n` : ''
       }\n${output.note}${
@@ -125,7 +127,7 @@ export const resources = (posts: Resource[]): string[] => {
         output.station
       }\n${output.costs}\n${output.parallel}\n${output.belong}\n${
         output.tools !== undefined ? `\n${output.tools}\n` : ''
-      }\n${output.skills}\n\n${output.body}\n\n${output.note}${
+      }\n${output.skills}\n\n${output.body}\n${output.note}${
         values.length !== index + 1
           ? '\n---------------------------------------------\n\n'
           : '\n'
