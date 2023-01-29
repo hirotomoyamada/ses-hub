@@ -89,6 +89,7 @@ const options = [
   { label: 'Swing', value: 'Swing' },
   { label: 'Next.js', value: 'Next.js' },
   { label: 'FastAPI', value: 'FastAPI' },
+  { label: 'VBA', value: 'VBA' },
 ];
 
 export const Handles: React.FC<PropType> = ({ index }) => {
