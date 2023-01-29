@@ -58,6 +58,16 @@ const options = [
   { label: 'ファイヤーウォール', value: 'ファイヤーウォール' },
   { label: 'Company', value: 'Company' },
   { label: 'Exchange', value: 'Exchange' },
+  { label: 'Docker', value: 'Docker' },
+  { label: 'Firebase', value: 'Firebase' },
+  { label: 'MAツール', value: 'MAツール' },
+  { label: 'Tableau', value: 'Tableau' },
+  { label: 'JIRA', value: 'JIRA' },
+  { label: 'Slack', value: 'Slack' },
+  { label: 'Zoom', value: 'Zoom' },
+  { label: 'Microsoft Teams', value: 'Microsoft Teams' },
+  { label: 'Excel', value: 'Excel' },
+  { label: 'PowerPoint', value: 'PowerPoint' },
 ];
 
 export const Tools: React.FC<PropType> = ({ index }) => {
