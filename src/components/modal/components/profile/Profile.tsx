@@ -89,7 +89,7 @@ export const Profile: React.FC<PropType> = ({ user, handleClose }) => {
       return;
     }
 
-    if (!data.invoice.no) {
+    if (data.invoice.type === '登録済み' && !data.invoice.no) {
       methods.setError('invoice.no', {
         type: 'required',
         message: '適格請求書発行事業者の登録番号を入力してください',
