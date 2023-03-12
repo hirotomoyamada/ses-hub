@@ -21,7 +21,7 @@ export const Header: React.FC<PropType> = ({ post, user }) => {
 
   return (
     <div className={styles.header}>
-      <At post={post} />
+      {post.uid === user.uid ? <At post={post} /> : null}
 
       <div className={styles.header_container}>
         {post.uid === user.uid && (

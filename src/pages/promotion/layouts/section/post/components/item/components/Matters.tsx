@@ -1,17 +1,17 @@
-import React from "react";
-import styles from "../Item.module.scss";
+import React from 'react';
+import styles from '../Item.module.scss';
 
-import ScheduleIcon from "@material-ui/icons/Schedule";
-import CodeIcon from "@material-ui/icons/Code";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import HowToVoteIcon from "@material-ui/icons/HowToVote";
-import BusinessIcon from "@material-ui/icons/Business";
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import CodeIcon from '@material-ui/icons/Code';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import HowToVoteIcon from '@material-ui/icons/HowToVote';
+import BusinessIcon from '@material-ui/icons/Business';
 
-import * as functions from "functions";
+// import * as functions from 'functions';
 
-import { Handles } from "./Handles";
+import { Handles } from './Handles';
 
-import { Matter } from "types/post";
+import { Matter } from 'types/post';
 
 export const Matters: React.FC<{ post: Matter }> = ({ post }) => {
   return (
@@ -36,10 +36,10 @@ export const Matters: React.FC<{ post: Matter }> = ({ post }) => {
           <div className={styles.item_wrap}>
             <BusinessIcon className={styles.item_icon} />
             <span>
-              {post?.remote === "あり"
-                ? "リモート"
-                : post?.remote === "なし"
-                ? "常駐"
+              {post?.remote === 'あり'
+                ? 'リモート'
+                : post?.remote === 'なし'
+                ? '常駐'
                 : post?.remote}
             </span>
           </div>
@@ -55,7 +55,7 @@ export const Matters: React.FC<{ post: Matter }> = ({ post }) => {
 
           <div className={styles.item_wrap}>
             <HowToVoteIcon className={styles.item_icon} />
-            {post?.costs?.display !== "public" ? (
+            {post?.costs?.display !== 'public' ? (
               <div className={styles.item_field}>
                 <span>{post?.costs?.type}</span>
               </div>
@@ -83,9 +83,9 @@ export const Matters: React.FC<{ post: Matter }> = ({ post }) => {
         </div>
       </div>
 
-      <div className={styles.item_time}>
+      {/* <div className={styles.item_time}>
         <span>{functions.root.timestamp(post?.createAt)}</span>
-      </div>
+      </div> */}
     </div>
   );
 };

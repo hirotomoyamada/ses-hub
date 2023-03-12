@@ -1,15 +1,15 @@
-import React from "react";
-import styles from "../Main.module.scss";
+import React from 'react';
+import styles from '../Main.module.scss';
 
-import { Matter, Resource } from "types/post";
+import { Matter, Resource } from 'types/post';
 
 interface PropType {
-  memo: Matter["memo"] | Resource["memo"];
-  index: "matters" | "resources";
+  memo: Matter['memo'] | Resource['memo'];
+  index: 'matters' | 'resources';
 }
 
 export const Memo: React.FC<PropType> = ({ memo, index }) => {
-  return index === "matters" && typeof memo === "string" ? (
+  return index === 'matters' && typeof memo === 'string' ? (
     <div className={`${styles.main_memo} ${styles.main_memo_body}`}>
       <span className={styles.main_memo_tag}>
         メモ
@@ -22,7 +22,7 @@ export const Memo: React.FC<PropType> = ({ memo, index }) => {
         </p>
       </div>
     </div>
-  ) : index === "resources" && typeof memo !== "string" ? (
+  ) : index === 'resources' && typeof memo === 'object' ? (
     <div className={styles.main_memo}>
       <span className={styles.main_memo_tag}>
         メモ
@@ -33,8 +33,7 @@ export const Memo: React.FC<PropType> = ({ memo, index }) => {
         <div
           className={`${styles.main_memo_field} ${
             !memo?.tel && !memo?.address && styles.main_memo_field_none
-          }`}
-        >
+          }`}>
           <span className={styles.main_memo_field_tag}>名前</span>
           <p className={styles.main_memo_txt}>{memo?.name}</p>
         </div>
@@ -44,8 +43,7 @@ export const Memo: React.FC<PropType> = ({ memo, index }) => {
         <div
           className={`${styles.main_memo_field} ${
             (!memo?.name || !memo?.address) && styles.main_memo_field_none
-          }`}
-        >
+          }`}>
           <span className={styles.main_memo_field_tag}>連絡先</span>
 
           <p className={styles.main_memo_txt}>{memo?.tel}</p>
@@ -54,8 +52,7 @@ export const Memo: React.FC<PropType> = ({ memo, index }) => {
 
       {memo?.address && (
         <div
-          className={`${styles.main_memo_field} ${styles.main_memo_field_none}`}
-        >
+          className={`${styles.main_memo_field} ${styles.main_memo_field_none}`}>
           <span className={styles.main_memo_field_tag}>住所</span>
 
           <p className={styles.main_memo_txt}>{memo?.address}</p>

@@ -1,10 +1,10 @@
-import * as functions from 'functions';
+// import * as functions from 'functions';
 
 import { Matter, Resource } from 'types/post';
 
 export const matters = (posts: Matter[]): string[] => {
   const values = posts.map((outputs) => ({
-    createAt: `作成：${functions.root.timestamp(outputs?.createAt)}`,
+    // createAt: `作成：${functions.root.timestamp(outputs?.createAt)}`,
     title: `■ ${outputs.title ? outputs.title : '不明な案件'}`,
     position: `${outputs?.position}`,
     body: `詳細：\n${outputs?.body}`,
@@ -56,9 +56,30 @@ export const matters = (posts: Matter[]): string[] => {
       fields({ tag: '歓迎：', array: outputs?.prefers }),
   }));
 
+  // return values.map(
+  //   (output, index) =>
+  //     `${output.createAt}\n\n${output.title}\n${
+  //       output.handles !== undefined ? `${output.handles}\n` : '\n'
+  //     }\n${output.position}\n\n${output.industry}\n${output.period}\n${
+  //       output.location
+  //     }\n${output.times}\n${output.remote}\n${output.adjustment}\n${
+  //       output.costs
+  //     }\n${output.distribution}\n${output.interviews}\n${output.type}${
+  //       output.approval
+  //     }\n${output.span}\n\n${output.body}\n${
+  //       output.tools !== undefined ? `${output.tools}\n` : ''
+  //     }\n${output.requires}\n${
+  //       output.prefers !== undefined ? `\n${output.prefers}\n` : ''
+  //     }\n${output.note}${
+  //       values.length !== index + 1
+  //         ? '\n---------------------------------------------\n\n'
+  //         : '\n'
+  //     }`,
+  // );
+
   return values.map(
     (output, index) =>
-      `${output.createAt}\n\n${output.title}\n${
+      `${output.title}\n${
         output.handles !== undefined ? `${output.handles}\n` : '\n'
       }\n${output.position}\n\n${output.industry}\n${output.period}\n${
         output.location
@@ -80,7 +101,7 @@ export const matters = (posts: Matter[]): string[] => {
 
 export const resources = (posts: Resource[]): string[] => {
   const values = posts.map((outputs) => ({
-    createAt: `作成：${functions.root.timestamp(outputs?.createAt)}`,
+    // createAt: `作成：${functions.root.timestamp(outputs?.createAt)}`,
     roman: `■ ${
       outputs?.roman
         ? `${outputs?.roman?.firstName.substring(
@@ -119,9 +140,24 @@ export const resources = (posts: Resource[]): string[] => {
       outputs?.tools?.[0] && fields({ tag: 'ツール：', array: outputs?.tools }),
   }));
 
+  // return values.map(
+  //   (output, index) =>
+  //     `${output.createAt}\n\n${output.roman}\n${
+  //       output.handles !== undefined ? `${output.handles}\n` : '\n'
+  //     }${output.position}\n\n${output.sex}\n${output.age}\n${output.period}\n${
+  //       output.station
+  //     }\n${output.costs}\n${output.parallel}\n${output.belong}\n${
+  //       output.tools !== undefined ? `\n${output.tools}\n` : ''
+  //     }\n${output.skills}\n\n${output.body}\n${output.note}${
+  //       values.length !== index + 1
+  //         ? '\n---------------------------------------------\n\n'
+  //         : '\n'
+  //     }`,
+  // );
+
   return values.map(
     (output, index) =>
-      `${output.createAt}\n\n${output.roman}\n${
+      `${output.roman}\n${
         output.handles !== undefined ? `${output.handles}\n` : '\n'
       }${output.position}\n\n${output.sex}\n${output.age}\n${output.period}\n${
         output.station

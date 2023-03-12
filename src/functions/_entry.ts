@@ -1,9 +1,9 @@
-import * as functions from 'functions';
+// import * as functions from 'functions';
 import { Matter, Resource } from 'types/post';
 
 export const matters = (post: Matter): string => {
   const value = {
-    createAt: `作成：${functions.root.timestamp(post?.createAt)}\n`,
+    // createAt: `作成：${functions.root.timestamp(post?.createAt)}\n`,
     title: `■ ${post.title ? post.title : '不明な案件'}\n`,
     position: `${post?.position}\n`,
     industry: `業界：${post?.industry ?? '不明'}`,
@@ -28,7 +28,8 @@ export const matters = (post: Matter): string => {
       post?.interviews && `${post?.interviews?.type} ${post?.interviews?.count}`
     }`,
   };
-  return `${value.createAt}\n${value.title}\n${value.position}\n${value.industry}\n${value.period}\n${value.location}\n${value.remote}\n${value.times}\n${value.adjustment}\n${value.costs}\n${value.distribution}\n${value.interviews}`;
+  // return `${value.createAt}\n${value.title}\n${value.position}\n${value.industry}\n${value.period}\n${value.location}\n${value.remote}\n${value.times}\n${value.adjustment}\n${value.costs}\n${value.distribution}\n${value.interviews}`;
+  return `${value.title}\n${value.position}\n${value.industry}\n${value.period}\n${value.location}\n${value.remote}\n${value.times}\n${value.adjustment}\n${value.costs}\n${value.distribution}\n${value.interviews}`;
 };
 
 export const resources = (post: Resource): string => {
@@ -36,7 +37,7 @@ export const resources = (post: Resource): string => {
   const skillsArray = skills && skills.join('\n');
 
   const value = {
-    createAt: `作成：${functions.root.timestamp(post?.createAt)}\n`,
+    // createAt: `作成：${functions.root.timestamp(post?.createAt)}\n`,
     roman: `■ ${
       post?.roman
         ? `${post?.roman?.firstName.substring(
@@ -63,5 +64,6 @@ export const resources = (post: Resource): string => {
     skills: `スキル：\n${skillsArray}\n`,
   };
 
-  return `${value.createAt}\n${value.roman}\n${value.position}\n${value.belong}\n${value.sex}\n${value.age}\n${value.period}\n${value.station}\n${value.costs}\n${value.skills}\n`;
+  // return `${value.createAt}\n${value.roman}\n${value.position}\n${value.belong}\n${value.sex}\n${value.age}\n${value.period}\n${value.station}\n${value.costs}\n${value.skills}\n`;
+  return `${value.roman}\n${value.position}\n${value.belong}\n${value.sex}\n${value.age}\n${value.period}\n${value.station}\n${value.costs}\n${value.skills}\n`;
 };

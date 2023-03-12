@@ -1,17 +1,17 @@
-import React from "react";
-import styles from "../Item.module.scss";
+import React from 'react';
+import styles from '../Item.module.scss';
 
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import HowToVoteIcon from "@material-ui/icons/HowToVote";
-import PersonIcon from "@material-ui/icons/Person";
-import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import BusinessIcon from "@material-ui/icons/Business";
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import HowToVoteIcon from '@material-ui/icons/HowToVote';
+import PersonIcon from '@material-ui/icons/Person';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import BusinessIcon from '@material-ui/icons/Business';
 
-import * as functions from "functions";
+// import * as functions from 'functions';
 
-import { Handles } from "./Handles";
+import { Handles } from './Handles';
 
-import { Resource } from "types/post";
+import { Resource } from 'types/post';
 
 export const Resources: React.FC<{ post: Resource }> = ({ post }) => {
   return (
@@ -29,8 +29,7 @@ export const Resources: React.FC<{ post: Resource }> = ({ post }) => {
       </div>
 
       <div
-        className={`${styles.item_container} ${styles.item_container_resources}`}
-      >
+        className={`${styles.item_container} ${styles.item_container_resources}`}>
         <div className={styles.item_side}>
           <div className={styles.item_wrap}>
             <LocationOnIcon className={styles.item_icon} />
@@ -58,7 +57,7 @@ export const Resources: React.FC<{ post: Resource }> = ({ post }) => {
 
           <div className={styles.item_wrap}>
             <HowToVoteIcon className={styles.item_icon} />
-            {post?.costs?.display !== "public" ? (
+            {post?.costs?.display !== 'public' ? (
               <div className={styles.item_field}>
                 <span>{post?.costs?.type}</span>
               </div>
@@ -81,9 +80,9 @@ export const Resources: React.FC<{ post: Resource }> = ({ post }) => {
         </div>
       </div>
 
-      <div className={styles.item_time}>
+      {/* <div className={styles.item_time}>
         <span>{functions.root.timestamp(post?.createAt)}</span>
-      </div>
+      </div> */}
     </div>
   );
 };
