@@ -69,7 +69,7 @@ export const Price: React.FC = () => {
         <br />
         <span className={styles.price_announce}>
           ※
-          人材マッチング機能による他社案件/要因の詳細閲覧や問い合わせサービスは
+          人材マッチング機能による他社案件/要員の詳細閲覧や問い合わせサービスは
           別途有料プランの加入が必要です。詳細はお問い合わせ下さい。
         </span>
       </div>

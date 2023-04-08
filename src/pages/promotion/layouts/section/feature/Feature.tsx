@@ -49,8 +49,7 @@ export const Feature: React.FC = () => {
             <tr>
               <td>
                 <span
-                  className={`${styles.feature_tag} ${styles.feature_tag_acnt}`}
-                >
+                  className={`${styles.feature_tag} ${styles.feature_tag_acnt}`}>
                   \&nbsp;Renewal&nbsp;/
                 </span>
                 情報を検索
@@ -71,8 +70,7 @@ export const Feature: React.FC = () => {
             <tr>
               <td>
                 <span
-                  className={`${styles.feature_tag} ${styles.feature_tag_acnt}`}
-                >
+                  className={`${styles.feature_tag} ${styles.feature_tag_acnt}`}>
                   \&nbsp;Renewal&nbsp;/
                 </span>
                 案件・人材を閲覧
@@ -281,7 +279,7 @@ export const Feature: React.FC = () => {
         {/* ver 2.2.X */}
         <br />
         <span className={styles.feature_announce}>
-          ※8&nbsp;人材マッチング機能による他社案件/要因の詳細閲覧や問い合わせサービスは別途有料プランの加入が必要です。詳細はお問い合わせ下さい。
+          ※8&nbsp;人材マッチング機能による他社案件/要員の詳細閲覧や問い合わせサービスは別途有料プランの加入が必要です。詳細はお問い合わせ下さい。
         </span>
         <br />
         <span className={styles.feature_announce}>
