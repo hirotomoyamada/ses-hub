@@ -118,9 +118,7 @@ export const remind = (state: State): void => {
     'sh-disableRemind',
   );
 
-  void disableRemind().then(() => {
-    window.location.reload();
-  });
+  void disableRemind();
 };
 
 export const announce = (
