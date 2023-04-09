@@ -54,7 +54,7 @@ export const verified = (
         state.modal.open = true;
       }
 
-      if (action.payload.user.remind?.app === 'enable') {
+      if (action.payload.user.remind === 'enable') {
         state.verified.remind = true;
         state.modal.type = 'remind';
         state.modal.open = true;

@@ -6,7 +6,7 @@ export interface User {
   cover: string;
   provider: string[];
   agree: string;
-  remind?: { app: string; mail: number };
+  remind?: string;
   status: string;
   profile: {
     name: string;

@@ -60,9 +60,7 @@ export const extraReducers = (
   builder.addMatcher(
     (action: PayloadAction) => action.type.endsWith('/handleRemind'),
     (state) => {
-      if ((state.user as User).remind) {
-        (state.user as Required<User>).remind.app = 'disable';
-      }
+      (state.user as User).remind = 'disable';
     },
   );
 
