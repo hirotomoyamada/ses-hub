@@ -31,6 +31,7 @@ export const login = (
     (state.user as User).type = action.payload.user.type;
     (state.user as User).application = action.payload.user.application;
     (state.user as User).agree = action.payload.user.agree;
+    (state.user as User).remind = action.payload.user.remind;
     (state.user as User).payment = action.payload.user.payment;
     (state.user as User).createAt = action.payload.user.createAt;
     (state.user as User).updateAt = action.payload.user.updateAt;

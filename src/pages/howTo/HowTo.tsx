@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import styles from "./HowTo.module.scss";
+import React, { useEffect, useState } from 'react';
+import styles from './HowTo.module.scss';
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import * as userSlice from "../../features/user/userSlice";
+import * as userSlice from '../../features/user/userSlice';
 
-import { Header } from "../../components/header/Header";
-import { Menu } from "./components/menu/Menu";
-import { Main } from "./components/Main/Main";
+import { Header } from '../../components/header/Header';
+import { Menu } from './components/menu/Menu';
+import { Main } from './components/Main/Main';
 
 export const HowTo: React.FC = () => {
   const type = useSelector(userSlice.user).type;
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState('posts');
 
   useEffect(() => {
     window.scrollTo(0, 0);

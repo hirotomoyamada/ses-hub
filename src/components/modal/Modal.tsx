@@ -1,29 +1,30 @@
-import React, { useEffect } from "react";
-import styles from "./Modal.module.scss";
+import React, { useEffect } from 'react';
+import styles from './Modal.module.scss';
 
-import { useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import * as rootSlice from "features/root/rootSlice";
-import * as userSlice from "features/user/userSlice";
-import * as postSlice from "features/post/postSlice";
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import * as rootSlice from 'features/root/rootSlice';
+import * as userSlice from 'features/user/userSlice';
+import * as postSlice from 'features/post/postSlice';
 
-import { Form } from "./components/form/Form";
-import { Profile } from "./components/profile/Profile";
-import { Entry } from "./components/entry/Entry";
-import { Home } from "./components/home/Home";
-import { Information } from "./components/information/Information";
-import { Demo } from "./components/demo/Demo";
-import { Agree } from "./components/agree/Agree";
-import { Delete } from "./components/delete/Delete";
-import { Advertise } from "./components/advertise/Advertise";
-import { Request } from "./components/request/Request";
-import { Account } from "./components/account/Account";
-import { Application } from "./components/application/Application";
-import { Activity } from "./components/activity/Activity";
+import { Form } from './components/form/Form';
+import { Profile } from './components/profile/Profile';
+import { Entry } from './components/entry/Entry';
+import { Home } from './components/home/Home';
+import { Information } from './components/information/Information';
+import { Demo } from './components/demo/Demo';
+import { Agree } from './components/agree/Agree';
+import { Delete } from './components/delete/Delete';
+import { Advertise } from './components/advertise/Advertise';
+import { Request } from './components/request/Request';
+import { Account } from './components/account/Account';
+import { Application } from './components/application/Application';
+import { Activity } from './components/activity/Activity';
 
-import { Company } from "types/post";
-import { User } from "types/user";
-import { Analytics } from "./components/analytics/Analytics";
+import { Company } from 'types/post';
+import { User } from 'types/user';
+import { Analytics } from './components/analytics/Analytics';
+import { Remind } from './components/remind/Remind';
 
 export const Modal: React.FC = () => {
   const dispatch = useDispatch();
@@ -35,19 +36,21 @@ export const Modal: React.FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    location?.pathname === "/asct" || location?.pathname === "/terms"
-      ? document.body.classList.remove("lock")
+    location?.pathname === '/asct' || location?.pathname === '/terms'
+      ? document.body.classList.remove('lock')
       : modal.open
-      ? document.body.classList.add("lock")
-      : document.body.classList.remove("lock");
+      ? document.body.classList.add('lock')
+      : document.body.classList.remove('lock');
   }, [location, modal.open]);
+
+  console.log(modal);
 
   const Inner = () => {
     switch (modal.type) {
-      case "agree":
+      case 'agree':
         return <Agree user={user} />;
 
-      case "advertise":
+      case 'advertise':
         return (
           <Advertise
             user={user}
@@ -58,33 +61,36 @@ export const Modal: React.FC = () => {
           />
         );
 
-      case "demo":
+      case 'demo':
         return <Demo handleClose={handleClose} />;
 
-      case "info":
+      case 'remind':
+        return <Remind />;
+
+      case 'info':
         return <Information handleClose={handleClose} />;
 
-      case "home":
+      case 'home':
         return <Home user={user} handleClose={handleClose} />;
 
-      case "request":
+      case 'request':
         return <Request handleClose={handleClose} />;
 
-      case "entry":
+      case 'entry':
         return (
           <Entry
-            index={index as "matters" | "resources"}
+            index={index as 'matters' | 'resources'}
             user={user}
             post={post}
             handleClose={handleClose}
           />
         );
 
-      case "profile":
+      case 'profile':
         return (
           <Profile
             user={
-              modal?.meta?.type !== "selectUser"
+              modal?.meta?.type !== 'selectUser'
                 ? user
                 : (modal?.meta?.selectUser as User | Company)
             }
@@ -92,7 +98,7 @@ export const Modal: React.FC = () => {
           />
         );
 
-      case "activity":
+      case 'activity':
         return (
           <Activity
             index={index}
@@ -102,19 +108,19 @@ export const Modal: React.FC = () => {
           />
         );
 
-      case "analytics":
+      case 'analytics':
         return (
           <Analytics
             user={user}
-            demo={modal.meta?.type === "demo"}
+            demo={modal.meta?.type === 'demo'}
             handleClose={handleClose}
           />
         );
 
-      case "application":
+      case 'application':
         return <Application user={user} handleClose={handleClose} />;
 
-      case "account":
+      case 'account':
         return (
           <Account
             uid={{ user: user.uid, selectUser: modal.meta?.uid as string }}
@@ -127,7 +133,7 @@ export const Modal: React.FC = () => {
           />
         );
 
-      case "delete":
+      case 'delete':
         return (
           <Delete
             text={modal.text}
@@ -137,7 +143,7 @@ export const Modal: React.FC = () => {
           />
         );
 
-      case "edit":
+      case 'edit':
         return (
           <Form
             index={index}
@@ -148,7 +154,7 @@ export const Modal: React.FC = () => {
           />
         );
 
-      case "new":
+      case 'new':
         return (
           <Form
             index={index}
@@ -165,29 +171,27 @@ export const Modal: React.FC = () => {
 
   const handleClose = (): void => {
     dispatch(rootSlice.handleModal());
-    modal.type === "advertise" && dispatch(userSlice.updateNotice());
+    modal.type === 'advertise' && dispatch(userSlice.updateNotice());
   };
 
   return (
     <div
       className={
         modal.open &&
-        location?.pathname !== "/asct" &&
-        location?.pathname !== "/terms"
+        location?.pathname !== '/asct' &&
+        location?.pathname !== '/terms'
           ? styles.open
           : styles.close
-      }
-    >
+      }>
       <div className={styles.overlay}></div>
       <div
         className={`${styles.modal} ${
-          modal.type !== "home" &&
-          modal.type !== "delete" &&
-          modal.type !== "account" &&
-          modal.type !== "advertise" &&
+          modal.type !== 'home' &&
+          modal.type !== 'delete' &&
+          modal.type !== 'account' &&
+          modal.type !== 'advertise' &&
           styles.modal_sp
-        }`}
-      >
+        }`}>
         <Inner />
       </div>
     </div>

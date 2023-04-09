@@ -38,6 +38,7 @@ export type Verified = {
   email: boolean;
   profile: boolean;
   agree: boolean;
+  remind: boolean;
   status?: string;
   access: boolean;
   demo: boolean;
@@ -104,6 +105,7 @@ export const initialState: State = {
     email: false,
     profile: false,
     agree: false,
+    remind: false,
     status: undefined,
     access: true,
     demo: false,

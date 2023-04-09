@@ -55,6 +55,7 @@
 │   │       ├── _loginAuthenticated.ts #
 │   │       ├── _userAuthenticated.ts #
 │   │       ├── agree.ts # 利用規約を同意
+│   │       ├── remind.ts # 案件・人材投稿の催促
 │   │       ├── automation.ts #
 │   │       ├── email.ts # メールアドレスを変更
 │   │       ├── entry.ts # エントリー

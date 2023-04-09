@@ -1,6 +1,6 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { functions } from "libs/firebase";
-import { httpsCallable, HttpsCallable } from "firebase/functions";
+import { PayloadAction } from '@reduxjs/toolkit';
+import { functions } from 'libs/firebase';
+import { httpsCallable, HttpsCallable } from 'firebase/functions';
 
 import {
   State,
@@ -8,20 +8,20 @@ import {
   Sort,
   Announce,
   Modal,
-} from "features/root/initialState";
-import { Login } from "features/user/actions";
-import { Setting, User } from "types/user";
+} from 'features/root/initialState';
+import { Login } from 'features/user/actions';
+import { Setting, User } from 'types/user';
 
 export const index = (
   state: State,
-  action: PayloadAction<"matters" | "resources" | "companys" | "persons">
+  action: PayloadAction<'matters' | 'resources' | 'companys' | 'persons'>,
 ): void => {
   state.index = action.payload;
 
-  if (state.page !== "post") {
-    state.search.value = "";
-    state.search.target = "";
-    state.search.type = "";
+  if (state.page !== 'post') {
+    state.search.value = '';
+    state.search.target = '';
+    state.search.type = '';
     state.search.control = false;
   }
 };
@@ -32,37 +32,43 @@ export const page = (state: State, action: PayloadAction<string>): void => {
 
 export const verified = (
   state: State,
-  action?: PayloadAction<Login["data"]>
+  action?: PayloadAction<Login['data']>,
 ): void => {
   if (action?.payload) {
     if (action.payload.user) {
-      state.verified.status = "enable";
+      state.verified.status = 'enable';
       state.verified.payment = action.payload.user.payment.status;
 
       if (!action.payload.user.profile?.person) {
-        state.modal.type = "profile";
+        state.modal.type = 'profile';
         state.modal.open = true;
       }
 
       if (
-        action.payload.user.type === "individual" &&
-        action.payload.user.payment.status === "canceled" &&
+        action.payload.user.type === 'individual' &&
+        action.payload.user.payment.status === 'canceled' &&
         action.payload.user.payment.notice
       ) {
-        state.modal.type = "advertise";
-        state.modal.meta = { type: "active" };
+        state.modal.type = 'advertise';
+        state.modal.meta = { type: 'active' };
         state.modal.open = true;
       }
 
-      if (action.payload.user.agree === "disable") {
+      // if (action.payload.user.remind?.app === 'enable') {
+      state.verified.remind = true;
+      state.modal.type = 'remind';
+      state.modal.open = true;
+      // }
+
+      if (action.payload.user.agree === 'disable') {
         state.verified.agree = true;
-        state.modal.type = "agree";
+        state.modal.type = 'agree';
         state.modal.open = true;
       }
 
       if (action.payload.demo) {
         state.verified.demo = action.payload.demo;
-        state.modal.type = "demo";
+        state.modal.type = 'demo';
         state.modal.open = true;
       }
     }
@@ -75,7 +81,8 @@ export const verified = (
       email: false,
       profile: false,
       agree: false,
-      status: "promo",
+      remind: false,
+      status: 'promo',
       access: false,
       demo: false,
       error: undefined,
@@ -92,19 +99,33 @@ export const agree = (state: State, action: PayloadAction<User>): void => {
   if (action.payload.profile?.person) {
     state.modal.open = false;
   } else {
-    state.modal.type = "profile";
+    state.modal.type = 'profile';
   }
 
-  const enableAgree: HttpsCallable = httpsCallable(functions, "sh-enableAgree");
+  const enableAgree: HttpsCallable = httpsCallable(functions, 'sh-enableAgree');
 
   void enableAgree().then(() => {
     window.location.reload();
   });
 };
 
+export const remind = (state: State): void => {
+  state.verified.remind = false;
+  state.modal.open = false;
+
+  const enableRemind: HttpsCallable = httpsCallable(
+    functions,
+    'sh-enableRemind',
+  );
+
+  void enableRemind().then(() => {
+    window.location.reload();
+  });
+};
+
 export const announce = (
   state: State,
-  action: PayloadAction<Announce | undefined>
+  action: PayloadAction<Announce | undefined>,
 ): void => {
   if (action.payload?.success || action.payload?.error) {
     state.announce.success = action.payload.success;
@@ -119,7 +140,7 @@ export const announce = (
 
 export const search = (
   state: State,
-  action?: PayloadAction<Search | undefined>
+  action?: PayloadAction<Search | undefined>,
 ): void => {
   if (!action?.payload) {
     state.search.value = undefined;
@@ -148,18 +169,18 @@ export const search = (
 
 export const sort = (
   state: State,
-  action: PayloadAction<Pick<Sort, "display" | "status">>
+  action: PayloadAction<Pick<Sort, 'display' | 'status'>>,
 ): void => {
   state.sort.status = action.payload.status
-    ? action.payload.status !== "reset"
+    ? action.payload.status !== 'reset'
       ? action.payload.status
-      : ""
+      : ''
     : state.sort.status;
 
   state.sort.display = action.payload.display
-    ? action.payload.display !== "reset"
+    ? action.payload.display !== 'reset'
       ? action.payload.display
-      : ""
+      : ''
     : state.sort.display;
 
   state.sort.control = true;
@@ -167,7 +188,7 @@ export const sort = (
 
 export const notFound = (
   state: State,
-  action: PayloadAction<boolean>
+  action: PayloadAction<boolean>,
 ): void => {
   state.notFound = action.payload;
   state.load.root = false;
@@ -180,7 +201,7 @@ export const limit = (state: State, action: PayloadAction<boolean>): void => {
 
 export const modal = (
   state: State,
-  action?: PayloadAction<Modal | undefined>
+  action?: PayloadAction<Modal | undefined>,
 ): void => {
   if (action?.payload) {
     state.modal.type = action.payload.type;
@@ -202,8 +223,8 @@ export const modal = (
 export const setting = (
   state: State,
   action: PayloadAction<
-    (Setting["analytics"] & { type: "analytics" }) | undefined
-  >
+    (Setting['analytics'] & { type: 'analytics' }) | undefined
+  >,
 ): void => {
   if (action.payload) {
     const { type, ...payload } = action.payload;
@@ -217,10 +238,10 @@ export const setting = (
     const updateSetting: HttpsCallable<
       {
         type: string;
-        setting: Setting["analytics"];
+        setting: Setting['analytics'];
       },
       unknown
-    > = httpsCallable(functions, "sh-updateSetting");
+    > = httpsCallable(functions, 'sh-updateSetting');
 
     void updateSetting({ type: type, setting: payload });
   } else {

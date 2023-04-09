@@ -33,6 +33,14 @@
         enable: 有効
         disable: 無効
         ****************/
+        "remind": {
+          "app": "enable",
+          /****************
+          enable: 有効
+          disable: 無効
+          ****************/
+          "mail": 0 // 送信日時
+        },
 
         "application": false, // 法人アカウントの変更を申請
 

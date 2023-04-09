@@ -1,9 +1,9 @@
-import React from "react";
-import styles from "./Advertise.module.scss";
+import React from 'react';
+import styles from './Advertise.module.scss';
 
-import { User } from "types/user";
-import { Active } from "./components/active/Active";
-import { Analytics } from "./components/analytics/Analytics";
+import { User } from 'types/user';
+import { Active } from './components/active/Active';
+import { Analytics } from './components/analytics/Analytics';
 
 interface PropType {
   user: User;
@@ -24,7 +24,7 @@ export const Advertise: React.FC<PropType> = ({
     <div className={styles.advertise}>
       {(() => {
         switch (type) {
-          case "active":
+          case 'active':
             return (
               <Active
                 user={user}
@@ -34,7 +34,7 @@ export const Advertise: React.FC<PropType> = ({
               />
             );
 
-          case "analytics":
+          case 'analytics':
             return (
               <Analytics user={user} handleClose={handleClose} close={close} />
             );

@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "app/store";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from 'app/store';
 
 import {
   initialState,
@@ -8,26 +8,26 @@ import {
   Sort,
   Modal,
   Announce,
-} from "features/root/initialState";
-import { Setting, User } from "types/user";
+} from 'features/root/initialState';
+import { Setting, User } from 'types/user';
 
-import * as reducers from "./reducers";
-import { extraReducers } from "./extraReducers";
+import * as reducers from './reducers';
+import { extraReducers } from './extraReducers';
 
 export const rootSlice = createSlice({
-  name: "root",
+  name: 'root',
   initialState,
 
   reducers: {
     handleIndex: (
       state,
-      action: PayloadAction<"matters" | "resources" | "companys" | "persons">
+      action: PayloadAction<'matters' | 'resources' | 'companys' | 'persons'>,
     ) => reducers.index(state, action),
     handleSearch: (state, action: PayloadAction<Search | undefined>) =>
       reducers.search(state, action),
     handleSort: (
       state,
-      action: PayloadAction<Pick<Sort, "status" | "display">>
+      action: PayloadAction<Pick<Sort, 'status' | 'display'>>,
     ) => reducers.sort(state, action),
     handlePage: (state, action: PayloadAction<string>) =>
       reducers.page(state, action),
@@ -42,11 +42,12 @@ export const rootSlice = createSlice({
     handleVerified: (state) => reducers.verified(state),
     handleAgree: (state, action: PayloadAction<User>) =>
       reducers.agree(state, action),
+    handleRemind: (state) => reducers.remind(state),
     handleSetting: (
       state,
       action: PayloadAction<
-        (Setting["analytics"] & { type: "analytics" }) | undefined
-      >
+        (Setting['analytics'] & { type: 'analytics' }) | undefined
+      >,
     ) => reducers.setting(state, action),
   },
 
@@ -64,25 +65,26 @@ export const {
   handleLimit,
   handleVerified,
   handleAgree,
+  handleRemind,
   handleSetting,
 } = rootSlice.actions;
 
-export const index = (state: RootState): State["index"] => state.root.index;
-export const page = (state: RootState): State["page"] => state.root.page;
-export const sort = (state: RootState): State["sort"] => state.root.sort;
-export const search = (state: RootState): State["search"] => state.root.search;
-export const modal = (state: RootState): State["modal"] => state.root.modal;
-export const announce = (state: RootState): State["announce"] =>
+export const index = (state: RootState): State['index'] => state.root.index;
+export const page = (state: RootState): State['page'] => state.root.page;
+export const sort = (state: RootState): State['sort'] => state.root.sort;
+export const search = (state: RootState): State['search'] => state.root.search;
+export const modal = (state: RootState): State['modal'] => state.root.modal;
+export const announce = (state: RootState): State['announce'] =>
   state.root.announce;
-export const notFound = (state: RootState): State["notFound"] =>
+export const notFound = (state: RootState): State['notFound'] =>
   state.root.notFound;
-export const limit = (state: RootState): State["limit"] => state.root.limit;
-export const data = (state: RootState): State["data"] => state.root.data;
-export const verified = (state: RootState): State["verified"] =>
+export const limit = (state: RootState): State['limit'] => state.root.limit;
+export const data = (state: RootState): State['data'] => state.root.data;
+export const verified = (state: RootState): State['verified'] =>
   state.root.verified;
-export const setting = (state: RootState): State["setting"] =>
+export const setting = (state: RootState): State['setting'] =>
   state.root.setting;
-export const load = (state: RootState): State["load"] => state.root.load;
-export const ver = (state: RootState): State["ver"] => state.root.ver;
+export const load = (state: RootState): State['load'] => state.root.load;
+export const ver = (state: RootState): State['ver'] => state.root.ver;
 
 export default rootSlice.reducer;
