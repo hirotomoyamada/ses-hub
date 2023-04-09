@@ -43,8 +43,6 @@ export const Modal: React.FC = () => {
       : document.body.classList.remove('lock');
   }, [location, modal.open]);
 
-  console.log(modal);
-
   const Inner = () => {
     switch (modal.type) {
       case 'agree':
