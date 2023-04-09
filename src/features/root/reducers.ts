@@ -113,12 +113,12 @@ export const remind = (state: State): void => {
   state.verified.remind = false;
   state.modal.open = false;
 
-  const enableRemind: HttpsCallable = httpsCallable(
+  const disableRemind: HttpsCallable = httpsCallable(
     functions,
-    'sh-enableRemind',
+    'sh-disableRemind',
   );
 
-  void enableRemind().then(() => {
+  void disableRemind().then(() => {
     window.location.reload();
   });
 };
