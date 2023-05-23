@@ -57,7 +57,8 @@ export const Price: React.FC = () => {
         {index === 'corporate' && (
           <>
             <span className={styles.price_announce}>
-              ※ 法人契約は、すべて3ヶ月単位の利用料金になっております。
+              ※
+              グループアカウントは、すべて3ヶ月単位の利用料金になっております。
             </span>
             <br />
           </>

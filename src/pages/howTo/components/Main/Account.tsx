@@ -1,7 +1,7 @@
-import React from "react";
-import styles from "../../HowTo.module.scss";
+import React from 'react';
+import styles from '../../HowTo.module.scss';
 
-import { Tag } from "../tag/Tag";
+import { Tag } from '../tag/Tag';
 
 interface PropType {
   type: string;
@@ -19,7 +19,7 @@ export const Account: React.FC<PropType> = ({ type }) => {
       <div className={styles.howto_container}>
         <Tag tag="グループアカウントを作成する" paid />
 
-        {type !== "child" ? (
+        {type !== 'child' ? (
           <p>
             契約しているプランの内容によって、グループアカウントを作成できます。
             <br />
@@ -52,7 +52,7 @@ export const Account: React.FC<PropType> = ({ type }) => {
             <br />
             <br />
             このアカウントを作成した
-            <span className={styles.howto_container_tag}>親アカウント</span>
+            <span className={styles.howto_container_tag}>メインアカウント</span>
             から行う必要があります。
           </p>
         )}
@@ -61,7 +61,7 @@ export const Account: React.FC<PropType> = ({ type }) => {
       <div className={styles.howto_container}>
         <Tag tag="グループアカウントを削除する" paid />
 
-        {type !== "child" ? (
+        {type !== 'child' ? (
           <p>
             <span className={styles.howto_container_tag}>アカウント情報</span>の
             <span className={styles.howto_container_tag}>
@@ -81,7 +81,7 @@ export const Account: React.FC<PropType> = ({ type }) => {
             <br />
             <br />
             このアカウントを作成した
-            <span className={styles.howto_container_tag}>親アカウント</span>
+            <span className={styles.howto_container_tag}>メインアカウント</span>
             から行う必要があります。
           </p>
         )}
@@ -90,7 +90,7 @@ export const Account: React.FC<PropType> = ({ type }) => {
       <div className={styles.howto_container}>
         <Tag tag="メールアドレスを変更する" paid />
 
-        {type !== "child" ? (
+        {type !== 'child' ? (
           <p>
             <span className={styles.howto_container_tag}>アカウント情報</span>の
             <span className={styles.howto_container_tag}>
@@ -108,7 +108,7 @@ export const Account: React.FC<PropType> = ({ type }) => {
             <br />
             <br />
             このアカウントを作成した
-            <span className={styles.howto_container_tag}>親アカウント</span>
+            <span className={styles.howto_container_tag}>メインアカウント</span>
             から行う必要があります。
           </p>
         )}
@@ -117,7 +117,7 @@ export const Account: React.FC<PropType> = ({ type }) => {
       <div className={styles.howto_container}>
         <Tag tag="パスワードを再設定する" paid />
 
-        {type !== "child" ? (
+        {type !== 'child' ? (
           <p>
             <span className={styles.howto_container_tag}>アカウント情報</span>の
             <span className={styles.howto_container_tag}>
@@ -133,13 +133,13 @@ export const Account: React.FC<PropType> = ({ type }) => {
             <br />
             <br />
             このアカウントを作成した
-            <span className={styles.howto_container_tag}>親アカウント</span>
+            <span className={styles.howto_container_tag}>メインアカウント</span>
             から行う必要があります。
           </p>
         )}
       </div>
 
-      {type !== "child" && (
+      {type !== 'child' && (
         <div className={styles.howto_container}>
           <Tag tag="グループアカウントの上限について" paid />
 

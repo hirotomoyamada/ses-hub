@@ -1,7 +1,7 @@
-import React from "react";
-import styles from "../../HowTo.module.scss";
+import React from 'react';
+import styles from '../../HowTo.module.scss';
 
-import { Tag } from "../tag/Tag";
+import { Tag } from '../tag/Tag';
 
 interface PropType {
   type: string;
@@ -17,7 +17,7 @@ export const Plan: React.FC<PropType> = ({ type }) => {
 
       <div className={styles.howto_container}>
         <Tag tag="プランを契約する" free paid />
-        {type !== "child" ? (
+        {type !== 'child' ? (
           <p>
             <span className={styles.howto_container_tag}>アカウント情報</span>の
             <span className={styles.howto_container_tag}>プラン</span>
@@ -33,7 +33,7 @@ export const Plan: React.FC<PropType> = ({ type }) => {
           <p>
             <span className={styles.howto_container_tag}>プラン</span>
             を契約するには、 このアカウントを作成した
-            <span className={styles.howto_container_tag}>親アカウント</span>
+            <span className={styles.howto_container_tag}>メインアカウント</span>
             から行う必要があります。
           </p>
         )}
@@ -42,7 +42,7 @@ export const Plan: React.FC<PropType> = ({ type }) => {
       <div className={styles.howto_container}>
         <Tag tag="オプションを契約する" paid />
 
-        {type !== "child" ? (
+        {type !== 'child' ? (
           <p>
             <span className={styles.howto_container_tag}>アカウント情報</span>の
             <span className={styles.howto_container_tag}>プラン</span>
@@ -60,7 +60,7 @@ export const Plan: React.FC<PropType> = ({ type }) => {
           <p>
             <span className={styles.howto_container_tag}>オプション</span>
             を契約するには、 このアカウントを作成した
-            <span className={styles.howto_container_tag}>親アカウント</span>
+            <span className={styles.howto_container_tag}>メインアカウント</span>
             から行う必要があります。
           </p>
         )}
@@ -69,7 +69,7 @@ export const Plan: React.FC<PropType> = ({ type }) => {
       <div className={styles.howto_container}>
         <Tag tag="請求先を変更する" paid />
 
-        {type !== "child" ? (
+        {type !== 'child' ? (
           <p>
             <span className={styles.howto_container_tag}>アカウント情報</span>の
             <span className={styles.howto_container_tag}>プラン</span>
@@ -91,7 +91,7 @@ export const Plan: React.FC<PropType> = ({ type }) => {
             <br />
             <br />
             このアカウントを作成した
-            <span className={styles.howto_container_tag}>親アカウント</span>
+            <span className={styles.howto_container_tag}>メインアカウント</span>
             から行う必要があります。
           </p>
         )}
@@ -100,7 +100,7 @@ export const Plan: React.FC<PropType> = ({ type }) => {
       <div className={styles.howto_container}>
         <Tag tag="支払い方法を変更する" paid />
 
-        {type !== "child" ? (
+        {type !== 'child' ? (
           <p>
             <span className={styles.howto_container_tag}>アカウント情報</span>の
             <span className={styles.howto_container_tag}>プラン</span>
@@ -122,7 +122,7 @@ export const Plan: React.FC<PropType> = ({ type }) => {
             <br />
             <br />
             このアカウントを作成した
-            <span className={styles.howto_container_tag}>親アカウント</span>
+            <span className={styles.howto_container_tag}>メインアカウント</span>
             から行う必要があります。
           </p>
         )}
@@ -131,7 +131,7 @@ export const Plan: React.FC<PropType> = ({ type }) => {
       <div className={styles.howto_container}>
         <Tag tag="他のプランへ変更する" paid />
 
-        {type !== "child" ? (
+        {type !== 'child' ? (
           <p>
             プランを変更する場合は、現在のプランをキャンセルする必要があります。
             <br />
@@ -149,7 +149,7 @@ export const Plan: React.FC<PropType> = ({ type }) => {
           <p>
             他の<span className={styles.howto_container_tag}>プラン</span>
             へ変更するには、 このアカウントを作成した
-            <span className={styles.howto_container_tag}>親アカウント</span>
+            <span className={styles.howto_container_tag}>メインアカウント</span>
             から行う必要があります。
           </p>
         )}
@@ -157,8 +157,8 @@ export const Plan: React.FC<PropType> = ({ type }) => {
 
       <div className={styles.howto_container}>
         <Tag tag="キャンセルする" paid />
-        
-        {type !== "child" ? (
+
+        {type !== 'child' ? (
           <p>
             <span className={styles.howto_container_tag}>アカウント情報</span>の
             <span className={styles.howto_container_tag}>プラン</span>
@@ -179,7 +179,7 @@ export const Plan: React.FC<PropType> = ({ type }) => {
           <p>
             <span className={styles.howto_container_tag}>プラン</span>
             をキャンセルするには、 このアカウントを作成した
-            <span className={styles.howto_container_tag}>親アカウント</span>
+            <span className={styles.howto_container_tag}>メインアカウント</span>
             から行う必要があります。
           </p>
         )}

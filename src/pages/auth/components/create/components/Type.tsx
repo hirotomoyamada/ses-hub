@@ -1,14 +1,14 @@
-import React from "react";
-import styles from "../Create.module.scss";
-import root from "../../../Auth.module.scss";
+import React from 'react';
+import styles from '../Create.module.scss';
+import root from '../../../Auth.module.scss';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 
-import { useFormContext } from "react-hook-form";
+import { useFormContext } from 'react-hook-form';
 
-import { Data } from "../../../Auth";
+import { Data } from '../../../Auth';
 
 export const Type: React.FC = () => {
   const {
@@ -20,15 +20,14 @@ export const Type: React.FC = () => {
     <div className={styles.type}>
       <input
         type="radio"
-        {...register("type")}
+        {...register('type')}
         id="individual"
         name="type"
         value="individual"
       />
       <label
         htmlFor="individual"
-        className={`${styles.type_btn} ${styles.type_btn_individual}`}
-      >
+        className={`${styles.type_btn} ${styles.type_btn_individual}`}>
         <span>個人</span>
 
         <FontAwesomeIcon
@@ -39,16 +38,15 @@ export const Type: React.FC = () => {
 
       <input
         type="radio"
-        {...register("type")}
+        {...register('type')}
         id="parent"
         name="type"
         value="parent"
       />
       <label
         htmlFor="parent"
-        className={`${styles.type_btn} ${styles.type_btn_parent}`}
-      >
-        <span>法人</span>
+        className={`${styles.type_btn} ${styles.type_btn_parent}`}>
+        <span>グループ</span>
 
         <FontAwesomeIcon
           icon={faQuestionCircle as IconProp}

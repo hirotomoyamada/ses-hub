@@ -262,7 +262,7 @@ export const Feature: React.FC = () => {
         <span className={styles.feature_announce}>
           ※5&nbsp;別途オプションの加入が必要です。
           <span className={styles.feature_announce_desc}>
-            法人契約なら、こちらのオプションは標準でご利用いただけます！
+            グループアカウントなら、こちらのオプションは標準でご利用いただけます！
           </span>
         </span>
         <br />
