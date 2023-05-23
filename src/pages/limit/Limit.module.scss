@@ -1,7 +1,7 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
-@import "styles/animation";
+@import 'styles/config';
+@import 'styles/function';
+@import 'styles/animation';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -114,6 +114,18 @@ $width: responsive-width(pc);
 
     @media (max-width: responsive-width(sp)) {
       width: 480px;
+    }
+
+    &_time {
+      width: 480px;
+      position: absolute;
+      z-index: -1;
+      top: 96px;
+
+      @media (max-width: responsive-width(sp)) {
+        width: 320px;
+        top: 32px;
+      }
     }
   }
 
