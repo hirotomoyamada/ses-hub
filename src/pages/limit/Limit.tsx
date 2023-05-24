@@ -24,6 +24,10 @@ export const Limit: React.FC<PropType> = ({ user }) => {
     dispatch(rootSlice.handleLimit(false));
     navigate('/plan');
   };
+  const handleBack = () => {
+    dispatch(rootSlice.handleLimit(false));
+    navigate('/companys/' + user.uid);
+  };
 
   const location = new Date().toLocaleString('ja-JP', {
     timeZone: 'Asia/Tokyo',
@@ -41,7 +45,7 @@ export const Limit: React.FC<PropType> = ({ user }) => {
         <div className={styles.limit_header}>
           {isTimeLimit ? (
             <span className={styles.limit_acnt}>
-              90日間の無料体験が&nbsp;終了&nbsp;しました
+              無料体験の期間が&nbsp;上限&nbsp;になりました
             </span>
           ) : (
             <span className={styles.limit_acnt}>
@@ -50,7 +54,7 @@ export const Limit: React.FC<PropType> = ({ user }) => {
           )}
 
           <span>
-            この投稿を閲覧するには&nbsp;
+            他ユーザーの投稿の閲覧や、問い合わせをするには&nbsp;
             <span className={styles.limit_plan}>プラン</span>
             &nbsp;の加入が必要です
           </span>
@@ -59,13 +63,13 @@ export const Limit: React.FC<PropType> = ({ user }) => {
         <figure className={styles.limit_figure}>
           <span className={styles.limit_desc}>
             {user?.payment?.trial
-              ? '\\ キャンペーン中 /'
+              ? '\\ サブスク登録でいままでより /'
               : '\\ メンバーたちと一緒に /'}
           </span>
 
           <p className={styles.limit_ttl}>
             {user?.payment?.trial
-              ? 'フリートライアル'
+              ? 'もっと便利な機能が使えちゃう！'
               : '案件・人材を共有しませんか？'}
           </p>
           {isTimeLimit ? (
@@ -83,9 +87,21 @@ export const Limit: React.FC<PropType> = ({ user }) => {
           )}
         </figure>
 
-        <button type="button" onClick={handlePlan} className={styles.limit_btn}>
-          プランを見る
-        </button>
+        <div className={styles.limit_footer}>
+          <button
+            type="button"
+            onClick={handleBack}
+            className={`${styles.limit_btn} ${styles.limit_btn_back}`}>
+            もどる
+          </button>
+
+          <button
+            type="button"
+            onClick={handlePlan}
+            className={styles.limit_btn}>
+            プランを見る
+          </button>
+        </div>
       </div>
     </div>
   ) : (

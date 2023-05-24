@@ -58,6 +58,8 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(sp)) {
       padding: 12px;
       font-size: 12px;
+
+      max-width: 375px - 32px;
     }
   }
 
@@ -90,7 +92,7 @@ $width: responsive-width(pc);
     text-align: center;
 
     @media (max-width: responsive-width(sp)) {
-      font-size: 28px;
+      font-size: 24px;
     }
   }
 
@@ -142,9 +144,23 @@ $width: responsive-width(pc);
       background: $base_clr;
     }
 
+    &_back {
+      background: $base_clr;
+      color: $main_clr;
+
+      &:hover {
+        color: $acnt_clr;
+      }
+    }
+
     @media (max-width: responsive-width(sp)) {
       padding: 12px;
       font-size: 14px;
     }
+  }
+
+  &_footer {
+    display: flex;
+    gap: 16px;
   }
 }
