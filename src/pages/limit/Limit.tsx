@@ -58,6 +58,10 @@ export const Limit: React.FC<PropType> = ({ user }) => {
             <span className={styles.limit_plan}>プラン</span>
             &nbsp;の加入が必要です
           </span>
+
+          <span className={styles.limit_supplement}>
+            ※引き続きご自分の案件・人材情報の投稿など、基本機能のご利用は可能です。
+          </span>
         </div>
 
         <figure className={styles.limit_figure}>

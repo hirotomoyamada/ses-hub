@@ -71,6 +71,14 @@ $width: responsive-width(pc);
     color: $acnt_clr;
   }
 
+  &_supplement {
+    font-size: 14px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 10px;
+    }
+  }
+
   &_figure {
     position: relative;
     height: 536px;
