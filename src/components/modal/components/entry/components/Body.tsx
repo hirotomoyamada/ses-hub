@@ -1,11 +1,11 @@
-import React from "react";
-import styles from "../Entry.module.scss";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import React from 'react';
+import styles from '../Entry.module.scss';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { Company, Matter, Resource } from "types/post";
+import { Company, Matter, Resource } from 'types/post';
 
 interface PropType {
-  user: Matter["user"] | Resource["user"] | Company;
+  user: Matter['user'] | Resource['user'] | Company;
   value: string | undefined;
   copy: boolean;
   setValue: React.Dispatch<React.SetStateAction<string | undefined>>;
@@ -27,18 +27,15 @@ export const Body: React.FC<PropType> = ({
         <textarea
           className={styles.entry_body_value}
           defaultValue={value}
-          onChange={(e) => setValue(e.target.value)}
-        ></textarea>
+          onChange={(e) => setValue(e.target.value)}></textarea>
 
         <CopyToClipboard
           text={value as string}
-          onCopy={() => !copy && handleCopy()}
-        >
+          onCopy={() => !copy && handleCopy()}>
           <button
             className={`${styles.entry_body_btn} ${
               !value && styles.entry_body_btn_disable
-            }`}
-          >
+            }`}>
             問い合わせする内容をクリップボードに保存する
           </button>
         </CopyToClipboard>
@@ -48,9 +45,8 @@ export const Body: React.FC<PropType> = ({
       <div className={styles.entry_email}>
         <button onClick={handleEntry} className={styles.entry_email_btn}>
           <a
-            href={`mailto:${user?.profile?.email}`}
-            className={styles.user_main_profile_link}
-          >
+            href={`mailto:${user?.profile?.email}?body=SES_HUBを見て、問い合わせしました。`}
+            className={styles.user_main_profile_link}>
             メールで問い合わせをする
           </a>
         </button>
