@@ -62,6 +62,7 @@
     "typescript": "^4.8.3"
   },
   "scripts": {
+    "test": "yarn --cwd ./test",
     "start": "dotenv -e .env.dev react-scripts start",
     "start:prod": "dotenv -e .env react-scripts start",
     "build": "GENERATE_SOURCEMAP=false dotenv -e .env.dev react-scripts build && yarn admin build && yarn fd build",
