@@ -20,8 +20,6 @@ export const Fv: React.FC<PropType> = ({ handleOpen, fv }) => {
           </div>
 
           <p className={styles.fv_head_txt}>
-            {/* SES営業マンのためのコミュニケーションプラットフォーム */}
-            {/* ver 2.2.X */}
             SES業務に特化したSaaS型の営業支援ツールです
             <br />
           </p>

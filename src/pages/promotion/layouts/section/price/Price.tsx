@@ -66,7 +66,6 @@ export const Price: React.FC = () => {
         <span className={styles.price_announce}>
           ※ 決済方法やプラン(価格)は変更になる場合がございます。
         </span>
-        {/* ver 2.2.X */}
         <br />
         <span className={styles.price_announce}>
           ※

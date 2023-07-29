@@ -12,9 +12,6 @@ export const What: React.FC = () => {
         <div className={styles.what_container}>
           <div className={styles.what_container_main}>
             <p className={styles.what_container_main_txt}>
-              {/* SES営業のための
-              <span>コミュニケーションプラットフォームです。</span> */}
-              {/* ver 2.2.X */}
               SES業務に特化した<span>SaaS型の営業支援ツールです</span>
               <br />
               <br />

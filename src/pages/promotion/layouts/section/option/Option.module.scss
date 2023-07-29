@@ -1,5 +1,5 @@
-@import "styles/config";
-@import "styles/function";
+@import 'styles/config';
+@import 'styles/function';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -42,7 +42,7 @@ $width: responsive-width(pc);
     background-size: cover;
 
     &:after {
-      content: "";
+      content: '';
       display: block;
 
       position: absolute;
@@ -99,7 +99,7 @@ $width: responsive-width(pc);
     }
 
     &:after {
-      content: "";
+      content: '';
       display: block;
 
       position: absolute;
@@ -123,16 +123,12 @@ $width: responsive-width(pc);
 
     gap: 16px;
 
-    &:last-child {
-      width: 300px;
+    @media (max-width: responsive-width(tb)) {
+      margin: 0 auto;
+    }
 
-      @media (max-width: responsive-width(tb)) {
-        margin: 0 auto;
-      }
-
-      @media (max-width: responsive-width(sp)) {
-        width: 224px;
-      }
+    @media (max-width: responsive-width(sp)) {
+      width: 224px;
     }
   }
 
@@ -141,7 +137,12 @@ $width: responsive-width(pc);
     align-items: center;
     gap: 16px;
 
+    @media (max-width: responsive-width(tb)) {
+      justify-content: center;
+    }
+
     @media (max-width: responsive-width(sp)) {
+      justify-content: center;
       gap: 8px;
     }
   }
@@ -205,6 +206,7 @@ $width: responsive-width(pc);
 
     font-size: 18px;
     font-weight: bold;
+    white-space: nowrap;
 
     @media (max-width: responsive-width(sp)) {
       padding: 6px 10px;
@@ -216,13 +218,14 @@ $width: responsive-width(pc);
   &_price {
     font-size: 32px;
     font-weight: bold;
+    white-space: nowrap;
 
     @media (max-width: responsive-width(sp)) {
       font-size: 20px;
     }
 
     &:after {
-      content: "(税込)";
+      content: '(税込)';
       font-size: 16px;
 
       @media (max-width: responsive-width(sp)) {

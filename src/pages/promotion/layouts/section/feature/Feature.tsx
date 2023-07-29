@@ -86,7 +86,6 @@ export const Feature: React.FC = () => {
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
-                {/* ver 2.2.X */}
                 <span className={styles.feature_icon_desc}>※8</span>
               </td>
             </tr>
@@ -103,7 +102,6 @@ export const Feature: React.FC = () => {
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
-                {/* ver 2.2.X */}
                 <span className={styles.feature_icon_desc}>※8</span>
               </td>
             </tr>
@@ -268,15 +266,11 @@ export const Feature: React.FC = () => {
         <br />
         <span className={styles.feature_announce}>
           ※6&nbsp;別途オプションの加入が必要です。
-          <span className={styles.feature_announce_desc}>
-            今なら無料体験中 !
-          </span>
         </span>
         <br />
         <span className={styles.feature_announce}>
           ※7&nbsp;複数のアカウントを登録・管理するには法人契約へのお申し込みが必要です。
         </span>
-        {/* ver 2.2.X */}
         <br />
         <span className={styles.feature_announce}>
           ※8&nbsp;人材マッチング機能による他社案件/要員の詳細閲覧や問い合わせサービスは別途有料プランの加入が必要です。詳細はお問い合わせ下さい。
