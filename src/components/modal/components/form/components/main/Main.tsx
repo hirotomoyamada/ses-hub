@@ -1,6 +1,10 @@
 import React from 'react';
 import styles from './Main.module.scss';
 
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import * as userSlice from 'features/user/userSlice';
+
 import { Title } from './components/Title';
 import { Body } from './components/Body';
 import { Belong } from './components/Belong';
@@ -32,13 +36,23 @@ import { Industry } from './components/Industry';
 
 interface PropType {
   index: 'matters' | 'resources';
+  edit?: boolean;
+  handleClose: () => void;
 }
 
-export const Main: React.FC<PropType> = ({ index }) => {
+export const Main: React.FC<PropType> = ({ index, edit, handleClose }) => {
+  const user = useSelector(userSlice.user);
+
   switch (index) {
     case 'matters':
       return (
         <div className={styles.main}>
+          {user.payment?.status === 'canceled' && !edit ? (
+            <Link to={'/plan'} className={styles.main_banner} onClick={handleClose}>
+              バナー(仮)
+            </Link>
+          ) : null}
+
           <Status />
           <Title />
 
@@ -99,6 +113,12 @@ export const Main: React.FC<PropType> = ({ index }) => {
     case 'resources':
       return (
         <div className={styles.main}>
+          {user.payment?.status === 'canceled' && !edit ? (
+            <Link to={'/plan'} className={styles.main_banner} onClick={handleClose}>
+              バナー(仮)
+            </Link>
+          ) : null}
+
           <Status />
           <Roman />
 

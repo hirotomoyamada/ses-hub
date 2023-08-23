@@ -2,13 +2,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { functions } from 'libs/firebase';
 import { httpsCallable, HttpsCallable } from 'firebase/functions';
 
-import {
-  State,
-  Search,
-  Sort,
-  Announce,
-  Modal,
-} from 'features/root/initialState';
+import { State, Search, Sort, Announce, Modal, Load } from 'features/root/initialState';
 import { Login } from 'features/user/actions';
 import { Setting, User } from 'types/user';
 
@@ -30,10 +24,7 @@ export const page = (state: State, action: PayloadAction<string>): void => {
   state.page = action.payload;
 };
 
-export const verified = (
-  state: State,
-  action?: PayloadAction<Login['data']>,
-): void => {
+export const verified = (state: State, action?: PayloadAction<Login['data']>): void => {
   if (action?.payload) {
     if (action.payload.user) {
       state.verified.status = 'enable';
@@ -113,18 +104,12 @@ export const remind = (state: State): void => {
   state.verified.remind = false;
   state.modal.open = false;
 
-  const disableRemind: HttpsCallable = httpsCallable(
-    functions,
-    'sh-disableRemind',
-  );
+  const disableRemind: HttpsCallable = httpsCallable(functions, 'sh-disableRemind');
 
   void disableRemind();
 };
 
-export const announce = (
-  state: State,
-  action: PayloadAction<Announce | undefined>,
-): void => {
+export const announce = (state: State, action: PayloadAction<Announce | undefined>): void => {
   if (action.payload?.success || action.payload?.error) {
     state.announce.success = action.payload.success;
     state.announce.error = action.payload.error;
@@ -136,10 +121,7 @@ export const announce = (
   }
 };
 
-export const search = (
-  state: State,
-  action?: PayloadAction<Search | undefined>,
-): void => {
+export const search = (state: State, action?: PayloadAction<Search | undefined>): void => {
   if (!action?.payload) {
     state.search.value = undefined;
     state.search.control = false;
@@ -184,10 +166,7 @@ export const sort = (
   state.sort.control = true;
 };
 
-export const notFound = (
-  state: State,
-  action: PayloadAction<boolean>,
-): void => {
+export const notFound = (state: State, action: PayloadAction<boolean>): void => {
   state.notFound = action.payload;
   state.load.root = false;
 };
@@ -197,10 +176,7 @@ export const limit = (state: State, action: PayloadAction<boolean>): void => {
   state.load.root = false;
 };
 
-export const modal = (
-  state: State,
-  action?: PayloadAction<Modal | undefined>,
-): void => {
+export const modal = (state: State, action?: PayloadAction<Modal | undefined>): void => {
   if (action?.payload) {
     state.modal.type = action.payload.type;
     state.modal.text = action.payload.text;
@@ -218,11 +194,30 @@ export const modal = (
   }
 };
 
+export const load = (state: State, action?: PayloadAction<Partial<Load> | undefined>): void => {
+  if (action?.payload) {
+    state.load = Object.assign(
+      {
+        root: false,
+        pend: false,
+        fetch: false,
+        create: false,
+      },
+      action.payload,
+    );
+  } else {
+    state.load = {
+      root: false,
+      pend: false,
+      fetch: false,
+      create: false,
+    };
+  }
+};
+
 export const setting = (
   state: State,
-  action: PayloadAction<
-    (Setting['analytics'] & { type: 'analytics' }) | undefined
-  >,
+  action: PayloadAction<(Setting['analytics'] & { type: 'analytics' }) | undefined>,
 ): void => {
   if (action.payload) {
     const { type, ...payload } = action.payload;

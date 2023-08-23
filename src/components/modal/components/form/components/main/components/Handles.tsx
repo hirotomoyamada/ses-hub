@@ -111,6 +111,7 @@ export const Handles: React.FC<PropType> = ({ index }) => {
       <div className={root.main_grid}>
         {handlesFields.map((field, i) => (
           <Controller
+            key={field.id}
             control={control}
             name={`handles.${i}.handle` as const}
             rules={{
@@ -127,7 +128,7 @@ export const Handles: React.FC<PropType> = ({ index }) => {
                   value={value}
                   onChange={onChange}
                   onBlur={onBlur}
-                  placeholder="言語・フレームワーク"
+                  placeholder='言語・フレームワーク'
                   error={!!errors.handles?.[i]?.handle}
                   options={options}
                 />
@@ -135,40 +136,34 @@ export const Handles: React.FC<PropType> = ({ index }) => {
                 <div className={styles.item_btn}>
                   {i !== 0 && (
                     <button
-                      type="button"
+                      type='button'
                       className={styles.item_btn_remove}
                       onClick={() => handlesRemove(i)}>
                       <RemoveIcon className={styles.item_btn_icon} />
                     </button>
                   )}
 
-                  {index === 'matters' &&
-                    i === handlesFields.length - 1 &&
-                    i < 4 && (
-                      <button
-                        type="button"
-                        className={styles.item_btn_add}
-                        onClick={() => handlesAppend({ handle: '' })}>
-                        <AddIcon className={styles.item_btn_icon} />
-                      </button>
-                    )}
+                  {index === 'matters' && i === handlesFields.length - 1 && i < 4 && (
+                    <button
+                      type='button'
+                      className={styles.item_btn_add}
+                      onClick={() => handlesAppend({ handle: '' })}>
+                      <AddIcon className={styles.item_btn_icon} />
+                    </button>
+                  )}
 
-                  {index === 'resources' &&
-                    i === handlesFields.length - 1 &&
-                    i < 9 && (
-                      <button
-                        type="button"
-                        className={styles.item_btn_add}
-                        onClick={() => handlesAppend({ handle: '' })}>
-                        <AddIcon className={styles.item_btn_icon} />
-                      </button>
-                    )}
+                  {index === 'resources' && i === handlesFields.length - 1 && i < 9 && (
+                    <button
+                      type='button'
+                      className={styles.item_btn_add}
+                      onClick={() => handlesAppend({ handle: '' })}>
+                      <AddIcon className={styles.item_btn_icon} />
+                    </button>
+                  )}
                 </div>
 
                 {errors?.handles?.[i]?.handle?.message && (
-                  <span className={styles.item_error}>
-                    {errors.handles[i].handle?.message}
-                  </span>
+                  <span className={styles.item_error}>{errors.handles[i].handle?.message}</span>
                 )}
               </div>
             )}

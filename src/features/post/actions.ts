@@ -8,7 +8,6 @@ import { Post } from 'features/post/postSlice';
 export interface CreatePost {
   arg: {
     index: 'matters' | 'resources';
-
     post:
       | {
           display: 'public' | 'private';
@@ -87,6 +86,7 @@ export interface CreatePost {
           };
         };
     page: 'user' | 'search' | 'home';
+    hasPosts?: boolean;
   };
 
   data: {
@@ -128,32 +128,21 @@ export const createPost = createAsyncThunk(
   },
 );
 
-export const editPost = createAsyncThunk(
-  'post/editPost',
-  async (arg: Post): Promise<Post> => {
-    const editPost: HttpsCallable<Post, unknown> = httpsCallable(
-      functions,
-      'sh-editPost',
-    );
+export const editPost = createAsyncThunk('post/editPost', async (arg: Post): Promise<Post> => {
+  const editPost: HttpsCallable<Post, unknown> = httpsCallable(functions, 'sh-editPost');
 
-    await editPost({
-      index: arg.index,
-      post: arg.post,
-    });
+  await editPost({
+    index: arg.index,
+    post: arg.post,
+  });
 
-    return arg;
-  },
-);
+  return arg;
+});
 
 export const deletePost = createAsyncThunk(
   'post/deletePost',
-  async (
-    arg: Post & { back?: boolean },
-  ): Promise<Post & { back?: boolean }> => {
-    const deletePost: HttpsCallable<Post, unknown> = httpsCallable(
-      functions,
-      'sh-deletePost',
-    );
+  async (arg: Post & { back?: boolean }): Promise<Post & { back?: boolean }> => {
+    const deletePost: HttpsCallable<Post, unknown> = httpsCallable(functions, 'sh-deletePost');
 
     await deletePost({
       index: arg.index,
@@ -188,8 +177,10 @@ export interface FetchPosts {
 export const fetchPosts = createAsyncThunk(
   'post/fetchPosts',
   async (arg: FetchPosts['arg']): Promise<FetchPosts['data']> => {
-    const fetchPosts: HttpsCallable<FetchPosts['arg'], FetchPosts['data']> =
-      httpsCallable(functions, 'sh-fetchPosts');
+    const fetchPosts: HttpsCallable<FetchPosts['arg'], FetchPosts['data']> = httpsCallable(
+      functions,
+      'sh-fetchPosts',
+    );
 
     const { data } = await fetchPosts({
       index: arg.index,
@@ -211,8 +202,10 @@ export interface FetchPost {
 export const fetchPost = createAsyncThunk(
   'post/fetchPost',
   async (arg: FetchPost['arg']): Promise<FetchPost['data']> => {
-    const fetchPost: HttpsCallable<FetchPost['arg'], FetchPost['data']> =
-      httpsCallable(functions, 'sh-fetchPost');
+    const fetchPost: HttpsCallable<FetchPost['arg'], FetchPost['data']> = httpsCallable(
+      functions,
+      'sh-fetchPost',
+    );
 
     const { data } = await fetchPost({
       index: arg.index,
@@ -250,10 +243,10 @@ export const extractPosts = createAsyncThunk(
       throw Error(undefined);
     }
 
-    const extractPosts: HttpsCallable<
-      ExtractPosts['arg'],
-      ExtractPosts['data']
-    > = httpsCallable(functions, 'sh-extractPosts');
+    const extractPosts: HttpsCallable<ExtractPosts['arg'], ExtractPosts['data']> = httpsCallable(
+      functions,
+      'sh-extractPosts',
+    );
 
     const { data } = await extractPosts({
       index: arg.index,
@@ -288,8 +281,10 @@ export interface HomePosts {
 export const homePosts = createAsyncThunk(
   'post/homePosts',
   async (arg: HomePosts['arg']): Promise<HomePosts['data']> => {
-    const homePosts: HttpsCallable<HomePosts['arg'], HomePosts['data']> =
-      httpsCallable(functions, 'sh-homePosts');
+    const homePosts: HttpsCallable<HomePosts['arg'], HomePosts['data']> = httpsCallable(
+      functions,
+      'sh-homePosts',
+    );
 
     const { data } = await homePosts({
       index: arg.index,
@@ -332,8 +327,10 @@ export const userPosts = createAsyncThunk(
     posts: UserPosts['data']['posts'];
     hit: UserPosts['data']['hit'];
   }> => {
-    const userPosts: HttpsCallable<UserPosts['arg'], UserPosts['data']> =
-      httpsCallable(functions, 'sh-userPosts');
+    const userPosts: HttpsCallable<UserPosts['arg'], UserPosts['data']> = httpsCallable(
+      functions,
+      'sh-userPosts',
+    );
 
     const { data } = await userPosts({
       index: arg.index,
@@ -360,10 +357,8 @@ export interface PromotionPosts {
 export const promotionPosts = createAsyncThunk(
   'post/promotionPosts',
   async (arg: PromotionPosts['arg']) => {
-    const promotionPosts: HttpsCallable<
-      PromotionPosts['arg'],
-      PromotionPosts['data']
-    > = httpsCallable(functions, 'sh-promotionPosts');
+    const promotionPosts: HttpsCallable<PromotionPosts['arg'], PromotionPosts['data']> =
+      httpsCallable(functions, 'sh-promotionPosts');
 
     const { data } = await promotionPosts(arg);
 
@@ -380,10 +375,10 @@ export interface FetchActivity {
 export const fetchActivity = createAsyncThunk(
   'post/fetchActivity',
   async (arg: FetchActivity['arg']) => {
-    const fetchActivity: HttpsCallable<
-      FetchActivity['arg'],
-      FetchActivity['data']
-    > = httpsCallable(functions, 'sh-fetchActivity');
+    const fetchActivity: HttpsCallable<FetchActivity['arg'], FetchActivity['data']> = httpsCallable(
+      functions,
+      'sh-fetchActivity',
+    );
 
     const { data } = await fetchActivity(arg);
 

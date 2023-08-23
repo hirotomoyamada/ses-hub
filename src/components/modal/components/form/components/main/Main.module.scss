@@ -166,4 +166,22 @@ $width: responsive-width(pc);
       color: $sub_clr;
     }
   }
+
+  &_banner {
+    display: flex;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    background: $acnt_sub_clr;
+    color: $base_clr;
+    transition: all 0.4s;
+
+    @media (max-width: responsive-width(tb)) {
+      display: none;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 }

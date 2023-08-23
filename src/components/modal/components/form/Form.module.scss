@@ -1,6 +1,6 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
+@import 'styles/config';
+@import 'styles/function';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -14,6 +14,7 @@ $width: responsive-width(pc);
   height: 80vh;
   border-radius: 16px;
   display: grid;
+  grid-template-rows: 72px 1fr;
 
   @media (max-width: responsive-width(tb)) {
     width: 100vw;
@@ -22,6 +23,7 @@ $width: responsive-width(pc);
   }
 
   @media (max-width: responsive-width(sp)) {
+    grid-template-rows: 48px 1fr;
     font-size: 12px;
   }
 
@@ -30,5 +32,144 @@ $width: responsive-width(pc);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  &_footer {
+    position: absolute;
+    right: 32px;
+    bottom: 32px;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+
+    @media (max-width: responsive-width(sp)) {
+      right: 12px;
+      bottom: 24px;
+    }
+  }
+
+  &_cancel {
+    background: $remove_clr;
+    box-shadow: 3px 3px 8px $shdw_clr;
+    width: 64px;
+    height: 32px;
+    color: $base_clr;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 14px;
+
+    transition: all 0.4s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: responsive-width(sp)) {
+      width: 48px;
+      font-size: 12px;
+      height: 24px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  &_pagination {
+    display: flex;
+    align-items: center;
+    background: $base_clr;
+    height: 48px;
+    padding: 0 16px;
+    border-radius: 9999px;
+    border: 1px solid $bdr_clr;
+    box-shadow: 3px 3px 8px $shdw_clr;
+    color: $acnt_clr;
+    font-size: 24px;
+    font-weight: bold;
+
+    &_inner {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      right: 12px;
+      bottom: 24px;
+      height: 40px;
+      font-size: 18px;
+      padding: 0 12px;
+    }
+
+    &_desc {
+      font-size: 18px;
+      color: $sub_clr;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.main {
+  padding: 0 32px 32px;
+
+  @media (max-width: responsive-width(sp)) {
+    padding: 0 12px 24px;
+  }
+
+  &_col {
+    height: 100%;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+  }
+
+  &_desc {
+    color: $sub_clr;
+    font-size: 12px;
+    margin-bottom: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 10px;
+      margin-bottom: 12px;
+    }
+  }
+
+  &_error {
+    white-space: nowrap;
+    color: $remove_clr;
+    font-size: 12px;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 10px;
+    }
+  }
+
+  &_textarea {
+    background: $bg_clr;
+    border: 1px solid $bdr_clr;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    padding: 16px;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 12px;
+    }
+
+    &_error {
+      border: 1px solid $remove_clr;
+    }
   }
 }

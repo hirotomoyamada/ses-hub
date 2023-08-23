@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import styles from './Modal.module.scss';
 
 import { useLocation } from 'react-router-dom';
@@ -43,7 +43,12 @@ export const Modal: React.FC = () => {
       : document.body.classList.remove('lock');
   }, [location, modal.open]);
 
-  const Inner = () => {
+  const handleClose = useCallback((): void => {
+    dispatch(rootSlice.handleModal());
+    modal.type === 'advertise' && dispatch(userSlice.updateNotice());
+  }, [modal.type]);
+
+  const inner = useMemo(() => {
     switch (modal.type) {
       case 'agree':
         return <Agree user={user} />;
@@ -97,22 +102,11 @@ export const Modal: React.FC = () => {
         );
 
       case 'activity':
-        return (
-          <Activity
-            index={index}
-            user={user}
-            post={post}
-            handleClose={handleClose}
-          />
-        );
+        return <Activity index={index} user={user} post={post} handleClose={handleClose} />;
 
       case 'analytics':
         return (
-          <Analytics
-            user={user}
-            demo={modal.meta?.type === 'demo'}
-            handleClose={handleClose}
-          />
+          <Analytics user={user} demo={modal.meta?.type === 'demo'} handleClose={handleClose} />
         );
 
       case 'application':
@@ -142,42 +136,20 @@ export const Modal: React.FC = () => {
         );
 
       case 'edit':
-        return (
-          <Form
-            index={index}
-            user={user}
-            post={post}
-            handleClose={handleClose}
-            edit
-          />
-        );
+        return <Form index={index} user={user} post={post} handleClose={handleClose} edit />;
 
       case 'new':
-        return (
-          <Form
-            index={index}
-            user={user}
-            post={post}
-            handleClose={handleClose}
-          />
-        );
+        return <Form index={index} user={user} post={post} handleClose={handleClose} />;
 
       default:
         return <></>;
     }
-  };
-
-  const handleClose = (): void => {
-    dispatch(rootSlice.handleModal());
-    modal.type === 'advertise' && dispatch(userSlice.updateNotice());
-  };
+  }, [modal.type, modal.open, index, user, post, handleClose]);
 
   return (
     <div
       className={
-        modal.open &&
-        location?.pathname !== '/asct' &&
-        location?.pathname !== '/terms'
+        modal.open && location?.pathname !== '/asct' && location?.pathname !== '/terms'
           ? styles.open
           : styles.close
       }>
@@ -190,7 +162,7 @@ export const Modal: React.FC = () => {
           modal.type !== 'advertise' &&
           styles.modal_sp
         }`}>
-        <Inner />
+        {inner}
       </div>
     </div>
   );

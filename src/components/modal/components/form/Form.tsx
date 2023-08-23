@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { memo, useState } from 'react';
 import styles from './Form.module.scss';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
-
+import { httpsCallable, HttpsCallable } from 'firebase/functions';
+import * as firebase from 'libs/firebase';
 import { createPost, editPost } from 'features/post/actions';
 import * as rootSlice from 'features/root/rootSlice';
-
 import { Header } from './components/header/Header';
 import { Main } from './components/main/Main';
-
 import * as functions from 'functions';
-
 import { Matter, Resource } from 'types/post';
 import { User } from 'types/user';
 import { Oval } from 'react-loader-spinner';
+import { AIHeader } from './components/header/AIHeader';
+
+const createAIPost: HttpsCallable<
+  { index: 'matters' | 'resources'; content: string },
+  { posts: Matter[] | Resource[] }
+> = httpsCallable(firebase.functions, 'sh-createAIPost');
 
 interface PropType {
   index: 'matters' | 'resources' | 'companys' | 'persons';
@@ -24,26 +27,18 @@ interface PropType {
   edit?: boolean;
 }
 
-export const Form: React.FC<PropType> = ({
-  index,
-  user,
-  post,
-  handleClose,
-  edit,
-}) => {
+export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, edit }) => {
   const dispatch = useDispatch();
   const fetch = useSelector(rootSlice.load).fetch;
   const page = useSelector(rootSlice.page);
   const demo = useSelector(rootSlice.verified)?.demo;
+  const [isAI, setIsAI] = useState<boolean>(false);
+  const [posts, setPosts] = useState<Matter[] | Resource[]>([]);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  const methods = useForm<
-    functions.form.Data['matter'] & functions.form.Data['resource']
-  >({
-    defaultValues: functions.form.defaultValues(
-      index as 'matters' | 'resources',
-      post,
-      edit,
-    ),
+  const aiMethods = useForm({ defaultValues: { content: '' } });
+  const basicMethods = useForm<functions.form.Data['matter'] & functions.form.Data['resource']>({
+    defaultValues: functions.form.defaultValues(index as 'matters' | 'resources', post, edit),
   });
 
   const handleCreate: SubmitHandler<
@@ -62,21 +57,31 @@ export const Form: React.FC<PropType> = ({
     const create = (() => {
       switch (index) {
         case 'matters':
-          return functions.form.matters(
-            data as unknown as functions.form.Data['matter'],
-          );
+          return functions.form.matters(data as unknown as functions.form.Data['matter']);
 
         case 'resources':
-          return functions.form.resources(
-            data as unknown as functions.form.Data['resource'],
-          );
+          return functions.form.resources(data as unknown as functions.form.Data['resource']);
 
         default:
           return;
       }
     })();
 
-    if (create) dispatch(createPost({ index, page, post: create }));
+    if (create) {
+      if (!!posts.length && posts.length - 1 !== currentIndex) {
+        dispatch(createPost({ index, page, post: create, hasPosts: true }));
+
+        const post = posts[currentIndex + 1];
+
+        const defaultValues = functions.form.defaultValues(index, post, true);
+
+        basicMethods.reset(defaultValues);
+
+        setCurrentIndex((prev) => prev + 1);
+      } else {
+        dispatch(createPost({ index, page, post: create }));
+      }
+    }
   };
 
   const handleEdit: SubmitHandler<
@@ -95,17 +100,13 @@ export const Form: React.FC<PropType> = ({
         case 'matters':
           return {
             ...post,
-            ...functions.form.matters(
-              data as unknown as functions.form.Data['matter'],
-            ),
+            ...functions.form.matters(data as unknown as functions.form.Data['matter']),
           };
 
         case 'resources':
           return {
             ...post,
-            ...functions.form.resources(
-              data as unknown as functions.form.Data['resource'],
-            ),
+            ...functions.form.resources(data as unknown as functions.form.Data['resource']),
           };
 
         default:
@@ -116,24 +117,126 @@ export const Form: React.FC<PropType> = ({
     if (edit) dispatch(editPost({ index, post: edit }));
   };
 
-  return (
-    <FormProvider {...methods}>
+  const handleAICreate: SubmitHandler<{ content: string }> = async ({ content }) => {
+    if (index !== 'matters' && index !== 'resources') return;
+
+    try {
+      dispatch(rootSlice.handleLoad({ fetch: true }));
+
+      const { data } = await createAIPost({ index, content });
+
+      aiMethods.reset({ content: '' });
+
+      const post = data.posts[currentIndex];
+
+      const defaultValues = functions.form.defaultValues(index, post, true);
+
+      basicMethods.reset(defaultValues);
+
+      setPosts(data.posts);
+    } catch (e) {
+      if (e instanceof Error)
+        dispatch(
+          rootSlice.handleAnnounce({
+            error: e.message,
+          }),
+        );
+    } finally {
+      dispatch(rootSlice.handleLoad());
+    }
+  };
+
+  return !isAI || !!posts.length ? (
+    <FormProvider {...basicMethods}>
       <form
         className={styles.form}
         onSubmit={
-          edit
-            ? methods.handleSubmit(handleEdit)
-            : methods.handleSubmit(handleCreate)
+          edit ? basicMethods.handleSubmit(handleEdit) : basicMethods.handleSubmit(handleCreate)
         }>
-        <Header edit={edit} fetch={fetch} handleClose={handleClose} />
-        <Main index={index as 'matters' | 'resources'} />
+        <Header
+          edit={edit}
+          isAI={isAI}
+          setIsAI={setIsAI}
+          fetch={fetch}
+          handleClose={handleClose}
+          hasPosts={!!posts.length}
+        />
+        <Main index={index as 'matters' | 'resources'} edit={edit} handleClose={handleClose} />
 
         {fetch && (
           <div className={styles.form_fetch}>
-            <Oval color="#49b757" height={56} width={56} />
+            <Oval color='#49b757' height={56} width={56} />
+          </div>
+        )}
+
+        {!!posts.length && (
+          <div className={styles.form_footer}>
+            <button
+              className={styles.form_cancel}
+              disabled={fetch}
+              type='button'
+              onClick={() => {
+                setPosts((prev) => {
+                  const next = (prev as Matter[]).filter((_, index) => index !== currentIndex);
+
+                  if (!next.length) {
+                    setCurrentIndex(0);
+                  } else if (next.length - 1 < currentIndex) {
+                    setCurrentIndex(next.length - 1);
+                  }
+
+                  return next;
+                });
+              }}>
+              取消
+            </button>
+
+            <div className={styles.form_pagination}>
+              <div className={styles.form_pagination_inner}>
+                <span>{currentIndex + 1}</span>
+                <span className={styles.form_pagination_desc}>/</span>
+                <span className={styles.form_pagination_desc}>{posts.length}</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </form>
+    </FormProvider>
+  ) : (
+    <FormProvider {...aiMethods}>
+      <form className={styles.form} onSubmit={aiMethods.handleSubmit(handleAICreate)}>
+        <AIHeader
+          edit={edit}
+          isAI={isAI}
+          setIsAI={setIsAI}
+          fetch={fetch}
+          handleClose={handleClose}
+        />
+
+        <div className={styles.main}>
+          <div className={styles.main_col}>
+            <textarea
+              className={`${styles.main_textarea} ${
+                aiMethods.formState.errors.content && styles.main_textarea_error
+              }`}
+              {...aiMethods.register('content', {
+                required: `${index === 'matters' ? '案件' : '人材'}情報を入力してください`,
+              })}></textarea>
+
+            {aiMethods.formState.errors.content?.message ? (
+              <span className={styles.main_error}>
+                {aiMethods.formState.errors.content?.message}
+              </span>
+            ) : null}
+          </div>
+        </div>
+
+        {fetch && (
+          <div className={styles.form_fetch}>
+            <Oval color='#49b757' height={56} width={56} />
           </div>
         )}
       </form>
     </FormProvider>
   );
-};
+});

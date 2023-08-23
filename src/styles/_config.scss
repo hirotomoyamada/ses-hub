@@ -1,19 +1,19 @@
 // 下記で設定されたピクセルで vw と vh を計算する
 $responsive-width: (
   // デスクトップ（レイアウト
-  "pc": 1980px,
+  'pc': 1980px,
   // タブレット (レイアウト)
-  "miniPc": 1440px,
-  "tb": 959px,
+  'miniPc': 1440px,
+  'tb': 959px,
   // スマートフォン (レイアウト)
-  "sp": 519px
+  'sp': 519px
 );
 
 $responsive-height: (
   // タブレット (レイアウト)
-  "tb": 0px,
+  'tb': 0px,
   // スマートフォン (レイアウト)
-  "sp": 0px
+  'sp': 0px
 );
 
 $innerHeight: calc(var(--vh, 1vh) * 100);
@@ -35,7 +35,7 @@ $icn_clr: #515a74;
 $add_clr: #1d9bf0;
 $add_hvr_clr: #3985fe;
 $add_bg_clr: #d2ebfc;
-$remove_clr: #e94235db;
+$remove_clr: #ec6257;
 $remove_bg_clr: #fbd9d7;
 $like_clr: #e0255e;
 $link_clr: #1d94e0;

@@ -90,6 +90,7 @@ export const Tools: React.FC<PropType> = ({ index }) => {
       <div className={root.main_grid}>
         {toolsFields.map((field, i) => (
           <Controller
+            key={field.id}
             control={control}
             name={`tools.${i}.tool` as const}
             render={({ field: { onChange, onBlur, value, name, ref } }) => (
@@ -100,7 +101,7 @@ export const Tools: React.FC<PropType> = ({ index }) => {
                   value={value}
                   onChange={onChange}
                   onBlur={onBlur}
-                  placeholder="ツール"
+                  placeholder='ツール'
                   error={!!errors.tools?.[i]?.tool}
                   options={options}
                 />
@@ -108,40 +109,34 @@ export const Tools: React.FC<PropType> = ({ index }) => {
                 <div className={styles.item_btn}>
                   {i !== 0 && (
                     <button
-                      type="button"
+                      type='button'
                       className={styles.item_btn_remove}
                       onClick={() => toolsRemove(i)}>
                       <RemoveIcon className={styles.item_btn_icon} />
                     </button>
                   )}
 
-                  {index === 'matters' &&
-                    i === toolsFields.length - 1 &&
-                    i < 4 && (
-                      <button
-                        type="button"
-                        className={styles.item_btn_add}
-                        onClick={() => toolsAppend({ tool: '' })}>
-                        <AddIcon className={styles.item_btn_icon} />
-                      </button>
-                    )}
+                  {index === 'matters' && i === toolsFields.length - 1 && i < 4 && (
+                    <button
+                      type='button'
+                      className={styles.item_btn_add}
+                      onClick={() => toolsAppend({ tool: '' })}>
+                      <AddIcon className={styles.item_btn_icon} />
+                    </button>
+                  )}
 
-                  {index === 'resources' &&
-                    i === toolsFields.length - 1 &&
-                    i < 9 && (
-                      <button
-                        type="button"
-                        className={styles.item_btn_add}
-                        onClick={() => toolsAppend({ tool: '' })}>
-                        <AddIcon className={styles.item_btn_icon} />
-                      </button>
-                    )}
+                  {index === 'resources' && i === toolsFields.length - 1 && i < 9 && (
+                    <button
+                      type='button'
+                      className={styles.item_btn_add}
+                      onClick={() => toolsAppend({ tool: '' })}>
+                      <AddIcon className={styles.item_btn_icon} />
+                    </button>
+                  )}
                 </div>
 
                 {errors?.tools?.[i]?.tool?.message && (
-                  <span className={styles.item_error}>
-                    {errors.tools[i].tool?.message}
-                  </span>
+                  <span className={styles.item_error}>{errors.tools[i].tool?.message}</span>
                 )}
               </div>
             )}

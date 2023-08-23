@@ -1,6 +1,6 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
+@import 'styles/config';
+@import 'styles/function';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -39,7 +39,16 @@ $width: responsive-width(pc);
 
   &_wrap {
     display: flex;
+    align-items: center;
     gap: 16px;
+
+    @media (max-width: responsive-width(tb)) {
+      gap: 12px;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      gap: 8px;
+    }
   }
 
   &_display {
@@ -55,14 +64,23 @@ $width: responsive-width(pc);
     border: 1px solid $bdr_clr;
 
     @media (max-width: responsive-width(sp)) {
-      width: 120px;
-      height: 32px;
+      width: 100px;
+      height: 28px;
       font-size: 10px;
       padding: 2px;
     }
 
     input {
       display: none;
+    }
+
+    &_disabled {
+      opacity: 0.8;
+      cursor: not-allowed;
+
+      & > label {
+        cursor: not-allowed;
+      }
     }
 
     &_btn {
@@ -78,6 +96,16 @@ $width: responsive-width(pc);
 
     input:checked + &_btn {
       background: $acnt_clr;
+      color: $base_clr;
+    }
+
+    input:checked + &_btn_basic {
+      background: $acnt_ext_clr;
+      color: $base_clr;
+    }
+
+    input:checked + &_btn_ai {
+      background: $acnt_sub_clr;
       color: $base_clr;
     }
   }
@@ -96,13 +124,25 @@ $width: responsive-width(pc);
     justify-content: center;
     align-items: center;
 
+    @media (max-width: responsive-width(tb)) {
+      width: 120px;
+    }
+
     @media (max-width: responsive-width(sp)) {
-      width: 80px;
-      height: 32px;
+      width: 64px;
+      height: 28px;
     }
 
     &:hover {
       opacity: 0.8;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 }
