@@ -15,10 +15,10 @@ import { Oval } from 'react-loader-spinner';
 import { AIHeader } from './components/header/AIHeader';
 import { OwnDispatch } from '@reduxjs/toolkit';
 
-const createAIPost: HttpsCallable<
+const completePost: HttpsCallable<
   { index: 'matters' | 'resources'; content: string },
   { posts: Matter[] | Resource[] }
-> = httpsCallable(firebase.functions, 'sh-createAIPost');
+> = httpsCallable(firebase.functions, 'sh-completePost');
 
 interface PropType {
   index: 'matters' | 'resources' | 'companys' | 'persons';
@@ -127,13 +127,13 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
     if (edit) dispatch(editPost({ index, post: edit }));
   };
 
-  const handleAICreate: SubmitHandler<{ content: string }> = async ({ content }) => {
+  const handleComplete: SubmitHandler<{ content: string }> = async ({ content }) => {
     if (index !== 'matters' && index !== 'resources') return;
 
     try {
       dispatch(rootSlice.handleLoad({ fetch: true }));
 
-      const { data } = await createAIPost({ index, content });
+      const { data } = await completePost({ index, content });
 
       const post = data.posts[currentIndex];
 
@@ -251,7 +251,7 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
     </FormProvider>
   ) : (
     <FormProvider {...aiMethods}>
-      <form className={styles.form} onSubmit={aiMethods.handleSubmit(handleAICreate)}>
+      <form className={styles.form} onSubmit={aiMethods.handleSubmit(handleComplete)}>
         <AIHeader
           edit={edit}
           isAI={isAI}
