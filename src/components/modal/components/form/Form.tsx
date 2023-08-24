@@ -37,6 +37,7 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
   const [posts, setPosts] = useState<any[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const completedPosts = useRef<any[]>([]);
+  const mainRef = useRef<HTMLDivElement>(null);
 
   const aiMethods = useForm({ defaultValues: { content: '' } });
   const basicMethods = useForm<functions.form.Data['matter'] & functions.form.Data['resource']>({
@@ -74,6 +75,7 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
         completedPosts.current = [...completedPosts.current, create];
 
         if (posts.length - 1 !== currentIndex) {
+          mainRef.current?.scrollTo({ top: 0 });
           setPost(posts[currentIndex + 1]);
           setCurrentIndex((prev) => prev + 1);
         } else {
@@ -198,7 +200,12 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
           hasPosts={!!posts.length}
           isLast={!!posts.length && posts.length - 1 !== currentIndex}
         />
-        <Main index={index as 'matters' | 'resources'} edit={edit} handleClose={handleClose} />
+        <Main
+          ref={mainRef}
+          index={index as 'matters' | 'resources'}
+          edit={edit}
+          handleClose={handleClose}
+        />
 
         {fetch && (
           <div className={styles.form_fetch}>
@@ -225,9 +232,11 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
                     );
                     setCurrentIndex(0);
                   } else if (next.length - 1 < currentIndex) {
+                    mainRef.current?.scrollTo({ top: 0 });
                     setPost(completedPosts.current[completedPosts.current.length - 1]);
                     setCurrentIndex(next.length - 1);
                   } else {
+                    mainRef.current?.scrollTo({ top: 0 });
                     setPost(next[currentIndex]);
                   }
 

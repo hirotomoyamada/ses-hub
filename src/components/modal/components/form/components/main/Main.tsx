@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styles from './Main.module.scss';
 
 import { Link } from 'react-router-dom';
@@ -40,13 +40,13 @@ interface PropType {
   handleClose: () => void;
 }
 
-export const Main: React.FC<PropType> = ({ index, edit, handleClose }) => {
+export const Main = forwardRef<HTMLDivElement, PropType>(({ index, edit, handleClose }, ref) => {
   const user = useSelector(userSlice.user);
 
   switch (index) {
     case 'matters':
       return (
-        <div className={styles.main}>
+        <div ref={ref} className={styles.main}>
           {user.payment?.status === 'canceled' && !edit ? (
             <Link to={'/plan'} className={styles.main_banner} onClick={handleClose}>
               バナー(仮)
@@ -112,7 +112,7 @@ export const Main: React.FC<PropType> = ({ index, edit, handleClose }) => {
       );
     case 'resources':
       return (
-        <div className={styles.main}>
+        <div ref={ref} className={styles.main}>
           {user.payment?.status === 'canceled' && !edit ? (
             <Link to={'/plan'} className={styles.main_banner} onClick={handleClose}>
               バナー(仮)
@@ -171,4 +171,4 @@ export const Main: React.FC<PropType> = ({ index, edit, handleClose }) => {
     default:
       return <div>エラーが発生しました</div>;
   }
-};
+});
