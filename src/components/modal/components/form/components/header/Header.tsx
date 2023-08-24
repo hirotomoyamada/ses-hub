@@ -14,6 +14,7 @@ interface PropType {
   isAI: boolean;
   setIsAI: Dispatch<SetStateAction<boolean>>;
   hasPosts: boolean;
+  isLast: boolean;
 }
 
 export const Header: React.FC<PropType> = ({
@@ -23,6 +24,7 @@ export const Header: React.FC<PropType> = ({
   isAI,
   setIsAI,
   hasPosts,
+  isLast,
 }) => {
   const { register, clearErrors } = useFormContext();
   const user = useSelector(userSlice.user);
@@ -91,7 +93,15 @@ export const Header: React.FC<PropType> = ({
         ) : null}
 
         <button className={styles.header_submit} disabled={fetch} type='submit'>
-          {fetch ? <ThreeDots color='#FFF' height={24} width={24} /> : edit ? '編集' : '登録'}
+          {fetch ? (
+            <ThreeDots color='#FFF' height={24} width={24} />
+          ) : edit ? (
+            '編集'
+          ) : isLast ? (
+            '次へ'
+          ) : (
+            '登録'
+          )}
         </button>
       </div>
     </div>
