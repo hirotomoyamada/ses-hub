@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useRef, useState } from 'react';
 import styles from './Form.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
@@ -13,6 +13,7 @@ import { Matter, Resource } from 'types/post';
 import { User } from 'types/user';
 import { Oval } from 'react-loader-spinner';
 import { AIHeader } from './components/header/AIHeader';
+import { OwnDispatch } from '@reduxjs/toolkit';
 
 const createAIPost: HttpsCallable<
   { index: 'matters' | 'resources'; content: string },
@@ -33,8 +34,9 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
   const page = useSelector(rootSlice.page);
   const demo = useSelector(rootSlice.verified)?.demo;
   const [isAI, setIsAI] = useState<boolean>(false);
-  const [posts, setPosts] = useState<Matter[] | Resource[]>([]);
+  const [posts, setPosts] = useState<any[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const completedPosts = useRef<any[]>([]);
 
   const aiMethods = useForm({ defaultValues: { content: '' } });
   const basicMethods = useForm<functions.form.Data['matter'] & functions.form.Data['resource']>({
@@ -43,7 +45,7 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
 
   const handleCreate: SubmitHandler<
     functions.form.Data['matter'] & functions.form.Data['resource']
-  > = (data) => {
+  > = async (data) => {
     if (index !== 'matters' && index !== 'resources') return;
 
     if (page !== 'home' && page !== 'search' && page !== 'user') return;
@@ -68,16 +70,24 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
     })();
 
     if (create) {
-      if (!!posts.length && posts.length - 1 !== currentIndex) {
-        dispatch(createPost({ index, page, post: create, hasPosts: true }));
+      if (posts.length) {
+        completedPosts.current = [...completedPosts.current, create];
 
-        const post = posts[currentIndex + 1];
+        if (posts.length - 1 !== currentIndex) {
+          setPost(posts[currentIndex + 1]);
+          setCurrentIndex((prev) => prev + 1);
+        } else {
+          dispatch(rootSlice.handleLoad({ fetch: true }));
 
-        const defaultValues = functions.form.defaultValues(index, post, true);
+          await Promise.allSettled(
+            completedPosts.current.map(async (post) => {
+              await (dispatch as OwnDispatch)(createPost({ index, page, post, hasPosts: true }));
+            }),
+          );
 
-        basicMethods.reset(defaultValues);
-
-        setCurrentIndex((prev) => prev + 1);
+          dispatch(rootSlice.handleLoad());
+          handleClose();
+        }
       } else {
         dispatch(createPost({ index, page, post: create }));
       }
@@ -125,9 +135,11 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
 
       const { data } = await createAIPost({ index, content });
 
-      aiMethods.reset({ content: '' });
-
       const post = data.posts[currentIndex];
+
+      if (!post) throw new Error('読み込みに失敗しました');
+
+      aiMethods.reset({ content: '' });
 
       const defaultValues = functions.form.defaultValues(index, post, true);
 
@@ -146,6 +158,30 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
     }
   };
 
+  const setPost = (post: any) => {
+    if (index !== 'matters' && index !== 'resources') return;
+
+    basicMethods.resetField('handles', {
+      defaultValue: [{ handle: undefined }, { handle: undefined }, { handle: undefined }],
+    });
+    basicMethods.resetField('tools', {
+      defaultValue: [{ tool: undefined }, { tool: undefined }, { tool: undefined }],
+    });
+    basicMethods.resetField('requires', {
+      defaultValue: [{ require: undefined }, { require: undefined }, { require: undefined }],
+    });
+    basicMethods.resetField('prefers', {
+      defaultValue: [{ prefer: undefined }, { prefer: undefined }, { prefer: undefined }],
+    });
+    basicMethods.resetField('skills', {
+      defaultValue: [{ skill: undefined }, { skill: undefined }, { skill: undefined }],
+    });
+
+    const defaultValues = functions.form.defaultValues(index, post, true);
+
+    basicMethods.reset(defaultValues);
+  };
+
   return !isAI || !!posts.length ? (
     <FormProvider {...basicMethods}>
       <form
@@ -160,6 +196,7 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
           fetch={fetch}
           handleClose={handleClose}
           hasPosts={!!posts.length}
+          isLast={!!posts.length && posts.length - 1 !== currentIndex}
         />
         <Main index={index as 'matters' | 'resources'} edit={edit} handleClose={handleClose} />
 
@@ -177,14 +214,24 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
               type='button'
               onClick={() => {
                 setPosts((prev) => {
-                  const next = (prev as Matter[]).filter((_, index) => index !== currentIndex);
+                  const next = prev.filter((_, index) => index !== currentIndex);
+                  completedPosts.current = completedPosts.current.filter(
+                    (_, index) => index !== currentIndex,
+                  );
 
                   if (!next.length) {
+                    basicMethods.reset(
+                      functions.form.defaultValues(index as 'matters' | 'resources', post, edit),
+                    );
                     setCurrentIndex(0);
                   } else if (next.length - 1 < currentIndex) {
+                    setPost(completedPosts.current[completedPosts.current.length - 1]);
                     setCurrentIndex(next.length - 1);
+                  } else {
+                    setPost(next[currentIndex]);
                   }
 
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                   return next;
                 });
               }}>
@@ -228,6 +275,10 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
                 {aiMethods.formState.errors.content?.message}
               </span>
             ) : null}
+
+            <span className={styles.main_desc}>
+              &nbsp;※&nbsp;区切り線は、5文字以上の同一文字で入力してください。区切り線が正しくない場合、情報が正しく読み込まれない可能性があります。
+            </span>
           </div>
         </div>
 

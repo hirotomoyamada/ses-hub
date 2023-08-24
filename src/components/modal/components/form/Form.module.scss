@@ -138,11 +138,11 @@ $width: responsive-width(pc);
   &_desc {
     color: $sub_clr;
     font-size: 12px;
-    margin-bottom: 16px;
+    margin-top: 8px;
 
     @media (max-width: responsive-width(sp)) {
       font-size: 10px;
-      margin-bottom: 12px;
+      margin-top: 4px;
     }
   }
 
