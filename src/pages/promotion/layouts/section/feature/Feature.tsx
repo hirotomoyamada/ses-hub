@@ -47,13 +47,7 @@ export const Feature: React.FC = () => {
             </tr>
 
             <tr>
-              <td>
-                <span
-                  className={`${styles.feature_tag} ${styles.feature_tag_acnt}`}>
-                  \&nbsp;Renewal&nbsp;/
-                </span>
-                情報を検索
-              </td>
+              <td>情報を検索</td>
 
               <td>
                 <RadioButtonUncheckedIcon
@@ -68,13 +62,7 @@ export const Feature: React.FC = () => {
             </tr>
 
             <tr>
-              <td>
-                <span
-                  className={`${styles.feature_tag} ${styles.feature_tag_acnt}`}>
-                  \&nbsp;Renewal&nbsp;/
-                </span>
-                案件・人材を閲覧
-              </td>
+              <td>案件・人材を閲覧</td>
 
               <td>
                 <RadioButtonUncheckedIcon
@@ -86,7 +74,7 @@ export const Feature: React.FC = () => {
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
-                <span className={styles.feature_icon_desc}>※8</span>
+                <span className={styles.feature_icon_desc}>※7</span>
               </td>
             </tr>
 
@@ -102,7 +90,7 @@ export const Feature: React.FC = () => {
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
-                <span className={styles.feature_icon_desc}>※8</span>
+                <span className={styles.feature_icon_desc}>※7</span>
               </td>
             </tr>
 
@@ -140,10 +128,7 @@ export const Feature: React.FC = () => {
             </tr>
 
             <tr>
-              <td>
-                <span className={styles.feature_tag}>\&nbsp;New&nbsp;/</span>
-                アクティビティ
-              </td>
+              <td>アクティビティ</td>
 
               <td>
                 <ChangeHistoryIcon
@@ -160,20 +145,30 @@ export const Feature: React.FC = () => {
 
             <tr>
               <td>
-                <span className={styles.feature_tag}>\&nbsp;New&nbsp;/</span>
-                アナリティクス
+                <span className={styles.feature_tag}>\&nbsp;New&nbsp;/</span>AIで自動入力
               </td>
 
               <td>
-                <CloseIcon
-                  className={`${styles.feature_icon} ${styles.feature_icon_disable}`}
+                <CloseIcon className={`${styles.feature_icon} ${styles.feature_icon_disable}`} />
+              </td>
+
+              <td>
+                <RadioButtonUncheckedIcon
+                  className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
+              </td>
+            </tr>
+
+            <tr>
+              <td>アナリティクス</td>
+
+              <td>
+                <CloseIcon className={`${styles.feature_icon} ${styles.feature_icon_disable}`} />
               </td>
               <td>
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
-                <span className={styles.feature_icon_desc}>※5</span>
               </td>
             </tr>
 
@@ -181,9 +176,7 @@ export const Feature: React.FC = () => {
               <td>フォロー</td>
 
               <td>
-                <CloseIcon
-                  className={`${styles.feature_icon} ${styles.feature_icon_disable}`}
-                />
+                <CloseIcon className={`${styles.feature_icon} ${styles.feature_icon_disable}`} />
               </td>
               <td>
                 <RadioButtonUncheckedIcon
@@ -196,15 +189,13 @@ export const Feature: React.FC = () => {
               <td>フリーランスへアプローチ</td>
 
               <td>
-                <CloseIcon
-                  className={`${styles.feature_icon} ${styles.feature_icon_disable}`}
-                />
+                <CloseIcon className={`${styles.feature_icon} ${styles.feature_icon_disable}`} />
               </td>
               <td>
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
-                <span className={styles.feature_icon_desc}>※6</span>
+                <span className={styles.feature_icon_desc}>※5</span>
               </td>
             </tr>
 
@@ -212,9 +203,7 @@ export const Feature: React.FC = () => {
               <td>情報共有(SNS連絡先など)</td>
 
               <td>
-                <CloseIcon
-                  className={`${styles.feature_icon} ${styles.feature_icon_disable}`}
-                />
+                <CloseIcon className={`${styles.feature_icon} ${styles.feature_icon_disable}`} />
               </td>
               <td>
                 <RadioButtonUncheckedIcon
@@ -227,15 +216,13 @@ export const Feature: React.FC = () => {
               <td>グループアカウント</td>
 
               <td>
-                <CloseIcon
-                  className={`${styles.feature_icon} ${styles.feature_icon_disable}`}
-                />
+                <CloseIcon className={`${styles.feature_icon} ${styles.feature_icon_disable}`} />
               </td>
               <td>
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
-                <span className={styles.feature_icon_desc}>※7</span>
+                <span className={styles.feature_icon_desc}>※6</span>
               </td>
             </tr>
           </tbody>
@@ -253,27 +240,16 @@ export const Feature: React.FC = () => {
           ※3&nbsp;ご自身の案件・人材情報は外部へ出力することが可能です。
         </span>
         <br />
+        <span className={styles.feature_announce}>※4&nbsp;投稿の閲覧数のみ表示されます。</span>
+        <br />
+        <span className={styles.feature_announce}>※5&nbsp;別途オプションの加入が必要です。</span>
+        <br />
         <span className={styles.feature_announce}>
-          ※4&nbsp;投稿の閲覧数のみ表示されます。
+          ※6&nbsp;複数のアカウントを登録・管理するには法人契約へのお申し込みが必要です。
         </span>
         <br />
         <span className={styles.feature_announce}>
-          ※5&nbsp;別途オプションの加入が必要です。
-          <span className={styles.feature_announce_desc}>
-            グループアカウントなら、こちらのオプションは標準でご利用いただけます！
-          </span>
-        </span>
-        <br />
-        <span className={styles.feature_announce}>
-          ※6&nbsp;別途オプションの加入が必要です。
-        </span>
-        <br />
-        <span className={styles.feature_announce}>
-          ※7&nbsp;複数のアカウントを登録・管理するには法人契約へのお申し込みが必要です。
-        </span>
-        <br />
-        <span className={styles.feature_announce}>
-          ※8&nbsp;人材マッチング機能による他社案件/要員の詳細閲覧や問い合わせサービスは別途有料プランの加入が必要です。詳細はお問い合わせ下さい。
+          ※7&nbsp;人材マッチング機能による他社案件/要員の詳細閲覧や問い合わせサービスは別途有料プランの加入が必要です。詳細はお問い合わせ下さい。
         </span>
         <br />
         <span className={styles.feature_announce}>

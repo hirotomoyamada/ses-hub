@@ -12,6 +12,11 @@ $width: responsive-width(pc);
   flex-direction: column;
   gap: 48px;
 
+  @media (max-width: responsive-width(sp)) {
+    gap: 16px;
+    padding: 16px;
+  }
+
   &_inner {
     position: relative;
 
@@ -30,14 +35,51 @@ $width: responsive-width(pc);
     }
 
     @media (max-width: responsive-width(sp)) {
-      border-radius: 0;
+      //   border-radius: 0;
       padding: 16px;
     }
   }
 
-  &_freelanceDirect {
-    margin-bottom: 24px;
+  &_ai {
+    background: $acnt_clr;
+    background-size: cover;
 
+    &_bg {
+      top: -160px;
+      right: 8px;
+      width: 640px;
+      position: absolute;
+
+      @media (max-width: responsive-width(tb)) {
+        width: 720px;
+        top: -140px;
+        right: 50%;
+        transform: translateX(50%);
+      }
+
+      @media (max-width: responsive-width(sp)) {
+        width: 420px;
+        top: -72px;
+      }
+    }
+
+    &:after {
+      content: '';
+      display: block;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      background: $acnt_clr;
+
+      width: 100%;
+      height: 100%;
+      opacity: 0.6;
+    }
+  }
+
+  &_freelanceDirect {
     background: $add_clr;
     background-size: cover;
 
@@ -58,8 +100,6 @@ $width: responsive-width(pc);
   }
 
   &_analytics {
-    margin-bottom: 24px;
-
     background: $acnt_sub_clr;
     background-size: cover;
 
@@ -148,8 +188,6 @@ $width: responsive-width(pc);
   }
 
   &_ttl {
-    margin-bottom: 8px;
-
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -258,6 +296,10 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(sp)) {
       padding: 8px 12px;
       font-size: 14px;
+    }
+
+    &_ai {
+      color: $acnt_clr;
     }
 
     &_analytics {

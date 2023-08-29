@@ -1,5 +1,5 @@
-@import "styles/config";
-@import "styles/function";
+@import 'styles/config';
+@import 'styles/function';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -80,14 +80,13 @@ $width: responsive-width(pc);
     display: block;
 
     font-size: 24px;
-    color: $remove_clr;
 
     @media (max-width: responsive-width(sp)) {
       font-size: 20px;
     }
 
     &:after {
-      content: "(税込)/月〜";
+      content: '(税込)/月〜';
       font-size: 16px;
 
       @media (max-width: responsive-width(sp)) {
@@ -97,7 +96,7 @@ $width: responsive-width(pc);
 
     &_corporate {
       &:after {
-        content: "(税込)/3ヶ月〜";
+        content: '(税込)/3ヶ月〜';
       }
     }
   }

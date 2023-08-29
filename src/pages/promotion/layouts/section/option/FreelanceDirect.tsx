@@ -14,7 +14,7 @@ export const FreelanceDirect: React.FC = () => {
         }}>
         <div className={styles.option_container}>
           <div className={styles.option_ttl}>
-            <span className={styles.option_ttl_pop}>オプション</span>
+            <span className={styles.option_ttl_pop}>有料オプション</span>
             <h1 className={`${styles.option_ttl_visual} ${root.article_ttl}`}>
               フリーランスダイレクトと連携！
             </h1>
@@ -39,20 +39,12 @@ export const FreelanceDirect: React.FC = () => {
           <a
             href={`${process.env.REACT_APP_FREELANCE_DIRECT}/option`}
             className={styles.option_btn}
-            target="_blank"
-            rel="noreferrer noopener">
+            target='_blank'
+            rel='noreferrer noopener'>
             詳しく見る
           </a>
         </div>
       </div>
-
-      <span className={styles.option_announce}>
-        ※ オプションのみではSES_HUBをご利用いただけません。
-      </span>
-      <br />
-      <span className={styles.option_announce}>
-        ※ 有料プランと合わせてご利用ください。
-      </span>
     </div>
   );
 };

@@ -277,7 +277,10 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
               }`}
               {...aiMethods.register('content', {
                 required: `${index === 'matters' ? '案件' : '人材'}情報を入力してください`,
-              })}></textarea>
+              })}
+              placeholder={`${
+                index === 'matters' ? '案件' : '人材'
+              }情報をコピー&ペーストしてください`}></textarea>
 
             {aiMethods.formState.errors.content?.message ? (
               <span className={styles.main_error}>

@@ -49,7 +49,13 @@ export const Main = forwardRef<HTMLDivElement, PropType>(({ index, edit, handleC
         <div ref={ref} className={styles.main}>
           {user.payment?.status === 'canceled' && !edit ? (
             <Link to={'/plan'} className={styles.main_banner} onClick={handleClose}>
-              バナー(仮)
+              <span>AIで{index === 'matters' ? '案件' : '人材'}を自動登録できるって、ホント？</span>
+
+              <img
+                src={`${process.env.PUBLIC_URL}/img/app/ai.svg`}
+                alt=''
+                className={styles.main_banner_bg}
+              />
             </Link>
           ) : null}
 

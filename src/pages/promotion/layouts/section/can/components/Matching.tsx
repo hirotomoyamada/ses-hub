@@ -1,33 +1,31 @@
-import React from "react";
-import styles from "../Can.module.scss";
+import React from 'react';
+import styles from '../Can.module.scss';
 
 export const Matching: React.FC = () => {
   return (
     <div className={styles.can_container}>
       <div className={styles.can_cnt}>
-        <h2 className={styles.can_cnt_ttl}>コミュニケーションの新しいかたち</h2>
+        <h2 className={styles.can_cnt_ttl}>AIでSES営業の効率をとにかく上げる</h2>
 
         <p className={styles.can_cnt_desc}>
-          最大の特徴は
-          <span>コミュニティーで培ってきたコミュニケーションデザイン。</span>
+          NLP（自然言語処理）で情報を自動入力し、
+          <br />
+          あなたのリソースを極限までカットします。
           <br />
           <br />
-          1:1の商談機会をn:n:n:に。
-          <br />
-          その波及性がメンバー間の関係性と理解を広く深くしていきます。
+          業界初のエンジニア目線でのフォーマット化も実現。
           <br />
           <br />
-          これからのSES営業はパートナーシップとタイミングが大切。
+          必要な営業項目が備わっており、データベースとしても使えるので、
           <br />
-          日常的なメンバー同士の雑談が
-          <span>自然な商談の機会を生み出しています。</span>
+          だれでも再現度の高い営業活動ができます。
         </p>
       </div>
 
-      <figure className={`${styles.can_visual} ${styles.can_matching}`}>
+      <figure className={`${styles.can_visual}`}>
         <img
-          src={`${process.env.PUBLIC_URL}/img/promotion/can_matching.svg`}
-          alt=""
+          src={`${process.env.PUBLIC_URL}/img/promotion/ai.svg`}
+          alt=''
           className={styles.can_visual_img}
         />
       </figure>

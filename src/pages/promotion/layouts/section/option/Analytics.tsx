@@ -1,21 +1,18 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import root from "../Section.module.scss";
-import styles from "./Option.module.scss";
-import * as rootSlice from "features/root/rootSlice";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import root from '../Section.module.scss';
+import styles from './Option.module.scss';
+import * as rootSlice from 'features/root/rootSlice';
 
 export const Analytics: React.FC = () => {
-  const tax = 1.1;
   const dispatch = useDispatch();
 
   return (
     <div>
-      <div
-        className={`${styles.option_inner} ${styles.option_analytics} ${root.article_inner}`}
-      >
+      <div className={`${styles.option_inner} ${styles.option_analytics} ${root.article_inner}`}>
         <div className={styles.option_container}>
           <div className={styles.option_ttl}>
-            <span className={styles.option_ttl_pop}>オプション</span>
+            <span className={styles.option_ttl_pop}>標準機能</span>
             <h1 className={`${styles.option_ttl_visual} ${root.article_ttl}`}>
               アナリティクス <span>データ解析で差をつける！</span>
             </h1>
@@ -29,50 +26,33 @@ export const Analytics: React.FC = () => {
         </div>
 
         <div className={styles.option_container}>
-          <div className={styles.option_wrap}>
-            <span className={styles.option_type}>1ヶ月</span>
-
-            <span className={styles.option_price}>
-              {Math.round(1500 * tax).toLocaleString()}円
-            </span>
-          </div>
-
           <button
-            type="button"
+            type='button'
             className={`${styles.option_btn} ${styles.option_btn_analytics}`}
             onClick={() =>
               dispatch(
                 rootSlice.handleModal({
-                  type: "analytics",
-                  meta: { type: "demo" },
-                })
+                  type: 'analytics',
+                  meta: { type: 'demo' },
+                }),
               )
-            }
-          >
+            }>
             デモを見る
           </button>
         </div>
 
         <img
           src={`${process.env.PUBLIC_URL}/img/app/analytics.svg`}
-          alt=""
+          alt=''
           className={styles.option_analytics_bg}
         />
 
         <img
           src={`${process.env.PUBLIC_URL}/img/app/barchart.svg`}
-          alt=""
+          alt=''
           className={styles.option_analytics_bar}
         />
       </div>
-
-      <span className={styles.option_announce}>
-        ※ オプションのみではSES_HUBをご利用いただけません。
-      </span>
-      <br />
-      <span className={styles.option_announce}>
-        ※ 有料プランと合わせてご利用ください。
-      </span>
     </div>
   );
 };

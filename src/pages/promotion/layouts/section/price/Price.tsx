@@ -35,7 +35,7 @@ export const Price: React.FC = () => {
     <section className={`${styles.price} ${root.section}`}>
       <div className={`${root.section_inner} ${root.section_inner_content}`}>
         <span className={styles.price_campaign}>
-          \&nbsp;リリースキャンペーン中&nbsp;/
+          \&nbsp;最先端技術のAIツールが使えてこの価格&nbsp;/
         </span>
         <h1 className={`${styles.price_ttl} ${root.section_ttl}`}>料金</h1>
 
@@ -57,8 +57,7 @@ export const Price: React.FC = () => {
         {index === 'corporate' && (
           <>
             <span className={styles.price_announce}>
-              ※
-              グループアカウントは、すべて3ヶ月単位の利用料金になっております。
+              ※ グループアカウントは、すべて3ヶ月単位の利用料金になっております。
             </span>
             <br />
           </>
@@ -68,8 +67,7 @@ export const Price: React.FC = () => {
         </span>
         <br />
         <span className={styles.price_announce}>
-          ※
-          人材マッチング機能による他社案件/要員の詳細閲覧や問い合わせサービスは
+          ※ 人材マッチング機能による他社案件/要員の詳細閲覧や問い合わせサービスは
           別途有料プランの加入が必要です。詳細はお問い合わせ下さい。
         </span>
       </div>
