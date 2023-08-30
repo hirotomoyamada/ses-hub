@@ -18,7 +18,7 @@ import { OwnDispatch } from '@reduxjs/toolkit';
 const completePost: HttpsCallable<
   { index: 'matters' | 'resources'; content: string },
   { posts: Matter[] | Resource[] }
-> = httpsCallable(firebase.functions, 'sh-completePost');
+> = httpsCallable(firebase.functions, 'sh-completePost', { timeout: 300 * 1000 });
 
 interface PropType {
   index: 'matters' | 'resources' | 'companys' | 'persons';
