@@ -1,6 +1,6 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
+@import 'styles/config';
+@import 'styles/function';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -24,9 +24,33 @@ $width: responsive-width(pc);
   }
 
   &_logo {
-    width: 40px;
-    height: 40px;
-    fill: $base_clr;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    svg {
+      fill: $base_clr;
+    }
+
+    svg:first-child {
+      min-width: 40px;
+      min-height: 40px;
+    }
+
+    svg:last-child {
+      min-width: 96px;
+    }
+
+    span {
+      font-size: 14px;
+      white-space: nowrap;
+    }
 
     transition: all 0.4s;
 
@@ -35,12 +59,20 @@ $width: responsive-width(pc);
     }
 
     @media (max-width: responsive-width(sp)) {
-      width: 34px;
-      height: 34px;
+      svg {
+        min-width: 34px;
+        min-height: 34px;
+      }
     }
 
     &_change {
-      fill: $promo_clr;
+      svg {
+        fill: $promo_clr;
+      }
+
+      span {
+        color: $promo_clr;
+      }
     }
   }
 

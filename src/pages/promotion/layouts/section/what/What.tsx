@@ -19,17 +19,16 @@ export const What: React.FC = () => {
               <span>のスマート化をおこなうことができます。</span>
               <br />
               <br />
-              トークルーム内ではお互いに案件がない時期でも
-              <span>デイリーにコミュニケーションを維持できます。</span>
+              データベース内ではお互いが保有する営業情報をリアルタイムで可視化できます。
               <br />
-              そのため自然なシナジーとリピートが<span>生まれてきます。</span>
+              そのため自然とロス軽減と効率の改善が可能になります。
             </p>
           </div>
 
           <div className={styles.what_container_visual}>
             <img
               src={`${process.env.PUBLIC_URL}/img/promotion/what.svg`}
-              alt=""
+              alt=''
               className={styles.what_container_visual_img}
             />
           </div>
