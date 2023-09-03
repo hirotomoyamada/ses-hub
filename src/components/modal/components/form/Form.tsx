@@ -14,6 +14,7 @@ import { User } from 'types/user';
 import { Oval } from 'react-loader-spinner';
 import { AIHeader } from './components/header/AIHeader';
 import { OwnDispatch } from '@reduxjs/toolkit';
+// import { completePost } from './chatgpt';
 
 const completePost: HttpsCallable<
   { index: 'matters' | 'resources'; content: string },
@@ -27,6 +28,131 @@ interface PropType {
   handleClose: () => void;
   edit?: boolean;
 }
+
+const placeholder = {
+  matters: `【案件名】SES_HUBの保守・運用
+【業界】WEBサービス
+【ポジション】フロントエンドエンジニア
+【業務詳細】
+  サービスの保守・運用を行い、新規機能の開発を担当。
+【勤務地】荒川区西日暮里
+【リモート】あり
+【開始時期】2023年9月〜
+【就業時間】9:00~18:00
+【環境】
+  - 言語・フレームワーク
+    - TypeScript
+    - JavaScript
+    - React
+    - Next.js
+  - ツール
+    - Firebase
+    - Docker
+    - Slack
+【必須】
+  - TypeScriptの実務業務3年以上
+  - Reactを用いてWEBアプリケーションを開発したことがある
+【歓迎】
+  - FirebaseやGCPを用いてWEBアプリケーションを運用したことがある
+  - Stripeを用いて決算システムを構築したことがある
+【面談】オンライン上 1回
+【単価】100万円〜120万円
+【精算】140h〜180h
+【商流】エンド→弊社
+【支払いサイト】30日
+【稟議速度】当日中
+-------------------------
+【案件名】Freelance Directのデザイン・機能改修
+【業界】WEBサービス
+【ポジション】フロントエンドエンジニア
+【業務詳細】
+  サービスのデザイン・機能の改修を行い、リリース後保守も担当。
+【勤務地】荒川区西日暮里
+【リモート】あり
+【開始時期】2023年10月〜
+【就業時間】9:00~18:00
+【環境】
+  - 言語・フレームワーク
+    - TypeScript
+    - JavaScript
+    - React
+    - Next.js
+  - ツール
+    - Firebase
+    - Docker
+    - Slack
+【必須】
+  - TypeScriptの実務業務3年以上
+  - Reactを用いてWEBアプリケーションを開発したことがある
+【歓迎】
+  - FirebaseやGCPを用いてWEBアプリケーションを運用したことがある
+【面談】オンライン上 1回
+【単価】100万円〜120万円
+【精算】140h〜180h
+【商流】エンド→弊社
+【支払いサイト】30日
+【稟議速度】当日中
+`,
+  resources: `【氏名】H.Y
+【ポジション】リードエンジニア
+【性別】男性
+【年齢】30歳
+【PR文】
+  多数のWEBアプリケーションの設計・開発・運用まで経験しており、iOSやAndroidアプリケーションも経験しております。プロジェクトでバックエンド開発やサーバー構築も参加することが多く得意です。UIデザイナーの一面もあり、アプリケーションのデザインまで幅広く担当しています。また、オープンソースのChakra UIやMantine UIの開発に参加し、日本発のReact UIコンポーネントライブラリのYamada UIの開発をリーダーとして行なっています。
+【所属】直個人事業主
+【最寄駅】新宿駅
+【稼働可能時期】2023年9月〜
+【単価】140万円〜160万円
+【環境】
+  - 言語・フレームワーク
+    - TypeScript
+    - PHP
+    - Python
+    - Go
+    - SQL
+    - React
+    - Laravel
+    - Flutter
+  - ツール
+    - Docker
+    - AWS
+    - Firebase
+    - Google Cloud Platform
+    - Figma
+    - Photoshop
+    - Illustrator
+    - Adobe XD
+【スキル】
+  - ReactとTypeScriptを用いてWEBアプリケーションと開発・保守を3年以上経験。
+  - API設計からPHPやPythonを用いてAPIを開発・保守を3年以上経験。
+  - リード経験あり、とくにフロント側の技術選定が得意。
+  - アプリケーションの要件定義から設計までのデザインを多数経験。
+【並行】あり
+-------------------------
+【氏名】Y.I
+【ポジション】UI・UXデザイナー
+【性別】女性
+【年齢】22歳
+【PR文】
+  多数のWEBアプリケーションのデザインを担当し、品質担保・アクセシビリティを得意としています。
+【所属】直個人事業主
+【最寄駅】中野駅
+【稼働可能時期】2023年10月〜
+【単価】100万円〜120万円
+【環境】
+  - 言語・フレームワーク
+    - HTML
+    - JavaScript
+  - ツール
+    - Figma
+    - Photoshop
+    - Illustrator
+    - Adobe XD
+【スキル】
+  - アプリケーションの要件定義から設計までのデザインを多数経験。
+【並行】あり
+`,
+};
 
 export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, edit }) => {
   const dispatch = useDispatch();
@@ -278,9 +404,9 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
               {...aiMethods.register('content', {
                 required: `${index === 'matters' ? '案件' : '人材'}情報を入力してください`,
               })}
-              placeholder={`${
-                index === 'matters' ? '案件' : '人材'
-              }情報をコピー&ペーストしてください`}></textarea>
+              placeholder={
+                index === 'matters' ? placeholder.matters : placeholder.resources
+              }></textarea>
 
             {aiMethods.formState.errors.content?.message ? (
               <span className={styles.main_error}>
