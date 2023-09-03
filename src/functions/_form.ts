@@ -87,7 +87,9 @@ const positions = [
   'データサイエンティスト',
   'PdM',
   'PM/PL',
+  'PM',
   'PMO',
+  'PMOサポート',
   'VPoE',
   'CRE',
   'SRE',
@@ -99,6 +101,7 @@ const positions = [
   'Webディレクター',
   'Webプランナー',
   'Webデザイナー',
+  'Webコーダー',
   'UI・UXデザイナー',
   'グラフィックデザイナー',
   '3Dデザイナー',
@@ -109,6 +112,11 @@ const positions = [
   'ゲームプランナー',
   'ゲームデザイナー',
   'サポート',
+  'キッティング',
+  'ヘルプデスク',
+  'IT事務',
+  '若手枠',
+  '未経験可',
   'その他',
 ];
 
@@ -204,15 +212,13 @@ export const defaultValues = (
       return {
         display: edit ? (post.display as 'public' | 'private') : 'public',
         status: edit ? post.status : '新規',
-        position:
-          edit && positions.includes(post.position) ? post.position : undefined,
+        position: edit && positions.includes(post.position) ? post.position : undefined,
         body: edit ? post.body : undefined,
         period: edit ? post.period : { year: undefined, month: undefined },
         costs: {
           min: edit && post.costs.min ? post.costs.min : undefined,
           max: edit && post.costs.max ? post.costs.max : undefined,
-          contract:
-            edit && post.costs.contract ? post.costs.contract : undefined,
+          contract: edit && post.costs.contract ? post.costs.contract : undefined,
           display: edit ? post.costs.display : 'public',
           type: edit ? post.costs.type : 'スキル見合',
         },
@@ -221,11 +227,7 @@ export const defaultValues = (
             ? post.handles.map((value) => ({
                 handle: value,
               }))
-            : [
-                { handle: undefined },
-                { handle: undefined },
-                { handle: undefined },
-              ],
+            : [{ handle: undefined }, { handle: undefined }, { handle: undefined }],
         tools:
           edit && post.tools?.[0]
             ? post.tools.map((value) => ({
@@ -238,29 +240,19 @@ export const defaultValues = (
         // matters
         industry: edit ? (post as Matter).industry : undefined,
         title: edit ? (post as Matter).title : undefined,
-        location: edit
-          ? (post as Matter).location
-          : { area: undefined, place: undefined },
+        location: edit ? (post as Matter).location : { area: undefined, place: undefined },
         requires:
           edit && (post as Matter).requires?.[0]
             ? (post as Matter).requires.map((value) => ({
                 require: value,
               }))
-            : [
-                { require: undefined },
-                { require: undefined },
-                { require: undefined },
-              ],
+            : [{ require: undefined }, { require: undefined }, { require: undefined }],
         prefers:
           edit && (post as Matter).prefers?.[0]
             ? (post as Matter).prefers.map((value) => ({
                 prefer: value,
               }))
-            : [
-                { prefer: undefined },
-                { prefer: undefined },
-                { prefer: undefined },
-              ],
+            : [{ prefer: undefined }, { prefer: undefined }, { prefer: undefined }],
         adjustment: edit ? (post as Matter).adjustment : '140h 〜 180h',
         interviews: edit
           ? (post as Matter).interviews
@@ -269,25 +261,19 @@ export const defaultValues = (
         remote: edit ? (post as Matter).remote : 'あり',
         distribution: edit ? (post as Matter).distribution : 'プライム',
         span: edit ? (post as Matter).span : '30',
-        approval: edit
-          ? (post as Matter).approval
-            ? (post as Matter).approval
-            : '不明'
-          : '不明',
+        approval: edit ? ((post as Matter).approval ? (post as Matter).approval : '不明') : '不明',
       };
     case 'resources':
       return {
         display: edit ? (post.display as 'public' | 'private') : 'public',
         status: edit ? post.status : '新規',
-        position:
-          edit && positions.includes(post.position) ? post.position : undefined,
+        position: edit && positions.includes(post.position) ? post.position : undefined,
         body: edit ? post.body : undefined,
         period: edit ? post.period : { year: undefined, month: undefined },
         costs: {
           min: edit && post.costs.min ? post.costs.min : undefined,
           max: edit && post.costs.max ? post.costs.max : undefined,
-          contract:
-            edit && post.costs.contract ? post.costs.contract : undefined,
+          contract: edit && post.costs.contract ? post.costs.contract : undefined,
           display: edit ? post.costs.display : 'public',
           type: edit ? post.costs.type : '応談',
         },
@@ -296,11 +282,7 @@ export const defaultValues = (
             ? post.handles.map((value) => ({
                 handle: value,
               }))
-            : [
-                { handle: undefined },
-                { handle: undefined },
-                { handle: undefined },
-              ],
+            : [{ handle: undefined }, { handle: undefined }, { handle: undefined }],
         tools:
           edit && post.tools?.[0]
             ? post.tools.map((value) => ({
@@ -310,9 +292,7 @@ export const defaultValues = (
         note: edit ? post.note : undefined,
         memo: edit ? post.memo : undefined,
 
-        roman: edit
-          ? (post as Resource).roman
-          : { firstName: undefined, lastName: undefined },
+        roman: edit ? (post as Resource).roman : { firstName: undefined, lastName: undefined },
         sex: edit ? (post as Resource).sex : '男性',
         age: edit ? (post as Resource).age : 18,
         belong: edit ? (post as Resource).belong : undefined,
@@ -322,11 +302,7 @@ export const defaultValues = (
             ? (post as Resource).skills.map((value) => ({
                 skill: value,
               }))
-            : [
-                { skill: undefined },
-                { skill: undefined },
-                { skill: undefined },
-              ],
+            : [{ skill: undefined }, { skill: undefined }, { skill: undefined }],
         parallel: edit ? (post as Resource).parallel : 'なし',
       };
   }
@@ -390,16 +366,10 @@ export const matters = (
     },
     adjustment: data.adjustment,
     times: data.times,
-    handles: data.handles
-      .filter((array) => array.handle)
-      .map((array) => array.handle),
+    handles: data.handles.filter((array) => array.handle).map((array) => array.handle),
     tools: data.tools.filter((array) => array.tool).map((array) => array.tool),
-    requires: data.requires
-      .filter((array) => array.require)
-      .map((array) => array.require),
-    prefers: data.prefers
-      .filter((array) => array.prefer)
-      .map((array) => array.prefer),
+    requires: data.requires.filter((array) => array.require).map((array) => array.require),
+    prefers: data.prefers.filter((array) => array.prefer).map((array) => array.prefer),
     interviews: data.interviews,
     remote: data.remote,
     distribution: data.distribution,
@@ -464,13 +434,9 @@ export const resources = (
       type: data.costs.type,
     },
     position: data.position,
-    handles: data.handles
-      .filter((array) => array.handle)
-      .map((array) => array.handle),
+    handles: data.handles.filter((array) => array.handle).map((array) => array.handle),
     tools: data.tools.filter((array) => array.tool).map((array) => array.tool),
-    skills: data.skills
-      .filter((array) => array.skill)
-      .map((array) => array.skill),
+    skills: data.skills.filter((array) => array.skill).map((array) => array.skill),
     parallel: data.parallel,
     note: data.note,
     status: data.status,
