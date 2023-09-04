@@ -92,6 +92,7 @@ const options = [
   { label: 'TrendMicro', value: 'TrendMicro' },
   { label: 'Android Studio', value: 'Android Studio' },
   { label: 'Eclips', value: 'Eclips' },
+  { label: 'その他', value: 'その他' },
 ];
 
 export const Tools: React.FC<PropType> = ({ index }) => {

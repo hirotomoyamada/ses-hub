@@ -100,6 +100,7 @@ const options = [
   { label: 'BAT', value: 'BAT' },
   { label: 'VBS', value: 'VBS' },
   { label: 'MATLAB', value: 'MATLAB' },
+  { label: 'その他', value: 'その他' },
 ];
 
 export const Handles: React.FC<PropType> = ({ index }) => {
