@@ -397,6 +397,9 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
 
         <div className={styles.main}>
           <div className={styles.main_col}>
+            <p className={styles.main_tag}>
+              {index === 'matters' ? '案件' : '人材'}情報をコピー&ペーストしてください
+            </p>
             <textarea
               className={`${styles.main_textarea} ${
                 aiMethods.formState.errors.content && styles.main_textarea_error
@@ -416,6 +419,10 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
 
             <span className={styles.main_desc}>
               &nbsp;※&nbsp;区切り線は、5文字以上の同一文字で入力してください。区切り線が正しくない場合、情報が正しく読み込まれない可能性があります。
+              <br />
+              &nbsp;※&nbsp;人工知能は、発展途上の技術です。情報によっては、正しく文章の認識・生成が出来ない場合があります。
+              <br />
+              &nbsp;※&nbsp;生成された内容をご確認の上、不足情報は備考などに記載を行いご登録ください。
             </span>
           </div>
         </div>

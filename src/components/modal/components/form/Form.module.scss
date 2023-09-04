@@ -135,6 +135,18 @@ $width: responsive-width(pc);
     flex-direction: column;
   }
 
+  &_tag {
+    display: block;
+
+    font-size: 16px;
+    color: $icn_clr;
+    white-space: nowrap;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 12px;
+    }
+  }
+
   &_desc {
     color: $sub_clr;
     font-size: 12px;
@@ -170,6 +182,11 @@ $width: responsive-width(pc);
 
     &_error {
       border: 1px solid $remove_clr;
+    }
+
+    &::placeholder {
+      color: $sub_clr;
+      opacity: 0.6;
     }
   }
 }
