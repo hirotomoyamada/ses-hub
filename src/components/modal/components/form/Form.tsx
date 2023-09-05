@@ -21,13 +21,113 @@ const completePost: HttpsCallable<
   { posts: Matter[] | Resource[] }
 > = httpsCallable(firebase.functions, 'sh-completePost', { timeout: 300 * 1000 });
 
+const wait = (ms: number) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+
 interface PropType {
   index: 'matters' | 'resources' | 'companys' | 'persons';
   user: User;
   post: Matter | Resource;
+  type?: string;
   handleClose: () => void;
   edit?: boolean;
 }
+
+const demoPosts = [
+  {
+    display: 'public',
+    status: '新規',
+    title: 'SES_HUBの保守・運用',
+    industry: 'WEBサービス',
+    position: 'フロントエンドエンジニア',
+    body: 'サービスの保守・運用を行い、新規機能の開発を担当。',
+    location: {
+      area: '荒川区',
+      place: '西日暮里',
+    },
+    remote: 'あり',
+    period: {
+      year: 2023,
+      month: 9,
+    },
+    times: {
+      start: '09:00',
+      end: '18:00',
+    },
+    handles: ['TypeScript', 'JavaScript', 'React', 'Next.js'],
+    tools: ['Firebase', 'Docker', 'Slack'],
+    requires: [
+      'TypeScriptの実務業務3年以上',
+      'Reactを用いてWEBアプリケーションを開発したことがある',
+    ],
+    prefers: [
+      'FirebaseやGCPを用いてWEBアプリケーションを運用したことがある',
+      'Stripeを用いて決算システムを構築したことがある',
+    ],
+    interviews: {
+      type: 'オンライン',
+      count: '1回',
+      setting: '不明',
+    },
+    costs: {
+      min: 100,
+      max: 120,
+      display: 'public',
+      type: 'スキル見合',
+    },
+    adjustment: '140h 〜 180h',
+    distribution: 'プライム',
+    span: '30',
+    approval: '当日中',
+    note: '',
+  },
+  {
+    display: 'public',
+    status: '新規',
+    title: 'Freelance Directのデザイン・機能改修',
+    industry: 'WEBサービス',
+    position: 'フロントエンドエンジニア',
+    body: 'サービスのデザイン・機能の改修を行い、リリース後保守も担当。',
+    location: {
+      area: '荒川区',
+      place: '西日暮里',
+    },
+    remote: 'あり',
+    period: {
+      year: 2023,
+      month: 10,
+    },
+    times: {
+      start: '09:00',
+      end: '18:00',
+    },
+    handles: ['TypeScript', 'JavaScript', 'React', 'Next.js'],
+    tools: ['Firebase', 'Docker', 'Slack'],
+    requires: [
+      'TypeScriptの実務業務3年以上',
+      'Reactを用いてWEBアプリケーションを開発したことがある',
+    ],
+    prefers: ['FirebaseやGCPを用いてWEBアプリケーションを運用したことがある'],
+    interviews: {
+      type: 'オンライン',
+      count: '1回',
+      setting: '不明',
+    },
+    costs: {
+      min: 100,
+      max: 120,
+      display: 'public',
+      type: 'スキル見合',
+    },
+    adjustment: '140h 〜 180h',
+    distribution: 'プライム',
+    span: '30',
+    approval: '当日中',
+    note: '',
+  },
+] as Matter[];
 
 const placeholder = {
   matters: `【案件名】SES_HUBの保守・運用
@@ -154,18 +254,22 @@ const placeholder = {
 `,
 };
 
-export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, edit }) => {
+export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, edit, type }) => {
+  if (type === 'demo') index = 'matters';
+
   const dispatch = useDispatch();
   const fetch = useSelector(rootSlice.load).fetch;
   const page = useSelector(rootSlice.page);
   const demo = useSelector(rootSlice.verified)?.demo;
-  const [isAI, setIsAI] = useState<boolean>(false);
+  const [isAI, setIsAI] = useState<boolean>(type === 'demo');
   const [posts, setPosts] = useState<any[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const completedPosts = useRef<any[]>([]);
   const mainRef = useRef<HTMLDivElement>(null);
 
-  const aiMethods = useForm({ defaultValues: { content: '' } });
+  const aiMethods = useForm({
+    defaultValues: { content: type === 'demo' ? placeholder.matters : '' },
+  });
   const basicMethods = useForm<functions.form.Data['matter'] & functions.form.Data['resource']>({
     defaultValues: functions.form.defaultValues(index as 'matters' | 'resources', post, edit),
   });
@@ -207,8 +311,19 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
         } else {
           dispatch(rootSlice.handleLoad({ fetch: true }));
 
+          if (type === 'demo') {
+            await wait(1000);
+
+            dispatch(rootSlice.handleLoad());
+            handleClose();
+
+            return;
+          }
+
           await Promise.allSettled(
             completedPosts.current.map(async (post) => {
+              if (index !== 'matters' && index !== 'resources') return;
+
               await (dispatch as OwnDispatch)(createPost({ index, page, post, hasPosts: true }));
             }),
           );
@@ -261,19 +376,31 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
     try {
       dispatch(rootSlice.handleLoad({ fetch: true }));
 
-      const { data } = await completePost({ index, content });
+      let post: Matter | Resource;
+      let posts: Matter[] | Resource[];
 
-      const post = data.posts[currentIndex];
+      if (type === 'demo') {
+        await wait(1000);
+
+        posts = demoPosts;
+      } else {
+        const { data } = await completePost({ index, content });
+
+        posts = data.posts;
+      }
+
+      // eslint-disable-next-line prefer-const
+      post = posts[currentIndex];
 
       if (!post) throw new Error('読み込みに失敗しました');
 
-      aiMethods.reset({ content: '' });
+      aiMethods.reset({ content: type === 'demo' ? placeholder.matters : '' });
 
       const defaultValues = functions.form.defaultValues(index, post, true);
 
       basicMethods.reset(defaultValues);
 
-      setPosts(data.posts);
+      setPosts(posts);
     } catch (e) {
       if (e instanceof Error)
         dispatch(
@@ -392,6 +519,7 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
           isAI={isAI}
           setIsAI={setIsAI}
           fetch={fetch}
+          isDemo={type === 'demo'}
           handleClose={handleClose}
         />
 
@@ -407,9 +535,8 @@ export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, 
               {...aiMethods.register('content', {
                 required: `${index === 'matters' ? '案件' : '人材'}情報を入力してください`,
               })}
-              placeholder={
-                index === 'matters' ? placeholder.matters : placeholder.resources
-              }></textarea>
+              placeholder={index === 'matters' ? placeholder.matters : placeholder.resources}
+              readOnly={type === 'demo'}></textarea>
 
             {aiMethods.formState.errors.content?.message ? (
               <span className={styles.main_error}>

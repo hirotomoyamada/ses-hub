@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import root from '../Section.module.scss';
 import styles from './Option.module.scss';
+import * as rootSlice from 'features/root/rootSlice';
 
 export const AI: React.FC = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,14 @@ export const AI: React.FC = () => {
           <button
             type='button'
             className={`${styles.option_btn} ${styles.option_btn_ai}`}
-            onClick={() => void 0}>
+            onClick={() =>
+              dispatch(
+                rootSlice.handleModal({
+                  type: 'new',
+                  meta: { type: 'demo' },
+                }),
+              )
+            }>
             デモを見る
           </button>
         </div>

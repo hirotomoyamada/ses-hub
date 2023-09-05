@@ -9,10 +9,11 @@ interface PropType {
   edit?: boolean;
   fetch?: boolean;
   isAI: boolean;
+  isDemo: boolean;
   setIsAI: Dispatch<SetStateAction<boolean>>;
 }
 
-export const AIHeader: React.FC<PropType> = ({ fetch, handleClose, isAI, setIsAI }) => {
+export const AIHeader: React.FC<PropType> = ({ fetch, handleClose, isAI, isDemo, setIsAI }) => {
   const { clearErrors } = useFormContext();
 
   return (
@@ -27,13 +28,13 @@ export const AIHeader: React.FC<PropType> = ({ fetch, handleClose, isAI, setIsAI
       <div className={styles.header_wrap}>
         <div
           className={`${styles.header_display} ${styles.header_display_ai} ${
-            fetch && styles.header_display_disabled
+            (fetch || isDemo) && styles.header_display_disabled
           }`}>
           <input
             type='radio'
             id='basic'
             checked={!isAI}
-            disabled={fetch}
+            disabled={fetch || isDemo}
             onChange={() => {
               setIsAI(false);
               clearErrors();
@@ -50,7 +51,7 @@ export const AIHeader: React.FC<PropType> = ({ fetch, handleClose, isAI, setIsAI
             type='radio'
             id='ai'
             checked={isAI}
-            disabled={fetch}
+            disabled={fetch || isDemo}
             onChange={() => setIsAI(true)}
           />
 

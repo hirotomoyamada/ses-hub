@@ -139,7 +139,15 @@ export const Modal: React.FC = () => {
         return <Form index={index} user={user} post={post} handleClose={handleClose} edit />;
 
       case 'new':
-        return <Form index={index} user={user} post={post} handleClose={handleClose} />;
+        return (
+          <Form
+            index={index}
+            user={user}
+            post={post}
+            handleClose={handleClose}
+            type={modal.meta?.type}
+          />
+        );
 
       default:
         return <></>;
