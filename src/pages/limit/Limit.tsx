@@ -33,9 +33,8 @@ export const Limit: React.FC<PropType> = ({ user }) => {
     timeZone: 'Asia/Tokyo',
   });
   const timeZone = 60 * 60 * 9 * 1000;
-  const runningTime = 60 * 60 * 24 * 90 * 1000;
-  const limitedTime =
-    new Date(location).setHours(0, 0, 0, 0) - runningTime - timeZone;
+  const runningTime = 60 * 60 * 24 * 60 * 1000;
+  const limitedTime = new Date(location).setHours(0, 0, 0, 0) - runningTime - timeZone;
 
   const isTimeLimit = user.createAt < limitedTime;
 
@@ -44,13 +43,9 @@ export const Limit: React.FC<PropType> = ({ user }) => {
       <div className={styles.limit_inner} ref={inner}>
         <div className={styles.limit_header}>
           {isTimeLimit ? (
-            <span className={styles.limit_acnt}>
-              無料体験の期間が&nbsp;上限&nbsp;になりました
-            </span>
+            <span className={styles.limit_acnt}>無料体験の期間が&nbsp;上限&nbsp;になりました</span>
           ) : (
-            <span className={styles.limit_acnt}>
-              今月の閲覧回数が&nbsp;上限&nbsp;に達しました
-            </span>
+            <span className={styles.limit_acnt}>今月の閲覧回数が&nbsp;上限&nbsp;に達しました</span>
           )}
 
           <span>
@@ -66,9 +61,7 @@ export const Limit: React.FC<PropType> = ({ user }) => {
 
         <figure className={styles.limit_figure}>
           <span className={styles.limit_desc}>
-            {user?.payment?.trial
-              ? '\\ サブスク登録でいままでより /'
-              : '\\ メンバーたちと一緒に /'}
+            {user?.payment?.trial ? '\\ サブスク登録でいままでより /' : '\\ メンバーたちと一緒に /'}
           </span>
 
           <p className={styles.limit_ttl}>
@@ -79,13 +72,13 @@ export const Limit: React.FC<PropType> = ({ user }) => {
           {isTimeLimit ? (
             <img
               src={`${process.env.PUBLIC_URL}/img/app/limit.svg`}
-              alt=""
+              alt=''
               className={styles.limit_img_time}
             />
           ) : (
             <img
               src={`${process.env.PUBLIC_URL}/img/app/advertise.svg`}
-              alt=""
+              alt=''
               className={styles.limit_img}
             />
           )}
@@ -93,16 +86,13 @@ export const Limit: React.FC<PropType> = ({ user }) => {
 
         <div className={styles.limit_footer}>
           <button
-            type="button"
+            type='button'
             onClick={handleBack}
             className={`${styles.limit_btn} ${styles.limit_btn_back}`}>
             もどる
           </button>
 
-          <button
-            type="button"
-            onClick={handlePlan}
-            className={styles.limit_btn}>
+          <button type='button' onClick={handlePlan} className={styles.limit_btn}>
             プランを見る
           </button>
         </div>
