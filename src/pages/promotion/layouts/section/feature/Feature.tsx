@@ -48,8 +48,7 @@ export const Feature: React.FC = () => {
 
             <tr>
               <td>
-                <span
-                  className={`${styles.feature_tag} ${styles.feature_tag_acnt}`}>
+                <span className={`${styles.feature_tag} ${styles.feature_tag_acnt}`}>
                   \&nbsp;Renewal&nbsp;/
                 </span>
                 情報を検索
@@ -69,8 +68,7 @@ export const Feature: React.FC = () => {
 
             <tr>
               <td>
-                <span
-                  className={`${styles.feature_tag} ${styles.feature_tag_acnt}`}>
+                <span className={`${styles.feature_tag} ${styles.feature_tag_acnt}`}>
                   \&nbsp;Renewal&nbsp;/
                 </span>
                 案件・人材を閲覧
@@ -165,9 +163,7 @@ export const Feature: React.FC = () => {
               </td>
 
               <td>
-                <CloseIcon
-                  className={`${styles.feature_icon} ${styles.feature_icon_disable}`}
-                />
+                <CloseIcon className={`${styles.feature_icon} ${styles.feature_icon_disable}`} />
               </td>
               <td>
                 <RadioButtonUncheckedIcon
@@ -181,9 +177,7 @@ export const Feature: React.FC = () => {
               <td>フォロー</td>
 
               <td>
-                <CloseIcon
-                  className={`${styles.feature_icon} ${styles.feature_icon_disable}`}
-                />
+                <CloseIcon className={`${styles.feature_icon} ${styles.feature_icon_disable}`} />
               </td>
               <td>
                 <RadioButtonUncheckedIcon
@@ -196,9 +190,7 @@ export const Feature: React.FC = () => {
               <td>フリーランスへアプローチ</td>
 
               <td>
-                <CloseIcon
-                  className={`${styles.feature_icon} ${styles.feature_icon_disable}`}
-                />
+                <CloseIcon className={`${styles.feature_icon} ${styles.feature_icon_disable}`} />
               </td>
               <td>
                 <RadioButtonUncheckedIcon
@@ -212,9 +204,7 @@ export const Feature: React.FC = () => {
               <td>情報共有(SNS連絡先など)</td>
 
               <td>
-                <CloseIcon
-                  className={`${styles.feature_icon} ${styles.feature_icon_disable}`}
-                />
+                <CloseIcon className={`${styles.feature_icon} ${styles.feature_icon_disable}`} />
               </td>
               <td>
                 <RadioButtonUncheckedIcon
@@ -227,9 +217,7 @@ export const Feature: React.FC = () => {
               <td>グループアカウント</td>
 
               <td>
-                <CloseIcon
-                  className={`${styles.feature_icon} ${styles.feature_icon_disable}`}
-                />
+                <CloseIcon className={`${styles.feature_icon} ${styles.feature_icon_disable}`} />
               </td>
               <td>
                 <RadioButtonUncheckedIcon
@@ -242,7 +230,7 @@ export const Feature: React.FC = () => {
         </table>
 
         <span className={styles.feature_announce}>
-          ※1&nbsp;無料プランは、月&nbsp;5&nbsp;回まで閲覧可能です。
+          ※1&nbsp;無料プランは、月&nbsp;3&nbsp;回まで閲覧可能です。
         </span>
         <br />
         <span className={styles.feature_announce}>
@@ -253,9 +241,7 @@ export const Feature: React.FC = () => {
           ※3&nbsp;ご自身の案件・人材情報は外部へ出力することが可能です。
         </span>
         <br />
-        <span className={styles.feature_announce}>
-          ※4&nbsp;投稿の閲覧数のみ表示されます。
-        </span>
+        <span className={styles.feature_announce}>※4&nbsp;投稿の閲覧数のみ表示されます。</span>
         <br />
         <span className={styles.feature_announce}>
           ※5&nbsp;別途オプションの加入が必要です。
@@ -264,9 +250,7 @@ export const Feature: React.FC = () => {
           </span>
         </span>
         <br />
-        <span className={styles.feature_announce}>
-          ※6&nbsp;別途オプションの加入が必要です。
-        </span>
+        <span className={styles.feature_announce}>※6&nbsp;別途オプションの加入が必要です。</span>
         <br />
         <span className={styles.feature_announce}>
           ※7&nbsp;複数のアカウントを登録・管理するには法人契約へのお申し込みが必要です。
