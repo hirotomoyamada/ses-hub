@@ -14,7 +14,7 @@ export const AI: React.FC = () => {
           <div className={styles.option_ttl}>
             <span className={styles.option_ttl_pop}>標準機能</span>
             <h1 className={`${styles.option_ttl_visual} ${root.article_ttl}`}>
-              AIで営業情報を自動入力して営業工数を大幅削減！
+              AIで営業情報を自動入力して<span>営業工数を大幅削減！</span>
             </h1>
           </div>
 

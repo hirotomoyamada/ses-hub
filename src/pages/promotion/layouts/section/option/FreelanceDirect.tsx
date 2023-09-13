@@ -16,7 +16,7 @@ export const FreelanceDirect: React.FC = () => {
           <div className={styles.option_ttl}>
             <span className={styles.option_ttl_pop}>有料オプション</span>
             <h1 className={`${styles.option_ttl_visual} ${root.article_ttl}`}>
-              フリーランスダイレクトと連携！
+              フリーランスダイレクト<span>と連携！</span>
             </h1>
           </div>
 

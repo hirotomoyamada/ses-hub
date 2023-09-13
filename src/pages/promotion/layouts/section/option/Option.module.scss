@@ -168,7 +168,7 @@ $width: responsive-width(pc);
     }
 
     @media (max-width: responsive-width(sp)) {
-      width: 224px;
+      width: 100%;
     }
   }
 

@@ -45,11 +45,19 @@ $width: responsive-width(pc);
 
     svg:last-child {
       min-width: 96px;
+
+      @media (max-width: responsive-width(sp)) {
+        display: none;
+      }
     }
 
     span {
       font-size: 14px;
       white-space: nowrap;
+
+      @media (max-width: responsive-width(sp)) {
+        display: none;
+      }
     }
 
     transition: all 0.4s;
