@@ -1,44 +1,17 @@
-import React from "react";
-import styles from "../../HowTo.module.scss";
+import React from 'react';
+import styles from '../../HowTo.module.scss';
 
-import { Tag } from "../tag/Tag";
+import { Tag } from '../tag/Tag';
 
-interface PropType {
-  type: string;
-}
-export const Analytics: React.FC<PropType> = ({ type }) => {
+export const Analytics: React.FC = () => {
   return (
     <div className={styles.howto_main}>
       <h1 className={styles.howto_ttl}>アナリティクス</h1>
 
-      <p className={styles.howto_desc}>
-        数値を可視化し、外部へ出力できるパワフルな機能です
-      </p>
-
-      {type === "individual" && (
-        <div className={styles.howto_container}>
-          <Tag tag="利用する" option />
-
-          <p>
-            <span className={styles.howto_container_tag}>アカウント情報</span>の
-            <span className={styles.howto_container_tag}>プラン</span>
-            から<span className={styles.howto_container_tag}>オプション</span>
-            を契約することで利用できます
-            <br />
-            <br />
-            <span className={styles.howto_container_acnt}>
-              ※&nbsp;オプションを契約するには、プランを契約している必要があります。
-            </span>
-          </p>
-        </div>
-      )}
+      <p className={styles.howto_desc}>数値を可視化し、外部へ出力できるパワフルな機能です</p>
 
       <div className={styles.howto_container}>
-        <Tag
-          tag="した数"
-          paid={type !== "individual"}
-          option={type === "individual"}
-        />
+        <Tag tag='した数' paid />
 
         <p>
           あなたが投稿やユーザーに対して
@@ -50,11 +23,7 @@ export const Analytics: React.FC<PropType> = ({ type }) => {
       </div>
 
       <div className={styles.howto_container}>
-        <Tag
-          tag="された数"
-          paid={type !== "individual"}
-          option={type === "individual"}
-        />
+        <Tag tag='された数' paid />
 
         <p>
           あなたやあなたの投稿に対して
@@ -66,11 +35,7 @@ export const Analytics: React.FC<PropType> = ({ type }) => {
       </div>
 
       <div className={styles.howto_container}>
-        <Tag
-          tag="絞り込む"
-          paid={type !== "individual"}
-          option={type === "individual"}
-        />
+        <Tag tag='絞り込む' paid />
 
         <p>
           <span className={styles.howto_container_tag}>今日</span>
@@ -97,11 +62,7 @@ export const Analytics: React.FC<PropType> = ({ type }) => {
       </div>
 
       <div className={styles.howto_container}>
-        <Tag
-          tag="データを出力する"
-          paid={type !== "individual"}
-          option={type === "individual"}
-        />
+        <Tag tag='データを出力する' paid />
 
         <p>
           あなたがデータで出力したい項目を
@@ -124,11 +85,7 @@ export const Analytics: React.FC<PropType> = ({ type }) => {
       </div>
 
       <div className={styles.howto_container}>
-        <Tag
-          tag="設定"
-          paid={type !== "individual"}
-          option={type === "individual"}
-        />
+        <Tag tag='設定' paid />
 
         <p>
           あなたが好む
@@ -150,7 +107,7 @@ export const Analytics: React.FC<PropType> = ({ type }) => {
       </div>
 
       <div className={styles.howto_container}>
-        <Tag tag="グラフが正しく表示されない" />
+        <Tag tag='グラフが正しく表示されない' />
 
         <p>
           <span className={styles.howto_container_acnt}>

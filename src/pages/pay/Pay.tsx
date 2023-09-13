@@ -55,7 +55,6 @@ export const Pay: React.FC = () => {
             return 'plan';
 
           case 'freelanceDirect':
-          case 'analytics':
             return 'option';
 
           default:
@@ -158,7 +157,7 @@ export const Pay: React.FC = () => {
         </>
       ) : (
         <div className={`${styles.pay_inner} ${styles.pay_inner_load}`}>
-          <Oval color="#49b757" height={56} width={56} />
+          <Oval color='#49b757' height={56} width={56} />
         </div>
       )}
     </div>
