@@ -12,10 +12,9 @@ export interface PriceType {
 export const Price: React.FC = () => {
   const tax = 1.1;
   const individual: PriceType = {
-    month: { n: 1, p: 3500 },
-    monthsThree: { n: 3, p: 3000 },
-    monthsSix: { n: 6, p: 2800 },
-    year: { n: 12, p: 2500 },
+    month: { n: 1, p: 7000 },
+    monthsThree: { n: 3, p: 6000 },
+    monthsSix: { n: 6, p: 5000 },
   };
 
   const corporate: PriceType = {
