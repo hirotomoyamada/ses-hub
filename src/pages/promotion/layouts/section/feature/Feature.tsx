@@ -229,7 +229,7 @@ export const Feature: React.FC = () => {
         </table>
 
         <span className={styles.feature_announce}>
-          ※1&nbsp;無料プランは、月&nbsp;3&nbsp;回まで閲覧可能です。
+          ※1&nbsp;無料プランでは、月間の閲覧回数に上限があります。
         </span>
         <br />
         <span className={styles.feature_announce}>
@@ -237,7 +237,7 @@ export const Feature: React.FC = () => {
         </span>
         <br />
         <span className={styles.feature_announce}>
-          ※3&nbsp;ご自身の案件・人材情報は外部へ出力することが可能です。
+          ※3&nbsp;無料プランでは、ご自身の案件・人材情報のみ外部出力することが可能です。
         </span>
         <br />
         <span className={styles.feature_announce}>※4&nbsp;投稿の閲覧数のみ表示されます。</span>
