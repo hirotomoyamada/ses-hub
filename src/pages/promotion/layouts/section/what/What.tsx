@@ -12,11 +12,16 @@ export const What: React.FC = () => {
         <div className={styles.what_container}>
           <div className={styles.what_container_main}>
             <p className={styles.what_container_main_txt}>
-              SES業務に特化した<span>SaaS型の営業支援ツールです。</span>
+              SES業務に特化した<span>SaaS型の営業支援ツールです</span>
               <br />
-              星の数ほど存在するSES営業同士のダイレクトマッチング
               <br />
-              AI（NLP）でセールスプロセスのスマート化を<span>おこなうことができます。</span>
+              星の数ほど存在するSES営業同士のダイレクトマッチング、AI（NLP）でセールスプロセス
+              <span>のスマート化をおこなうことができます。</span>
+              <br />
+              <br />
+              データベース内ではお互いが保有する営業情報をリアルタイムで可視化できます。
+              <br />
+              そのため自然とロス軽減と効率の改善が可能になります。
             </p>
           </div>
 
