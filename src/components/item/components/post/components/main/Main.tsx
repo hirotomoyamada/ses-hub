@@ -1,20 +1,21 @@
-import styles from "./Main.module.scss";
+import styles from './Main.module.scss';
 
-import { Location, Station } from "./components/Location";
-import { Costs } from "./components/Costs";
-import { Remote, Belong } from "./components/Remote";
-import { Times, Period } from "./components/Times";
-import { Body } from "./components/Body";
-import { Adjustment } from "./components/Adjustment";
+import { Location, Station } from './components/Location';
+import { Costs } from './components/Costs';
+import { Remote, Belong } from './components/Remote';
+import { Times, Period } from './components/Times';
+import { Body } from './components/Body';
+import { Adjustment } from './components/Adjustment';
 
-import { Matter, Resource } from "types/post";
+import { Matter, Resource } from 'types/post';
 
 interface PropType {
   post: Matter | Resource;
   resources?: boolean;
+  viewed?: boolean;
 }
-        
-export const Main: React.FC<PropType> = ({ post, resources }) => {
+
+export const Main: React.FC<PropType> = ({ post, viewed, resources }) => {
   return !resources ? (
     <div className={styles.main}>
       <div className={styles.main_side}>
@@ -25,7 +26,7 @@ export const Main: React.FC<PropType> = ({ post, resources }) => {
         <Adjustment post={post as Matter} />
       </div>
 
-      <Body post={post} />
+      <Body post={post} viewed={viewed} />
     </div>
   ) : (
     <div className={styles.main}>
@@ -36,7 +37,7 @@ export const Main: React.FC<PropType> = ({ post, resources }) => {
         <Costs post={post} />
       </div>
 
-      <Body post={post} />
+      <Body post={post} viewed={viewed} />
     </div>
   );
 };

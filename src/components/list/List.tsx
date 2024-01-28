@@ -1,19 +1,19 @@
-import React from "react";
-import styles from "./List.module.scss";
+import React from 'react';
+import styles from './List.module.scss';
 
-import { useScrollFetch } from "hooks/useScrollFetch";
+import { useScrollFetch } from 'hooks/useScrollFetch';
 
-import { Posts } from "./components/posts/Posts";
-import { NotFound } from "./components/notFound/NotFound";
-import { Load } from "./components/load/Load";
+import { Posts } from './components/posts/Posts';
+import { NotFound } from './components/notFound/NotFound';
+import { Load } from './components/load/Load';
 
-import { Matter, Resource, Company, Person } from "types/post";
-import { User } from "types/user";
-import { Search, Sort } from "features/root/initialState";
+import { Matter, Resource, Company, Person } from 'types/post';
+import { User } from 'types/user';
+import { Search, Sort } from 'features/root/initialState';
 
 interface PropType {
   user: User;
-  index?: "matters" | "resources" | "companys" | "persons";
+  index?: 'matters' | 'resources' | 'companys' | 'persons';
   posts?:
     | (Matter | undefined)[]
     | (Resource | undefined)[]
@@ -24,12 +24,13 @@ interface PropType {
     pages: number;
     currentPage: number;
   };
-  type?: "likes" | "outputs" | "entries";
+  type?: 'likes' | 'outputs' | 'entries';
   search?: Search;
   sort?: Sort;
   home?: boolean;
   side?: boolean;
   open?: boolean;
+  viewed?: boolean;
   disable?: boolean;
   select?: string[];
   selectUser?: (uid: string) => void;
@@ -52,6 +53,7 @@ export const List: React.FC<PropType> = ({
   outputs,
   select,
   disable,
+  viewed,
   open,
   handleSelect,
   handleCancel,
@@ -71,7 +73,7 @@ export const List: React.FC<PropType> = ({
 
   return (
     <div className={select && styles.list}>
-      {side && index === "persons" && (
+      {side && index === 'persons' && (
         <span className={styles.list_tag}>こんなフリーランスもオススメ</span>
       )}
 
@@ -86,6 +88,7 @@ export const List: React.FC<PropType> = ({
           side={side}
           outputs={outputs}
           disable={disable}
+          viewed={viewed}
           handleSelect={handleSelect}
           handleCancel={handleCancel}
         />

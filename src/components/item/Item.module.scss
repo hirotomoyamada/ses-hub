@@ -1,13 +1,15 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
-@import "styles/animation";
+@import 'styles/config';
+@import 'styles/function';
+@import 'styles/animation';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
 
 .item {
   position: relative;
+  display: flex;
+  flex-direction: column;
   background: $base_clr;
   width: 100%;
   height: 100%;
@@ -31,7 +33,12 @@ $width: responsive-width(pc);
     border-radius: 0;
   }
 
+  &_unviewed {
+    background: $unviewed_clr;
+  }
+
   &_btn {
+    flex: 1;
     width: 100%;
     padding: 24px;
 
@@ -42,7 +49,7 @@ $width: responsive-width(pc);
   }
 
   &_outputs:after {
-    content: "";
+    content: '';
     display: block;
     width: 100%;
     height: 100%;

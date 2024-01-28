@@ -1,13 +1,13 @@
-import styles from "./Posts.module.scss";
+import styles from './Posts.module.scss';
 
-import { useSelector } from "react-redux";
-import * as userSlice from "features/user/userSlice";
+import { useSelector } from 'react-redux';
+import * as userSlice from 'features/user/userSlice';
 
-import { Item } from "components/item/Item";
-import { Advertise } from "../advertise/Advertise";
+import { Item } from 'components/item/Item';
+import { Advertise } from '../advertise/Advertise';
 
-import { Matter, Resource } from "types/post";
-import { Company, Person } from "types/post";
+import { Matter, Resource } from 'types/post';
+import { Company, Person } from 'types/post';
 
 interface PropType {
   posts:
@@ -16,11 +16,12 @@ interface PropType {
     | (Company | undefined)[]
     | (Person | undefined)[];
   list: React.RefObject<HTMLDivElement>;
-  index?: "matters" | "resources" | "companys" | "persons";
+  index?: 'matters' | 'resources' | 'companys' | 'persons';
   select?: string[];
   selectUser?: (uid: string) => void;
   open?: boolean;
   side?: boolean;
+  viewed?: boolean;
   outputs?: Matter[] | Resource[];
   disable?: boolean;
   handleSelect?: (post: Matter | Resource) => void;
@@ -37,6 +38,7 @@ export const Posts: React.FC<PropType> = ({
   side,
   outputs,
   disable,
+  viewed,
   handleSelect,
   handleCancel,
 }) => {
@@ -45,15 +47,14 @@ export const Posts: React.FC<PropType> = ({
   return (
     <div
       className={`
-      ${styles.posts} 
-      ${side && styles.posts_side} 
-      ${open && styles.posts_side_open} 
+      ${styles.posts}
+      ${side && styles.posts_side}
+      ${open && styles.posts_side_open}
       ${select && styles.posts_select}
-      ${disable && !side && styles.posts_disable} 
+      ${disable && !side && styles.posts_disable}
       ${disable && side && styles.posts_disable_side}
       `}
-      ref={list}
-    >
+      ref={list}>
       {(() => {
         const array = posts?.map((post) => {
           if (post)
@@ -72,14 +73,15 @@ export const Posts: React.FC<PropType> = ({
                 outputs={outputs}
                 handleSelect={handleSelect}
                 handleCancel={handleCancel}
+                viewed={viewed}
                 status={side}
                 display={side}
               />
             );
         });
 
-        if (index !== "companys")
-          if (user?.payment?.status === "canceled") {
+        if (index !== 'companys')
+          if (user?.payment?.status === 'canceled') {
             for (let i = 0; i < Math.floor(array?.length / 11) + 1; i++) {
               array.splice(i * 11, 0, <Advertise user={user} key={i * 11} />);
             }

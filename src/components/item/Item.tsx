@@ -1,30 +1,25 @@
-import React from "react";
-import styles from "./Item.module.scss";
+import React from 'react';
+import styles from './Item.module.scss';
 
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-import { Post } from "./components/post/Post";
-import { User } from "./components/user/User";
+import { Post } from './components/post/Post';
+import { User } from './components/user/User';
 
-import { Operation } from "components/operation/Operation";
-import { Follow } from "components/follow/Follow";
+import { Operation } from 'components/operation/Operation';
+import { Follow } from 'components/follow/Follow';
 
-import { Matter, Resource, Company, Person } from "types/post";
-import { User as UserType } from "types/user";
-import { Command } from "components/command/Command";
+import { Matter, Resource, Company, Person } from 'types/post';
+import { User as UserType } from 'types/user';
+import { Command } from 'components/command/Command';
 
 interface PropType {
-  post:
-    | Matter
-    | Resource
-    | Company
-    | Person
-    | Matter["user"]
-    | Resource["user"];
+  post: Matter | Resource | Company | Person | Matter['user'] | Resource['user'];
   user: UserType;
-  index?: "matters" | "resources" | "companys" | "persons";
+  index?: 'matters' | 'resources' | 'companys' | 'persons';
   status?: boolean;
   display?: boolean;
+  viewed?: boolean;
   outputs?: Matter[] | Resource[];
   handleSelect?: (post: Matter | Resource) => void;
   handleCancel?: (objectID: string) => void;
@@ -43,7 +38,13 @@ export const Item: React.FC<PropType> = ({
   handleCancel,
   select,
   selectUser,
+  viewed,
 }) => {
+  const unviewed =
+    viewed &&
+    typeof (post as Matter | Resource).viewed === 'boolean' &&
+    !(post as Matter | Resource).viewed;
+
   const handleOpen = () => {
     if (outputs?.[0]) {
       outputs.map((output) => {
@@ -55,16 +56,16 @@ export const Item: React.FC<PropType> = ({
       });
     } else {
       switch (index) {
-        case "matters":
-        case "resources":
+        case 'matters':
+        case 'resources':
           {
             const url = `/${index}/${(post as Matter | Resource).objectID}`;
 
             window.open(url);
           }
           break;
-        case "companys":
-        case "persons":
+        case 'companys':
+        case 'persons':
           {
             const url = `/${index}/${(post as Company | Person).uid}`;
             window.open(url);
@@ -77,46 +78,37 @@ export const Item: React.FC<PropType> = ({
   return (
     <div
       className={`
-        ${styles.item} 
+        ${styles.item}
+        ${unviewed && styles.item_unviewed}
         ${select && styles.item_select}
         ${outputs
           ?.map(
             (output) =>
-              output.objectID === (post as Matter | Resource).objectID &&
-              styles.item_outputs
+              output.objectID === (post as Matter | Resource).objectID && styles.item_outputs,
           )
-          .join(" ")}
-      `}
-    >
-      {index !== "companys" && !select
+          .join(' ')}
+      `}>
+      {index !== 'companys' && !select
         ? post?.uid === user.uid &&
           !outputs?.length && (
             <Operation
-              index={index as "matters" | "resources"}
+              index={index as 'matters' | 'resources'}
               post={post as Matter | Resource}
               item
             />
           )
         : post?.uid !== user.uid && (
-            <Follow
-              user={user}
-              post={post as Company}
-              select={select}
-              selectUser={selectUser}
-            />
+            <Follow user={user} post={post as Company} select={select} selectUser={selectUser} />
           )}
 
-      <button type="button" className={styles.item_btn} onClick={handleOpen}>
-        {index === "matters" || index === "resources" ? (
+      <button type='button' className={styles.item_btn} onClick={handleOpen}>
+        {index === 'matters' || index === 'resources' ? (
           <>
             {outputs?.map(
               (output) =>
                 output.objectID === (post as Matter | Resource).objectID && (
-                  <CheckCircleIcon
-                    key={output.objectID}
-                    className={styles.item_icon}
-                  />
-                )
+                  <CheckCircleIcon key={output.objectID} className={styles.item_icon} />
+                ),
             )}
 
             <Post
@@ -125,6 +117,7 @@ export const Item: React.FC<PropType> = ({
               user={user}
               status={status}
               display={display}
+              viewed={viewed}
             />
           </>
         ) : (
@@ -132,13 +125,8 @@ export const Item: React.FC<PropType> = ({
         )}
       </button>
 
-      {index !== "companys" && !outputs?.[0] && !select && (
-        <Command
-          index={index}
-          post={post as Matter | Resource | Person}
-          user={user}
-          item
-        />
+      {index !== 'companys' && !outputs?.[0] && !select && (
+        <Command index={index} post={post as Matter | Resource | Person} user={user} item />
       )}
     </div>
   );

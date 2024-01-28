@@ -1,6 +1,6 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
+@import 'styles/config';
+@import 'styles/function';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -67,7 +67,7 @@ $width: responsive-width(pc);
     }
 
     &:after {
-      content: "詳細";
+      content: '詳細';
       display: block;
       position: absolute;
       top: -8px;
@@ -80,6 +80,12 @@ $width: responsive-width(pc);
         top: -7px;
         left: 12px;
         padding: 0 12px;
+      }
+    }
+
+    &_unviewed {
+      &::after {
+        background: $unviewed_clr;
       }
     }
   }
