@@ -63,6 +63,7 @@ export interface Matter {
   likes?: number;
   outputs?: number;
   entries?: number;
+  viewed?: boolean;
 }
 
 export interface Resource {
@@ -122,6 +123,7 @@ export interface Resource {
   likes?: number;
   outputs?: number;
   entries?: number;
+  viewed?: boolean;
 }
 
 export interface Company {
