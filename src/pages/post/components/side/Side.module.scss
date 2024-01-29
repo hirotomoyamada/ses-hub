@@ -1,6 +1,6 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
+@import 'styles/config';
+@import 'styles/function';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -34,6 +34,11 @@ $width: responsive-width(pc);
 
     @media (max-width: responsive-width(sp)) {
       font-size: 16px;
+    }
+
+    &_icon {
+      color: $icn_clr;
+      margin-inline-start: 8px;
     }
   }
 

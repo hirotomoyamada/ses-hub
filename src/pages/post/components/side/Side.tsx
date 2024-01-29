@@ -9,6 +9,9 @@ import { List } from 'components/list/List';
 
 import { Matter, Resource } from 'types/post';
 import { User } from 'types/user';
+import { faRobot } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 interface PropType {
   index: 'matters' | 'resources';
@@ -44,11 +47,18 @@ export const Side: React.FC<PropType> = ({ index, post, posts, user }) => {
       {user?.type !== 'child' && (
         <>
           {posts.length ? (
-            <span className={styles.side_tag}>
-              {resolvedIndex === 'matters'
-                ? 'こんな案件もオススメ'
-                : resolvedIndex === 'resources' && 'こんな人材もオススメ'}
-            </span>
+            <>
+              {user?.uid !== post?.user?.uid ? (
+                <span className={styles.side_tag}>
+                  {resolvedIndex === 'matters' ? 'こんな案件もオススメ' : 'こんな人材もオススメ'}
+                </span>
+              ) : (
+                <span className={styles.side_tag}>
+                  {resolvedIndex === 'matters' ? 'オススメの案件' : 'オススメの人材'}
+                  <FontAwesomeIcon icon={faRobot as IconProp} className={styles.side_tag_icon} />
+                </span>
+              )}
+            </>
           ) : null}
 
           <List
