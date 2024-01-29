@@ -44,32 +44,28 @@ export const Side: React.FC<PropType> = ({ index, post, posts, user }) => {
         </Link>
       )}
 
-      {user?.type !== 'child' && (
+      {posts.length ? (
         <>
-          {posts.length ? (
-            <>
-              {user?.uid !== post?.user?.uid ? (
-                <span className={styles.side_tag}>
-                  {resolvedIndex === 'matters' ? 'こんな案件もオススメ' : 'こんな人材もオススメ'}
-                </span>
-              ) : (
-                <span className={styles.side_tag}>
-                  {resolvedIndex === 'matters' ? 'オススメの案件' : 'オススメの人材'}
-                  <FontAwesomeIcon icon={faRobot as IconProp} className={styles.side_tag_icon} />
-                </span>
-              )}
-            </>
-          ) : null}
-
-          <List
-            index={resolvedIndex}
-            user={user}
-            posts={posts}
-            disable={true}
-            viewed={user?.uid === post?.user?.uid}
-          />
+          {user?.uid !== post?.user?.uid ? (
+            <span className={styles.side_tag}>
+              {resolvedIndex === 'matters' ? 'こんな案件もオススメ' : 'こんな人材もオススメ'}
+            </span>
+          ) : (
+            <span className={styles.side_tag}>
+              {resolvedIndex === 'matters' ? 'オススメの案件' : 'オススメの人材'}
+              <FontAwesomeIcon icon={faRobot as IconProp} className={styles.side_tag_icon} />
+            </span>
+          )}
         </>
-      )}
+      ) : null}
+
+      <List
+        index={resolvedIndex}
+        user={user}
+        posts={posts}
+        disable={true}
+        viewed={user?.uid === post?.user?.uid}
+      />
     </div>
   );
 };
