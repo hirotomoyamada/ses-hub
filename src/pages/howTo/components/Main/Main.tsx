@@ -10,6 +10,7 @@ import { Account } from './Account';
 import { Plan } from './Plan';
 import { Activity } from './Activity';
 import { Analytics } from './Analytics';
+import { Matching } from './Matching';
 
 interface PropType {
   page: string;
@@ -30,6 +31,8 @@ export const Main: React.FC<PropType> = ({ page, type }) => {
       return <Entries />;
     case 'posts':
       return <Posts />;
+    case 'matching':
+      return <Matching />;
     case 'plan':
       return <Plan type={type} />;
     case 'requests':

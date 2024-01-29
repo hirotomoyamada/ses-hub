@@ -18,6 +18,7 @@ export const Menu: React.FC<PropType> = ({ page, setPage, type }) => {
     { page: 'outputs', name: '出力' },
     { page: 'entries', name: 'お問い合わせ' },
     { page: 'posts', name: '投稿' },
+    { page: 'matching', name: 'マッチング' },
     { page: 'plan', name: 'プラン' },
     { page: 'requests', name: 'リクエスト' },
     { page: 'activity', name: 'アクティビティ' },
@@ -36,11 +37,9 @@ export const Menu: React.FC<PropType> = ({ page, setPage, type }) => {
           index && (
             <button
               key={index.page}
-              type="button"
+              type='button'
               onClick={() => setPage(index.page)}
-              className={`${styles.menu_btn} ${
-                index.page === page && styles.menu_btn_current
-              }`}>
+              className={`${styles.menu_btn} ${index.page === page && styles.menu_btn_current}`}>
               {index.name}
             </button>
           ),
