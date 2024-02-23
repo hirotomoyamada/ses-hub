@@ -24,7 +24,7 @@ interface PropType {
     pages: number;
     currentPage: number;
   };
-  type?: 'likes' | 'outputs' | 'entries';
+  type?: 'likes' | 'outputs' | 'entries' | 'history';
   search?: Search;
   sort?: Sort;
   home?: boolean;

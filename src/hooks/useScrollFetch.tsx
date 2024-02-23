@@ -1,20 +1,20 @@
-import { useEffect, useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
-import * as functions from "functions";
+import * as functions from 'functions';
 
-import { User } from "types/user";
-import { Search, Sort } from "features/root/initialState";
+import { User } from 'types/user';
+import { Search, Sort } from 'features/root/initialState';
 
 interface PropType {
   user: User;
-  index?: "matters" | "resources" | "companys" | "persons";
+  index?: 'matters' | 'resources' | 'companys' | 'persons';
   hit?: {
     posts: number;
     pages: number;
     currentPage: number;
   };
-  type?: "likes" | "outputs" | "entries";
+  type?: 'likes' | 'outputs' | 'entries' | 'history';
   search?: Search;
   sort?: Sort;
   select?: string[];
@@ -37,7 +37,7 @@ export const useScrollFetch = ({
 }: PropType): [
   list: React.RefObject<HTMLDivElement>,
   load: React.RefObject<HTMLDivElement>,
-  page: number
+  page: number,
 ] => {
   const dispatch = useDispatch();
 
@@ -62,7 +62,7 @@ export const useScrollFetch = ({
       page,
       setPage,
       intersecting,
-      setIntersecting
+      setIntersecting,
     );
 
     const ref = load.current;
@@ -79,18 +79,7 @@ export const useScrollFetch = ({
       hit?.pages &&
       page !== hit.pages &&
       functions.list
-        .fetchScroll(
-          dispatch,
-          index,
-          user,
-          home,
-          search,
-          side,
-          sort,
-          type,
-          select,
-          page
-        )
+        .fetchScroll(dispatch, index, user, home, search, side, sort, type, select, page)
         .then(() => {
           setIntersecting(!intersecting);
         });
