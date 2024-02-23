@@ -88,18 +88,21 @@ export const Item: React.FC<PropType> = ({
           )
           .join(' ')}
       `}>
-      {index !== 'companys' && !select
-        ? post?.uid === user.uid &&
-          !outputs?.length && (
-            <Operation
-              index={index as 'matters' | 'resources'}
-              post={post as Matter | Resource}
-              item
-            />
-          )
-        : post?.uid !== user.uid && (
-            <Follow user={user} post={post as Company} select={select} selectUser={selectUser} />
-          )}
+      {
+        index !== 'companys' && !select
+          ? post?.uid === user.uid &&
+            !outputs?.length && (
+              <Operation
+                index={index as 'matters' | 'resources'}
+                post={post as Matter | Resource}
+                item
+              />
+            )
+          : null
+        // post?.uid !== user.uid && (
+        //     <Follow user={user} post={post as Company} select={select} selectUser={selectUser} />
+        //   )
+      }
 
       <button type='button' className={styles.item_btn} onClick={handleOpen}>
         {index === 'matters' || index === 'resources' ? (
