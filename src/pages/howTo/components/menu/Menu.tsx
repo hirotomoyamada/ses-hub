@@ -12,11 +12,12 @@ export const Menu: React.FC<PropType> = ({ page, setPage, type }) => {
   const location = useLocation();
   const index = location?.state as string | undefined;
   const indexs = [
-    { page: 'home', name: 'ホーム' },
+    // { page: 'home', name: 'ホーム' },
     { page: 'search', name: '検索' },
     { page: 'likes', name: 'いいね' },
     { page: 'outputs', name: '出力' },
     { page: 'entries', name: 'お問い合わせ' },
+    { page: 'history', name: '履歴' },
     { page: 'posts', name: '投稿' },
     { page: 'matching', name: 'マッチング' },
     { page: 'plan', name: 'プラン' },

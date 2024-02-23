@@ -11,6 +11,7 @@ import { Plan } from './Plan';
 import { Activity } from './Activity';
 import { Analytics } from './Analytics';
 import { Matching } from './Matching';
+import { History } from './History';
 
 interface PropType {
   page: string;
@@ -20,7 +21,8 @@ interface PropType {
 export const Main: React.FC<PropType> = ({ page, type }) => {
   switch (page) {
     default:
-      return <Home />;
+      //   return <Home />;
+      return <Search />;
     case 'search':
       return <Search />;
     case 'likes':
@@ -29,6 +31,8 @@ export const Main: React.FC<PropType> = ({ page, type }) => {
       return <Outputs />;
     case 'entries':
       return <Entries />;
+    case 'history':
+      return <History />;
     case 'posts':
       return <Posts />;
     case 'matching':
