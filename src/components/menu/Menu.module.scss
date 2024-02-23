@@ -1,7 +1,7 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
-@import "styles/animation";
+@import 'styles/config';
+@import 'styles/function';
+@import 'styles/animation';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -67,7 +67,7 @@ $width: responsive-width(pc);
 
       &_home {
         &::before {
-          content: "ホーム";
+          content: 'ホーム';
           position: absolute;
           top: -40px;
           left: -12px;
@@ -98,7 +98,7 @@ $width: responsive-width(pc);
 
       &_seach {
         &::before {
-          content: "検索";
+          content: '検索';
           position: absolute;
           top: -40px;
           left: -8px;
@@ -129,7 +129,7 @@ $width: responsive-width(pc);
 
       &_likes {
         &::before {
-          content: "いいね";
+          content: 'いいね';
           position: absolute;
           top: -40px;
           left: -13px;
@@ -160,7 +160,7 @@ $width: responsive-width(pc);
 
       &_outputs {
         &::before {
-          content: "出力";
+          content: '出力';
           position: absolute;
           top: -40px;
           left: -6px;
@@ -191,10 +191,41 @@ $width: responsive-width(pc);
 
       &_entries {
         &::before {
-          content: "お問い合わせ";
+          content: 'お問い合わせ';
           position: absolute;
           top: -40px;
           left: -36px;
+          opacity: 0;
+
+          background: $acnt_clr;
+          padding: 4px 12px;
+          border-radius: 8px;
+          color: $base_clr;
+          white-space: nowrap;
+
+          transition: all 0.4s;
+          visibility: hidden;
+          pointer-events: none;
+        }
+
+        &:hover:before {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        @media (max-width: responsive-width(sp)) {
+          &::before {
+            display: none;
+          }
+        }
+      }
+
+      &_history {
+        &::before {
+          content: '履歴';
+          position: absolute;
+          top: -40px;
+          left: -4px;
           opacity: 0;
 
           background: $acnt_clr;
@@ -245,6 +276,9 @@ $width: responsive-width(pc);
         color: $add_clr;
       }
       &_entries {
+        color: $acnt_clr;
+      }
+      &_history {
         color: $acnt_clr;
       }
     }

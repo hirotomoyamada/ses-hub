@@ -1,22 +1,23 @@
-import React from "react";
-import styles from "./Menu.module.scss";
+import React from 'react';
+import styles from './Menu.module.scss';
 
-import EditIcon from "@material-ui/icons/Edit";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import SearchIcon from "@material-ui/icons/Search";
-import HomeIcon from "@material-ui/icons/Home";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import LaunchIcon from "@material-ui/icons/Launch";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
-import SettingsIcon from "@material-ui/icons/Settings";
+import EditIcon from '@material-ui/icons/Edit';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import SearchIcon from '@material-ui/icons/Search';
+import HomeIcon from '@material-ui/icons/Home';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import LaunchIcon from '@material-ui/icons/Launch';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import SettingsIcon from '@material-ui/icons/Settings';
 
-import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import * as rootSlice from "features/root/rootSlice";
-import * as postSlice from "features/post/postSlice";
+import * as rootSlice from 'features/root/rootSlice';
+import * as postSlice from 'features/post/postSlice';
 
-import { User } from "types/user";
+import { User } from 'types/user';
+import { HistoryOutlined, HistoryRounded } from '@material-ui/icons';
 
 interface PropType {
   user: User;
@@ -25,7 +26,7 @@ interface PropType {
 export const Menu: React.FC<PropType> = ({ user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation().pathname.replace("/", "");
+  const location = useLocation().pathname.replace('/', '');
 
   const index = useSelector(rootSlice.index);
   const status = useSelector(rootSlice.verified).status;
@@ -35,14 +36,14 @@ export const Menu: React.FC<PropType> = ({ user }) => {
 
   const handleOpen = () => {
     dispatch(postSlice.resetPost());
-    if (index === "companys" || index === "persons") {
-      dispatch(rootSlice.handleIndex("matters"));
+    if (index === 'companys' || index === 'persons') {
+      dispatch(rootSlice.handleIndex('matters'));
     }
-    dispatch(rootSlice.handleModal({ type: "new" }));
+    dispatch(rootSlice.handleModal({ type: 'new' }));
   };
 
   const handleSetting = () => {
-    dispatch(rootSlice.handleModal({ type: "home" }));
+    dispatch(rootSlice.handleModal({ type: 'home' }));
   };
 
   const handleClose = () => {
@@ -61,13 +62,12 @@ export const Menu: React.FC<PropType> = ({ user }) => {
     if (
       !limit &&
       !notFound &&
-      index !== "companys" &&
-      index !== "persons" &&
-      (page === "search" ||
-        page === "home" ||
-        (page === "user" &&
-          user.uid ===
-            location.substring(location.indexOf("/") + 1, location.length)))
+      index !== 'companys' &&
+      index !== 'persons' &&
+      (page === 'search' ||
+        page === 'home' ||
+        (page === 'user' &&
+          user.uid === location.substring(location.indexOf('/') + 1, location.length)))
     ) {
       return (
         <button className={styles.menu_main} onClick={handleOpen}>
@@ -75,40 +75,35 @@ export const Menu: React.FC<PropType> = ({ user }) => {
         </button>
       );
     } else if (
-      (page === "user" &&
-        user.uid !==
-          location.substring(location.indexOf("/") + 1, location.length)) ||
-      page === "post"
+      (page === 'user' &&
+        user.uid !== location.substring(location.indexOf('/') + 1, location.length)) ||
+      page === 'post'
     ) {
       return (
         <button className={styles.menu_main} onClick={handleClose}>
-          <ArrowBackIosIcon
-            className={`${styles.menu_main_icon} ${styles.menu_main_icon_back}`}
-          />
+          <ArrowBackIosIcon className={`${styles.menu_main_icon} ${styles.menu_main_icon_back}`} />
         </button>
       );
     } else {
       return (
         <button className={styles.menu_main} onClick={() => navigate(-1)}>
-          <ArrowBackIosIcon
-            className={`${styles.menu_main_icon} ${styles.menu_main_icon_back}`}
-          />
+          <ArrowBackIosIcon className={`${styles.menu_main_icon} ${styles.menu_main_icon_back}`} />
         </button>
       );
     }
   };
 
-  return status === "enable" &&
-    location !== "setting" &&
-    location !== "account" &&
-    location !== "plan" &&
-    location !== "howto" &&
-    location !== "success" &&
-    location !== "terms" &&
-    location !== "asct" ? (
+  return status === 'enable' &&
+    location !== 'setting' &&
+    location !== 'account' &&
+    location !== 'plan' &&
+    location !== 'howto' &&
+    location !== 'success' &&
+    location !== 'terms' &&
+    location !== 'asct' ? (
     <div className={styles.menu}>
       <div className={styles.menu_list}>
-        <button
+        {/* <button
           onClick={() =>
             handlePage(
               `/home/${
@@ -127,30 +122,26 @@ export const Menu: React.FC<PropType> = ({ user }) => {
               styles.menu_list_icon_search
             }`}
           />
-        </button>
+        </button> */}
 
         <button
           onClick={() => handlePage(`/search/${index}`)}
-          type="button"
-          className={`${styles.menu_list_btn} ${styles.menu_list_btn_seach}`}
-        >
+          type='button'
+          className={`${styles.menu_list_btn} ${styles.menu_list_btn_seach}`}>
           <SearchIcon
             className={`${styles.menu_list_icon} ${
-              page === "search" && styles.menu_list_icon_search
+              page === 'search' && styles.menu_list_icon_search
             }`}
           />
         </button>
 
         <button
-          onClick={() =>
-            handlePage(`/likes/${index !== "companys" ? index : "matters"}`)
-          }
-          type="button"
-          className={`${styles.menu_list_btn} ${styles.menu_list_btn_likes}`}
-        >
+          onClick={() => handlePage(`/likes/${index !== 'companys' ? index : 'matters'}`)}
+          type='button'
+          className={`${styles.menu_list_btn} ${styles.menu_list_btn_likes}`}>
           <FavoriteBorderIcon
             className={`${styles.menu_list_icon} ${
-              page === "likes" && styles.menu_list_icon_likes
+              page === 'likes' && styles.menu_list_icon_likes
             }`}
           />
         </button>
@@ -158,45 +149,46 @@ export const Menu: React.FC<PropType> = ({ user }) => {
         <button
           onClick={() =>
             handlePage(
-              `/outputs/${
-                index !== "companys" && index !== "persons" ? index : "matters"
-              }`
+              `/outputs/${index !== 'companys' && index !== 'persons' ? index : 'matters'}`,
             )
           }
-          type="button"
-          className={`${styles.menu_list_btn} ${styles.menu_list_btn_outputs}`}
-        >
+          type='button'
+          className={`${styles.menu_list_btn} ${styles.menu_list_btn_outputs}`}>
           <LaunchIcon
             className={`${styles.menu_list_icon} ${
-              page === "outputs" && styles.menu_list_icon_outputs
+              page === 'outputs' && styles.menu_list_icon_outputs
             }`}
           />
         </button>
 
         <button
-          onClick={() =>
-            handlePage(`/entries/${index !== "companys" ? index : "matters"}`)
-          }
-          type="button"
-          className={`${styles.menu_list_btn} ${styles.menu_list_btn_entries}`}
-        >
+          onClick={() => handlePage(`/entries/${index !== 'companys' ? index : 'matters'}`)}
+          type='button'
+          className={`${styles.menu_list_btn} ${styles.menu_list_btn_entries}`}>
           <CheckCircleOutlineIcon
             className={`${styles.menu_list_icon} ${
-              page === "entries" && styles.menu_list_icon_entries
+              page === 'entries' && styles.menu_list_icon_entries
+            }`}
+          />
+        </button>
+
+        <button
+          onClick={() => handlePage(`/history/${index !== 'companys' ? index : 'matters'}`)}
+          type='button'
+          className={`${styles.menu_list_btn} ${styles.menu_list_btn_history}`}>
+          <HistoryOutlined
+            className={`${styles.menu_list_icon} ${
+              page === 'history' && styles.menu_list_icon_history
             }`}
           />
         </button>
       </div>
 
-      {user.payment.status !== "canceled" && !notFound && page === "home" && (
-        <button
-          onClick={handleSetting}
-          type="button"
-          className={styles.menu_setting}
-        >
+      {/* {user.payment.status !== 'canceled' && !notFound && page === 'home' && (
+        <button onClick={handleSetting} type='button' className={styles.menu_setting}>
           <SettingsIcon className={styles.menu_setting_icon} />
         </button>
-      )}
+      )} */}
 
       <Btn />
     </div>
