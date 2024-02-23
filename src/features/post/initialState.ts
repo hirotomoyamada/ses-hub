@@ -1,4 +1,4 @@
-import * as Post from "types/post";
+import * as Post from 'types/post';
 
 type Matter = {
   posts: (Post.Matter | undefined)[];
@@ -50,11 +50,11 @@ export type Activity = {
     entries: number;
   };
   log: {
-    index: "companys" | "persons";
+    index: 'companys' | 'persons';
     uid: string;
     icon: string;
     display: string;
-    type: "likes" | "outputs" | "entries";
+    type: 'likes' | 'outputs' | 'entries';
     createAt: number;
   }[];
 };
@@ -100,11 +100,14 @@ export interface State {
     persons: Person;
   };
 
+  history: {
+    matters: Matter;
+    resources: Resource;
+    persons: Person;
+  };
+
   post: Post.Matter | Post.Resource | unknown;
-  bests:
-    | (Post.Matter | undefined)[]
-    | (Post.Resource | undefined)[]
-    | (Post.Person | undefined)[];
+  bests: (Post.Matter | undefined)[] | (Post.Resource | undefined)[] | (Post.Person | undefined)[];
   activity: Activity | unknown;
 }
 
@@ -153,6 +156,12 @@ export const initialState: State = {
   },
 
   entries: {
+    matters: posts,
+    resources: posts,
+    persons: posts,
+  },
+
+  history: {
     matters: posts,
     resources: posts,
     persons: posts,

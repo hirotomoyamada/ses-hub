@@ -14,6 +14,7 @@ import {
   HomePosts,
   UserPosts,
   PromotionPosts,
+  HistoryPosts,
 } from 'features/post/actions';
 
 export const createPost = (
@@ -24,10 +25,7 @@ export const createPost = (
     post: CreatePost['data']['post'];
   }>,
 ): void => {
-  if (
-    action.payload.post.display === 'private' &&
-    action.payload.page === 'user'
-  ) {
+  if (action.payload.post.display === 'private' && action.payload.page === 'user') {
     state.user[action.payload.index].posts = [
       action.payload.post,
       ...state.user[action.payload.index].posts,
@@ -40,17 +38,11 @@ export const createPost = (
   }
 };
 
-export const selectPost = (
-  state: State,
-  action: PayloadAction<Post['post']>,
-): void => {
+export const selectPost = (state: State, action: PayloadAction<Post['post']>): void => {
   state.post = action.payload;
 };
 
-export const resetPost = (
-  state: State,
-  action: PayloadAction<string | void>,
-): void => {
+export const resetPost = (state: State, action: PayloadAction<string | void>): void => {
   if (action.type === 'user/fetchUser/pending') {
     state.selectUser.matters.posts = [];
     state.selectUser.matters.hit.currentPage = 0;
@@ -92,43 +84,26 @@ export const resetPost = (
             index === 'persons'
           ) {
             if (posts === 'search') {
-              state[posts][index].posts = state[posts][index].posts.slice(
-                0,
-                50,
-              );
+              state[posts][index].posts = state[posts][index].posts.slice(0, 50);
               state[posts][index].hit.currentPage = 0;
             }
 
             if (posts === 'user' && index !== 'persons') {
-              state[posts][index].posts = state[posts][index].posts.slice(
-                0,
-                50,
-              );
+              state[posts][index].posts = state[posts][index].posts.slice(0, 50);
+              state[posts][index].hit.currentPage = 0;
+            }
+
+            if ((posts === 'likes' || posts === 'entries') && index !== 'companys') {
+              state[posts][index].posts = state[posts][index].posts.slice(0, 50);
               state[posts][index].hit.currentPage = 0;
             }
 
             if (
-              (posts === 'likes' || posts === 'entries') &&
-              index !== 'companys'
-            ) {
-              state[posts][index].posts = state[posts][index].posts.slice(
-                0,
-                50,
-              );
-              state[posts][index].hit.currentPage = 0;
-            }
-
-            if (
-              (posts === 'home' ||
-                posts === 'selectUser' ||
-                posts === 'outputs') &&
+              (posts === 'home' || posts === 'selectUser' || posts === 'outputs') &&
               index !== 'companys' &&
               index !== 'persons'
             ) {
-              state[posts][index].posts = state[posts][index].posts.slice(
-                0,
-                50,
-              );
+              state[posts][index].posts = state[posts][index].posts.slice(0, 50);
               state[posts][index].hit.currentPage = 0;
             }
           }
@@ -153,17 +128,13 @@ export const editPost = (state: State, action: PayloadAction<Post>): void => {
           if (action.payload.index === 'matters') {
             state[posts][action.payload.index].posts = state[posts][
               action.payload.index
-            ].posts.filter(
-              (post) => post?.objectID !== action.payload.post.objectID,
-            );
+            ].posts.filter((post) => post?.objectID !== action.payload.post.objectID);
           }
 
           if (action.payload.index === 'resources') {
             state[posts][action.payload.index].posts = state[posts][
               action.payload.index
-            ].posts.filter(
-              (post) => post?.objectID !== action.payload.post.objectID,
-            );
+            ].posts.filter((post) => post?.objectID !== action.payload.post.objectID);
           }
         }
       }
@@ -313,17 +284,13 @@ export const deletePost = (
       posts === 'entries'
     ) {
       if (action.payload.index === 'matters') {
-        state[posts][action.payload.index].posts = state[posts][
-          action.payload.index
-        ].posts.filter(
+        state[posts][action.payload.index].posts = state[posts][action.payload.index].posts.filter(
           (post) => post?.objectID !== action.payload.post.objectID,
         );
       }
 
       if (action.payload.index === 'resources') {
-        state[posts][action.payload.index].posts = state[posts][
-          action.payload.index
-        ].posts.filter(
+        state[posts][action.payload.index].posts = state[posts][action.payload.index].posts.filter(
           (post) => post?.objectID !== action.payload.post.objectID,
         );
       }
@@ -331,10 +298,7 @@ export const deletePost = (
   });
 };
 
-export const fetchPosts = (
-  state: State,
-  action: PayloadAction<FetchPosts['data']>,
-): void => {
+export const fetchPosts = (state: State, action: PayloadAction<FetchPosts['data']>): void => {
   if (action.payload.hit.currentPage !== 0 && action.payload.hit.pages > 1) {
     state.search[action.payload.index].posts = [
       ...state.search[action.payload.index].posts,
@@ -355,33 +319,23 @@ export const fetchPosts = (
   };
 };
 
-export const fetchPost = (
-  state: State,
-  action: PayloadAction<FetchPost['data']>,
-): void => {
+export const fetchPost = (state: State, action: PayloadAction<FetchPost['data']>): void => {
   state.post = action.payload.post;
   state.bests = action.payload.bests;
 };
 
-export const extractPosts = (
-  state: State,
-  action: PayloadAction<ExtractPosts['data']>,
-): void => {
+export const extractPosts = (state: State, action: PayloadAction<ExtractPosts['data']>): void => {
   if (action.payload.hit.currentPage !== 0 && action.payload.hit.pages > 1) {
     if (action.payload.type === 'likes' || action.payload.type === 'entries') {
       state[action.payload.type][action.payload.index].posts = [
         ...state[action.payload.type][action.payload.index].posts,
         ...action.payload.posts,
-      ] as
-        | (Matter | undefined)[]
-        | (Resource | undefined)[]
-        | (Person | undefined)[];
+      ] as (Matter | undefined)[] | (Resource | undefined)[] | (Person | undefined)[];
     }
 
     if (
       action.payload.type === 'outputs' &&
-      (action.payload.index === 'matters' ||
-        action.payload.index === 'resources')
+      (action.payload.index === 'matters' || action.payload.index === 'resources')
     ) {
       state[action.payload.type][action.payload.index].posts = [
         ...state[action.payload.type][action.payload.index].posts,
@@ -390,17 +344,16 @@ export const extractPosts = (
     }
   } else {
     if (action.payload.type === 'likes' || action.payload.type === 'entries') {
-      state[action.payload.type][action.payload.index].posts =
-        action.payload.posts;
+      state[action.payload.type][action.payload.index].posts = action.payload.posts;
     }
 
     if (
       action.payload.type === 'outputs' &&
-      (action.payload.index === 'matters' ||
-        action.payload.index === 'resources')
+      (action.payload.index === 'matters' || action.payload.index === 'resources')
     ) {
-      state[action.payload.type][action.payload.index].posts = action.payload
-        .posts as (Matter | undefined)[] | (Resource | undefined)[];
+      state[action.payload.type][action.payload.index].posts = action.payload.posts as
+        | (Matter | undefined)[]
+        | (Resource | undefined)[];
     }
   }
 
@@ -424,10 +377,11 @@ export const extractPosts = (
   }
 };
 
-export const homePosts = (
-  state: State,
-  action: PayloadAction<HomePosts['data']>,
-): void => {
+export const historyPosts = (state: State, action: PayloadAction<HistoryPosts['data']>): void => {
+  state.history[action.payload.index].posts = action.payload.posts;
+};
+
+export const homePosts = (state: State, action: PayloadAction<HomePosts['data']>): void => {
   if (action.payload.hit.currentPage !== 0) {
     state.home[action.payload.index].posts = [
       ...state.home[action.payload.index].posts,
@@ -463,14 +417,8 @@ export const userPosts = (
         state.user[action.payload.index].posts = [
           ...state.user[action.payload.index].posts,
           ...action.payload.posts,
-        ] as
-          | (Matter | undefined)[]
-          | (Resource | undefined)[]
-          | (Company | undefined)[];
-      } else if (
-        action.payload.index === 'matters' ||
-        action.payload.index === 'resources'
-      ) {
+        ] as (Matter | undefined)[] | (Resource | undefined)[] | (Company | undefined)[];
+      } else if (action.payload.index === 'matters' || action.payload.index === 'resources') {
         state.selectUser[action.payload.index].posts = [
           ...state.selectUser[action.payload.index].posts,
           ...action.payload.posts,
@@ -479,10 +427,7 @@ export const userPosts = (
     } else {
       if (auth.currentUser.uid === action.payload.uid) {
         state.user[action.payload.index].posts = action.payload.posts;
-      } else if (
-        action.payload.index === 'matters' ||
-        action.payload.index === 'resources'
-      ) {
+      } else if (action.payload.index === 'matters' || action.payload.index === 'resources') {
         state.selectUser[action.payload.index].posts = action.payload.posts as
           | (Matter | undefined)[]
           | (Resource | undefined)[];
@@ -495,10 +440,7 @@ export const userPosts = (
         pages: action.payload.hit.pages,
         currentPage: action.payload.hit.currentPage,
       };
-    } else if (
-      action.payload.index === 'matters' ||
-      action.payload.index === 'resources'
-    ) {
+    } else if (action.payload.index === 'matters' || action.payload.index === 'resources') {
       state.selectUser[action.payload.index].hit = {
         posts: action.payload.hit.posts,
         pages: action.payload.hit.pages,
@@ -520,10 +462,7 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
     state.likes[action.payload.index].posts = [
       action.payload.post,
       ...state.likes[action.payload.index].posts,
-    ] as
-      | (Matter | undefined)[]
-      | (Resource | undefined)[]
-      | (Person | undefined)[];
+    ] as (Matter | undefined)[] | (Resource | undefined)[] | (Person | undefined)[];
   }
 
   Object.keys(state).forEach((posts): void => {
@@ -551,8 +490,7 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
 
       if (action.payload.index === 'resources') {
         const post = state[posts][action.payload.index].posts.find(
-          (post) =>
-            post?.objectID === (action.payload.post as Resource).objectID,
+          (post) => post?.objectID === (action.payload.post as Resource).objectID,
         );
 
         if (post) {
@@ -598,8 +536,7 @@ export const addLike = (state: State, action: PayloadAction<Like>): void => {
 
       if (action.payload.index === 'resources') {
         const post = (state.bests as (Resource | undefined)[]).find(
-          (post) =>
-            post?.objectID === (action.payload.post as Resource).objectID,
+          (post) => post?.objectID === (action.payload.post as Resource).objectID,
         );
 
         if (post) {
@@ -668,8 +605,7 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
 
       if (action.payload.index === 'resources') {
         const post = state[posts][action.payload.index].posts.find(
-          (post) =>
-            post?.objectID === (action.payload.post as Resource).objectID,
+          (post) => post?.objectID === (action.payload.post as Resource).objectID,
         );
 
         if (post && post.likes) {
@@ -703,8 +639,7 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
 
       if (action.payload.index === 'resources') {
         const post = (state.bests as (Resource | undefined)[]).find(
-          (post) =>
-            post?.objectID === (action.payload.post as Resource).objectID,
+          (post) => post?.objectID === (action.payload.post as Resource).objectID,
         );
 
         if (post && post.likes) {
@@ -725,10 +660,7 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
   });
 };
 
-export const addOutput = (
-  state: State,
-  action: PayloadAction<Output>,
-): void => {
+export const addOutput = (state: State, action: PayloadAction<Output>): void => {
   if (state.outputs[action.payload.index].posts.length) {
     state.outputs[action.payload.index].posts = [
       action.payload?.post,
@@ -761,8 +693,7 @@ export const addOutput = (
 
       if (action.payload.index === 'resources') {
         const post = state[posts][action.payload.index].posts.find(
-          (post) =>
-            post?.objectID === (action.payload.post as Resource).objectID,
+          (post) => post?.objectID === (action.payload.post as Resource).objectID,
         );
 
         if (post) {
@@ -792,8 +723,7 @@ export const addOutput = (
 
       if (action.payload.index === 'resources') {
         const post = (state.bests as (Resource | undefined)[]).find(
-          (post) =>
-            post?.objectID === (action.payload.post as Resource).objectID,
+          (post) => post?.objectID === (action.payload.post as Resource).objectID,
         );
 
         if (post) {
@@ -808,26 +738,17 @@ export const addOutput = (
   });
 };
 
-export const removeOutput = (
-  state: State,
-  action: PayloadAction<Output>,
-): void => {
+export const removeOutput = (state: State, action: PayloadAction<Output>): void => {
   if (!action.payload.objectIDs) {
     if (action.payload.index === 'matters') {
       state.outputs.matters.posts = state.outputs.matters.posts.filter(
-        (post) =>
-          post &&
-          action.payload.post &&
-          post.objectID !== action.payload.post.objectID,
+        (post) => post && action.payload.post && post.objectID !== action.payload.post.objectID,
       );
     }
 
     if (action.payload.index === 'resources') {
       state.outputs.resources.posts = state.outputs.resources.posts.filter(
-        (post) =>
-          post &&
-          action.payload.post &&
-          post.objectID !== action.payload.post.objectID,
+        (post) => post && action.payload.post && post.objectID !== action.payload.post.objectID,
       );
     }
 
@@ -842,9 +763,7 @@ export const removeOutput = (
       ) {
         if (action.payload.index === 'matters') {
           const post = state[posts][action.payload.index].posts.find(
-            (post) =>
-              action.payload.post &&
-              post?.objectID === action.payload.post.objectID,
+            (post) => action.payload.post && post?.objectID === action.payload.post.objectID,
           );
 
           if (post && post.outputs) {
@@ -854,9 +773,7 @@ export const removeOutput = (
 
         if (action.payload.index === 'resources') {
           const post = state[posts][action.payload.index].posts.find(
-            (post) =>
-              action.payload.post &&
-              post?.objectID === action.payload.post.objectID,
+            (post) => action.payload.post && post?.objectID === action.payload.post.objectID,
           );
 
           if (post && post.outputs) {
@@ -868,8 +785,7 @@ export const removeOutput = (
       if (posts === 'bests') {
         if (action.payload.index === 'matters') {
           const post = (state.bests as (Matter | undefined)[]).find(
-            (post) =>
-              post?.objectID === (action.payload.post as Matter).objectID,
+            (post) => post?.objectID === (action.payload.post as Matter).objectID,
           );
 
           if (post && post.outputs) {
@@ -879,8 +795,7 @@ export const removeOutput = (
 
         if (action.payload.index === 'resources') {
           const post = (state.bests as (Resource | undefined)[]).find(
-            (post) =>
-              post?.objectID === (action.payload.post as Resource).objectID,
+            (post) => post?.objectID === (action.payload.post as Resource).objectID,
           );
 
           if (post && post.outputs) {
@@ -893,18 +808,14 @@ export const removeOutput = (
     if (action.payload.index === 'matters') {
       state.outputs.matters.posts = state.outputs.matters.posts.filter(
         (post) =>
-          post &&
-          action.payload.objectIDs &&
-          action.payload.objectIDs.indexOf(post.objectID) < 0,
+          post && action.payload.objectIDs && action.payload.objectIDs.indexOf(post.objectID) < 0,
       );
     }
 
     if (action.payload.index === 'resources') {
       state.outputs.resources.posts = state.outputs.resources.posts.filter(
         (post) =>
-          post &&
-          action.payload.objectIDs &&
-          action.payload.objectIDs.indexOf(post.objectID) < 0,
+          post && action.payload.objectIDs && action.payload.objectIDs.indexOf(post.objectID) < 0,
       );
     }
 
@@ -1006,8 +917,7 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
 
       if (action.payload.index === 'resources') {
         const post = (state.bests as (Resource | undefined)[]).find(
-          (post) =>
-            post?.objectID === (action.payload.post as Resource).objectID,
+          (post) => post?.objectID === (action.payload.post as Resource).objectID,
         );
 
         if (post) {
@@ -1022,10 +932,7 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
   });
 };
 
-export const addFollow = (
-  state: State,
-  action: PayloadAction<Company>,
-): void => {
+export const addFollow = (state: State, action: PayloadAction<Company>): void => {
   if (state.user.companys.posts.length) {
     state.user.companys.posts = [action.payload, ...state.user.companys.posts];
   }
@@ -1033,10 +940,7 @@ export const addFollow = (
   state.home.matters.control = true;
   state.home.resources.control = true;
 };
-export const removeFollow = (
-  state: State,
-  action: PayloadAction<Company>,
-): void => {
+export const removeFollow = (state: State, action: PayloadAction<Company>): void => {
   state.user.companys.posts = state.user.companys.posts.filter(
     (post) => post?.uid !== action.payload.uid,
   );
@@ -1056,10 +960,7 @@ export const removeFollow = (
   });
 };
 
-export const addRequest = (
-  state: State,
-  action: PayloadAction<Request>,
-): void => {
+export const addRequest = (state: State, action: PayloadAction<Request>): void => {
   if (state.entries.persons.posts.length) {
     state.entries.persons.posts = [
       {
@@ -1071,9 +972,6 @@ export const addRequest = (
   }
 };
 
-export const fetchActivity = (
-  state: State,
-  action: PayloadAction<Activity>,
-): void => {
+export const fetchActivity = (state: State, action: PayloadAction<Activity>): void => {
   state.activity = action.payload;
 };

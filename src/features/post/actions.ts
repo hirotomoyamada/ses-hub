@@ -219,14 +219,14 @@ export const fetchPost = createAsyncThunk(
 export interface ExtractPosts {
   arg: {
     index: 'matters' | 'resources' | 'persons';
-    type: 'likes' | 'outputs' | 'entries';
+    type: 'likes' | 'outputs' | 'entries' | 'history';
     objectIDs?: string[];
     page?: number;
   };
 
   data: {
     index: 'matters' | 'resources' | 'persons';
-    type: 'likes' | 'outputs' | 'entries';
+    type: 'likes' | 'outputs' | 'entries' | 'history';
     posts: Matter[] | Resource[] | Person[];
     hit: {
       currentPage: number;
@@ -254,6 +254,35 @@ export const extractPosts = createAsyncThunk(
       objectIDs: arg.objectIDs,
       page: arg.page,
     });
+
+    return data;
+  },
+);
+
+export interface HistoryPosts {
+  arg: {
+    index: 'matters' | 'resources' | 'persons';
+  };
+
+  data: {
+    index: 'matters' | 'resources' | 'persons';
+    posts: Matter[] | Resource[] | Person[];
+  };
+}
+
+export const historyPosts = createAsyncThunk(
+  'post/historyPosts',
+  async (arg: HistoryPosts['arg']): Promise<HistoryPosts['data']> => {
+    if (!arg.index) {
+      throw Error(undefined);
+    }
+
+    const historyPosts: HttpsCallable<HistoryPosts['arg'], HistoryPosts['data']> = httpsCallable(
+      functions,
+      'sh-historyPosts',
+    );
+
+    const { data } = await historyPosts({ index: arg.index });
 
     return data;
   },
