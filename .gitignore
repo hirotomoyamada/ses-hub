@@ -7,6 +7,7 @@
 .env*
 .DS_Store
 .vscode
+.node-version
 
 *.log
 npm-debug.log*
