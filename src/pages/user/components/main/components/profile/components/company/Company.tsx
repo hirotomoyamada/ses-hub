@@ -36,7 +36,7 @@ export const Company: React.FC<PropType> = ({ user, demo }) => {
 
         <CreateAt user={user} />
 
-        <Follow user={user as Post.Company | User} />
+        {/* <Follow user={user as Post.Company | User} /> */}
       </div>
     </div>
   );
