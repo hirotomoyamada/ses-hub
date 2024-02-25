@@ -7,21 +7,11 @@ import { Analytics, initialState, State } from 'features/user/initialState';
 import { Matter, Resource, Company, Person } from 'types/post';
 import { Setting, User } from 'types/user';
 import { Login, Child, FetchUser } from 'features/user/actions';
-import {
-  Profile,
-  Provider,
-  Like,
-  Output,
-  Entry,
-  Request,
-} from 'features/user/userSlice';
+import { Profile, Provider, Like, Output, Entry, Request } from 'features/user/userSlice';
 import { CreatePost } from 'features/post/actions';
 import { Post } from 'features/post/postSlice';
 
-export const login = (
-  state: State,
-  action: PayloadAction<Login['data']>,
-): void => {
+export const login = (state: State, action: PayloadAction<Login['data']>): void => {
   if (action.payload?.user) {
     (state.user as User).uid = action.payload.user.uid;
     (state.user as User).icon = action.payload.user.icon;
@@ -41,48 +31,32 @@ export const login = (
 
     if (action.payload.user.posts) {
       (state.user as User).posts = {
-        matters: action.payload.user.posts.matters
-          ? action.payload.user.posts.matters
-          : [],
-        resources: action.payload.user.posts.resources
-          ? action.payload.user.posts.resources
-          : [],
+        matters: action.payload.user.posts.matters ? action.payload.user.posts.matters : [],
+        resources: action.payload.user.posts.resources ? action.payload.user.posts.resources : [],
       };
     }
 
     if (action.payload.user.entries) {
       (state.user as User).entries = {
-        matters: action.payload.user.entries.matters
-          ? action.payload.user.entries.matters
-          : [],
+        matters: action.payload.user.entries.matters ? action.payload.user.entries.matters : [],
         resources: action.payload.user.entries.resources
           ? action.payload.user.entries.resources
           : [],
-        persons: action.payload.user.entries.persons
-          ? action.payload.user.entries.persons
-          : [],
+        persons: action.payload.user.entries.persons ? action.payload.user.entries.persons : [],
       };
     }
 
     if (action.payload.user.likes) {
       (state.user as User).likes = {
-        matters: action.payload.user.likes.matters
-          ? action.payload.user.likes.matters
-          : [],
-        resources: action.payload.user.likes.resources
-          ? action.payload.user.likes.resources
-          : [],
-        persons: action.payload.user.likes.persons
-          ? action.payload.user.likes.persons
-          : [],
+        matters: action.payload.user.likes.matters ? action.payload.user.likes.matters : [],
+        resources: action.payload.user.likes.resources ? action.payload.user.likes.resources : [],
+        persons: action.payload.user.likes.persons ? action.payload.user.likes.persons : [],
       };
     }
 
     if (action.payload.user.outputs) {
       (state.user as User).outputs = {
-        matters: action.payload.user.outputs.matters
-          ? action.payload.user.outputs.matters
-          : [],
+        matters: action.payload.user.outputs.matters ? action.payload.user.outputs.matters : [],
         resources: action.payload.user.outputs.resources
           ? action.payload.user.outputs.resources
           : [],
@@ -97,10 +71,7 @@ export const logout = (state: State): State | void => {
   }
 };
 
-export const updateToken = (
-  state: State,
-  action: PayloadAction<string | undefined>,
-): void => {
+export const updateToken = (state: State, action: PayloadAction<string | undefined>): void => {
   if (action.payload) {
     state.token = window.btoa(action.payload);
   } else {
@@ -121,10 +92,7 @@ export const updateNotice = (state: State): void => {
   void disableNotice();
 };
 
-export const updatePayment = (
-  state: State,
-  action: PayloadAction<User['payment']>,
-): void => {
+export const updatePayment = (state: State, action: PayloadAction<User['payment']>): void => {
   (state.user as User).payment = {
     status: action.payload.status,
     limit: action.payload.limit,
@@ -141,23 +109,17 @@ export const updatePayment = (
   };
 };
 
-export const addProvider = (
-  state: State,
-  action: PayloadAction<Provider>,
-): void => {
-  (state.user as User).provider = [
-    action.payload.provider,
-    ...(state.user as User).provider,
-  ];
+export const addProvider = (state: State, action: PayloadAction<Provider>): void => {
+  (state.user as User).provider = [action.payload.provider, ...(state.user as User).provider];
 
   if (action.payload.email) {
     (state.user as User).profile.email = action.payload.email;
   }
 
-  const addProvider: HttpsCallable<
-    { provider: string; email?: string },
-    unknown
-  > = httpsCallable(functions, 'sh-addProvider');
+  const addProvider: HttpsCallable<{ provider: string; email?: string }, unknown> = httpsCallable(
+    functions,
+    'sh-addProvider',
+  );
 
   void addProvider({
     provider: action.payload.provider,
@@ -176,10 +138,7 @@ export const applicationType = (state: State): void => {
   void applicationType();
 };
 
-export const changeEmail = (
-  state: State,
-  action: PayloadAction<string>,
-): void => {
+export const changeEmail = (state: State, action: PayloadAction<string>): void => {
   (state.user as User).profile.email = action.payload;
 
   const changeEmail: HttpsCallable<{ email: string }, unknown> = httpsCallable(
@@ -194,10 +153,7 @@ export const changeEmail = (
   });
 };
 
-export const createChild = (
-  state: State,
-  action: PayloadAction<Child['data'] | void>,
-): void => {
+export const createChild = (state: State, action: PayloadAction<Child['data'] | void>): void => {
   if (action.payload) {
     if ((state.user as User).payment && (state.user as User).payment.children) {
       (state.user as User).payment.children = [
@@ -229,10 +185,7 @@ export const changeEmailChild = (
   }
 };
 
-export const deleteChild = (
-  state: State,
-  action: PayloadAction<string | void>,
-): void => {
+export const deleteChild = (state: State, action: PayloadAction<string | void>): void => {
   if ((state.user as User).payment && (state.user as User).payment.children) {
     (state.user as User).payment.children = (
       (state.user as User).payment.children as string[]
@@ -246,10 +199,7 @@ export const deleteChild = (
   }
 };
 
-export const editProfile = (
-  state: State,
-  action: PayloadAction<Profile>,
-): void => {
+export const editProfile = (state: State, action: PayloadAction<Profile>): void => {
   if ((state.user as User).uid === action.payload.uid) {
     (state.user as User).icon = action.payload.icon;
     (state.user as User).cover = action.payload.cover;
@@ -295,10 +245,7 @@ export const editProfile = (
   }
 };
 
-export const createPost = (
-  state: State,
-  action: PayloadAction<CreatePost['data']>,
-): void => {
+export const createPost = (state: State, action: PayloadAction<CreatePost['data']>): void => {
   (state.user as User).posts[action.payload.index] = [
     action.payload.post.objectID,
     ...(state.user as User).posts[action.payload.index],
@@ -370,13 +317,9 @@ export const removeLike = (state: State, action: PayloadAction<Like>): void => {
   });
 };
 
-export const addOutput = (
-  state: State,
-  action: PayloadAction<Output>,
-): void => {
+export const addOutput = (state: State, action: PayloadAction<Output>): void => {
   if (
-    (action.payload.index === 'matters' ||
-      action.payload.index === 'resources') &&
+    (action.payload.index === 'matters' || action.payload.index === 'resources') &&
     action.payload.post
   ) {
     (state.user as User).outputs[action.payload.index] = [
@@ -401,28 +344,17 @@ export const addOutput = (
   }
 };
 
-export const removeOutput = (
-  state: State,
-  action: PayloadAction<Output>,
-): void => {
-  if (
-    action.payload.index === 'matters' ||
-    action.payload.index === 'resources'
-  ) {
+export const removeOutput = (state: State, action: PayloadAction<Output>): void => {
+  if (action.payload.index === 'matters' || action.payload.index === 'resources') {
     if (!action.payload.objectIDs) {
-      (state.user as User).outputs[action.payload.index] = (
-        state.user as User
-      ).outputs[action.payload.index].filter(
-        (objectID) =>
-          action.payload.post && objectID !== action.payload.post.objectID,
-      );
+      (state.user as User).outputs[action.payload.index] = (state.user as User).outputs[
+        action.payload.index
+      ].filter((objectID) => action.payload.post && objectID !== action.payload.post.objectID);
     } else {
-      (state.user as User).outputs[action.payload.index] = (
-        state.user as User
-      ).outputs[action.payload.index].filter(
-        (objectID) =>
-          action.payload.objectIDs &&
-          action.payload.objectIDs.indexOf(objectID) < 0,
+      (state.user as User).outputs[action.payload.index] = (state.user as User).outputs[
+        action.payload.index
+      ].filter(
+        (objectID) => action.payload.objectIDs && action.payload.objectIDs.indexOf(objectID) < 0,
       );
     }
 
@@ -451,10 +383,8 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
     ...(state.user as User).entries[action.payload.index],
   ];
 
-  const addEntry: HttpsCallable<
-    { index: Entry['index']; uid: string; objectID: string },
-    unknown
-  > = httpsCallable(functions, 'sh-addEntry');
+  const addEntry: HttpsCallable<{ index: Entry['index']; uid: string; objectID: string }, unknown> =
+    httpsCallable(functions, 'sh-addEntry');
 
   void addEntry({
     index: action.payload.index,
@@ -463,20 +393,11 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
   });
 };
 
-export const addFollow = (
-  state: State,
-  action: PayloadAction<Company>,
-): void => {
-  (state.user as User).follows = [
-    action.payload.uid,
-    ...(state.user as User).follows,
-  ];
+export const addFollow = (state: State, action: PayloadAction<Company>): void => {
+  (state.user as User).follows = [action.payload.uid, ...(state.user as User).follows];
 
   if ((state.user as User).home.length < 15) {
-    (state.user as User).home = [
-      action.payload.uid,
-      ...(state.user as User).home,
-    ];
+    (state.user as User).home = [action.payload.uid, ...(state.user as User).home];
   }
 
   if ((state.selectUser as Company).uid === action.payload.uid) {
@@ -487,18 +408,12 @@ export const addFollow = (
       ((state.selectUser as Company).followers as number) += 1;
   }
 
-  const addFollow: HttpsCallable<string, unknown> = httpsCallable(
-    functions,
-    'sh-addFollow',
-  );
+  const addFollow: HttpsCallable<string, unknown> = httpsCallable(functions, 'sh-addFollow');
 
   void addFollow(action.payload.uid);
 };
 
-export const removeFollow = (
-  state: State,
-  action: PayloadAction<Company>,
-): void => {
+export const removeFollow = (state: State, action: PayloadAction<Company>): void => {
   (state.user as User).follows = (state.user as User).follows.filter(
     (uid) => uid !== action.payload.uid,
   );
@@ -517,18 +432,12 @@ export const removeFollow = (
       ((state.selectUser as Company).followers as number) -= 1;
   }
 
-  const removeFollow: HttpsCallable<string, unknown> = httpsCallable(
-    functions,
-    'sh-removeFollow',
-  );
+  const removeFollow: HttpsCallable<string, unknown> = httpsCallable(functions, 'sh-removeFollow');
 
   void removeFollow(action.payload.uid);
 };
 
-export const addRequest = (
-  state: State,
-  action: PayloadAction<Request>,
-): void => {
+export const addRequest = (state: State, action: PayloadAction<Request>): void => {
   (state.selectUser as Person).request = 'hold';
 
   (state.user as User).entries.persons = [
@@ -536,8 +445,10 @@ export const addRequest = (
     ...(state.user as User).entries.persons,
   ];
 
-  const addRequest: HttpsCallable<{ uid: string; body: string }, unknown> =
-    httpsCallable(functions, 'sh-addRequest');
+  const addRequest: HttpsCallable<{ uid: string; body: string }, unknown> = httpsCallable(
+    functions,
+    'sh-addRequest',
+  );
 
   void addRequest({
     uid: action.payload.user.uid,
@@ -545,24 +456,15 @@ export const addRequest = (
   });
 };
 
-export const updateHome = (
-  state: State,
-  action: PayloadAction<string[]>,
-): void => {
+export const updateHome = (state: State, action: PayloadAction<string[]>): void => {
   (state.user as User).home = action.payload;
 
-  const updateHome: HttpsCallable<string[], unknown> = httpsCallable(
-    functions,
-    'sh-updateHome',
-  );
+  const updateHome: HttpsCallable<string[], unknown> = httpsCallable(functions, 'sh-updateHome');
 
   void updateHome(action.payload);
 };
 
-export const fetchUser = (
-  state: State,
-  action: PayloadAction<FetchUser['data'] | void>,
-): void => {
+export const fetchUser = (state: State, action: PayloadAction<FetchUser['data'] | void>): void => {
   if (action.payload) {
     state.selectUser = action.payload.user;
   } else {
@@ -576,24 +478,16 @@ export const resetUser = (state: State): void => {
 
 export const updateAnalytics = (
   state: State,
-  action: PayloadAction<
-    (Setting['analytics'] & { type: 'analytics' }) | undefined
-  >,
+  action: PayloadAction<(Setting['analytics'] & { type: 'analytics' }) | undefined>,
 ): void => {
   if (action.payload) {
     if (action.payload.type !== 'analytics') return;
 
     Object.keys(state.analytics).forEach((uid) => {
       state.analytics[uid] = action.payload?.order
-        .map((key) =>
-          (state.analytics[uid] as Analytics).find(
-            (current) => current.key === key,
-          ),
-        )
+        .map((key) => (state.analytics[uid] as Analytics).find((current) => current.key === key))
         .map((current) =>
-          current?.key &&
-          action.payload?.active &&
-          action.payload.active.includes(current?.key)
+          current?.key && action.payload?.active && action.payload.active.includes(current?.key)
             ? { ...current, active: true }
             : { ...current, active: false },
         )
@@ -617,13 +511,13 @@ export const fetchAnalytics = (
   const active = action.payload.active;
   const order = action.payload.order;
 
+  action.payload.analytics = action.payload.analytics.filter(({ key }) => key !== 'follows');
+
   if (!active || !order) {
     state.analytics[uid] = action.payload.analytics;
   } else {
     state.analytics[uid] = order
-      .map((key) =>
-        action.payload.analytics.find((current) => current.key === key),
-      )
+      .map((key) => action.payload.analytics.find((current) => current.key === key))
       .map((current) =>
         current?.key && active.indexOf(current?.key) >= 0
           ? { ...current, active: true }
