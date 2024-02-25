@@ -1,8 +1,8 @@
-import React from "react";
-import styles from "./Main.module.scss";
+import React from 'react';
+import styles from './Main.module.scss';
 
-import { useFormContext, FieldError } from "react-hook-form";
-import { Data } from "components/modal/components/analytics/components/export/Export";
+import { useFormContext, FieldError } from 'react-hook-form';
+import { Data } from 'components/modal/components/analytics/components/export/Export';
 
 interface PropType {
   all: boolean;
@@ -18,148 +18,123 @@ export const Select: React.FC<PropType> = ({ all, handleAll }) => {
   return (
     <div
       className={`
-          ${styles.main_container} 
-          ${styles.main_container_name} 
-          ${
-            (errors.select as FieldError | undefined) &&
-            styles.main_container_error
-          }
-        `}
-    >
+          ${styles.main_container}
+          ${styles.main_container_name}
+          ${(errors.select as FieldError | undefined) && styles.main_container_error}
+        `}>
       <button
-        type="button"
+        type='button'
         className={`${styles.main_btn} ${all && styles.main_btn_cancel}`}
-        onClick={handleAll}
-      >
-        {!all ? "すべて選択する" : "すべて解除する"}
+        onClick={handleAll}>
+        {!all ? 'すべて選択する' : 'すべて解除する'}
       </button>
 
       <input
-        type="checkbox"
-        id="posts"
-        {...register("select", {
+        type='checkbox'
+        id='posts'
+        {...register('select', {
           required: {
             value: true,
-            message: "選択してください",
+            message: '選択してください',
           },
         })}
-        value="posts"
+        value='posts'
         className={`${styles.main_input}`}
       />
       <label
         className={`
           ${styles.main_input_label}
-          ${
-            (errors.select as FieldError | undefined) &&
-            styles.main_input_label_error
-          }
+          ${(errors.select as FieldError | undefined) && styles.main_input_label_error}
         `}
-        htmlFor="posts"
-      >
+        htmlFor='posts'>
         投稿
       </label>
 
       <input
-        type="checkbox"
-        id="histories"
-        {...register("select", {
+        type='checkbox'
+        id='histories'
+        {...register('select', {
           required: {
             value: true,
-            message: "選択してください",
+            message: '選択してください',
           },
         })}
-        value="histories"
+        value='histories'
         className={`${styles.main_input}`}
       />
       <label
         className={`
           ${styles.main_input_label}
-          ${
-            (errors.select as FieldError | undefined) &&
-            styles.main_input_label_error
-          }
+          ${(errors.select as FieldError | undefined) && styles.main_input_label_error}
         `}
-        htmlFor="histories"
-      >
+        htmlFor='histories'>
         閲覧
       </label>
 
       <input
-        type="checkbox"
-        id="likes"
-        {...register("select", {
+        type='checkbox'
+        id='likes'
+        {...register('select', {
           required: {
             value: true,
-            message: "選択してください",
+            message: '選択してください',
           },
         })}
-        value="likes"
+        value='likes'
         className={`${styles.main_input}`}
       />
       <label
         className={`
           ${styles.main_input_label}
-          ${
-            (errors.select as FieldError | undefined) &&
-            styles.main_input_label_error
-          }
+          ${(errors.select as FieldError | undefined) && styles.main_input_label_error}
         `}
-        htmlFor="likes"
-      >
+        htmlFor='likes'>
         いいね
       </label>
 
       <input
-        type="checkbox"
-        id="outputs"
-        {...register("select", {
+        type='checkbox'
+        id='outputs'
+        {...register('select', {
           required: {
             value: true,
-            message: "選択してください",
+            message: '選択してください',
           },
         })}
-        value="outputs"
+        value='outputs'
         className={`${styles.main_input}`}
       />
       <label
         className={`
           ${styles.main_input_label}
-          ${
-            (errors.select as FieldError | undefined) &&
-            styles.main_input_label_error
-          }
+          ${(errors.select as FieldError | undefined) && styles.main_input_label_error}
         `}
-        htmlFor="outputs"
-      >
+        htmlFor='outputs'>
         出力
       </label>
 
       <input
-        type="checkbox"
-        id="entries"
-        {...register("select", {
+        type='checkbox'
+        id='entries'
+        {...register('select', {
           required: {
             value: true,
-            message: "選択してください",
+            message: '選択してください',
           },
         })}
-        value="entries"
+        value='entries'
         className={`${styles.main_input}`}
       />
       <label
         className={`
           ${styles.main_input_label}
-          ${
-            (errors.select as FieldError | undefined) &&
-            styles.main_input_label_error
-          }
+          ${(errors.select as FieldError | undefined) && styles.main_input_label_error}
         `}
-        htmlFor="entries"
-      >
+        htmlFor='entries'>
         お問い合わせ
       </label>
 
-      <input
+      {/* <input
         type="checkbox"
         id="follows"
         {...register("select", {
@@ -182,55 +157,47 @@ export const Select: React.FC<PropType> = ({ all, handleAll }) => {
         htmlFor="follows"
       >
         フォロー
-      </label>
+      </label> */}
 
       <input
-        type="checkbox"
-        id="distribution"
-        {...register("select", {
+        type='checkbox'
+        id='distribution'
+        {...register('select', {
           required: {
             value: true,
-            message: "選択してください",
+            message: '選択してください',
           },
         })}
-        value="distribution"
+        value='distribution'
         className={`${styles.main_input}`}
       />
       <label
         className={`
           ${styles.main_input_label}
-          ${
-            (errors.select as FieldError | undefined) &&
-            styles.main_input_label_error
-          }
+          ${(errors.select as FieldError | undefined) && styles.main_input_label_error}
         `}
-        htmlFor="distribution"
-      >
+        htmlFor='distribution'>
         商流
       </label>
 
       <input
-        type="checkbox"
-        id="approval"
-        {...register("select", {
+        type='checkbox'
+        id='approval'
+        {...register('select', {
           required: {
             value: true,
-            message: "選択してください",
+            message: '選択してください',
           },
         })}
-        value="approval"
+        value='approval'
         className={`${styles.main_input}`}
       />
       <label
         className={`
           ${styles.main_input_label}
-          ${
-            (errors.select as FieldError | undefined) &&
-            styles.main_input_label_error
-          }
+          ${(errors.select as FieldError | undefined) && styles.main_input_label_error}
         `}
-        htmlFor="approval"
-      >
+        htmlFor='approval'>
         稟議速度
       </label>
 
