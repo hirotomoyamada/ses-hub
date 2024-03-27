@@ -40,6 +40,16 @@ $width: responsive-width(pc);
         font-size: 10px;
       }
     }
+
+    &_danger {
+      white-space: pre;
+      color: $remove_clr;
+      font-size: 12px;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 10px;
+      }
+    }
   }
 
   &_col {

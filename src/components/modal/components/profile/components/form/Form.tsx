@@ -8,7 +8,7 @@ import { Address } from './components/Address';
 import { Tel } from './components/Tel';
 import { Body } from './components/Body';
 import { Url } from './components/Url';
-import { Social } from './components/Social';
+// import { Social } from './components/Social';
 import { More } from './components/More';
 import { Invoice } from './components/Invoice';
 
@@ -25,7 +25,7 @@ export const Form: React.FC<PropType> = ({
   icon,
   setCover,
   setIcon,
-  setLine,
+  // setLine
 }) => {
   return (
     <div className={styles.form}>
@@ -40,7 +40,7 @@ export const Form: React.FC<PropType> = ({
         <Address />
         <Tel />
         <Url />
-        <Social setLine={setLine} />
+        {/* <Social setLine={setLine} /> */}
       </div>
     </div>
   );

@@ -12,12 +12,15 @@ export const Body: React.FC = () => {
 
   return (
     <div className={styles.form_col}>
-      <span className={styles.form_tag}>プロフィール</span>
+      <span className={styles.form_tag}>
+        プロフィール
+        <span className={styles.form_tag_danger}>
+          &nbsp;※&nbsp;個人情報・連絡先を記載した場合は削除されます
+        </span>
+      </span>
       <div>
         <textarea
-          className={`${styles.form_textarea} ${
-            errors.body && styles.form_textarea_error
-          }`}
+          className={`${styles.form_textarea} ${errors.body && styles.form_textarea_error}`}
           {...register('body', {
             pattern: {
               value: /^\S+/,
