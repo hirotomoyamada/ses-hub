@@ -171,10 +171,10 @@ export const notFound = (state: State, action: PayloadAction<boolean>): void => 
   state.load.root = false;
 };
 
-export const limit = (state: State, action: PayloadAction<boolean>): void => {
-  state.limit = action.payload;
-  state.load.root = false;
-};
+// export const limit = (state: State, action: PayloadAction<boolean>): void => {
+//   state.limit = action.payload;
+//   state.load.root = false;
+// };
 
 export const modal = (state: State, action?: PayloadAction<Modal | undefined>): void => {
   if (action?.payload) {

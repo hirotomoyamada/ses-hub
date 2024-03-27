@@ -4,11 +4,11 @@ import styles from './Menu.module.scss';
 import EditIcon from '@material-ui/icons/Edit';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import SearchIcon from '@material-ui/icons/Search';
-import HomeIcon from '@material-ui/icons/Home';
+// import HomeIcon from '@material-ui/icons/Home';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import LaunchIcon from '@material-ui/icons/Launch';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import SettingsIcon from '@material-ui/icons/Settings';
+// import SettingsIcon from '@material-ui/icons/Settings';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +17,7 @@ import * as rootSlice from 'features/root/rootSlice';
 import * as postSlice from 'features/post/postSlice';
 
 import { User } from 'types/user';
-import { HistoryOutlined, HistoryRounded } from '@material-ui/icons';
+import { HistoryOutlined } from '@material-ui/icons';
 
 interface PropType {
   user: User;
@@ -31,7 +31,7 @@ export const Menu: React.FC<PropType> = ({ user }) => {
   const index = useSelector(rootSlice.index);
   const status = useSelector(rootSlice.verified).status;
   const notFound = useSelector(rootSlice.notFound);
-  const limit = useSelector(rootSlice.limit);
+  // const limit = useSelector(rootSlice.limit);
   const page = useSelector(rootSlice.page);
 
   const handleOpen = () => {
@@ -42,9 +42,9 @@ export const Menu: React.FC<PropType> = ({ user }) => {
     dispatch(rootSlice.handleModal({ type: 'new' }));
   };
 
-  const handleSetting = () => {
-    dispatch(rootSlice.handleModal({ type: 'home' }));
-  };
+  // const handleSetting = () => {
+  //   dispatch(rootSlice.handleModal({ type: 'home' }));
+  // };
 
   const handleClose = () => {
     window.close();
@@ -55,12 +55,12 @@ export const Menu: React.FC<PropType> = ({ user }) => {
     navigate(page);
 
     notFound && dispatch(rootSlice.handleNotFound(false));
-    limit && dispatch(rootSlice.handleLimit(false));
+    // limit && dispatch(rootSlice.handleLimit(false));
   };
 
   const Btn = () => {
     if (
-      !limit &&
+      // !limit &&
       !notFound &&
       index !== 'companys' &&
       index !== 'persons' &&

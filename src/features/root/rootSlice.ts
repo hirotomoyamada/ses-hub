@@ -31,7 +31,7 @@ export const rootSlice = createSlice({
     handleAnnounce: (state, action: PayloadAction<Announce | undefined>) =>
       reducers.announce(state, action),
     handleNotFound: (state, action: PayloadAction<boolean>) => reducers.notFound(state, action),
-    handleLimit: (state, action: PayloadAction<boolean>) => reducers.limit(state, action),
+    // handleLimit: (state, action: PayloadAction<boolean>) => reducers.limit(state, action),
     handleVerified: (state) => reducers.verified(state),
     handleAgree: (state, action: PayloadAction<User>) => reducers.agree(state, action),
     handleRemind: (state) => reducers.remind(state),
@@ -54,7 +54,7 @@ export const {
   handleModal,
   handleAnnounce,
   handleNotFound,
-  handleLimit,
+  // handleLimit,
   handleVerified,
   handleAgree,
   handleRemind,
@@ -69,7 +69,7 @@ export const search = (state: RootState): State['search'] => state.root.search;
 export const modal = (state: RootState): State['modal'] => state.root.modal;
 export const announce = (state: RootState): State['announce'] => state.root.announce;
 export const notFound = (state: RootState): State['notFound'] => state.root.notFound;
-export const limit = (state: RootState): State['limit'] => state.root.limit;
+// export const limit = (state: RootState): State['limit'] => state.root.limit;
 export const data = (state: RootState): State['data'] => state.root.data;
 export const verified = (state: RootState): State['verified'] => state.root.verified;
 export const setting = (state: RootState): State['setting'] => state.root.setting;

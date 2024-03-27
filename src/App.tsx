@@ -12,7 +12,7 @@ import { Modal } from 'components/modal/Modal';
 import { Menu } from 'components/menu/Menu';
 
 import { Auth } from 'pages/auth/Auth';
-import { Home } from 'pages/home/Home';
+// import { Home } from 'pages/home/Home';
 import { Search } from 'pages/search/Search';
 import { List } from 'pages/list/List';
 import { History } from 'pages/history/History';
@@ -26,7 +26,7 @@ import { Terms } from 'pages/terms/Terms';
 import { Asct } from 'pages/asct/Asct';
 
 import { NotFound } from 'pages/notFound/NotFound';
-import { Limit } from 'pages/limit/Limit';
+// import { Limit } from 'pages/limit/Limit';
 import { Success } from 'pages/success/Success';
 import { Maintenance } from 'pages/maintenance/Maintenance';
 import { NotSupported } from 'pages/notSupported/NotSupported';
@@ -50,7 +50,7 @@ export const App: React.FC = () => {
             <load.Pending />
             <Announce />
             <NotFound />
-            <Limit user={user} />
+            {/* <Limit user={user} /> */}
             <Maintenance />
             <Modal />
             <Menu user={user} />
