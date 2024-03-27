@@ -162,13 +162,17 @@ export const Menu: React.FC<PropType> = ({ user }) => {
         </button>
 
         <button
-          onClick={() => handlePage(`/entries/${index !== 'companys' ? index : 'matters'}`)}
+          onClick={() =>
+            user.payment.status === 'canceled'
+              ? dispatch(rootSlice.handleModal({ type: 'advertise', meta: { type: 'active' } }))
+              : handlePage(`/entries/${index !== 'companys' ? index : 'matters'}`)
+          }
           type='button'
           className={`${styles.menu_list_btn} ${styles.menu_list_btn_entries}`}>
           <CheckCircleOutlineIcon
             className={`${styles.menu_list_icon} ${
               page === 'entries' && styles.menu_list_icon_entries
-            }`}
+            } ${user.payment.status === 'canceled' && styles.menu_list_icon_disabled}`}
           />
         </button>
 

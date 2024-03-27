@@ -1,11 +1,11 @@
-import React from "react";
-import styles from "./Entry.module.scss";
+import React from 'react';
+import styles from './Entry.module.scss';
 
-import { useSelector } from "react-redux";
-import * as rootSlice from "features/root/rootSlice";
+import { useSelector } from 'react-redux';
+import * as rootSlice from 'features/root/rootSlice';
 
-import { Matter, Resource } from "types/post";
-import { User } from "types/user";
+import { Matter, Resource } from 'types/post';
+import { User } from 'types/user';
 
 interface PropType {
   post: Matter | Resource;
@@ -14,24 +14,17 @@ interface PropType {
   handleEntry: () => void;
 }
 
-export const Entry: React.FC<PropType> = ({
-  post,
-  user,
-  entry,
-  handleEntry,
-}) => {
+export const Entry: React.FC<PropType> = ({ post, user, entry, handleEntry }) => {
   const demo = useSelector(rootSlice.verified).demo;
+  const canceled = user.payment.status === 'canceled';
 
   return post?.user?.uid !== user?.uid ? (
     <button
-      className={`${styles.entry} ${demo && styles.entry_disabled}`}
-      onClick={handleEntry}
-    >
-      {demo
-        ? "問い合わせすることができません"
-        : entry
-        ? "問い合わせ済みです"
-        : "問い合わせをする"}
+      className={`${styles.entry} ${(demo || canceled) && styles.entry_disabled} ${
+        demo && styles.entry_disabled_truly
+      }`}
+      onClick={handleEntry}>
+      {demo ? '問い合わせすることができません' : entry ? '問い合わせ済みです' : '問い合わせをする'}
     </button>
   ) : (
     <></>

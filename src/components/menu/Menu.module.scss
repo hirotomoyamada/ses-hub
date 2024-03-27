@@ -281,6 +281,11 @@ $width: responsive-width(pc);
       &_history {
         color: $acnt_clr;
       }
+
+      &_disabled {
+        color: $sub_clr;
+        // opacity: 0.4;
+      }
     }
   }
 
