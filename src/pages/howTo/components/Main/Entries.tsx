@@ -1,19 +1,17 @@
-import React from "react";
-import styles from "../../HowTo.module.scss";
+import React from 'react';
+import styles from '../../HowTo.module.scss';
 
-import { Tag } from "../tag/Tag";
+import { Tag } from '../tag/Tag';
 
 export const Entries: React.FC = () => {
   return (
     <div className={styles.howto_main}>
       <h1 className={styles.howto_ttl}>お問い合わせ</h1>
 
-      <p className={styles.howto_desc}>
-        他のメンバーの投稿にたいして、問い合わせをする
-      </p>
+      <p className={styles.howto_desc}>他のメンバーの投稿にたいして、問い合わせをする</p>
 
       <div className={styles.howto_container}>
-        <Tag tag="問い合わせする" free paid />
+        <Tag tag='問い合わせする' paid />
 
         <p>
           他のメンバーが投稿した
@@ -26,7 +24,7 @@ export const Entries: React.FC = () => {
       </div>
 
       <div className={styles.howto_container}>
-        <Tag tag="問い合わせしたリスト" free paid />
+        <Tag tag='問い合わせしたリスト' paid />
 
         <p>
           一度問い合わせた投稿は、

@@ -68,13 +68,12 @@ export const Feature: React.FC = () => {
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
-                <span className={styles.feature_icon_desc}>※1</span>
               </td>
               <td>
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
-                <span className={styles.feature_icon_desc}>※7</span>
+                <span className={styles.feature_icon_desc}>※6</span>
               </td>
             </tr>
 
@@ -82,15 +81,13 @@ export const Feature: React.FC = () => {
               <td>案件・人材へ問い合わせ</td>
 
               <td>
-                <RadioButtonUncheckedIcon
-                  className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
-                />
+                <CloseIcon className={`${styles.feature_icon} ${styles.feature_icon_disable}`} />
               </td>
               <td>
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
-                <span className={styles.feature_icon_desc}>※7</span>
+                <span className={styles.feature_icon_desc}>※6</span>
               </td>
             </tr>
 
@@ -101,7 +98,7 @@ export const Feature: React.FC = () => {
                 <ChangeHistoryIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_limited}`}
                 />
-                <span className={styles.feature_icon_desc}>※2</span>
+                <span className={styles.feature_icon_desc}>※1</span>
               </td>
 
               <td>
@@ -118,7 +115,7 @@ export const Feature: React.FC = () => {
                 <ChangeHistoryIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_limited}`}
                 />
-                <span className={styles.feature_icon_desc}>※3</span>
+                <span className={styles.feature_icon_desc}>※2</span>
               </td>
               <td>
                 <RadioButtonUncheckedIcon
@@ -134,7 +131,7 @@ export const Feature: React.FC = () => {
                 <ChangeHistoryIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_limited}`}
                 />
-                <span className={styles.feature_icon_desc}>※4</span>
+                <span className={styles.feature_icon_desc}>※3</span>
               </td>
               <td>
                 <RadioButtonUncheckedIcon
@@ -195,7 +192,7 @@ export const Feature: React.FC = () => {
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
-                <span className={styles.feature_icon_desc}>※5</span>
+                <span className={styles.feature_icon_desc}>※4</span>
               </td>
             </tr>
 
@@ -222,34 +219,31 @@ export const Feature: React.FC = () => {
                 <RadioButtonUncheckedIcon
                   className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
                 />
-                <span className={styles.feature_icon_desc}>※6</span>
+                <span className={styles.feature_icon_desc}>※5</span>
               </td>
             </tr>
           </tbody>
         </table>
 
+        <br />
         <span className={styles.feature_announce}>
-          ※1&nbsp;無料プランでは、月間の閲覧回数に上限があります。
+          ※1&nbsp;無料プランは、新着投稿の通知を受け取ることが出来ても、ご自身の投稿は他のユーザーに通知されません。
         </span>
         <br />
         <span className={styles.feature_announce}>
-          ※2&nbsp;無料プランは、新着投稿の通知を受け取ることが出来ても、ご自身の投稿は他のユーザーに通知されません。
+          ※2&nbsp;無料プランでは、ご自身の案件・人材情報のみ外部出力することが可能です。
+        </span>
+        <br />
+        <span className={styles.feature_announce}>※3&nbsp;投稿の閲覧数のみ表示されます。</span>
+        <br />
+        <span className={styles.feature_announce}>※4&nbsp;別途オプションの加入が必要です。</span>
+        <br />
+        <span className={styles.feature_announce}>
+          ※5&nbsp;複数のアカウントを登録・管理するには法人契約へのお申し込みが必要です。
         </span>
         <br />
         <span className={styles.feature_announce}>
-          ※3&nbsp;無料プランでは、ご自身の案件・人材情報のみ外部出力することが可能です。
-        </span>
-        <br />
-        <span className={styles.feature_announce}>※4&nbsp;投稿の閲覧数のみ表示されます。</span>
-        <br />
-        <span className={styles.feature_announce}>※5&nbsp;別途オプションの加入が必要です。</span>
-        <br />
-        <span className={styles.feature_announce}>
-          ※6&nbsp;複数のアカウントを登録・管理するには法人契約へのお申し込みが必要です。
-        </span>
-        <br />
-        <span className={styles.feature_announce}>
-          ※7&nbsp;人材マッチング機能による他社案件/要員の詳細閲覧や問い合わせサービスは別途有料プランの加入が必要です。詳細はお問い合わせ下さい。
+          ※6&nbsp;人材マッチング機能による他社案件/要員の詳細閲覧や問い合わせサービスは別途有料プランの加入が必要です。詳細はお問い合わせ下さい。
         </span>
         <br />
         <span className={styles.feature_announce}>
