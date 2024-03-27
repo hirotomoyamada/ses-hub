@@ -16,23 +16,24 @@ import { Follow } from './components/Follow';
 interface PropType {
   user: Post.Company;
   demo: boolean;
+  currentUser: User;
 }
 
-export const Company: React.FC<PropType> = ({ user, demo }) => {
+export const Company: React.FC<PropType> = ({ user, currentUser, demo }) => {
   return (
     <div className={styles.profile}>
-      <Head user={user} />
+      <Head user={user} currentUser={currentUser} />
 
       <Payment user={user as Post.Company | User} />
 
-      <Body user={user} />
+      <Body user={user} currentUser={currentUser} />
 
       <div className={styles.profile_container}>
         <More user={user} />
 
-        <Address user={user} demo={demo} />
+        <Address user={user} demo={demo} currentUser={currentUser} />
 
-        <Url user={user} demo={demo} />
+        <Url user={user} demo={demo} currentUser={currentUser} />
 
         <CreateAt user={user} />
 

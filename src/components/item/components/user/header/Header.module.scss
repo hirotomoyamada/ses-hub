@@ -1,6 +1,6 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
+@import 'styles/config';
+@import 'styles/function';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -64,6 +64,12 @@ $width: responsive-width(pc);
       font-size: 16px;
       max-width: 240px;
     }
+
+    &_dummy {
+      filter: blur(3px);
+      pointer-events: none;
+      user-select: none;
+    }
   }
 
   &_category {
@@ -109,6 +115,12 @@ $width: responsive-width(pc);
 
     @media (max-width: responsive-width(sp)) {
       width: auto-max(180px);
+    }
+
+    &_dummy {
+      filter: blur(3px);
+      pointer-events: none;
+      user-select: none;
     }
   }
 }

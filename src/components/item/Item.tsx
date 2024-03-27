@@ -7,7 +7,7 @@ import { Post } from './components/post/Post';
 import { User } from './components/user/User';
 
 import { Operation } from 'components/operation/Operation';
-import { Follow } from 'components/follow/Follow';
+// import { Follow } from 'components/follow/Follow';
 
 import { Matter, Resource, Company, Person } from 'types/post';
 import { User as UserType } from 'types/user';
@@ -37,7 +37,7 @@ export const Item: React.FC<PropType> = ({
   handleSelect,
   handleCancel,
   select,
-  selectUser,
+  // selectUser,
   viewed,
 }) => {
   const unviewed =
@@ -124,7 +124,7 @@ export const Item: React.FC<PropType> = ({
             />
           </>
         ) : (
-          <User index={index} post={post as Company | Person} />
+          <User index={index} post={post as Company | Person} user={user} />
         )}
       </button>
 

@@ -1,6 +1,6 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
+@import 'styles/config';
+@import 'styles/function';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -51,6 +51,12 @@ $width: responsive-width(pc);
 
     &_company {
       display: grid;
+
+      &_dummy {
+        filter: blur(3px);
+        pointer-events: none;
+        user-select: none;
+      }
     }
 
     &_txt {
@@ -82,7 +88,7 @@ $width: responsive-width(pc);
     }
 
     &:after {
-      content: "プロフィール";
+      content: 'プロフィール';
       display: block;
       position: absolute;
       top: -8px;

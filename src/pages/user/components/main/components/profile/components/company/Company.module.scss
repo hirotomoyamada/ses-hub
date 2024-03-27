@@ -112,6 +112,12 @@ $width: responsive-width(pc);
     font-size: 24px;
     font-weight: bold;
 
+    &_dummy {
+      filter: blur(3px);
+      pointer-events: none;
+      user-select: none;
+    }
+
     @media (max-width: responsive-width(sp)) {
       font-size: 16px;
     }
@@ -120,6 +126,12 @@ $width: responsive-width(pc);
   &_name {
     margin-top: 8px;
 
+    &_dummy {
+      filter: blur(3px);
+      pointer-events: none;
+      user-select: none;
+    }
+
     @media (max-width: responsive-width(sp)) {
       font-size: 12px;
     }
@@ -127,6 +139,12 @@ $width: responsive-width(pc);
 
   &_body {
     display: grid;
+
+    &_dummy {
+      filter: blur(3px);
+      pointer-events: none;
+      user-select: none;
+    }
 
     &_txt {
       display: -webkit-box;
@@ -146,6 +164,12 @@ $width: responsive-width(pc);
 
   &_address {
     color: $sub_clr;
+
+    &_dummy {
+      filter: blur(3px);
+      pointer-events: none;
+      user-select: none;
+    }
   }
 
   &_postal {
@@ -154,6 +178,12 @@ $width: responsive-width(pc);
 
   &_link {
     color: $link_clr;
+
+    &_dummy {
+      filter: blur(3px);
+      pointer-events: none;
+      user-select: none;
+    }
   }
 
   &_createAt {
