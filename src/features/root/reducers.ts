@@ -35,15 +35,15 @@ export const verified = (state: State, action?: PayloadAction<Login['data']>): v
         state.modal.open = true;
       }
 
-      if (
-        action.payload.user.type === 'individual' &&
-        action.payload.user.payment.status === 'canceled' &&
-        action.payload.user.payment.notice
-      ) {
-        state.modal.type = 'advertise';
-        state.modal.meta = { type: 'active' };
-        state.modal.open = true;
-      }
+      // if (
+      //   action.payload.user.type === 'individual' &&
+      //   action.payload.user.payment.status === 'canceled' &&
+      //   action.payload.user.payment.notice
+      // ) {
+      //   state.modal.type = 'advertise';
+      //   state.modal.meta = { type: 'active' };
+      //   state.modal.open = true;
+      // }
 
       if (action.payload.user.remind === 'enable') {
         state.verified.remind = true;
