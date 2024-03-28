@@ -22,7 +22,7 @@ export const Post: React.FC<PropType> = ({ index, post, user, display, status, v
         <>
           <Header post={post} user={user} display={display} status={status} />
           <Title post={post} />
-          <Main post={post} viewed={viewed} />
+          <Main post={post} viewed={viewed} user={user} />
           <Footer post={post} user={user} />
         </>
       ) : (
@@ -30,7 +30,7 @@ export const Post: React.FC<PropType> = ({ index, post, user, display, status, v
           <>
             <Header post={post} user={user} display={display} status={status} />
             <Title post={post} resources />
-            <Main post={post} resources viewed={viewed} />
+            <Main post={post} resources viewed={viewed} user={user} />
             <Footer post={post} user={user} />
           </>
         )

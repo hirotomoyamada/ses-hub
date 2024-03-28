@@ -8,14 +8,16 @@ import { Body } from './components/Body';
 import { Adjustment } from './components/Adjustment';
 
 import { Matter, Resource } from 'types/post';
+import { User } from 'types/user';
 
 interface PropType {
   post: Matter | Resource;
   resources?: boolean;
   viewed?: boolean;
+  user: User;
 }
 
-export const Main: React.FC<PropType> = ({ post, viewed, resources }) => {
+export const Main: React.FC<PropType> = ({ post, viewed, resources, user }) => {
   return !resources ? (
     <div className={styles.main}>
       <div className={styles.main_side}>
@@ -31,7 +33,7 @@ export const Main: React.FC<PropType> = ({ post, viewed, resources }) => {
   ) : (
     <div className={styles.main}>
       <div className={styles.main_side}>
-        <Station post={post} />
+        {user.payment.status !== 'canceled' ? <Station post={post} /> : null}
         <Belong post={post as Resource} />
         <Period post={post} />
         <Costs post={post} />
