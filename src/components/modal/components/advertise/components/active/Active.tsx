@@ -20,6 +20,7 @@ export const Active: React.FC<PropType> = ({ user, text, handleClose, close }) =
 
   const handleOpen = (): void => {
     navigate('/plan');
+    !close ? handleClose() : close();
     dispatch(userSlice.updateNotice());
   };
 
