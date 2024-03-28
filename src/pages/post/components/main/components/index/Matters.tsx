@@ -39,40 +39,38 @@ export const Matters: React.FC<PropType> = ({ index, post, user }) => {
         </div>
       )}
 
-      <Txt tag="案件詳細" txt={post?.body} txtarea />
+      <Txt tag='案件詳細' txt={post?.body} txtarea />
 
-      <Feilds tag="必須" array={post?.requires} />
+      <Feilds tag='必須' array={post?.requires} />
 
-      <Feilds tag="歓迎" array={post?.prefers} />
+      <Feilds tag='歓迎' array={post?.prefers} />
 
       <Period period={post?.period} matters />
 
-      <Txt
-        tag="場所"
-        txt={{ area: post?.location?.area, place: post?.location?.place }}
-      />
+      <Txt tag='場所' txt={{ area: post?.location?.area, place: post?.location?.place }} />
 
-      <Txt tag="リモート" txt={post?.remote} />
+      <Txt tag='リモート' txt={post?.remote} />
 
       <Times times={post?.times} />
 
-      <Txt tag="精算" txt={post?.adjustment} />
+      <Txt tag='精算' txt={post?.adjustment} />
 
       <Costs costs={post?.costs} />
 
-      <Txt tag="商流" txt={post?.distribution} />
+      <Txt tag='商流' txt={post?.distribution} mask={user.payment.status === 'canceled'} />
 
-      <Txt tag="支払いサイト" txt={post?.span} end="日" />
+      <Txt tag='支払いサイト' txt={post?.span} end='日' mask={user.payment.status === 'canceled'} />
 
-      <Interviews interviews={post?.interviews} />
+      <Interviews interviews={post?.interviews} mask={user.payment.status === 'canceled'} />
 
       <Txt
-        tag="稟議速度"
+        tag='稟議速度'
         txt={post?.approval ? post?.approval : '不明'}
         none={post?.note ? false : true}
+        mask={user.payment.status === 'canceled'}
       />
 
-      <Txt tag="備考" txt={post?.note} none txtarea />
+      <Txt tag='備考' txt={post?.note} none txtarea mask={user.payment.status === 'canceled'} />
 
       <Memo memo={post?.memo} index={index} />
     </div>

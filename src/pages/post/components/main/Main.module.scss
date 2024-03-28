@@ -1,7 +1,7 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
-@import "styles/animation";
+@import 'styles/config';
+@import 'styles/function';
+@import 'styles/animation';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -66,7 +66,7 @@ $width: responsive-width(pc);
     }
 
     &:after {
-      content: "";
+      content: '';
       display: block;
       border-bottom: 1px solid $bdr_clr;
       width: 100%;
@@ -115,6 +115,12 @@ $width: responsive-width(pc);
     @media (max-width: responsive-width(sp)) {
       gap: 8px;
     }
+  }
+
+  &_dummy {
+    filter: blur(5px);
+    pointer-events: none;
+    user-select: none;
   }
 
   &_array {
@@ -212,7 +218,7 @@ $width: responsive-width(pc);
       font-size: 16px;
 
       &:after {
-        content: "";
+        content: '';
         display: block;
         border-bottom: 1px solid $bdr_clr;
         width: 100%;
