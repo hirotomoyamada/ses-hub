@@ -10,7 +10,7 @@ interface PropType {
   handleClose: () => void;
 }
 
-export const Advertise: React.FC<PropType> = ({ user, handleClose }) => {
+export const Advertise: React.FC<PropType> = ({ handleClose }) => {
   return (
     <div className={styles.advertise}>
       <div className={styles.advertise_header}>
@@ -19,7 +19,7 @@ export const Advertise: React.FC<PropType> = ({ user, handleClose }) => {
       </div>
 
       <Link to={'/plan'} className={styles.advertise_btn} onClick={handleClose}>
-        {user?.payment?.trial ? 'フリートライアル' : 'プランを見る'}
+        プランを見る
       </Link>
 
       <img
