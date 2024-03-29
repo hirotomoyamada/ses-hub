@@ -17,11 +17,10 @@ interface PropType {
 }
 
 export const Main: React.FC<PropType> = ({ index, post, user }) => {
+  const isMask = post.uid !== user.uid && user.payment.status === 'canceled';
+
   return index !== 'persons' ? (
-    <div
-      className={`${styles.main_body_company} ${
-        user.payment.status === 'canceled' && styles.main_body_company_dummy
-      }`}>
+    <div className={`${styles.main_body_company} ${isMask && styles.main_body_company_dummy}`}>
       <p
         className={`${styles.main_body_txt_company} ${
           !post?.profile?.body && styles.main_body_txt_none_company

@@ -13,6 +13,8 @@ interface PropType {
 }
 
 export const Header: React.FC<PropType> = ({ index, post, user }) => {
+  const isMask = post.uid !== user.uid && user.payment.status === 'canceled';
+
   return (
     <div className={`${styles.header} ${index === 'persons' && styles.header_persons}`}>
       <div className={styles.header_icon}>
@@ -21,10 +23,7 @@ export const Header: React.FC<PropType> = ({ index, post, user }) => {
 
       <div className={styles.header_container}>
         <div className={styles.header_wrap}>
-          <h1
-            className={`${styles.header_ttl} ${
-              user.payment.status === 'canceled' && styles.header_ttl_dummy
-            }`}>
+          <h1 className={`${styles.header_ttl} ${isMask && styles.header_ttl_dummy}`}>
             {(post as Company)?.profile?.person
               ? (post as Company)?.profile?.person
               : (post as Person)?.profile?.nickName}
@@ -59,10 +58,7 @@ export const Header: React.FC<PropType> = ({ index, post, user }) => {
         </div>
 
         {(post?.profile?.name || (post as Person)?.profile?.position) && (
-          <h2
-            className={`${styles.header_tag}  ${
-              user.payment.status === 'canceled' && styles.header_tag_dummy
-            }`}>
+          <h2 className={`${styles.header_tag}  ${isMask && styles.header_tag_dummy}`}>
             {post?.profile?.name ? post?.profile?.name : (post as Person)?.profile?.position}
           </h2>
         )}
