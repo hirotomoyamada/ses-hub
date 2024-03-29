@@ -58,6 +58,8 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
   ]);
 
   const handleLike = () => {
+    if (post.uid !== user.uid && user.payment.status === 'canceled') return;
+
     if (!like && index) {
       dispatch(userSlice.addLike({ index: index, post: post }));
 
@@ -72,6 +74,8 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
   };
 
   const handleOutput = () => {
+    if (post.uid !== user.uid && user.payment.status === 'canceled') return;
+
     if (index === 'matters' || index === 'resources') {
       if (!output) {
         dispatch(userSlice.addOutput({ index: index, post: post as Matter | Resource }));
@@ -109,37 +113,77 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
 
   return (
     <div className={`${styles.command} ${item && styles.command_item}`}>
-      {(user?.payment?.status !== 'canceled' || post?.uid === user.uid) && (
-        <button onClick={handleLike} className={styles.command_btn}>
-          {like ? (
-            <FavoriteIcon
-              className={`${styles.command_icon} ${styles.command_icon_like} ${
-                clickLike && styles.command_icon_like_click
-              }`}
-            />
-          ) : (
-            <FavoriteBorderIcon className={styles.command_icon} />
-          )}
+      <button
+        onClick={handleLike}
+        className={`${styles.command_btn} ${
+          post.uid !== user.uid && user.payment.status === 'canceled' && styles.command_btn_disabled
+        } ${
+          post.uid !== user.uid &&
+          user.payment.status === 'canceled' &&
+          styles.command_btn_disabled_truly
+        }`}>
+        {like ? (
+          <FavoriteIcon
+            className={`${styles.command_icon} ${styles.command_icon_like} ${
+              clickLike && styles.command_icon_like_click
+            } ${
+              post.uid !== user.uid &&
+              user.payment.status === 'canceled' &&
+              styles.command_icon_disabled
+            }`}
+          />
+        ) : (
+          <FavoriteBorderIcon
+            className={`${styles.command_icon} ${
+              post.uid !== user.uid &&
+              user.payment.status === 'canceled' &&
+              styles.command_icon_disabled
+            }`}
+          />
+        )}
 
-          {user.payment.status === 'canceled' || (post as Matter | Resource).likes ? (
-            <span className={`${styles.command_count} ${like && styles.command_count_like}`}>
-              {user.payment.status !== 'canceled' ? (post as Matter | Resource).likes : '?'}
-            </span>
-          ) : (
-            <></>
-          )}
-        </button>
-      )}
+        {user.payment.status === 'canceled' || (post as Matter | Resource).likes ? (
+          <span
+            className={`${styles.command_count} ${like && styles.command_count_like} ${
+              post.uid !== user.uid &&
+              user.payment.status === 'canceled' &&
+              styles.command_count_disabled
+            }`}>
+            {user.payment.status !== 'canceled' ? (post as Matter | Resource).likes : '?'}
+          </span>
+        ) : (
+          <></>
+        )}
+      </button>
 
-      {index !== 'persons' && (user?.payment?.status !== 'canceled' || post?.uid === user.uid) && (
-        <button onClick={handleOutput} className={styles.command_btn}>
+      {index !== 'persons' && (
+        <button
+          onClick={handleOutput}
+          className={`${styles.command_btn} ${
+            post.uid !== user.uid &&
+            user.payment.status === 'canceled' &&
+            styles.command_btn_disabled
+          } ${
+            post.uid !== user.uid &&
+            user.payment.status === 'canceled' &&
+            styles.command_btn_disabled_truly
+          }`}>
           <LaunchIcon
             className={`${styles.command_icon} ${output && styles.command_icon_output}
-                ${clickOutput && styles.command_icon_output_click}`}
+                ${clickOutput && styles.command_icon_output_click} ${
+              post.uid !== user.uid &&
+              user.payment.status === 'canceled' &&
+              styles.command_icon_disabled
+            }`}
           />
 
           {user.payment.status === 'canceled' || (post as Matter | Resource).outputs ? (
-            <span className={`${styles.command_count} ${output && styles.command_count_output}`}>
+            <span
+              className={`${styles.command_count} ${output && styles.command_count_output} ${
+                post.uid !== user.uid &&
+                user.payment.status === 'canceled' &&
+                styles.command_count_disabled
+              }`}>
               {user.payment.status !== 'canceled' ? (post as Matter | Resource).outputs : '?'}
             </span>
           ) : (
@@ -154,26 +198,18 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
           className={`
             ${styles.command_btn}
             ${styles.command_btn_disabled}
-            ${
-              post.uid !== user.uid &&
-              user.payment.status === 'canceled' &&
-              styles.command_btn_disabled_truly
-            }
+            ${user.payment.status === 'canceled' && styles.command_btn_disabled_truly}
           `}>
           <CheckCircleOutlineIcon
             className={`${styles.command_icon} ${entry && styles.command_icon_entry} ${
-              post.uid !== user.uid &&
-              user.payment.status === 'canceled' &&
-              styles.command_icon_disabled
+              user.payment.status === 'canceled' && styles.command_icon_disabled
             }`}
           />
 
           {user.payment.status === 'canceled' || (post as Matter | Resource).entries ? (
             <span
               className={`${styles.command_count} ${entry && styles.command_count_entry} ${
-                post.uid !== user.uid &&
-                user.payment.status === 'canceled' &&
-                styles.command_count_disabled
+                user.payment.status === 'canceled' && styles.command_count_disabled
               }`}>
               {user.payment.status !== 'canceled' ? (post as Matter | Resource).entries : '?'}
             </span>
