@@ -23,6 +23,8 @@ interface PropType {
 }
 
 export const Matters: React.FC<PropType> = ({ index, post, user }) => {
+  const isMask = post.uid !== user.uid && user.payment.status === 'canceled';
+
   return (
     <div className={styles.main_inner}>
       {post?.uid === user.uid && <Operation index={index} post={post} back />}
@@ -57,20 +59,20 @@ export const Matters: React.FC<PropType> = ({ index, post, user }) => {
 
       <Costs costs={post?.costs} />
 
-      <Txt tag='商流' txt={post?.distribution} mask={user.payment.status === 'canceled'} />
+      <Txt tag='商流' txt={post?.distribution} mask={isMask} />
 
-      <Txt tag='支払いサイト' txt={post?.span} end='日' mask={user.payment.status === 'canceled'} />
+      <Txt tag='支払いサイト' txt={post?.span} end='日' mask={isMask} />
 
-      <Interviews interviews={post?.interviews} mask={user.payment.status === 'canceled'} />
+      <Interviews interviews={post?.interviews} mask={isMask} />
 
       <Txt
         tag='稟議速度'
         txt={post?.approval ? post?.approval : '不明'}
         none={post?.note ? false : true}
-        mask={user.payment.status === 'canceled'}
+        mask={isMask}
       />
 
-      <Txt tag='備考' txt={post?.note} none txtarea mask={user.payment.status === 'canceled'} />
+      <Txt tag='備考' txt={post?.note} none txtarea mask={isMask} />
 
       <Memo memo={post?.memo} index={index} />
     </div>

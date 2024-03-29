@@ -21,6 +21,8 @@ interface PropType {
 }
 
 export const Resources: React.FC<PropType> = ({ index, post, user }) => {
+  const isMask = post.uid !== user.uid && user.payment.status === 'canceled';
+
   return (
     <div className={styles.main_inner}>
       {post?.uid === user.uid && <Operation index={index} post={post} back />}
@@ -49,18 +51,13 @@ export const Resources: React.FC<PropType> = ({ index, post, user }) => {
 
       <Period period={post?.period} resources />
 
-      <Txt tag='最寄駅' txt={post?.station} mask={user.payment.status === 'canceled'} />
+      <Txt tag='最寄駅' txt={post?.station} mask={isMask} />
 
       <Costs costs={post?.costs} />
 
-      <Txt
-        tag='並行'
-        txt={post?.parallel}
-        none={post?.note ? false : true}
-        mask={user.payment.status === 'canceled'}
-      />
+      <Txt tag='並行' txt={post?.parallel} none={post?.note ? false : true} mask={isMask} />
 
-      <Txt tag='備考' txt={post?.note} txtarea none mask={user.payment.status === 'canceled'} />
+      <Txt tag='備考' txt={post?.note} txtarea none mask={isMask} />
 
       <Memo memo={post?.memo} index={index} />
     </div>
