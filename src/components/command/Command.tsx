@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Command.module.scss";
+import React, { useEffect, useState } from 'react';
+import styles from './Command.module.scss';
 
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import LaunchIcon from "@material-ui/icons/Launch";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
-import AutorenewIcon from "@material-ui/icons/Autorenew";
-import BarChartIcon from "@material-ui/icons/BarChart";
-import { useDispatch } from "react-redux";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import LaunchIcon from '@material-ui/icons/Launch';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import AutorenewIcon from '@material-ui/icons/Autorenew';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import { useDispatch } from 'react-redux';
 
-import * as rootSlice from "features/root/rootSlice";
-import * as userSlice from "features/user/userSlice";
-import * as postSlice from "features/post/postSlice";
+import * as rootSlice from 'features/root/rootSlice';
+import * as userSlice from 'features/user/userSlice';
+import * as postSlice from 'features/post/postSlice';
 
-import { Matter, Resource, Person } from "types/post";
-import { User } from "types/user";
+import { Matter, Resource, Person } from 'types/post';
+import { User } from 'types/user';
 
 interface PropType {
   post: Matter | Resource | Person;
   user: User;
-  index?: "matters" | "resources" | "persons";
+  index?: 'matters' | 'resources' | 'persons';
   item?: boolean;
 }
 
@@ -35,30 +35,18 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
   useEffect(() => {
     if (index) {
       const likes: string[] = user?.likes?.[index];
-      const outputs: string[] = index !== "persons" ? user.outputs[index] : [];
+      const outputs: string[] = index !== 'persons' ? user.outputs[index] : [];
       const entries: string[] = user?.entries?.[index];
 
       setLike(
-        likes.indexOf(
-          index !== "persons"
-            ? (post as Matter | Resource)?.objectID
-            : post?.uid
-        ) >= 0
+        likes.indexOf(index !== 'persons' ? (post as Matter | Resource)?.objectID : post?.uid) >= 0
           ? true
-          : false
+          : false,
       );
 
-      setOutput(
-        outputs.indexOf((post as Matter | Resource)?.objectID) >= 0
-          ? true
-          : false
-      );
+      setOutput(outputs.indexOf((post as Matter | Resource)?.objectID) >= 0 ? true : false);
 
-      setEntry(
-        entries.indexOf((post as Matter | Resource)?.objectID) >= 0
-          ? true
-          : false
-      );
+      setEntry(entries.indexOf((post as Matter | Resource)?.objectID) >= 0 ? true : false);
     }
   }, [
     index,
@@ -84,11 +72,9 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
   };
 
   const handleOutput = () => {
-    if (index === "matters" || index === "resources") {
+    if (index === 'matters' || index === 'resources') {
       if (!output) {
-        dispatch(
-          userSlice.addOutput({ index: index, post: post as Matter | Resource })
-        );
+        dispatch(userSlice.addOutput({ index: index, post: post as Matter | Resource }));
 
         setClickOutput(true);
       } else {
@@ -96,7 +82,7 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
           userSlice.removeOutput({
             index: index,
             post: post as Matter | Resource,
-          })
+          }),
         );
 
         setClickOutput(false);
@@ -110,20 +96,20 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
     if (user.uid === post.uid) return;
 
     dispatch(postSlice.selectPost(post as Matter | Resource));
-    dispatch(rootSlice.handleModal({ type: "entry" }));
+    dispatch(rootSlice.handleModal({ type: 'entry' }));
   };
 
   const handleActivity = () => {
-    if (index === "matters" || index === "resources") {
+    if (index === 'matters' || index === 'resources') {
       dispatch(postSlice.selectPost(post as Matter | Resource));
 
-      dispatch(rootSlice.handleModal({ type: "activity" }));
+      dispatch(rootSlice.handleModal({ type: 'activity' }));
     }
   };
 
   return (
     <div className={`${styles.command} ${item && styles.command_item}`}>
-      {(user?.payment?.status !== "canceled" || post?.uid === user.uid) && (
+      {(user?.payment?.status !== 'canceled' || post?.uid === user.uid) && (
         <button onClick={handleLike} className={styles.command_btn}>
           {like ? (
             <FavoriteIcon
@@ -135,16 +121,9 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
             <FavoriteBorderIcon className={styles.command_icon} />
           )}
 
-          {user.payment.status === "canceled" ||
-          (post as Matter | Resource).likes ? (
-            <span
-              className={`${styles.command_count} ${
-                like && styles.command_count_like
-              }`}
-            >
-              {user.payment.status !== "canceled"
-                ? (post as Matter | Resource).likes
-                : "?"}
+          {user.payment.status === 'canceled' || (post as Matter | Resource).likes ? (
+            <span className={`${styles.command_count} ${like && styles.command_count_like}`}>
+              {user.payment.status !== 'canceled' ? (post as Matter | Resource).likes : '?'}
             </span>
           ) : (
             <></>
@@ -152,68 +131,60 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
         </button>
       )}
 
-      {index !== "persons" &&
-        (user?.payment?.status !== "canceled" || post?.uid === user.uid) && (
-          <button onClick={handleOutput} className={styles.command_btn}>
-            <LaunchIcon
-              className={`${styles.command_icon} ${
-                output && styles.command_icon_output
-              }
+      {index !== 'persons' && (user?.payment?.status !== 'canceled' || post?.uid === user.uid) && (
+        <button onClick={handleOutput} className={styles.command_btn}>
+          <LaunchIcon
+            className={`${styles.command_icon} ${output && styles.command_icon_output}
                 ${clickOutput && styles.command_icon_output_click}`}
-            />
-
-            {user.payment.status === "canceled" ||
-            (post as Matter | Resource).outputs ? (
-              <span
-                className={`${styles.command_count} ${
-                  output && styles.command_count_output
-                }`}
-              >
-                {user.payment.status !== "canceled"
-                  ? (post as Matter | Resource).outputs
-                  : "?"}
-              </span>
-            ) : (
-              <></>
-            )}
-          </button>
-        )}
-
-      {index !== "persons" ? (
-        <button
-          onClick={handleEntry}
-          className={`
-            ${styles.command_btn}
-            ${styles.command_btn_disabled}
-          `}
-        >
-          <CheckCircleOutlineIcon
-            className={`${styles.command_icon} ${
-              entry && styles.command_icon_entry
-            }`}
           />
 
-          {user.payment.status === "canceled" ||
-          (post as Matter | Resource).entries ? (
-            <span
-              className={`${styles.command_count} ${
-                entry && styles.command_count_entry
-              }`}
-            >
-              {user.payment.status !== "canceled"
-                ? (post as Matter | Resource).entries
-                : "?"}
+          {user.payment.status === 'canceled' || (post as Matter | Resource).outputs ? (
+            <span className={`${styles.command_count} ${output && styles.command_count_output}`}>
+              {user.payment.status !== 'canceled' ? (post as Matter | Resource).outputs : '?'}
             </span>
           ) : (
             <></>
           )}
         </button>
-      ) : (post as Person).request === "hold" ? (
-        <AutorenewIcon
-          className={`${styles.command_icon} ${styles.command_icon_hold}`}
-        />
+      )}
+
+      {index !== 'persons' ? (
+        <button
+          onClick={handleEntry}
+          className={`
+            ${styles.command_btn}
+            ${styles.command_btn_disabled}
+            ${
+              post.uid !== user.uid &&
+              user.payment.status === 'canceled' &&
+              styles.command_btn_disabled_truly
+            }
+          `}>
+          <CheckCircleOutlineIcon
+            className={`${styles.command_icon} ${entry && styles.command_icon_entry} ${
+              post.uid !== user.uid &&
+              user.payment.status === 'canceled' &&
+              styles.command_icon_disabled
+            }`}
+          />
+
+          {user.payment.status === 'canceled' || (post as Matter | Resource).entries ? (
+            <span
+              className={`${styles.command_count} ${entry && styles.command_count_entry} ${
+                post.uid !== user.uid &&
+                user.payment.status === 'canceled' &&
+                styles.command_count_disabled
+              }`}>
+              {user.payment.status !== 'canceled' ? (post as Matter | Resource).entries : '?'}
+            </span>
+          ) : (
+            <></>
+          )}
+        </button>
+      ) : (post as Person).request === 'hold' ? (
+        <AutorenewIcon className={`${styles.command_icon} ${styles.command_icon_hold}`} />
       ) : (
-        (post as Person).request === "enable" && (
+        (post as Person).request === 'enable' && (
           <CheckCircleOutlineIcon
             className={`${styles.command_icon} ${styles.command_icon_enable}`}
           />
@@ -223,11 +194,8 @@ export const Command: React.FC<PropType> = ({ index, post, user, item }) => {
       {post?.uid === user.uid && (
         <button
           onClick={handleActivity}
-          className={`${styles.command_btn} ${styles.command_btn_activity}`}
-        >
-          <BarChartIcon
-            className={`${styles.command_icon} ${styles.command_icon_activity}`}
-          />
+          className={`${styles.command_btn} ${styles.command_btn_activity}`}>
+          <BarChartIcon className={`${styles.command_icon} ${styles.command_icon_activity}`} />
         </button>
       )}
     </div>
