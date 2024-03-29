@@ -33,7 +33,9 @@ export const Main: React.FC<PropType> = ({ post, viewed, resources, user }) => {
   ) : (
     <div className={styles.main}>
       <div className={styles.main_side}>
-        {user.payment.status !== 'canceled' ? <Station post={post} /> : null}
+        {post.uid === user.uid || user.payment.status !== 'canceled' ? (
+          <Station post={post} />
+        ) : null}
         <Belong post={post as Resource} />
         <Period post={post} />
         <Costs post={post} />
