@@ -50,7 +50,7 @@ export interface Output {
 export interface Entry {
   index: 'matters' | 'resources';
   post: Matter | Resource;
-  proposalPost: Matter | Resource;
+  proposedPost: Matter | Resource;
 }
 
 export interface Request {

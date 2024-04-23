@@ -387,7 +387,7 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
     ];
   }
   const addEntry: HttpsCallable<
-    { index: Entry['index']; uid: string; objectID: string; proposalObjectID: string },
+    { index: Entry['index']; uid: string; objectID: string; proposedObjectID: string },
     unknown
   > = httpsCallable(functions, 'sh-addEntry');
 
@@ -395,7 +395,7 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
     index: action.payload.index,
     uid: action.payload.post.uid,
     objectID: action.payload.post.objectID,
-    proposalObjectID: action.payload.proposalPost.objectID,
+    proposedObjectID: action.payload.proposedPost.objectID,
   });
 };
 

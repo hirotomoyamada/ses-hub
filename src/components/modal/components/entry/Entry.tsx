@@ -15,12 +15,12 @@ interface PropType {
 
 export const Entry: React.FC<PropType> = ({ index, user, post, handleClose }) => {
   const dispatch = useDispatch();
-  const [proposalPost, setProposalPost] = useState<Matter | Resource | undefined>(undefined);
+  const [proposedPost, setproposedPost] = useState<Matter | Resource | undefined>(undefined);
 
   const handleEntry = (): void => {
-    if (!proposalPost) return;
+    if (!proposedPost) return;
 
-    dispatch(userSlice.addEntry({ index, post, proposalPost }));
+    dispatch(userSlice.addEntry({ index, post, proposedPost }));
   };
 
   return (
@@ -36,16 +36,16 @@ export const Entry: React.FC<PropType> = ({ index, user, post, handleClose }) =>
       <List
         index={index}
         user={user}
-        proposalPost={proposalPost}
-        setProposalPost={setProposalPost}
+        proposedPost={proposedPost}
+        setproposedPost={setproposedPost}
       />
 
       <div className={styles.entry_email}>
         <button
           onClick={handleEntry}
-          disabled={!proposalPost}
+          disabled={!proposedPost}
           className={`${styles.entry_email_btn} ${
-            !proposalPost && styles.entry_email_btn_disabled
+            !proposedPost && styles.entry_email_btn_disabled
           }`}>
           問い合わせをする
         </button>
