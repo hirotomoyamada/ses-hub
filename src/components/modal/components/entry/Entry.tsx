@@ -1,52 +1,24 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Entry.module.scss";
-
-import { useDispatch, useSelector } from "react-redux";
-import * as userSlice from "features/user/userSlice";
-
-import * as functions from "functions";
-
-import { Body } from "./components/Body";
-import { Social } from "./components/Social";
-
-import { User } from "types/user";
-import { Matter, Resource, Company } from "types/post";
+import React, { useState } from 'react';
+import styles from './Entry.module.scss';
+import { useDispatch } from 'react-redux';
+import * as userSlice from 'features/user/userSlice';
+import { List } from './components/List';
+import { User } from 'types/user';
+import { Matter, Resource } from 'types/post';
 
 interface PropType {
-  index: "matters" | "resources";
+  index: 'matters' | 'resources';
   user: User;
   post: Matter | Resource;
   handleClose: () => void;
 }
 
-export const Entry: React.FC<PropType> = ({
-  index,
-  user,
-  post,
-  handleClose,
-}) => {
+export const Entry: React.FC<PropType> = ({ index, user, post, handleClose }) => {
   const dispatch = useDispatch();
-  const selectUser = useSelector(userSlice.selectUser);
-  const [value, setValue] = useState<string | undefined>();
-  const [copy, setCopy] = useState(false);
-
-  useEffect(() => {
-    setValue(
-      index === "matters"
-        ? functions.entry.matters(post as Matter)
-        : index === "resources"
-        ? functions.entry.resources(post as Resource)
-        : undefined
-    );
-  }, [index, post]);
-
-  const handleCopy = (): void => {
-    setCopy(true);
-    setTimeout(() => setCopy(false), 3000);
-  };
+  const [selectedPost, setSelectedPost] = useState<Matter | Resource | undefined>(undefined);
 
   const handleEntry = (): void => {
-    if (index === "matters") {
+    if (index === 'matters') {
       const entries = user.entries.matters ? user.entries.matters : [];
 
       if (entries.indexOf(post.objectID) < 0) {
@@ -54,7 +26,7 @@ export const Entry: React.FC<PropType> = ({
       }
     }
 
-    if (index === "resources") {
+    if (index === 'resources') {
       const entries = user.entries.resources ? user.entries.resources : [];
 
       if (entries.indexOf(post.objectID) < 0) {
@@ -69,23 +41,26 @@ export const Entry: React.FC<PropType> = ({
         <button onClick={handleClose} className={styles.entry_head_cancel}>
           もどる
         </button>
-        <p className={styles.entry_head_ttl}>問い合わせをする内容</p>
+
+        <p className={styles.entry_head_ttl}>問い合わせ</p>
       </div>
 
-      <div className={styles.entry_inner}>
-        <Body
-          user={post.user || (selectUser as Company)}
-          value={value}
-          copy={copy}
-          setValue={setValue}
-          handleCopy={handleCopy}
-          handleEntry={handleEntry}
-        />
+      <List
+        index={index}
+        user={user}
+        selectedPost={selectedPost}
+        setSelectedPost={setSelectedPost}
+      />
 
-        <Social
-          user={post.user || (selectUser as Company)}
-          handleEntry={handleEntry}
-        />
+      <div className={styles.entry_email}>
+        <button
+          onClick={handleEntry}
+          disabled={!selectedPost}
+          className={`${styles.entry_email_btn} ${
+            !selectedPost && styles.entry_email_btn_disabled
+          }`}>
+          問い合わせをする
+        </button>
       </div>
     </div>
   );

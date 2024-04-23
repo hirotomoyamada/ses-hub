@@ -1,6 +1,6 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
+@import 'styles/config';
+@import 'styles/function';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -18,7 +18,7 @@ $width: responsive-width(pc);
   background: $base_clr;
   border-radius: 16px;
   display: grid;
-  grid-template-rows: 72px 1fr;
+  grid-template-rows: 72px 1fr auto;
   color: $main_clr;
 
   @media (max-width: responsive-width(sp)) {
@@ -26,19 +26,7 @@ $width: responsive-width(pc);
     height: 72vh;
     min-height: 520px;
     font-size: 14px;
-    grid-template-rows: 48px 1fr;
-  }
-
-  &_inner {
-    overflow-y: scroll;
-
-    display: grid;
-    grid-template-rows: 1fr auto auto;
-    gap: 16px;
-
-    @media (max-width: responsive-width(sp)) {
-      gap: 8px;
-    }
+    grid-template-rows: 48px 1fr auto;
   }
 
   &_head {
@@ -72,83 +60,150 @@ $width: responsive-width(pc);
     }
   }
 
-  &_body {
-    position: relative;
-    padding: 0 32px;
-
-    display: grid;
-    grid-template-rows: 1fr 48px;
+  &_list {
+    margin: 0 32px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
 
     @media (max-width: responsive-width(sp)) {
-      grid-template-rows: 1fr 40px;
-      padding: 0 12px;
+      margin: 0 12px;
     }
 
-    &_value {
-      border: 1px solid $bdr_clr;
-      width: 100%;
-      border-radius: 8px 8px 0 0;
-      padding: 16px;
+    &_title {
+      color: $icn_clr;
+      margin-bottom: 16px;
 
       @media (max-width: responsive-width(sp)) {
-        padding: 12px;
+        margin-bottom: 8px;
+      }
+    }
+
+    &_desc {
+      margin-top: 8px;
+      font-size: 14px;
+      color: $sub_clr;
+
+      @media (max-width: responsive-width(sp)) {
         font-size: 12px;
       }
+    }
+
+    &_items {
+      flex: 1;
+      overflow-y: auto;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      @media (max-width: responsive-width(sp)) {
+        gap: 8px;
+      }
+    }
+
+    &_load {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     &_btn {
-      background: $icn_clr;
+      display: flex;
+      gap: 16px;
       width: 100%;
-      border-radius: 0 0 8px 8px;
-
-      color: $base_clr;
-      line-height: 48px;
-      text-align: center;
-
-      &_disabled {
-        background: $sub_clr;
-        pointer-events: none;
-      }
-
-      @media (max-width: responsive-width(sp)) {
-        line-height: 40px;
-        font-size: 12px;
-      }
-    }
-
-    &_pop {
-      position: absolute;
-      bottom: 56px;
-      left: 50%;
-      transform: translateX(-50%);
-
-      width: 160px;
+      border: 1px solid $bdr_clr;
       border-radius: 8px;
-      border: 1px solid $add_clr;
-
-      color: $add_clr;
-      font-size: 14px;
-      line-height: 32px;
-      text-align: center;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.4s;
 
       @media (max-width: responsive-width(sp)) {
-        bottom: 60px;
-        width: 80px;
-        font-size: 10px;
-        line-height: 24px;
+        padding: 12px;
+      }
+
+      &_selected {
+        background: #edf8ee;
+        border-color: $acnt_clr;
+      }
+
+      &_content {
+        flex: 1;
+        display: grid;
+        gap: 8px;
+
+        & > p {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-weight: bold;
+        }
+      }
+
+      &_data {
+        display: flex;
+        gap: 8px;
+
+        @media (max-width: responsive-width(sp)) {
+          gap: 4px;
+        }
+
+        & > span {
+          display: flex;
+          font-size: 14px;
+          border: 1px solid $icn_clr;
+          color: $icn_clr;
+          border-radius: 6px;
+          padding: 0 8px;
+          line-height: 1.8;
+
+          @media (max-width: responsive-width(sp)) {
+            padding: 0 6px;
+            font-size: 10px;
+          }
+        }
+      }
+
+      &_link {
+        align-self: center;
+        transition: all 0.4s;
+
+        &_icon {
+          color: $icn_clr;
+          font-size: 24px;
+
+          @media (max-width: responsive-width(sp)) {
+            font-size: 20px !important;
+          }
+
+          &:hover {
+            opacity: 0.7;
+          }
+
+          &_selected {
+            color: $acnt_clr;
+
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
       }
     }
   }
 
   &_email {
-    padding: 0 32px;
+    padding: 16px 32px 32px;
 
     display: flex;
     flex-direction: column;
     gap: 8px;
 
     @media (max-width: responsive-width(sp)) {
-      padding: 0 12px;
+      padding: 12px;
     }
 
     &_btn {
@@ -164,63 +219,11 @@ $width: responsive-width(pc);
         font-size: 12px;
         line-height: 40px;
       }
-    }
 
-    &_desc {
-      font-size: 12px;
-      color: $sub_clr;
-      text-align: center;
-
-      @media (max-width: responsive-width(sp)) {
-        font-size: 10px;
+      &_disabled {
+        background: $sub_clr;
+        cursor: not-allowed !important;
       }
-    }
-  }
-
-  &_sns {
-    padding: 0 32px 32px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-
-    @media (max-width: responsive-width(sp)) {
-      padding: 0 12px 24px;
-    }
-
-    &_wrap {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-    }
-
-    &_icon {
-      color: $sub_clr;
-      font-size: 48px;
-
-      @media (max-width: responsive-width(sp)) {
-        font-size: 32px;
-      }
-
-      &_line {
-        color: $acnt_clr;
-      }
-
-      &_twitter {
-        color: $twitter_clr;
-      }
-
-      &_instagram {
-        color: $instagram_clr;
-      }
-
-      &_linkedIn {
-        color: $linkedIn_clr;
-      }
-    }
-
-    &_disabled {
-      pointer-events: none;
     }
   }
 }

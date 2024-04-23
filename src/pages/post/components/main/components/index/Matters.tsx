@@ -27,7 +27,9 @@ export const Matters: React.FC<PropType> = ({ index, post, user }) => {
 
   return (
     <div className={styles.main_inner}>
-      {post?.uid === user.uid && <Operation index={index} post={post} back />}
+      {post?.uid === user.uid && (
+        <Operation index={index} post={post} back className={styles.main_operation} />
+      )}
 
       <Header post={post} user={user} />
 

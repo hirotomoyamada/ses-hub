@@ -32,6 +32,16 @@ $width: responsive-width(pc);
     font-size: 12px;
   }
 
+  &_operation {
+    top: 32px;
+    right: 32px;
+
+    @media (max-width: responsive-width(sp)) {
+      top: 12px;
+      right: 12px;
+    }
+  }
+
   &_load {
     width: 100%;
     height: 100%;
