@@ -50,6 +50,7 @@ export interface Output {
 export interface Entry {
   index: 'matters' | 'resources';
   post: Matter | Resource;
+  proposalPost: Matter | Resource;
 }
 
 export interface Request {
@@ -69,29 +70,18 @@ export const userSlice = createSlice({
     updateNotice: (state) => reducers.updateNotice(state),
     updatePayment: (state, action: PayloadAction<User['payment']>) =>
       reducers.updatePayment(state, action),
-    addProvider: (state, action: PayloadAction<Provider>) =>
-      reducers.addProvider(state, action),
-    changeEmail: (state, action: PayloadAction<string>) =>
-      reducers.changeEmail(state, action),
+    addProvider: (state, action: PayloadAction<Provider>) => reducers.addProvider(state, action),
+    changeEmail: (state, action: PayloadAction<string>) => reducers.changeEmail(state, action),
     applicationType: (state) => reducers.applicationType(state),
-    addLike: (state, action: PayloadAction<Like>) =>
-      reducers.addLike(state, action),
-    removeLike: (state, action: PayloadAction<Like>) =>
-      reducers.removeLike(state, action),
-    addOutput: (state, action: PayloadAction<Output>) =>
-      reducers.addOutput(state, action),
-    removeOutput: (state, action: PayloadAction<Output>) =>
-      reducers.removeOutput(state, action),
-    addEntry: (state, action: PayloadAction<Entry>) =>
-      reducers.addEntry(state, action),
-    addFollow: (state, action: PayloadAction<Company>) =>
-      reducers.addFollow(state, action),
-    removeFollow: (state, action: PayloadAction<Company>) =>
-      reducers.removeFollow(state, action),
-    addRequest: (state, action: PayloadAction<Request>) =>
-      reducers.addRequest(state, action),
-    updateHome: (state, action: PayloadAction<string[]>) =>
-      reducers.updateHome(state, action),
+    addLike: (state, action: PayloadAction<Like>) => reducers.addLike(state, action),
+    removeLike: (state, action: PayloadAction<Like>) => reducers.removeLike(state, action),
+    addOutput: (state, action: PayloadAction<Output>) => reducers.addOutput(state, action),
+    removeOutput: (state, action: PayloadAction<Output>) => reducers.removeOutput(state, action),
+    addEntry: (state, action: PayloadAction<Entry>) => reducers.addEntry(state, action),
+    addFollow: (state, action: PayloadAction<Company>) => reducers.addFollow(state, action),
+    removeFollow: (state, action: PayloadAction<Company>) => reducers.removeFollow(state, action),
+    addRequest: (state, action: PayloadAction<Request>) => reducers.addRequest(state, action),
+    updateHome: (state, action: PayloadAction<string[]>) => reducers.updateHome(state, action),
   },
 
   extraReducers: (builder) => extraReducers(builder),
@@ -119,9 +109,7 @@ export const {
 
 export const user = (state: RootState): User => state.user.user as User;
 export const token = (state: RootState): State['token'] => state.user.token;
-export const selectUser = (
-  state: RootState,
-): Company | Person | (Company | Person)[] =>
+export const selectUser = (state: RootState): Company | Person | (Company | Person)[] =>
   state.user.selectUser as Company | Person | (Company | Person)[];
 export const analytics = (state: RootState): { [key: string]: Analytics } =>
   state.user.analytics as { [key: string]: Analytics };

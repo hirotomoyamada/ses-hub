@@ -15,24 +15,12 @@ interface PropType {
 
 export const Entry: React.FC<PropType> = ({ index, user, post, handleClose }) => {
   const dispatch = useDispatch();
-  const [selectedPost, setSelectedPost] = useState<Matter | Resource | undefined>(undefined);
+  const [proposalPost, setProposalPost] = useState<Matter | Resource | undefined>(undefined);
 
   const handleEntry = (): void => {
-    if (index === 'matters') {
-      const entries = user.entries.matters ? user.entries.matters : [];
+    if (!proposalPost) return;
 
-      if (entries.indexOf(post.objectID) < 0) {
-        dispatch(userSlice.addEntry({ index: index, post: post }));
-      }
-    }
-
-    if (index === 'resources') {
-      const entries = user.entries.resources ? user.entries.resources : [];
-
-      if (entries.indexOf(post.objectID) < 0) {
-        dispatch(userSlice.addEntry({ index: index, post: post }));
-      }
-    }
+    dispatch(userSlice.addEntry({ index, post, proposalPost }));
   };
 
   return (
@@ -48,16 +36,16 @@ export const Entry: React.FC<PropType> = ({ index, user, post, handleClose }) =>
       <List
         index={index}
         user={user}
-        selectedPost={selectedPost}
-        setSelectedPost={setSelectedPost}
+        proposalPost={proposalPost}
+        setProposalPost={setProposalPost}
       />
 
       <div className={styles.entry_email}>
         <button
           onClick={handleEntry}
-          disabled={!selectedPost}
+          disabled={!proposalPost}
           className={`${styles.entry_email_btn} ${
-            !selectedPost && styles.entry_email_btn_disabled
+            !proposalPost && styles.entry_email_btn_disabled
           }`}>
           問い合わせをする
         </button>

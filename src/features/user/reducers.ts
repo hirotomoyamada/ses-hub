@@ -378,18 +378,24 @@ export const removeOutput = (state: State, action: PayloadAction<Output>): void 
 };
 
 export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
-  (state.user as User).entries[action.payload.index] = [
-    action.payload.post.objectID,
-    ...(state.user as User).entries[action.payload.index],
-  ];
-
-  const addEntry: HttpsCallable<{ index: Entry['index']; uid: string; objectID: string }, unknown> =
-    httpsCallable(functions, 'sh-addEntry');
+  if (
+    (state.user as User).entries[action.payload.index].indexOf(action.payload.post.objectID) < 0
+  ) {
+    (state.user as User).entries[action.payload.index] = [
+      action.payload.post.objectID,
+      ...(state.user as User).entries[action.payload.index],
+    ];
+  }
+  const addEntry: HttpsCallable<
+    { index: Entry['index']; uid: string; objectID: string; proposalObjectID: string },
+    unknown
+  > = httpsCallable(functions, 'sh-addEntry');
 
   void addEntry({
     index: action.payload.index,
     uid: action.payload.post.uid,
     objectID: action.payload.post.objectID,
+    proposalObjectID: action.payload.proposalPost.objectID,
   });
 };
 

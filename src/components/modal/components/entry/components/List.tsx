@@ -13,12 +13,12 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 interface PropType {
   index: 'matters' | 'resources';
-  selectedPost: Matter | Resource | undefined;
-  setSelectedPost: Dispatch<SetStateAction<Matter | Resource | undefined>>;
+  proposalPost: Matter | Resource | undefined;
+  setProposalPost: Dispatch<SetStateAction<Matter | Resource | undefined>>;
   user: User;
 }
 
-export const List: React.FC<PropType> = ({ index, user, selectedPost, setSelectedPost }) => {
+export const List: React.FC<PropType> = ({ index, user, proposalPost, setProposalPost }) => {
   index = index === 'matters' ? 'resources' : 'matters';
   const dispatch = useDispatch();
   const load = useSelector(rootSlice.load).fetch;
@@ -51,20 +51,20 @@ export const List: React.FC<PropType> = ({ index, user, selectedPost, setSelecte
               <div
                 key={post.objectID}
                 className={`${styles.entry_list_btn} ${
-                  post.objectID === selectedPost?.objectID && styles.entry_list_btn_selected
+                  post.objectID === proposalPost?.objectID && styles.entry_list_btn_selected
                 }`}
-                onClick={() => setSelectedPost(post)}>
+                onClick={() => setProposalPost(post)}>
                 {'title' in post ? (
                   <div
                     className={`${styles.entry_list_btn_content} ${
-                      post.objectID === selectedPost?.objectID &&
+                      post.objectID === proposalPost?.objectID &&
                       styles.entry_list_btn_content_selected
                     }`}>
                     <p>{post.title}</p>
 
                     <div
                       className={`${styles.entry_list_btn_data} ${
-                        post.objectID === selectedPost?.objectID &&
+                        post.objectID === proposalPost?.objectID &&
                         styles.entry_list_btn_data_selected
                       }`}>
                       <span>{post.industry}</span>
@@ -75,7 +75,7 @@ export const List: React.FC<PropType> = ({ index, user, selectedPost, setSelecte
                 ) : (
                   <div
                     className={`${styles.entry_list_btn_content} ${
-                      post.objectID === selectedPost?.objectID &&
+                      post.objectID === proposalPost?.objectID &&
                       styles.entry_list_btn_content_selected
                     }`}>
                     <p>
@@ -85,7 +85,7 @@ export const List: React.FC<PropType> = ({ index, user, selectedPost, setSelecte
 
                     <div
                       className={`${styles.entry_list_btn_data} ${
-                        post.objectID === selectedPost?.objectID &&
+                        post.objectID === proposalPost?.objectID &&
                         styles.entry_list_btn_data_selected
                       }`}>
                       <span>{post.position}</span>
@@ -100,13 +100,13 @@ export const List: React.FC<PropType> = ({ index, user, selectedPost, setSelecte
                   onClick={(ev) => {
                     ev.stopPropagation();
 
-                    if (post.objectID === selectedPost?.objectID) return;
+                    if (post.objectID === proposalPost?.objectID) return;
 
                     const url = `/${index}/${post.objectID}`;
 
                     window.open(url);
                   }}>
-                  {post.objectID === selectedPost?.objectID ? (
+                  {post.objectID === proposalPost?.objectID ? (
                     <CheckCircleIcon
                       className={`${styles.entry_list_btn_link_icon} ${styles.entry_list_btn_link_icon_selected}`}
                     />
