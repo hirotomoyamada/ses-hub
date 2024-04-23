@@ -126,8 +126,8 @@ $width: responsive-width(pc);
       }
 
       &_selected {
-        background: #edf8ee;
-        border-color: $acnt_clr;
+        background: $add_bg_clr;
+        border-color: $add_clr;
       }
 
       &_content {
@@ -184,7 +184,7 @@ $width: responsive-width(pc);
           }
 
           &_selected {
-            color: $acnt_clr;
+            color: $add_clr;
 
             &:hover {
               opacity: 1;
