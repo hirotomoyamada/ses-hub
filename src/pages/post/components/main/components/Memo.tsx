@@ -17,13 +17,11 @@ export const Memo: React.FC<PropType> = ({ memo, index }) => {
       </span>
 
       <div>
-        <p className={`${styles.main_memo_txt} ${styles.main_memo_txt_body}`}>
-          {memo}
-        </p>
+        <p className={`${styles.main_memo_txt} ${styles.main_memo_txt_body}`}>{memo}</p>
       </div>
     </div>
   ) : index === 'resources' && typeof memo === 'object' ? (
-    <div className={styles.main_memo}>
+    <div className={`${styles.main_memo} ${styles.main_memo_body}`}>
       <span className={styles.main_memo_tag}>
         メモ
         <span className={styles.main_memo_tag_desc}>&nbsp;（非公開）</span>
@@ -51,8 +49,7 @@ export const Memo: React.FC<PropType> = ({ memo, index }) => {
       )}
 
       {memo?.address && (
-        <div
-          className={`${styles.main_memo_field} ${styles.main_memo_field_none}`}>
+        <div className={`${styles.main_memo_field} ${styles.main_memo_field_none}`}>
           <span className={styles.main_memo_field_tag}>住所</span>
 
           <p className={styles.main_memo_txt}>{memo?.address}</p>

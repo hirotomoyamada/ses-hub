@@ -172,9 +172,11 @@ $width: responsive-width(pc);
     background: $bg_clr;
     border-radius: 16px;
     padding: 32px 32px 16px;
+    margin: 32px 0;
 
     @media (max-width: responsive-width(sp)) {
-      padding: 16px 12px 0;
+      padding: 16px 12px;
+      margin: 12px 0;
     }
 
     &_body {
