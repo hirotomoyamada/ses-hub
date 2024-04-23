@@ -10,8 +10,6 @@ $width: responsive-width(pc);
   width: 62.5vw;
   overflow-y: scroll;
   background: $base_clr;
-  padding: 32px;
-
   font-size: 16px;
   display: inline-block;
 
@@ -31,7 +29,6 @@ $width: responsive-width(pc);
   }
 
   @media (max-width: responsive-width(sp)) {
-    padding: 12px;
     font-size: 12px;
   }
 
@@ -52,6 +49,11 @@ $width: responsive-width(pc);
 
   &_inner {
     position: relative;
+    padding: 32px 32px 0;
+
+    @media (max-width: responsive-width(sp)) {
+      padding: 12px 12px 0;
+    }
   }
 
   &_col {
@@ -81,8 +83,7 @@ $width: responsive-width(pc);
 
     &_none {
       &:after {
-        margin-bottom: 0px;
-        border: none;
+        display: none;
       }
     }
   }
@@ -228,8 +229,7 @@ $width: responsive-width(pc);
 
       &_none {
         &:after {
-          margin-bottom: 0px;
-          border: none;
+          display: none;
         }
       }
 

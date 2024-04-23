@@ -19,13 +19,19 @@ export const Entry: React.FC<PropType> = ({ post, user, entry, handleEntry }) =>
   const canceled = user.payment.status === 'canceled';
 
   return post?.user?.uid !== user?.uid ? (
-    <button
-      className={`${styles.entry} ${(demo || canceled) && styles.entry_disabled} ${
-        demo && styles.entry_disabled_truly
-      }`}
-      onClick={handleEntry}>
-      {demo ? '問い合わせすることができません' : entry ? '問い合わせ済みです' : '問い合わせをする'}
-    </button>
+    <div className={styles.entry}>
+      <button
+        className={`${styles.entry_btn} ${(demo || canceled) && styles.entry_btn_disabled} ${
+          demo && styles.entry_btn_disabled_truly
+        }`}
+        onClick={handleEntry}>
+        {demo
+          ? '問い合わせすることができません'
+          : entry
+          ? '問い合わせ済みです'
+          : '問い合わせをする'}
+      </button>
+    </div>
   ) : (
     <></>
   );
