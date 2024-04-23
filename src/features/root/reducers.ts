@@ -183,6 +183,7 @@ export const modal = (state: State, action?: PayloadAction<Modal | undefined>): 
     state.modal.meta = action.payload.meta;
     state.modal.close = action.payload.close;
     state.modal.delete = action.payload.delete;
+    state.modal.next = action.payload.next;
     state.modal.open = true;
   } else {
     state.modal.type = undefined;
@@ -190,6 +191,7 @@ export const modal = (state: State, action?: PayloadAction<Modal | undefined>): 
     state.modal.meta = undefined;
     state.modal.close = undefined;
     state.modal.delete = undefined;
+    state.modal.next = undefined;
     state.modal.open = false;
   }
 };

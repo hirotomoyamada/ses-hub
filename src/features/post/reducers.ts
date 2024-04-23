@@ -20,11 +20,13 @@ import {
 export const createPost = (
   state: State,
   action: PayloadAction<{
-    page: 'user' | 'search' | 'home';
+    page: 'user' | 'search' | 'home' | 'post';
     index: CreatePost['data']['index'];
     post: CreatePost['data']['post'];
   }>,
 ): void => {
+  if (action.payload.page === 'post') action.payload.page = 'user';
+
   if (action.payload.post.display === 'private' && action.payload.page === 'user') {
     state.user[action.payload.index].posts = [
       action.payload.post,

@@ -136,15 +136,25 @@ export const Modal: React.FC = () => {
         );
 
       case 'edit':
-        return <Form index={index} user={user} post={post} handleClose={handleClose} edit />;
+        return (
+          <Form
+            index={modal.meta?.index ?? index}
+            user={user}
+            post={post}
+            handleClose={handleClose}
+            handleNext={modal.next}
+            edit
+          />
+        );
 
       case 'new':
         return (
           <Form
-            index={index}
+            index={modal.meta?.index ?? index}
             user={user}
             post={post}
             handleClose={handleClose}
+            handleNext={modal.next}
             type={modal.meta?.type}
           />
         );

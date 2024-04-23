@@ -31,13 +31,14 @@ export const List: React.FC<PropType> = ({ index, user, proposalPost, setProposa
   ) as Matter[] | Resource[];
 
   useEffect(() => {
-    dispatch(
-      userPosts({
-        index,
-        uid: user.uid,
-        display: 'public',
-      }),
-    );
+    if (!posts.length)
+      dispatch(
+        userPosts({
+          index,
+          uid: user.uid,
+          display: 'public',
+        }),
+      );
   }, []);
 
   return (
@@ -118,7 +119,24 @@ export const List: React.FC<PropType> = ({ index, user, proposalPost, setProposa
             ))}
           </div>
         ) : (
-          <></>
+          <div className={styles.entry_list_empty}>
+            <p>提案する{index === 'matters' ? '案件' : '人材'}がありません。</p>
+
+            <button
+              onClick={() => {
+                dispatch(
+                  rootSlice.handleModal({
+                    type: 'new',
+                    meta: { index },
+                    next: () => {
+                      dispatch(rootSlice.handleModal({ type: 'entry' }));
+                    },
+                  }),
+                );
+              }}>
+              {index === 'matters' ? '案件' : '人材'}を登録する
+            </button>
+          </div>
         )
       ) : (
         <div className={styles.entry_list_load}>
@@ -126,7 +144,7 @@ export const List: React.FC<PropType> = ({ index, user, proposalPost, setProposa
         </div>
       )}
 
-      {!load ? (
+      {!load && posts.length ? (
         <p className={styles.entry_list_desc}>
           ※ 提案する{index === 'matters' ? '案件' : '人材'}を選択してください。
         </p>

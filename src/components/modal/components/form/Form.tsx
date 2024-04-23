@@ -32,6 +32,7 @@ interface PropType {
   post: Matter | Resource;
   type?: string;
   handleClose: () => void;
+  handleNext?: () => void;
   edit?: boolean;
 }
 
@@ -254,312 +255,318 @@ const placeholder = {
 `,
 };
 
-export const Form: React.FC<PropType> = memo(({ index, user, post, handleClose, edit, type }) => {
-  if (type === 'demo') index = 'matters';
+export const Form: React.FC<PropType> = memo(
+  ({ index, user, post, handleClose, handleNext, edit, type }) => {
+    if (type === 'demo') index = 'matters';
 
-  const dispatch = useDispatch();
-  const fetch = useSelector(rootSlice.load).fetch;
-  const page = useSelector(rootSlice.page);
-  const demo = useSelector(rootSlice.verified)?.demo;
-  const [isAI, setIsAI] = useState<boolean>(type === 'demo');
-  const [posts, setPosts] = useState<any[]>([]);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const completedPosts = useRef<any[]>([]);
-  const mainRef = useRef<HTMLDivElement>(null);
+    const dispatch = useDispatch();
+    const fetch = useSelector(rootSlice.load).fetch;
+    const page = useSelector(rootSlice.page);
+    const demo = useSelector(rootSlice.verified)?.demo;
+    const [isAI, setIsAI] = useState<boolean>(type === 'demo');
+    const [posts, setPosts] = useState<any[]>([]);
+    const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const completedPosts = useRef<any[]>([]);
+    const mainRef = useRef<HTMLDivElement>(null);
 
-  const aiMethods = useForm({
-    defaultValues: { content: type === 'demo' ? placeholder.matters : '' },
-  });
-  const basicMethods = useForm<functions.form.Data['matter'] & functions.form.Data['resource']>({
-    defaultValues: functions.form.defaultValues(index as 'matters' | 'resources', post, edit),
-  });
+    const aiMethods = useForm({
+      defaultValues: { content: type === 'demo' ? placeholder.matters : '' },
+    });
+    const basicMethods = useForm<functions.form.Data['matter'] & functions.form.Data['resource']>({
+      defaultValues: functions.form.defaultValues(index as 'matters' | 'resources', post, edit),
+    });
 
-  const handleCreate: SubmitHandler<
-    functions.form.Data['matter'] & functions.form.Data['resource']
-  > = async (data) => {
-    if (index !== 'matters' && index !== 'resources') return;
+    const handleCreate: SubmitHandler<
+      functions.form.Data['matter'] & functions.form.Data['resource']
+    > = async (data) => {
+      if (index !== 'matters' && index !== 'resources') return;
 
-    if (page !== 'home' && page !== 'search' && page !== 'user') return;
+      if (page !== 'home' && page !== 'search' && page !== 'user' && page !== 'post') return;
 
-    if (demo) {
-      handleClose();
+      if (demo) {
+        handleClose();
 
-      return;
-    }
-
-    const create = (() => {
-      switch (index) {
-        case 'matters':
-          return functions.form.matters(data as unknown as functions.form.Data['matter']);
-
-        case 'resources':
-          return functions.form.resources(data as unknown as functions.form.Data['resource']);
-
-        default:
-          return;
+        return;
       }
-    })();
 
-    if (create) {
-      if (posts.length) {
-        completedPosts.current = [...completedPosts.current, create];
+      const create = (() => {
+        switch (index) {
+          case 'matters':
+            return functions.form.matters(data as unknown as functions.form.Data['matter']);
 
-        if (posts.length - 1 !== currentIndex) {
-          mainRef.current?.scrollTo({ top: 0 });
-          setPost(posts[currentIndex + 1]);
-          setCurrentIndex((prev) => prev + 1);
-        } else {
-          dispatch(rootSlice.handleLoad({ fetch: true }));
+          case 'resources':
+            return functions.form.resources(data as unknown as functions.form.Data['resource']);
 
-          if (type === 'demo') {
-            await wait(1000);
+          default:
+            return;
+        }
+      })();
+
+      if (create) {
+        if (posts.length) {
+          completedPosts.current = [...completedPosts.current, create];
+
+          if (posts.length - 1 !== currentIndex) {
+            mainRef.current?.scrollTo({ top: 0 });
+            setPost(posts[currentIndex + 1]);
+            setCurrentIndex((prev) => prev + 1);
+          } else {
+            dispatch(rootSlice.handleLoad({ fetch: true }));
+
+            if (type === 'demo') {
+              await wait(1000);
+
+              dispatch(rootSlice.handleLoad());
+              handleClose();
+
+              return;
+            }
+
+            await Promise.allSettled(
+              completedPosts.current.map(async (post) => {
+                if (index !== 'matters' && index !== 'resources') return;
+
+                await (dispatch as OwnDispatch)(createPost({ index, page, post, hasPosts: true }));
+              }),
+            );
 
             dispatch(rootSlice.handleLoad());
             handleClose();
-
-            return;
           }
+        } else {
+          await (dispatch as OwnDispatch)(createPost({ index, page, post: create }));
+        }
 
-          await Promise.allSettled(
-            completedPosts.current.map(async (post) => {
-              if (index !== 'matters' && index !== 'resources') return;
+        handleNext?.();
+      }
+    };
 
-              await (dispatch as OwnDispatch)(createPost({ index, page, post, hasPosts: true }));
+    const handleEdit: SubmitHandler<
+      functions.form.Data['matter'] & functions.form.Data['resource']
+    > = async (data) => {
+      if (index !== 'matters' && index !== 'resources') return;
+
+      if (user.uid !== post.uid) {
+        handleClose();
+
+        return;
+      }
+
+      const edit = (() => {
+        switch (index) {
+          case 'matters':
+            return {
+              ...post,
+              ...functions.form.matters(data as unknown as functions.form.Data['matter']),
+            };
+
+          case 'resources':
+            return {
+              ...post,
+              ...functions.form.resources(data as unknown as functions.form.Data['resource']),
+            };
+
+          default:
+            return;
+        }
+      })();
+
+      if (edit) await (dispatch as OwnDispatch)(editPost({ index, post: edit }));
+
+      handleNext?.();
+    };
+
+    const handleComplete: SubmitHandler<{ content: string }> = async ({ content }) => {
+      if (index !== 'matters' && index !== 'resources') return;
+
+      try {
+        dispatch(rootSlice.handleLoad({ fetch: true }));
+
+        let post: Matter | Resource;
+        let posts: Matter[] | Resource[];
+
+        if (type === 'demo') {
+          await wait(1000);
+
+          posts = demoPosts;
+        } else {
+          const { data } = await completePost({ index, content });
+
+          posts = data.posts;
+        }
+
+        // eslint-disable-next-line prefer-const
+        post = posts[currentIndex];
+
+        if (!post) throw new Error('読み込みに失敗しました');
+
+        aiMethods.reset({ content: type === 'demo' ? placeholder.matters : '' });
+
+        const defaultValues = functions.form.defaultValues(index, post, true);
+
+        basicMethods.reset(defaultValues);
+
+        setPosts(posts);
+      } catch (e) {
+        if (e instanceof Error)
+          dispatch(
+            rootSlice.handleAnnounce({
+              error: e.message,
             }),
           );
-
-          dispatch(rootSlice.handleLoad());
-          handleClose();
-        }
-      } else {
-        dispatch(createPost({ index, page, post: create }));
+      } finally {
+        dispatch(rootSlice.handleLoad());
       }
-    }
-  };
+    };
 
-  const handleEdit: SubmitHandler<
-    functions.form.Data['matter'] & functions.form.Data['resource']
-  > = (data) => {
-    if (index !== 'matters' && index !== 'resources') return;
+    const setPost = (post: any) => {
+      if (index !== 'matters' && index !== 'resources') return;
 
-    if (user.uid !== post.uid) {
-      handleClose();
-
-      return;
-    }
-
-    const edit = (() => {
-      switch (index) {
-        case 'matters':
-          return {
-            ...post,
-            ...functions.form.matters(data as unknown as functions.form.Data['matter']),
-          };
-
-        case 'resources':
-          return {
-            ...post,
-            ...functions.form.resources(data as unknown as functions.form.Data['resource']),
-          };
-
-        default:
-          return;
-      }
-    })();
-
-    if (edit) dispatch(editPost({ index, post: edit }));
-  };
-
-  const handleComplete: SubmitHandler<{ content: string }> = async ({ content }) => {
-    if (index !== 'matters' && index !== 'resources') return;
-
-    try {
-      dispatch(rootSlice.handleLoad({ fetch: true }));
-
-      let post: Matter | Resource;
-      let posts: Matter[] | Resource[];
-
-      if (type === 'demo') {
-        await wait(1000);
-
-        posts = demoPosts;
-      } else {
-        const { data } = await completePost({ index, content });
-
-        posts = data.posts;
-      }
-
-      // eslint-disable-next-line prefer-const
-      post = posts[currentIndex];
-
-      if (!post) throw new Error('読み込みに失敗しました');
-
-      aiMethods.reset({ content: type === 'demo' ? placeholder.matters : '' });
+      basicMethods.resetField('handles', {
+        defaultValue: [{ handle: undefined }, { handle: undefined }, { handle: undefined }],
+      });
+      basicMethods.resetField('tools', {
+        defaultValue: [{ tool: undefined }, { tool: undefined }, { tool: undefined }],
+      });
+      basicMethods.resetField('requires', {
+        defaultValue: [{ require: undefined }, { require: undefined }, { require: undefined }],
+      });
+      basicMethods.resetField('prefers', {
+        defaultValue: [{ prefer: undefined }, { prefer: undefined }, { prefer: undefined }],
+      });
+      basicMethods.resetField('skills', {
+        defaultValue: [{ skill: undefined }, { skill: undefined }, { skill: undefined }],
+      });
 
       const defaultValues = functions.form.defaultValues(index, post, true);
 
       basicMethods.reset(defaultValues);
+    };
 
-      setPosts(posts);
-    } catch (e) {
-      if (e instanceof Error)
-        dispatch(
-          rootSlice.handleAnnounce({
-            error: e.message,
-          }),
-        );
-    } finally {
-      dispatch(rootSlice.handleLoad());
-    }
-  };
+    return !isAI || !!posts.length ? (
+      <FormProvider {...basicMethods}>
+        <form
+          className={styles.form}
+          onSubmit={
+            edit ? basicMethods.handleSubmit(handleEdit) : basicMethods.handleSubmit(handleCreate)
+          }>
+          <Header
+            edit={edit}
+            isAI={isAI}
+            setIsAI={setIsAI}
+            fetch={fetch}
+            handleClose={handleClose}
+            hasPosts={!!posts.length}
+            isLast={!!posts.length && posts.length - 1 !== currentIndex}
+          />
+          <Main
+            ref={mainRef}
+            index={index as 'matters' | 'resources'}
+            edit={edit}
+            handleClose={handleClose}
+          />
 
-  const setPost = (post: any) => {
-    if (index !== 'matters' && index !== 'resources') return;
+          {fetch && (
+            <div className={styles.form_fetch}>
+              <Oval color='#49b757' height={56} width={56} />
+            </div>
+          )}
 
-    basicMethods.resetField('handles', {
-      defaultValue: [{ handle: undefined }, { handle: undefined }, { handle: undefined }],
-    });
-    basicMethods.resetField('tools', {
-      defaultValue: [{ tool: undefined }, { tool: undefined }, { tool: undefined }],
-    });
-    basicMethods.resetField('requires', {
-      defaultValue: [{ require: undefined }, { require: undefined }, { require: undefined }],
-    });
-    basicMethods.resetField('prefers', {
-      defaultValue: [{ prefer: undefined }, { prefer: undefined }, { prefer: undefined }],
-    });
-    basicMethods.resetField('skills', {
-      defaultValue: [{ skill: undefined }, { skill: undefined }, { skill: undefined }],
-    });
-
-    const defaultValues = functions.form.defaultValues(index, post, true);
-
-    basicMethods.reset(defaultValues);
-  };
-
-  return !isAI || !!posts.length ? (
-    <FormProvider {...basicMethods}>
-      <form
-        className={styles.form}
-        onSubmit={
-          edit ? basicMethods.handleSubmit(handleEdit) : basicMethods.handleSubmit(handleCreate)
-        }>
-        <Header
-          edit={edit}
-          isAI={isAI}
-          setIsAI={setIsAI}
-          fetch={fetch}
-          handleClose={handleClose}
-          hasPosts={!!posts.length}
-          isLast={!!posts.length && posts.length - 1 !== currentIndex}
-        />
-        <Main
-          ref={mainRef}
-          index={index as 'matters' | 'resources'}
-          edit={edit}
-          handleClose={handleClose}
-        />
-
-        {fetch && (
-          <div className={styles.form_fetch}>
-            <Oval color='#49b757' height={56} width={56} />
-          </div>
-        )}
-
-        {!!posts.length && (
-          <div className={styles.form_footer}>
-            <button
-              className={styles.form_cancel}
-              disabled={fetch}
-              type='button'
-              onClick={() => {
-                setPosts((prev) => {
-                  const next = prev.filter((_, index) => index !== currentIndex);
-                  completedPosts.current = completedPosts.current.filter(
-                    (_, index) => index !== currentIndex,
-                  );
-
-                  if (!next.length) {
-                    basicMethods.reset(
-                      functions.form.defaultValues(index as 'matters' | 'resources', post, edit),
+          {!!posts.length && (
+            <div className={styles.form_footer}>
+              <button
+                className={styles.form_cancel}
+                disabled={fetch}
+                type='button'
+                onClick={() => {
+                  setPosts((prev) => {
+                    const next = prev.filter((_, index) => index !== currentIndex);
+                    completedPosts.current = completedPosts.current.filter(
+                      (_, index) => index !== currentIndex,
                     );
-                    setCurrentIndex(0);
-                  } else if (next.length - 1 < currentIndex) {
-                    mainRef.current?.scrollTo({ top: 0 });
-                    setPost(completedPosts.current[completedPosts.current.length - 1]);
-                    setCurrentIndex(next.length - 1);
-                  } else {
-                    mainRef.current?.scrollTo({ top: 0 });
-                    setPost(next[currentIndex]);
-                  }
 
-                  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-                  return next;
-                });
-              }}>
-              取消
-            </button>
+                    if (!next.length) {
+                      basicMethods.reset(
+                        functions.form.defaultValues(index as 'matters' | 'resources', post, edit),
+                      );
+                      setCurrentIndex(0);
+                    } else if (next.length - 1 < currentIndex) {
+                      mainRef.current?.scrollTo({ top: 0 });
+                      setPost(completedPosts.current[completedPosts.current.length - 1]);
+                      setCurrentIndex(next.length - 1);
+                    } else {
+                      mainRef.current?.scrollTo({ top: 0 });
+                      setPost(next[currentIndex]);
+                    }
 
-            <div className={styles.form_pagination}>
-              <div className={styles.form_pagination_inner}>
-                <span>{currentIndex + 1}</span>
-                <span className={styles.form_pagination_desc}>/</span>
-                <span className={styles.form_pagination_desc}>{posts.length}</span>
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                    return next;
+                  });
+                }}>
+                取消
+              </button>
+
+              <div className={styles.form_pagination}>
+                <div className={styles.form_pagination_inner}>
+                  <span>{currentIndex + 1}</span>
+                  <span className={styles.form_pagination_desc}>/</span>
+                  <span className={styles.form_pagination_desc}>{posts.length}</span>
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </form>
-    </FormProvider>
-  ) : (
-    <FormProvider {...aiMethods}>
-      <form className={styles.form} onSubmit={aiMethods.handleSubmit(handleComplete)}>
-        <AIHeader
-          edit={edit}
-          isAI={isAI}
-          setIsAI={setIsAI}
-          fetch={fetch}
-          isDemo={type === 'demo'}
-          handleClose={handleClose}
-        />
+          )}
+        </form>
+      </FormProvider>
+    ) : (
+      <FormProvider {...aiMethods}>
+        <form className={styles.form} onSubmit={aiMethods.handleSubmit(handleComplete)}>
+          <AIHeader
+            edit={edit}
+            isAI={isAI}
+            setIsAI={setIsAI}
+            fetch={fetch}
+            isDemo={type === 'demo'}
+            handleClose={handleClose}
+          />
 
-        <div className={styles.main}>
-          <div className={styles.main_col}>
-            <p className={styles.main_tag}>
-              {index === 'matters' ? '案件' : '人材'}情報をコピー&ペーストしてください
-            </p>
-            <textarea
-              className={`${styles.main_textarea} ${
-                aiMethods.formState.errors.content && styles.main_textarea_error
-              }`}
-              {...aiMethods.register('content', {
-                required: `${index === 'matters' ? '案件' : '人材'}情報を入力してください`,
-              })}
-              placeholder={index === 'matters' ? placeholder.matters : placeholder.resources}
-              readOnly={type === 'demo'}></textarea>
+          <div className={styles.main}>
+            <div className={styles.main_col}>
+              <p className={styles.main_tag}>
+                {index === 'matters' ? '案件' : '人材'}情報をコピー&ペーストしてください
+              </p>
+              <textarea
+                className={`${styles.main_textarea} ${
+                  aiMethods.formState.errors.content && styles.main_textarea_error
+                }`}
+                {...aiMethods.register('content', {
+                  required: `${index === 'matters' ? '案件' : '人材'}情報を入力してください`,
+                })}
+                placeholder={index === 'matters' ? placeholder.matters : placeholder.resources}
+                readOnly={type === 'demo'}></textarea>
 
-            {aiMethods.formState.errors.content?.message ? (
-              <span className={styles.main_error}>
-                {aiMethods.formState.errors.content?.message}
+              {aiMethods.formState.errors.content?.message ? (
+                <span className={styles.main_error}>
+                  {aiMethods.formState.errors.content?.message}
+                </span>
+              ) : null}
+
+              <span className={styles.main_desc}>
+                &nbsp;※&nbsp;区切り線は、5文字以上の同一文字で入力してください。区切り線が正しくない場合、情報が正しく読み込まれない可能性があります。
+                <br />
+                &nbsp;※&nbsp;人工知能は、発展途上の技術です。情報によっては、正しく文章の認識・生成が出来ない場合があります。
+                <br />
+                &nbsp;※&nbsp;生成された内容をご確認の上、不足情報は備考などに記載を行いご登録ください。
               </span>
-            ) : null}
-
-            <span className={styles.main_desc}>
-              &nbsp;※&nbsp;区切り線は、5文字以上の同一文字で入力してください。区切り線が正しくない場合、情報が正しく読み込まれない可能性があります。
-              <br />
-              &nbsp;※&nbsp;人工知能は、発展途上の技術です。情報によっては、正しく文章の認識・生成が出来ない場合があります。
-              <br />
-              &nbsp;※&nbsp;生成された内容をご確認の上、不足情報は備考などに記載を行いご登録ください。
-            </span>
+            </div>
           </div>
-        </div>
 
-        {fetch && (
-          <div className={styles.form_fetch}>
-            <Oval color='#49b757' height={56} width={56} />
-          </div>
-        )}
-      </form>
-    </FormProvider>
-  );
-});
+          {fetch && (
+            <div className={styles.form_fetch}>
+              <Oval color='#49b757' height={56} width={56} />
+            </div>
+          )}
+        </form>
+      </FormProvider>
+    );
+  },
+);

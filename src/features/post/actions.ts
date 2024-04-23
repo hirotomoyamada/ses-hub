@@ -85,7 +85,7 @@ export interface CreatePost {
             address: string | null;
           };
         };
-    page: 'user' | 'search' | 'home';
+    page: 'user' | 'search' | 'home' | 'post';
     hasPosts?: boolean;
   };
 
@@ -100,7 +100,7 @@ export const createPost = createAsyncThunk(
   async (
     arg: CreatePost['arg'],
   ): Promise<{
-    page: 'user' | 'search' | 'home';
+    page: 'user' | 'search' | 'home' | 'post';
     index: CreatePost['data']['index'];
     post: CreatePost['data']['post'];
   }> => {

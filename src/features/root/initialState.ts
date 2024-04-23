@@ -28,7 +28,9 @@ export interface Modal {
     selectUser?: User | Company;
     email?: string;
     type?: string;
+    index?: 'matters' | 'resources';
   };
+  next?: () => void;
   delete?: () => void;
   close?: () => void;
 }
