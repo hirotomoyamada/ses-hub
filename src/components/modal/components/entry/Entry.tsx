@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import styles from './Entry.module.scss';
-import { useDispatch } from 'react-redux';
-import * as userSlice from 'features/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { List } from './components/List';
 import { User } from 'types/user';
 import { Matter, Resource } from 'types/post';
+import { addEntry } from 'features/user/actions';
+import { OwnDispatch } from '@reduxjs/toolkit';
+import * as rootSlice from 'features/root/rootSlice';
+import { Oval } from 'react-loader-spinner';
 
 interface PropType {
   index: 'matters' | 'resources';
@@ -15,12 +18,15 @@ interface PropType {
 
 export const Entry: React.FC<PropType> = ({ index, user, post, handleClose }) => {
   const dispatch = useDispatch();
-  const [proposedPost, setproposedPost] = useState<Matter | Resource | undefined>(undefined);
+  const load = useSelector(rootSlice.load).fetch;
+  const [proposedPost, setProposedPost] = useState<Matter | Resource | undefined>(undefined);
 
-  const handleEntry = (): void => {
+  const handleEntry = async (): Promise<void> => {
     if (!proposedPost) return;
 
-    dispatch(userSlice.addEntry({ index, post, proposedPost }));
+    await (dispatch as OwnDispatch)(addEntry({ index, post, proposedPost })).then(({ type }) => {
+      if (type.endsWith('/fulfilled')) handleClose();
+    });
   };
 
   return (
@@ -37,7 +43,7 @@ export const Entry: React.FC<PropType> = ({ index, user, post, handleClose }) =>
         index={index}
         user={user}
         proposedPost={proposedPost}
-        setproposedPost={setproposedPost}
+        setProposedPost={setProposedPost}
       />
 
       <div className={styles.entry_email}>
@@ -47,7 +53,13 @@ export const Entry: React.FC<PropType> = ({ index, user, post, handleClose }) =>
           className={`${styles.entry_email_btn} ${
             !proposedPost && styles.entry_email_btn_disabled
           }`}>
-          問い合わせをする
+          {load ? (
+            <span>
+              <Oval color='#ffffff' secondaryColor='#ffffff' height={16} width={16} />
+            </span>
+          ) : (
+            '問い合わせをする'
+          )}
         </button>
       </div>
     </div>

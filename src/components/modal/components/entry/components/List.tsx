@@ -14,11 +14,11 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 interface PropType {
   index: 'matters' | 'resources';
   proposedPost: Matter | Resource | undefined;
-  setproposedPost: Dispatch<SetStateAction<Matter | Resource | undefined>>;
+  setProposedPost: Dispatch<SetStateAction<Matter | Resource | undefined>>;
   user: User;
 }
 
-export const List: React.FC<PropType> = ({ index, user, proposedPost, setproposedPost }) => {
+export const List: React.FC<PropType> = ({ index, user, proposedPost, setProposedPost }) => {
   index = index === 'matters' ? 'resources' : 'matters';
   const dispatch = useDispatch();
   const load = useSelector(rootSlice.load).fetch;
@@ -45,8 +45,12 @@ export const List: React.FC<PropType> = ({ index, user, proposedPost, setpropose
     <div className={styles.entry_list}>
       <p className={styles.entry_list_title}>提案する{index === 'matters' ? '案件' : '人材'}</p>
 
-      {!load ? (
-        posts.length ? (
+      {load && !posts.length ? (
+        <div className={styles.entry_list_load}>
+          <Oval color='#49b757' height={56} width={56} />
+        </div>
+      ) : posts.length ? (
+        <>
           <div className={styles.entry_list_items}>
             {posts.map((post) => (
               <div
@@ -54,7 +58,7 @@ export const List: React.FC<PropType> = ({ index, user, proposedPost, setpropose
                 className={`${styles.entry_list_btn} ${
                   post.objectID === proposedPost?.objectID && styles.entry_list_btn_selected
                 }`}
-                onClick={() => setproposedPost(post)}>
+                onClick={() => setProposedPost(post)}>
                 {'title' in post ? (
                   <div
                     className={`${styles.entry_list_btn_content} ${
@@ -118,37 +122,31 @@ export const List: React.FC<PropType> = ({ index, user, proposedPost, setpropose
               </div>
             ))}
           </div>
-        ) : (
-          <div className={styles.entry_list_empty}>
-            <p>提案する{index === 'matters' ? '案件' : '人材'}がありません。</p>
 
-            <button
-              onClick={() => {
-                dispatch(
-                  rootSlice.handleModal({
-                    type: 'new',
-                    meta: { index },
-                    next: () => {
-                      dispatch(rootSlice.handleModal({ type: 'entry' }));
-                    },
-                  }),
-                );
-              }}>
-              {index === 'matters' ? '案件' : '人材'}を登録する
-            </button>
-          </div>
-        )
+          <p className={styles.entry_list_desc}>
+            ※ 提案する{index === 'matters' ? '案件' : '人材'}を選択してください。
+          </p>
+        </>
       ) : (
-        <div className={styles.entry_list_load}>
-          <Oval color='#49b757' height={56} width={56} />
+        <div className={styles.entry_list_empty}>
+          <p>提案する{index === 'matters' ? '案件' : '人材'}がありません。</p>
+
+          <button
+            onClick={() => {
+              dispatch(
+                rootSlice.handleModal({
+                  type: 'new',
+                  meta: { index },
+                  next: () => {
+                    dispatch(rootSlice.handleModal({ type: 'entry' }));
+                  },
+                }),
+              );
+            }}>
+            {index === 'matters' ? '案件' : '人材'}を登録する
+          </button>
         </div>
       )}
-
-      {!load && posts.length ? (
-        <p className={styles.entry_list_desc}>
-          ※ 提案する{index === 'matters' ? '案件' : '人材'}を選択してください。
-        </p>
-      ) : null}
     </div>
   );
 };

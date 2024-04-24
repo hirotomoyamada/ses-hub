@@ -386,17 +386,6 @@ export const addEntry = (state: State, action: PayloadAction<Entry>): void => {
       ...(state.user as User).entries[action.payload.index],
     ];
   }
-  const addEntry: HttpsCallable<
-    { index: Entry['index']; uid: string; objectID: string; proposedObjectID: string },
-    unknown
-  > = httpsCallable(functions, 'sh-addEntry');
-
-  void addEntry({
-    index: action.payload.index,
-    uid: action.payload.post.uid,
-    objectID: action.payload.post.objectID,
-    proposedObjectID: action.payload.proposedPost.objectID,
-  });
 };
 
 export const addFollow = (state: State, action: PayloadAction<Company>): void => {

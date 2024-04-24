@@ -1,5 +1,5 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { auth, functions } from "libs/firebase";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { auth, functions } from 'libs/firebase';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -7,18 +7,18 @@ import {
   updateEmail,
   deleteUser,
   User as CurrentUser,
-} from "firebase/auth";
-import { httpsCallable, HttpsCallable } from "firebase/functions";
+} from 'firebase/auth';
+import { httpsCallable, HttpsCallable } from 'firebase/functions';
 
-import { Company, Person } from "types/post";
-import { User, Data } from "types/user";
-import { Analytics } from "features/user/initialState";
-import { Profile } from "features/user/userSlice";
+import { Company, Matter, Person, Resource } from 'types/post';
+import { User, Data } from 'types/user';
+import { Analytics } from 'features/user/initialState';
+import { Entry, Profile } from 'features/user/userSlice';
 
 export interface Login {
   req: {
-    emailVerified: CurrentUser["emailVerified"];
-    providerData: CurrentUser["providerData"];
+    emailVerified: CurrentUser['emailVerified'];
+    providerData: CurrentUser['providerData'];
   };
 
   data: {
@@ -31,12 +31,9 @@ export interface Login {
 }
 
 export const login = createAsyncThunk(
-  "user/login",
-  async (arg: CurrentUser): Promise<Login["data"]> => {
-    const login: HttpsCallable<Login["req"], Login["data"]> = httpsCallable(
-      functions,
-      "sh-login"
-    );
+  'user/login',
+  async (arg: CurrentUser): Promise<Login['data']> => {
+    const login: HttpsCallable<Login['req'], Login['data']> = httpsCallable(functions, 'sh-login');
 
     const { data } = await login({
       emailVerified: arg.emailVerified,
@@ -44,7 +41,7 @@ export const login = createAsyncThunk(
     });
 
     return data;
-  }
+  },
 );
 
 export interface CreateProfile {
@@ -67,12 +64,12 @@ export interface CreateProfile {
 }
 
 export const createProfile = createAsyncThunk(
-  "user/createProfile",
-  async (arg: CreateProfile["arg"]): Promise<void> => {
-    const createProfile: HttpsCallable<
-      CreateProfile["arg"],
-      CreateProfile["data"]
-    > = httpsCallable(functions, "sh-createProfile");
+  'user/createProfile',
+  async (arg: CreateProfile['arg']): Promise<void> => {
+    const createProfile: HttpsCallable<CreateProfile['arg'], CreateProfile['data']> = httpsCallable(
+      functions,
+      'sh-createProfile',
+    );
 
     await createProfile(arg).then(async ({ data }): Promise<void> => {
       if (auth.currentUser) {
@@ -81,21 +78,18 @@ export const createProfile = createAsyncThunk(
         });
       }
     });
-  }
+  },
 );
 
 export const editProfile = createAsyncThunk(
-  "user/editProfile",
+  'user/editProfile',
   async (arg: Profile): Promise<Profile> => {
-    const editProfile: HttpsCallable<Profile, unknown> = httpsCallable(
-      functions,
-      "sh-editProfile"
-    );
+    const editProfile: HttpsCallable<Profile, unknown> = httpsCallable(functions, 'sh-editProfile');
 
     await editProfile(arg);
 
     return arg;
-  }
+  },
 );
 
 export interface Child {
@@ -140,11 +134,11 @@ export interface Child {
 }
 
 export const createChild = createAsyncThunk(
-  "user/createChild",
-  async (arg: Child["arg"]): Promise<Child["data"] | void> => {
-    const createChild: HttpsCallable<string, Child["data"]> = httpsCallable(
+  'user/createChild',
+  async (arg: Child['arg']): Promise<Child['data'] | void> => {
+    const createChild: HttpsCallable<string, Child['data']> = httpsCallable(
       functions,
-      "sh-createChild"
+      'sh-createChild',
     );
 
     const user = arg.user;
@@ -153,7 +147,7 @@ export const createChild = createAsyncThunk(
     const child = await createUserWithEmailAndPassword(
       auth,
       selectUser.email,
-      selectUser.password
+      selectUser.password,
     ).then(async () => {
       return await createChild(user.uid)
         .then(async ({ data }) => {
@@ -173,43 +167,43 @@ export const createChild = createAsyncThunk(
     });
 
     return child;
-  }
+  },
 );
 
 export const deleteChild = createAsyncThunk(
-  "user/deleteChild",
-  async (arg: Child["arg"]): Promise<string | void> => {
+  'user/deleteChild',
+  async (arg: Child['arg']): Promise<string | void> => {
     const user = arg.user;
     const selectUser = arg.selectUser;
 
-    const child = signInWithEmailAndPassword(
-      auth,
-      selectUser.email,
-      selectUser.password
-    ).then(async (): Promise<string | void> => {
-      const child = auth.currentUser;
+    const child = signInWithEmailAndPassword(auth, selectUser.email, selectUser.password).then(
+      async (): Promise<string | void> => {
+        const child = auth.currentUser;
 
-      if (child) {
-        await deleteUser(child).then(async (): Promise<void> => {
-          await signInWithEmailAndPassword(auth, user.email, user.password);
-        });
+        if (child) {
+          await deleteUser(child).then(async (): Promise<void> => {
+            await signInWithEmailAndPassword(auth, user.email, user.password);
+          });
 
-        return child.uid;
-      }
-    });
+          return child.uid;
+        }
+      },
+    );
 
     return child;
-  }
+  },
 );
 
 export const changeEmailChild = createAsyncThunk(
-  "user/changeEmailChild",
+  'user/changeEmailChild',
   async (arg: {
-    user: Child["arg"]["user"];
-    selectUser: Required<Child["arg"]["selectUser"]>;
+    user: Child['arg']['user'];
+    selectUser: Required<Child['arg']['selectUser']>;
   }): Promise<{ uid: string; email: string } | void> => {
-    const changeEmail: HttpsCallable<{ uid: string; email: string }, unknown> =
-      httpsCallable(functions, "sh-changeEmail");
+    const changeEmail: HttpsCallable<{ uid: string; email: string }, unknown> = httpsCallable(
+      functions,
+      'sh-changeEmail',
+    );
 
     const user = arg.user;
     const selectUser = arg.selectUser;
@@ -217,7 +211,7 @@ export const changeEmailChild = createAsyncThunk(
     const child = await signInWithEmailAndPassword(
       auth,
       selectUser.currentEmail,
-      selectUser.password
+      selectUser.password,
     ).then(async (): Promise<{ uid: string; email: string } | void> => {
       const child = auth.currentUser;
 
@@ -232,18 +226,18 @@ export const changeEmailChild = createAsyncThunk(
             });
 
             return { uid: child.uid, email: selectUser.email };
-          }
+          },
         );
       }
     });
 
     return child;
-  }
+  },
 );
 
 export interface FetchUser {
   arg: {
-    index: "companys" | "persons";
+    index: 'companys' | 'persons';
     uid?: string;
     uids?: string[];
     fetch?: boolean;
@@ -256,10 +250,12 @@ export interface FetchUser {
 }
 
 export const fetchUser = createAsyncThunk(
-  "user/fetchUser",
-  async (arg: FetchUser["arg"]): Promise<FetchUser["data"] | void> => {
-    const fetchUser: HttpsCallable<FetchUser["arg"], FetchUser["data"]> =
-      httpsCallable(functions, "sh-fetchUser");
+  'user/fetchUser',
+  async (arg: FetchUser['arg']): Promise<FetchUser['data'] | void> => {
+    const fetchUser: HttpsCallable<FetchUser['arg'], FetchUser['data']> = httpsCallable(
+      functions,
+      'sh-fetchUser',
+    );
 
     const { data } = await fetchUser({
       index: arg.index,
@@ -268,13 +264,13 @@ export const fetchUser = createAsyncThunk(
     });
 
     return data;
-  }
+  },
 );
 
 export interface FetchAnalytics {
   arg: {
     uid: string;
-    span: "total" | "day" | "week" | "month";
+    span: 'total' | 'day' | 'week' | 'month';
     active?: string[];
     order?: string[];
     demo: boolean;
@@ -284,12 +280,12 @@ export interface FetchAnalytics {
 }
 
 export const fetchAnalytics = createAsyncThunk(
-  "user/fetchAnalytics",
-  async (arg: FetchAnalytics["arg"]) => {
+  'user/fetchAnalytics',
+  async (arg: FetchAnalytics['arg']) => {
     const fetchAnalytics: HttpsCallable<
-      Pick<FetchAnalytics["arg"], "uid" | "span">,
-      FetchAnalytics["data"]
-    > = httpsCallable(functions, "sh-fetchAnalytics");
+      Pick<FetchAnalytics['arg'], 'uid' | 'span'>,
+      FetchAnalytics['data']
+    > = httpsCallable(functions, 'sh-fetchAnalytics');
 
     const { data } = await fetchAnalytics(arg);
 
@@ -299,5 +295,29 @@ export const fetchAnalytics = createAsyncThunk(
       active: arg.active,
       order: arg.order,
     };
-  }
+  },
 );
+
+export interface AddEntry {
+  arg: {
+    index: 'matters' | 'resources';
+    post: Matter | Resource;
+    proposedPost: Matter | Resource;
+  };
+}
+
+export const addEntry = createAsyncThunk('user/addEntry', async (arg: AddEntry['arg']) => {
+  const addEntry: HttpsCallable<
+    { index: Entry['index']; uid: string; objectID: string; proposedObjectID: string },
+    unknown
+  > = httpsCallable(functions, 'sh-addEntry');
+
+  await addEntry({
+    index: arg.index,
+    uid: arg.post.uid,
+    objectID: arg.post.objectID,
+    proposedObjectID: arg.proposedPost.objectID,
+  });
+
+  return arg;
+});

@@ -7,9 +7,7 @@ import { Setting, User } from 'types/user';
 import * as actions from 'features/user/actions';
 import * as reducers from 'features/user/reducers';
 
-export const extraReducers = (
-  builder: ActionReducerMapBuilder<State>,
-): void => {
+export const extraReducers = (builder: ActionReducerMapBuilder<State>): void => {
   builder.addCase(actions.login.fulfilled, (state, action) => {
     if (!state.token) {
       reducers.login(state, action);
@@ -40,10 +38,11 @@ export const extraReducers = (
     reducers.fetchAnalytics(state, action),
   );
 
+  builder.addCase(actions.addEntry.fulfilled, (state, action) => reducers.addEntry(state, action));
+
   builder.addMatcher(
     (action: PayloadAction) => action.type.endsWith('/createPost/fulfilled'),
-    (state, action: PayloadAction<CreatePost['data']>) =>
-      reducers.createPost(state, action),
+    (state, action: PayloadAction<CreatePost['data']>) => reducers.createPost(state, action),
   );
 
   builder.addMatcher(
@@ -66,9 +65,7 @@ export const extraReducers = (
 
   builder.addMatcher(
     (action: PayloadAction) => action.type.endsWith('/handleSetting'),
-    (
-      state,
-      action: PayloadAction<Setting['analytics'] & { type: 'analytics' }>,
-    ) => reducers.updateAnalytics(state, action),
+    (state, action: PayloadAction<Setting['analytics'] & { type: 'analytics' }>) =>
+      reducers.updateAnalytics(state, action),
   );
 };

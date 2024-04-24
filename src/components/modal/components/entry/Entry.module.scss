@@ -238,13 +238,19 @@ $width: responsive-width(pc);
       background: $acnt_clr;
       width: 100%;
       border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
 
       color: $base_clr;
+      height: 48px;
       line-height: 48px;
       text-align: center;
 
       @media (max-width: responsive-width(sp)) {
         font-size: 12px;
+        height: 40px;
         line-height: 40px;
       }
 

@@ -120,6 +120,10 @@ export const extraReducers = (builder: ActionReducerMapBuilder<State>): void => 
         }
       }
 
+      if (action.type.includes('/addEntry/')) {
+        state.announce.error = action.error.message;
+      }
+
       if (
         (action.type.includes('/createPost/') ||
           action.type.includes('/editPost/') ||
