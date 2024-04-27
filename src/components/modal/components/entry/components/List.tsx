@@ -7,9 +7,9 @@ import * as postSlice from 'features/post/postSlice';
 import { userPosts } from 'features/post/actions';
 import { User } from 'types/user';
 import { Oval } from 'react-loader-spinner';
-import LaunchIcon from '@material-ui/icons/Launch';
 import * as rootSlice from 'features/root/rootSlice';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import { VisibilityOutlined } from '@material-ui/icons';
 
 interface PropType {
   index: 'matters' | 'resources';
@@ -116,7 +116,7 @@ export const List: React.FC<PropType> = ({ index, user, proposedPost, setPropose
                       className={`${styles.entry_list_btn_link_icon} ${styles.entry_list_btn_link_icon_selected}`}
                     />
                   ) : (
-                    <LaunchIcon className={styles.entry_list_btn_link_icon} />
+                    <VisibilityOutlined className={styles.entry_list_btn_link_icon} />
                   )}
                 </div>
               </div>

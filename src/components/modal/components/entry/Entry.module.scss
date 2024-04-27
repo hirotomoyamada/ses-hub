@@ -121,6 +121,10 @@ $width: responsive-width(pc);
       cursor: pointer;
       transition: all 0.4s;
 
+      &:hover {
+        border-color: $add_clr;
+      }
+
       @media (max-width: responsive-width(sp)) {
         padding: 12px;
       }
