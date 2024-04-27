@@ -25,10 +25,7 @@ export const Menu: React.FC<PropType> = ({ index, uid, user, handleIndex, page, 
             user?.payment?.status !== 'canceled' &&
             user?.payment?.option?.freelanceDirect
           ? styles.menu_triangle
-          : page === 'user' &&
-            user?.uid === uid &&
-            user?.payment?.status !== 'canceled' &&
-            styles.menu_triangle
+          : false
       }`}>
       <button
         onClick={() => handleIndex('matters')}
@@ -52,14 +49,13 @@ export const Menu: React.FC<PropType> = ({ index, uid, user, handleIndex, page, 
           </button>
         )}
 
-      {(page === 'search' || (page === 'user' && user?.uid === uid)) &&
-        user?.payment?.status !== 'canceled' && (
-          <button
-            onClick={() => handleIndex('companys')}
-            className={`${styles.menu_btn} ${index === 'companys' && styles.menu_btn_active}`}>
-            {!uid ? 'メンバー' : 'フォロー中'}
-          </button>
-        )}
+      {page === 'search' && user?.payment?.status !== 'canceled' && (
+        <button
+          onClick={() => handleIndex('companys')}
+          className={`${styles.menu_btn} ${index === 'companys' && styles.menu_btn_active}`}>
+          {!uid ? 'メンバー' : 'フォロー中'}
+        </button>
+      )}
     </div>
   ) : (
     <div className={`${styles.menu} ${styles.menu_outputs}`}>
