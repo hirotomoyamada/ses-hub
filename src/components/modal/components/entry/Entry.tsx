@@ -25,7 +25,15 @@ export const Entry: React.FC<PropType> = ({ index, user, post, handleClose }) =>
     if (!proposedPost) return;
 
     await (dispatch as OwnDispatch)(addEntry({ index, post, proposedPost })).then(({ type }) => {
-      if (type.endsWith('/fulfilled')) handleClose();
+      if (!type.endsWith('/fulfilled')) return;
+
+      handleClose();
+
+      dispatch(
+        rootSlice.handleAnnounce({
+          success: `${index === 'matters' ? '案件' : '人材'}にお問い合わせしました。`,
+        }),
+      );
     });
   };
 
