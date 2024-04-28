@@ -8,6 +8,7 @@ import { addEntry } from 'features/user/actions';
 import { OwnDispatch } from '@reduxjs/toolkit';
 import * as rootSlice from 'features/root/rootSlice';
 import { Oval } from 'react-loader-spinner';
+import { Complete } from './components/Complete';
 
 interface PropType {
   index: 'matters' | 'resources';
@@ -20,20 +21,15 @@ export const Entry: React.FC<PropType> = ({ index, user, post, handleClose }) =>
   const dispatch = useDispatch();
   const load = useSelector(rootSlice.load).fetch;
   const [proposedPost, setProposedPost] = useState<Matter | Resource | undefined>(undefined);
+  const [isComplete, setIsComplete] = useState<boolean>(false);
 
-  const handleEntry = async (): Promise<void> => {
+  const handleEntry = async () => {
     if (!proposedPost) return;
 
     await (dispatch as OwnDispatch)(addEntry({ index, post, proposedPost })).then(({ type }) => {
       if (!type.endsWith('/fulfilled')) return;
 
-      handleClose();
-
-      dispatch(
-        rootSlice.handleAnnounce({
-          success: `${index === 'matters' ? '案件' : '人材'}にお問い合わせしました。`,
-        }),
-      );
+      setIsComplete(true);
     });
   };
 
@@ -44,31 +40,43 @@ export const Entry: React.FC<PropType> = ({ index, user, post, handleClose }) =>
           もどる
         </button>
 
-        <p className={styles.entry_head_ttl}>問い合わせ</p>
+        <p className={styles.entry_head_ttl}>
+          {isComplete ? '問い合わせが完了しました' : '問い合わせ'}
+        </p>
       </div>
 
-      <List
-        index={index}
-        user={user}
-        proposedPost={proposedPost}
-        setProposedPost={setProposedPost}
-      />
+      {isComplete ? (
+        <Complete index={index} post={post} proposedPost={proposedPost} />
+      ) : (
+        <List
+          index={index}
+          user={user}
+          proposedPost={proposedPost}
+          setProposedPost={setProposedPost}
+        />
+      )}
 
       <div className={styles.entry_email}>
-        <button
-          onClick={handleEntry}
-          disabled={!proposedPost}
-          className={`${styles.entry_email_btn} ${
-            !proposedPost && styles.entry_email_btn_disabled
-          }`}>
-          {load ? (
-            <span>
-              <Oval color='#ffffff' secondaryColor='#ffffff' height={16} width={16} />
-            </span>
-          ) : (
-            '問い合わせをする'
-          )}
-        </button>
+        {isComplete ? (
+          <button onClick={handleClose} className={`${styles.entry_email_btn}`}>
+            とじる
+          </button>
+        ) : (
+          <button
+            onClick={handleEntry}
+            disabled={!proposedPost}
+            className={`${styles.entry_email_btn} ${
+              !proposedPost && styles.entry_email_btn_disabled
+            }`}>
+            {load ? (
+              <span>
+                <Oval color='#ffffff' secondaryColor='#ffffff' height={16} width={16} />
+              </span>
+            ) : (
+              '問い合わせをする'
+            )}
+          </button>
+        )}
       </div>
     </div>
   );
