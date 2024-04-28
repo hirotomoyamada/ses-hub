@@ -62,6 +62,7 @@ $width: responsive-width(pc);
 
   &_complete {
     margin: 0 32px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 24px;
