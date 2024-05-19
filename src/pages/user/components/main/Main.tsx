@@ -3,7 +3,6 @@ import styles from './Main.module.scss';
 
 import { Oval } from 'react-loader-spinner';
 
-import { Follow } from 'components/follow/Follow';
 import { Request } from 'components/request/Request';
 
 import { Header } from './components/Header';

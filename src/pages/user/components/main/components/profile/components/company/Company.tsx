@@ -11,7 +11,6 @@ import { Payment } from './components/Payment';
 
 import * as Post from 'types/post';
 import { User } from 'types/user';
-import { Follow } from './components/Follow';
 
 interface PropType {
   user: Post.Company;
