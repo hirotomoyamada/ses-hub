@@ -8,7 +8,7 @@ import { faX } from '@fortawesome/free-solid-svg-icons';
 
 export const EntryNotice: React.FC = () => {
   const [message, setMessage] = useState<string>('といあわせ確認した？');
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
 
   const pathname = useLocation().pathname.slice(1);
 
