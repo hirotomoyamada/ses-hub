@@ -10,7 +10,6 @@ import * as load from 'components/load/Load';
 import { Announce } from 'components/announce/Announce';
 import { Modal } from 'components/modal/Modal';
 import { Menu } from 'components/menu/Menu';
-import { HowTo as HowToBtn } from 'components/btn/HowTo';
 
 import { Auth } from 'pages/auth/Auth';
 // import { Home } from 'pages/home/Home';
@@ -79,62 +78,54 @@ export const App: React.FC = () => {
 
                 case user?.type !== 'individual' && user?.payment?.status === 'canceled':
                   return (
-                    <>
-                      <Routes>
-                        <Route index element={<Navigate to='/setting' replace />} />
-                        <Route path='/setting' element={<Setting />} />
+                    <Routes>
+                      <Route index element={<Navigate to='/setting' replace />} />
+                      <Route path='/setting' element={<Setting />} />
 
-                        <Route path='/terms' element={<Terms />} />
-                        <Route path='/asct' element={<Asct />} />
-                        <Route path='/howto' element={<HowTo />} />
+                      <Route path='/terms' element={<Terms />} />
+                      <Route path='/asct' element={<Asct />} />
+                      <Route path='/howto' element={<HowTo />} />
 
-                        <Route path='/plan' element={<Pay />} />
-                        <Route path='/account' element={<Account />} />
-                        <Route path='/success' element={<Success />} />
+                      <Route path='/plan' element={<Pay />} />
+                      <Route path='/account' element={<Account />} />
+                      <Route path='/success' element={<Success />} />
 
-                        <Route path='*' element={<Navigate to='/plan' replace />} />
-                      </Routes>
-
-                      <HowToBtn />
-                    </>
+                      <Route path='*' element={<Navigate to='/plan' replace />} />
+                    </Routes>
                   );
 
                 default:
                   return (
-                    <>
-                      <Routes>
-                        <Route path='/login' element={<Navigate to='/' replace />} />
-                        <Route path='/signup' element={<Navigate to='/' replace />} />
+                    <Routes>
+                      <Route path='/login' element={<Navigate to='/' replace />} />
+                      <Route path='/signup' element={<Navigate to='/' replace />} />
 
-                        <Route index element={<Search />} />
-                        {/* <Route path="/home" element={<Home />} />
+                      <Route index element={<Search />} />
+                      {/* <Route path="/home" element={<Home />} />
                       <Route path="/home/:index" element={<Home />} /> */}
-                        <Route path='/search' element={<Search />} />
-                        <Route path='/search/:index' element={<Search />} />
-                        <Route path='/setting' element={<Setting />} />
-                        <Route path='/account' element={<Account />} />
+                      <Route path='/search' element={<Search />} />
+                      <Route path='/search/:index' element={<Search />} />
+                      <Route path='/setting' element={<Setting />} />
+                      <Route path='/account' element={<Account />} />
 
-                        <Route path='/terms' element={<Terms />} />
-                        <Route path='/asct' element={<Asct />} />
-                        <Route path='/howto' element={<HowTo />} />
+                      <Route path='/terms' element={<Terms />} />
+                      <Route path='/asct' element={<Asct />} />
+                      <Route path='/howto' element={<HowTo />} />
 
-                        <Route path='/plan' element={<Pay />} />
-                        <Route path='/success' element={<Success />} />
+                      <Route path='/plan' element={<Pay />} />
+                      <Route path='/success' element={<Success />} />
 
-                        <Route path='/companys/:uid' element={<User index='companys' />} />
-                        <Route path='/persons/:uid' element={<User index='persons' />} />
-                        <Route path='/matters/:objectID' element={<Post index='matters' />} />
-                        <Route path='/resources/:objectID' element={<Post index='resources' />} />
+                      <Route path='/companys/:uid' element={<User index='companys' />} />
+                      <Route path='/persons/:uid' element={<User index='persons' />} />
+                      <Route path='/matters/:objectID' element={<Post index='matters' />} />
+                      <Route path='/resources/:objectID' element={<Post index='resources' />} />
 
-                        <Route path='/:list' element={<List />} />
-                        <Route path='/:list/:index' element={<List />} />
-                        <Route path='/history/:index' element={<History />} />
+                      <Route path='/:list' element={<List />} />
+                      <Route path='/:list/:index' element={<List />} />
+                      <Route path='/history/:index' element={<History />} />
 
-                        <Route path='*' element={<NotFound />} />
-                      </Routes>
-
-                      <HowToBtn />
-                    </>
+                      <Route path='*' element={<NotFound />} />
+                    </Routes>
                   );
               }
             })()}

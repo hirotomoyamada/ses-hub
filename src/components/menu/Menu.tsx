@@ -9,6 +9,8 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import LaunchIcon from '@material-ui/icons/Launch';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 // import SettingsIcon from '@material-ui/icons/Settings';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,6 +20,7 @@ import * as postSlice from 'features/post/postSlice';
 
 import { User } from 'types/user';
 import { HistoryOutlined } from '@material-ui/icons';
+import { faQuestion } from '@fortawesome/free-solid-svg-icons';
 
 interface PropType {
   user: User;
@@ -195,8 +198,23 @@ export const Menu: React.FC<PropType> = ({ user }) => {
       )} */}
 
       <Btn />
+
+      <HowToBtn />
     </div>
   ) : (
     <></>
+  );
+};
+
+const HowToBtn: React.FC = () => {
+  const navigate = useNavigate();
+  const handleOpen = () => {
+    navigate('/howto');
+  };
+
+  return (
+    <button onClick={handleOpen} className={`${styles.menu_howto}`}>
+      <FontAwesomeIcon icon={faQuestion as IconProp} className={styles.menu_howto_icon} />
+    </button>
   );
 };

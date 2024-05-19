@@ -1,7 +1,7 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
-@import "styles/animation";
+@import 'styles/config';
+@import 'styles/function';
+@import 'styles/animation';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -9,7 +9,7 @@ $width: responsive-width(pc);
 .select {
   position: fixed;
   bottom: 128px;
-  right: 32px;
+  right: 96px;
   z-index: 9;
   display: flex;
   align-items: flex-end;

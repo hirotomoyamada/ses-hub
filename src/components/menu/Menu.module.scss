@@ -364,4 +364,69 @@ $width: responsive-width(pc);
       }
     }
   }
+
+  &_howto {
+    position: fixed;
+    top: -64px;
+    right: 0;
+    z-index: 9999;
+
+    background: $add_clr;
+    width: 48px;
+    height: 48px;
+    border-radius: 40px;
+    box-shadow: 1px 0 10px $shdw_clr;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: all 0.4s;
+
+    @media (max-width: responsive-width(sp)) {
+      display: none;
+    }
+
+    &:hover {
+      background: $add_hvr_clr;
+    }
+
+    &::before {
+      content: 'アプリの使い方';
+      position: absolute;
+      top: -40px;
+      left: -88px;
+      opacity: 0;
+
+      background: $add_clr;
+      padding: 4px 12px;
+      border-radius: 8px;
+      color: $base_clr;
+      white-space: nowrap;
+
+      transition: all 0.4s;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    &:hover:before {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      &::before {
+        display: none;
+      }
+    }
+
+    &_icon {
+      font-size: 28px !important;
+      color: $base_clr;
+
+      &_back {
+        margin-left: 11px;
+      }
+    }
+  }
 }
