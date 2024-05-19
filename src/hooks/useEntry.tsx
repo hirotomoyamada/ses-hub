@@ -23,9 +23,16 @@ export const useEntry = (
   };
 
   useEffect(() => {
-    const entries = user.entries?.[index] ? user.entries[index] : [];
+    if (!Object.keys(post).length) return;
 
-    setEntry(entries.length && entries.indexOf(post?.objectID) >= 0 ? true : false);
+    const entries = user.entries?.[index] ?? [];
+    const isEntry = entries.includes(post?.objectID);
+
+    setEntry(isEntry);
+
+    if (post.uid !== user.uid && !isEntry) {
+      dispatch(rootSlice.handleModal({ type: 'advertise', meta: { type: 'entry' } }));
+    }
   }, [index, post?.objectID, user.entries]);
 
   return [entry, handleEntry];

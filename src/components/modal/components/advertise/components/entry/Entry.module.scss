@@ -1,0 +1,116 @@
+// サイト共有の初期設定
+@import 'styles/config';
+@import 'styles/function';
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.entry {
+  position: relative;
+  width: 640px;
+  height: 320px;
+  background: $promo_clr;
+  padding: 48px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+
+  color: $base_clr;
+
+  overflow: hidden;
+
+  @media (max-width: responsive-width(sp)) {
+    width: calc(100vw - 24px);
+    height: 240px;
+    font-size: 12px;
+    gap: 16px;
+    padding: 24px;
+  }
+
+  &_back {
+    color: $base_clr;
+
+    position: absolute;
+    z-index: 1;
+    top: 24px;
+    left: 24px;
+
+    transition: all 0.4s;
+
+    @media (max-width: responsive-width(sp)) {
+      top: 16px;
+      left: 16px;
+      font-size: 12px;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &_header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    &_account {
+      margin-top: 26px;
+    }
+  }
+
+  &_ttl {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+
+    @media (max-width: responsive-width(sp)) {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+  }
+
+  &_btn {
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    width: 40%;
+
+    padding: 16px 32px;
+    background: $base_clr;
+    border-radius: 26px;
+
+    color: $promo_clr;
+    text-align: center;
+
+    transition: all 0.4s;
+
+    &:hover {
+      background: $acnt_clr;
+      color: $base_clr;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      width: 66%;
+      padding: 12px;
+      font-size: 12px;
+    }
+  }
+
+  &_bg {
+    position: absolute;
+    top: -112px;
+    right: -224px;
+    opacity: 0.8;
+    width: 800px;
+
+    @media (max-width: responsive-width(sp)) {
+      top: 24px;
+    }
+  }
+}
