@@ -1,16 +1,15 @@
 import { useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as rootSlice from 'features/root/rootSlice';
 
 import { User } from 'types/user';
 import { Matter, Resource } from 'types/post';
 
-export const useEntry = (
-  index: 'matters' | 'resources',
-  post: Matter | Resource,
-  user: User,
-): [entry: boolean, handleEntry: () => void] => {
+export const useEntry = (index: 'matters' | 'resources', post: Matter | Resource, user: User) => {
   const dispatch = useDispatch();
+  const timeoutRef = useRef<any>(null);
+  const entryRef = useRef<HTMLDivElement>(null);
+  const displayedRef = useRef<boolean>(false);
 
   const [entry, setEntry] = useState(false);
 
@@ -31,9 +30,34 @@ export const useEntry = (
     setEntry(isEntry);
 
     if (post.uid !== user.uid && !isEntry) {
-      dispatch(rootSlice.handleModal({ type: 'advertise', meta: { type: 'entry' } }));
+      timeoutRef.current = setTimeout(() => {
+        dispatch(rootSlice.handleModal({ type: 'advertise', meta: { type: 'entry' } }));
+        displayedRef.current = true;
+      }, 30000);
     }
   }, [index, post?.objectID, user.entries]);
 
-  return [entry, handleEntry];
+  useEffect(() => {
+    const el = entryRef.current;
+
+    if (!el) return;
+
+    const observer = new IntersectionObserver(([{ isIntersecting }]) => {
+      if (!isIntersecting || displayedRef.current) return;
+
+      dispatch(rootSlice.handleModal({ type: 'advertise', meta: { type: 'entry' } }));
+
+      displayedRef.current = true;
+
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    });
+
+    observer.observe(el);
+
+    return () => {
+      observer.unobserve(el);
+    };
+  }, [post]);
+
+  return { entry, handleEntry, entryRef };
 };
