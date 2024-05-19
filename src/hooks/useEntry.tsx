@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import * as rootSlice from 'features/root/rootSlice';
 
 import { User } from 'types/user';
@@ -12,6 +12,7 @@ export const useEntry = (index: 'matters' | 'resources', post: Matter | Resource
   const displayedRef = useRef<boolean>(false);
 
   const [entry, setEntry] = useState(false);
+  const entries = useMemo(() => user.entries?.[index] ?? [], [user.entries, index]);
 
   const handleEntry = () => {
     if (user.payment.status === 'canceled') {
@@ -24,7 +25,6 @@ export const useEntry = (index: 'matters' | 'resources', post: Matter | Resource
   useEffect(() => {
     if (!Object.keys(post).length) return;
 
-    const entries = user.entries?.[index] ?? [];
     const isEntry = entries.includes(post?.objectID);
 
     setEntry(isEntry);
@@ -35,12 +35,14 @@ export const useEntry = (index: 'matters' | 'resources', post: Matter | Resource
         displayedRef.current = true;
       }, 30000);
     }
-  }, [index, post?.objectID, user.entries]);
+  }, [post?.objectID, entries]);
 
   useEffect(() => {
     const el = entryRef.current;
 
     if (!el) return;
+
+    const isEntry = entries.includes(post?.objectID);
 
     const observer = new IntersectionObserver(([{ isIntersecting }]) => {
       if (!isIntersecting || displayedRef.current) return;
@@ -52,7 +54,9 @@ export const useEntry = (index: 'matters' | 'resources', post: Matter | Resource
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     });
 
-    observer.observe(el);
+    if (post.uid !== user.uid && !isEntry) {
+      observer.observe(el);
+    }
 
     return () => {
       observer.unobserve(el);
