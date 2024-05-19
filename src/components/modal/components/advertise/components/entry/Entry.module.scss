@@ -9,7 +9,7 @@ $width: responsive-width(pc);
   position: relative;
   width: 640px;
   height: 320px;
-  background: $promo_clr;
+  background: $base_clr;
   padding: 48px;
 
   display: flex;
@@ -18,7 +18,7 @@ $width: responsive-width(pc);
   align-items: center;
   gap: 32px;
 
-  color: $base_clr;
+  color: $main_clr;
 
   overflow: hidden;
 
@@ -31,7 +31,7 @@ $width: responsive-width(pc);
   }
 
   &_back {
-    color: $base_clr;
+    color: $main_clr;
 
     position: absolute;
     z-index: 1;
@@ -75,6 +75,10 @@ $width: responsive-width(pc);
     }
   }
 
+  &_desc {
+    color: $sub_clr;
+  }
+
   &_btn {
     position: relative;
     z-index: 1;
@@ -82,17 +86,16 @@ $width: responsive-width(pc);
     width: 40%;
 
     padding: 16px 32px;
-    background: $base_clr;
+    background: $acnt_clr;
     border-radius: 26px;
 
-    color: $promo_clr;
+    color: $base_clr;
     text-align: center;
 
     transition: all 0.4s;
 
     &:hover {
-      background: $acnt_clr;
-      color: $base_clr;
+      background: $acnt_hvr_clr;
     }
 
     @media (max-width: responsive-width(sp)) {
@@ -106,7 +109,7 @@ $width: responsive-width(pc);
     position: absolute;
     top: -112px;
     right: -224px;
-    opacity: 0.8;
+    opacity: 0.7;
     width: 800px;
 
     @media (max-width: responsive-width(sp)) {
