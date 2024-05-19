@@ -1,0 +1,93 @@
+// サイト共有の初期設定
+@import 'styles/config';
+@import 'styles/function';
+@import 'styles/animation';
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.entry_notice {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+
+  animation-name: slideInLeft;
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+
+  &_img {
+    width: 196px;
+
+    @media (max-width: responsive-width(sp)) {
+      width: 140px;
+    }
+  }
+
+  @media (max-width: responsive-width(sp)) {
+    bottom: 96px;
+    width: 140px;
+  }
+
+  &_fukidashi {
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 216px;
+
+    @media (max-width: responsive-width(sp)) {
+      top: -64px;
+      right: -64px;
+      width: 160px;
+    }
+
+    img {
+      width: 100%;
+      transform: scaleX(-1);
+    }
+
+    span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      white-space: nowrap;
+
+      font-size: 18px;
+      font-weight: 600;
+
+      @media (max-width: responsive-width(sp)) {
+        font-size: 14px;
+      }
+    }
+
+    &_close {
+      position: absolute;
+      top: 12px;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+      background: $base_clr;
+      border: 3px solid $main_clr;
+      border-radius: 9999px;
+
+      @media (max-width: responsive-width(sp)) {
+        width: 24px;
+        height: 24px;
+      }
+
+      &_icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        @media (max-width: responsive-width(sp)) {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
