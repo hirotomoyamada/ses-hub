@@ -1,0 +1,40 @@
+// サイト共有の初期設定
+@import 'styles/config';
+@import 'styles/function';
+@import 'styles/animation';
+
+// ページのレスポンシブ設定
+$width: responsive-width(pc);
+
+.howto {
+  position: fixed;
+  top: 196px;
+  right: 0;
+  z-index: 999;
+
+  border: 3px solid $base_clr;
+  background: $add_clr;
+  padding: 8px 11px;
+  border-top-left-radius: 9999px;
+  border-bottom-left-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: $base_clr;
+  font-weight: 500;
+
+  animation-name: slideInRight;
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+
+  transition: all 0.4s;
+
+  &:hover {
+    background: $add_hvr_clr;
+  }
+
+  &_icon {
+    font-size: 24px;
+  }
+}
