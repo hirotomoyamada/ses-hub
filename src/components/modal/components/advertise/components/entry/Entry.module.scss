@@ -27,7 +27,7 @@ $width: responsive-width(pc);
     height: 240px;
     font-size: 12px;
     gap: 16px;
-    padding: 24px;
+    padding: 16px;
   }
 
   &_back {
@@ -86,7 +86,7 @@ $width: responsive-width(pc);
     width: 40%;
 
     padding: 16px 32px;
-    background: $acnt_clr;
+    background: $add_clr;
     border-radius: 26px;
 
     color: $base_clr;
@@ -95,7 +95,7 @@ $width: responsive-width(pc);
     transition: all 0.4s;
 
     &:hover {
-      background: $acnt_hvr_clr;
+      background: $add_hvr_clr;
     }
 
     @media (max-width: responsive-width(sp)) {
@@ -107,10 +107,10 @@ $width: responsive-width(pc);
 
   &_bg {
     position: absolute;
-    top: -112px;
-    right: -224px;
+    top: -72px;
+    right: -160px;
     opacity: 0.7;
-    width: 800px;
+    width: 560px;
 
     @media (max-width: responsive-width(sp)) {
       top: -72px;

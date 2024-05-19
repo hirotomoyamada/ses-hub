@@ -29,7 +29,7 @@ export const Entry: React.FC<PropType> = ({ handleClose, close }) => {
           \ あなたの{index === 'matters' ? '人材' : '案件'}をカンタンに提案 /
         </span>
         <p className={styles.entry_ttl}>
-          この{index === 'matters' ? '案件' : '人材'}にお問い合わせしてみませんか？
+          この{index === 'matters' ? '案件' : '人材'}に問い合わせしてみたら？
         </p>
       </div>
 
