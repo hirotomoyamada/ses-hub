@@ -7,6 +7,7 @@
 $width: responsive-width(pc);
 
 .entry_notice {
+  user-select: none;
   position: fixed;
   bottom: 0;
   left: 0;

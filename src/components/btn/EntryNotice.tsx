@@ -8,7 +8,7 @@ import { faX } from '@fortawesome/free-solid-svg-icons';
 
 export const EntryNotice: React.FC = () => {
   const [message, setMessage] = useState<string>('といあわせ確認した？');
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const pathname = useLocation().pathname.slice(1);
 
@@ -27,9 +27,10 @@ export const EntryNotice: React.FC = () => {
         src={`${process.env.PUBLIC_URL}/img/app/entry.png`}
         alt=''
         className={styles.entry_notice_img}
+        draggable='false'
       />
       <div className={styles.entry_notice_fukidashi}>
-        <img src={`${process.env.PUBLIC_URL}/img/app/fukidashi.png`} alt='' />
+        <img src={`${process.env.PUBLIC_URL}/img/app/fukidashi.png`} alt='' draggable='false' />
         <span>{message}</span>
         <button
           className={styles.entry_notice_fukidashi_close}
