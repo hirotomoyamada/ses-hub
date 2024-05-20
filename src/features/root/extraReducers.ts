@@ -227,10 +227,10 @@ export const extraReducers = (builder: ActionReducerMapBuilder<State>): void => 
       action: PayloadAction<
         { back?: boolean } | undefined,
         string,
-        { arg: { hasPosts?: boolean } }
+        { arg?: { hasPosts?: boolean } }
       >,
     ) => {
-      if (!action.meta.arg.hasPosts) reducers.modal(state);
+      if (!action.meta?.arg?.hasPosts) reducers.modal(state);
 
       if (action.payload?.back) window.location.href = '/search';
     },

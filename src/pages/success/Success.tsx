@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Success.module.scss";
+import React, { useEffect, useState } from 'react';
+import styles from './Success.module.scss';
 
-import { converter, db } from "libs/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
+import { converter, db } from 'libs/firebase';
+import { doc, onSnapshot } from 'firebase/firestore';
 
-import { useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-import { useScrollController } from "../../hooks/useScrollController";
+import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { useScrollController } from '../../hooks/useScrollController';
 
-import * as userSlice from "../../features/user/userSlice";
+import * as userSlice from '../../features/user/userSlice';
 
-import { Header } from "./components/Header";
-import { Main } from "./components/Main";
-import { Footer } from "./components/Footer";
-import { User } from "types/user";
+import { Header } from './components/Header';
+import { Main } from './components/Main';
+import { Footer } from './components/Footer';
+import { User } from 'types/user';
 
 export const Success: React.FC = () => {
   useScrollController();
@@ -24,13 +24,13 @@ export const Success: React.FC = () => {
   const [load, setLoad] = useState<boolean | undefined>(true);
 
   useEffect(() => {
-    const ref = doc(db, "companys", user.uid).withConverter(converter<User>());
+    const ref = doc(db, 'companys', user.uid).withConverter(converter<User>());
     onSnapshot(ref, (doc) => {
       const { payment } = doc.data() as User;
 
       if (!payment.load) {
         setLoad(payment?.load);
-        dispatch(userSlice.updateNotice());
+        dispatch(userSlice.updateNotice({ type: 'payment' }));
       }
     });
   }, [dispatch, user.uid]);

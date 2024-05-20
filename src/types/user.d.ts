@@ -63,6 +63,7 @@ export interface User {
   createAt: number;
   updateAt?: number;
   application?: boolean;
+  notice?: Notice;
 }
 
 export interface Setting {
@@ -75,6 +76,10 @@ export interface Setting {
       others: string;
     };
   };
+}
+
+export interface Notice {
+  entry?: boolean;
 }
 
 export interface Data {

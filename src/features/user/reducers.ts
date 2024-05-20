@@ -5,7 +5,7 @@ import { httpsCallable, HttpsCallable } from 'firebase/functions';
 
 import { Analytics, initialState, State } from 'features/user/initialState';
 import { Matter, Resource, Company, Person } from 'types/post';
-import { Setting, User } from 'types/user';
+import { Notice, Setting, User } from 'types/user';
 import { Login, Child, FetchUser } from 'features/user/actions';
 import { Profile, Provider, Like, Output, Entry, Request } from 'features/user/userSlice';
 import { CreatePost } from 'features/post/actions';
@@ -20,6 +20,7 @@ export const login = (state: State, action: PayloadAction<Login['data']>): void 
     (state.user as User).profile = action.payload.user.profile;
     (state.user as User).type = action.payload.user.type;
     (state.user as User).application = action.payload.user.application;
+    (state.user as User).notice = action.payload.user.notice;
     (state.user as User).agree = action.payload.user.agree;
     (state.user as User).remind = action.payload.user.remind;
     (state.user as User).payment = action.payload.user.payment;
@@ -79,19 +80,6 @@ export const updateToken = (state: State, action: PayloadAction<string | undefin
   }
 };
 
-export const updateNotice = (state: State): void => {
-  if ((state.user as User).payment) {
-    (state.user as User).payment.notice = false;
-  }
-
-  const disableNotice: HttpsCallable<unknown, unknown> = httpsCallable(
-    functions,
-    'sh-disableNotice',
-  );
-
-  void disableNotice();
-};
-
 export const updatePayment = (state: State, action: PayloadAction<User['payment']>): void => {
   (state.user as User).payment = {
     status: action.payload.status,
@@ -136,6 +124,33 @@ export const applicationType = (state: State): void => {
   );
 
   void applicationType();
+};
+
+export const updateNotice = (
+  state: State,
+  action: PayloadAction<{ type: 'user' | 'payment'; notice?: Notice }>,
+): void => {
+  if (action.payload.type === 'payment') {
+    if ((state.user as User).payment) {
+      (state.user as User).payment.notice = false;
+    }
+
+    const disableNotice: HttpsCallable<unknown, unknown> = httpsCallable(
+      functions,
+      'sh-disableNotice',
+    );
+
+    void disableNotice();
+  } else {
+    (state.user as User).notice = { ...(state.user as User).notice, ...action.payload.notice };
+
+    const updateNotice: HttpsCallable<Notice, unknown> = httpsCallable(
+      functions,
+      'sh-updateNotice',
+    );
+
+    void updateNotice(action.payload.notice);
+  }
 };
 
 export const changeEmail = (state: State, action: PayloadAction<string>): void => {

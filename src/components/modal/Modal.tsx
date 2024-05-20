@@ -45,7 +45,7 @@ export const Modal: React.FC = () => {
 
   const handleClose = useCallback((): void => {
     dispatch(rootSlice.handleModal());
-    modal.type === 'advertise' && dispatch(userSlice.updateNotice());
+    modal.type === 'advertise' && dispatch(userSlice.updateNotice({ type: 'payment' }));
   }, [modal.type]);
 
   const inner = useMemo(() => {

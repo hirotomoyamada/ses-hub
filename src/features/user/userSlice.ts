@@ -6,7 +6,7 @@ import { initialState, State, Analytics } from 'features/user/initialState';
 import * as reducers from 'features/user/reducers';
 import { extraReducers } from 'features/user/extraReducers';
 
-import { User } from 'types/user';
+import { Notice, User } from 'types/user';
 import { Matter, Resource, Company, Person } from 'types/post';
 
 export interface Profile {
@@ -67,7 +67,8 @@ export const userSlice = createSlice({
     resetUser: (state) => reducers.resetUser(state),
     updateToken: (state, action: PayloadAction<string | undefined>) =>
       reducers.updateToken(state, action),
-    updateNotice: (state) => reducers.updateNotice(state),
+    updateNotice: (state, action: PayloadAction<{ type: 'user' | 'payment'; notice?: Notice }>) =>
+      reducers.updateNotice(state, action),
     updatePayment: (state, action: PayloadAction<User['payment']>) =>
       reducers.updatePayment(state, action),
     addProvider: (state, action: PayloadAction<Provider>) => reducers.addProvider(state, action),

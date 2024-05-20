@@ -35,7 +35,7 @@ import { Promotion } from 'pages/promotion/Promotion';
 import { Contact } from 'pages/contact/Contact';
 import { User } from 'pages/user/User';
 import { Post } from 'pages/post/Post';
-import { EntryNotice } from 'components/btn/EntryNotice';
+import { Notice } from 'components/btn/Notice';
 
 export const App: React.FC = () => {
   const [user, access, support] = useApp();
@@ -95,7 +95,7 @@ export const App: React.FC = () => {
                         <Route path='*' element={<Navigate to='/plan' replace />} />
                       </Routes>
 
-                      <EntryNotice />
+                      <Notice />
                     </>
                   );
 
@@ -133,7 +133,7 @@ export const App: React.FC = () => {
                         <Route path='*' element={<NotFound />} />
                       </Routes>
 
-                      <EntryNotice />
+                      <Notice />
                     </>
                   );
               }
