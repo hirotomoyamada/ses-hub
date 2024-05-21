@@ -15,6 +15,9 @@ export const useEntry = (index: 'matters' | 'resources', post: Matter | Resource
   const entries = useMemo(() => user.entries?.[index] ?? [], [user.entries, index]);
 
   const handleEntry = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    displayedRef.current = true;
+
     if (user.payment.status === 'canceled') {
       dispatch(rootSlice.handleModal({ type: 'advertise', meta: { type: 'active' } }));
     } else {
