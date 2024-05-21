@@ -1,20 +1,20 @@
-import styles from "./Header.module.scss";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import styles from './Header.module.scss';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
 
-import * as rootSlice from "../../features/root/rootSlice";
+import * as rootSlice from '../../features/root/rootSlice';
 
-import { Icon } from "../icon/Icon";
-import { Search } from "./components/search/Search";
-import { Menu } from "./components/menu/Menu";
-import { Information } from "./components/information/Information";
-import { User } from "types/user";
-import { Matter, Resource } from "types/post";
+import { Icon } from '../icon/Icon';
+import { Search } from './components/search/Search';
+import { Menu } from './components/menu/Menu';
+import { Information } from './components/information/Information';
+import { User } from 'types/user';
+import { Matter, Resource } from 'types/post';
 
 interface PropType {
   user?: User;
-  index?: "matters" | "resources" | "companys" | "persons";
+  index?: 'matters' | 'resources' | 'companys' | 'persons';
   handleCancel?: () => void;
   back?: boolean;
   uid?: string;
@@ -53,7 +53,7 @@ export const Header: React.FC<PropType> = ({
   const navigate = useNavigate();
   const page = useSelector(rootSlice.page);
 
-  const handleIndex = (i: "matters" | "resources" | "companys" | "persons") => {
+  const handleIndex = (i: 'matters' | 'resources' | 'companys' | 'persons') => {
     if (i === index) {
       return;
     }
@@ -80,22 +80,19 @@ export const Header: React.FC<PropType> = ({
       ? navigate(-1)
       : setting
       ? navigate(`/companys/${user?.uid}`)
-      : goSetting && navigate("/setting");
+      : goSetting && navigate('/setting');
   };
 
   return !back ? (
     <div className={styles.header}>
       <div
         className={`${styles.header_container} ${
-          page !== "home" && page !== "search" && styles.header_container_none
-        }`}
-      >
+          page !== 'home' && page !== 'search' && styles.header_container_none
+        }`}>
         <Link to={`/companys/${user?.uid}`}>
-          <div className={styles.header_icon}>
-            {user?.icon && <Icon src={user.icon} />}
-          </div>
+          <div className={styles.header_icon}>{user?.icon && <Icon src={user.icon} />}</div>
         </Link>
-        {page === "search" ? <Search index={index} /> : <Information />}
+        {page === 'search' ? <Search index={index} /> : <Information />}
       </div>
 
       <Menu
@@ -109,39 +106,33 @@ export const Header: React.FC<PropType> = ({
     </div>
   ) : (
     <div
-      className={`${styles.header} 
-      ${styles.header_back} 
+      className={`${styles.header}
+      ${styles.header_back}
       ${
         setting &&
-        user?.payment?.status === "canceled" &&
-        user?.type !== "individual" &&
+        user?.payment?.status === 'canceled' &&
+        user?.type !== 'individual' &&
         styles.header_back_none
-      } 
-      ${!ttl && styles.header_none} ${goSetting && styles.header_back_setting}`}
-    >
+      }
+      ${!ttl && styles.header_none} ${goSetting && styles.header_back_setting}`}>
       {(!setting ||
         email ||
         password ||
         create ||
         remove ||
         reset ||
-        user?.payment?.status !== "canceled" ||
-        user?.type === "individual") && (
+        user?.payment?.status !== 'canceled' ||
+        user?.type === 'individual') && (
         <button
-          type="button"
+          type='button'
           className={styles.header_back_cancel}
-          onClick={
-            !email && !password && !create && !remove && !reset
-              ? handleBack
-              : handleCancel
-          }
-        >
-          {!goSetting || reset ? "もどる" : "アカウント情報 へもどる"}
+          onClick={!email && !password && !create && !remove && !reset ? handleBack : handleCancel}>
+          {!goSetting || reset ? 'もどる' : 'アカウント情報 へもどる'}
         </button>
       )}
 
       <span className={styles.header_back_ttl}>
-        {!email && !password && !create && !remove && !reset ? ttl : ""}
+        {!email && !password && !create && !remove && !reset ? ttl : ''}
       </span>
     </div>
   );

@@ -1,7 +1,7 @@
 // サイト共有の初期設定
-@import "styles/config";
-@import "styles/function";
-@import "styles/animation";
+@import 'styles/config';
+@import 'styles/function';
+@import 'styles/animation';
 
 // ページのレスポンシブ設定
 $width: responsive-width(pc);
@@ -49,12 +49,42 @@ $width: responsive-width(pc);
   }
 
   &_icon {
+    position: relative;
     width: 48px;
     height: 48px;
 
     @media (max-width: responsive-width(sp)) {
       width: 32px;
       height: 32px;
+    }
+
+    &::before {
+      content: 'マイページ';
+      position: absolute;
+      bottom: -40px;
+      left: -24px;
+      opacity: 0;
+
+      background: $acnt_clr;
+      padding: 4px 12px;
+      border-radius: 8px;
+      color: $base_clr;
+      white-space: nowrap;
+
+      transition: all 0.4s;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    &:hover:before {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (max-width: responsive-width(sp)) {
+      &::before {
+        display: none;
+      }
     }
   }
 

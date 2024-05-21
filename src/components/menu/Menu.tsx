@@ -130,7 +130,7 @@ export const Menu: React.FC<PropType> = ({ user }) => {
         <button
           onClick={() => handlePage(`/search/${index}`)}
           type='button'
-          className={`${styles.menu_list_btn} ${styles.menu_list_btn_seach}`}>
+          className={`${styles.menu_list_btn} ${styles.menu_list_btn_search}`}>
           <SearchIcon
             className={`${styles.menu_list_icon} ${
               page === 'search' && styles.menu_list_icon_search
