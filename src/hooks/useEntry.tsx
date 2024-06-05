@@ -50,7 +50,9 @@ export const useEntry = (index: 'matters' | 'resources', post: Matter | Resource
     const observer = new IntersectionObserver(([{ isIntersecting }]) => {
       if (!isIntersecting || displayedRef.current) return;
 
-      dispatch(rootSlice.handleModal({ type: 'advertise', meta: { type: 'entry' } }));
+      setTimeout(() => {
+        dispatch(rootSlice.handleModal({ type: 'advertise', meta: { type: 'entry' } }));
+      }, 3000);
 
       displayedRef.current = true;
 
