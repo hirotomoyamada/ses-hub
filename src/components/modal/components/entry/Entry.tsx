@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import styles from './Entry.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { List } from './components/List';
 import { User } from 'types/user';
 import { Matter, Resource } from 'types/post';
 import { addEntry } from 'features/user/actions';
 import { OwnDispatch } from '@reduxjs/toolkit';
-import * as rootSlice from 'features/root/rootSlice';
 import { Oval } from 'react-loader-spinner';
 import { Complete } from './components/Complete';
 
@@ -19,18 +18,22 @@ interface PropType {
 
 export const Entry: React.FC<PropType> = ({ index, user, post, handleClose }) => {
   const dispatch = useDispatch();
-  const load = useSelector(rootSlice.load).fetch;
+  const [load, setLoad] = useState(false);
   const [proposedPost, setProposedPost] = useState<Matter | Resource | undefined>(undefined);
   const [isComplete, setIsComplete] = useState<boolean>(false);
 
   const handleEntry = async () => {
     if (!proposedPost) return;
 
+    setLoad(true);
+
     await (dispatch as OwnDispatch)(addEntry({ index, post, proposedPost })).then(({ type }) => {
       if (!type.endsWith('/fulfilled')) return;
 
       setIsComplete(true);
     });
+
+    setLoad(false);
   };
 
   return (

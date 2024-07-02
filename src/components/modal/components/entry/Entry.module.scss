@@ -151,6 +151,16 @@ $width: responsive-width(pc);
       @media (max-width: responsive-width(sp)) {
         gap: 8px;
       }
+
+      &_inner {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        @media (max-width: responsive-width(sp)) {
+          gap: 8px;
+        }
+      }
     }
 
     &_load {
