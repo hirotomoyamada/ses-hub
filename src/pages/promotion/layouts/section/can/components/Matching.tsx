@@ -5,7 +5,11 @@ export const Matching: React.FC = () => {
   return (
     <div className={styles.can_container}>
       <div className={styles.can_cnt}>
-        <h2 className={styles.can_cnt_ttl}>AIでSES営業の効率をとにかく上げる</h2>
+        <h2 className={styles.can_cnt_ttl}>
+          AIでSES営業の効率を
+          <br />
+          とにかく上げる
+        </h2>
 
         <p className={styles.can_cnt_desc}>
           NLP（自然言語処理）で情報を自動入力し、
@@ -16,7 +20,7 @@ export const Matching: React.FC = () => {
           業界初のエンジニア目線でのフォーマット化も実現。
           <br />
           <br />
-          必要な営業項目が備わっており、データベースとしても使えるので、
+          必要な営業項目が備わっており、<span>データベースとしても使えるので、</span>
           <br />
           だれでも再現度の高い営業活動ができます。
         </p>
