@@ -170,19 +170,6 @@ export const Feature: React.FC = () => {
             </tr>
 
             <tr>
-              <td>フォロー</td>
-
-              <td>
-                <CloseIcon className={`${styles.feature_icon} ${styles.feature_icon_disable}`} />
-              </td>
-              <td>
-                <RadioButtonUncheckedIcon
-                  className={`${styles.feature_icon} ${styles.feature_icon_enable}`}
-                />
-              </td>
-            </tr>
-
-            <tr>
               <td>グループアカウント</td>
 
               <td>
